@@ -1,3 +1,3 @@
 const API_PATH = {
-  GET_CLINIC: "/staff/get-branch",
+  GET_CLINIC: "http://localhost:8111/getClinicList",
 };

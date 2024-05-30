@@ -7,12 +7,15 @@ import { DataGrid } from "@mui/x-data-grid/DataGrid";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid/models";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { initClinicGrid } from "./service";
+import { setFieldValue } from "@/redux/slices/crud";
 
 export default function Clinic() {
   const dispatch: AppDispatch = useDispatch();
-  const { clinic } = useSelector(
+  const { clinic, form } = useSelector(
     (state: SliceModel) => ({
       clinic: state.clinic.infomation,
+      form: state.crud.formData,
     }),
     shallowEqual
   );
@@ -28,10 +31,24 @@ export default function Clinic() {
     { field: "col2", headerName: "Column 2", width: 150 },
   ];
 
+  useEffect(() => {
+    dispatch(initClinicGrid);
+  });
+
   return (
     <div className="w-full flex flex-col">
       <div className="flex">
-        <TextField value={clinic.clinicCode} />
+        <TextField
+          value={form}
+          onChange={(e) =>
+            dispatch(
+              setFieldValue({
+                key: "formData",
+                value: { ...form, name: e.target.value },
+              })
+            )
+          }
+        />
         <TextField value={clinic.clinicName} />
       </div>
       <DataGrid rows={rows} columns={columns} />

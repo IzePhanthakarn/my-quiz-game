@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { doctorReducers } from "./infomation/reducers";
 import { modelDoctor } from "./model";
 
-const doctorSlice = createSlice({
+export const doctorSlice = createSlice({
   name: "Doctor",
   initialState: modelDoctor,
   reducers: {

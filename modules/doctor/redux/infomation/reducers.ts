@@ -1,5 +1,4 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SliceModel } from "../../model";
 import { DoctorInfomation } from "./model";
 import { Doctor } from "../model";
 
