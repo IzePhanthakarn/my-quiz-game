@@ -1,10 +1,12 @@
 import { getCurrentDateString } from "@/utils";
-import { ClinicInfomation, modelClinicInfomation } from "./infomation/model";
+import { ClinicForm, ClinicGrid, modelClinicForm } from "./infomation/model";
 
 export interface Clinic {
-  infomation: ClinicInfomation;
+  infomation: ClinicForm;
+  grid: ClinicGrid[];
 }
 
 export const modelClinic: Clinic = {
-  infomation: modelClinicInfomation,
+  infomation: modelClinicForm,
+  grid: [],
 };

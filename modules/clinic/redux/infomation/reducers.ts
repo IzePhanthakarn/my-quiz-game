@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Clinic } from "../model";
-import { ClinicInfomation } from "./model";
+import { ClinicGrid } from "./model";
 
 export const clinicReducers = {
-  setClinic: (state: Clinic, action: PayloadAction<ClinicInfomation>) => {
-    state.infomation = { ...action.payload };
+  setClinicGrid: (state: Clinic, action: PayloadAction<ClinicGrid[]>) => {
+    state.grid = action.payload;
   },
 };

@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
-import { GridColDef, GridRowsProp } from "@mui/x-data-grid/models";
+import { GridColDef } from "@mui/x-data-grid/models";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
@@ -12,23 +12,17 @@ import { setFieldValue } from "@/redux/slices/crud";
 
 export default function Clinic() {
   const dispatch: AppDispatch = useDispatch();
-  const { clinic, form } = useSelector(
+  const { form, rows } = useSelector(
     (state: SliceModel) => ({
-      clinic: state.clinic.infomation,
       form: state.crud.formData,
+      rows: state.clinic.grid,
     }),
     shallowEqual
   );
 
-  const rows: GridRowsProp = [
-    { id: 1, col1: "Hello", col2: "World" },
-    { id: 2, col1: "DataGridPro", col2: "is Awesome" },
-    { id: 3, col1: "MUI", col2: "is Amazing" },
-  ];
-
   const columns: GridColDef[] = [
-    { field: "col1", headerName: "Column 1", width: 150 },
-    { field: "col2", headerName: "Column 2", width: 150 },
+    { field: "clinicCode", headerName: "Column 1", width: 150 },
+    { field: "clinicName", headerName: "Column 2", width: 400 },
   ];
 
   useEffect(() => {
@@ -39,17 +33,27 @@ export default function Clinic() {
     <div className="w-full flex flex-col">
       <div className="flex">
         <TextField
-          value={form}
+          value={form.clinicCode}
           onChange={(e) =>
             dispatch(
               setFieldValue({
                 key: "formData",
-                value: { ...form, name: e.target.value },
+                value: { ...form, clinicCode: e.target.value },
               })
             )
           }
         />
-        <TextField value={clinic.clinicName} />
+        <TextField
+          value={form.clinicName}
+          onChange={(e) =>
+            dispatch(
+              setFieldValue({
+                key: "formData",
+                value: { ...form, clinicName: e.target.value },
+              })
+            )
+          }
+        />
       </div>
       <DataGrid rows={rows} columns={columns} />
     </div>

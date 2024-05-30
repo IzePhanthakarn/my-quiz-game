@@ -1,6 +1,9 @@
+import API_PATH from "@/constants/api";
 import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { setClinicGrid } from "../redux";
+import { ClinicForm, ClinicGrid } from "../redux/infomation/model";
 
 export const getClinicList = createAsyncThunk(
   "Medical/getClinic",
@@ -16,5 +19,13 @@ export const getClinicList = createAsyncThunk(
 );
 
 export const initClinicGrid = async (dispatch: AppDispatch) => {
-  console.log("nit");
+  const data = await dispatch(getClinicList());
+  const grid = data.payload.map((data: ClinicForm, index: number) => {
+    return {
+      id: index,
+      clinicCode: data.clinicCode,
+      clinicName: data.clinicName,
+    };
+  });
+  dispatch(setClinicGrid(grid));
 };

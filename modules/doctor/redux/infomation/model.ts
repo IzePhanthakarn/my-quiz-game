@@ -1,21 +1,9 @@
-import { getCurrentDateString } from "@/utils";
-
 export interface DoctorInfomation {
-  clinicCode: string;
-  clinicName: string;
-  isDeleted: string;
-  createdDate: string;
-  createdBy: string;
-  updatedDate: string;
-  updatedBy: string;
+  doctorCode: string;
+  doctorName: string;
 }
 
 export const modelDoctorInfomation: DoctorInfomation = {
-  clinicCode: "888",
-  clinicName: "ไนกี้คลีนิก",
-  isDeleted: "",
-  createdDate: getCurrentDateString(),
-  createdBy: "",
-  updatedDate: "",
-  updatedBy: "",
+  doctorCode: "888",
+  doctorName: "ไนกี้คลีนิก",
 };

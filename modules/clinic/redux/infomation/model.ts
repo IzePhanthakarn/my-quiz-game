@@ -1,21 +1,16 @@
-import { getCurrentDateString } from "@/utils";
-
-export interface ClinicInfomation {
+export interface ClinicForm {
   clinicCode: string;
   clinicName: string;
-  isDeleted: string;
-  createdDate: string;
-  createdBy: string;
-  updatedDate: string;
-  updatedBy: string;
 }
 
-export const modelClinicInfomation: ClinicInfomation = {
+interface Grid extends ClinicForm {
+  id: string;
+}
+export interface ClinicGrid {
+  grid: Grid[];
+}
+
+export const modelClinicForm: ClinicForm = {
   clinicCode: "888",
   clinicName: "ไนกี้คลีนิก",
-  isDeleted: "",
-  createdDate: getCurrentDateString(),
-  createdBy: "",
-  updatedDate: "",
-  updatedBy: "",
 };

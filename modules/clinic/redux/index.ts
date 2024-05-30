@@ -10,6 +10,6 @@ export const clinicSlice = createSlice({
   },
 });
 
-export const { setClinic } = clinicSlice.actions;
+export const { setClinicGrid } = clinicSlice.actions;
 
 export default clinicSlice.reducer;

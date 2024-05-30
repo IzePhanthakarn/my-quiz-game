@@ -1,3 +1,12 @@
+import {
+  ClinicForm,
+  modelClinicForm,
+} from "@/modules/clinic/redux/infomation/model";
+import {
+  DoctorInfomation,
+  modelDoctorInfomation,
+} from "@/modules/doctor/redux/infomation/model";
+
 export interface Crud {
   formData: formDataType;
   formErrors: Array<string>;
@@ -9,29 +18,11 @@ export interface Crud {
   bodyMutation: boolean;
 }
 
-export type formDataType = clinicForm & doctorForm;
-
-interface clinicForm {
-  name: string;
-  age: string;
-}
-
-interface doctorForm {
-  name: string;
-}
-
-const initClinic: clinicForm = {
-  age: "",
-  name: "",
-};
-
-const initDoctor: doctorForm = {
-  name: "",
-};
+export type formDataType = ClinicForm & DoctorInfomation;
 
 const initFormData: formDataType = {
-  ...initClinic,
-  ...initDoctor,
+  ...modelClinicForm,
+  ...modelDoctorInfomation,
 };
 
 export const initialState: Crud = {
