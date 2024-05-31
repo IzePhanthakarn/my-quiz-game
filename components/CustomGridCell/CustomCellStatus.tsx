@@ -1,4 +1,3 @@
-import { GridRenderEditCellParams } from "@mui/x-data-grid";
 import { getStatusBgColor } from "./service";
 import { STATUS } from "./model";
 

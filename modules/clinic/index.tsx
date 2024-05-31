@@ -1,6 +1,6 @@
 "use client";
 
-import { AppDispatch, RootState } from "@/redux/config/configStore";
+import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import React, { useEffect } from "react";
