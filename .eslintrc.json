@@ -1,3 +1,19 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "no-unused-vars": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "prefer-const": "off",
+    "react/jsx-max-depth": ["error", { "max": 8 }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "@mui/material",
+        "message": "Please use \"import foo from '@mui/material/foo\" instead."
+      }
+    ]
+  }
 }

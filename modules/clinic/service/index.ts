@@ -18,7 +18,7 @@ export const getClinicList = createAsyncThunk(
   }
 );
 
-export const initClinicGrid = async (dispatch: AppDispatch) => {
+export const initClinicGrid = () => async (dispatch: AppDispatch) => {
   const data = await dispatch(getClinicList());
   const grid = data.payload.map((data: ClinicForm, index: number) => {
     return {

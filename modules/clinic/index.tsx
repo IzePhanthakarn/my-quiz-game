@@ -26,8 +26,8 @@ export default function Clinic() {
   );
 
   useEffect(() => {
-    dispatch(initClinicGrid);
-  }, [dispatch]);
+    dispatch(initClinicGrid());
+  }, []);
 
   return (
     <div className="w-full flex flex-col relative">
