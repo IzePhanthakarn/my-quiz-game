@@ -4,11 +4,12 @@ import { AppDispatch, RootState } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
-import { GridColDef } from "@mui/x-data-grid/models";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
 import { setFieldValue } from "@/redux/slices/crud";
+import { columns } from "./model";
+import BaseGrid from "@/components/BaseGrid";
 
 export default function Clinic() {
   const dispatch: AppDispatch = useDispatch();
@@ -19,11 +20,6 @@ export default function Clinic() {
     }),
     shallowEqual
   );
-
-  const columns: GridColDef[] = [
-    { field: "clinicCode", headerName: "Column 1", width: 150 },
-    { field: "clinicName", headerName: "Column 2", width: 400 },
-  ];
 
   useEffect(() => {
     dispatch(initClinicGrid);
@@ -55,7 +51,7 @@ export default function Clinic() {
           }
         />
       </div>
-      <DataGrid rows={rows} columns={columns} />
+      <BaseGrid rows={rows} columns={columns} label={"นิดๆๆๆ"} />
     </div>
   );
 }
