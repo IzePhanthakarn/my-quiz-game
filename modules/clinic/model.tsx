@@ -5,12 +5,6 @@ import { getStatusBgColor } from "@/components/CustomGridCell/service";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid/models";
 
 export const columns: GridColDef[] = [
-  {
-    field: "clinicCode",
-    headerName: "รหัสคลีนิก",
-    width: 150,
-    sortable: true,
-  },
   { field: "clinicName", headerName: "ชื่อคลีนิก", width: 400 },
   {
     field: "clinicCode",
