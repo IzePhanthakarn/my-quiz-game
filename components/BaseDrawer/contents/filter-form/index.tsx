@@ -6,7 +6,7 @@ import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setFilterForm } from "../redux";
+import { setFilterForm } from "../../redux";
 
 export default function FilterForm() {
   const dispatch: AppDispatch = useDispatch();

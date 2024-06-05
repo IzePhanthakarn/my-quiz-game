@@ -12,15 +12,19 @@ import BaseGrid from "@/components/BaseGrid";
 import Button from "@mui/material/Button";
 import BaseDrawer from "@/components/BaseDrawer";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
-import FilterForm from "@/components/BaseDrawer/contents/filterForm";
+import FilterForm from "@/components/BaseDrawer/contents/filter-form/index";
+import { setIsOpenDialog } from "@/components/BaseDialog/redux";
+import BaseDialog from "@/components/BaseDialog";
+import RequiredDoc from "@/components/BaseDialog/contents/required-doc";
 
 export default function Clinic() {
   const dispatch: AppDispatch = useDispatch();
-  const { form, rows, isOpen } = useSelector(
+  const { form, rows, isOpen, isOpenModal } = useSelector(
     (state: SliceModel) => ({
       form: state.crud.formData,
       rows: state.clinic.grid,
       isOpen: state.drawer.isOpen,
+      isOpenModal: state.dialog.isOpen,
     }),
     shallowEqual
   );
@@ -31,7 +35,6 @@ export default function Clinic() {
 
   return (
     <div className="w-full flex flex-col relative">
-      <p></p>
       <div className="flex">
         <TextField
           value={form.clinicCode}
@@ -58,9 +61,21 @@ export default function Clinic() {
         <Button onClick={() => dispatch(setIsOpenDrawer(true))}>
           {isOpen ? "true" : "false"}
         </Button>
+        <Button onClick={() => dispatch(setIsOpenDialog(true))}>
+          {isOpenModal ? "trueModal" : "falseModal"}
+        </Button>
       </div>
       <BaseGrid rows={rows} columns={columns} label={"ทดสอบหัวข้อ"} />
-      <BaseDrawer isOpen={isOpen} content={<FilterForm />} />
+      <BaseDrawer
+        isOpen={isOpen}
+        content={<FilterForm />}
+        label={"ทดสอบ Drawer"}
+      />
+      <BaseDialog
+        isOpen={isOpenModal}
+        content={<RequiredDoc />}
+        label={"ทดสอบ Dialog"}
+      />
     </div>
   );
 }

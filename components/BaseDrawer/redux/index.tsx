@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BaseDrawer, modelDrawer } from "./model";
-import { filterFormReducers } from "./filter/reducer";
+import { filterFormReducers } from "../contents/filter-form/redux/reducer";
 
 export const drawerSlice = createSlice({
   name: "Drawer",

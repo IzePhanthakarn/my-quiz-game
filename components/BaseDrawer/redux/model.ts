@@ -1,4 +1,7 @@
-import { FilterForm, modelFilterForm } from "./filter/model";
+import {
+  FilterForm,
+  modelFilterForm,
+} from "../contents/filter-form/redux/model";
 
 export interface BaseDrawer {
   isOpen: boolean;
