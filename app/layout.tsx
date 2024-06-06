@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
+import NavBar from "@/components/NavBar";
+import SideBar from "@/components/SideBar";
+import Row from "@/components/Row";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <StoreProvider>
-          <main className={inter.className}>{children}</main>
-        </StoreProvider>
-      </body>
+      <StoreProvider>
+        <body>
+          <NavBar />
+          <Row className="h-screen">
+            <SideBar />
+            <main className="p-4">{children}</main>
+          </Row>
+        </body>
+      </StoreProvider>
     </html>
   );
 }

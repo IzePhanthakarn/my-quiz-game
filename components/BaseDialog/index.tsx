@@ -12,7 +12,7 @@ interface Props {
   label?: string;
 }
 
-export default function BaseDrawer(props: Props) {
+export default function BaseDialog(props: Props) {
   const dispatch: AppDispatch = useDispatch();
   const { isOpen, content, label } = props;
   return (
