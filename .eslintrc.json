@@ -3,6 +3,7 @@
   "rules": {
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@next/next/no-img-element": "off",
     "prefer-const": "off",
     "react/jsx-max-depth": ["error", { "max": 8 }],
     "no-restricted-imports": [

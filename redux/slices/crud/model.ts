@@ -1,7 +1,7 @@
 import {
   ClinicForm,
   modelClinicForm,
-} from "@/modules/clinic/redux/infomation/model";
+} from "@/modules/clinic/redux/master/model";
 import {
   DoctorInfomation,
   modelDoctorInfomation,

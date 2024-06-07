@@ -25,7 +25,7 @@ export default function RootLayout({
           <NavBar />
           <Row className="h-screen">
             <SideBar />
-            <main className="p-4">{children}</main>
+            <main className="flex-grow p-4 bg-[#FAFAFA]">{children}</main>
           </Row>
         </body>
       </StoreProvider>
