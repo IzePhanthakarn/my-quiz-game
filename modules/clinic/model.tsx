@@ -5,25 +5,19 @@ import { getStatusBgColor } from "@/components/CustomGridCell/service";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid/models";
 
 export const columns: GridColDef[] = [
-  { field: "clinicName", headerName: "ชื่อคลีนิก", width: 400 },
+  { field: "clinicName", headerName: "ชื่อคลินิค", width: 400 },
   {
     field: "clinicCode",
-    headerName: "ทดสอบ",
+    headerName: "รหัสคลินิค",
     width: 150,
-    renderCell: (params: GridRenderCellParams) => {
-      const prop = {
-        status: STATUS.SUCCESS,
-        label: params.value,
-      };
-      return <CustomCellStatus {...prop} />;
-    },
+    sortable: true,
   },
   {
     field: "a",
-    headerName: "asd",
+    headerName: "คำสั่ง",
     width: 200,
     renderCell: () => {
-      return <CustomCellButton mode={BUTTON_MODE.VIEW_ONLY} />;
+      return <CustomCellButton mode={BUTTON_MODE.VIEW_EDIT_ICON} />;
     },
   },
 ];

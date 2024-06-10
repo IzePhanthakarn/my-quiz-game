@@ -1,5 +1,4 @@
-import { getCurrentDateString } from "@/utils";
-import { ClinicForm, ClinicGrid, modelClinicForm } from "./infomation/model";
+import { ClinicForm, ClinicGrid, modelClinicForm } from "./master/model";
 
 export interface Clinic {
 	infomation: ClinicForm;

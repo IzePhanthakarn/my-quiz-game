@@ -1,4 +1,5 @@
 export interface ClinicForm {
+  clinicCodeName: string;
   clinicCode: string;
   clinicName: string;
 }
@@ -11,6 +12,7 @@ export interface ClinicGrid {
 }
 
 export const modelClinicForm: ClinicForm = {
-  clinicCode: "888",
-  clinicName: "ไนกี้คลีนิก",
+  clinicCodeName: "",
+  clinicCode: "",
+  clinicName: "",
 };

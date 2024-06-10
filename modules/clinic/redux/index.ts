@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { clinicReducers } from "./infomation/reducers";
+import { clinicReducers } from "./master/reducers";
 import { modelClinic } from "./model";
 
 export const clinicSlice = createSlice({

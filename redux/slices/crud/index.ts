@@ -14,8 +14,6 @@ export const crudSlice = createSlice({
       }>
     ) => {
       const { key, value } = action.payload;
-      console.log("key", key);
-      console.log("value", value);
       _.set(state, key, value);
     },
     setAllFieldValue: (state: Crud, action: PayloadAction<Crud>) => {
