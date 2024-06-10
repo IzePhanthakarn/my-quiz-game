@@ -1,10 +1,8 @@
 "use client";
 
-import CustomCellStatus from "@/components/CustomGridCell/CustomCellStatus";
 import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
-import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
-import { getStatusBgColor } from "@/components/CustomGridCell/service";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid/models";
+import { BUTTON_MODE } from "@/components/CustomGridCell/model";
+import { GridColDef } from "@mui/x-data-grid/models";
 
 export const columns: GridColDef[] = [
 	{ field: "clinicName", headerName: "ชื่อคลินิค", width: 400 },
