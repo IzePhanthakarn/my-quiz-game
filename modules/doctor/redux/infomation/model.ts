@@ -1,9 +1,9 @@
 export interface DoctorInfomation {
-  doctorCode: string;
-  doctorName: string;
+	doctorCode: string;
+	doctorName: string;
 }
 
 export const modelDoctorInfomation: DoctorInfomation = {
-  doctorCode: "888",
-  doctorName: "ไนกี้คลีนิก",
+	doctorCode: "999",
+	doctorName: "ไนกี้คลีนิก",
 };

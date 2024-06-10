@@ -3,13 +3,13 @@ import { clinicReducers } from "./infomation/reducers";
 import { modelClinic } from "./model";
 
 export const clinicSlice = createSlice({
-  name: "Clinic",
-  initialState: modelClinic,
-  reducers: {
-    ...clinicReducers,
-  },
+	name: "Clinic",
+	initialState: modelClinic,
+	reducers: {
+		...clinicReducers,
+	},
 });
 
-export const { setClinicGrid } = clinicSlice.actions;
+export const { setClinicGrid, setClinicDetail } = clinicSlice.actions;
 
 export default clinicSlice.reducer;
