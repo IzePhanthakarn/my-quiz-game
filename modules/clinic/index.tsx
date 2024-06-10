@@ -10,6 +10,11 @@ import { setFieldValue } from "@/redux/slices/crud";
 import { columns } from "./model";
 import BaseGrid from "@/components/BaseGrid";
 import Column from "@/components/Column";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import Grid from "@mui/material/Grid";
+import Link from "next/link";
+import { LINKS } from "../../constants/links";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -27,10 +32,21 @@ export default function Clinic() {
 
 	return (
 		<Column>
-			<Column className="px-4 mb-4">
-				<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
-				<p className="leading-[18.75px]">คลินิค</p>
-			</Column>
+			<Grid container rowSpacing={3} spacing={5} className="pb-5">
+				<Grid item sm={12} md={6}>
+					<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
+					<p className="leading-[18.75px]">คลินิค</p>
+				</Grid>
+				<Grid item sm={12} md={6} className="content-end text-right">
+					<div>
+						<Link key={LINKS.CLINIC.add} href={LINKS.CLINIC.add}>
+							<Button variant="contained" startIcon={<AddIcon />}>
+								เพิ่มคลินิค
+							</Button>
+						</Link>
+					</div>
+				</Grid>
+			</Grid>
 			<Column className="bg-white p-4">
 				<div className="flex">
 					<TextField

@@ -5,6 +5,7 @@ import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
 import { getStatusBgColor } from "@/components/CustomGridCell/service";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid/models";
+import { LINKS } from "../../constants/links";
 
 export const columns: GridColDef[] = [
 	{ field: "clinicName", headerName: "ชื่อคลินิค", width: 400 },
@@ -21,8 +22,8 @@ export const columns: GridColDef[] = [
 		renderCell: (params) => {
 			return (
 				<CustomCellButton
-					editLink={"clinic/form/" + params.row.clinicCode}
-					viewLink={"clinic/form/" + params.row.clinicCode}
+					editLink={LINKS.CLINIC.edit + params.row.clinicCode}
+					viewLink={LINKS.CLINIC.view + params.row.clinicCode}
 					mode={BUTTON_MODE.VIEW_EDIT_ICON}
 				/>
 			);
