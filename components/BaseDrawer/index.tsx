@@ -47,7 +47,7 @@ export default function BaseDrawer(props: Props) {
 			</div>
 			<Column className="p-6">{content}</Column>
 			<div className="flex flex-col flex-grow justify-end px-6 py-4">
-				<div className="w-full border-b-2 border-[#00000033] px-6 pt-6 pb-4 ">
+				<div className="w-full px-6 pt-6 pb-4 ">
 					<Row className="justify-center items-center space-x-6">
 						<Button
 							onClick={() => dispatch(setClinicFilter(modelClinicFilter))}
