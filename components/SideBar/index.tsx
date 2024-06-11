@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Accordion from "@mui/material/Accordion";
@@ -8,10 +8,11 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { MenuItem, MenuList, menuList, SubMenuItem } from "./sidebar-items";
-import { sidebarWidth } from "@/constants/global";
 
 export default function SideBar() {
-	const pathName = usePathname();
+	const getPathName = usePathname();
+	const pathName = `/${getPathName.split("/")[1]}`;
+
 	return (
 		<div
 			className={`min-w-[280px] h-full border-r-2 border-[#00000033] flex flex-col`}
