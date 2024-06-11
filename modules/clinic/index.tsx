@@ -11,11 +11,14 @@ import { columns } from "./model";
 import BaseGrid from "@/components/BaseGrid";
 import Column from "@/components/Column";
 import Row from "@/components/Row";
-import Button from "@mui/material/Button";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import BaseDrawer from "@/components/BaseDrawer";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
+import Grid from "@mui/material/Grid";
+import Link from "next/link";
+import { LINKS } from "@/constants/links";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import BaseDrawer from "@/components/BaseDrawer";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -34,22 +37,22 @@ export default function Clinic() {
 	}, []);
 
 	return (
-		<div>
-			<Column className="px-4 mb-4">
-				<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
-				<Row className="justify-between  items-center">
-					<p className="leading-[18.75px] w-full">คลินิค</p>
-					<Row className="justify-end items-center space-x-4">
-						<Button className="bg-[#2196F3] px-2.5 py-1 rounded-md text-white">
-							<div className="flex items-center justify-center space-x-2">
-								<img src="/icons/plus.svg" alt="logo" />
-								<p className="text-[13px] w-full">เพิ่มข้อมูลคลินิค</p>
-							</div>
-						</Button>
-						<MoreVertIcon className="cursor-pointer" />
-					</Row>
-				</Row>
-			</Column>
+		<Column>
+			<Grid container rowSpacing={3} spacing={5} className="pb-5">
+				<Grid item sm={12} md={6}>
+					<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
+					<p className="leading-[18.75px]">คลินิค</p>
+				</Grid>
+				<Grid item sm={12} md={6} className="content-end text-right">
+					<div>
+						<Link key={LINKS.CLINIC.add} href={LINKS.CLINIC.add}>
+							<Button variant="contained" startIcon={<AddIcon />}>
+								เพิ่มคลินิค
+							</Button>
+						</Link>
+					</div>
+				</Grid>
+			</Grid>
 			<div className=" bg-white p-4">
 				<Row className="justify-between items-center">
 					<TextField
@@ -99,6 +102,6 @@ export default function Clinic() {
 					}
 				/>
 			</div>
-		</div>
+		</Column>
 	);
 }

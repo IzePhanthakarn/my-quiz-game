@@ -1,3 +1,5 @@
+import { LINKS } from "../../constants/links";
+
 export interface MenuList {
 	header: string;
 	icon: string;
@@ -22,12 +24,12 @@ export const menuList: MenuList[] = [
 				subHeader: "Master แพทย์",
 				menuList: [
 					{
-						name: "แพทย์",
-						link: "/med",
+						name: LINKS.MED.name,
+						link: LINKS.MED.link,
 					},
 					{
-						name: "คลีนิค",
-						link: "/clinic",
+						name: LINKS.CLINIC.name,
+						link: LINKS.CLINIC.link,
 					},
 				],
 			},

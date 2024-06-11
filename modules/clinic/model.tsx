@@ -1,8 +1,9 @@
 "use client";
 
 import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
-import { BUTTON_MODE } from "@/components/CustomGridCell/model";
+import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
 import { GridColDef } from "@mui/x-data-grid/models";
+import { LINKS } from "../../constants/links";
 
 export const columns: GridColDef[] = [
 	{ field: "clinicName", headerName: "ชื่อคลินิค", flex: 1 },
@@ -18,8 +19,8 @@ export const columns: GridColDef[] = [
 		renderCell: (params) => {
 			return (
 				<CustomCellButton
-					editLink={"clinic/form/" + params.row.clinicCode}
-					viewLink={"clinic/form/" + params.row.clinicCode}
+					editLink={LINKS.CLINIC.edit + params.row.clinicCode}
+					viewLink={LINKS.CLINIC.view + params.row.clinicCode}
 					mode={BUTTON_MODE.VIEW_EDIT_ICON}
 				/>
 			);

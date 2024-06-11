@@ -9,7 +9,7 @@ import {
 	modelClinicForm,
 } from "../redux/master/model";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
-
+import { ClinicDetail } from "../redux/model";
 export interface PaginationOption {
 	pageNumber: number;
 	pageSize: number;
@@ -47,7 +47,7 @@ export const getClinicDetail = createAsyncThunk(
 	"Medical/getClinicDetail",
 	async (id: string, thunkAPi) => {
 		try {
-			const apiPath = `${API_PATH.GET_CLINIC}/${id}`;
+			const apiPath = `${API_PATH.GET_CLINIC_DETAIL}/${id}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
@@ -83,4 +83,62 @@ export const handleConfirmFilter =
 		console.log("onConfirmClick", onConfirmClick);
 		if (onConfirmClick) onConfirmClick();
 		dispatch(setIsOpenDrawer(false));
+	};
+
+export const createClinicApi = createAsyncThunk(
+	"Medical/createClinicApi",
+	async (
+		body: {
+			clinicCode: ClinicDetail["clinicCode"];
+			clinicName: ClinicDetail["clinicName"];
+		},
+		thunkAPi
+	) => {
+		try {
+			const apiPath = `${API_PATH.CREATE_CLINIC}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+export const addClinic =
+	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			createClinicApi({
+				clinicCode: clinicDetail.clinicCode,
+				clinicName: clinicDetail.clinicName,
+			})
+		);
+	};
+
+export const updateClinicApi = createAsyncThunk(
+	"Medical/updateClinicApi",
+	async (
+		body: {
+			body: {
+				clinicName: ClinicDetail["clinicName"];
+			};
+			clinicCode: ClinicDetail["clinicCode"];
+		},
+		thunkAPi
+	) => {
+		try {
+			const apiPath = `${API_PATH.UPDATE_CLINIC}/${body.clinicCode}`;
+			const response = await axios.patch(apiPath, body.body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+export const updateClinic =
+	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateClinicApi({
+				clinicCode: clinicDetail.clinicCode,
+				body: { clinicName: clinicDetail.clinicName },
+			})
+		);
 	};
