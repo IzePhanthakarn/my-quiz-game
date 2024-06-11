@@ -5,17 +5,16 @@ import { BUTTON_MODE } from "@/components/CustomGridCell/model";
 import { GridColDef } from "@mui/x-data-grid/models";
 
 export const columns: GridColDef[] = [
-	{ field: "clinicName", headerName: "ชื่อคลินิค", width: 400 },
+	{ field: "clinicName", headerName: "ชื่อคลินิค", flex: 1 },
 	{
 		field: "clinicCode",
 		headerName: "รหัสคลินิค",
-		width: 150,
-		sortable: true,
+		flex: 1,
 	},
 	{
 		field: "action",
 		headerName: "คำสั่ง",
-		width: 200,
+		flex: 1,
 		renderCell: (params) => {
 			return (
 				<CustomCellButton

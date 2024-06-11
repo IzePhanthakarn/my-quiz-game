@@ -3,7 +3,45 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setClinicDetail, setClinicGrid } from "../redux";
-import { ClinicForm } from "../redux/master/model";
+import {
+	ClinicForm,
+	ClinicGridModel,
+	modelClinicForm,
+} from "../redux/master/model";
+import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
+
+export interface PaginationOption {
+	pageNumber: number;
+	pageSize: number;
+}
+
+export interface ClinicPagination {
+	pagination: PaginationOption;
+	data: ClinicForm;
+}
+
+export const modelPagination: PaginationOption = {
+	pageNumber: 0,
+	pageSize: 10,
+};
+
+export const clinicPagination: ClinicPagination = {
+	pagination: modelPagination,
+	data: modelClinicForm,
+};
+
+export const getClinicList = createAsyncThunk(
+	"Medical/getClinicDetail",
+	async (params: ClinicPagination = clinicPagination, thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
+			const response = await axios.post(apiPath, params);
+			return response.data.content;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
 
 export const getClinicDetail = createAsyncThunk(
 	"Medical/getClinicDetail",
@@ -25,29 +63,24 @@ export const initGetClinicDetail =
 		dispatch(setClinicDetail(response.payload));
 	};
 
-export const getClinicList = createAsyncThunk(
-	"Medical/getClinic",
-	async (params: { id: string }, thunkAPi) => {
-		try {
-			const apiPath = `${API_PATH.GET_CLINIC}`;
-			const response = await axios.get(apiPath, { params });
-			return response.data;
-		} catch (err) {
-			return thunkAPi.rejectWithValue("");
-		}
-	}
-);
-
 export const initClinicGrid =
-	(id: string = "") =>
+	(params: ClinicPagination = clinicPagination) =>
 	async (dispatch: AppDispatch) => {
-		const data = await dispatch(getClinicList({ id }));
-		const grid = data.payload.map((data: ClinicForm, index: number) => {
+		const data = await dispatch(getClinicList(params));
+		const grid = data.payload.map((data: ClinicGridModel, index: number) => {
 			return {
 				id: index,
 				clinicCode: data.clinicCode,
 				clinicName: data.clinicName,
+				isDelete: data.isDelete,
 			};
 		});
 		dispatch(setClinicGrid(grid));
+	};
+
+export const handleConfirmFilter =
+	(onConfirmClick?: () => void) => (dispatch: AppDispatch) => {
+		console.log("onConfirmClick", onConfirmClick);
+		if (onConfirmClick) onConfirmClick();
+		dispatch(setIsOpenDrawer(false));
 	};

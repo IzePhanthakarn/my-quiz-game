@@ -6,11 +6,12 @@ export interface ClinicForm extends BaseClinic {
 	clinicCodeName: string;
 }
 
-interface Grid extends ClinicForm {
+export interface ClinicGridModel extends ClinicForm {
 	id: string;
+	isDelete: string;
 }
 export interface ClinicGrid {
-	grid: Grid[];
+	grid: ClinicGridModel[];
 }
 
 export const modelClinicForm: ClinicForm = {

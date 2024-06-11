@@ -5,6 +5,7 @@ import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
 import Row from "@/components/Row";
 import { Roboto } from "next/font/google";
+import { sidebarWidth } from "@/constants/global";
 
 const roboto = Roboto({
 	subsets: ["latin"],
@@ -29,7 +30,9 @@ export default function RootLayout({
 					<NavBar />
 					<Row className="h-screen">
 						<SideBar />
-						<main className="font-roboto flex-grow p-4 bg-[#FAFAFA]">
+						<main
+							className={`font-roboto w-[calc(100vw-${sidebarWidth})] p-4 bg-[#FAFAFA]`}
+						>
 							{children}
 						</main>
 					</Row>

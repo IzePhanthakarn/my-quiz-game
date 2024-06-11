@@ -38,7 +38,18 @@ export default function Drawer() {
 				/>
 				{filter.checkClinicCode && (
 					<div className="p-4 pt-1">
-						<TextField className="w-full" />
+						<TextField
+							className="w-full"
+							value={filter.clinicCode}
+							onChange={(e) => {
+								dispatch(
+									setClinicFilter({
+										...filter,
+										clinicCode: e.target.value,
+									})
+								);
+							}}
+						/>
 					</div>
 				)}
 			</Column>
@@ -62,7 +73,18 @@ export default function Drawer() {
 				/>
 				{filter.checkClinicName && (
 					<div className="p-4 pt-1">
-						<TextField className="w-full" />
+						<TextField
+							className="w-full"
+							value={filter.clinicCode}
+							onChange={(e) => {
+								dispatch(
+									setClinicFilter({
+										...filter,
+										clinicCode: e.target.value,
+									})
+								);
+							}}
+						/>
 					</div>
 				)}
 			</Column>
@@ -118,7 +140,7 @@ export default function Drawer() {
 								/>
 							}
 							checked={filter.active}
-							label="ชื่อคลินิค"
+							label="รหัสคลินิค"
 						/>
 					</Column>
 				)}

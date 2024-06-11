@@ -1,3 +1,4 @@
+import { SxProps } from "@mui/material/styles";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
@@ -5,12 +6,13 @@ interface Props {
 	rows: any;
 	columns: GridColDef[];
 	label?: string;
+	sx?: SxProps;
 }
 
 export default function BaseGrid(props: Props) {
-	const { rows, columns, label } = props;
+	const { rows, columns, label, sx } = props;
 	return (
-		<div className="w-full flex flex-col">
+		<div className="w-full">
 			{label && (
 				<div className="py-4">
 					<p className="text-2xl">{label}</p>
@@ -18,10 +20,12 @@ export default function BaseGrid(props: Props) {
 			)}
 			<DataGrid
 				sx={{
+					...sx,
 					"&.MuiDataGrid-root": {
 						borderWidth: "0px",
 					},
 				}}
+				autoHeight
 				rows={rows}
 				columns={columns}
 				initialState={{
@@ -31,6 +35,7 @@ export default function BaseGrid(props: Props) {
 				disableColumnSelector={true}
 				disableDensitySelector={true}
 				disableColumnMenu={true}
+				hideFooter={true}
 			/>
 		</div>
 	);

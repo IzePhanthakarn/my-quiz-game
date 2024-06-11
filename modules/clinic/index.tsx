@@ -5,7 +5,7 @@ import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { initClinicGrid } from "./service";
+import { clinicPagination, initClinicGrid } from "./service";
 import { setFieldValue } from "@/redux/slices/crud";
 import { columns } from "./model";
 import BaseGrid from "@/components/BaseGrid";
@@ -19,11 +19,12 @@ import Drawer from "./drawer";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
-	const { form, rows, isOpen } = useSelector(
+	const { form, rows, isOpen, filter } = useSelector(
 		(state: SliceModel) => ({
 			form: state.crud.formData,
 			rows: state.clinic.grid,
 			isOpen: state.drawer.isOpen,
+			filter: state.clinic.clinicFilter,
 		}),
 		shallowEqual
 	);
@@ -33,7 +34,7 @@ export default function Clinic() {
 	}, []);
 
 	return (
-		<Column>
+		<div>
 			<Column className="px-4 mb-4">
 				<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
 				<Row className="justify-between  items-center">
@@ -49,7 +50,7 @@ export default function Clinic() {
 					</Row>
 				</Row>
 			</Column>
-			<Column className="bg-white p-4">
+			<div className=" bg-white p-4">
 				<Row className="justify-between items-center">
 					<TextField
 						className="mb-[10px]"
@@ -64,7 +65,13 @@ export default function Clinic() {
 							)
 						}
 						onKeyDown={(e) =>
-							e.key === "Enter" && dispatch(initClinicGrid(form.clinicCodeName))
+							e.key === "Enter" &&
+							dispatch(
+								initClinicGrid({
+									...clinicPagination,
+									data: { ...form },
+								})
+							)
 						}
 					/>
 					<Button
@@ -78,8 +85,20 @@ export default function Clinic() {
 					</Button>
 				</Row>
 				<BaseGrid rows={rows} columns={columns} />
-				<BaseDrawer isOpen={isOpen} content={<Drawer />} />
-			</Column>
-		</Column>
+				<BaseDrawer
+					isOpen={isOpen}
+					content={<Drawer />}
+					isFilter
+					confirmFuntion={() =>
+						dispatch(
+							initClinicGrid({
+								...clinicPagination,
+								data: { ...filter, clinicCodeName: "" },
+							})
+						)
+					}
+				/>
+			</div>
+		</div>
 	);
 }
