@@ -80,7 +80,6 @@ export const initClinicGrid =
 
 export const handleConfirmFilter =
 	(onConfirmClick?: () => void) => (dispatch: AppDispatch) => {
-		console.log("onConfirmClick", onConfirmClick);
 		if (onConfirmClick) onConfirmClick();
 		dispatch(setIsOpenDrawer(false));
 	};

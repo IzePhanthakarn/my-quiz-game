@@ -14,7 +14,7 @@ export default function SideBar() {
 	const pathName = usePathname();
 	return (
 		<div
-			className={`min-w-[${sidebarWidth}] h-full border-r-2 border-[#00000033] flex flex-col`}
+			className={`min-w-[280px] h-full border-r-2 border-[#00000033] flex flex-col`}
 		>
 			{menuList.map((item: MenuList, index: number) => (
 				<Accordion
