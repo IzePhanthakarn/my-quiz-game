@@ -8,9 +8,6 @@ export interface ClinicForm {
 interface Grid extends ClinicForm {
 	id: string;
 }
-export interface ClinicGrid {
-	grid: Grid[];
-}
 export interface BaseClinic {
 	clinicCode: string;
 	clinicName: string;
