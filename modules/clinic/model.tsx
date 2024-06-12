@@ -1,24 +1,21 @@
 "use client";
 
-import CustomCellStatus from "@/components/CustomGridCell/CustomCellStatus";
 import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
-import { getStatusBgColor } from "@/components/CustomGridCell/service";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid/models";
+import { GridColDef } from "@mui/x-data-grid/models";
 import { LINKS } from "../../constants/links";
 
 export const columns: GridColDef[] = [
-	{ field: "clinicName", headerName: "ชื่อคลินิค", width: 400 },
+	{ field: "clinicName", headerName: "ชื่อคลินิค", flex: 1 },
 	{
 		field: "clinicCode",
 		headerName: "รหัสคลินิค",
-		width: 150,
-		sortable: true,
+		flex: 1,
 	},
 	{
 		field: "action",
 		headerName: "คำสั่ง",
-		width: 200,
+		flex: 1,
 		renderCell: (params) => {
 			return (
 				<CustomCellButton

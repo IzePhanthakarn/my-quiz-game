@@ -35,23 +35,4 @@ export const menuList: MenuList[] = [
 			},
 		],
 	},
-	{
-		header: "Master แพทย์",
-		icon: "/icons/data-list.svg",
-		menu: [
-			{
-				subHeader: "Master แพทย์",
-				menuList: [
-					{
-						name: LINKS.MED.name,
-						link: LINKS.MED.link,
-					},
-					{
-						name: LINKS.CLINIC.name,
-						link: LINKS.CLINIC.link,
-					},
-				],
-			},
-		],
-	},
 ];
