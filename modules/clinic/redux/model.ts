@@ -12,9 +12,11 @@ export const modelClinicDetail: ClinicDetail = {
 	clinicName: "",
 	createdBy: "",
 	createdDate: "",
-	isDeleted: IsDelete.N,
+	// isDeleted: IsDelete.N,
+	isActive: IsDelete.Y,
 	updatedBy: "",
 	updatedDate: "",
+	uuid: "",
 };
 
 export const modelClinic: Clinic = {
@@ -27,7 +29,9 @@ export interface ClinicDetail {
 	clinicName: string;
 	createdBy: string;
 	createdDate: string;
-	isDeleted: string;
+	// isDeleted: string;
+	isActive: string;
 	updatedBy: string;
 	updatedDate: string;
+	uuid: string;
 }

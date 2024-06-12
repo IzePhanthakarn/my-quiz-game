@@ -5,6 +5,9 @@ import axios from "axios";
 import { setClinicDetail, setClinicGrid } from "../redux";
 import { ClinicForm } from "../redux/master/model";
 import { ClinicDetail } from "../redux/model";
+import _ from "lodash";
+import { LINKS } from "../../../constants/links";
+import { NextRouter } from "next/router";
 
 export const getClinicDetail = createAsyncThunk(
 	"Medical/getClinicDetail",
@@ -21,8 +24,8 @@ export const getClinicDetail = createAsyncThunk(
 
 export const initGetClinicDetail =
 	(params: ClinicFormPageProps) => async (dispatch: AppDispatch) => {
-		const { id } = params.params;
-		const response = await dispatch(getClinicDetail(id));
+		const { uuid } = params.params;
+		const response = await dispatch(getClinicDetail(uuid));
 		dispatch(setClinicDetail(response.payload));
 	};
 
@@ -48,6 +51,7 @@ export const initClinicGrid =
 				id: index,
 				clinicCode: data.clinicCode,
 				clinicName: data.clinicName,
+				uuid: data.uuid,
 			};
 		});
 		dispatch(setClinicGrid(grid));
@@ -59,6 +63,7 @@ export const createClinicApi = createAsyncThunk(
 		body: {
 			clinicCode: ClinicDetail["clinicCode"];
 			clinicName: ClinicDetail["clinicName"];
+			isActive: ClinicDetail["isActive"];
 		},
 		thunkAPi
 	) => {
@@ -77,8 +82,14 @@ export const addClinic =
 			createClinicApi({
 				clinicCode: clinicDetail.clinicCode,
 				clinicName: clinicDetail.clinicName,
+				isActive: clinicDetail.isActive,
 			})
 		);
+		if (_.get(data.payload, "error.message") === "Rejected") {
+			return;
+		}
+		// router.push(`/${LINKS.CLINIC.link}`);
+		// redirectToPage('/target-page');
 	};
 
 export const updateClinicApi = createAsyncThunk(
@@ -87,6 +98,7 @@ export const updateClinicApi = createAsyncThunk(
 		body: {
 			body: {
 				clinicName: ClinicDetail["clinicName"];
+				isActive: ClinicDetail["isActive"];
 			};
 			clinicCode: ClinicDetail["clinicCode"];
 		},
@@ -106,7 +118,10 @@ export const updateClinic =
 		const data = await dispatch(
 			updateClinicApi({
 				clinicCode: clinicDetail.clinicCode,
-				body: { clinicName: clinicDetail.clinicName },
+				body: {
+					clinicName: clinicDetail.clinicName,
+					isActive: clinicDetail.isActive,
+				},
 			})
 		);
 	};
