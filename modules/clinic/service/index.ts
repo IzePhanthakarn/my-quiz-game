@@ -72,7 +72,7 @@ export const initClinicGrid =
 				id: index,
 				clinicCode: data.clinicCode,
 				clinicName: data.clinicName,
-				isDelete: data.isDelete,
+				isActive: data.isActive,
 			};
 		});
 		dispatch(setClinicGrid(grid));

@@ -1,37 +1,38 @@
 import { LINKS } from "../../constants/links";
 
-export interface MenuList {
+export interface MenuItem {
 	header: string;
 	icon: string;
-	menu: MenuItem[];
-}
-
-export interface MenuItem {
-	subHeader: string;
-	menuList: SubMenuItem[];
+	isAccordion: boolean;
+	link: string;
+	subMenu: SubMenuItem[];
 }
 export interface SubMenuItem {
 	name: string;
 	link: string;
 }
 
-export const menuList: MenuList[] = [
+export const menuList: MenuItem[] = [
+	{
+		header: "Dashboard",
+		icon: "/icons/dashboard.svg",
+		isAccordion: false,
+		link: "/",
+		subMenu: [],
+	},
 	{
 		header: "Master แพทย์",
-		icon: "/icons/data-list.svg",
-		menu: [
+		icon: "/icons/dns.svg",
+		isAccordion: true,
+		link: "/",
+		subMenu: [
 			{
-				subHeader: "Master แพทย์",
-				menuList: [
-					{
-						name: LINKS.MED.name,
-						link: LINKS.MED.link,
-					},
-					{
-						name: LINKS.CLINIC.name,
-						link: LINKS.CLINIC.link,
-					},
-				],
+				name: LINKS.MED.name,
+				link: LINKS.MED.link,
+			},
+			{
+				name: LINKS.CLINIC.name,
+				link: LINKS.CLINIC.link,
 			},
 		],
 	},

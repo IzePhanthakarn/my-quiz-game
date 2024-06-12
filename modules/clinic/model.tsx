@@ -4,8 +4,19 @@ import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
 import { GridColDef } from "@mui/x-data-grid/models";
 import { LINKS } from "../../constants/links";
+import StatusIndicator from "@/components/CustomGridCell/StatusIndicator";
 
 export const columns: GridColDef[] = [
+	{
+		field: "isActive",
+		headerName: "สถานะ",
+		width: 60,
+		align: "center",
+		sortable: false,
+		renderCell: (params) => {
+			return <StatusIndicator status={params.row.isActive} />;
+		},
+	},
 	{ field: "clinicName", headerName: "ชื่อคลินิค", flex: 1 },
 	{
 		field: "clinicCode",

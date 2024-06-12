@@ -53,8 +53,8 @@ export default function Clinic() {
 					</div>
 				</Grid>
 			</Grid>
-			<div className=" bg-white p-4">
-				<Row className="justify-between items-center">
+			<div className=" bg-white pt-4 flex flex-col border-2 border-[#00000033] rounded-xl">
+				<Row className="justify-between items-center px-4">
 					<TextField
 						className="mb-[10px]"
 						value={form.clinicCodeName}
@@ -78,6 +78,13 @@ export default function Clinic() {
 						}
 					/>
 					<Button
+						variant="outlined"
+						onClick={() => dispatch(setIsOpenDrawer(true))}
+						startIcon={<img src="/icons/filter.svg" alt="logo" />}
+					>
+						<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
+					</Button>
+					{/* <Button
 						onClick={() => dispatch(setIsOpenDrawer(true))}
 						className="w-[91px] h-[30px] px-2.5 py-1.5 border-2 border-solid border-[#2196F380]"
 					>
@@ -85,23 +92,23 @@ export default function Clinic() {
 							<img src="/icons/filter.svg" alt="logo" />
 							<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
 						</div>
-					</Button>
+					</Button> */}
 				</Row>
 				<BaseGrid rows={rows} columns={columns} />
-				<BaseDrawer
-					isOpen={isOpen}
-					content={<Drawer />}
-					isFilter
-					confirmFuntion={() =>
-						dispatch(
-							initClinicGrid({
-								...clinicPagination,
-								data: { ...filter, clinicCodeName: "" },
-							})
-						)
-					}
-				/>
 			</div>
+			<BaseDrawer
+				isOpen={isOpen}
+				content={<Drawer />}
+				isFilter
+				confirmFuntion={() =>
+					dispatch(
+						initClinicGrid({
+							...clinicPagination,
+							data: { ...filter, clinicCodeName: "" },
+						})
+					)
+				}
+			/>
 		</Column>
 	);
 }

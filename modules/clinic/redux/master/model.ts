@@ -8,7 +8,7 @@ export interface ClinicForm extends BaseClinic {
 
 export interface ClinicGridModel extends ClinicForm {
 	id: string;
-	isDelete: string;
+	isActive: string;
 }
 export interface ClinicGrid {
 	grid: ClinicGridModel[];
