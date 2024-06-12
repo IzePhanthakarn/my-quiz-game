@@ -5,9 +5,6 @@ export interface ClinicForm {
 	uuid: string;
 }
 
-interface Grid extends ClinicForm {
-	id: string;
-}
 export interface BaseClinic {
 	clinicCode: string;
 	clinicName: string;
