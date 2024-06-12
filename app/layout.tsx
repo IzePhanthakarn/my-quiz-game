@@ -29,7 +29,7 @@ export default function RootLayout({
 			<StoreProvider>
 				<body className={roboto.variable}>
 					<NavBar />
-					<Row className="h-screen">
+					<Row className="h-[calc(100vh-75px)]">
 						<SideBar />
 						<main
 							className={cn(

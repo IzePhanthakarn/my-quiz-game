@@ -4,7 +4,7 @@ import { ClinicForm, ClinicGrid, modelClinicForm } from "./master/model";
 
 export interface Clinic {
 	infomation: ClinicForm;
-	grid: ClinicGrid[];
+	grid: ClinicGrid;
 	clinicDetail: ClinicDetail;
 	clinicFilter: ClinicFilter;
 }
@@ -21,7 +21,7 @@ export const modelClinicDetail: ClinicDetail = {
 
 export const modelClinic: Clinic = {
 	infomation: modelClinicForm,
-	grid: [],
+	grid: { list: [], page: { pageSize: 10, pageNumber: 0, totalData: 0 } },
 	clinicDetail: modelClinicDetail,
 	clinicFilter: modelClinicFilter,
 };

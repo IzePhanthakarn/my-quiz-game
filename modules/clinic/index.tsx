@@ -19,13 +19,18 @@ import { LINKS } from "@/constants/links";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
+import {
+	modelPagination,
+	modelPaginationOptions,
+} from "@/components/Pagination/redux/model";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
-	const { form, rows, isOpen, filter } = useSelector(
+	const { form, rows, page, isOpen, filter } = useSelector(
 		(state: SliceModel) => ({
 			form: state.crud.formData,
-			rows: state.clinic.grid,
+			rows: state.clinic.grid.list,
+			page: state.clinic.grid.page,
 			isOpen: state.drawer.isOpen,
 			filter: state.clinic.clinicFilter,
 		}),
@@ -33,8 +38,13 @@ export default function Clinic() {
 	);
 
 	useEffect(() => {
-		dispatch(initClinicGrid());
-	}, []);
+		dispatch(
+			initClinicGrid({
+				data: { ...form },
+				pagination: { ...page },
+			})
+		);
+	}, [page]);
 
 	return (
 		<Column>
@@ -94,7 +104,7 @@ export default function Clinic() {
 						</div>
 					</Button> */}
 				</Row>
-				<BaseGrid rows={rows} columns={columns} />
+				<BaseGrid rows={rows} columns={columns} page={page} />
 			</div>
 			<BaseDrawer
 				isOpen={isOpen}

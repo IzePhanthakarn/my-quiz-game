@@ -2,31 +2,22 @@ import API_PATH from "@/constants/api";
 import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setClinicDetail, setClinicGrid } from "../redux";
-import {
-	ClinicForm,
-	ClinicGridModel,
-	modelClinicForm,
-} from "../redux/master/model";
+import { setClinicDetail, setClinicGrid, setTotalData } from "../redux";
+import { ClinicForm, ClinicList, modelClinicForm } from "../redux/master/model";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import { ClinicDetail } from "../redux/model";
-export interface PaginationOption {
-	pageNumber: number;
-	pageSize: number;
-}
+import {
+	modelPaginationOptions,
+	PaginationOptions,
+} from "@/components/Pagination/redux/model";
 
 export interface ClinicPagination {
-	pagination: PaginationOption;
+	pagination: PaginationOptions;
 	data: ClinicForm;
 }
 
-export const modelPagination: PaginationOption = {
-	pageNumber: 0,
-	pageSize: 10,
-};
-
 export const clinicPagination: ClinicPagination = {
-	pagination: modelPagination,
+	pagination: modelPaginationOptions,
 	data: modelClinicForm,
 };
 
@@ -36,7 +27,7 @@ export const getClinicList = createAsyncThunk(
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
 			const response = await axios.post(apiPath, params);
-			return response.data.content;
+			return response.data;
 		} catch (err) {
 			return thunkAPi.rejectWithValue("");
 		}
@@ -66,8 +57,9 @@ export const initGetClinicDetail =
 export const initClinicGrid =
 	(params: ClinicPagination = clinicPagination) =>
 	async (dispatch: AppDispatch) => {
+		console.log("paramsparams", params);
 		const data = await dispatch(getClinicList(params));
-		const grid = data.payload.map((data: ClinicGridModel, index: number) => {
+		const grid = data.payload.content.map((data: ClinicList, index: number) => {
 			return {
 				id: index,
 				clinicCode: data.clinicCode,
@@ -75,6 +67,8 @@ export const initClinicGrid =
 				isActive: data.isActive,
 			};
 		});
+		const totalData = data.payload.totalElements;
+		dispatch(setTotalData(totalData));
 		dispatch(setClinicGrid(grid));
 	};
 

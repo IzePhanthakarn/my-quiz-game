@@ -6,13 +6,13 @@ import drawerSlice from "@/components/BaseDrawer/redux";
 import dialogSlice from "@/components/BaseDialog/redux";
 
 export const store = configureStore({
-  reducer: {
-    crud: crudSlice,
-    clinic: clinicSlice,
-    doctor: doctorSlice,
-    drawer: drawerSlice,
-    dialog: dialogSlice,
-  },
+	reducer: {
+		crud: crudSlice,
+		clinic: clinicSlice,
+		doctor: doctorSlice,
+		drawer: drawerSlice,
+		dialog: dialogSlice,
+	},
 });
 
 export type RootState = ReturnType<typeof store.getState>;
