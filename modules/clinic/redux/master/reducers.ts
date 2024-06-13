@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Clinic, ClinicDetail } from "../model";
+import { Clinic, ClinicDetail, ClinicDetailError } from "../model";
 import { ClinicGrid } from "./model";
 
 export const clinicReducers = {
@@ -8,5 +8,11 @@ export const clinicReducers = {
 	},
 	setClinicDetail: (state: Clinic, action: PayloadAction<ClinicDetail>) => {
 		state.clinicDetail = action.payload;
+	},
+	setClinicDetailError: (
+		state: Clinic,
+		action: PayloadAction<ClinicDetailError>
+	) => {
+		state.clinicDetailError = action.payload;
 	},
 };

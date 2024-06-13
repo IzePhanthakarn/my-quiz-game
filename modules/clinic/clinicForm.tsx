@@ -3,9 +3,9 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setClinicDetail } from "./redux";
+import { setClinicDetail, setClinicDetailError } from "./redux";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
@@ -19,14 +19,23 @@ import { modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
 import { useRouter } from "next/router";
 import { Label } from "@mui/icons-material";
+import { clinicCodeSchema } from "./field_validation/clinicForm";
+import * as Yup from "yup";
 
 export default function ClinicForm() {
 	const dispatch: AppDispatch = useDispatch();
 	// const router = useRouter();
+	// const [errors, setErrors] = useState<Partial<FormData>>({});
+	// const [formData, setFormData] = useState<{}>({
+	// 	clinicCode: "",
+	// 	clinicName: "",
+	// });
+
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail } = useSelector(
+	const { clinicDetail, clinicDetailError } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
+			clinicDetailError: state.clinic.clinicDetailError,
 		}),
 		shallowEqual
 	);
@@ -51,15 +60,36 @@ export default function ClinicForm() {
 						<div>
 							<TextField
 								fullWidth
-								onChange={(e) => {
+								inputProps={{ maxLength: 4 }}
+								onChange={async (e) => {
 									dispatch(
 										setClinicDetail({
 											...clinicDetail,
 											clinicCode: e.target.value,
 										})
 									);
+									try {
+										await clinicCodeSchema.validate(e.target.value);
+										dispatch(
+											setClinicDetailError({
+												...clinicDetailError,
+												clinicCode: "",
+											})
+										);
+									} catch (error) {
+										if (error instanceof Yup.ValidationError) {
+											dispatch(
+												setClinicDetailError({
+													...clinicDetailError,
+													clinicCode: error.message,
+												})
+											);
+										}
+									}
 								}}
 								value={clinicDetail.clinicCode}
+								error={!!clinicDetailError.clinicCode}
+								helperText={clinicDetailError.clinicCode}
 							/>
 						</div>
 					</Grid>
@@ -72,6 +102,7 @@ export default function ClinicForm() {
 						<div>
 							<TextField
 								fullWidth
+								inputProps={{ maxLength: 200 }}
 								onChange={(e) => {
 									dispatch(
 										setClinicDetail({

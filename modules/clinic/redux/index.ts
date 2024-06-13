@@ -12,7 +12,11 @@ export const clinicSlice = createSlice({
 	},
 });
 
-export const { setClinicGrid, setClinicDetail, setClinicFilter } =
-	clinicSlice.actions;
+export const {
+	setClinicGrid,
+	setClinicDetail,
+	setClinicFilter,
+	setClinicDetailError,
+} = clinicSlice.actions;
 
 export default clinicSlice.reducer;
