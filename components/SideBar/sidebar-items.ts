@@ -24,7 +24,7 @@ export const menuList: MenuItem[] = [
 		header: "Master แพทย์",
 		icon: "/icons/dns.svg",
 		isAccordion: true,
-		link: "/",
+		link: "/clinic",
 		subMenu: [
 			{
 				name: LINKS.MED.name,

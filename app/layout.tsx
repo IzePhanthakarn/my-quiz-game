@@ -7,6 +7,7 @@ import Row from "@/components/Row";
 import { Roboto } from "next/font/google";
 import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
+import HandleErrorDialog from "@/modules/handle-error-dialog";
 
 const roboto = Roboto({
 	subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
 		<html lang="en">
 			<StoreProvider>
 				<body className={roboto.variable}>
+					<HandleErrorDialog />
 					<NavBar />
 					<Row className="h-[calc(100vh-75px)]">
 						<SideBar />

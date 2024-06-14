@@ -10,8 +10,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { MenuItem, menuList, SubMenuItem } from "./sidebar-items";
 
 export default function SideBar() {
-	const getPathName = usePathname();
-	const pathName = `/${getPathName.split("/")[1]}`;
+	const pathName = usePathname();
 
 	return (
 		<div
@@ -39,8 +38,14 @@ export default function SideBar() {
 								},
 							}}
 							key={index}
+							defaultExpanded={pathName.includes(item.link)}
 						>
 							<AccordionSummary
+								// sx={{
+								// 	"&.MuiAccordionSummary-root": {
+								// 		backgroundColor: "red",
+								// 	},
+								// }}
 								className="px-4 h-[66px] bg-[#214FF3] text-white"
 								expandIcon={<ExpandMoreIcon className="text-white " />}
 								aria-controls="panel1-content"
@@ -55,7 +60,8 @@ export default function SideBar() {
 								<AccordionDetails key={index}>
 									<Link
 										className={`px-6 py-2 flex w-full items-center bg-[#214FF3] text-white ${
-											pathName === subItem.link && "bg-[#1f41bc] font-semibold"
+											pathName.includes(subItem.link) &&
+											"bg-[#1f41bc] font-semibold"
 										}`}
 										key={subItem.name}
 										href={subItem.link}

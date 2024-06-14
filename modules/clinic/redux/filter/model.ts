@@ -16,4 +16,5 @@ export const modelClinicFilter: ClinicFilter = {
 	checkClinicName: false,
 	deteled: false,
 	active: false,
+	uuid: ""
 };

@@ -63,7 +63,6 @@ export const initGetClinicDetail =
 export const initClinicGrid =
 	(params: ClinicPagination = clinicPagination) =>
 	async (dispatch: AppDispatch) => {
-		console.log("paramsparams", params);
 		const data = await dispatch(getClinicList(params));
 		const grid = data.payload.content.map((data: ClinicList, index: number) => {
 			return {

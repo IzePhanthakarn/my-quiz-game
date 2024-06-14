@@ -4,6 +4,7 @@ import clinicSlice from "../../modules/clinic/redux";
 import doctorSlice from "@/modules/doctor/redux";
 import drawerSlice from "@/components/BaseDrawer/redux";
 import dialogSlice from "@/components/BaseDialog/redux";
+import loadingSlice from "@/components/Loading/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
 		doctor: doctorSlice,
 		drawer: drawerSlice,
 		dialog: dialogSlice,
+		loading: loadingSlice,
 	},
 });
 

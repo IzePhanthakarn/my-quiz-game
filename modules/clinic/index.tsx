@@ -19,32 +19,35 @@ import { LINKS } from "@/constants/links";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
-import {
-	modelPagination,
-	modelPaginationOptions,
-} from "@/components/Pagination/redux/model";
+import { setIsLoading } from "@/components/Loading/redux";
+import _ from "lodash";
+import { setPagination } from "./redux";
+import { GridSortModel } from "@mui/x-data-grid";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
-	const { form, rows, page, isOpen, filter } = useSelector(
+	const { form, rows, page, isOpen, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			form: state.crud.formData,
 			rows: state.clinic.grid.list,
 			page: state.clinic.grid.page,
 			isOpen: state.drawer.isOpen,
 			filter: state.clinic.clinicFilter,
+			isLoading: state.loading.isLoading,
 		}),
 		shallowEqual
 	);
 
 	useEffect(() => {
+		dispatch(setIsLoading(true));
 		dispatch(
 			initClinicGrid({
 				data: { ...form },
 				pagination: { ...page },
 			})
 		);
-	}, [page]);
+		dispatch(setIsLoading(false));
+	}, [page.pageNumber, page.pageSize]);
 
 	return (
 		<Column>
@@ -63,10 +66,9 @@ export default function Clinic() {
 					</div>
 				</Grid>
 			</Grid>
-			<div className=" bg-white pt-4 flex flex-col border-2 border-[#00000033] rounded-xl">
-				<Row className="justify-between items-center px-4">
+			<div className=" bg-white flex flex-col border-2 border-[#00000033] rounded-xl">
+				<Row className="justify-between items-center px-4 pt-4 pb-2.5">
 					<TextField
-						className="mb-[10px]"
 						value={form.clinicCodeName}
 						placeholder="ค้นหา"
 						onChange={(e) =>
@@ -94,17 +96,22 @@ export default function Clinic() {
 					>
 						<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
 					</Button>
-					{/* <Button
-						onClick={() => dispatch(setIsOpenDrawer(true))}
-						className="w-[91px] h-[30px] px-2.5 py-1.5 border-2 border-solid border-[#2196F380]"
-					>
-						<div className="flex items-center justify-center space-x-2">
-							<img src="/icons/filter.svg" alt="logo" />
-							<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
-						</div>
-					</Button> */}
 				</Row>
-				<BaseGrid rows={rows} columns={columns} page={page} />
+				<BaseGrid
+					rows={rows}
+					columns={columns}
+					page={page}
+					loading={isLoading}
+					onSortModelChange={(sortModel: GridSortModel) => {
+						dispatch(
+							setPagination({
+								...page,
+								sort: sortModel[0].sort ?? "",
+								order: sortModel[0].field ?? "",
+							})
+						);
+					}}
+				/>
 			</div>
 			<BaseDrawer
 				isOpen={isOpen}

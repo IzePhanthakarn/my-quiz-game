@@ -17,7 +17,11 @@ export const columns: GridColDef[] = [
 			return <StatusIndicator status={params.row.isActive} />;
 		},
 	},
-	{ field: "clinicName", headerName: "ชื่อคลินิค", flex: 1 },
+	{
+		field: "clinicName",
+		headerName: "ชื่อคลินิค",
+		flex: 1,
+	},
 	{
 		field: "clinicCode",
 		headerName: "รหัสคลินิค",
@@ -27,6 +31,7 @@ export const columns: GridColDef[] = [
 		field: "action",
 		headerName: "คำสั่ง",
 		flex: 1,
+		sortable: false,
 		renderCell: (params) => {
 			return (
 				<CustomCellButton
