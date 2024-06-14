@@ -6,11 +6,13 @@ export interface Clinic {
 	infomation: ClinicForm;
 	grid: ClinicGrid;
 	clinicDetail: ClinicDetail;
+	clinicDetailError: ClinicDetailError;
 	clinicFilter: ClinicFilter;
 }
 
 export const modelClinicDetail: ClinicDetail = {
 	clinicCode: "",
+	// clinicCodeError: "",
 	clinicName: "",
 	createdBy: "",
 	createdDate: "",
@@ -21,14 +23,20 @@ export const modelClinicDetail: ClinicDetail = {
 	uuid: "",
 };
 
+export const modelClinicDetailError: ClinicDetailError = {
+	clinicCode: "",
+};
+
 export const modelClinic: Clinic = {
 	infomation: modelClinicForm,
 	grid: { list: [], page: { pageSize: 10, pageNumber: 0, totalData: 0 } },
 	clinicDetail: modelClinicDetail,
+	clinicDetailError: modelClinicDetailError,
 	clinicFilter: modelClinicFilter,
 };
 export interface ClinicDetail {
 	clinicCode: string;
+	// clinicCodeError: string;
 	clinicName: string;
 	createdBy: string;
 	createdDate: string;
@@ -37,4 +45,8 @@ export interface ClinicDetail {
 	updatedBy: string;
 	updatedDate: string;
 	uuid: string;
+}
+
+export interface ClinicDetailError {
+	clinicCode: string;
 }
