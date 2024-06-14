@@ -3,7 +3,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setClinicDetail, setClinicGrid, setTotalData } from "../redux";
-import { ClinicForm, ClinicList, modelClinicForm } from "../redux/master/model";
+import { ClinicList } from "../redux/master/model";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import { ClinicDetail } from "../redux/model";
 import {
@@ -11,6 +11,9 @@ import {
 	PaginationOptions,
 } from "@/components/Pagination/redux/model";
 import _ from "lodash";
+import { isActive } from "@/constants/constants";
+import { handleEmptyStringToNull } from "@/utils";
+import { setIsLoading } from "@/components/Loading/redux";
 
 export interface PaginationOption {
 	pageNumber: number;
@@ -19,12 +22,16 @@ export interface PaginationOption {
 
 export interface ClinicPagination {
 	pagination: PaginationOptions;
-	data: ClinicForm;
+	clinicCode: string | null;
+	clinicName: string | null;
+	isActive: isActive | null;
 }
 
 export const clinicPagination: ClinicPagination = {
 	pagination: modelPaginationOptions,
-	data: modelClinicForm,
+	clinicCode: "",
+	clinicName: "",
+	isActive: null,
 };
 
 export const getClinicList = createAsyncThunk(
@@ -61,9 +68,15 @@ export const initGetClinicDetail =
 	};
 
 export const initClinicGrid =
-	(params: ClinicPagination = clinicPagination) =>
-	async (dispatch: AppDispatch) => {
-		const data = await dispatch(getClinicList(params));
+	(params: ClinicPagination) => async (dispatch: AppDispatch) => {
+		const newParams = {
+			...params,
+			clinicCode: handleEmptyStringToNull(params.clinicCode),
+			clinicName: handleEmptyStringToNull(params.clinicName),
+		};
+		dispatch(setIsLoading(true));
+		const data = await dispatch(getClinicList(newParams));
+		dispatch(setIsLoading(false));
 		const grid = data.payload.content.map((data: ClinicList, index: number) => {
 			return {
 				id: index,

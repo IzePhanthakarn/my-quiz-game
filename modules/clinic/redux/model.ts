@@ -29,7 +29,14 @@ export const modelClinicDetailError: ClinicDetailError = {
 
 export const modelClinic: Clinic = {
 	infomation: modelClinicForm,
-	grid: { list: [], page: { pageSize: 10, pageNumber: 0, totalData: 0 } },
+	grid: {
+		list: [],
+		page: {
+			pageSize: 10,
+			pageNumber: 0,
+			totalData: 0,
+		},
+	},
 	clinicDetail: modelClinicDetail,
 	clinicDetailError: modelClinicDetailError,
 	clinicFilter: modelClinicFilter,

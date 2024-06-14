@@ -39,14 +39,14 @@ export default function Clinic() {
 	);
 
 	useEffect(() => {
-		dispatch(setIsLoading(true));
 		dispatch(
 			initClinicGrid({
-				data: { ...form },
 				pagination: { ...page },
+				clinicCode: filter.clinicCode,
+				clinicName: filter.clinicName,
+				isActive: filter.isActive,
 			})
 		);
-		dispatch(setIsLoading(false));
 	}, [page.pageNumber, page.pageSize]);
 
 	return (
@@ -84,7 +84,6 @@ export default function Clinic() {
 							dispatch(
 								initClinicGrid({
 									...clinicPagination,
-									data: { ...form },
 								})
 							)
 						}
@@ -106,8 +105,6 @@ export default function Clinic() {
 						dispatch(
 							setPagination({
 								...page,
-								sort: sortModel[0].sort ?? "",
-								order: sortModel[0].field ?? "",
 							})
 						);
 					}}
@@ -120,8 +117,10 @@ export default function Clinic() {
 				confirmFuntion={() =>
 					dispatch(
 						initClinicGrid({
-							...clinicPagination,
-							data: { ...filter, clinicCodeName: "" },
+							pagination: { ...page },
+							clinicCode: filter.clinicCode,
+							clinicName: filter.clinicName,
+							isActive: filter.isActive,
 						})
 					)
 				}

@@ -38,7 +38,7 @@ export default function SideBar() {
 								},
 							}}
 							key={index}
-							defaultExpanded={pathName.includes(item.link)}
+							expanded={pathName.includes(pathName)}
 						>
 							<AccordionSummary
 								// sx={{
@@ -60,8 +60,7 @@ export default function SideBar() {
 								<AccordionDetails key={index}>
 									<Link
 										className={`px-6 py-2 flex w-full items-center bg-[#214FF3] text-white ${
-											pathName.includes(subItem.link) &&
-											"bg-[#1f41bc] font-semibold"
+											pathName === subItem.link && "bg-[#1f41bc] font-semibold"
 										}`}
 										key={subItem.name}
 										href={subItem.link}
