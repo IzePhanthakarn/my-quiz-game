@@ -16,6 +16,8 @@ import * as _ from "lodash";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
+import dayjs from "dayjs";
+import { DateFormat } from "../../constants/date-format.constant";
 
 export default function ClinicFormEdit(params: ClinicFormPageProps) {
 	const dispatch: AppDispatch = useDispatch();
@@ -28,7 +30,7 @@ export default function ClinicFormEdit(params: ClinicFormPageProps) {
 	);
 
 	useEffect(() => {
-		if (!isInit && params.params.id !== "") {
+		if (!isInit && params.params.uuid !== "") {
 			dispatch(initGetClinicDetail(params));
 			setIsInit(true);
 		}
@@ -39,7 +41,10 @@ export default function ClinicFormEdit(params: ClinicFormPageProps) {
 				<Grid container rowSpacing={3} spacing={5}>
 					<Grid item xs={6}>
 						<div>
-							<FormLabel>Clinic Code</FormLabel>
+							<FormLabel>
+								Clinic Code
+								{/* <span className="text-red-600">*</span> */}
+							</FormLabel>
 						</div>
 						<div>
 							<TextField
@@ -56,7 +61,10 @@ export default function ClinicFormEdit(params: ClinicFormPageProps) {
 					</Grid>
 					<Grid item xs={6}>
 						<div>
-							<FormLabel>Clinic Name</FormLabel>
+							<FormLabel>
+								Clinic Name
+								<span className="text-red-600">*</span>
+							</FormLabel>
 						</div>
 						<div>
 							<TextField
@@ -80,16 +88,16 @@ export default function ClinicFormEdit(params: ClinicFormPageProps) {
 						<div>
 							<Switch
 								checked={
-									_.trim(clinicDetail.isDeleted) === IsDelete.N ? true : false
+									_.trim(clinicDetail.isActive) === IsDelete.Y ? true : false
 								}
 								onChange={(e) => {
 									dispatch(
 										setClinicDetail({
 											...clinicDetail,
-											isDeleted:
-												_.trim(clinicDetail.isDeleted) === IsDelete.N
-													? IsDelete.Y
-													: IsDelete.N,
+											isActive:
+												_.trim(clinicDetail.isActive) === IsDelete.Y
+													? IsDelete.N
+													: IsDelete.Y,
 										})
 									);
 								}}
@@ -99,18 +107,29 @@ export default function ClinicFormEdit(params: ClinicFormPageProps) {
 					</Grid>
 					<Grid item xs={12}>
 						<Grid container spacing={4}>
-							<Grid item>
-								<Button
-									variant="contained"
-									onClick={() => dispatch(updateClinic(clinicDetail))}
-								>
-									บันทึก
-								</Button>
+							<Grid container spacing={4} item xs={6}>
+								<Grid item>
+									<Button
+										variant="contained"
+										onClick={() => dispatch(updateClinic(clinicDetail))}
+									>
+										บันทึก
+									</Button>
+								</Grid>
+								<Grid item>
+									<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
+										<Button variant="outlined">ยกเลิก</Button>
+									</Link>
+								</Grid>
 							</Grid>
-							<Grid item>
-								<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
-									<Button variant="outlined">ยกเลิก</Button>
-								</Link>
+
+							<Grid item xs={6} className="content-end text-right">
+								<FormLabel>
+									แก้ไขล่าสุดโดย {clinicDetail.updatedBy} <br></br>
+									{dayjs(clinicDetail.updatedDate)
+										.format(DateFormat.DDMMYYYYHHmm)
+										.toString()}
+								</FormLabel>
 							</Grid>
 						</Grid>
 					</Grid>

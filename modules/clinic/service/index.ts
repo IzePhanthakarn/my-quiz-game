@@ -10,6 +10,12 @@ import {
 	modelPaginationOptions,
 	PaginationOptions,
 } from "@/components/Pagination/redux/model";
+import _ from "lodash";
+
+export interface PaginationOption {
+	pageNumber: number;
+	pageSize: number;
+}
 
 export interface ClinicPagination {
 	pagination: PaginationOptions;
@@ -49,8 +55,8 @@ export const getClinicDetail = createAsyncThunk(
 
 export const initGetClinicDetail =
 	(params: ClinicFormPageProps) => async (dispatch: AppDispatch) => {
-		const { id } = params.params;
-		const response = await dispatch(getClinicDetail(id));
+		const { uuid } = params.params;
+		const response = await dispatch(getClinicDetail(uuid));
 		dispatch(setClinicDetail(response.payload));
 	};
 
@@ -64,6 +70,7 @@ export const initClinicGrid =
 				id: index,
 				clinicCode: data.clinicCode,
 				clinicName: data.clinicName,
+				uuid: data.uuid,
 				isActive: data.isActive,
 			};
 		});
@@ -84,6 +91,7 @@ export const createClinicApi = createAsyncThunk(
 		body: {
 			clinicCode: ClinicDetail["clinicCode"];
 			clinicName: ClinicDetail["clinicName"];
+			isActive: ClinicDetail["isActive"];
 		},
 		thunkAPi
 	) => {
@@ -102,8 +110,14 @@ export const addClinic =
 			createClinicApi({
 				clinicCode: clinicDetail.clinicCode,
 				clinicName: clinicDetail.clinicName,
+				isActive: clinicDetail.isActive,
 			})
 		);
+		if (_.get(data.payload, "error.message") === "Rejected") {
+			return;
+		}
+		// router.push(`/${LINKS.CLINIC.link}`);
+		// redirectToPage('/target-page');
 	};
 
 export const updateClinicApi = createAsyncThunk(
@@ -112,6 +126,7 @@ export const updateClinicApi = createAsyncThunk(
 		body: {
 			body: {
 				clinicName: ClinicDetail["clinicName"];
+				isActive: ClinicDetail["isActive"];
 			};
 			clinicCode: ClinicDetail["clinicCode"];
 		},
@@ -131,7 +146,10 @@ export const updateClinic =
 		const data = await dispatch(
 			updateClinicApi({
 				clinicCode: clinicDetail.clinicCode,
-				body: { clinicName: clinicDetail.clinicName },
+				body: {
+					clinicName: clinicDetail.clinicName,
+					isActive: clinicDetail.isActive,
+				},
 			})
 		);
 	};

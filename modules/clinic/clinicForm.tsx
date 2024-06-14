@@ -17,9 +17,12 @@ import Link from "next/link";
 import { LINKS } from "../../constants/links";
 import { modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
+import { useRouter } from "next/router";
+import { Label } from "@mui/icons-material";
 
 export default function ClinicForm() {
 	const dispatch: AppDispatch = useDispatch();
+	// const router = useRouter();
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const { clinicDetail } = useSelector(
 		(state: SliceModel) => ({
@@ -41,7 +44,9 @@ export default function ClinicForm() {
 				<Grid container rowSpacing={3} spacing={5}>
 					<Grid item xs={6}>
 						<div>
-							<FormLabel>Clinic Code</FormLabel>
+							<FormLabel>
+								Clinic Code <span className="text-red-600">*</span>
+							</FormLabel>
 						</div>
 						<div>
 							<TextField
@@ -60,7 +65,9 @@ export default function ClinicForm() {
 					</Grid>
 					<Grid item xs={6}>
 						<div>
-							<FormLabel>Clinic Name</FormLabel>
+							<FormLabel>
+								Clinic Name <span className="text-red-600">*</span>
+							</FormLabel>
 						</div>
 						<div>
 							<TextField
@@ -84,16 +91,16 @@ export default function ClinicForm() {
 						<div>
 							<Switch
 								checked={
-									_.trim(clinicDetail.isDeleted) === IsDelete.N ? true : false
+									_.trim(clinicDetail.isActive) === IsDelete.Y ? true : false
 								}
 								onChange={(e) => {
 									dispatch(
 										setClinicDetail({
 											...clinicDetail,
-											isDeleted:
-												_.trim(clinicDetail.isDeleted) === IsDelete.N
-													? IsDelete.Y
-													: IsDelete.N,
+											isActive:
+												_.trim(clinicDetail.isActive) === IsDelete.Y
+													? IsDelete.N
+													: IsDelete.Y,
 										})
 									);
 								}}
@@ -106,7 +113,9 @@ export default function ClinicForm() {
 							<Grid item>
 								<Button
 									variant="contained"
-									onClick={() => dispatch(addClinic(clinicDetail))}
+									onClick={() => {
+										dispatch(addClinic(clinicDetail));
+									}}
 								>
 									บันทึก
 								</Button>

@@ -30,8 +30,8 @@ export const columns: GridColDef[] = [
 		renderCell: (params) => {
 			return (
 				<CustomCellButton
-					editLink={LINKS.CLINIC.edit + params.row.clinicCode}
-					viewLink={LINKS.CLINIC.view + params.row.clinicCode}
+					editLink={LINKS.CLINIC.edit + params.row.uuid}
+					viewLink={LINKS.CLINIC.view + params.row.uuid}
 					mode={BUTTON_MODE.VIEW_EDIT_ICON}
 				/>
 			);
