@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
+import { IsActive, IsDelete } from "@/constants/constants";
+import { toggleIsActive, toggleIsDelete } from "@/utils";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -75,12 +77,12 @@ export default function Drawer() {
 					<div className="p-4 pt-1">
 						<TextField
 							className="w-full"
-							value={filter.clinicCode}
+							value={filter.clinicName}
 							onChange={(e) => {
 								dispatch(
 									setClinicFilter({
 										...filter,
-										clinicCode: e.target.value,
+										clinicName: e.target.value,
 									})
 								);
 							}}
@@ -112,18 +114,18 @@ export default function Drawer() {
 							className="m-0 ml-3"
 							control={
 								<Checkbox
-									onClick={() =>
+									onClick={() => {
 										dispatch(
 											setClinicFilter({
 												...filter,
-												deteled: !filter.deteled,
+												isDelete: toggleIsDelete(filter.isDelete),
 											})
-										)
-									}
+										);
+									}}
 								/>
 							}
-							checked={filter.deteled}
-							label="ชื่อคลินิค"
+							checked={filter.isDelete !== IsDelete.Y}
+							label="ลบ"
 						/>
 						<FormControlLabel
 							className="m-0 ml-3"
@@ -133,14 +135,14 @@ export default function Drawer() {
 										dispatch(
 											setClinicFilter({
 												...filter,
-												active: !filter.active,
+												isActive: toggleIsActive(filter.isActive),
 											})
 										)
 									}
 								/>
 							}
-							checked={filter.active}
-							label="รหัสคลินิค"
+							checked={filter.isActive !== IsActive.N}
+							label="ไม่ลบ"
 						/>
 					</Column>
 				)}

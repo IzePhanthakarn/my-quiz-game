@@ -100,13 +100,6 @@ export default function Clinic() {
 					columns={columns}
 					page={page}
 					loading={isLoading}
-					onSortModelChange={(sortModel: GridSortModel) => {
-						dispatch(
-							setPagination({
-								...page,
-							})
-						);
-					}}
 				/>
 			</div>
 			<BaseDrawer

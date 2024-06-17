@@ -1,5 +1,3 @@
-import { SxProps } from "@mui/material/styles";
-import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
 import React from "react";
 import Pagination from "../Pagination";
 import { PaginationOptions } from "../Pagination/redux/model";
@@ -9,21 +7,12 @@ interface Props {
 	rows: any;
 	columns: TableProps["columns"];
 	label?: string;
-	sx?: SxProps;
 	page: PaginationOptions;
-	onSortModelChange?: (sortModel: GridSortModel) => void;
 	loading?: boolean;
 }
 
 export default function BaseGrid(props: Props) {
-	const {
-		rows,
-		columns,
-		label,
-		sx,
-		onSortModelChange = (sortModel: GridSortModel) => {},
-		loading = false,
-	} = props;
+	const { rows, columns, label, loading = false, page } = props;
 	return (
 		<div className="w-full">
 			{label && (
@@ -31,9 +20,13 @@ export default function BaseGrid(props: Props) {
 					<p className="text-2xl">{label}</p>
 				</div>
 			)}
-			<div className="h-[400px]">
-				<Table dataSource={rows} columns={columns} scroll={{ y: 400 }} />
-			</div>
+			<Table
+				dataSource={rows}
+				loading={loading}
+				columns={columns}
+				scroll={{ y: 400 }}
+				pagination={false}
+			/>
 			{/* <Pagination page={props.page} /> */}
 		</div>
 	);

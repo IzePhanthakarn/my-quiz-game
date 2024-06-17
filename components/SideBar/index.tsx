@@ -1,22 +1,34 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import React from "react";
 import { usePathname } from "next/navigation";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { MenuItem, menuList, SubMenuItem } from "./sidebar-items";
+import Collapse, { CollapseProps } from "antd/es/collapse";
+import "./style.css";
+import SidebarContent from "./content";
 
 export default function SideBar() {
 	const pathName = usePathname();
 
+	const items: CollapseProps["items"] = [
+		{
+			key: "1",
+			label: (
+				<div className="px-4 h-[47px] flex items-center bg-[#214FF3] text-white">
+					<div className="w-full flex items-center space-x-4">
+						<img src="/icons/dns.svg" alt="logo" />
+						<p className="font-semibold">Master แพทย์</p>
+					</div>
+				</div>
+			),
+			children: <SidebarContent />,
+		},
+	];
 	return (
 		<div
 			className={`min-w-[280px] h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col`}
 		>
-			{menuList.map((item: MenuItem, index: number) => {
+			<Collapse defaultActiveKey={["1"]} items={items} />
+			{/* {menuList.map((item: MenuItem, index: number) => {
 				if (item.isAccordion) {
 					return (
 						<Accordion
@@ -87,7 +99,7 @@ export default function SideBar() {
 						</Link>
 					);
 				}
-			})}
+			})} */}
 		</div>
 	);
 }

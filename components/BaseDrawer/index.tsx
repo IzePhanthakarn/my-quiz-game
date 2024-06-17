@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Drawer, { DrawerProps } from "@mui/material/Drawer";
 import Row from "../Row";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
@@ -11,11 +10,13 @@ import Button from "@mui/material/Button";
 import { setClinicFilter } from "@/modules/clinic/redux";
 import { modelClinicFilter } from "@/modules/clinic/redux/filter/model";
 import { handleConfirmFilter } from "@/modules/clinic/service";
+import Drawer, { DrawerProps } from "antd/es/drawer";
+import "./style.css";
 interface Props {
 	isOpen: boolean;
 	content: React.ReactNode;
 	label?: string;
-	anchor?: DrawerProps["anchor"];
+	anchor?: DrawerProps["placement"];
 	bgNone?: boolean;
 	isFilter?: boolean;
 	confirmFuntion?: () => void;
@@ -33,18 +34,7 @@ export default function BaseDrawer(props: Props) {
 		confirmFuntion = () => {},
 	} = props;
 	return (
-		<Drawer
-			sx={{
-				"& .MuiDrawer-paper": {
-					width: "360px",
-				},
-				"& .MuiBackdrop-root": {
-					background: bgNone ? "none" : "",
-				},
-			}}
-			anchor={anchor ?? "right"}
-			open={isOpen}
-		>
+		<Drawer title={label ?? ""} key={anchor ?? "right"} open={isOpen}>
 			<div className="border-b-2 border-[#00000033] px-6 pt-6 pb-4">
 				<Row className="justify-between items-center">
 					<p className="text-[28px] leading-[32px] font-bold">{label}</p>

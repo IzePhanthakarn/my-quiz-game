@@ -3,7 +3,7 @@ export enum IsDelete {
 	N = "N",
 }
 
-export enum isActive {
+export enum IsActive {
 	Y = "Y",
 	N = "N",
 }

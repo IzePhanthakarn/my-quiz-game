@@ -28,7 +28,6 @@ export const columns: TableProps["columns"] = [
 		title: "คำสั่ง",
 		dataIndex: "uuid",
 		key: "id",
-
 		render: (_, { uuid }) => (
 			<CustomCellButton
 				editLink={LINKS.CLINIC.edit + uuid}
