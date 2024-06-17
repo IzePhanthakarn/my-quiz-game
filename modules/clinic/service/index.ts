@@ -11,7 +11,7 @@ import {
 	PaginationOptions,
 } from "@/components/Pagination/redux/model";
 import _ from "lodash";
-import { isActive } from "@/constants/constants";
+import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 
@@ -24,7 +24,7 @@ export interface ClinicPagination {
 	pagination: PaginationOptions;
 	clinicCode: string | null;
 	clinicName: string | null;
-	isActive: isActive | null;
+	isActive: IsActive | null;
 }
 
 export const clinicPagination: ClinicPagination = {
