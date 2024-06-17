@@ -3,19 +3,19 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicDetail, setClinicDetailError } from "./redux";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-import Switch from "@mui/material/Switch";
-import { IsDelete } from "../../constants/constants";
+// import Switch from "@mui/material/Switch";
+import { IsActive, IsDelete } from "../../constants/constants";
 import * as _ from "lodash";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
-import { modelClinicDetail } from "./redux/model";
+import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
 import { useRouter } from "next/router";
 import { Label } from "@mui/icons-material";
@@ -28,10 +28,14 @@ import * as Yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormGroup from "@mui/material/FormGroup";
+import type { FormInstance, FormProps } from "antd";
+import { Switch, Button, Checkbox, Form, Input } from "antd";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
+	const [form] = Form.useForm();
+	const formRef = useRef<FormInstance | null>(null);
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const { clinicDetail, clinicDetailError } = useSelector(
@@ -49,26 +53,32 @@ export default function ClinicForm() {
 		}
 	}, []);
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		trigger,
-	} = useForm<FormData>({
-		resolver: yupResolver(validationSchema),
-		mode: "onBlur",
-		reValidateMode: "onBlur",
-	});
+	const onFinish: FormProps<any>["onFinish"] = (values) => {
+		console.log("Success:", values);
+		dispatch(addClinic(clinicDetail));
+	};
 
-	const onSubmit: SubmitHandler<FormData> = (data) => {
-		console.log(123, data);
+	const onFinishFailed: FormProps<any>["onFinishFailed"] = (errorInfo) => {
+		console.log("Failed:", errorInfo);
 	};
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
 			<FormControl component="fieldset" variant="outlined">
 				<FormGroup>
-					<form onSubmit={handleSubmit(onSubmit)}>
+					<Form
+						name="basic"
+						// labelCol={{ span: 8 }}
+						// wrapperCol={{ span: 16 }}
+						// style={{ maxWidth: 600 }}
+						initialValues={{ remember: true }}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						autoComplete="off"
+						size="large"
+						form={form}
+						ref={formRef}
+					>
 						<Grid container rowSpacing={3} spacing={5}>
 							<Grid item xs={6}>
 								<div>
@@ -77,26 +87,36 @@ export default function ClinicForm() {
 									</FormLabel>
 								</div>
 								<div>
-									<TextField
-										{...register("clinicCode")}
-										fullWidth
-										inputProps={{ maxLength: 4 }}
-										onChange={async (e) => {
-											dispatch(
-												setClinicDetail({
-													...clinicDetail,
-													clinicCode: e.target.value,
-												})
-											);
-											trigger("clinicCode");
-										}}
-										// onBlur={async (e) => {
-										// 	trigger("clinicCode");
-										// }}
-										value={clinicDetail.clinicCode}
-										error={!!errors.clinicCode}
-										helperText={errors.clinicCode?.message}
-									/>
+									<Form.Item<ClinicDetail>
+										name="clinicCode"
+										rules={[
+											{
+												required: true,
+												message: "Please input your Clinic Code!",
+											},
+											{
+												min: 4,
+												message: "Number must be exactly 4 characters",
+											},
+											{
+												max: 4,
+												message: "Number must be exactly 4 characters",
+											},
+										]}
+									>
+										<Input
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+												dispatch(
+													setClinicDetail({
+														...clinicDetail,
+														clinicCode: e.target.value,
+													})
+												);
+											}}
+											value={clinicDetail.clinicCode}
+											maxLength={4}
+										/>
+									</Form.Item>
 								</div>
 							</Grid>
 							<Grid item xs={6}>
@@ -106,8 +126,38 @@ export default function ClinicForm() {
 									</FormLabel>
 								</div>
 								<div>
-									<TextField
-										{...register("clinicName")}
+									<Form.Item<ClinicDetail>
+										name="clinicName"
+										rules={[
+											{
+												required: true,
+												message: "Please input your Clinic Name!",
+											},
+											{
+												min: 1,
+												message: "Clinic Name must be atleast 1 characters",
+											},
+											{
+												max: 200,
+												message: "Clinic Name must not exceed 200 characters",
+											},
+										]}
+									>
+										<Input
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+												dispatch(
+													setClinicDetail({
+														...clinicDetail,
+														clinicName: e.target.value,
+													})
+												);
+											}}
+											value={clinicDetail.clinicName}
+											maxLength={200}
+										/>
+									</Form.Item>
+
+									{/* <TextField
 										fullWidth
 										inputProps={{ maxLength: 200 }}
 										onChange={(e) => {
@@ -119,9 +169,7 @@ export default function ClinicForm() {
 											);
 										}}
 										value={clinicDetail.clinicName}
-										error={!!errors.clinicName}
-										helperText={errors.clinicName?.message}
-									/>
+									/> */}
 								</div>
 							</Grid>
 							<Grid item xs={6}>
@@ -129,31 +177,29 @@ export default function ClinicForm() {
 									<FormLabel>สถานะการเปิดใช้งาน</FormLabel>
 								</div>
 								<div>
-									<Switch
-										checked={
-											_.trim(clinicDetail.isActive) === IsDelete.Y
-												? true
-												: false
-										}
-										onChange={(e) => {
-											dispatch(
-												setClinicDetail({
-													...clinicDetail,
-													isActive:
-														_.trim(clinicDetail.isActive) === IsDelete.Y
-															? IsDelete.N
-															: IsDelete.Y,
-												})
-											);
-										}}
-										inputProps={{ "aria-label": "controlled" }}
-									/>
+									<Form.Item valuePropName="checked">
+										<Switch
+											checked={
+												_.trim(clinicDetail.isActive) === IsDelete.Y
+													? true
+													: false
+											}
+											onChange={(e) => {
+												dispatch(
+													setClinicDetail({
+														...clinicDetail,
+														isActive: e ? IsActive.Y : IsActive.N,
+													})
+												);
+											}}
+										/>
+									</Form.Item>
 								</div>
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container spacing={4}>
 									<Grid item>
-										<Button
+										{/* <Button
 											type="submit"
 											variant="contained"
 											// onClick={() => {
@@ -161,6 +207,9 @@ export default function ClinicForm() {
 											// }}
 										>
 											บันทึก
+										</Button> */}
+										<Button type="primary" htmlType="submit">
+											Submit
 										</Button>
 									</Grid>
 									<Grid item>
@@ -171,9 +220,24 @@ export default function ClinicForm() {
 								</Grid>
 							</Grid>
 						</Grid>
-					</form>
+					</Form>
 				</FormGroup>
 			</FormControl>
+			<Button
+				type="primary"
+				// onClick={useCallback(() => {
+				// 	if (formRef.current) {
+				// 		formRef.current.submit();
+				// 	}
+				// }, [])}
+				onClick={() => {
+					if (formRef.current) {
+						formRef.current.submit();
+					}
+				}}
+			>
+				Submit2
+			</Button>
 		</div>
 	);
 }
