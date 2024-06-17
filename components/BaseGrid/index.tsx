@@ -3,10 +3,11 @@ import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
 import React from "react";
 import Pagination from "../Pagination";
 import { PaginationOptions } from "../Pagination/redux/model";
+import Table, { TableProps } from "antd/es/table";
 
 interface Props {
 	rows: any;
-	columns: GridColDef[];
+	columns: TableProps["columns"];
 	label?: string;
 	sx?: SxProps;
 	page: PaginationOptions;
@@ -31,31 +32,9 @@ export default function BaseGrid(props: Props) {
 				</div>
 			)}
 			<div className="h-[400px]">
-				<DataGrid
-					sx={{
-						...sx,
-						"&.MuiDataGrid-root": {
-							borderWidth: "0px 0px 1px 0px",
-						},
-						"& .MuiDataGrid-columnSeparator--sideRight": {
-							color: "transparent",
-						},
-					}}
-					rows={rows}
-					loading={loading}
-					columns={columns}
-					onSortModelChange={(sortModel: GridSortModel) => {
-						onSortModelChange(sortModel);
-					}}
-					sortingOrder={["asc", "desc"]}
-					disableColumnFilter={true}
-					disableColumnSelector={true}
-					disableDensitySelector={true}
-					disableColumnMenu={true}
-					hideFooter={true}
-				/>
+				<Table dataSource={rows} columns={columns} scroll={{ y: 400 }} />
 			</div>
-			<Pagination page={props.page} />
+			{/* <Pagination page={props.page} /> */}
 		</div>
 	);
 }

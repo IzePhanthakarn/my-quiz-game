@@ -2,44 +2,39 @@
 
 import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
-import { GridColDef } from "@mui/x-data-grid/models";
 import { LINKS } from "../../constants/links";
 import StatusIndicator from "@/components/CustomGridCell/StatusIndicator";
+import { TableProps } from "antd/es/table";
 
-export const columns: GridColDef[] = [
+export const columns: TableProps["columns"] = [
 	{
-		field: "isActive",
-		headerName: "สถานะ",
-		width: 60,
-		align: "center",
-		sortable: false,
-		renderCell: (params) => {
-			return <StatusIndicator status={params.row.isActive} />;
-		},
+		title: "สถานะ",
+		dataIndex: "isActive",
+		key: "id",
+		width: 100,
+		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{
-		field: "clinicName",
-		headerName: "ชื่อคลินิค",
-		flex: 1,
+		title: "รหัสคลินิค",
+		dataIndex: "clinicCode",
+		key: "id",
 	},
 	{
-		field: "clinicCode",
-		headerName: "รหัสคลินิค",
-		flex: 1,
+		title: "ชื่อคลินิค",
+		dataIndex: "clinicName",
+		key: "id",
 	},
 	{
-		field: "action",
-		headerName: "คำสั่ง",
-		flex: 1,
-		sortable: false,
-		renderCell: (params) => {
-			return (
-				<CustomCellButton
-					editLink={LINKS.CLINIC.edit + params.row.uuid}
-					viewLink={LINKS.CLINIC.view + params.row.uuid}
-					mode={BUTTON_MODE.VIEW_EDIT_ICON}
-				/>
-			);
-		},
+		title: "คำสั่ง",
+		dataIndex: "uuid",
+		key: "id",
+
+		render: (_, { uuid }) => (
+			<CustomCellButton
+				editLink={LINKS.CLINIC.edit + uuid}
+				viewLink={LINKS.CLINIC.view + uuid}
+				mode={BUTTON_MODE.VIEW_EDIT_ICON}
+			/>
+		),
 	},
 ];
