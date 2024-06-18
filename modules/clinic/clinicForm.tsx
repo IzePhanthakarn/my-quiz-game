@@ -53,12 +53,14 @@ export default function ClinicForm() {
 		}
 	}, []);
 
-	const onFinish: FormProps<any>["onFinish"] = (values) => {
+	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
 		console.log("Success:", values);
 		dispatch(addClinic(clinicDetail));
 	};
 
-	const onFinishFailed: FormProps<any>["onFinishFailed"] = (errorInfo) => {
+	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (
+		errorInfo
+	) => {
 		console.log("Failed:", errorInfo);
 	};
 
