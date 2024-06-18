@@ -1,7 +1,13 @@
 import React from "react";
-import Pagination from "../Pagination";
+import BasePagination from "../Pagination";
 import { PaginationOptions } from "../Pagination/redux/model";
 import Table, { TableProps } from "antd/es/table";
+import {
+	TableCurrentDataSource,
+	SorterResult,
+	FilterValue,
+	TablePaginationConfig,
+} from "antd/es/table/interface";
 
 interface Props {
 	rows: any;
@@ -13,6 +19,15 @@ interface Props {
 
 export default function BaseGrid(props: Props) {
 	const { rows, columns, label, loading = false, page } = props;
+
+	const handleTableChange = (
+		pagination: TablePaginationConfig,
+		filters: Record<string, FilterValue | null>,
+		sorter: SorterResult<any>
+	) => {
+		console.log("nitnitnti");
+	};
+
 	return (
 		<div className="w-full">
 			{label && (
@@ -27,7 +42,10 @@ export default function BaseGrid(props: Props) {
 				scroll={{ y: 400 }}
 				pagination={false}
 			/>
-			{/* <Pagination page={props.page} /> */}
+			<BasePagination page={page} />
 		</div>
 	);
+}
+function onSort(arg0: string, arg1: string) {
+	throw new Error("Function not implemented.");
 }

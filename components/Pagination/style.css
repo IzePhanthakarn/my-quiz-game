@@ -1,0 +1,15 @@
+.ant-pagination{
+    display: flex !important;
+    justify-content: end !important;
+    align-items: center !important;
+    padding: 16px !important;
+}
+
+.ant-pagination-options{
+    order: -2 !important;
+    margin-right: 8px !important;
+    margin-inline-start: 0px !important;
+}
+
+
+  

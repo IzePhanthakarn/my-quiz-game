@@ -13,6 +13,7 @@ export const clinicReducers = {
 	setPagination: (state: Clinic, action: PayloadAction<PaginationOptions>) => {
 		state.grid.page = { ...action.payload };
 	},
+
 	setTotalData: (state: Clinic, action: PayloadAction<number>) => {
 		state.grid.page.totalData = action.payload;
 	},

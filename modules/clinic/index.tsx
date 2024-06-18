@@ -20,8 +20,6 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
-import { setPagination } from "./redux";
-import { GridSortModel } from "@mui/x-data-grid";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
