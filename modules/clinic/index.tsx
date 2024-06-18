@@ -20,6 +20,7 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
+import BaseDialog from "@/components/BaseDialog";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -115,6 +116,7 @@ export default function Clinic() {
 					)
 				}
 			/>
+			<BaseDialog isOpen={isOpen} content={<p>asds</p>} />
 		</Column>
 	);
 }

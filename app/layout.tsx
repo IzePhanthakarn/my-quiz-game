@@ -29,7 +29,7 @@ export default function RootLayout({
 		<html lang="en">
 			<StoreProvider>
 				<body className={roboto.variable}>
-					<HandleErrorDialog />
+					{/* <HandleErrorDialog /> */}
 					<NavBar />
 					<Row className="h-[calc(100vh-75px)]">
 						<SideBar />
