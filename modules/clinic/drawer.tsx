@@ -10,6 +10,8 @@ import { IsActive, IsDelete } from "@/constants/constants";
 import { toggleIsActive, toggleIsDelete } from "@/utils";
 import { Switch, Button, Checkbox, Form, Input } from "antd";
 import { ClinicFilter } from "./redux/filter/model";
+import FormItemCheckbox from "../../components/FormItemCheckbox";
+import FormItemInput from "../../components/FormItemInput";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -24,37 +26,34 @@ export default function Drawer() {
 		<>
 			<Column className="space-y-4">
 				<Column className="border-2 border-[#DBE4F199] rounded-md">
-					<Form.Item<ClinicFilter> className="m-0 px-4 pt-1">
-						<Checkbox
-							checked={filter.checkClinicCode}
-							onClick={() =>
-								dispatch(
-									setClinicFilter({
-										...filter,
-										checkClinicCode: !filter.checkClinicCode,
-									})
-								)
-							}
-						></Checkbox>
-						<label className="ml-2">รหัสคลินิค</label>
-					</Form.Item>
-
+					<FormItemCheckbox
+						itemName="checkClinicCode"
+						label="รหัสคลินิค"
+						checked={filter.checkClinicCode}
+						onClickFunction={() =>
+							dispatch(
+								setClinicFilter({
+									...filter,
+									checkClinicCode: !filter.checkClinicCode,
+								})
+							)
+						}
+					/>
 					{filter.checkClinicCode && (
 						<div className="p-4 pt-1">
-							<Form.Item<ClinicFilter> className="mb-0" name="clinicCode">
-								<Input
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicCode: e.target.value,
-											})
-										);
-									}}
-									value={filter.clinicCode}
-									maxLength={4}
-								/>
-							</Form.Item>
+							<FormItemInput
+								itemName="clinicCode"
+								value={filter.clinicCode}
+								maxLength={4}
+								onChangeFunction={(e) => {
+									dispatch(
+										setClinicFilter({
+											...filter,
+											clinicCode: e.target.value,
+										})
+									);
+								}}
+							/>
 						</div>
 					)}
 				</Column>

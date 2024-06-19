@@ -30,6 +30,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormGroup from "@mui/material/FormGroup";
 import type { FormInstance, FormProps } from "antd";
 import { Switch, Button, Checkbox, Form, Input } from "antd";
+import { IconButton, Counter } from "wcf-component-lib/src";
+import FormItemInput from "../../components/FormItemInput";
+import FormItemSwitch from "../../components/FormItemSwitch";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {
@@ -66,6 +69,7 @@ export default function ClinicForm() {
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
+			<IconButton text="test" size="small" />
 			<FormControl component="fieldset" variant="outlined">
 				<FormGroup>
 					<Form
@@ -83,120 +87,83 @@ export default function ClinicForm() {
 					>
 						<Grid container rowSpacing={3} spacing={5}>
 							<Grid item xs={6}>
-								<div>
-									<FormLabel>
-										Clinic Code <span className="text-red-600">*</span>
-									</FormLabel>
-								</div>
-								<div>
-									<Form.Item<ClinicDetail>
-										name="clinicCode"
-										rules={[
-											{
-												required: true,
-												message: "Please input your Clinic Code!",
-											},
-											{
-												min: 4,
-												message: "Number must be exactly 4 characters",
-											},
-											{
-												max: 4,
-												message: "Number must be exactly 4 characters",
-											},
-										]}
-									>
-										<Input
-											onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-												dispatch(
-													setClinicDetail({
-														...clinicDetail,
-														clinicCode: e.target.value,
-													})
-												);
-											}}
-											value={clinicDetail.clinicCode}
-											maxLength={4}
-										/>
-									</Form.Item>
-								</div>
+								<FormItemInput
+									label="Clinic Code"
+									isRequired={true}
+									itemName="clinicCode"
+									rules={[
+										{
+											required: true,
+											message: "Please input your Clinic Code!",
+										},
+										{
+											min: 4,
+											message: "Number must be exactly 4 characters",
+										},
+										{
+											max: 4,
+											message: "Number must be exactly 4 characters",
+										},
+									]}
+									value={clinicDetail.clinicCode}
+									maxLength={4}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicCode: e.target.value,
+											})
+										);
+									}}
+								/>
 							</Grid>
 							<Grid item xs={6}>
-								<div>
-									<FormLabel>
-										Clinic Name <span className="text-red-600">*</span>
-									</FormLabel>
-								</div>
-								<div>
-									<Form.Item<ClinicDetail>
-										name="clinicName"
-										rules={[
-											{
-												required: true,
-												message: "Please input your Clinic Name!",
-											},
-											{
-												min: 1,
-												message: "Clinic Name must be atleast 1 characters",
-											},
-											{
-												max: 200,
-												message: "Clinic Name must not exceed 200 characters",
-											},
-										]}
-									>
-										<Input
-											onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-												dispatch(
-													setClinicDetail({
-														...clinicDetail,
-														clinicName: e.target.value,
-													})
-												);
-											}}
-											value={clinicDetail.clinicName}
-											maxLength={200}
-										/>
-									</Form.Item>
-
-									{/* <TextField
-										fullWidth
-										inputProps={{ maxLength: 200 }}
-										onChange={(e) => {
-											dispatch(
-												setClinicDetail({
-													...clinicDetail,
-													clinicName: e.target.value,
-												})
-											);
-										}}
-										value={clinicDetail.clinicName}
-									/> */}
-								</div>
+								<FormItemInput
+									label="Clinic Name"
+									isRequired={true}
+									itemName="clinicName"
+									rules={[
+										{
+											required: true,
+											message: "Please input your Clinic Name!",
+										},
+										{
+											min: 1,
+											message: "Clinic Name must be atleast 1 characters",
+										},
+										{
+											max: 200,
+											message: "Clinic Name must not exceed 200 characters",
+										},
+									]}
+									value={clinicDetail.clinicName}
+									maxLength={200}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicName: e.target.value,
+											})
+										);
+									}}
+								/>
 							</Grid>
 							<Grid item xs={6}>
-								<div>
-									<FormLabel>สถานะการเปิดใช้งาน</FormLabel>
-								</div>
-								<div>
-									<Form.Item valuePropName="checked">
-										<Switch
-											checked={
-												_.trim(clinicDetail.isActive) === IsDelete.Y
-													? true
-													: false
-											}
-											onChange={(e) => {
-												dispatch(
-													setClinicDetail({
-														...clinicDetail,
-														isActive: e ? IsActive.Y : IsActive.N,
-													})
-												);
-											}}
-										/>
-									</Form.Item>
-								</div>
+								<FormItemSwitch
+									itemName={"clinicDetail.isActive"}
+									label="สถานะการเปิดใช้งาน"
+									checked={
+										_.trim(clinicDetail.isActive) === IsDelete.Y ? true : false
+									}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												isActive: e ? IsActive.Y : IsActive.N,
+											})
+										);
+									}}
+								/>
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container spacing={4}>
