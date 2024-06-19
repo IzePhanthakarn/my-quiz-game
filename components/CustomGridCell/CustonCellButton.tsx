@@ -3,16 +3,12 @@
 import { BUTTON_MODE } from "./model";
 import Button from "@mui/material/Button";
 import Row from "../Row";
-import IconButton from "@mui/material/IconButton";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
-import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 
 interface Props {
 	mode: BUTTON_MODE;
-	editLink?: Url;
-	viewLink?: Url;
+	editLink?: string;
+	viewLink?: string;
 }
 
 const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
@@ -34,14 +30,10 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 		return (
 			<Row className="items-center space-x-1">
 				<Link href={viewLink ?? ""}>
-					<IconButton>
-						<VisibilityIcon />
-					</IconButton>
+					<img src="/icons/view.svg" alt="" />
 				</Link>
 				<Link href={editLink ?? ""}>
-					<IconButton>
-						<EditIcon />
-					</IconButton>
+					<img src="/icons/edit.svg" alt="" />
 				</Link>
 			</Row>
 		);

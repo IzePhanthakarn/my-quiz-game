@@ -26,17 +26,25 @@ export default function BasePagination(prop: Props) {
 		dispatch(setPagination({ ...page, pageNumber: newPage - 1 }));
 	};
 
+	const locale = {
+		items_per_page: "",
+	};
+
 	return (
-		<Pagination
-			simple
-			current={page.pageNumber + 1}
-			defaultCurrent={page.pageNumber}
-			defaultPageSize={page.pageSize}
-			total={page.totalData}
-			showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-			onChange={handlePageChange}
-			pageSizeOptions={["10", "50", "100"]}
-			onShowSizeChange={handleShowSizeChange}
-		/>
+		<div className="flex justify-end items-center">
+			<span>แถวต่อหน้า: </span>
+			<Pagination
+				simple
+				current={page.pageNumber + 1}
+				defaultCurrent={page.pageNumber + 1}
+				defaultPageSize={page.pageSize}
+				total={page.totalData}
+				showTotal={(total, range) => `${range[0]}-${range[1]} of ${total}`}
+				onChange={handlePageChange}
+				pageSizeOptions={["10", "50", "100"]}
+				onShowSizeChange={handleShowSizeChange}
+				locale={locale}
+			/>
+		</div>
 	);
 }

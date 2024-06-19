@@ -33,11 +33,6 @@ export default function BaseGrid(props: Props) {
 
 	return (
 		<div className="w-full">
-			{label && (
-				<div className="py-4">
-					<p className="text-2xl">{label}</p>
-				</div>
-			)}
 			<Table
 				dataSource={rows}
 				loading={loading}
