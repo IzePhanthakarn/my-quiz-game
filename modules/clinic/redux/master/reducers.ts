@@ -1,6 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ClinicGrid, ClinicList } from "./model";
-import { PaginationOptions } from "@/components/Pagination/redux/model";
+import {
+	PaginationOptions,
+	SortOrdersModel,
+} from "@/components/Pagination/redux/model";
 import { Clinic, ClinicDetail, ClinicDetailError } from "../model";
 
 export const clinicReducers = {
@@ -13,7 +16,9 @@ export const clinicReducers = {
 	setPagination: (state: Clinic, action: PayloadAction<PaginationOptions>) => {
 		state.grid.page = { ...action.payload };
 	},
-
+	setOrder: (state: Clinic, action: PayloadAction<SortOrdersModel[]>) => {
+		state.grid.page.orders = action.payload;
+	},
 	setTotalData: (state: Clinic, action: PayloadAction<number>) => {
 		state.grid.page.totalData = action.payload;
 	},

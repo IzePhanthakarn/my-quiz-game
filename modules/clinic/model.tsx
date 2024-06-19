@@ -10,24 +10,26 @@ export const columns: TableProps["columns"] = [
 	{
 		title: "สถานะ",
 		dataIndex: "isActive",
-		key: "id",
+		key: "isActive",
 		width: 100,
 		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{
 		title: "รหัสคลินิค",
 		dataIndex: "clinicCode",
-		key: "id",
+		key: "clinicCode",
+		sorter: true,
 	},
 	{
 		title: "ชื่อคลินิค",
 		dataIndex: "clinicName",
-		key: "id",
+		key: "clinicName",
+		sorter: true,
 	},
 	{
 		title: "คำสั่ง",
 		dataIndex: "uuid",
-		key: "id",
+		key: "uuid",
 		render: (_, { uuid }) => (
 			<CustomCellButton
 				editLink={LINKS.CLINIC.edit + uuid}

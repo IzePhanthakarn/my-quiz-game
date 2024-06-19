@@ -19,6 +19,7 @@ export const {
 	setPagination,
 	setTotalData,
 	setClinicDetailError,
+	setOrder,
 } = clinicSlice.actions;
 
 export default clinicSlice.reducer;

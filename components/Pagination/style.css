@@ -11,5 +11,8 @@
     margin-inline-start: 0px !important;
 }
 
+.ant-pagination-simple-pager{
+    display: none !important;
+}
 
   

@@ -9,21 +9,20 @@ import { ClinicDetail } from "../redux/model";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
+	SortOrdersModel,
 } from "@/components/Pagination/redux/model";
 import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 
-export interface PaginationOption {
-	pageNumber: number;
-	pageSize: number;
-}
-
-export interface ClinicPagination {
+interface ClinicGridParams {
 	pagination: PaginationOptions;
 	clinicCode: string | null;
 	clinicName: string | null;
+}
+
+export interface ClinicPagination extends ClinicGridParams {
 	isActive: IsActive | null;
 }
 

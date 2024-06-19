@@ -20,3 +20,11 @@ export function toggleIsDelete(status: IsDelete) {
 	const toggle = status === IsDelete.Y ? IsDelete.N : IsDelete.Y;
 	return toggle;
 }
+
+export function handleOrderBy(orderBy: string) {
+	if (orderBy === "descend") {
+		return "DESC";
+	} else {
+		return "ASC";
+	}
+}

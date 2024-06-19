@@ -21,6 +21,8 @@ import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
 import BaseDialog from "@/components/BaseDialog";
+// import Form from "antd/es/form";
+// import Input from "antd/es/input";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -45,7 +47,7 @@ export default function Clinic() {
 				isActive: filter.isActive,
 			})
 		);
-	}, [page.pageNumber, page.pageSize]);
+	}, [page.pageNumber, page.pageSize, page.orders]);
 
 	return (
 		<Column>
@@ -116,7 +118,6 @@ export default function Clinic() {
 					)
 				}
 			/>
-			<BaseDialog isOpen={isOpen} content={<p>asds</p>} />
 		</Column>
 	);
 }
