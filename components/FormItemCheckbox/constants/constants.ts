@@ -1,5 +1,5 @@
 export enum FormItemCheckboxPosition {
 	TOP = "TOP",
-	// LEFT = "LEFT",
+	LEFT = "LEFT",
 	RIGHT = "RIGHT",
 }

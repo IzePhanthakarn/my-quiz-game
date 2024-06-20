@@ -1,17 +1,14 @@
 import Column from "@/components/Column";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import TextField from "@mui/material/TextField";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
 import { IsActive, IsDelete } from "@/constants/constants";
 import { toggleIsActive, toggleIsDelete } from "@/utils";
-import { Switch, Button, Checkbox, Form, Input } from "antd";
-import { ClinicFilter } from "./redux/filter/model";
 import FormItemCheckbox from "../../components/FormItemCheckbox";
 import FormItemInput from "../../components/FormItemInput";
+import { FormItemCheckboxPosition } from "../../components/FormItemCheckbox/constants/constants";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,11 +22,12 @@ export default function Drawer() {
 	return (
 		<>
 			<Column className="space-y-4">
-				<Column className="border-2 border-[#DBE4F199] rounded-md">
+				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<FormItemCheckbox
 						itemName="checkClinicCode"
 						label="รหัสคลินิค"
 						checked={filter.checkClinicCode}
+						labelPosition={FormItemCheckboxPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
 								setClinicFilter({
@@ -40,7 +38,7 @@ export default function Drawer() {
 						}
 					/>
 					{filter.checkClinicCode && (
-						<div className="p-4 pt-1">
+						<div className=" pt-1">
 							<FormItemInput
 								itemName="clinicCode"
 								value={filter.clinicCode}
@@ -57,62 +55,61 @@ export default function Drawer() {
 						</div>
 					)}
 				</Column>
-				<Column className="border-2 border-[#DBE4F199] rounded-md">
-					<Form.Item<ClinicFilter> className="m-0 px-4 pt-1">
-						<Checkbox
-							checked={filter.checkClinicName}
-							onClick={() =>
+				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<FormItemCheckbox
+						itemName="checkClinicName"
+						label="ชื่อคลินิค"
+						checked={filter.checkClinicName}
+						labelPosition={FormItemCheckboxPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setClinicFilter({
+									...filter,
+									checkClinicName: !filter.checkClinicName,
+								})
+							)
+						}
+					/>
+					{filter.checkClinicName && (
+						<FormItemInput
+							itemName="clinicName"
+							value={filter.clinicName}
+							maxLength={4}
+							onChangeFunction={(e) => {
 								dispatch(
 									setClinicFilter({
 										...filter,
-										checkClinicName: !filter.checkClinicName,
+										clinicName: e.target.value,
 									})
-								)
-							}
-						></Checkbox>
-						<label className="ml-2">ชื่อคลินิค</label>
-					</Form.Item>
-
-					{filter.checkClinicName && (
-						<div className="p-4 pt-1">
-							<Form.Item<ClinicFilter> className="mb-0" name="clinicName">
-								<Input
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicName: e.target.value,
-											})
-										);
-									}}
-									value={filter.clinicName}
-									maxLength={4}
-								/>
-							</Form.Item>
-						</div>
+								);
+							}}
+						/>
 					)}
 				</Column>
-				<Column className="border-2 border-[#DBE4F199] rounded-md">
-					<Form.Item<ClinicFilter> className="m-0 px-4 pt-1">
-						<Checkbox
-							checked={filter.checkStatus}
-							onClick={() =>
-								dispatch(
-									setClinicFilter({
-										...filter,
-										checkStatus: !filter.checkStatus,
-									})
-								)
-							}
-						></Checkbox>
-						<label className="ml-2">ชื่อคลินิค</label>
-					</Form.Item>
+				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<FormItemCheckbox
+						itemName="checkStatus"
+						label="สถานะการลบข้อมูล"
+						checked={filter.checkStatus}
+						labelPosition={FormItemCheckboxPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setClinicFilter({
+									...filter,
+									checkStatus: !filter.checkStatus,
+								})
+							)
+						}
+					/>
 					{filter.checkStatus && (
 						<Column>
-							<Form.Item<ClinicFilter> className="m-0 ml-3 px-4 pt-1">
-								<Checkbox
+							<div className="ml-5">
+								<FormItemCheckbox
+									itemName="isDelete"
+									label="ลบ"
 									checked={filter.isDelete !== IsDelete.Y}
-									onClick={() =>
+									labelPosition={FormItemCheckboxPosition.RIGHT}
+									onClickFunction={() =>
 										dispatch(
 											setClinicFilter({
 												...filter,
@@ -120,14 +117,15 @@ export default function Drawer() {
 											})
 										)
 									}
-								></Checkbox>
-								<label className="ml-2">ลบ</label>
-							</Form.Item>
-
-							<Form.Item<ClinicFilter> className="m-0 ml-3 px-4 pt-1">
-								<Checkbox
+								/>
+							</div>
+							<div className="ml-5">
+								<FormItemCheckbox
+									itemName="isActive"
+									label="ไม่ลบ"
 									checked={filter.isActive !== IsActive.N}
-									onClick={() =>
+									labelPosition={FormItemCheckboxPosition.RIGHT}
+									onClickFunction={() =>
 										dispatch(
 											setClinicFilter({
 												...filter,
@@ -135,9 +133,8 @@ export default function Drawer() {
 											})
 										)
 									}
-								></Checkbox>
-								<label className="ml-2">ไม่ลบ</label>
-							</Form.Item>
+								/>
+							</div>
 						</Column>
 					)}
 				</Column>

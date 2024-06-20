@@ -11,8 +11,11 @@ interface Props {
 	disabled?: boolean;
 	label?: string;
 	onClickFunction: () => void;
-	labelPosition?: FormItemCheckboxPosition;
+	labelPosition?:
+		| FormItemCheckboxPosition.RIGHT
+		| FormItemCheckboxPosition.LEFT;
 	rules?: Rule[];
+	labelLeftSpan?: number;
 }
 
 export default function FormItemCheckbox(props: Props) {
@@ -25,24 +28,33 @@ export default function FormItemCheckbox(props: Props) {
 		isRequired = false,
 		labelPosition = FormItemCheckboxPosition.RIGHT,
 		rules = [],
+		labelLeftSpan = 12,
 	} = props;
 
 	return (
 		<>
 			<Row>
-				{labelPosition === FormItemCheckboxPosition.TOP && (
+				{/* {!_.isEmpty(label) && (
 					<Col span={24}>
 						<label className="">
 							{label} {isRequired && <span className="text-red-600">*</span>}
 						</label>
 					</Col>
-				)}
+				)} */}
 				<Col span={24}>
 					<Form.Item
 						className={_.isEmpty(rules) ? "mb-0" : ""}
 						rules={rules}
 						name={itemName}
 					>
+						{labelPosition === FormItemCheckboxPosition.LEFT &&
+							!_.isEmpty(label) && (
+								<label className="mr-2">
+									{label}
+									{isRequired && <span className="text-red-600">*</span>}
+								</label>
+							)}
+
 						<Checkbox
 							checked={checked}
 							onClick={() => {
@@ -50,11 +62,13 @@ export default function FormItemCheckbox(props: Props) {
 							}}
 							disabled={disabled}
 						/>
-						{labelPosition === FormItemCheckboxPosition.RIGHT && (
-							<label className="ml-2">
-								{label} {isRequired && <span className="text-red-600">*</span>}
-							</label>
-						)}
+						{labelPosition === FormItemCheckboxPosition.RIGHT &&
+							!_.isEmpty(label) && (
+								<label className="ml-2">
+									{label}
+									{isRequired && <span className="text-red-600">*</span>}
+								</label>
+							)}
 					</Form.Item>
 				</Col>
 			</Row>

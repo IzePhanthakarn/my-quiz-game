@@ -33,6 +33,7 @@ import { Switch, Button, Checkbox, Form, Input } from "antd";
 import { IconButton, Counter } from "wcf-component-lib/src";
 import FormItemInput from "../../components/FormItemInput";
 import FormItemSwitch from "../../components/FormItemSwitch";
+import { FormItemCheckboxPosition } from "../../components/FormItemCheckbox/constants/constants";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {
@@ -69,7 +70,7 @@ export default function ClinicForm() {
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
-			<IconButton text="test" size="small" />
+			{/* <IconButton text="test" size="small" /> */}
 			<FormControl component="fieldset" variant="outlined">
 				<FormGroup>
 					<Form
@@ -88,6 +89,8 @@ export default function ClinicForm() {
 						<Grid container rowSpacing={3} spacing={5}>
 							<Grid item xs={6}>
 								<FormItemInput
+									// labelPosition={FormItemCheckboxPosition.LEFT}
+									// labelLeftSpan={6}
 									label="Clinic Code"
 									isRequired={true}
 									itemName="clinicCode"
@@ -150,6 +153,7 @@ export default function ClinicForm() {
 							</Grid>
 							<Grid item xs={6}>
 								<FormItemSwitch
+									labelPosition={FormItemCheckboxPosition.LEFT}
 									itemName={"clinicDetail.isActive"}
 									label="สถานะการเปิดใช้งาน"
 									checked={
@@ -168,17 +172,8 @@ export default function ClinicForm() {
 							<Grid item xs={12}>
 								<Grid container spacing={4}>
 									<Grid item>
-										{/* <Button
-											type="submit"
-											variant="contained"
-											// onClick={() => {
-											// 	// dispatch(addClinic(clinicDetail));
-											// }}
-										>
-											บันทึก
-										</Button> */}
 										<Button type="primary" htmlType="submit">
-											Submit
+											บันทึก
 										</Button>
 									</Grid>
 									<Grid item>
@@ -192,7 +187,7 @@ export default function ClinicForm() {
 					</Form>
 				</FormGroup>
 			</FormControl>
-			<Button
+			{/* <Button
 				type="primary"
 				// onClick={useCallback(() => {
 				// 	if (formRef.current) {
@@ -206,7 +201,7 @@ export default function ClinicForm() {
 				}}
 			>
 				Submit2
-			</Button>
+			</Button> */}
 		</div>
 	);
 }
