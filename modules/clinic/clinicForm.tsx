@@ -2,38 +2,21 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import TextField from "@mui/material/TextField";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicDetail, setClinicDetailError } from "./redux";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-// import Switch from "@mui/material/Switch";
-import { IsActive, IsDelete } from "../../constants/constants";
+import { IsActive } from "../../constants/constants";
 import * as _ from "lodash";
-// import Button from "@mui/material/Button";
-import Link from "next/link";
-import { LINKS } from "../../constants/links";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
-import { useRouter } from "next/router";
-import { Label } from "@mui/icons-material";
-import {
-	clinicCodeSchema,
-	validationSchema,
-	FormData,
-} from "./field_validation/clinicForm";
-import * as Yup from "yup";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import FormGroup from "@mui/material/FormGroup";
 import type { FormInstance, FormProps } from "antd";
-import { Switch, Button, Checkbox, Form, Input } from "antd";
-import { IconButton, Counter } from "wcf-component-lib/src";
-import FormItemInput from "../../components/FormItemInput";
-import FormItemSwitch from "../../components/FormItemSwitch";
-import { FormItemCheckboxPosition } from "../../components/FormItemCheckbox/constants/constants";
+import { Button, Form } from "antd";
+import { FormItemSwitch, FormItemInput } from "wcf-component-lib/src";
+import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {
@@ -89,7 +72,7 @@ export default function ClinicForm() {
 						<Grid container rowSpacing={3} spacing={5}>
 							<Grid item xs={6}>
 								<FormItemInput
-									// labelPosition={FormItemCheckboxPosition.LEFT}
+									// labelPosition={FormItemPosition.LEFT}
 									// labelLeftSpan={6}
 									label="Clinic Code"
 									isRequired={true}
@@ -153,11 +136,11 @@ export default function ClinicForm() {
 							</Grid>
 							<Grid item xs={6}>
 								<FormItemSwitch
-									labelPosition={FormItemCheckboxPosition.LEFT}
+									labelPosition={FormItemPosition.LEFT}
 									itemName={"clinicDetail.isActive"}
 									label="สถานะการเปิดใช้งาน"
 									checked={
-										_.trim(clinicDetail.isActive) === IsDelete.Y ? true : false
+										_.trim(clinicDetail.isActive) === IsActive.Y ? true : false
 									}
 									onChangeFunction={(e) => {
 										dispatch(

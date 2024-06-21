@@ -6,9 +6,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
 import { IsActive, IsDelete } from "@/constants/constants";
 import { toggleIsActive, toggleIsDelete } from "@/utils";
-import FormItemCheckbox from "../../components/FormItemCheckbox";
-import FormItemInput from "../../components/FormItemInput";
-import { FormItemCheckboxPosition } from "../../components/FormItemCheckbox/constants/constants";
+import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
+import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -27,7 +26,7 @@ export default function Drawer() {
 						itemName="checkClinicCode"
 						label="รหัสคลินิค"
 						checked={filter.checkClinicCode}
-						labelPosition={FormItemCheckboxPosition.RIGHT}
+						labelPosition={FormItemPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
 								setClinicFilter({
@@ -60,7 +59,7 @@ export default function Drawer() {
 						itemName="checkClinicName"
 						label="ชื่อคลินิค"
 						checked={filter.checkClinicName}
-						labelPosition={FormItemCheckboxPosition.RIGHT}
+						labelPosition={FormItemPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
 								setClinicFilter({
@@ -69,6 +68,12 @@ export default function Drawer() {
 								})
 							)
 						}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: "Please input your Clinic Code!",
+						// 	},
+						// ]}
 					/>
 					{filter.checkClinicName && (
 						<FormItemInput
@@ -91,7 +96,7 @@ export default function Drawer() {
 						itemName="checkStatus"
 						label="สถานะการลบข้อมูล"
 						checked={filter.checkStatus}
-						labelPosition={FormItemCheckboxPosition.RIGHT}
+						labelPosition={FormItemPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
 								setClinicFilter({
@@ -108,7 +113,7 @@ export default function Drawer() {
 									itemName="isDelete"
 									label="ลบ"
 									checked={filter.isDelete !== IsDelete.Y}
-									labelPosition={FormItemCheckboxPosition.RIGHT}
+									labelPosition={FormItemPosition.RIGHT}
 									onClickFunction={() =>
 										dispatch(
 											setClinicFilter({
@@ -124,7 +129,7 @@ export default function Drawer() {
 									itemName="isActive"
 									label="ไม่ลบ"
 									checked={filter.isActive !== IsActive.N}
-									labelPosition={FormItemCheckboxPosition.RIGHT}
+									labelPosition={FormItemPosition.RIGHT}
 									onClickFunction={() =>
 										dispatch(
 											setClinicFilter({
