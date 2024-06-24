@@ -17,7 +17,7 @@ const config: Config = {
 			},
 		},
 		fontFamily: {
-			roboto: "var(--font-roboto)",
+			// roboto: "var(--font-roboto)",
 		},
 	},
 	plugins: [],

@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "fonts.css"; /* Using a string */
+
 body {
+  font-family: 'Helvethaica', sans-serif;
+
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,

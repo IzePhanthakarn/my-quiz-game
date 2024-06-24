@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicDetail } from "./redux";
 import FormControl from "@mui/material/FormControl";
@@ -20,9 +20,6 @@ import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-posi
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
 import { useRouter } from "next/navigation";
-// import {
-//   Link,
-// } from "react-router-dom";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {

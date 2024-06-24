@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
 import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
@@ -9,11 +9,11 @@ import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
 import HandleErrorDialog from "@/modules/handle-error-dialog";
 
-const roboto = Roboto({
-	subsets: ["latin"],
-	weight: "500",
-	variable: "--font-roboto",
-});
+// const roboto = Roboto({
+// 	subsets: ["latin"],
+// 	weight: "500",
+// 	variable: "--font-roboto",
+// });
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -28,14 +28,14 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<StoreProvider>
-				<body className={roboto.variable}>
+				<body>
 					<HandleErrorDialog />
 					<NavBar />
 					<Row className="h-[calc(100vh-75px)]">
 						<SideBar />
 						<main
 							className={cn(
-								`font-roboto  p-4 bg-[#FAFAFA]`,
+								`p-4 bg-[#FAFAFA]`,
 								sidebarWidth && `w-[calc(100vw-280px)]`
 							)}
 						>
