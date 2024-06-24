@@ -8,7 +8,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { clinicPagination, initClinicGrid } from "./service";
 import { setFieldValue } from "@/redux/slices/crud";
 import { columns } from "./model";
-import BaseGrid from "@/components/BaseGrid";
 import Column from "@/components/Column";
 import Row from "@/components/Row";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
@@ -20,7 +19,8 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
-import BaseDialog from "@/components/BaseDialog";
+import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
+import { setOrder, setPagination } from "./redux";
 // import Form from "antd/es/form";
 // import Input from "antd/es/input";
 
@@ -101,6 +101,9 @@ export default function Clinic() {
 					columns={columns}
 					page={page}
 					loading={isLoading}
+					twoToneColor={true}
+					setOrder={(e) => dispatch(setOrder(e))}
+					setPagination={(page) => dispatch(setPagination(page))}
 				/>
 			</div>
 			<BaseDrawer

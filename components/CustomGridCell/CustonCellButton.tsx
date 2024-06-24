@@ -1,9 +1,10 @@
 "use client";
 
+import { findScope, getScopesPermissions } from "@/utils";
 import { BUTTON_MODE } from "./model";
-import Button from "@mui/material/Button";
+import Button from "antd/es/button";
+import Link from "antd/es/typography/Link";
 import Row from "../Row";
-import Link from "next/link";
 
 interface Props {
 	mode: BUTTON_MODE;
@@ -12,7 +13,20 @@ interface Props {
 }
 
 const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
-	//   const apiRef = useGridApiContext();
+	const scopes = [
+		"location:read",
+		"location:write",
+		"resource:read",
+		"resource:write",
+		"netdb:select",
+		"netdb:update",
+		"changs-req:read",
+		"changs-req:write",
+	];
+
+	const resourceScopes = findScope(scopes, "resource:");
+	const { read, write } = getScopesPermissions(resourceScopes);
+
 	if (mode === BUTTON_MODE.VIEW_EDIT) {
 		return (
 			<Row className="items-center space-x-1">
@@ -29,12 +43,16 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 	} else if (mode === BUTTON_MODE.VIEW_EDIT_ICON) {
 		return (
 			<Row className="items-center space-x-1">
-				<Link href={viewLink ?? ""}>
-					<img src="/icons/view.svg" alt="" />
-				</Link>
-				<Link href={editLink ?? ""}>
-					<img src="/icons/edit.svg" alt="" />
-				</Link>
+				{read && (
+					<Link href={viewLink ?? ""}>
+						<img src="/icons/view.svg" alt="" />
+					</Link>
+				)}
+				{write && (
+					<Link href={editLink ?? ""}>
+						<img src="/icons/edit.svg" alt="" />
+					</Link>
+				)}
 			</Row>
 		);
 	}

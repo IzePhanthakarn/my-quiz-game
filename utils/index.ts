@@ -2,6 +2,7 @@ import { IsActive, IsDelete } from "@/constants/constants";
 import { DateFormat } from "@/constants/date-format.constant";
 import dayjs from "dayjs";
 import _ from "lodash";
+import { ScopesPermissions } from "./model";
 
 export function getCurrentDateString() {
 	return dayjs().format(DateFormat.DDMMYYYY).toString();
@@ -27,4 +28,20 @@ export function handleOrderBy(orderBy: string) {
 	} else {
 		return "ASC";
 	}
+}
+
+export function findScope(scopes: string[], key: string) {
+	return scopes.filter((scope) => scope.startsWith(key));
+}
+
+export function getScopesPermissions(scopes: string[]) {
+	return scopes.reduce(
+		(acc: ScopesPermissions, scope) => {
+			const [, resource] = scope.split(":");
+			if (resource === "read") acc.read = resource;
+			if (resource === "write") acc.write = resource;
+			return acc;
+		},
+		{ read: null, write: null }
+	);
 }

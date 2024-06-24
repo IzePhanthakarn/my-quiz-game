@@ -19,7 +19,6 @@ interface Props {
 	content: React.ReactNode;
 	label?: string;
 	anchor?: DrawerProps["placement"];
-	bgNone?: boolean;
 	isFilter?: boolean;
 	confirmFuntion?: () => void;
 }
@@ -31,7 +30,6 @@ export default function BaseDrawer(props: Props) {
 		content,
 		label = "ตัวกรอง",
 		anchor,
-		bgNone,
 		isFilter,
 		confirmFuntion = () => {},
 	} = props;
