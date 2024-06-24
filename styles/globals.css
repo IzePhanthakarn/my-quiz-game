@@ -14,6 +14,11 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+
+} 
+
+body [class^="ant-"] {
+  font-family: 'Helvethaica', sans-serif !important;
 }
 
 @layer utilities {

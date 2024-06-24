@@ -52,8 +52,8 @@ export default function Clinic() {
 		<Column>
 			<Grid container rowSpacing={3} spacing={5} className="pb-5">
 				<Grid item sm={12} md={6}>
-					<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
-					<p className="leading-[18.75px]">คลินิค</p>
+					<p className="font-bold text-4xl leading-[48px]">คลินิค</p>
+					<p className="text-2xl leading-[18.75px]">คลินิค</p>
 				</Grid>
 				<Grid item sm={12} md={6} className="content-end text-right">
 					<div>

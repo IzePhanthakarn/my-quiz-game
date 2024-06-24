@@ -45,8 +45,8 @@ export default function ClinicForm() {
 	}, []);
 
 	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
-		console.log("Success:", values);
-		dispatch(addClinic(clinicDetail, router));
+		// console.log("Success:", values);
+		// dispatch(addClinic(clinicDetail, router));
 	};
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (
@@ -139,7 +139,7 @@ export default function ClinicForm() {
 								/>
 							</Grid>
 							<Grid item xs={6}>
-								<FormItemSwitch
+								{/* <FormItemSwitch
 									labelPosition={FormItemPosition.LEFT}
 									itemName={"clinicDetail.isActive"}
 									label="สถานะการเปิดใช้งาน"
@@ -154,18 +154,22 @@ export default function ClinicForm() {
 											})
 										);
 									}}
-								/>
+								/> */}
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container spacing={4}>
 									<Grid item>
-										<Button type="primary" htmlType="submit">
+										<Button
+											type="primary"
+											htmlType="submit"
+											className="text-xl font-semibold"
+										>
 											บันทึก
 										</Button>
 									</Grid>
 									<Grid item>
 										<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
-											<Button>ยกเลิก</Button>
+											<Button className="text-xl font-semibold">ยกเลิก</Button>
 										</Link>
 									</Grid>
 								</Grid>

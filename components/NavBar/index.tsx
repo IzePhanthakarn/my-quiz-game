@@ -11,7 +11,7 @@ export default function NavBar() {
 			</div>
 			<div className="flex-grow flex justify-between items-center pl-8 pr-6">
 				<div>
-					<p className="font-semibold">ระบบงานข้อมูล</p>
+					<p className="font-semibold text-4xl">ระบบงานข้อมูล</p>
 				</div>
 				<div className="flex space-x-6">
 					<img

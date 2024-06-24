@@ -9,6 +9,8 @@ import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
 import HandleErrorDialog from "@/modules/handle-error-dialog";
 
+// import "../styles/antd-custom.less"; // Import your custom Less file
+
 // const roboto = Roboto({
 // 	subsets: ["latin"],
 // 	weight: "500",
