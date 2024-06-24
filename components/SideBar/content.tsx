@@ -12,7 +12,7 @@ export default function SidebarContent() {
 							{item.subMenu.map((subItem: SubMenuItem, index: number) => (
 								<div key={index}>
 									<Link
-										className={`px-6 py-2 flex w-full items-center bg-[#214FF3] text-white ${
+										className={`px-6 py-2 flex w-full items-center bg-[#214FF3] text-white text-lg ${
 											"pathName" === subItem.link &&
 											"bg-[#1f41bc] font-semibold"
 										}`}

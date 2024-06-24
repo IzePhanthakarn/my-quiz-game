@@ -16,13 +16,13 @@ import Drawer from "./drawer";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { LINKS } from "@/constants/links";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
 import { setPagination } from "./redux";
 import { GridSortModel } from "@mui/x-data-grid";
-
+import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
 	const { form, rows, page, isOpen, filter, isLoading } = useSelector(
@@ -58,7 +58,12 @@ export default function Clinic() {
 				<Grid item sm={12} md={6} className="content-end text-right">
 					<div>
 						<Link key={LINKS.CLINIC.add} href={LINKS.CLINIC.add}>
-							<Button variant="contained" startIcon={<AddIcon />}>
+							<Button
+								className="text-xl px-3 py-2"
+								icon={<PlusOutlined />}
+								type="primary"
+								size="large"
+							>
 								เพิ่มคลินิค
 							</Button>
 						</Link>
@@ -88,11 +93,14 @@ export default function Clinic() {
 						}
 					/>
 					<Button
-						variant="outlined"
+						size="large"
+						className="text-xl px-3 py-2"
+						// variant="outlined"
 						onClick={() => dispatch(setIsOpenDrawer(true))}
-						startIcon={<img src="/icons/filter.svg" alt="logo" />}
+						// startIcon={<img src="/icons/filter.svg" alt="logo" />}
+						icon={<FilterOutlined />}
 					>
-						<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
+						<p className=" whitespace-nowrap">ตัวกรอง</p>
 					</Button>
 				</Row>
 				<BaseGrid
