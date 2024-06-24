@@ -11,14 +11,13 @@ import { handleOrderBy } from "@/utils";
 interface Props {
 	rows: any;
 	columns: TableProps["columns"];
-	label?: string;
 	page: PaginationOptions;
 	loading?: boolean;
 }
 
 export default function BaseGrid(props: Props) {
 	const dispatch: AppDispatch = useDispatch();
-	const { rows, columns, label, loading = false, page } = props;
+	const { rows, columns, loading = false, page } = props;
 
 	const handleTableChange = (pagination: any, filter: any, sorter: any) => {
 		const order: SortOrdersModel[] = [];
