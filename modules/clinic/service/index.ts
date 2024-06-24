@@ -14,6 +14,10 @@ import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
+import { NextRouter } from "next/router";
+import { LINKS } from "../../../constants/links";
+import { redirect } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface PaginationOption {
 	pageNumber: number;
@@ -117,7 +121,8 @@ export const createClinicApi = createAsyncThunk(
 	}
 );
 export const addClinic =
-	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+	(clinicDetail: ClinicDetail, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			createClinicApi({
 				clinicCode: clinicDetail.clinicCode,
@@ -127,9 +132,9 @@ export const addClinic =
 		);
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
+		} else {
+			router.push(LINKS.CLINIC.link);
 		}
-		// router.push(`/${LINKS.CLINIC.link}`);
-		// redirectToPage('/target-page');
 	};
 
 export const updateClinicApi = createAsyncThunk(

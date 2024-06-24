@@ -19,6 +19,7 @@ import { FormItemSwitch, FormItemInput } from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
+import { useRouter } from "next/navigation";
 // import {
 //   Link,
 // } from "react-router-dom";
@@ -28,6 +29,8 @@ export default function ClinicForm() {
 	const dispatch: AppDispatch = useDispatch();
 	const [form] = Form.useForm();
 	const formRef = useRef<FormInstance | null>(null);
+
+	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const { clinicDetail } = useSelector(
@@ -46,7 +49,7 @@ export default function ClinicForm() {
 
 	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
 		console.log("Success:", values);
-		dispatch(addClinic(clinicDetail));
+		dispatch(addClinic(clinicDetail, router));
 	};
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (
