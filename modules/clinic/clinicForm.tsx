@@ -4,7 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setClinicDetail, setClinicDetailError } from "./redux";
+import { setClinicDetail } from "./redux";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import { IsActive } from "../../constants/constants";
@@ -17,6 +17,11 @@ import type { FormInstance, FormProps } from "antd";
 import { Button, Form } from "antd";
 import { FormItemSwitch, FormItemInput } from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import Link from "next/link";
+import { LINKS } from "../../constants/links";
+// import {
+//   Link,
+// } from "react-router-dom";
 
 export default function ClinicForm() {
 	// export const ClinicForm: React.FC = () => {
@@ -25,10 +30,9 @@ export default function ClinicForm() {
 	const formRef = useRef<FormInstance | null>(null);
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, clinicDetailError } = useSelector(
+	const { clinicDetail } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
-			clinicDetailError: state.clinic.clinicDetailError,
 		}),
 		shallowEqual
 	);
@@ -160,9 +164,9 @@ export default function ClinicForm() {
 										</Button>
 									</Grid>
 									<Grid item>
-										{/* <Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
-											<Button variant="outlined">ยกเลิก</Button>
-										</Link> */}
+										<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
+											<Button>ยกเลิก</Button>
+										</Link>
 									</Grid>
 								</Grid>
 							</Grid>
