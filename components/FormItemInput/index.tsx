@@ -4,6 +4,10 @@ import { Rule } from "antd/es/form";
 import * as _ from "lodash";
 import { FormItemCheckboxPosition } from "../FormItemCheckbox/constants/constants";
 
+import dynamic from "next/dynamic";
+
+// export default dynamic(() => Promise.resolve(NoSsr), { ssr: false })
+
 interface Props {
 	itemName: string;
 	rules?: Rule[];
@@ -17,7 +21,8 @@ interface Props {
 	labelLeftSpan?: number;
 }
 
-export default function FormItemInput(props: Props) {
+const FormItemInput2 = (props: Props) => {
+	// export default function FormItemInput2(props: Props) {
 	const {
 		itemName,
 		rules = [],
@@ -80,4 +85,6 @@ export default function FormItemInput(props: Props) {
 			</Row>
 		</>
 	);
-}
+};
+
+export default dynamic(() => Promise.resolve(FormItemInput2), { ssr: false });

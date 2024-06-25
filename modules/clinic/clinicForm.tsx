@@ -11,19 +11,20 @@ import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
 
 import type { FormInstance, FormProps } from "antd";
-import { Button, Col, Form, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import { FormItemSwitch, FormItemInput } from "wcf-component-lib/src";
+import { FormWrapper } from "wcf-component-lib/src/components/FormWrapper";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
 import { useRouter } from "next/navigation";
-// import FormItemInput from "../../components/FormItemInput";
+import FormItemInput2 from "../../components/FormItemInput";
+import dynamic from "next/dynamic";
 
-export default function ClinicForm() {
+const ClinicForm = () => {
 	// export const ClinicForm: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const [form] = Form.useForm();
-	const formRef = useRef<FormInstance | null>(null);
+	// const formRef = useRef<FormInstance | null>(null);
 
 	const router = useRouter();
 
@@ -55,132 +56,99 @@ export default function ClinicForm() {
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
-			{/* <IconButton text="test" size="small" /> */}
-			<Form
+			<FormWrapper
 				name="clinicForm"
-				// labelCol={{ span: 8 }}
-				// wrapperCol={{ span: 16 }}
-				// style={{ maxWidth: 600 }}
-				initialValues={{ remember: true }}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				autoComplete="off"
-				size="large"
-				form={form}
-				ref={formRef}
-			>
-				<Row gutter={24}>
-					<Col span={12}>
-						<FormItemInput
-							// labelPosition={FormItemPosition.LEFT}
-							// labelLeftSpan={6}
-							label="Clinic Code"
-							isRequired={true}
-							itemName="clinicCode"
-							rules={[
-								{
-									required: true,
-									message: "Please input your Clinic Code!",
-								},
-								{
-									min: 4,
-									message: "Number must be exactly 4 characters",
-								},
-								{
-									max: 4,
-									message: "Number must be exactly 4 characters",
-								},
-							]}
-							value={clinicDetail.clinicCode}
-							maxLength={4}
-							onChangeFunction={(e) => {
-								dispatch(
-									setClinicDetail({
-										...clinicDetail,
-										clinicCode: e.target.value,
-									})
-								);
-							}}
-						/>
-					</Col>
-					<Col span={12}>
-						<FormItemInput
-							label="Clinic Name"
-							isRequired={true}
-							itemName="clinicName"
-							rules={[
-								{
-									required: true,
-									message: "Please input your Clinic Name!",
-								},
-								{
-									min: 1,
-									message: "Clinic Name must be atleast 1 characters",
-								},
-								{
-									max: 200,
-									message: "Clinic Name must not exceed 200 characters",
-								},
-							]}
-							value={clinicDetail.clinicName}
-							maxLength={200}
-							onChangeFunction={(e) => {
-								dispatch(
-									setClinicDetail({
-										...clinicDetail,
-										clinicName: e.target.value,
-									})
-								);
-							}}
-						/>
-					</Col>
-					<Col span={24}>
-						<FormItemSwitch
-							labelPosition={FormItemPosition.LEFT}
-							itemName={"clinicDetail.isActive"}
-							label="สถานะการเปิดใช้งาน"
-							checked={
-								_.trim(clinicDetail.isActive) === IsActive.Y ? true : false
-							}
-							onChangeFunction={(e) => {
-								dispatch(
-									setClinicDetail({
-										...clinicDetail,
-										isActive: e ? IsActive.Y : IsActive.N,
-									})
-								);
-							}}
-						/>
-					</Col>
-					<Col span={24}>
-						<Button
-							type="primary"
-							htmlType="submit"
-							className="text-xl font-semibold"
-						>
-							บันทึก
-						</Button>
-						<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
-							<Button className="text-xl font-semibold ml-5">ยกเลิก</Button>
-						</Link>
-					</Col>
-				</Row>
-			</Form>
-			{/* <Button
-				type="primary"
-				// onClick={useCallback(() => {
-				// 	if (formRef.current) {
-				// 		formRef.current.submit();
-				// 	}
-				// }, [])}
-				onClick={() => {
-					if (formRef.current) {
-						formRef.current.submit();
-					}
-				}}
-			>
-				Submit2
-			</Button> */}
+				child={
+					<>
+						<Row gutter={24}>
+							<Col span={12}>
+								<FormItemInput
+									// labelPosition={FormItemPosition.LEFT}
+									// labelLeftSpan={6}
+									label="Clinic Code"
+									isRequired={true}
+									itemName="clinicCode"
+									rules={[
+										{
+											required: true,
+											message: "Please input your Clinic Code!",
+										},
+										{
+											min: 4,
+											message: "Number must be exactly 4 characters",
+										},
+										{
+											max: 4,
+											message: "Number must be exactly 4 characters",
+										},
+									]}
+									value={clinicDetail.clinicCode}
+									maxLength={4}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicCode: e.target.value,
+											})
+										);
+									}}
+								/>
+							</Col>
+							<Col span={12}>
+								<FormItemInput
+									label="Clinic Name"
+									isRequired={true}
+									itemName="clinicName"
+									rules={[
+										{
+											required: true,
+											message: "Please input your Clinic Name!",
+										},
+										{
+											min: 1,
+											message: "Clinic Name must be atleast 1 characters",
+										},
+										{
+											max: 200,
+											message: "Clinic Name must not exceed 200 characters",
+										},
+									]}
+									value={clinicDetail.clinicName}
+									maxLength={200}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicName: e.target.value,
+											})
+										);
+									}}
+								/>
+							</Col>
+							<Col span={24}>
+								<FormItemSwitch
+									labelPosition={FormItemPosition.LEFT}
+									itemName={"clinicDetail.isActive"}
+									label="สถานะการเปิดใช้งาน"
+									checked={
+										_.trim(clinicDetail.isActive) === IsActive.Y ? true : false
+									}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												isActive: e ? IsActive.Y : IsActive.N,
+											})
+										);
+									}}
+								/>
+							</Col>
+						</Row>
+					</>
+				}
+			/>
 		</div>
 	);
-}
+};
+
+export default dynamic(() => Promise.resolve(ClinicForm), { ssr: false });
