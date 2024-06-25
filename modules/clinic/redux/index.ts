@@ -18,7 +18,6 @@ export const {
 	setClinicFilter,
 	setPagination,
 	setTotalData,
-	setClinicDetailError,
 	setOrder,
 } = clinicSlice.actions;
 

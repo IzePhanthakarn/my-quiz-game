@@ -15,14 +15,12 @@ import Drawer from "./drawer";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import { LINKS } from "@/constants/links";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setOrder, setPagination } from "./redux";
-// import Form from "antd/es/form";
-// import Input from "antd/es/input";
+import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
+import Button from "antd/es/button";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,13 +51,18 @@ export default function Clinic() {
 		<Column>
 			<Grid container rowSpacing={3} spacing={5} className="pb-5">
 				<Grid item sm={12} md={6}>
-					<p className="font-bold text-2xl leading-[48px]">คลินิค</p>
-					<p className="leading-[18.75px]">คลินิค</p>
+					<p className="font-bold text-4xl leading-[48px]">คลินิค</p>
+					<p className="text-2xl leading-[18.75px]">คลินิค</p>
 				</Grid>
 				<Grid item sm={12} md={6} className="content-end text-right">
 					<div>
 						<Link key={LINKS.CLINIC.add} href={LINKS.CLINIC.add}>
-							<Button variant="contained" startIcon={<AddIcon />}>
+							<Button
+								className="text-xl px-3 py-2"
+								icon={<PlusOutlined />}
+								type="primary"
+								size="large"
+							>
 								เพิ่มคลินิค
 							</Button>
 						</Link>
@@ -89,11 +92,14 @@ export default function Clinic() {
 						}
 					/>
 					<Button
-						variant="outlined"
+						size="large"
+						className="text-xl px-3 py-2"
+						// variant="outlined"
 						onClick={() => dispatch(setIsOpenDrawer(true))}
-						startIcon={<img src="/icons/filter.svg" alt="logo" />}
+						// startIcon={<img src="/icons/filter.svg" alt="logo" />}
+						icon={<FilterOutlined />}
 					>
-						<p className="text-[13px] whitespace-nowrap">ตัวกรอง</p>
+						<p className=" whitespace-nowrap">ตัวกรอง</p>
 					</Button>
 				</Row>
 				<BaseGrid

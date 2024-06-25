@@ -16,7 +16,7 @@ export default function SideBar() {
 				<div className="px-4 h-[47px] flex items-center bg-[#214FF3] text-white">
 					<div className="w-full flex items-center space-x-4">
 						<img src="/icons/dns.svg" alt="logo" />
-						<p className="font-semibold">Master แพทย์</p>
+						<p className=" text-lg">Master แพทย์</p>
 					</div>
 				</div>
 			),
@@ -25,7 +25,7 @@ export default function SideBar() {
 	];
 	return (
 		<div
-			className={`min-w-[280px] h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col`}
+			className={`min-w-[280px] h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col `}
 		>
 			<Collapse defaultActiveKey={["1"]} items={items} />
 			{/* {menuList.map((item: MenuItem, index: number) => {
