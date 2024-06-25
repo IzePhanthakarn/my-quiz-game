@@ -1,10 +1,12 @@
 "use client";
 
-import CustomCellButton from "@/components/CustomGridCell/CustonCellButton";
-import { BUTTON_MODE, STATUS } from "@/components/CustomGridCell/model";
+import CustomCellButton from "@/components/CustomGrid/Cell/CustonCellButton";
+import { BUTTON_MODE } from "@/components/CustomGrid/Cell/model";
+import StatusIndicator from "@/components/CustomGrid/Cell/StatusIndicator";
 import { LINKS } from "../../constants/links";
-import StatusIndicator from "@/components/CustomGridCell/StatusIndicator";
 import { TableProps } from "antd/es/table";
+import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
+import { ColumnTitleProps } from "antd/es/table/interface";
 
 export const columns: TableProps["columns"] = [
 	{
@@ -15,13 +17,25 @@ export const columns: TableProps["columns"] = [
 		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{
-		title: "รหัสคลินิค",
+		title: (columns: ColumnTitleProps<any>) => (
+			<CustomHeaderSort
+				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				headerKey={"clinicCode"}
+				label={"รหัสคลินิค"}
+			/>
+		),
 		dataIndex: "clinicCode",
 		key: "clinicCode",
 		sorter: true,
 	},
 	{
-		title: "ชื่อคลินิค",
+		title: (columns: ColumnTitleProps<any>) => (
+			<CustomHeaderSort
+				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				headerKey={"clinicName"}
+				label={"ชื่อคลินิค"}
+			/>
+		),
 		dataIndex: "clinicName",
 		key: "clinicName",
 		sorter: true,

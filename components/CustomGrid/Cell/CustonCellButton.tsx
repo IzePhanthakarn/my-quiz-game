@@ -4,7 +4,7 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { BUTTON_MODE } from "./model";
 import Button from "antd/es/button";
 import Link from "antd/es/typography/Link";
-import Row from "../Row";
+import Row from "@/components/Row";
 
 interface Props {
 	mode: BUTTON_MODE;
