@@ -14,6 +14,7 @@ import { Switch, Checkbox, Form, Input, Button } from "antd";
 import type { FormInstance, FormProps } from "antd";
 
 import "./style.css";
+import { FormWrapper } from "wcf-component-lib/src/components/FormWrapper";
 interface Props {
 	isOpen: boolean;
 	content: React.ReactNode;
@@ -58,43 +59,40 @@ export default function BaseDrawer(props: Props) {
 					/>
 				</Row>
 			</div>
-			<Form
-				name="filter"
-				initialValues={{ remember: true }}
+
+			<FormWrapper
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
-				autoComplete="off"
-				size="large"
-			>
-				<Column className="p-6">{content}</Column>
-				{isFilter && (
-					<div className="flex flex-col flex-grow justify-end px-6 py-4">
-						<div className="w-full px-6 pt-6 pb-4 ">
-							<Row className="justify-center items-center space-x-6">
-								<Button
-									onClick={() => dispatch(setClinicFilter(modelClinicFilter))}
-									className="border-2 w-full border-solid border-[#2196F380]"
-								>
-									ล้าง
-								</Button>
-								{/* <Button
-									onClick={() => dispatch(handleConfirmFilter(confirmFuntion))}
-									className="bg-[#2196F3] w-full text-white"
-								>
-									ยืนยัน
-								</Button> */}
-								<Button
-									className="bg-[#2196F3] w-full text-white"
-									type="primary"
-									htmlType="submit"
-								>
-									ยืนยัน
-								</Button>
-							</Row>
-						</div>
-					</div>
-				)}
-			</Form>
+				name="clinicForm"
+				child={
+					<>
+						<Column className="p-6">{content}</Column>
+						{isFilter && (
+							<div className="flex flex-col flex-grow justify-end px-6 py-4">
+								<div className="w-full px-6 pt-6 pb-4 ">
+									<Row className="justify-center items-center space-x-6">
+										<Button
+											onClick={() =>
+												dispatch(setClinicFilter(modelClinicFilter))
+											}
+											className="border-2 w-full border-solid border-[#2196F380]"
+										>
+											ล้าง
+										</Button>
+										<Button
+											className="bg-[#2196F3] w-full text-white"
+											type="primary"
+											htmlType="submit"
+										>
+											ยืนยัน
+										</Button>
+									</Row>
+								</div>
+							</div>
+						)}
+					</>
+				}
+			/>
 		</Drawer>
 	);
 }
