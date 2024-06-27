@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { safelistConfig } from "./styles/tailwind-safelist";
 
 const config: Config = {
 	important: true,
@@ -8,6 +9,7 @@ const config: Config = {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 		"./modules/**/*.{js,ts,jsx,tsx,mdx}",
 	],
+	safelist: safelistConfig,
 	theme: {
 		extend: {
 			backgroundImage: {
@@ -20,6 +22,8 @@ const config: Config = {
 			// roboto: "var(--font-roboto)",
 		},
 	},
+	purge: false,
 	plugins: [],
 };
-export default config;
+
+module.exports = config;

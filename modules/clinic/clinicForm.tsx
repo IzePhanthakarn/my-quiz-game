@@ -146,6 +146,12 @@ const ClinicForm = () => {
 						</Row>
 					</>
 				}
+				onFinish={function (values: any): void {
+					throw new Error("Function not implemented.");
+				}}
+				onFinishFailed={function (values: any): void {
+					throw new Error("Function not implemented.");
+				}}
 			/>
 		</div>
 	);

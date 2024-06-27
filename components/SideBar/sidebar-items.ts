@@ -34,6 +34,10 @@ export const menuList: MenuItem[] = [
 				name: LINKS.CLINIC.name,
 				link: LINKS.CLINIC.link,
 			},
+			{
+				name: LINKS.DIPLOMA.name,
+				link: LINKS.DIPLOMA.link,
+			},
 		],
 	},
 ];

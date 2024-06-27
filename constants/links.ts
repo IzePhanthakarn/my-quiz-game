@@ -10,4 +10,8 @@ export const LINKS = {
 		view: "/clinic/view/",
 		add: "/clinic/form",
 	},
+	DIPLOMA: {
+		name: "ประกาศนียบัตร",
+		link: "/diploma",
+	},
 };

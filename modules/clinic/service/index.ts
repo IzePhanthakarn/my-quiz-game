@@ -19,6 +19,7 @@ import { NextRouter } from "next/router";
 import { LINKS } from "../../../constants/links";
 import { redirect } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { token } from "@/config";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
@@ -42,7 +43,7 @@ export const getClinicList = createAsyncThunk(
 	async (params: ClinicPagination = clinicPagination, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
-			const response = await axios.post(apiPath, params);
+			const response = await axios.post(apiPath, params, token);
 			return response.data;
 		} catch (err) {
 			return thunkAPi.rejectWithValue("");
