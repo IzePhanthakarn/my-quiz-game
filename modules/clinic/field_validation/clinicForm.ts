@@ -28,11 +28,11 @@ import {
 	equalLengthRule,
 	minRule,
 	maxRule,
-} from "wcf-component-lib/src/service/FormRulesFucntion";
+} from "wcf-component-lib/src/rules/FormRulesFunction";
 
 export const clinicCodeSchema = [
 	requiredRule("Clinic Code"),
-	...equalLengthRule("Clinic Code", 4),
+	equalLengthRule("Clinic Code", 4),
 ];
 
 export const clinicNameSchema = [
