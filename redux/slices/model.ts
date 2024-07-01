@@ -4,6 +4,7 @@ import { Doctor } from "@/modules/doctor/redux/model";
 import { BaseDrawer } from "@/components/BaseDrawer/redux/model";
 import { BaseDialog } from "@/components/BaseDialog/redux/model";
 import { Loading } from "@/components/Loading/redux/model";
+import { Diploma } from "@/modules/diploma/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	doctor: Doctor;
@@ -12,4 +13,5 @@ export interface SliceModel {
 	dialog: BaseDialog;
 	clinicDetail: ClinicDetail;
 	loading: Loading;
+	diploma: Diploma;
 }

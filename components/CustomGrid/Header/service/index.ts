@@ -1,5 +1,5 @@
 export function toggleSortIcon(
-	orders: string,
+	orders: string | undefined,
 	headerKey: string,
 	columnKey: string,
 	directions: string

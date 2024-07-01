@@ -25,8 +25,10 @@ export function toggleIsDelete(status: IsDelete) {
 export function handleOrderBy(orderBy: string) {
 	if (orderBy === "descend") {
 		return "DESC";
-	} else {
+	} else if (orderBy === "ascend") {
 		return "ASC";
+	} else {
+		return "undefined";
 	}
 }
 

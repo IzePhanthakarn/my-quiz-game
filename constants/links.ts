@@ -13,5 +13,7 @@ export const LINKS = {
 	DIPLOMA: {
 		name: "ประกาศนียบัตร",
 		link: "/diploma",
+		edit: "/clinic/edit/",
+		view: "/clinic/view/",
 	},
 };

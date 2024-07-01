@@ -19,4 +19,8 @@ const rounded = [
 	},
 ];
 
-export const safelistConfig = [...padding, ...rounded];
+export const safelistConfig = [
+	{
+		pattern: /.*/, // This will match any class
+	},
+];

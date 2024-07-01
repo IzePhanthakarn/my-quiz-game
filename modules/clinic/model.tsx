@@ -22,6 +22,7 @@ export const columns: TableProps["columns"] = [
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"clinicCode"}
 				label={"รหัสคลินิค"}
+				sort={columns?.sortColumns}
 			/>
 		),
 		dataIndex: "clinicCode",
@@ -34,6 +35,7 @@ export const columns: TableProps["columns"] = [
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"clinicName"}
 				label={"ชื่อคลินิค"}
+				sort={columns?.sortColumns}
 			/>
 		),
 		dataIndex: "clinicName",

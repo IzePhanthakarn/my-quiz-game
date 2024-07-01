@@ -1,39 +1,94 @@
-import page from "@/app/clinic/page";
+"use client";
 
-import React from "react";
+import page from "@/app/clinic/page";
+import React, { useEffect } from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import Input from "antd/es/input";
 import Button from "antd/es/button";
+import { AppDispatch } from "@/redux/config/configStore";
+import { SliceModel } from "@/redux/slices/model";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { initDiplomaGrid } from "./service";
+import { columns } from "./model";
+import { setOrder, setPagination } from "./redux";
+import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
+import Drawer from "./drawer";
+import FilterOutlined from "@ant-design/icons/lib/icons/FilterOutlined";
 
 export default function Diploma() {
+	const dispatch: AppDispatch = useDispatch();
+	const { form, rows, page, isOpen, filter, isLoading } = useSelector(
+		(state: SliceModel) => ({
+			form: state.crud.formData,
+			rows: state.diploma.grid.list,
+			page: state.diploma.grid.page,
+			isOpen: state.drawer.isOpen,
+			filter: state.diploma.diplomaFilter,
+			isLoading: state.loading.isLoading,
+		}),
+		shallowEqual
+	);
+
+	useEffect(() => {
+		dispatch(
+			initDiplomaGrid({
+				pagination: { ...page },
+				diplomaType: filter.diplomaType,
+				diplomaName: filter.diplomaName,
+				isActive: filter.isActive,
+			})
+		);
+	}, [page.pageNumber, page.pageSize, page.orders]);
 	return (
 		<div>
-			{/* <MasterData
+			<MasterData
 				Grid={
 					<BaseGrid
 						rows={rows}
 						loading={false}
-						columns={clinicColumns}
+						columns={columns}
 						page={page}
-						setPagination={setPage}
+						twoToneColor={true}
+						setOrder={(e) => dispatch(setOrder(e))}
+						setPagination={(page) => dispatch(setPagination(page))}
 					/>
 				}
 				Drawer={
 					<BaseDrawer
-						isOpen={isDrawerOpen}
-						setIsOpen={setDrawerOpen}
-						content={<div>Content</div>}
+						isOpen={isOpen}
+						content={<Drawer />}
+						isFilter
+						setIsOpen={() => dispatch(setIsOpenDrawer(true))}
+						confirmFuntion={() =>
+							dispatch(
+								initDiplomaGrid({
+									pagination: { ...page },
+									diplomaType: filter.diplomaType,
+									diplomaName: filter.diplomaName,
+									isActive: filter.isActive,
+								})
+							)
+						}
 					/>
 				}
 				FilterTextField={<Input className="w-[300px]" />}
-				FilterButton={<Button>Filter</Button>}
+				FilterButton={
+					<Button
+						size="large"
+						className="text-xl px-3 py-2"
+						onClick={() => dispatch(setIsOpenDrawer(true))}
+						icon={<FilterOutlined />}
+					>
+						<p className=" whitespace-nowrap">ตัวกรอง</p>
+					</Button>
+				}
 				AddFunction={() => console.log("Add")}
-				AddLabel="เพิ่มคลินิค"
-				Header="Clinic"
-				SubHeader="List Clinic"
-			/> */}
+				AddLabel="เพิ่มประกาศนียบัตร"
+				Header="Diploma"
+				SubHeader="List Diploma"
+			/>
 		</div>
 	);
 }

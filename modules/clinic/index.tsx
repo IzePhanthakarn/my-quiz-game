@@ -11,7 +11,6 @@ import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
 
 import { LINKS } from "@/constants/links";
-import BaseDrawer from "@/components/BaseDrawer";
 import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setOrder, setPagination } from "./redux";
@@ -20,6 +19,7 @@ import Button from "antd/es/button";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "antd/es/input";
 import { useRouter } from "next/navigation";
+import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -64,6 +64,7 @@ export default function Clinic() {
 				Drawer={
 					<BaseDrawer
 						isOpen={isOpen}
+						setIsOpen={() => dispatch(setIsOpenDrawer(true))}
 						content={<Drawer />}
 						isFilter
 						confirmFuntion={() =>

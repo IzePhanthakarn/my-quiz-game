@@ -22,7 +22,6 @@ const config: Config = {
 			// roboto: "var(--font-roboto)",
 		},
 	},
-	purge: false,
 	plugins: [],
 };
 

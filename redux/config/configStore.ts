@@ -5,6 +5,7 @@ import doctorSlice from "@/modules/doctor/redux";
 import drawerSlice from "@/components/BaseDrawer/redux";
 import dialogSlice from "@/components/BaseDialog/redux";
 import loadingSlice from "@/components/Loading/redux";
+import diplomaSlice from "@/modules/diploma/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		drawer: drawerSlice,
 		dialog: dialogSlice,
 		loading: loadingSlice,
+		diploma: diplomaSlice,
 	},
 });
 
