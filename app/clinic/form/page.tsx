@@ -1,8 +1,8 @@
 import React from "react";
-import ClinicForm from "../../../modules/clinic/clinicForm";
+import ClinicFormAdd from "../../../modules/clinic/clinicFormAdd";
 
-const ClinicFormPage = () => {
-	return <ClinicForm />;
+const ClinicFormAddPage = () => {
+	return <ClinicFormAdd />;
 };
 
-export default ClinicFormPage;
+export default ClinicFormAddPage;

@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicDetail } from "./redux";
 import { IsActive } from "../../constants/constants";
@@ -10,17 +10,11 @@ import * as _ from "lodash";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { addClinic } from "./service";
 
-import type { FormInstance, FormProps } from "antd";
-import { Button, Col, Row } from "antd";
-import {
-	FormItemSwitch,
-	FormItemInput,
-	FormSubmitButton,
-} from "wcf-component-lib/src";
-import { FormWrapper } from "wcf-component-lib/src/components/FormWrapper";
+import type { FormProps } from "antd";
+import Row from "antd/es/row";
+import Col from "antd/es/grid/col";
+import { FormItemInput } from "wcf-component-lib/src";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
-import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import Link from "next/link";
 import { LINKS } from "../../constants/links";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -29,7 +23,7 @@ import {
 	clinicNameSchema,
 } from "./field_validation/clinicForm";
 
-const ClinicForm = () => {
+const ClinicFormAdd = () => {
 	const dispatch: AppDispatch = useDispatch();
 
 	const router = useRouter();
@@ -119,4 +113,4 @@ const ClinicForm = () => {
 	);
 };
 
-export default dynamic(() => Promise.resolve(ClinicForm), { ssr: false });
+export default dynamic(() => Promise.resolve(ClinicFormAdd), { ssr: false });
