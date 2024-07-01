@@ -5,7 +5,7 @@ import { SliceModel } from "@/redux/slices/model";
 import TextField from "@mui/material/TextField";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { initGetClinicDetail, updateClinic } from "./service";
+import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
 import { IsActive, IsDelete } from "../../constants/constants";
 import * as _ from "lodash";
@@ -39,15 +39,21 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 
 	useEffect(() => {
 		(async () => {
-			if (!isInit && params.params.uuid !== "") {
-				await dispatch(initGetClinicDetail(params));
+			if (!isInit) {
+				if (!_.isEmpty(params.params.uuid)) {
+					await dispatch(initGetClinicDetail(params));
+				}
 				setIsInit(true);
 			}
 		})();
 	}, []);
 
-	const onFinish: FormProps<ClinicDetail>["onFinish"] = (_) => {
-		dispatch(updateClinic(clinicDetail));
+	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
+		if (_.isEmpty(params.params.uuid)) {
+			dispatch(addClinic(clinicDetail, router));
+		} else {
+			dispatch(updateClinic(clinicDetail));
+		}
 	};
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (_) => {};

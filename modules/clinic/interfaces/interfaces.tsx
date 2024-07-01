@@ -1,5 +1,5 @@
 interface ClinicFormPageProps {
 	params: {
-		uuid: string;
+		uuid: string | undefined;
 	};
 }

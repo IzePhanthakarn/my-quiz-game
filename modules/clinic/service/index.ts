@@ -67,8 +67,10 @@ export const getClinicDetail = createAsyncThunk(
 export const initGetClinicDetail =
 	(params: ClinicFormPageProps) => async (dispatch: AppDispatch) => {
 		const { uuid } = params.params;
-		const response = await dispatch(getClinicDetail(uuid));
-		dispatch(setClinicDetail(response.payload));
+		if (!_.isEmpty(uuid)) {
+			const response = await dispatch(getClinicDetail(`${uuid}`));
+			dispatch(setClinicDetail(response.payload));
+		}
 	};
 
 export const initClinicGrid =
@@ -130,13 +132,10 @@ export const addClinic =
 				isActive: clinicDetail.isActive,
 			})
 		);
-		// console.log("🚀 ~", data);
-		// console.log("🚀 ~", _.get(data, "payload"));
-
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			// router.push(LINKS.CLINIC.link);
+			router.push(LINKS.CLINIC.link);
 		}
 	};
 
