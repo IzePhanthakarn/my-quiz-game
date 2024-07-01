@@ -12,14 +12,21 @@ import { addClinic } from "./service";
 
 import type { FormInstance, FormProps } from "antd";
 import { Button, Col, Row } from "antd";
-import { FormItemSwitch, FormItemInput } from "wcf-component-lib/src";
+import {
+	FormItemSwitch,
+	FormItemInput,
+	FormSubmitButton,
+} from "wcf-component-lib/src";
 import { FormWrapper } from "wcf-component-lib/src/components/FormWrapper";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import Link from "next/link";
 import { LINKS } from "../../constants/links";
 import { useRouter } from "next/navigation";
-import FormItemInput2 from "../../components/FormItemInput";
 import dynamic from "next/dynamic";
+import {
+	clinicCodeSchema,
+	clinicNameSchema,
+} from "./field_validation/clinicForm";
 
 const ClinicForm = () => {
 	// export const ClinicForm: React.FC = () => {
@@ -44,19 +51,21 @@ const ClinicForm = () => {
 	}, []);
 
 	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
-		// console.log("Success:", values);
-		// dispatch(addClinic(clinicDetail, router));
+		// console.log("test Success:", values);
+		dispatch(addClinic(clinicDetail, router));
 	};
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (
 		errorInfo
 	) => {
-		console.log("Failed:", errorInfo);
+		// console.log("test Failed:", errorInfo);
 	};
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
 			<FormWrapper
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
 				name="clinicForm"
 				child={
 					<>
@@ -66,24 +75,9 @@ const ClinicForm = () => {
 									// labelPosition={FormItemPosition.LEFT}
 									// labelLeftSpan={6}
 									label="Clinic Code"
-									isRequired={true}
 									itemName="clinicCode"
-									rules={[
-										{
-											required: true,
-											message: "Please input your Clinic Code!",
-										},
-										{
-											min: 4,
-											message: "Number must be exactly 4 characters",
-										},
-										{
-											max: 4,
-											message: "Number must be exactly 4 characters",
-										},
-									]}
+									rules={clinicCodeSchema}
 									value={clinicDetail.clinicCode}
-									maxLength={4}
 									onChangeFunction={(e) => {
 										dispatch(
 											setClinicDetail({
@@ -97,24 +91,9 @@ const ClinicForm = () => {
 							<Col span={12}>
 								<FormItemInput
 									label="Clinic Name"
-									isRequired={true}
 									itemName="clinicName"
-									rules={[
-										{
-											required: true,
-											message: "Please input your Clinic Name!",
-										},
-										{
-											min: 1,
-											message: "Clinic Name must be atleast 1 characters",
-										},
-										{
-											max: 200,
-											message: "Clinic Name must not exceed 200 characters",
-										},
-									]}
+									rules={clinicNameSchema}
 									value={clinicDetail.clinicName}
-									maxLength={200}
 									onChangeFunction={(e) => {
 										dispatch(
 											setClinicDetail({
@@ -142,6 +121,18 @@ const ClinicForm = () => {
 										);
 									}}
 								/>
+							</Col>
+
+							<Col span={24}>
+								<FormSubmitButton
+									type="primary"
+									className="text-xl font-semibold"
+									label="บันทึก"
+								/>
+
+								<Link key={LINKS.CLINIC.link} href={LINKS.CLINIC.link}>
+									<Button className="text-xl font-semibold ml-5">ยกเลิก</Button>
+								</Link>
 							</Col>
 						</Row>
 					</>

@@ -26,3 +26,7 @@ body [class^="ant-"] {
     text-wrap: balance;
   }
 }
+
+th.ant-table-cell,td.ant-table-cell{
+	font-size: 18px;
+}
