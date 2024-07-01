@@ -1,8 +1,7 @@
 import React from "react";
-import { NextPage } from "next";
 import ClinicForm from "../../../modules/clinic/clinicForm";
 
-const ClinicFormPage: NextPage<ClinicFormPageProps> = ({ params }) => {
+const ClinicFormPage = () => {
 	return <ClinicForm />;
 };
 
