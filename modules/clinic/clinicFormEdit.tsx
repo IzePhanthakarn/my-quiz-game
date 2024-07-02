@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import { DateFormat } from "../../constants/date-format.constant";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "antd/es/form/Form";
-import { ClinicDetail } from "./redux/model";
+import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
 import Row from "antd/es/row";
 import Col from "antd/es/grid/col";
@@ -42,6 +42,8 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
+				} else {
+					await dispatch(setClinicDetail(modelClinicDetail));
 				}
 				setIsInit(true);
 			}
@@ -82,7 +84,7 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 					inputs={
 						<>
 							<Row gutter={24}>
-								<Col span={12}>
+								<Col span={6}>
 									<FormItemInput
 										label="Clinic Code"
 										itemName="clinicCode"
@@ -98,7 +100,7 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 										}}
 									/>
 								</Col>
-								<Col span={12}>
+								<Col span={6}>
 									<FormItemInput
 										label="Clinic Name"
 										itemName="clinicName"

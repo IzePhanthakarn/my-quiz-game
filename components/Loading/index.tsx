@@ -1,17 +1,25 @@
 import * as React from "react";
+import "./style.css";
+// import CircularProgress from "@mui/material/CircularProgress";
+// import Backdrop from "@mui/material/Backdrop";
 
-import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
+import Spin from "antd/es/spin";
 
-export const LoadingDialog: React.FC<{
-	open?: boolean;
-}> = ({ open = false }) => {
+export default function Loading() {
+	const contentStyle: React.CSSProperties = {
+		padding: 50,
+		background: "rgba(0, 0, 0, 0.05)",
+		borderRadius: 4,
+	};
+
+	const content = <div style={contentStyle} />;
 	return (
-		<Backdrop
-			sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-			open={open}
-		>
-			<CircularProgress color="inherit" />
-		</Backdrop>
+		<>
+			<div className="spin-loading">
+				<Spin tip="Loading" size="large">
+					{content}
+				</Spin>
+			</div>
+		</>
 	);
-};
+}

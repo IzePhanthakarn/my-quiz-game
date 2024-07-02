@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
-import NavBar from "@/components/NavBar";
-import SideBar from "@/components/SideBar";
-import Row from "@/components/Row";
-import { sidebarWidth } from "@/constants/global";
-import { cn } from "@/utils/libs/client";
+
 import MainWrapper from "../modules/main-wrapper";
 
 // import "../styles/antd-custom.less"; // Import your custom Less file
@@ -30,21 +26,7 @@ export default function RootLayout({
 		<html lang="en">
 			<StoreProvider>
 				<body>
-					<MainWrapper>
-						{/* <HandleErrorDialog /> */}
-						<NavBar />
-						<Row className="h-[calc(100vh-75px)]">
-							<SideBar />
-							<main
-								className={cn(
-									`p-4 bg-[#FAFAFA]`,
-									sidebarWidth && `w-[calc(100vw-280px)]`
-								)}
-							>
-								{children}
-							</main>
-						</Row>
-					</MainWrapper>
+					<MainWrapper>{children}</MainWrapper>
 				</body>
 			</StoreProvider>
 		</html>
