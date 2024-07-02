@@ -2,22 +2,18 @@
 
 import { ReactNode } from "react";
 import axios from "axios";
-import { AppDispatch } from "@/redux/config/configStore";
-// import { useDispatch } from "react-redux";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 
-type Props = {
-	children: ReactNode;
-};
+type Props = { children: ReactNode };
 
 const MainWrapper: React.FC<Props> = (props) => {
 	// const dispatch: AppDispatch = useDispatch();
+	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 	axios.interceptors.request.use(
 		(config) => {
 			// const dispatch: AppDispatch = useDispatch();
 			// dispatch(setIsOpenDrawer(true));
-
+			config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_MOCK_TOKEN}`;
 			console.log("🚀 ~ axiosInstance.interceptors.request config:", config);
 			return config;
 		},
@@ -34,12 +30,12 @@ const MainWrapper: React.FC<Props> = (props) => {
 		},
 		(error) => {
 			console.log("🚀 ~ axiosInstance.interceptors.error:", error);
-
 			// if (error.response && error.response.status === 401) {
 			// }
 			return Promise.reject(error);
 		}
 	);
+
 	return <>{props.children}</>;
 };
 export default MainWrapper;

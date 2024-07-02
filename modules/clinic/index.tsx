@@ -64,7 +64,7 @@ export default function Clinic() {
 				Drawer={
 					<BaseDrawer
 						isOpen={isOpen}
-						setIsOpen={() => dispatch(setIsOpenDrawer(true))}
+						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						content={<Drawer />}
 						isFilter
 						confirmFuntion={() =>

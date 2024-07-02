@@ -5,6 +5,8 @@ import { BaseDrawer } from "@/components/BaseDrawer/redux/model";
 import { BaseDialog } from "@/components/BaseDialog/redux/model";
 import { Loading } from "@/components/Loading/redux/model";
 import { Diploma } from "@/modules/diploma/redux/model";
+import { Organ } from "@/modules/organ/redux/model";
+import { Course } from "@/modules/course/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	doctor: Doctor;
@@ -14,4 +16,6 @@ export interface SliceModel {
 	clinicDetail: ClinicDetail;
 	loading: Loading;
 	diploma: Diploma;
+	organ: Organ;
+	course: Course;
 }
