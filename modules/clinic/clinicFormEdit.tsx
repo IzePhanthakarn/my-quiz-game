@@ -2,19 +2,18 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import TextField from "@mui/material/TextField";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
-import { IsActive, IsDelete } from "../../constants/constants";
+import { IsActive } from "../../constants/constants";
 import * as _ from "lodash";
 import { LINKS } from "../../constants/links";
 import dayjs from "dayjs";
 import { DateFormat } from "../../constants/date-format.constant";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "antd/es/form/Form";
-import { ClinicDetail } from "./redux/model";
+import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
 import Row from "antd/es/row";
 import Col from "antd/es/grid/col";
@@ -24,6 +23,7 @@ import {
 	clinicNameSchema,
 } from "./field_validation/clinicForm";
 import dynamic from "next/dynamic";
+import { findScope, getScopesPermissions } from "@/utils";
 
 const ClinicFormEdit = (params: ClinicFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -42,6 +42,8 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
+				} else {
+					await dispatch(setClinicDetail(modelClinicDetail));
 				}
 				setIsInit(true);
 			}
@@ -58,10 +60,25 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (_) => {};
 
+	const scopes = [
+		"location:read",
+		"location:write",
+		"resource:read",
+		"resource:write",
+		"netdb:select",
+		"netdb:update",
+		"changs-req:read",
+		"changs-req:write",
+	];
+
+	const resourceScopes = findScope(scopes, "resource:");
+	const { write } = getScopesPermissions(resourceScopes);
+
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
 			{isInit && (
 				<MasterDataForm
+					disabled={_.isEmpty(write) ? true : false}
 					initialValues={clinicDetail}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
@@ -82,8 +99,9 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 					inputs={
 						<>
 							<Row gutter={24}>
-								<Col span={12}>
+								<Col span={6}>
 									<FormItemInput
+										disabled={_.isEmpty(write) ? true : false}
 										label="Clinic Code"
 										itemName="clinicCode"
 										rules={clinicCodeSchema}
@@ -98,8 +116,9 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 										}}
 									/>
 								</Col>
-								<Col span={12}>
+								<Col span={6}>
 									<FormItemInput
+										disabled={_.isEmpty(write) ? true : false}
 										label="Clinic Name"
 										itemName="clinicName"
 										rules={clinicNameSchema}
