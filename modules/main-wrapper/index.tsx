@@ -20,7 +20,8 @@ type Props = {
 };
 
 const MainWrapper: React.FC<Props> = (props) => {
-	const dispatch: AppDispatch = useDispatch();
+	// const dispatch: AppDispatch = useDispatch();
+	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 	const { isLoading } = useSelector(
 		(state: SliceModel) => ({
@@ -32,6 +33,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	axios.interceptors.request.use(
 		(config) => {
 			// dispatch(setIsLoading(true));
+			config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_MOCK_TOKEN}`;
 			return config;
 		},
 		(error) => {
