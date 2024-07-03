@@ -19,8 +19,10 @@ const rounded = [
 	},
 ];
 
-export const safelistConfig = [
+const wildCard = [
 	{
 		pattern: /.*/, // This will match any class
 	},
 ];
+
+export const safelistConfig = [...padding, ...rounded];
