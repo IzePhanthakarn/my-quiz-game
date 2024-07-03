@@ -31,22 +31,22 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	axios.interceptors.request.use(
 		(config) => {
-			// dispatch(setIsLoading(true));
+			dispatch(setIsLoading(true));
 			return config;
 		},
 		(error) => {
-			// dispatch(setIsLoading(false));
+			dispatch(setIsLoading(false));
 			return Promise.reject(error);
 		}
 	);
 
 	axios.interceptors.response.use(
 		(response) => {
-			// dispatch(setIsLoading(false));
+			dispatch(setIsLoading(false));
 			return response;
 		},
 		(error) => {
-			// dispatch(setIsLoading(false));
+			dispatch(setIsLoading(false));
 			// if (error.response && error.response.status === 401) {
 			// }
 			return Promise.reject(error);
