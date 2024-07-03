@@ -6,6 +6,8 @@ import drawerSlice from "@/components/BaseDrawer/redux";
 import dialogSlice from "@/components/BaseDialog/redux";
 import loadingSlice from "@/components/Loading/redux";
 import diplomaSlice from "@/modules/diploma/redux";
+import organSlice from "@/modules/organ/redux";
+import courseSlice from "@/modules/course/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -16,6 +18,8 @@ export const store = configureStore({
 		dialog: dialogSlice,
 		loading: loadingSlice,
 		diploma: diplomaSlice,
+		organ: organSlice,
+		course: courseSlice,
 	},
 });
 

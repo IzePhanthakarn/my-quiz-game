@@ -38,6 +38,14 @@ export const menuList: MenuItem[] = [
 				name: LINKS.DIPLOMA.name,
 				link: LINKS.DIPLOMA.link,
 			},
+			{
+				name: LINKS.ORGAN.name,
+				link: LINKS.ORGAN.link,
+			},
+			{
+				name: LINKS.COURSE.name,
+				link: LINKS.COURSE.link,
+			},
 		],
 	},
 ];

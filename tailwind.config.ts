@@ -9,7 +9,7 @@ const config: Config = {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 		"./modules/**/*.{js,ts,jsx,tsx,mdx}",
 	],
-	safelist: safelistConfig,
+	// safelist: safelistConfig,
 	theme: {
 		extend: {
 			backgroundImage: {
