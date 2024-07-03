@@ -21,11 +21,11 @@ import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
 import {
 	clinicCodeSchema,
 	clinicNameSchema,
-} from "./field_validation/clinicForm";
+} from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 
-const ClinicFormEdit = (params: ClinicFormPageProps) => {
+const Form = (params: ClinicFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
@@ -141,4 +141,4 @@ const ClinicFormEdit = (params: ClinicFormPageProps) => {
 		</div>
 	);
 };
-export default dynamic(() => Promise.resolve(ClinicFormEdit), { ssr: false });
+export default dynamic(() => Promise.resolve(Form), { ssr: false });

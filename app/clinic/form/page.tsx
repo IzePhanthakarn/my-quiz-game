@@ -9,10 +9,10 @@
 
 import React from "react";
 import { NextPage } from "next";
-import ClinicFormEdit from "../../../modules/clinic/clinicFormEdit";
+import Form from "../../../modules/clinic/Form";
 
 const ClinicFormPage: NextPage<ClinicFormPageProps> = ({ params }) => {
-	return <ClinicFormEdit params={params} />;
+	return <Form params={params} />;
 };
 
 export default ClinicFormPage;
