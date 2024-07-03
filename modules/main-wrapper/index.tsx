@@ -66,8 +66,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 						sidebarWidth && `w-[calc(100vw-280px)] relative`
 					)}
 				>
-					{/* {isLoading ? <Loading /> : props.children}
-					 */}
 					{isLoading && <Loading />}
 					{props.children}
 				</main>
