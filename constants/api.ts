@@ -10,13 +10,13 @@ const API_PATH = {
 
 	// ORGAN
 	ORGAN: {
-		GET_ORGAN_LIST: "/medMsOrganSystemWpi/list",
-		GET_ORGAN_RECORD: "/medMsOrganSystemWpi",
+		GET_ORGAN_SYSTEM_WPI_LIST: "/master/organSystemWpi/list",
+		GET_ORGAN_SYSTEM_WPI_RECORD: "/master/organSystemWpi",
 	},
 	// COURSE
 	COURSE: {
-		GET_COURSE_LIST: "/medMsCourseCategory/list",
-		GET_COURSE_RECORD: "/medMsCourseCategory",
+		GET_COURSE_CATEGORY_LIST: "/master/courseCategory/list",
+		GET_COURSE_CATEGORY_RECORD: "/master/courseCategory",
 	},
 };
 
