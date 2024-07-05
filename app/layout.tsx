@@ -4,6 +4,7 @@ import { StoreProvider } from "@/redux/StoreProvider";
 
 import MainWrapper from "../modules/main-wrapper";
 
+import { AntdProvider } from "../../wcf-component-lib/src/provider/AntdProvider";
 // import "../styles/antd-custom.less"; // Import your custom Less file
 
 // const roboto = Roboto({
@@ -24,11 +25,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<StoreProvider>
-				<body>
-					<MainWrapper>{children}</MainWrapper>
-				</body>
-			</StoreProvider>
+			<AntdProvider>
+				<StoreProvider>
+					<body>
+						<MainWrapper>{children}</MainWrapper>
+					</body>
+				</StoreProvider>
+			</AntdProvider>
 		</html>
 	);
 }

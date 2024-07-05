@@ -5,7 +5,6 @@ import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
-import { setFieldValue } from "@/redux/slices/crud";
 import { columns } from "./model";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
@@ -20,6 +19,7 @@ import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -49,6 +49,11 @@ export default function Clinic() {
 
 	return (
 		<div>
+			<BaseButton
+				type="primary"
+				label="เพิ่มคลินิค"
+				onClick={() => console.log("asdas")}
+			/>
 			<MasterData
 				Grid={
 					<BaseGrid
