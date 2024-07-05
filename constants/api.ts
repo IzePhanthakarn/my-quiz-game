@@ -1,6 +1,6 @@
 const API_PATH = {
 	GET_CLINIC_DETAIL: "/getClinicList",
-	GET_CLINIC_PAGE: "/getClinicListPage",
+	GET_CLINIC_PAGE: "/master/clinic/list",
 	GET_CLINIC: "/getClinicListByCodeName",
 	CREATE_CLINIC: "/createClinic",
 	UPDATE_CLINIC: "/patchClinic",
