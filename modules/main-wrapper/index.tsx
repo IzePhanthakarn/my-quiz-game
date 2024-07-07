@@ -58,6 +58,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	return (
 		<>
+			{isLoading && <Loading />}
 			{/* <HandleErrorDialog /> */}
 			<NavBar />
 			<Row className="h-[calc(100vh-75px)]">
@@ -68,7 +69,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 						sidebarWidth && `w-[calc(100vw-280px)] relative`
 					)}
 				>
-					{isLoading && <Loading />}
 					{props.children}
 				</main>
 			</Row>

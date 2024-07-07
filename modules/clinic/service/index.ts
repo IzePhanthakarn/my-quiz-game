@@ -20,6 +20,7 @@ import { LINKS } from "../../../constants/links";
 import { redirect } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { token } from "@/config";
+import { setIsOpenDialog } from "../../../components/BaseDialog/redux";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
@@ -135,7 +136,7 @@ export const addClinic =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			router.push(LINKS.CLINIC.link);
+			dispatch(setIsOpenDialog(true));
 		}
 	};
 
@@ -171,4 +172,9 @@ export const updateClinic =
 				},
 			})
 		);
+		if (_.get(data.payload, "error.message") === "Rejected") {
+			return;
+		} else {
+			dispatch(setIsOpenDialog(true));
+		}
 	};
