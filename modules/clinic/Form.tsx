@@ -15,24 +15,25 @@ import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
-import Row from "antd/es/row";
-import Col from "antd/es/grid/col";
 import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import {
 	clinicCodeSchema,
 	clinicNameSchema,
 } from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
+import { setIsOpenDialog } from "../../components/BaseDialog/redux";
 
 const Form = (params: ClinicFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail } = useSelector(
+	const { clinicDetail, isOpen } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
+			isOpen: state.dialog.isOpen,
 		}),
 		shallowEqual
 	);
@@ -73,9 +74,19 @@ const Form = (params: ClinicFormPageProps) => {
 
 	const resourceScopes = findScope(scopes, "resource:");
 	const { write } = getScopesPermissions(resourceScopes);
+	console.log("🚀 ~ Form ~ isOpen:", isOpen);
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
+			<BaseDialog
+				isOpen={isOpen}
+				content={<>12</>}
+				setIsOpen={(value) => {
+					dispatch(setIsOpenDialog(value));
+					router.push(LINKS.CLINIC.link);
+				}}
+			/>
+
 			{isInit && (
 				<MasterDataForm
 					disabled={_.isEmpty(write) ? true : false}
@@ -98,42 +109,38 @@ const Form = (params: ClinicFormPageProps) => {
 					}}
 					inputs={
 						<>
-							<Row gutter={24}>
-								<Col span={6}>
-									<FormItemInput
-										disabled={_.isEmpty(write) ? true : false}
-										label="Clinic Code"
-										itemName="clinicCode"
-										rules={clinicCodeSchema}
-										value={clinicDetail.clinicCode}
-										onChangeFunction={(e) => {
-											dispatch(
-												setClinicDetail({
-													...clinicDetail,
-													clinicCode: e.target.value,
-												})
-											);
-										}}
-									/>
-								</Col>
-								<Col span={6}>
-									<FormItemInput
-										disabled={_.isEmpty(write) ? true : false}
-										label="Clinic Name"
-										itemName="clinicName"
-										rules={clinicNameSchema}
-										value={clinicDetail.clinicName}
-										onChangeFunction={(e) => {
-											dispatch(
-												setClinicDetail({
-													...clinicDetail,
-													clinicName: e.target.value,
-												})
-											);
-										}}
-									/>
-								</Col>
-							</Row>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<FormItemInput
+									disabled={_.isEmpty(write) ? true : false}
+									label="Clinic Code"
+									itemName="clinicCode"
+									rules={clinicCodeSchema}
+									value={clinicDetail.clinicCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicCode: e.target.value,
+											})
+										);
+									}}
+								/>
+								<FormItemInput
+									disabled={_.isEmpty(write) ? true : false}
+									label="Clinic Name"
+									itemName="clinicName"
+									rules={clinicNameSchema}
+									value={clinicDetail.clinicName}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicDetail({
+												...clinicDetail,
+												clinicName: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
 						</>
 					}
 				/>
