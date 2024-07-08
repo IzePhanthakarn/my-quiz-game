@@ -24,6 +24,7 @@ import {
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenDialog } from "../../components/BaseDialog/redux";
+import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 
 const Form = (params: ClinicFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -41,6 +42,8 @@ const Form = (params: ClinicFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
+				dispatch(setIsOpenDialog(true));
+
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
 				} else {
@@ -74,13 +77,20 @@ const Form = (params: ClinicFormPageProps) => {
 
 	const resourceScopes = findScope(scopes, "resource:");
 	const { write } = getScopesPermissions(resourceScopes);
-	console.log("🚀 ~ Form ~ isOpen:", isOpen);
 
 	return (
 		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
 			<BaseDialog
 				isOpen={isOpen}
-				content={<>12</>}
+				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
+				baseDialogType={BaseDialogType.DANGER}
+				headerText={
+					<>
+						ไม่สามารถบันทึกข้อมูล
+						<br />
+						เข้าสู่ระบบได้
+					</>
+				}
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.CLINIC.link);

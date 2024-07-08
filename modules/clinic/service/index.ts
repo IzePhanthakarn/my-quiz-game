@@ -148,12 +148,12 @@ export const updateClinicApi = createAsyncThunk(
 				clinicName: ClinicDetail["clinicName"];
 				isActive: ClinicDetail["isActive"];
 			};
-			clinicCode: ClinicDetail["clinicCode"];
+			uuid: ClinicDetail["uuid"];
 		},
 		thunkAPi
 	) => {
 		try {
-			const apiPath = `${API_PATH.UPDATE_CLINIC}/${body.clinicCode}`;
+			const apiPath = `${API_PATH.UPDATE_CLINIC}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
@@ -165,7 +165,7 @@ export const updateClinic =
 	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateClinicApi({
-				clinicCode: clinicDetail.clinicCode,
+				uuid: clinicDetail.uuid,
 				body: {
 					clinicName: clinicDetail.clinicName,
 					isActive: clinicDetail.isActive,

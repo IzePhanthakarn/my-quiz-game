@@ -43,12 +43,12 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 	} else if (mode === BUTTON_MODE.VIEW_EDIT_ICON) {
 		return (
 			<Row className="items-center space-x-1">
-				{read && (
+				{/* {read && (
 					<Link href={viewLink ?? ""}>
 						<img src="/icons/view.svg" alt="" />
 					</Link>
-				)}
-				{write && (
+				)} */}
+				{(write || read) && (
 					<Link href={editLink ?? ""}>
 						<img src="/icons/edit.svg" alt="" />
 					</Link>

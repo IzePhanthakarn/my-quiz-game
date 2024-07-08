@@ -70,7 +70,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 						sidebarWidth && `w-[calc(100vw-280px)] relative`
 					)}
 				>
-					<BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} />
+					{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}
 					{props.children}
 				</main>
 			</Row>
