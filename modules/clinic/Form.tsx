@@ -42,7 +42,7 @@ const Form = (params: ClinicFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
-				dispatch(setIsOpenDialog(true));
+				// dispatch(setIsOpenDialog(true));
 
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
@@ -83,14 +83,8 @@ const Form = (params: ClinicFormPageProps) => {
 			<BaseDialog
 				isOpen={isOpen}
 				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.DANGER}
-				headerText={
-					<>
-						ไม่สามารถบันทึกข้อมูล
-						<br />
-						เข้าสู่ระบบได้
-					</>
-				}
+				baseDialogType={BaseDialogType.SUCCESS}
+				headerText={<>บันทึกข้อมูลสำเร็จ</>}
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.CLINIC.link);
