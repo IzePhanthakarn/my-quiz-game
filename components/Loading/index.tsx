@@ -16,9 +16,11 @@ export default function Loading() {
 	return (
 		<>
 			<div className="spin-loading">
-				<Spin tip="Loading" size="large">
-					{content}
-				</Spin>
+				<div className="spin-loading-child">
+					<Spin tip="Loading" size="large">
+						{content}
+					</Spin>
+				</div>
 			</div>
 		</>
 	);
