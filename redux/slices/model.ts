@@ -9,12 +9,12 @@ import { Organ } from "@/modules/organ/redux/model";
 import { Course } from "@/modules/course/redux/model";
 export interface SliceModel {
 	crud: Crud;
+	loading: Loading;
 	doctor: Doctor;
 	clinic: Clinic;
 	drawer: BaseDrawer;
 	dialog: BaseDialog;
 	clinicDetail: ClinicDetail;
-	loading: Loading;
 	diploma: Diploma;
 	organ: Organ;
 	course: Course;
