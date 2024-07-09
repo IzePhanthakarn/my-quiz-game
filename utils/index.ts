@@ -1,7 +1,7 @@
 import { IsActive, IsDelete } from "@/constants/constants";
 import { DateFormat } from "@/constants/date-format.constant";
 import dayjs from "dayjs";
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 import { ScopesPermissions } from "./model";
 
 export function getCurrentDateString() {

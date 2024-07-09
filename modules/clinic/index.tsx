@@ -10,7 +10,7 @@ import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
 
 import { LINKS } from "@/constants/links";
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setOrder, setPagination } from "./redux";
 import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";

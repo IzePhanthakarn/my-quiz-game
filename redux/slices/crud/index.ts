@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit/react";
 import { Crud, initialState } from "./model";
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 
 export const crudSlice = createSlice({
 	name: "crud",

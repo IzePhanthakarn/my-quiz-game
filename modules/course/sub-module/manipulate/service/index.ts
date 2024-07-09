@@ -1,4 +1,4 @@
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 import { setIsLoading } from "@/components/Loading/redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import { GetCourseListBody, getCourseList } from "./api";

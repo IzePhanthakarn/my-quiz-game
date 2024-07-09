@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
 import { IsActive } from "../../constants/constants";
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 import { LINKS } from "../../constants/links";
 import dayjs from "dayjs";
 import { DateFormat } from "../../constants/date-format.constant";

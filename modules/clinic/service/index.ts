@@ -11,7 +11,7 @@ import {
 	PaginationOptions,
 	SortOrdersModel,
 } from "@/components/Pagination/redux/model";
-import _ from "wcf-component-lib/node_modules/@types/lodash/index";
+import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
