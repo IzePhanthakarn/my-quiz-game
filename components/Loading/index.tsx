@@ -1,9 +1,6 @@
 import * as React from "react";
 import "./style.css";
-// import CircularProgress from "@mui/material/CircularProgress";
-// import Backdrop from "@mui/material/Backdrop";
-
-import Spin from "antd/es/spin";
+import Spin from "wcf-component-lib/node_modules/antd/lib/spin";
 
 export default function Loading() {
 	const contentStyle: React.CSSProperties = {

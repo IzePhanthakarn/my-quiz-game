@@ -1,9 +1,8 @@
 import { IsDelete } from "../../../constants/constants";
 import { ClinicFilter, modelClinicFilter } from "./filter/model";
-import { ClinicForm, ClinicGrid, modelClinicForm } from "./master/model";
+import { ClinicGrid } from "./master/model";
 
 export interface Clinic {
-	infomation: ClinicForm;
 	grid: ClinicGrid;
 	clinicDetail: ClinicDetail;
 	clinicFilter: ClinicFilter;
@@ -23,7 +22,6 @@ export const modelClinicDetail: ClinicDetail = {
 };
 
 export const modelClinic: Clinic = {
-	infomation: modelClinicForm,
 	grid: {
 		list: [],
 		page: {
