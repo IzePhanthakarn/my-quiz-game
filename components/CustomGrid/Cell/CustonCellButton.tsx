@@ -2,8 +2,8 @@
 
 import { findScope, getScopesPermissions } from "@/utils";
 import { BUTTON_MODE } from "./model";
-import Button from "antd/es/button";
-import Link from "antd/es/typography/Link";
+import Button from "wcf-component-lib/node_modules/antd/es/button";
+import Link from "wcf-component-lib/node_modules/antd/es/typography/Link";
 import Row from "@/components/Row";
 
 interface Props {

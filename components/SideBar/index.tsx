@@ -2,7 +2,9 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import Collapse, { CollapseProps } from "antd/es/collapse";
+import Collapse, {
+	CollapseProps,
+} from "wcf-component-lib/node_modules/antd/es/collapse";
 import "./style.css";
 import SidebarContent from "./content";
 
