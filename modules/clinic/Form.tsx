@@ -56,7 +56,7 @@ const Form = (params: ClinicFormPageProps) => {
 
 	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
 		if (_.isEmpty(params.params.uuid)) {
-			dispatch(addClinic(clinicDetail, router));
+			dispatch(addClinic(clinicDetail));
 		} else {
 			dispatch(updateClinic(clinicDetail));
 		}

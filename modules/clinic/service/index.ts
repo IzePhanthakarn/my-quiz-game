@@ -124,8 +124,7 @@ export const createClinicApi = createAsyncThunk(
 	}
 );
 export const addClinic =
-	(clinicDetail: ClinicDetail, router: AppRouterInstance) =>
-	async (dispatch: AppDispatch) => {
+	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			createClinicApi({
 				clinicCode: clinicDetail.clinicCode,
