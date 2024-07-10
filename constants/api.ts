@@ -1,4 +1,8 @@
 const API_PATH = {
+	// LOGIN
+	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+
+	// CLINIC
 	GET_CLINIC_DETAIL: "master/clinic",
 	GET_CLINIC_PAGE: "master/clinic/list",
 	GET_CLINIC: "/getClinicListByCodeName",
