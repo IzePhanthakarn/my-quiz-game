@@ -49,11 +49,6 @@ export default function Clinic() {
 
 	return (
 		<div>
-			<BaseButton
-				type="primary"
-				label="เพิ่มคลินิค"
-				onClick={() => console.log("asdas")}
-			/>
 			<MasterData
 				Grid={
 					<BaseGrid
