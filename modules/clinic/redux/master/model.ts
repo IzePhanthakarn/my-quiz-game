@@ -15,3 +15,10 @@ export interface ClinicList extends ClinicForm {
 export interface ClinicGrid extends PaginationModel {
 	list: ClinicList[];
 }
+
+export const modelClinicForm: ClinicForm = {
+	clinicCodeName: "",
+	clinicCode: "",
+	clinicName: "",
+	uuid: "",
+};

@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 		const subpath = url.pathname;
 
 		const apiResponse = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/sjittikhun/page-accesses`,
+			`${process.env.GET_PAGE_ACCESSES_PATH}/sjittikhun/page-accesses`,
 			{
 				method: "GET",
 				headers: {
@@ -25,7 +25,6 @@ export async function middleware(request: NextRequest) {
 			});
 		}
 		const payload = await apiResponse.json();
-		// console.log("Payload:", payload);
 
 		const allPaths = _.flatMap(payload, (module) =>
 			_.flatMap(module.subModules, (subModule) =>
@@ -33,17 +32,12 @@ export async function middleware(request: NextRequest) {
 			)
 		);
 
-		console.log(allPaths);
-		console.log(subpath);
+		// console.log(allPaths);
+		// console.log(subpath);
 
 		if (!_.includes(allPaths, subpath)) {
-			// return NextResponse.error();
-			// return new NextResponse("Forbidden", { status: 403 });
-			return NextResponse.redirect(new URL("/login", request.url));
-			// return NextResponse.redirect('https://www.google.com');
+			// return NextResponse.redirect(new URL("/login", request.url));
 		}
-		// const tryy = _.flatMap(dataFromApi);
-		// console.log("🚀 ~ middleware ~ tryy:", tryy);
 	}
 
 	// Check for the query parameter indicating client-side navigation
