@@ -20,7 +20,7 @@ export const getToken = createAsyncThunk(
 				},
 			});
 			if (response.data.access_token) {
-				localStorage.setItem("access_token", response.data.access_token);
+				localStorage.setItem("access_token", await response.data.access_token);
 				return true;
 			} else {
 				return false;

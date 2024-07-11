@@ -9,17 +9,11 @@ import { ClinicDetail } from "../redux/model";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
-	SortOrdersModel,
 } from "@/components/Pagination/redux/model";
 import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
-import { NextRouter } from "next/router";
-import { LINKS } from "../../../constants/links";
-import { redirect } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { token } from "@/config";
 import { setIsOpenDialog } from "../../../components/BaseDialog/redux";
 
 interface ClinicGridParams {
@@ -44,7 +38,7 @@ export const getClinicList = createAsyncThunk(
 	async (params: ClinicPagination = clinicPagination, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
-			const response = await axios.post(apiPath, params, token);
+			const response = await axios.post(apiPath, params);
 			return response.data;
 		} catch (err) {
 			return thunkAPi.rejectWithValue("");

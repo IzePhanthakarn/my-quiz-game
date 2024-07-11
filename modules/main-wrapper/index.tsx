@@ -39,7 +39,9 @@ const MainWrapper: React.FC<Props> = (props) => {
 	axios.interceptors.request.use(
 		(config) => {
 			dispatch(setIsLoading(true));
-			config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_MOCK_TOKEN}`;
+			config.headers.Authorization = `Bearer ${localStorage.getItem(
+				"access_token"
+			)}`;
 			return config;
 		},
 		(error) => {

@@ -23,7 +23,6 @@ export default function Login() {
 		<div className="w-full h-screen flex items-center justify-center">
 			<div className="w-1/4 px-4 py-4 border-2 border-black flex flex-col items-center justify-center space-y-4">
 				<p>เข้าสู่ระบบ</p>
-				checkBox
 				<Input
 					value={login.username}
 					className="border-2 border-black"
