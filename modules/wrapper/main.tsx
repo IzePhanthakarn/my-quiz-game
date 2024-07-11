@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
 import NavBar from "@/components/NavBar";
@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 import { pathMapping } from "@/constants/path-mapping";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import { setIsOpenDialog } from "@/components/BaseDialog/redux";
+import _ from "lodash";
 
 type Props = {
 	children: ReactNode;

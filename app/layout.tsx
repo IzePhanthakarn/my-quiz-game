@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { AntdProvider } from "wcf-component-lib/src/provider/AntdProvider";
+import LoginWrapper from "@/modules/wrapper/login";
 
 export const metadata: Metadata = {
 	title: "WCF-Digital",
@@ -17,7 +18,9 @@ export default function RootLayout({
 		<html lang="en">
 			<AntdProvider>
 				<StoreProvider>
-					<body>{children}</body>
+					<LoginWrapper>
+						<body>{children}</body>
+					</LoginWrapper>
 				</StoreProvider>
 			</AntdProvider>
 		</html>

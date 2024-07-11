@@ -1,4 +1,4 @@
-import MainWrapper from "../../modules/main-wrapper";
+import MainWrapper from "../../modules/wrapper/main";
 
 export default function Layout({
 	children,
