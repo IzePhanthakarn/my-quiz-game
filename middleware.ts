@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 		const subpath = url.pathname;
 
 		const apiResponse = await fetch(
-			"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun/page-accesses",
+			`${process.env.NEXT_PUBLIC_API_URL}/sjittikhun/page-accesses`,
 			{
 				method: "GET",
 				headers: {
@@ -67,5 +67,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: "/:path*",
+	matcher: ["/((?!login).*)"],
 };
