@@ -1,4 +1,4 @@
-import HomeFilled from "@ant-design/icons/lib/icons/HomeFilled";
+import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/HomeFilled";
 
 export const pathMapping: {
 	[key: string]: { name: string; icon: React.ReactNode | null };

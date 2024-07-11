@@ -7,14 +7,16 @@ import { Loading } from "@/components/Loading/redux/model";
 import { Diploma } from "@/modules/diploma/redux/model";
 import { Organ } from "@/modules/organ/redux/model";
 import { Course } from "@/modules/course/redux/model";
+import { Login } from "@/modules/login/redux/model";
 export interface SliceModel {
 	crud: Crud;
+	loading: Loading;
+	login: Login;
 	doctor: Doctor;
 	clinic: Clinic;
 	drawer: BaseDrawer;
 	dialog: BaseDialog;
 	clinicDetail: ClinicDetail;
-	loading: Loading;
 	diploma: Diploma;
 	organ: Organ;
 	course: Course;

@@ -3,10 +3,13 @@
 import {
 	ArrowDownOutlined,
 	ArrowUpOutlined,
-} from "@ant-design/icons/lib/icons";
+} from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons";
 import { toggleSortIcon } from "./service";
 import { handleOrderBy } from "@/utils";
-import { ColumnType, SortOrder } from "antd/es/table/interface";
+import {
+	ColumnType,
+	SortOrder,
+} from "wcf-component-lib/node_modules/antd/es/table/interface";
 
 interface Props {
 	label: string;

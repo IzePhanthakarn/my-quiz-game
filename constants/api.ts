@@ -1,4 +1,8 @@
 const API_PATH = {
+	// LOGIN
+	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+
+	// CLINIC
 	GET_CLINIC_DETAIL: "master/clinic",
 	GET_CLINIC_PAGE: "master/clinic/list",
 	GET_CLINIC: "/getClinicListByCodeName",
@@ -10,13 +14,13 @@ const API_PATH = {
 
 	// ORGAN
 	ORGAN: {
-		GET_ORGAN_SYSTEM_WPI_LIST: "/master/organSystemWpi/list",
-		GET_ORGAN_SYSTEM_WPI_RECORD: "/master/organSystemWpi",
+		GET_ORGAN_SYSTEM_WPI_LIST: "/master/organ-system-wpi/list",
+		GET_ORGAN_SYSTEM_WPI_RECORD: "/master/organ-system-wpi",
 	},
 	// COURSE
 	COURSE: {
-		GET_COURSE_CATEGORY_LIST: "/master/courseCategory/list",
-		GET_COURSE_CATEGORY_RECORD: "/master/courseCategory",
+		GET_COURSE_CATEGORY_LIST: "/master/course-category/list",
+		GET_COURSE_CATEGORY_RECORD: "/master/course-category",
 	},
 };
 

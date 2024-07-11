@@ -1,38 +1,41 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
-// import { useDispatch } from "react-redux";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
 import Row from "@/components/Row";
-import Loading from "@/components/Loading";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../components/Loading/redux";
 import BaseBreadCrumb from "wcf-component-lib/src/components/BaseBreadCrumb";
+import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
 import { usePathname } from "next/navigation";
 import { pathMapping } from "@/constants/path-mapping";
+import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
+import { setIsOpenDialog } from "@/components/BaseDialog/redux";
 
 type Props = {
 	children: ReactNode;
 };
-
 const MainWrapper: React.FC<Props> = (props) => {
 	const pathname = usePathname();
 	const dispatch: AppDispatch = useDispatch();
+
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [textDetail, setTextDetail] = useState<string>("");
+	const [textHeader, setTextHeader] = useState<string>("");
+
 	const { isLoading } = useSelector(
-		(state: SliceModel) => ({
-			isLoading: state.loading.isLoading,
-		}),
+		(state: SliceModel) => ({ isLoading: state.loading.isLoading }),
 		shallowEqual
 	);
 
 	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+
 	axios.interceptors.request.use(
 		(config) => {
 			dispatch(setIsLoading(true));
@@ -44,6 +47,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 			return Promise.reject(error);
 		}
 	);
+
 	axios.interceptors.response.use(
 		(response) => {
 			dispatch(setIsLoading(false));
@@ -51,16 +55,15 @@ const MainWrapper: React.FC<Props> = (props) => {
 		},
 		(error) => {
 			dispatch(setIsLoading(false));
-			// if (error.response && error.response.status === 401) {
-			// }
+			setIsOpen(true);
+			setTextHeader(error.response.data.title);
+			setTextDetail(error.response.data.detail);
 			return Promise.reject(error);
 		}
 	);
 
 	return (
-		<>
-			{isLoading && <Loading />}
-			{/* <HandleErrorDialog /> */}
+		<div>
 			<NavBar />
 			<Row className="h-[calc(100vh-75px)]">
 				<SideBar />
@@ -70,11 +73,21 @@ const MainWrapper: React.FC<Props> = (props) => {
 						sidebarWidth && `w-[calc(100vw-280px)] relative`
 					)}
 				>
-					{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}
+					{/* Bread Crumb */}
+					<BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} />
 					{props.children}
 				</main>
 			</Row>
-		</>
+			{/* Loading */}
+			{isLoading && <BaseLoading />}
+			{/* Dialog */}
+			<BaseDialog
+				isOpen={isOpen}
+				setIsOpen={(value) => setIsOpen(value)}
+				content={<p>{textDetail}</p>}
+				headerText={<p>{textHeader}</p>}
+			/>
+		</div>
 	);
 };
 export default MainWrapper;
