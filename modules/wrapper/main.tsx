@@ -18,6 +18,7 @@ import { pathMapping } from "@/constants/path-mapping";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import { setIsOpenDialog } from "@/components/BaseDialog/redux";
 import _ from "lodash";
+import Cookies from "js-cookie";
 
 type Props = {
 	children: ReactNode;
@@ -40,9 +41,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	axios.interceptors.request.use(
 		(config) => {
 			dispatch(setIsLoading(true));
-			config.headers.Authorization = `Bearer ${localStorage.getItem(
-				"access_token"
-			)}`;
+			config.headers.Authorization = `Bearer ${Cookies.get("Bearer")}`;
 			return config;
 		},
 		(error) => {

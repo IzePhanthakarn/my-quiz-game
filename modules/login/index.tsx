@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { getToken } from "./service";
+import { validateLogin } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { SliceModel } from "@/redux/slices/model";
 import { setPassword, setUserName } from "./redux";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 export default function Login() {
 	const dispatch: AppDispatch = useDispatch();
-	const router = useRouter();
+	// const router = useRouter();
 	const { login } = useSelector(
 		(state: SliceModel) => ({
 			login: state.login,
@@ -40,8 +40,8 @@ export default function Login() {
 				<BaseButton
 					label="เข้าสู่ระบบ"
 					onClick={async () => {
-						const token = await dispatch(getToken(login));
-						if (token) router.push("/med/clinic");
+						await dispatch(validateLogin(login));
+						// router.push("/med/clinic");
 					}}
 				/>
 			</div>
