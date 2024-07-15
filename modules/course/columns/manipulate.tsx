@@ -3,10 +3,10 @@
 import CustomCellButton from "@/components/CustomGrid/Cell/CustonCellButton";
 import { BUTTON_MODE } from "@/components/CustomGrid/Cell/model";
 import StatusIndicator from "@/components/CustomGrid/Cell/StatusIndicator";
-import { TableProps } from "antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { ColumnTitleProps } from "antd/es/table/interface";
 import { LINKS } from "@/constants/links";
+import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
+import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 
 export const columns: TableProps["columns"] = [
 	{

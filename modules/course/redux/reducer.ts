@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Course } from "../model";
+import { Course } from "./model";
 import {
 	CourseManipulateForm,
 	CourseManipulateGrid,
@@ -12,24 +12,24 @@ export const courseManipulateReducers = {
 		state: Course,
 		action: PayloadAction<CourseManipulateGrid>
 	) => {
-		state.manipulate.grid = action.payload;
+		state.grid = action.payload;
 	},
 	setCourseManipulateFilter: (
 		state: Course,
 		action: PayloadAction<CourseManipulateFilter>
 	) => {
-		state.manipulate.filter = action.payload;
+		state.filter = action.payload;
 	},
 	setCourseManipulateForm: (
 		state: Course,
 		action: PayloadAction<CourseManipulateForm>
 	) => {
-		state.manipulate.form = action.payload;
+		state.form = action.payload;
 	},
 	setCourseManipulatePagination: (
 		state: Course,
 		action: PayloadAction<PaginationOptions>
 	) => {
-		state.manipulate.grid.page = { ...action.payload };
+		state.grid.page = { ...action.payload };
 	},
 };

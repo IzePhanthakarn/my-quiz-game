@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { modelCourse } from "./model";
-import { courseManipulateReducers } from "./manipulate/reducer";
+import { courseManipulateReducers } from "./reducer";
 
 export const courseSlice = createSlice({
 	name: "Clinic",

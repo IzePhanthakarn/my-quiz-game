@@ -24,7 +24,7 @@ export default function CourseManipulate() {
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.loading.isLoading,
-			course: state.course.manipulate,
+			course: state.course,
 		}),
 		shallowEqual
 	);
@@ -73,7 +73,7 @@ export default function CourseManipulate() {
 						confirmFuntion={() => {}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CLINIC.add)}
+				AddFunction={() => router.push(LINKS.CATEGORY_COURSE.add)}
 			/>
 		</div>
 	);
