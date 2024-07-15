@@ -1,16 +1,17 @@
 import { PaginationModel } from "@/components/Pagination/redux/model";
+import { IsActive } from "../../../constants/constants";
 
-export interface Course {
-	grid: CourseManipulateGrid;
-	filter: CourseManipulateFilter;
-	form: CourseManipulateForm;
+export interface CourseCategory {
+	grid: CourseCategoryGrid;
+	filter: CourseCategoryFilter;
+	form: CourseCategoryForm;
 }
 
-export interface CourseManipulateGrid extends PaginationModel {
-	data: CourseManipulateGridData[];
+export interface CourseCategoryGrid extends PaginationModel {
+	data: CourseCategoryGridData[];
 }
 
-export interface CourseManipulateGridData {
+export interface CourseCategoryGridData {
 	courseCategoryId: number;
 	courseCategory: string;
 	formatCode: string;
@@ -21,12 +22,12 @@ export interface CourseManipulateGridData {
 	situation: string;
 }
 
-export interface CourseManipulateFilter {
+export interface CourseCategoryFilter {
 	courseCategoryId: number;
 	categoryDescription: string;
 }
 
-export interface CourseManipulateForm {
+export interface CourseCategoryForm {
 	categoryDescription: string;
 	categorySubDesc: string;
 	courseCategory: string;
@@ -43,7 +44,7 @@ export interface CourseManipulateForm {
 	uuid: string;
 }
 
-export const modelCourseManipulate: Course = {
+export const modelCourseCategory: CourseCategory = {
 	grid: {
 		data: [],
 		page: {
@@ -66,13 +67,9 @@ export const modelCourseManipulate: Course = {
 		situation: "",
 		createdBy: "",
 		createdDate: "",
-		isActive: "",
+		isActive: IsActive.Y,
 		updatedBy: "",
 		updatedDate: "",
 		uuid: "",
 	},
-};
-
-export const modelCourse: Course = {
-	...modelCourseManipulate,
 };

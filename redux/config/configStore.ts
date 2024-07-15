@@ -7,7 +7,7 @@ import dialogSlice from "@/components/BaseDialog/redux";
 import loadingSlice from "@/components/Loading/redux";
 import diplomaSlice from "@/modules/diploma/redux";
 import organSlice from "@/modules/organ/redux";
-import courseSlice from "@/modules/course/redux";
+import courseCategorySlice from "@/modules/course/redux";
 import loginSlice from "@/modules/login/redux";
 
 export const store = configureStore({
@@ -21,7 +21,7 @@ export const store = configureStore({
 		login: loginSlice,
 		diploma: diplomaSlice,
 		organ: organSlice,
-		course: courseSlice,
+		courseCategory: courseCategorySlice,
 	},
 });
 

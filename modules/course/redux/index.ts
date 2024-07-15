@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { modelCourse } from "./model";
-import { courseManipulateReducers } from "./reducer";
+import { modelCourseCategory } from "./model";
+import { courseCategoryReducers } from "./reducer";
 
-export const courseSlice = createSlice({
+export const courseCategorySlice = createSlice({
 	name: "Clinic",
-	initialState: modelCourse,
+	initialState: modelCourseCategory,
 	reducers: {
-		...courseManipulateReducers,
+		...courseCategoryReducers,
 	},
 });
 
 export const {
-	// Manipulate
-	setCourseManipulateForm,
-	setCourseManipulateGrid,
-	setCourseManipulateFilter,
-	setCourseManipulatePagination,
-} = courseSlice.actions;
+	setCourseCategoryForm,
+	setCourseCategoryGrid,
+	setCourseCategoryFilter,
+	setCourseCategoryPagination,
+} = courseCategorySlice.actions;
 
-export default courseSlice.reducer;
+export default courseCategorySlice.reducer;

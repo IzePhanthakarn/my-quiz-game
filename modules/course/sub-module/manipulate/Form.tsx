@@ -19,8 +19,8 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenDialog } from "@/components/BaseDialog/redux";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
-import { setCourseManipulateForm } from "../../redux";
-import { CourseManipulateForm } from "../../redux/model";
+import { setCourseCategoryForm } from "../../redux";
+import { CourseCategoryForm } from "../../redux/model";
 import { courseCategoryRules } from "./field-validation/courseCategoryForm";
 
 const Form = (params: CourseCategoryFormPageProps) => {
@@ -31,7 +31,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 	const { isOpen, form } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
-			form: state.course.form,
+			form: state.courseCategory.form,
 		}),
 		shallowEqual
 	);
@@ -42,22 +42,20 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					// await dispatch(initGetClinicDetail(params));
 				} else {
-					await dispatch(setCourseManipulateForm(form));
+					await dispatch(setCourseCategoryForm(form));
 				}
 				setIsInit(true);
 			}
 		})();
 	}, []);
 
-	const onFinish: FormProps<CourseManipulateForm>["onFinish"] = (values) => {
-		// if (_.isEmpty(params.params.uuid)) {
-		// 	dispatch(addClinic(clinicDetail));
-		// } else {
-		// 	dispatch(updateClinic(clinicDetail));
-		// }
+	const onFinish: FormProps<CourseCategoryForm>["onFinish"] = (values) => {
+		if (!_.isEmpty(params.params.uuid)) {
+		} else {
+		}
 	};
 
-	const onFinishFailed: FormProps<CourseManipulateForm>["onFinishFailed"] = (
+	const onFinishFailed: FormProps<CourseCategoryForm>["onFinishFailed"] = (
 		_
 	) => {};
 
@@ -97,7 +95,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y ? true : false}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
-							setCourseManipulateForm({
+							setCourseCategoryForm({
 								...form,
 								isActive: e ? IsActive.Y : IsActive.N,
 							})
@@ -117,7 +115,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									value={form.categoryDescription}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												categoryDescription: e.target.value,
 											})
@@ -132,7 +130,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									value={form.categorySubDesc}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												categorySubDesc: e.target.value,
 											})
@@ -141,13 +139,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 								/>
 								<FormItemInput
 									disabled={_.isEmpty(write) ? true : false}
-									label="Course Category"
+									label="CourseCategory Category"
 									itemName="courseCategory"
 									rules={courseCategoryRules.courseCategorySchema}
 									value={form.courseCategory}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												courseCategory: e.target.value,
 											})
@@ -156,13 +154,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 								/>
 								<FormItemInput
 									disabled={_.isEmpty(write) ? true : false}
-									label="Course Category"
+									label="Organize Group Code"
 									itemName="organizeGroupCode"
 									rules={courseCategoryRules.organizeGroupCodeSchema}
 									value={form.organizeGroupCode}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												organizeGroupCode: e.target.value,
 											})
@@ -171,13 +169,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 								/>
 								<FormItemInput
 									disabled={_.isEmpty(write) ? true : false}
-									label="Course Category"
+									label="Organize Sub Group Code"
 									itemName="organizeSubGroupCode"
 									rules={courseCategoryRules.organizeSubGroupCodeSchema}
 									value={form.organizeSubGroupCode}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												organizeSubGroupCode: e.target.value,
 											})
@@ -186,13 +184,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 								/>
 								<FormItemInput
 									disabled={_.isEmpty(write) ? true : false}
-									label="Course Category"
+									label="Situation"
 									itemName="situation"
 									rules={courseCategoryRules.situationSchema}
 									value={form.situation}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseManipulateForm({
+											setCourseCategoryForm({
 												...form,
 												situation: e.target.value,
 											})

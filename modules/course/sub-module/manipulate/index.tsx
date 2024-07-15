@@ -24,7 +24,7 @@ export default function CourseManipulate() {
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.loading.isLoading,
-			course: state.course,
+			course: state.courseCategory,
 		}),
 		shallowEqual
 	);

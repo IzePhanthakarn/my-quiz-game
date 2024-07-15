@@ -1,33 +1,33 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Course } from "./model";
+import { CourseCategory } from "./model";
 import {
-	CourseManipulateForm,
-	CourseManipulateGrid,
-	CourseManipulateFilter,
+	CourseCategoryForm,
+	CourseCategoryGrid,
+	CourseCategoryFilter,
 } from "./model";
 import { PaginationOptions } from "@/components/Pagination/redux/model";
 
-export const courseManipulateReducers = {
-	setCourseManipulateGrid: (
-		state: Course,
-		action: PayloadAction<CourseManipulateGrid>
+export const courseCategoryReducers = {
+	setCourseCategoryGrid: (
+		state: CourseCategory,
+		action: PayloadAction<CourseCategoryGrid>
 	) => {
 		state.grid = action.payload;
 	},
-	setCourseManipulateFilter: (
-		state: Course,
-		action: PayloadAction<CourseManipulateFilter>
+	setCourseCategoryFilter: (
+		state: CourseCategory,
+		action: PayloadAction<CourseCategoryFilter>
 	) => {
 		state.filter = action.payload;
 	},
-	setCourseManipulateForm: (
-		state: Course,
-		action: PayloadAction<CourseManipulateForm>
+	setCourseCategoryForm: (
+		state: CourseCategory,
+		action: PayloadAction<CourseCategoryForm>
 	) => {
 		state.form = action.payload;
 	},
-	setCourseManipulatePagination: (
-		state: Course,
+	setCourseCategoryPagination: (
+		state: CourseCategory,
 		action: PayloadAction<PaginationOptions>
 	) => {
 		state.grid.page = { ...action.payload };

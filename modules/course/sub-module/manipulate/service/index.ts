@@ -2,11 +2,11 @@ import _ from "lodash";
 import { setIsLoading } from "@/components/Loading/redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import { GetCourseListBody, getCourseList } from "./api";
-import { setCourseManipulateGrid } from "@/modules/course/redux";
-import { CourseManipulate } from "@/modules/course/redux/manipulate/model";
+import { setCourseCategoryGrid } from "@/modules/course/redux";
+import { CourseCategory } from "@/modules/course/redux/model";
 
 export const fetchCourseList =
-	(course: CourseManipulate) => async (dispatch: AppDispatch) => {
+	(course: CourseCategory) => async (dispatch: AppDispatch) => {
 		const body: GetCourseListBody = {
 			courseCategoryId: "",
 			categoryDescription: "",
@@ -17,7 +17,7 @@ export const fetchCourseList =
 		dispatch(setIsLoading(false));
 		if (_.get(result, "error.message") === "Rejected") return;
 		dispatch(
-			setCourseManipulateGrid({
+			setCourseCategoryGrid({
 				data: result.payload.content,
 				page: {
 					...course.grid.page,
@@ -26,3 +26,19 @@ export const fetchCourseList =
 			})
 		);
 	};
+
+// export const addCourseCategory =
+// 	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+// 		const data = await dispatch(
+// 			createClinicApi({
+// 				clinicCode: clinicDetail.clinicCode,
+// 				clinicName: clinicDetail.clinicName,
+// 				isActive: clinicDetail.isActive,
+// 			})
+// 		);
+// 		if (_.get(data.payload, "error.message") === "Rejected") {
+// 			return;
+// 		} else {
+// 			dispatch(setIsOpenDialog(true));
+// 		}
+// 	};
