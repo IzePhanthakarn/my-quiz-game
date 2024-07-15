@@ -13,7 +13,7 @@ import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { columns } from "../../columns/manipulate";
+import { columns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
@@ -24,7 +24,7 @@ export default function CourseManipulate() {
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.loading.isLoading,
-			course: state.course.manipulate,
+			course: state.courseCategory,
 		}),
 		shallowEqual
 	);
@@ -73,7 +73,7 @@ export default function CourseManipulate() {
 						confirmFuntion={() => {}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CLINIC.add)}
+				AddFunction={() => router.push(LINKS.CATEGORY_COURSE.add)}
 			/>
 		</div>
 	);

@@ -23,11 +23,10 @@ export const LINKS = {
 		view: "/organ/manipulate/",
 		create: "/organ/manipulate/",
 	},
-	COURSE: {
+	CATEGORY_COURSE: {
 		name: "คอร์ส",
-		link: "/course",
-		edit: "/course/manipulate/",
-		view: "/course/manipulate/",
-		create: "/course/manipulate/",
+		link: "/med/course",
+		add: "/med/course/form/",
+		edit: "/med/course/edit/",
 	},
 };

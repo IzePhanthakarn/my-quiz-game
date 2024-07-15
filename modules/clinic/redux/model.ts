@@ -1,4 +1,4 @@
-import { IsDelete } from "../../../constants/constants";
+import { IsActive } from "../../../constants/constants";
 import { ClinicFilter, modelClinicFilter } from "./filter/model";
 import { ClinicGrid } from "./master/model";
 
@@ -15,7 +15,7 @@ export const modelClinicDetail: ClinicDetail = {
 	createdBy: "",
 	createdDate: "",
 	// isDeleted: IsDelete.N,
-	isActive: IsDelete.Y,
+	isActive: IsActive.Y,
 	updatedBy: "",
 	updatedDate: "",
 	uuid: "",

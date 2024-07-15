@@ -18,9 +18,12 @@ const API_PATH = {
 		GET_ORGAN_SYSTEM_WPI_RECORD: "/master/organ-system-wpi",
 	},
 	// COURSE
-	COURSE: {
+	COURSE_CATEGORT: {
 		GET_COURSE_CATEGORY_LIST: "/master/course-category/list",
 		GET_COURSE_CATEGORY_RECORD: "/master/course-category",
+		ADD_COURSE_CATEGORY: "/master/course-category",
+		GET_COURSE_CATEGORY_BY_UUID: "/master/course-category",
+		UPDATE_COURSE_CATEGORY_BY_UUID: "/master/course-category",
 	},
 };
 
