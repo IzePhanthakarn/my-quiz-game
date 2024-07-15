@@ -1,7 +1,7 @@
 import {
 	requiredRule,
-	equalLengthRule,
-	minRule,
+	// equalLengthRule,
+	// minRule,
 	maxRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
 

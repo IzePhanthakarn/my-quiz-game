@@ -22,6 +22,11 @@ import { IsActive } from "@/constants/constants";
 import { setCourseCategoryForm } from "./redux";
 import { CourseCategoryForm } from "./redux/model";
 import { courseCategoryRules } from "./field-validation/courseCategoryForm";
+import {
+	addCourseCategory,
+	initGetCourseCategoryDetail,
+	updateCourseCategory,
+} from "./service";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -40,7 +45,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 		(async () => {
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
-					// await dispatch(initGetClinicDetail(params));
+					await dispatch(initGetCourseCategoryDetail(params));
 				} else {
 					await dispatch(setCourseCategoryForm(form));
 				}
@@ -51,7 +56,9 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 	const onFinish: FormProps<CourseCategoryForm>["onFinish"] = (values) => {
 		if (!_.isEmpty(params.params.uuid)) {
+			dispatch(updateCourseCategory(form));
 		} else {
+			dispatch(addCourseCategory(form));
 		}
 	};
 
@@ -82,7 +89,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				headerText={<>บันทึกข้อมูลสำเร็จ</>}
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.CLINIC.link);
+					router.push(LINKS.CATEGORY_COURSE.link);
 				}}
 			/>
 
@@ -148,6 +155,21 @@ const Form = (params: CourseCategoryFormPageProps) => {
 											setCourseCategoryForm({
 												...form,
 												courseCategory: e.target.value,
+											})
+										);
+									}}
+								/>
+								<FormItemInput
+									disabled={_.isEmpty(write) ? true : false}
+									label="Format Code"
+									itemName="formatCode"
+									rules={courseCategoryRules.formatCodeSchema}
+									value={form.formatCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												formatCode: e.target.value,
 											})
 										);
 									}}

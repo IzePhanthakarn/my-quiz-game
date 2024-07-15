@@ -26,6 +26,7 @@ export const LINKS = {
 	CATEGORY_COURSE: {
 		name: "คอร์ส",
 		link: "/med/course",
-		add: "/med/course/form",
+		add: "/med/course/form/",
+		edit: "/med/course/edit/",
 	},
 };

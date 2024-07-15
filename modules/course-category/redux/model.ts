@@ -36,11 +36,11 @@ export interface CourseCategoryForm {
 	organizeSubGroupCode: string;
 	situation: string;
 
-	createdBy: string;
-	createdDate: string;
+	// createdBy: string;
+	// createdDate: string;
 	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
+	// updatedBy: string;
+	// updatedDate: string;
 	uuid: string;
 }
 
@@ -65,11 +65,11 @@ export const modelCourseCategory: CourseCategory = {
 		organizeGroupCode: "",
 		organizeSubGroupCode: "",
 		situation: "",
-		createdBy: "",
-		createdDate: "",
+		// createdBy: "",
+		// createdDate: "",
 		isActive: IsActive.Y,
-		updatedBy: "",
-		updatedDate: "",
+		// updatedBy: "",
+		// updatedDate: "",
 		uuid: "",
 	},
 };
