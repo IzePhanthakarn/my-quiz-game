@@ -1,4 +1,4 @@
-import CourseManipulate from "@/modules/course/sub-module/manipulate";
+import CourseManipulate from "@/modules/course";
 import React from "react";
 
 export default function page() {

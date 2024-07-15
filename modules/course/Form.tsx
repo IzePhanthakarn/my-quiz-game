@@ -19,8 +19,8 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenDialog } from "@/components/BaseDialog/redux";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
-import { setCourseCategoryForm } from "../../redux";
-import { CourseCategoryForm } from "../../redux/model";
+import { setCourseCategoryForm } from "./redux";
+import { CourseCategoryForm } from "./redux/model";
 import { courseCategoryRules } from "./field-validation/courseCategoryForm";
 
 const Form = (params: CourseCategoryFormPageProps) => {
