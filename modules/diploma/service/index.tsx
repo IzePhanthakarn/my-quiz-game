@@ -1,5 +1,4 @@
 import { setIsLoading } from "@/components/Loading/redux";
-import { token } from "@/config";
 import API_PATH from "@/constants/api";
 import { AppDispatch } from "@/redux/config/configStore";
 import { handleEmptyStringToNull } from "@/utils";
@@ -32,7 +31,7 @@ export const getDiplomaList = createAsyncThunk(
 	async (params: DiplomaPagination = diplomaPagination, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_DIPLOMA_PAGE}`;
-			const response = await axios.post(apiPath, params, token);
+			const response = await axios.post(apiPath, params);
 			return response.data;
 		} catch (err) {
 			return thunkAPi.rejectWithValue("");

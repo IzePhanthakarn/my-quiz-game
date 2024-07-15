@@ -1,12 +1,11 @@
 "use client";
 
-import page from "@/app/clinic/page";
 import React, { useEffect } from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import Input from "antd/es/input";
-import Button from "antd/es/button";
+import Input from "wcf-component-lib/node_modules/antd/es/input";
+import Button from "wcf-component-lib/node_modules/antd/es/button";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -15,7 +14,7 @@ import { columns } from "./model";
 import { setOrder, setPagination } from "./redux";
 import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
-import FilterOutlined from "@ant-design/icons/lib/icons/FilterOutlined";
+import FilterOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FilterOutlined";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
