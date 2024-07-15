@@ -5,16 +5,16 @@ export const LINKS = {
 	},
 	CLINIC: {
 		name: "คลีนิค",
-		link: "/clinic",
+		link: "/med/clinic",
 		edit: "/med/clinic/edit/",
 		view: "/clinic/view/",
-		add: "/clinic/form",
+		add: "/med/clinic/form",
 	},
 	DIPLOMA: {
 		name: "ประกาศนียบัตร",
-		link: "/diploma",
-		edit: "/clinic/edit/",
-		view: "/clinic/view/",
+		link: "/med/diploma",
+		edit: "/med/diploma/edit/",
+		view: "/med/diploma/view/",
 	},
 	ORGAN: {
 		name: "ออร์แกน",

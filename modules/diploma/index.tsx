@@ -11,10 +11,11 @@ import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { initDiplomaGrid } from "./service";
 import { columns } from "./model";
-import { setOrder, setPagination } from "./redux";
+import { setDiplomaFilter, setOrder, setPagination } from "./redux";
 import Drawer from "./drawer";
 import FilterOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FilterOutlined";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import { modelDiplomaFilter } from "./redux/filter/model";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -57,9 +58,9 @@ export default function Diploma() {
 				Drawer={
 					<BaseDrawer
 						isOpen={isOpen}
+						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						content={<Drawer />}
 						isFilter
-						setIsOpen={() => dispatch(setIsOpenDrawer(true))}
 						confirmFuntion={() =>
 							dispatch(
 								initDiplomaGrid({
@@ -70,6 +71,7 @@ export default function Diploma() {
 								})
 							)
 						}
+						clearFilter={() => dispatch(setDiplomaFilter(modelDiplomaFilter))}
 					/>
 				}
 				FilterTextField={<Input className="w-[300px]" />}

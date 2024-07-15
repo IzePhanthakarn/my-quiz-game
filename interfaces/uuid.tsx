@@ -1,4 +1,4 @@
-interface ClinicFormPageProps {
+interface UuidFormPageProps {
 	params: {
 		uuid: string | undefined;
 	};

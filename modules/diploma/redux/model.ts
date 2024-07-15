@@ -1,9 +1,11 @@
 import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "./master/model";
 import { DiplomaFilter, modelDiplomaFilter } from "./filter/model";
+import { DiplomaDetail, modelDiaplomaDetail } from "./form/model";
 
 export interface Diploma {
 	grid: DiplomaGrid;
+	diplomaDetail: DiplomaDetail;
 	diplomaFilter: DiplomaFilter;
 }
 
@@ -26,5 +28,6 @@ export const modelDiploma: Diploma = {
 			totalData: 0,
 		},
 	},
+	diplomaDetail: modelDiaplomaDetail,
 	diplomaFilter: modelDiplomaFilter,
 };

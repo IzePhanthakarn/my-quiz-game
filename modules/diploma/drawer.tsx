@@ -3,17 +3,15 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { IsActive, IsDelete } from "@/constants/constants";
-import { toggleIsActive, toggleIsDelete } from "@/utils";
 import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import { setClinicFilter } from "../clinic/redux";
+import { setDiplomaFilter } from "./redux";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
 	const { filter } = useSelector(
 		(state: SliceModel) => ({
-			filter: state.clinic.clinicFilter,
+			filter: state.diploma.diplomaFilter,
 		}),
 		shallowEqual
 	);
@@ -24,28 +22,28 @@ export default function Drawer() {
 				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<FormItemCheckbox
 						itemName="checkClinicCode"
-						label="รหัสคลินิค"
-						checked={filter.checkClinicCode}
+						label="รหัสประกาศนียบัตร"
+						checked={filter.checkDiplomaType}
 						labelPosition={FormItemPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
-								setClinicFilter({
+								setDiplomaFilter({
 									...filter,
-									checkClinicCode: !filter.checkClinicCode,
+									checkDiplomaType: !filter.checkDiplomaType,
 								})
 							)
 						}
 					/>
-					{filter.checkClinicCode && (
+					{filter.checkDiplomaType && (
 						<div className=" pt-1">
 							<FormItemInput
 								itemName="clinicCode"
-								value={filter.clinicCode}
+								value={filter.diplomaType}
 								onChangeFunction={(e) => {
 									dispatch(
-										setClinicFilter({
+										setDiplomaFilter({
 											...filter,
-											clinicCode: e.target.value,
+											diplomaType: e.target.value,
 										})
 									);
 								}}
@@ -56,14 +54,14 @@ export default function Drawer() {
 				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<FormItemCheckbox
 						itemName="checkClinicName"
-						label="ชื่อคลินิค"
-						checked={filter.checkClinicName}
+						label="ชื่อประกาศนียบัตร"
+						checked={filter.checkDiplomaName}
 						labelPosition={FormItemPosition.RIGHT}
 						onClickFunction={() =>
 							dispatch(
-								setClinicFilter({
+								setDiplomaFilter({
 									...filter,
-									checkClinicName: !filter.checkClinicName,
+									checkDiplomaName: !filter.checkDiplomaName,
 								})
 							)
 						}
@@ -74,71 +72,19 @@ export default function Drawer() {
 						// 	},
 						// ]}
 					/>
-					{filter.checkClinicName && (
+					{filter.checkDiplomaName && (
 						<FormItemInput
 							itemName="clinicName"
-							value={filter.clinicName}
+							value={filter.diplomaName}
 							onChangeFunction={(e) => {
 								dispatch(
-									setClinicFilter({
+									setDiplomaFilter({
 										...filter,
-										clinicName: e.target.value,
+										diplomaName: e.target.value,
 									})
 								);
 							}}
 						/>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkStatus"
-						label="สถานะการลบข้อมูล"
-						checked={filter.checkStatus}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setClinicFilter({
-									...filter,
-									checkStatus: !filter.checkStatus,
-								})
-							)
-						}
-					/>
-					{filter.checkStatus && (
-						<Column>
-							<div className="ml-5">
-								<FormItemCheckbox
-									itemName="isDelete"
-									label="ลบ"
-									checked={filter.isDelete !== IsDelete.Y}
-									labelPosition={FormItemPosition.RIGHT}
-									onClickFunction={() =>
-										dispatch(
-											setClinicFilter({
-												...filter,
-												isDelete: toggleIsDelete(filter.isDelete),
-											})
-										)
-									}
-								/>
-							</div>
-							<div className="ml-5">
-								<FormItemCheckbox
-									itemName="isActive"
-									label="ไม่ลบ"
-									checked={filter.isActive !== IsActive.N}
-									labelPosition={FormItemPosition.RIGHT}
-									onClickFunction={() =>
-										dispatch(
-											setClinicFilter({
-												...filter,
-												isActive: toggleIsActive(filter.isActive),
-											})
-										)
-									}
-								/>
-							</div>
-						</Column>
 					)}
 				</Column>
 			</Column>

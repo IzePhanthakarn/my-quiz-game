@@ -4,8 +4,8 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
-import { IsActive, IsDelete } from "@/constants/constants";
-import { toggleIsActive, toggleIsDelete } from "@/utils";
+import { IsActive } from "@/constants/constants";
+import { toggleIsActive } from "@/utils";
 import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
@@ -104,7 +104,7 @@ export default function Drawer() {
 							)
 						}
 					/>
-					{filter.checkStatus && (
+					{/* {filter.checkStatus && (
 						<Column>
 							<div className="ml-5">
 								<FormItemCheckbox
@@ -139,7 +139,7 @@ export default function Drawer() {
 								/>
 							</div>
 						</Column>
-					)}
+					)} */}
 				</Column>
 			</Column>
 		</>

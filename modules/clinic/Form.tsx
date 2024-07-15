@@ -9,8 +9,6 @@ import { setClinicDetail } from "./redux";
 import { IsActive } from "../../constants/constants";
 import _ from "lodash";
 import { LINKS } from "../../constants/links";
-import dayjs from "dayjs";
-import { DateFormat } from "../../constants/date-format.constant";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
@@ -26,7 +24,7 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenDialog } from "../../redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 
-const Form = (params: ClinicFormPageProps) => {
+const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
@@ -54,7 +52,7 @@ const Form = (params: ClinicFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<ClinicDetail>["onFinish"] = (values) => {
+	const onFinish: FormProps<ClinicDetail>["onFinish"] = () => {
 		if (_.isEmpty(params.params.uuid)) {
 			dispatch(addClinic(clinicDetail));
 		} else {
@@ -87,6 +85,8 @@ const Form = (params: ClinicFormPageProps) => {
 				headerText={<>บันทึกข้อมูลสำเร็จ</>}
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
+				}}
+				onConfirm={() => {
 					router.push(LINKS.CLINIC.link);
 				}}
 			/>

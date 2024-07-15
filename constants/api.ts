@@ -10,7 +10,10 @@ const API_PATH = {
 	UPDATE_CLINIC: "master/clinic",
 
 	// DIPLOMA
+	GET_DIPLOMA_DETAIL: "master/diploma",
 	GET_DIPLOMA_PAGE: "master/diploma/list",
+	CREATE_DIPLOMA: "master/diploma",
+	UPDATE_DIPLOMA: "master/diploma",
 
 	// ORGAN
 	ORGAN: {

@@ -7,7 +7,7 @@ import { Diploma } from "../model";
 import { DiplomaList } from "./model";
 
 export const diplomaReducers = {
-	setClinicGrid: (state: Diploma, action: PayloadAction<DiplomaList[]>) => {
+	setDiplomaGrid: (state: Diploma, action: PayloadAction<DiplomaList[]>) => {
 		state.grid.list = action.payload;
 	},
 	setPagination: (state: Diploma, action: PayloadAction<PaginationOptions>) => {

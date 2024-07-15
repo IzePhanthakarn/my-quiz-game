@@ -13,8 +13,8 @@ import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
-import { setIsOpenDialog } from "../../../redux/slices/dialog";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
@@ -60,7 +60,7 @@ export const getClinicDetail = createAsyncThunk(
 );
 
 export const initGetClinicDetail =
-	(params: ClinicFormPageProps) => async (dispatch: AppDispatch) => {
+	(params: UuidFormPageProps) => async (dispatch: AppDispatch) => {
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getClinicDetail(`${uuid}`));

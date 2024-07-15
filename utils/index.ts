@@ -1,4 +1,4 @@
-import { IsActive, IsDelete } from "@/constants/constants";
+import { IsActive } from "@/constants/constants";
 import { DateFormat } from "@/constants/date-format.constant";
 import dayjs from "dayjs";
 import _ from "lodash";
@@ -14,11 +14,6 @@ export function handleEmptyStringToNull(text: string | null) {
 
 export function toggleIsActive(status: IsActive) {
 	const toggle = status === IsActive.Y ? IsActive.N : IsActive.Y;
-	return toggle;
-}
-
-export function toggleIsDelete(status: IsDelete) {
-	const toggle = status === IsDelete.Y ? IsDelete.N : IsDelete.Y;
 	return toggle;
 }
 

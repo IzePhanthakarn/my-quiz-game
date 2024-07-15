@@ -4,13 +4,13 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { handleEmptyStringToNull } from "@/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setTotalData, setClinicGrid } from "../redux";
 import { IsActive } from "@/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "../redux/master/model";
+import { setTotalData, setDiplomaGrid } from "../redux";
 
 export interface DiplomaPagination {
 	diplomaType: string | null;
@@ -63,5 +63,5 @@ export const initDiplomaGrid =
 		);
 		const totalData = data.payload.totalElements;
 		dispatch(setTotalData(totalData));
-		dispatch(setClinicGrid(grid));
+		dispatch(setDiplomaGrid(grid));
 	};

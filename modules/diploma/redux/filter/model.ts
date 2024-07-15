@@ -1,4 +1,4 @@
-import { IsActive, IsDelete } from "@/constants/constants";
+import { IsActive } from "@/constants/constants";
 import { DiplomaForm } from "../model";
 
 export interface DiplomaFilter extends DiplomaForm {
@@ -6,7 +6,7 @@ export interface DiplomaFilter extends DiplomaForm {
 	checkDiplomaName: boolean;
 	checkStatus: boolean;
 	isActive: IsActive;
-	isDelete: IsDelete;
+	isDelete: IsActive;
 }
 
 export const modelDiplomaFilter: DiplomaFilter = {
@@ -16,6 +16,6 @@ export const modelDiplomaFilter: DiplomaFilter = {
 	checkDiplomaType: false,
 	checkDiplomaName: false,
 	isActive: IsActive.N,
-	isDelete: IsDelete.Y,
+	isDelete: IsActive.Y,
 	uuid: "",
 };
