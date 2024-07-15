@@ -41,7 +41,6 @@ export default function Drawer() {
 							<FormItemInput
 								itemName="clinicCode"
 								value={filter.clinicCode}
-								maxLength={4}
 								onChangeFunction={(e) => {
 									dispatch(
 										setClinicFilter({
@@ -79,7 +78,6 @@ export default function Drawer() {
 						<FormItemInput
 							itemName="clinicName"
 							value={filter.clinicName}
-							maxLength={4}
 							onChangeFunction={(e) => {
 								dispatch(
 									setClinicFilter({
