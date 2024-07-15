@@ -5,6 +5,7 @@ import { BUTTON_MODE } from "./model";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
 import Link from "wcf-component-lib/node_modules/antd/es/typography/Link";
 import Row from "@/components/Row";
+import { useRouter } from "next/navigation";
 
 interface Props {
 	mode: BUTTON_MODE;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
+	const router = useRouter();
 	const scopes = [
 		"location:read",
 		"location:write",
@@ -49,9 +51,12 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 					</Link>
 				)} */}
 				{(write || read) && (
-					<Link href={editLink ?? ""}>
-						<img src="/icons/edit.svg" alt="" />
-					</Link>
+					<img
+						className="cursor-pointer"
+						src="/icons/edit.svg"
+						alt=""
+						onClick={() => router.push(editLink ?? "")}
+					/>
 				)}
 			</Row>
 		);

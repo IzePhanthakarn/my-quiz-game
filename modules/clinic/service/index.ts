@@ -13,7 +13,7 @@ import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
-import { setIsOpenDialog } from "../../../components/BaseDialog/redux";
+import { setIsOpenDialog } from "../../../redux/slices/dialog";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 interface ClinicGridParams {

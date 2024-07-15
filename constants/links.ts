@@ -6,7 +6,7 @@ export const LINKS = {
 	CLINIC: {
 		name: "คลีนิค",
 		link: "/clinic",
-		edit: "/clinic/edit/",
+		edit: "/med/clinic/edit/",
 		view: "/clinic/view/",
 		add: "/clinic/form",
 	},

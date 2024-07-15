@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import crudSlice from "../slices/crud";
 import clinicSlice from "../../modules/clinic/redux";
 import doctorSlice from "@/modules/doctor/redux";
-import dialogSlice from "@/components/BaseDialog/redux";
+import dialogSlice from "@/redux/slices/dialog";
 import loadingSlice from "@/components/Loading/redux";
 import diplomaSlice from "@/modules/diploma/redux";
 import organSlice from "@/modules/organ/redux";

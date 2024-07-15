@@ -16,7 +16,6 @@ import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
 import { usePathname } from "next/navigation";
 import { pathMapping } from "@/constants/path-mapping";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
-import { setIsOpenDialog } from "@/components/BaseDialog/redux";
 import _ from "lodash";
 import Cookies from "js-cookie";
 

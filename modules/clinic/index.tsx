@@ -10,7 +10,7 @@ import { columns } from "./model";
 import { LINKS } from "@/constants/links";
 import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { setOrder, setPagination } from "./redux";
+import { setClinicFilter, setOrder, setPagination } from "./redux";
 import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
@@ -20,6 +20,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import Drawer from "./Drawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import { modelClinicFilter } from "./redux/filter/model";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -77,6 +78,7 @@ export default function Clinic() {
 								})
 							)
 						}
+						clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
 					/>
 				}
 				FilterTextField={<Input className="w-[300px]" />}

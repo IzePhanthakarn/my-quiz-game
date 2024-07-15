@@ -23,7 +23,7 @@ import {
 } from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "../../components/BaseDialog/redux";
+import { setIsOpenDialog } from "../../redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 
 const Form = (params: ClinicFormPageProps) => {
