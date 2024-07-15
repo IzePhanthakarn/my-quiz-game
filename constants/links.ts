@@ -15,6 +15,7 @@ export const LINKS = {
 		link: "/med/diploma",
 		edit: "/med/diploma/edit/",
 		view: "/med/diploma/view/",
+		add: "/med/diploma/form",
 	},
 	ORGAN: {
 		name: "ออร์แกน",

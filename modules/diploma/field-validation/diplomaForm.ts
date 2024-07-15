@@ -7,7 +7,7 @@ import {
 
 export const diplomaTypeSchema = [
 	requiredRule("Diploma Type"),
-	equalLengthRule("Diploma Type", 10),
+	equalLengthRule("Diploma Type", 4),
 ];
 
 export const diplomaNameSchema = [

@@ -16,9 +16,12 @@ import Drawer from "./drawer";
 import FilterOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FilterOutlined";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelDiplomaFilter } from "./redux/filter/model";
+import { LINKS } from "@/constants/links";
+import { useRouter } from "next/navigation";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
+	const router = useRouter();
 	const { form, rows, isOpen, page, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			form: state.crud.formData,
@@ -85,7 +88,7 @@ export default function Diploma() {
 						<p className=" whitespace-nowrap">ตัวกรอง</p>
 					</Button>
 				}
-				AddFunction={() => console.log("Add")}
+				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
 				AddLabel="เพิ่มประกาศนียบัตร"
 				Header="Diploma"
 				SubHeader="List Diploma"
