@@ -4,17 +4,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setClinicDetail, setClinicGrid, setTotalData } from "../redux";
 import { ClinicList } from "../redux/master/model";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import { ClinicDetail } from "../redux/model";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
-} from "@/components/Pagination/redux/model";
+} from "wcf-component-lib/src/components/BasePagination/model";
 import _ from "lodash";
 import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 import { setIsOpenDialog } from "../../../components/BaseDialog/redux";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;

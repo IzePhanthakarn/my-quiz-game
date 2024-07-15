@@ -4,7 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
+import { setIsOpenDrawer } from "@/components/BaseDrawer/drawer";
 import { LINKS } from "@/constants/links";
 import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";

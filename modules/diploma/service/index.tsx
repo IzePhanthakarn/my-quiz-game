@@ -9,7 +9,7 @@ import { IsActive } from "@/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
-} from "@/components/Pagination/redux/model";
+} from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "../redux/master/model";
 
 export interface DiplomaPagination {

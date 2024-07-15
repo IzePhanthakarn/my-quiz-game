@@ -12,18 +12,18 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { initDiplomaGrid } from "./service";
 import { columns } from "./model";
 import { setOrder, setPagination } from "./redux";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import Drawer from "./drawer";
 import FilterOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FilterOutlined";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
-	const { form, rows, page, isOpen, filter, isLoading } = useSelector(
+	const { form, rows, isOpen, page, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			form: state.crud.formData,
 			rows: state.diploma.grid.list,
-			page: state.diploma.grid.page,
 			isOpen: state.drawer.isOpen,
+			page: state.diploma.grid.page,
 			filter: state.diploma.diplomaFilter,
 			isLoading: state.loading.isLoading,
 		}),

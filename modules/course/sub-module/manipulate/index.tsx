@@ -4,7 +4,6 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
 import { LINKS } from "@/constants/links";
 import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -16,6 +15,7 @@ import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { columns } from "../../columns/manipulate";
 import { fetchCourseList } from "./service";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();

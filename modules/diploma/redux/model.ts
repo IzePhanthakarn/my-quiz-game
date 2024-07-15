@@ -1,4 +1,4 @@
-import { PaginationModel } from "@/components/Pagination/redux/model";
+import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "./master/model";
 import { DiplomaFilter, modelDiplomaFilter } from "./filter/model";
 

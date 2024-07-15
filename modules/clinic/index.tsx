@@ -6,8 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
 import { columns } from "./model";
-import { setIsOpenDrawer } from "@/components/BaseDrawer/redux";
-import Drawer from "./drawer";
 
 import { LINKS } from "@/constants/links";
 import _ from "lodash";
@@ -20,6 +18,8 @@ import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import Drawer from "./Drawer";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();

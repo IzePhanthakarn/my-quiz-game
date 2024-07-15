@@ -1,4 +1,4 @@
-import { PaginationModel } from "@/components/Pagination/redux/model";
+import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
 export interface BaseClinic {
 	clinicCode: string;
 	clinicName: string;

@@ -3,7 +3,7 @@ import { ClinicGrid, ClinicList } from "./model";
 import {
 	PaginationOptions,
 	SortOrdersModel,
-} from "@/components/Pagination/redux/model";
+} from "wcf-component-lib/src/components/BasePagination/model";
 import { Clinic, ClinicDetail } from "../model";
 
 export const clinicReducers = {

@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import {
 	PaginationOptions,
 	SortOrdersModel,
-} from "@/components/Pagination/redux/model";
+} from "wcf-component-lib/src/components/BasePagination/model";
 import { Diploma } from "../model";
 import { DiplomaList } from "./model";
 
