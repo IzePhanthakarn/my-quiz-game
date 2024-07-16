@@ -25,9 +25,15 @@ export const LINKS = {
 		create: "/organ/manipulate/",
 	},
 	CATEGORY_COURSE: {
-		name: "คอร์ส",
+		name: "CATEGORY_COURSE",
 		link: "/med/course-category",
 		add: "/med/course-category/form/",
 		edit: "/med/course-category/edit/",
+	},
+	CATEGORY_CERTIFICATE: {
+		name: "CATEGORY_CERTIFICATE",
+		link: "/med/course-certificate",
+		add: "/med/course-certificate/form/",
+		edit: "/med/course-certificate/edit/",
 	},
 };

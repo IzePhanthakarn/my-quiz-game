@@ -7,6 +7,7 @@ import loadingSlice from "@/components/Loading/redux";
 import diplomaSlice from "@/modules/diploma/redux";
 import organSlice from "@/modules/organ/redux";
 import courseCategorySlice from "@/modules/course-category/redux";
+import courseCertificateSlice from "@/modules/course-certificate/redux";
 import loginSlice from "@/modules/login/redux";
 import drawerSlice from "../slices/drawer";
 
@@ -22,6 +23,7 @@ export const store = configureStore({
 		diploma: diplomaSlice,
 		organ: organSlice,
 		courseCategory: courseCategorySlice,
+		courseCertificate: courseCertificateSlice,
 	},
 });
 

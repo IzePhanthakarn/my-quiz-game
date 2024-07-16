@@ -14,7 +14,7 @@ export const getCourseList = createAsyncThunk(
 	"Medical/getCourseList",
 	async (body: GetCourseListBody, thunkAPi) => {
 		try {
-			const apiPath = `${API_PATH.COURSE_CATEGORT.GET_COURSE_CATEGORY_LIST}`;
+			const apiPath = `${API_PATH.COURSE_CATEGORY.GET_COURSE_CATEGORY_LIST}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
@@ -27,7 +27,7 @@ export const addCourseCategoryList = createAsyncThunk(
 	"Medical/addCourseCategoryList",
 	async (body: CourseCategoryForm, thunkAPi) => {
 		try {
-			const apiPath = `${API_PATH.COURSE_CATEGORT.ADD_COURSE_CATEGORY}`;
+			const apiPath = `${API_PATH.COURSE_CATEGORY.ADD_COURSE_CATEGORY}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
@@ -40,7 +40,7 @@ export const getCourseCategoryDetail = createAsyncThunk(
 	"Medical/getCourseCategoryDetail",
 	async (uuid: string, thunkAPi) => {
 		try {
-			const apiPath = `${API_PATH.COURSE_CATEGORT.GET_COURSE_CATEGORY_BY_UUID}/${uuid}`;
+			const apiPath = `${API_PATH.COURSE_CATEGORY.GET_COURSE_CATEGORY_BY_UUID}/${uuid}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
@@ -59,7 +59,7 @@ export const updateCourseCategoryApi = createAsyncThunk(
 		thunkAPi
 	) => {
 		try {
-			const apiPath = `${API_PATH.COURSE_CATEGORT.UPDATE_COURSE_CATEGORY_BY_UUID}/${body.uuid}`;
+			const apiPath = `${API_PATH.COURSE_CATEGORY.UPDATE_COURSE_CATEGORY_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {

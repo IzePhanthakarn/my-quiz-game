@@ -8,6 +8,7 @@ import { CourseCategory } from "@/modules/course-category/redux/model";
 import { Login } from "@/modules/login/redux/model";
 import { BaseDrawer } from "./drawer/model";
 import { BaseDialog } from "./dialog/model";
+import { CourseCertificate } from "@/modules/course-certificate/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;
@@ -20,4 +21,5 @@ export interface SliceModel {
 	diploma: Diploma;
 	organ: Organ;
 	courseCategory: CourseCategory;
+	courseCertificate: CourseCertificate;
 }
