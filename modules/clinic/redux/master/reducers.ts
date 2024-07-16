@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ClinicGrid, ClinicList } from "./model";
+import { ClinicList } from "./model";
 import {
 	PaginationOptions,
 	SortOrdersModel,

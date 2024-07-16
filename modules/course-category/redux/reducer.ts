@@ -5,8 +5,7 @@ import {
 	CourseCategoryGrid,
 	CourseCategoryFilter,
 } from "./model";
-import { PaginationOptions } from "@/components/Pagination/redux/model";
-
+import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 export const courseCategoryReducers = {
 	setCourseCategoryGrid: (
 		state: CourseCategory,

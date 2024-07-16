@@ -18,16 +18,16 @@ import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import Drawer from "./Drawer";
+import Drawer from "./drawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { form, rows, page, isOpen, filter, isLoading } = useSelector(
+	const { rows, page, isOpen, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			form: state.crud.formData,
+			// form: state.crud.formData,
 			rows: state.clinic.grid.list,
 			page: state.clinic.grid.page,
 			isOpen: state.drawer.isOpen,

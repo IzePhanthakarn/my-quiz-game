@@ -1,5 +1,5 @@
-import { PaginationModel } from "@/components/Pagination/redux/model";
 import { IsActive } from "../../../constants/constants";
+import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
 
 export interface CourseCategory {
 	grid: CourseCategoryGrid;

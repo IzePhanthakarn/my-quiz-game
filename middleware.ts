@@ -1,73 +1,82 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import _ from "lodash";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+
+type Page = {
+	path: string;
+};
+
+type SubModule = {
+	pages: Page[];
+};
+
+type Module = {
+	subModules: SubModule[];
+};
+
+const getNestedProperty = (obj: any, path: string) => {
+	return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+};
 
 export async function middleware(request: NextRequest) {
 	const referer = request.headers.get("referer");
 	const url = new URL(request.url);
 	const response = NextResponse.next();
 	const token = request.cookies.get("Bearer")?.value; // Get the token from cookies
-	if (_.isUndefined(token)) {
+	if (typeof token === "undefined") {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
-	// response.cookies.set("Bearer", token, {
-	// 	httpOnly: true,
-	// 	secure: process.env.NODE_ENV === "production",
-	// 	sameSite: "strict",
-	// 	path: "/",
-	// });
-
-	const decoded = jwtDecode<JwtPayload>(token);
-	// response.cookies.delete("Bearer");
-	// console.log(
-	// 	"🚀 ~ middleware ~ decoded:",
-	// 	request.cookies.get("Bearer")?.value
-	// );
-	// response.cookies.set("Bearer", "", { path: "/", expires: new Date(0) });
-	// console.log("🚀 ~ middleware ~ decoded:", decoded.exp);
-	// console.log("🚀 ~ middleware ~ decoded:", _.get(decoded, "userInfo.login"));
-	// console.log("🚀 ~ middleware ~ decoded:", decoded);
+	const decoded = jwtDecode<JwtPayload>(`${token}`);
 	const currentTime = Math.floor(Date.now() / 1000); // Current time in UNIX timestamp
 	if (decoded.exp && decoded.exp < currentTime) {
 		// Redirect to login page if token is expired
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
+	// console.log("🚀 ~ middleware ~ referer:", referer);
 
 	if (!referer) {
 		const subpath = url.pathname;
-
-		const apiResponse = await fetch(
-			`${process.env.GET_PAGE_ACCESSES_PATH}/${_.get(
-				decoded,
-				"userInfo.login"
-			)}/page-accesses`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		const userInfoLogin = getNestedProperty(decoded, "userInfo.login");
+		const pageAccessPath = `${process.env.GET_PAGE_ACCESSES_PATH}/${userInfoLogin}/page-accesses`;
+		// console.log("🚀 ~ middleware ~ pageAccessPath:", pageAccessPath);
+		const apiResponse = await fetch(pageAccessPath, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
 		if (!apiResponse.ok) {
 			return new NextResponse("Error fetching page-accesses data", {
 				status: apiResponse.status,
 			});
 		}
-		const payload = await apiResponse.json();
+		const payload: Module[] = await apiResponse.json();
 
-		const allPaths = _.flatMap(payload, (module) =>
-			_.flatMap(module.subModules, (subModule) =>
-				_.map(subModule.pages, "path")
+		// const allPaths = flatMap(payload, (module) =>
+		// 	flatMap(module.subModules, (subModule) => map(subModule.pages, "path"))
+		// );
+
+		// const allPaths = payload.flatMap((module) =>
+		// 	module.subModules.flatMap((subModule) =>
+		// 		subModule.pages.map((page) => page.path)
+		// 	)
+		// );
+
+		const allPaths = payload.flatMap((module) =>
+			module.subModules.flatMap((subModule) =>
+				subModule.pages.map((page) => page.path)
 			)
 		);
 
 		// console.log(allPaths);
 		// console.log(subpath);
 
-		if (!_.includes(allPaths, subpath)) {
+		// if (!includes(allPaths, subpath)) {
+		// 	// return NextResponse.redirect(new URL("/login", request.url));
+		// }
+		if (!allPaths.includes(subpath)) {
 			// return NextResponse.redirect(new URL("/login", request.url));
 		}
 	}
