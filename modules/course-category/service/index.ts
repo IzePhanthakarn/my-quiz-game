@@ -16,7 +16,7 @@ import {
 	CourseCategory,
 	CourseCategoryForm,
 } from "@/modules/course-category/redux/model";
-import { setIsOpenDialog } from "@/components/BaseDialog/redux";
+import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {

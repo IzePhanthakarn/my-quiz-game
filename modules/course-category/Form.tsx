@@ -16,7 +16,7 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/components/BaseDialog/redux";
+import { setIsOpenDialog } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setCourseCategoryForm } from "./redux";
