@@ -19,6 +19,7 @@ const getNestedProperty = (obj: any, path: string) => {
 };
 
 export async function middleware(request: NextRequest) {
+	return NextResponse.next();
 	const referer = request.headers.get("referer");
 	const url = new URL(request.url);
 	const response = NextResponse.next();
