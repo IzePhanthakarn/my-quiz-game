@@ -16,9 +16,12 @@ const API_PATH = {
 	UPDATE_DIPLOMA: "master/diploma",
 
 	// ORGAN
-	ORGAN: {
+	ORGAN_SYSTEM_WPI: {
 		GET_ORGAN_SYSTEM_WPI_LIST: "/master/organ-system-wpi/list",
 		GET_ORGAN_SYSTEM_WPI_RECORD: "/master/organ-system-wpi",
+		ADD: "/master/organ-system-wpi",
+		GET_BY_UUID: "/master/organ-system-wpi",
+		UPDATE_BY_UUID: "/master/organ-system-wpi",
 	},
 	// COURSE
 	COURSE_CATEGORY: {

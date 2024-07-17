@@ -17,12 +17,11 @@ export const LINKS = {
 		view: "/med/diploma/view/",
 		add: "/med/diploma/form",
 	},
-	ORGAN: {
+	ORGAN_SYSTEM_WPI: {
 		name: "ออร์แกน",
-		link: "/organ",
-		edit: "/organ/manipulate/",
-		view: "/organ/manipulate/",
-		create: "/organ/manipulate/",
+		link: "/med/organ-system-wpi",
+		add: "/med/organ-system-wpi/form/",
+		edit: "/med/organ-system-wpi/edit/",
 	},
 	CATEGORY_COURSE: {
 		name: "CATEGORY_COURSE",

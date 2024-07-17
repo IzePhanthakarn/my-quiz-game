@@ -15,18 +15,19 @@ import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { columns } from "../../columns/manipulate";
+import { columns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
-import { setOrganManipulatePagination } from "../../redux";
+// import { setOrganSystemWpiPagination } from "./redux";
+import FilterDrawer from "./filterDrawer";
 
-export default function OrganManipulate() {
+export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 	const { organ, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.loading.isLoading,
-			organ: state.organ.manipulate,
+			organ: state.organSystemWpi,
 		}),
 		shallowEqual
 	);
@@ -70,12 +71,14 @@ export default function OrganManipulate() {
 					<BaseDrawer
 						isFilter
 						isOpen={isOpen}
-						content={<></>}
+						content={<FilterDrawer />}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {}}
+						confirmFuntion={() => {
+							dispatch(fetchOrganList(organ));
+						}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CLINIC.add)}
+				AddFunction={() => router.push(LINKS.ORGAN_SYSTEM_WPI.add)}
 			/>
 		</div>
 	);

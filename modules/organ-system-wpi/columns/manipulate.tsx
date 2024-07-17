@@ -48,8 +48,8 @@ export const columns: TableProps["columns"] = [
 		dataIndex: "uuid",
 		render: (_, { uuid }) => (
 			<CustomCellButton
-				editLink={LINKS.ORGAN.edit + uuid}
-				viewLink={LINKS.ORGAN.view + uuid}
+				editLink={LINKS.ORGAN_SYSTEM_WPI.edit + uuid}
+				viewLink={LINKS.ORGAN_SYSTEM_WPI.edit + uuid}
 				mode={BUTTON_MODE.VIEW_EDIT_ICON}
 			/>
 		),

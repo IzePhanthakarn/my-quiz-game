@@ -5,7 +5,7 @@ import doctorSlice from "@/modules/doctor/redux";
 import dialogSlice from "@/redux/slices/dialog";
 import loadingSlice from "@/components/Loading/redux";
 import diplomaSlice from "@/modules/diploma/redux";
-import organSlice from "@/modules/organ/redux";
+import organSystemWpiSlice from "@/modules/organ-system-wpi/redux";
 import courseCategorySlice from "@/modules/course-category/redux";
 import courseCertificateSlice from "@/modules/course-certificate/redux";
 import loginSlice from "@/modules/login/redux";
@@ -21,7 +21,7 @@ export const store = configureStore({
 		loading: loadingSlice,
 		login: loginSlice,
 		diploma: diplomaSlice,
-		organ: organSlice,
+		organSystemWpi: organSystemWpiSlice,
 		courseCategory: courseCategorySlice,
 		courseCertificate: courseCertificateSlice,
 	},

@@ -20,9 +20,6 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCertificate) => async (dispatch: AppDispatch) => {
-		// const body: GetCourseListBody = {
-		// 	pagination: course.grid.page,
-		// };
 		const body: GetCourseCertificateList = {
 			...course.filter,
 			...course.grid.page,
