@@ -2,13 +2,10 @@ import { PaginationOptions } from "wcf-component-lib/src/components/BasePaginati
 import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "axios";
-import { CourseCertificateForm } from "../redux/model";
-
-export interface GetCourseListBody {
-	// courseCategoryId: string;
-	// categoryDescription: string;
-	pagination: PaginationOptions;
-}
+import {
+	CourseCertificateForm,
+	GetCourseCertificateList,
+} from "../redux/model";
 
 export const getCourseCertificateDetail = createAsyncThunk(
 	"Medical/getCourseCertificateDetail",
@@ -44,7 +41,7 @@ export const updateCourseCertificateApi = createAsyncThunk(
 
 export const getCourseCertificateList = createAsyncThunk(
 	"Medical/getCourseCertificateList",
-	async (body: GetCourseListBody, thunkAPi) => {
+	async (body: GetCourseCertificateList, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.COURSE_CERTIFICATE.GET_LIST}`;
 			const response = await axios.post(apiPath, body);

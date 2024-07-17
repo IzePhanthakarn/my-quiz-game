@@ -1,5 +1,8 @@
 import { IsActive } from "../../../constants/constants";
-import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
+import {
+	PaginationModel,
+	PaginationOptions,
+} from "wcf-component-lib/src/components/BasePagination/model";
 
 export interface CourseCategory {
 	grid: CourseCategoryGrid;
@@ -23,10 +26,12 @@ export interface CourseCategoryGridData {
 }
 
 export interface CourseCategoryFilter {
-	courseCategoryId: number;
-	categoryDescription: string;
+	checkCategoryDescriptionLike: boolean;
+	categoryDescriptionLike: string;
+	isActive: string;
 }
 
+export type GetCourseCategoryList = CourseCategoryFilter & PaginationOptions;
 export interface CourseCategoryForm {
 	categoryDescription: string;
 	categorySubDesc: string;
@@ -54,8 +59,9 @@ export const modelCourseCategory: CourseCategory = {
 		},
 	},
 	filter: {
-		courseCategoryId: 0,
-		categoryDescription: "",
+		categoryDescriptionLike: "",
+		checkCategoryDescriptionLike: false,
+		isActive: IsActive.Y,
 	},
 	form: {
 		categoryDescription: "",

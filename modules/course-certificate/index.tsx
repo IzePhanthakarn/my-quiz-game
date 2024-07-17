@@ -16,6 +16,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { grid } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import FilterDrawer from "./filterDrawer";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -71,9 +72,11 @@ export default function CourseCertificate() {
 					<BaseDrawer
 						isFilter
 						isOpen={isOpen}
-						content={<></>}
+						content={<FilterDrawer />}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {}}
+						confirmFuntion={() => {
+							dispatch(fetchCourseList(courseCertificate));
+						}}
 					/>
 				}
 				AddFunction={() => router.push(LINKS.CATEGORY_CERTIFICATE.add)}

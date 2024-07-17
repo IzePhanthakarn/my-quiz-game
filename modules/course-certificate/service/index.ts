@@ -2,7 +2,6 @@ import _ from "lodash";
 import { setIsLoading } from "@/components/Loading/redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
-	GetCourseListBody,
 	addCourseCertificateAPI,
 	getCourseCertificateDetail,
 	getCourseCertificateList,
@@ -15,15 +14,18 @@ import {
 import {
 	CourseCertificate,
 	CourseCertificateForm,
+	GetCourseCertificateList,
 } from "@/modules/course-certificate/redux/model";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCertificate) => async (dispatch: AppDispatch) => {
-		const body: GetCourseListBody = {
-			// courseCategoryId: "",
-			// categoryDescription: "",
-			pagination: course.grid.page,
+		// const body: GetCourseListBody = {
+		// 	pagination: course.grid.page,
+		// };
+		const body: GetCourseCertificateList = {
+			...course.filter,
+			...course.grid.page,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getCourseCertificateList(body));

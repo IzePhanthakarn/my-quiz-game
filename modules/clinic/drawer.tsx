@@ -104,42 +104,6 @@ export default function Drawer() {
 							)
 						}
 					/>
-					{/* {filter.checkStatus && (
-						<Column>
-							<div className="ml-5">
-								<FormItemCheckbox
-									itemName="isDelete"
-									label="ลบ"
-									checked={filter.isDelete !== IsDelete.Y}
-									labelPosition={FormItemPosition.RIGHT}
-									onClickFunction={() =>
-										dispatch(
-											setClinicFilter({
-												...filter,
-												isDelete: toggleIsDelete(filter.isDelete),
-											})
-										)
-									}
-								/>
-							</div>
-							<div className="ml-5">
-								<FormItemCheckbox
-									itemName="isActive"
-									label="ไม่ลบ"
-									checked={filter.isActive !== IsActive.N}
-									labelPosition={FormItemPosition.RIGHT}
-									onClickFunction={() =>
-										dispatch(
-											setClinicFilter({
-												...filter,
-												isActive: toggleIsActive(filter.isActive),
-											})
-										)
-									}
-								/>
-							</div>
-						</Column>
-					)} */}
 				</Column>
 			</Column>
 		</>

@@ -2,7 +2,6 @@ import _ from "lodash";
 import { setIsLoading } from "@/components/Loading/redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
-	GetCourseListBody,
 	addCourseCategoryList,
 	getCourseCategoryDetail,
 	getCourseList,
@@ -15,15 +14,15 @@ import {
 import {
 	CourseCategory,
 	CourseCategoryForm,
+	GetCourseCategoryList,
 } from "@/modules/course-category/redux/model";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {
-		const body: GetCourseListBody = {
-			courseCategoryId: "",
-			categoryDescription: "",
-			pagination: course.grid.page,
+		const body: GetCourseCategoryList = {
+			...course.filter,
+			...course.grid.page,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getCourseList(body));

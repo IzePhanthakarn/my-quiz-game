@@ -16,6 +16,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { columns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import FilterDrawer from "./filterDrawer";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -68,9 +69,11 @@ export default function CourseManipulate() {
 					<BaseDrawer
 						isFilter
 						isOpen={isOpen}
-						content={<></>}
+						content={<FilterDrawer />}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {}}
+						confirmFuntion={() => {
+							dispatch(fetchCourseList(course));
+						}}
 					/>
 				}
 				AddFunction={() => router.push(LINKS.CATEGORY_COURSE.add)}
