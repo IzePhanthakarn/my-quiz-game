@@ -28,7 +28,8 @@ export interface CourseCategoryGridData {
 export interface CourseCategoryFilter {
 	checkCategoryDescriptionLike: boolean;
 	categoryDescriptionLike: string;
-	isActive: string;
+	isActive: IsActive | undefined;
+	checkIsActive: boolean;
 }
 
 export type GetCourseCategoryList = CourseCategoryFilter & PaginationOptions;
@@ -61,7 +62,8 @@ export const modelCourseCategory: CourseCategory = {
 	filter: {
 		categoryDescriptionLike: "",
 		checkCategoryDescriptionLike: false,
-		isActive: IsActive.Y,
+		isActive: undefined,
+		checkIsActive: false,
 	},
 	form: {
 		categoryDescription: "",

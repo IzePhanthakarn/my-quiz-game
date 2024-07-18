@@ -17,6 +17,8 @@ import { grid } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./filterDrawer";
+import { modelCourseCertificate } from "./redux/model";
+import { setCourseCertificateFilter } from "./redux";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -76,6 +78,11 @@ export default function CourseCertificate() {
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						confirmFuntion={() => {
 							dispatch(fetchCourseList(courseCertificate));
+						}}
+						clearFilter={() => {
+							dispatch(
+								setCourseCertificateFilter(modelCourseCertificate.filter)
+							);
 						}}
 					/>
 				}

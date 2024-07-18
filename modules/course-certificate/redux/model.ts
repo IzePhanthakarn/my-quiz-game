@@ -40,7 +40,8 @@ export interface CourseCertificateFilter {
 	checkCourseDescription: boolean;
 	checkCourseYear: boolean;
 
-	isActive: IsActive;
+	isActive: IsActive | undefined;
+	checkIsActive: boolean;
 }
 
 export type GetCourseCertificateList = CourseCertificateFilter &
@@ -85,7 +86,8 @@ export const modelCourseCertificate: CourseCertificate = {
 		checkSsoCourseCode: false,
 		checkCourseDescription: false,
 		checkCourseYear: false,
-		isActive: IsActive.Y,
+		isActive: undefined,
+		checkIsActive: false,
 	},
 	form: {
 		courseCategory: "",

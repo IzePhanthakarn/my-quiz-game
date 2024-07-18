@@ -17,6 +17,8 @@ import { columns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./filterDrawer";
+import { setCourseCategoryFilter } from "./redux";
+import { modelCourseCategory } from "./redux/model";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -73,6 +75,9 @@ export default function CourseManipulate() {
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						confirmFuntion={() => {
 							dispatch(fetchCourseList(course));
+						}}
+						clearFilter={() => {
+							dispatch(setCourseCategoryFilter(modelCourseCategory.filter));
 						}}
 					/>
 				}

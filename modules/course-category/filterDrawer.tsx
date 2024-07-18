@@ -56,22 +56,51 @@ export default function FilterDrawer() {
 				</Column>
 				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<FormItemCheckbox
-						itemName="isActive"
+						itemName="checkIsActive"
 						label="สถานะการลบข้อมูล"
-						checked={_.trim(filter.isActive) === IsActive.Y ? true : false}
+						checked={filter.checkIsActive}
 						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
+						onClickFunction={() => {
 							dispatch(
 								setCourseCategoryFilter({
 									...filter,
-									isActive:
-										_.trim(filter.isActive) === IsActive.Y
-											? IsActive.N
-											: IsActive.Y,
+									checkIsActive: !filter.checkIsActive,
 								})
-							)
-						}
+							);
+						}}
 					/>
+					{filter.checkIsActive && (
+						<div className=" pt-1 ml-4">
+							<FormItemCheckbox
+								itemName="isActive"
+								label="ไม่ลบข้อมูล"
+								checked={_.trim(filter.isActive) === IsActive.Y}
+								labelPosition={FormItemPosition.RIGHT}
+								onClickFunction={() =>
+									dispatch(
+										setCourseCategoryFilter({
+											...filter,
+											isActive: IsActive.Y,
+										})
+									)
+								}
+							/>
+							<FormItemCheckbox
+								itemName="isActive"
+								label="ลบข้อมูล"
+								checked={_.trim(filter.isActive) === IsActive.N}
+								labelPosition={FormItemPosition.RIGHT}
+								onClickFunction={() =>
+									dispatch(
+										setCourseCategoryFilter({
+											...filter,
+											isActive: IsActive.N,
+										})
+									)
+								}
+							/>
+						</div>
+					)}
 				</Column>
 			</Column>
 		</>
