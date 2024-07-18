@@ -35,4 +35,10 @@ export const LINKS = {
 		add: "/med/course-certificate/form/",
 		edit: "/med/course-certificate/edit/",
 	},
+	COURSE_ORGAN_SYSTEM_GROUP: {
+		name: "COURSE_ORGAN_SYSTEM_GROUP",
+		link: "/med/course-organ-system-group",
+		add: "/med/course-organ-system-group/form/",
+		edit: "/med/course-organ-system-group/edit/",
+	},
 };

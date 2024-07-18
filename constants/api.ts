@@ -38,6 +38,13 @@ const API_PATH = {
 		GET_BY_UUID: "/course/certificate",
 		UPDATE_BY_UUID: "/course/certificate",
 	},
+	COURSE_ORGAN_SYSTEM_GROUP: {
+		GET_LIST: "/course/organ-system-group/list",
+		GET_RECORD: "/course/organ-system-group",
+		ADD: "/course/organ-system-group",
+		GET_BY_UUID: "/course/organ-system-group",
+		UPDATE_BY_UUID: "/course/organ-system-group",
+	},
 };
 
 export default API_PATH;
