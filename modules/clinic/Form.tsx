@@ -40,7 +40,7 @@ const Form = (params: UuidFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
-				// dispatch(setIsOpenDialog(true));
+				dispatch(setIsOpenDialog(false));
 
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
