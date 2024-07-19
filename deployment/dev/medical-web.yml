@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: medical-web-dev
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 3000
       targetPort: 3000
@@ -25,7 +25,7 @@ spec:
         app: medical-web-dev
     spec:
       imagePullSecrets:
-        - name: dockerhubpull
+        - name: soilfish-registry-secret
       automountServiceAccountToken: false
       containers:
         - name: medical-web
