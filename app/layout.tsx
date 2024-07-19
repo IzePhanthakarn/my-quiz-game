@@ -18,7 +18,9 @@ export default function RootLayout({
 		<html lang="en">
 			<AntdProvider>
 				<StoreProvider>
-					<body>{children}</body>
+					<body>
+						<MainWrapper>{children}</MainWrapper>
+					</body>
 				</StoreProvider>
 			</AntdProvider>
 		</html>

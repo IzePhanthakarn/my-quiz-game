@@ -119,7 +119,7 @@ const Form = (params: UuidFormPageProps) => {
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
+									disabled={!_.isEmpty(params.params.uuid) ? true : false}
 									label="Diploma Type"
 									itemName="diplomaType"
 									rules={diplomaTypeSchema}

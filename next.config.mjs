@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: false,
-
-	// compiler:{
-	// 	styledComponents:true,
-	// }
+	basePath: "/med",
 };
 
 export default nextConfig;
