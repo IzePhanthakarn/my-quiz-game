@@ -21,8 +21,8 @@ definitions:
           - echo $IMAGE_FIX
           - echo $VERSION
           - ls -al
-          - docker build -t $IMAGE_FIX .
           - echo ${DOCKER_PASS_TOKEN} | docker login --username soilfish --password-stdin
+          - docker build -t $IMAGE_FIX .
           - docker push $IMAGE_FIX
         artifacts:
           paths:
