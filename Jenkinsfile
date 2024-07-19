@@ -95,13 +95,13 @@ pipeline {
             }
         }
 
-        // stage('Deploy kube') {
-        //     steps {
-        //         withKubeConfig([credentialsId: 'wcf2-kube-config']) {
-        //             sh 'kubectl replace -f deployment/dev/configmap.yml --force'
-        //             sh 'kubectl replace -f deployment/dev/deployment.yml --force'
-        //         }
-        //     }
-        // }
+        stage('Deploy kube') {
+            steps {
+                withKubeConfig([credentialsId: 'wcf2-kube-config']) {
+                    sh 'kubectl replace -f deployment/dev/configmap.yml --force'
+                    sh 'kubectl replace -f deployment/dev/medical-web.yml --force'
+                }
+            }
+        }
     }
 }
