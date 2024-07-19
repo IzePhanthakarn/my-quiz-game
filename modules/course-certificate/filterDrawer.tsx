@@ -160,6 +160,7 @@ export default function FilterDrawer() {
 								setCourseCertificateFilter({
 									...filter,
 									checkIsActive: !filter.checkIsActive,
+									isActive: undefined,
 								})
 							);
 						}}

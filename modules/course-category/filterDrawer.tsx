@@ -65,6 +65,7 @@ export default function FilterDrawer() {
 								setCourseCategoryFilter({
 									...filter,
 									checkIsActive: !filter.checkIsActive,
+									isActive: undefined,
 								})
 							);
 						}}

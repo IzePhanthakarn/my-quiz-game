@@ -88,7 +88,7 @@ export default function CourseOrganSystemGroup() {
 						}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CATEGORY_CERTIFICATE.add)}
+				AddFunction={() => router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.add)}
 			/>
 		</div>
 	);

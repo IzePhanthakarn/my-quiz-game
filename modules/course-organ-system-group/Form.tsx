@@ -19,16 +19,19 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
-import { setCourseCertificateForm } from "./redux";
-import { CourseCertificateForm, modelCourseCertificate } from "./redux/model";
-import { courseCertificateRules } from "./field-validation/courseOrganSystemGroupForm";
+import { setCourseOrganSystemGroupForm } from "./redux";
 import {
-	addCourseCertificate,
-	initGetCourseCertificateDetail,
-	updateCourseCertificate,
+	CourseOrganSystemGroupForm,
+	modelCourseOrganSystemGroup,
+} from "./redux/model";
+import { courseOrganSystemGroupRules } from "./field-validation/courseOrganSystemGroupForm";
+import {
+	addCourseOrganSystemGroup,
+	initGetCourseOrganSystemGroupDetail,
+	updateCourseOrganSystemGroup,
 } from "./service";
 
-const Form = (params: CourseCertificateFormPageProps) => {
+const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
@@ -36,7 +39,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 	const { isOpen, form } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
-			form: state.courseCertificate.form,
+			form: state.courseOrganSystemGroup.form,
 		}),
 		shallowEqual
 	);
@@ -45,26 +48,29 @@ const Form = (params: CourseCertificateFormPageProps) => {
 		(async () => {
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
-					await dispatch(initGetCourseCertificateDetail(params));
+					await dispatch(initGetCourseOrganSystemGroupDetail(params));
 				} else {
-					await dispatch(setCourseCertificateForm(modelCourseCertificate.form));
+					await dispatch(
+						setCourseOrganSystemGroupForm(modelCourseOrganSystemGroup.form)
+					);
 				}
 				setIsInit(true);
 			}
 		})();
 	}, []);
 
-	const onFinish: FormProps<CourseCertificateForm>["onFinish"] = (values) => {
+	const onFinish: FormProps<CourseOrganSystemGroupForm>["onFinish"] = (
+		_values
+	) => {
 		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateCourseCertificate(form));
+			dispatch(updateCourseOrganSystemGroup(form));
 		} else {
-			dispatch(addCourseCertificate(form));
+			dispatch(addCourseOrganSystemGroup(form));
 		}
 	};
 
-	const onFinishFailed: FormProps<CourseCertificateForm>["onFinishFailed"] = (
-		_
-	) => {};
+	const onFinishFailed: FormProps<CourseOrganSystemGroupForm>["onFinishFailed"] =
+		(_) => {};
 
 	const scopes = [
 		"location:read",
@@ -89,7 +95,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 				headerText={<>บันทึกข้อมูลสำเร็จ</>}
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.CATEGORY_CERTIFICATE.link);
+					router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 				}}
 			/>
 
@@ -102,14 +108,14 @@ const Form = (params: CourseCertificateFormPageProps) => {
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y ? true : false}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
-							setCourseCertificateForm({
+							setCourseOrganSystemGroupForm({
 								...form,
 								isActive: e ? IsActive.Y : IsActive.N,
 							})
 						);
 					}}
 					cancelFunction={() => {
-						router.push(LINKS.CATEGORY_CERTIFICATE.link);
+						router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 					}}
 					inputs={
 						<>
@@ -118,11 +124,11 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									disabled={_.isEmpty(write) ? true : false}
 									label="Course Category"
 									itemName="courseCategory"
-									rules={courseCertificateRules.courseCategorySchema}
+									rules={courseOrganSystemGroupRules.courseCategorySchema}
 									value={form.courseCategory}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseCertificateForm({
+											setCourseOrganSystemGroupForm({
 												...form,
 												courseCategory: e.target.value,
 											})
@@ -131,88 +137,13 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								/>
 								<FormItemInput
 									disabled={_.isEmpty(write) ? true : false}
-									label="Sso Course Code"
-									itemName="ssoCourseCode"
-									rules={courseCertificateRules.ssoCourseCodeSchema}
-									value={form.ssoCourseCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												ssoCourseCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Course Description"
-									itemName="courseDescription"
-									rules={courseCertificateRules.courseDescriptionSchema}
-									value={form.courseDescription}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												courseDescription: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Course Year"
-									itemName="courseYear"
-									rules={courseCertificateRules.courseYearSchema}
-									value={form.courseYear}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												courseYear: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Organize Code"
-									itemName="organizeCode"
-									rules={courseCertificateRules.organizeCodeSchema}
-									value={form.organizeCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												organizeCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Gen No"
-									itemName="genNo"
-									rules={courseCertificateRules.genNoSchema}
-									value={form.genNo}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												genNo: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
 									label="Organ System Group"
 									itemName="organSystemGroup"
-									rules={courseCertificateRules.organSystemGroupSchema}
+									rules={courseOrganSystemGroupRules.organSystemGroupSchema}
 									value={form.organSystemGroup}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseCertificateForm({
+											setCourseOrganSystemGroupForm({
 												...form,
 												organSystemGroup: e.target.value,
 											})
@@ -224,61 +155,13 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									disabled={_.isEmpty(write) ? true : false}
 									label="Organ System No"
 									itemName="organSystemNo"
-									rules={courseCertificateRules.organSystemNoSchema}
+									rules={courseOrganSystemGroupRules.organSystemNoSchema}
 									value={form.organSystemNo}
 									onChangeFunction={(e) => {
 										dispatch(
-											setCourseCertificateForm({
+											setCourseOrganSystemGroupForm({
 												...form,
 												organSystemNo: e.target.value,
-											})
-										);
-									}}
-								/>
-
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Order No"
-									itemName="orderNo"
-									rules={courseCertificateRules.orderNoSchema}
-									value={form.orderNo}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												orderNo: e.target.value,
-											})
-										);
-									}}
-								/>
-
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Receiver Phone Number"
-									itemName="receiverPhoneNumber"
-									rules={courseCertificateRules.receiverPhoneNumberSchema}
-									value={form.receiverPhoneNumber}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												receiverPhoneNumber: e.target.value,
-											})
-										);
-									}}
-								/>
-
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Receiver Address"
-									itemName="receiverAddress"
-									rules={courseCertificateRules.receiverAddressSchema}
-									value={form.receiverAddress}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateForm({
-												...form,
-												receiverAddress: e.target.value,
 											})
 										);
 									}}

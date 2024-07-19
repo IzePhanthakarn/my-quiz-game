@@ -53,7 +53,70 @@ export default function FilterDrawer() {
 						</div>
 					)}
 				</Column>
-
+				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<FormItemCheckbox
+						itemName="checkOrganSystemGroup"
+						label="Organ System Group"
+						checked={filter.checkOrganSystemGroup}
+						labelPosition={FormItemPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setCourseOrganSystemGroupFilter({
+									...filter,
+									checkOrganSystemGroup: !filter.checkOrganSystemGroup,
+								})
+							)
+						}
+					/>
+					{filter.checkOrganSystemGroup && (
+						<div className=" pt-1">
+							<FormItemInput
+								itemName="organSystemGroupLike"
+								value={filter.organSystemGroupLike}
+								onChangeFunction={(e) => {
+									dispatch(
+										setCourseOrganSystemGroupFilter({
+											...filter,
+											organSystemGroupLike: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
+					)}
+				</Column>
+				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<FormItemCheckbox
+						itemName="checkOrganSystemNo"
+						label="Organ System No"
+						checked={filter.checkOrganSystemNo}
+						labelPosition={FormItemPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setCourseOrganSystemGroupFilter({
+									...filter,
+									checkOrganSystemNo: !filter.checkOrganSystemNo,
+								})
+							)
+						}
+					/>
+					{filter.checkOrganSystemNo && (
+						<div className=" pt-1">
+							<FormItemInput
+								itemName="organSystemNoLike"
+								value={filter.organSystemNoLike}
+								onChangeFunction={(e) => {
+									dispatch(
+										setCourseOrganSystemGroupFilter({
+											...filter,
+											organSystemNoLike: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
+					)}
+				</Column>
 				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<FormItemCheckbox
 						itemName="checkIsActive"
@@ -65,6 +128,7 @@ export default function FilterDrawer() {
 								setCourseOrganSystemGroupFilter({
 									...filter,
 									checkIsActive: !filter.checkIsActive,
+									isActive: undefined,
 								})
 							);
 						}}
