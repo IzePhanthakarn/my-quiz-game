@@ -11,7 +11,7 @@ definitions:
     - step: &BuildImage
         name: Build and push Image
         size: 2x
-        image: eclipse-temurin:21-jdk
+        image: quay.io/vmoteam/ci-node:v12-gitops
         caches:
           - gradle
         services: [docker-with-large-memory]
