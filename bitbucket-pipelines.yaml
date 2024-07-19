@@ -1,0 +1,83 @@
+definitions:
+  steps:
+    - step: &SetEnvironmentVariables
+        name: 'Set environment variables'
+        script:
+          - echo "export DOCKER_PASS_TOKEN=$DOCKER_PASS_TOKEN" >> .envs
+          - echo "export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')" >> .envs
+          - echo "export ENV=$ENV" >> .envs
+        artifacts:
+          - .envs
+    - step: &BuildImage
+        name: Build and push Image
+        size: 2x
+        image: eclipse-temurin:21-jdk
+        caches:
+          - gradle
+        services: [docker-with-large-memory]
+        script:
+          - source .envs
+          - export IMAGE_FIX=soilfish/medical-web:${VERSION}-test
+          - echo $IMAGE_FIX
+          - echo $VERSION
+          - ls -al
+          - docker build -t $IMAGE_FIX .
+          - echo ${DOCKER_PASS_TOKEN} | docker login --username soilfish --password-stdin
+          - docker push $IMAGE_FIX
+        artifacts:
+          paths:
+            - build
+    - step: &Deploy
+        name: Deploy
+        trigger: manual
+        image:
+          name: alpine/helm:latest
+        script:
+          - source .envs
+          - helm version
+          - export VERSION=${BITBUCKET_COMMIT:0:7}
+          - mkdir -p ~/.kube
+          - echo $ENV
+          - echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
+          - chmod 400 ~/.kube/config
+          - cd helm/$APPLICATION
+          - helm --namespace $NAMESPACE upgrade --kubeconfig "/root/.kube/config" -i $APPLICATION . --set image.tag=$ENV-$VERSION -f values/$ENV.values.yaml
+  services:
+    docker:
+      memory: 1024
+    docker-with-large-memory:
+      memory: 2048
+      type: docker
+
+pipelines:
+  branches:
+    dev-test:
+      - step:
+          deployment: development
+          <<: *SetEnvironmentVariables
+      - step:
+          <<: *BuildImage
+    develop:
+      - step:
+          deployment: development
+          <<: *SetEnvironmentVariables
+      - step:
+          <<: *BuildImage
+      - step:
+          <<: *Deploy
+    release/*:
+      - step:
+          deployment: staging
+          <<: *SetEnvironmentVariables
+      - step:
+          <<: *BuildImage
+      - step:
+          <<: *Deploy
+    master:
+      - step:
+          deployment: production
+          <<: *SetEnvironmentVariables
+      - step:
+          <<: *BuildImage
+      - step:
+          <<: *Deploy
