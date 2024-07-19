@@ -6,7 +6,11 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
 import { IsActive } from "@/constants/constants";
 import { toggleIsActive } from "@/utils";
-import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
+import {
+	FormItemCheckbox,
+	FormItemCheckboxFilterGroup,
+	FormItemInput,
+} from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
 export default function Drawer() {
@@ -90,19 +94,34 @@ export default function Drawer() {
 					)}
 				</Column>
 				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkStatus"
-						label="สถานะการลบข้อมูล"
-						checked={filter.checkStatus}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
+					<FormItemCheckboxFilterGroup
+						isMainInputChecked={filter.checkIsActive}
+						onClickMainInputFunction={() => {
 							dispatch(
 								setClinicFilter({
 									...filter,
-									checkStatus: !filter.checkStatus,
+									checkIsActive: !filter.checkIsActive,
+									isActive: undefined,
 								})
-							)
-						}
+							);
+						}}
+						subInputValue={filter.isActive}
+						onClickSubInputYFunction={() => {
+							dispatch(
+								setClinicFilter({
+									...filter,
+									isActive: IsActive.Y,
+								})
+							);
+						}}
+						onClickSubInputNFunction={() => {
+							dispatch(
+								setClinicFilter({
+									...filter,
+									isActive: IsActive.N,
+								})
+							);
+						}}
 					/>
 				</Column>
 			</Column>

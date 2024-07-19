@@ -23,14 +23,14 @@ interface ClinicGridParams {
 }
 
 export interface ClinicPagination extends ClinicGridParams {
-	isActive: IsActive | null;
+	isActive: IsActive | undefined;
 }
 
 export const clinicPagination: ClinicPagination = {
 	pagination: modelPaginationOptions,
 	clinicCode: "",
 	clinicName: "",
-	isActive: null,
+	isActive: undefined,
 };
 
 export const getClinicList = createAsyncThunk(

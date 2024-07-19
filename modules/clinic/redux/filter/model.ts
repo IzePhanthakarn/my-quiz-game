@@ -5,7 +5,8 @@ export interface ClinicFilter extends BaseClinic {
 	checkClinicCode: boolean;
 	checkClinicName: boolean;
 	checkStatus: boolean;
-	isActive: IsActive;
+	isActive: IsActive | undefined;
+	checkIsActive: boolean;
 	isDelete: IsActive;
 }
 
@@ -15,7 +16,8 @@ export const modelClinicFilter: ClinicFilter = {
 	checkStatus: false,
 	checkClinicCode: false,
 	checkClinicName: false,
-	isActive: IsActive.N,
+	isActive: undefined,
+	checkIsActive: false,
 	isDelete: IsActive.Y,
 	uuid: "",
 };

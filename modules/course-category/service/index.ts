@@ -24,9 +24,6 @@ export const fetchCourseList =
 			...course.filter,
 			...course.grid.page,
 		};
-		// if (course.filter.checkIsActive === false) {
-		// 	body.isActive = undefined;
-		// }
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getCourseList(body));
 		dispatch(setIsLoading(false));
