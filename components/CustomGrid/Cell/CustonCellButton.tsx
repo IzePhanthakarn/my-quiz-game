@@ -45,15 +45,10 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 	} else if (mode === BUTTON_MODE.VIEW_EDIT_ICON) {
 		return (
 			<Row className="items-center space-x-1">
-				{/* {read && (
-					<Link href={viewLink ?? ""}>
-						<img src="/icons/view.svg" alt="" />
-					</Link>
-				)} */}
 				{(write || read) && (
 					<img
 						className="cursor-pointer"
-						src="/icons/edit.svg"
+						src="/med/icons/edit.svg"
 						alt=""
 						onClick={() => router.push(editLink ?? "")}
 					/>

@@ -23,26 +23,17 @@ export default function SideBar() {
 			})),
 		};
 	});
-	// const items: CollapseProps["items"] = [
-	// 	{
-	// 		key: "1",
-	// 		label: (
-	// 			<div className="px-4 h-[47px] flex items-center bg-[#214FF3] text-white">
-	// 				<div className="w-full flex items-center space-x-4">
-	// 					<img src="/icons/dns.svg" alt="logo" />
-	// 					<p className=" text-lg">Master แพทย์</p>
-	// 				</div>
-	// 			</div>
-	// 		),
-	// 		children: <SidebarContent />,
-	// 	},
-	// ];
+
 	return (
 		<div
 			className={`min-w-[280px] h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col `}
 		>
-			<BaseSideBar items={items} onMenuClick={(e) => router.push(e.key)} />
-			{/* <Collapse defaultActiveKey={["1"]} items={items} /> */}
+			<BaseSideBar
+				items={items}
+				onMenuClick={(e) => {
+					router.push(window.location.origin + "/" + e.key);
+				}}
+			/>
 		</div>
 	);
 }
