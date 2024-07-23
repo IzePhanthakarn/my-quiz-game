@@ -5,7 +5,6 @@ import { useState } from "react";
 import { handleDownloadMinIO, handleUploadMinIO } from "./service";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { minioUpload } from "./service/api";
 
 export default function Minio() {
 	const [file, setFile] = useState<File | null>(null);
@@ -16,16 +15,6 @@ export default function Minio() {
 			setFile(e.target.files[0]);
 		}
 	};
-
-	// const handleUpload = async () => {
-	// 	if (file) {
-	// 		const formData = new FormData();
-	// 		formData.append("file", file);
-	// 		dispatch(minioUpload(formData));
-	// 	} else {
-	// 		console.error("No file selected");
-	// 	}
-	// };
 	return (
 		<div>
 			<input type="file" onChange={handleFileChange} />
@@ -43,7 +32,8 @@ export default function Minio() {
 			<br />
 			<button
 				onClick={() => {
-					dispatch(handleDownloadMinIO("2024-1-12_MOM คณะกรรมการV001.docx"));
+					// dispatch(handleDownloadMinIO("2024-1-12_MOM คณะกรรมการV001.docx"));
+					dispatch(handleDownloadMinIO("20220502_174645.jpg"));
 				}}
 			>
 				Download

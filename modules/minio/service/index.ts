@@ -21,15 +21,10 @@ export const handleDownloadMinIO =
 			throw new Error("File download failed");
 		}
 
-		// console.log("🚀 ~ actionResult.payload:", actionResult.payload);
-		console.log("🚀 ~ 11", _.get(actionResult.payload, "url"));
-
-		const { url, fileName } = actionResult.payload;
 		const link = document.createElement("a");
-		link.href = url;
-		link.download = fileName;
+		link.href = `${_.get(actionResult.payload, "url")}`;
+		link.download = `${_.get(actionResult.payload, "fileName")}`;
 		link.click();
 
-		// Clean up URL object
-		window.URL.revokeObjectURL(url);
+		window.URL.revokeObjectURL(`${_.get(actionResult.payload, "url")}`);
 	};
