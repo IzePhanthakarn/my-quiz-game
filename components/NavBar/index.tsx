@@ -20,7 +20,7 @@ export default function NavBar() {
 					/>
 					<img src="/med/icons/chocolate.svg" alt="logo" />
 					<img src="/med/icons/avatar.svg" alt="logo" />
-					<img src="/icons/arrow-down.svg" alt="logo" />
+					<img src="/med/icons/arrow-down.svg" alt="logo" />
 				</div>
 			</div>
 		</div>
