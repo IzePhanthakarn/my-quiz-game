@@ -45,7 +45,7 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 			<Row className="items-center space-x-1">
 				{(write || read) && (
 					<Button
-						className="border-0 h-fit p-0"
+						className="border-0 h-fit bg-transparent p-0"
 						onClick={() => router.push(editLink ?? "")}
 					>
 						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
