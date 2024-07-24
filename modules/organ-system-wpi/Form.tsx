@@ -25,11 +25,6 @@ import {
 	initOrganSystemWpiDetail,
 	updateOrganSystemWpi,
 } from "./service";
-// import {
-// 	addCourseCategory,
-// 	initGetCourseCategoryDetail,
-// 	updateCourseCategory,
-// } from "./service";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -50,14 +45,14 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initOrganSystemWpiDetail(params));
 				} else {
-					await dispatch(setOrganSystemWpiForm(modelOrganSystemWpi.form));
+					dispatch(setOrganSystemWpiForm(modelOrganSystemWpi.form));
 				}
 				setIsInit(true);
 			}
 		})();
 	}, []);
 
-	const onFinish: FormProps<OrganSystemWpiForm>["onFinish"] = (values) => {
+	const onFinish: FormProps<OrganSystemWpiForm>["onFinish"] = () => {
 		if (!_.isEmpty(params.params.uuid)) {
 			dispatch(updateOrganSystemWpi(form));
 		} else {
@@ -98,11 +93,11 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 			{isInit && (
 				<MasterDataForm
-					disabled={_.isEmpty(write) ? true : false}
+					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					switchCheckValue={_.trim(form.isActive) === IsActive.Y ? true : false}
+					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setOrganSystemWpiForm({
@@ -115,40 +110,38 @@ const Form = (params: CourseCategoryFormPageProps) => {
 						router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 					}}
 					inputs={
-						<>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Description"
-									itemName="description"
-									rules={organSystemWpiFormRules.description}
-									value={form.description}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOrganSystemWpiForm({
-												...form,
-												description: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Organ System No"
-									itemName="organSystemNo"
-									rules={organSystemWpiFormRules.organSystemNo}
-									value={form.organSystemNo}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOrganSystemWpiForm({
-												...form,
-												organSystemNo: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-						</>
+						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Description"
+								itemName="description"
+								rules={organSystemWpiFormRules.description}
+								value={form.description}
+								onChangeFunction={(e) => {
+									dispatch(
+										setOrganSystemWpiForm({
+											...form,
+											description: e.target.value,
+										})
+									);
+								}}
+							/>
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Organ System No"
+								itemName="organSystemNo"
+								rules={organSystemWpiFormRules.organSystemNo}
+								value={form.organSystemNo}
+								onChangeFunction={(e) => {
+									dispatch(
+										setOrganSystemWpiForm({
+											...form,
+											organSystemNo: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
 					}
 				/>
 			)}

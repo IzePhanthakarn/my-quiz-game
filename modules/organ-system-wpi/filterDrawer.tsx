@@ -19,92 +19,90 @@ export default function FilterDrawer() {
 	);
 
 	return (
-		<>
-			<Column className="space-y-4">
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkOrganSystemNo"
-						label="Organ SystemNo"
-						checked={filter.checkOrganSystemNo}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setOrganSystemWpiFilter({
-									...filter,
-									checkOrganSystemNo: !filter.checkOrganSystemNo,
-								})
-							)
-						}
-					/>
-					{filter.checkOrganSystemNo && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="organSystemNoLike"
-								value={filter.organSystemNoLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiFilter({
-											...filter,
-											organSystemNoLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkDescription"
-						label="Description"
-						checked={filter.checkDescription}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setOrganSystemWpiFilter({
-									...filter,
-									checkDescription: !filter.checkDescription,
-								})
-							)
-						}
-					/>
-					{filter.checkDescription && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="descriptionLike"
-								value={filter.descriptionLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiFilter({
-											...filter,
-											descriptionLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="isActive"
-						label="สถานะการลบข้อมูล"
-						checked={_.trim(filter.isActive) === IsActive.Y ? true : false}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setOrganSystemWpiFilter({
-									...filter,
-									isActive:
-										_.trim(filter.isActive) === IsActive.Y
-											? IsActive.N
-											: IsActive.Y,
-								})
-							)
-						}
-					/>
-				</Column>
+		<Column className="space-y-4">
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkOrganSystemNo"
+					label="Organ SystemNo"
+					checked={filter.checkOrganSystemNo}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								checkOrganSystemNo: !filter.checkOrganSystemNo,
+							})
+						)
+					}
+				/>
+				{filter.checkOrganSystemNo && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="organSystemNoLike"
+							value={filter.organSystemNoLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setOrganSystemWpiFilter({
+										...filter,
+										organSystemNoLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
 			</Column>
-		</>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkDescription"
+					label="Description"
+					checked={filter.checkDescription}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								checkDescription: !filter.checkDescription,
+							})
+						)
+					}
+				/>
+				{filter.checkDescription && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="descriptionLike"
+							value={filter.descriptionLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setOrganSystemWpiFilter({
+										...filter,
+										descriptionLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
+			</Column>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="isActive"
+					label="สถานะการลบข้อมูล"
+					checked={_.trim(filter.isActive) === IsActive.Y}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								isActive:
+									_.trim(filter.isActive) === IsActive.Y
+										? IsActive.N
+										: IsActive.Y,
+							})
+						)
+					}
+				/>
+			</Column>
+		</Column>
 	);
 }

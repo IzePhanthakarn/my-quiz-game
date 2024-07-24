@@ -1,4 +1,3 @@
-import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "axios";

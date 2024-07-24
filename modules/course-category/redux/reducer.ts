@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CourseCategory } from "./model";
 import {
+	CourseCategory,
 	CourseCategoryForm,
 	CourseCategoryGrid,
 	CourseCategoryFilter,

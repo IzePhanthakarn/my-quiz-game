@@ -3,17 +3,15 @@
 import { findScope, getScopesPermissions } from "@/utils";
 import { BUTTON_MODE } from "./model";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
-import Link from "wcf-component-lib/node_modules/antd/es/typography/Link";
 import Row from "@/components/Row";
 import { useRouter } from "next/navigation";
 
 interface Props {
 	mode: BUTTON_MODE;
 	editLink?: string;
-	viewLink?: string;
 }
 
-const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
+const InputEditButtonCell = ({ mode, editLink }: Props) => {
 	const router = useRouter();
 	const scopes = [
 		"location:read",
@@ -46,22 +44,20 @@ const InputEditButtonCell = ({ mode, editLink, viewLink }: Props) => {
 		return (
 			<Row className="items-center space-x-1">
 				{(write || read) && (
-					<img
-						className="cursor-pointer"
-						src="/med/icons/edit.svg"
-						alt=""
+					<Button
+						className="border-0 h-fit p-0"
 						onClick={() => router.push(editLink ?? "")}
-					/>
+					>
+						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
+					</Button>
 				)}
 			</Row>
 		);
 	}
 };
 
-const CustomCellButton = ({ mode, editLink, viewLink }: Props) => {
-	return (
-		<InputEditButtonCell viewLink={viewLink} mode={mode} editLink={editLink} />
-	);
+const CustomCellButton = ({ mode, editLink }: Props) => {
+	return <InputEditButtonCell mode={mode} editLink={editLink} />;
 };
 
 export default CustomCellButton;

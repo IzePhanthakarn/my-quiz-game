@@ -49,7 +49,6 @@ export const columns: TableProps["columns"] = [
 		render: (_, { uuid }) => (
 			<CustomCellButton
 				editLink={`${LINKS.CATEGORY_COURSE.edit}${uuid}`}
-				viewLink={`${LINKS.CATEGORY_COURSE.edit}${uuid}`}
 				mode={BUTTON_MODE.VIEW_EDIT_ICON}
 			/>
 		),

@@ -101,11 +101,11 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 
 			{isInit && (
 				<MasterDataForm
-					disabled={_.isEmpty(write) ? true : false}
+					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					switchCheckValue={_.trim(form.isActive) === IsActive.Y ? true : false}
+					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseOrganSystemGroupForm({
@@ -121,7 +121,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
+									disabled={_.isEmpty(write)}
 									label="Course Category"
 									itemName="courseCategory"
 									rules={courseOrganSystemGroupRules.courseCategorySchema}
@@ -136,7 +136,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 									}}
 								/>
 								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
+									disabled={_.isEmpty(write)}
 									label="Organ System Group"
 									itemName="organSystemGroup"
 									rules={courseOrganSystemGroupRules.organSystemGroupSchema}
@@ -152,7 +152,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 								/>
 
 								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
+									disabled={_.isEmpty(write)}
 									label="Organ System No"
 									itemName="organSystemNo"
 									rules={courseOrganSystemGroupRules.organSystemNoSchema}

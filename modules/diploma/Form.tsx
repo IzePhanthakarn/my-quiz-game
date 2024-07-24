@@ -44,8 +44,6 @@ const Form = (params: UuidFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
-				// dispatch(setIsOpenDialog(true));
-
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetDiplomaDetail(params));
 				} else {
@@ -97,13 +95,11 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataForm
-					disabled={_.isEmpty(write) ? true : false}
+					disabled={_.isEmpty(write)}
 					initialValues={diplomaDetail}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					switchCheckValue={
-						_.trim(diplomaDetail.isActive) === IsActive.Y ? true : false
-					}
+					switchCheckValue={_.trim(diplomaDetail.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setDiplomaDetail({
@@ -116,40 +112,38 @@ const Form = (params: UuidFormPageProps) => {
 						router.push(LINKS.DIPLOMA.link);
 					}}
 					inputs={
-						<>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<FormItemInput
-									disabled={!_.isEmpty(params.params.uuid) ? true : false}
-									label="Diploma Type"
-									itemName="diplomaType"
-									rules={diplomaTypeSchema}
-									value={diplomaDetail.diplomaType}
-									onChangeFunction={(e) => {
-										dispatch(
-											setDiplomaDetail({
-												...diplomaDetail,
-												diplomaType: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Diploma Name"
-									itemName="diplomaName"
-									rules={diplomaNameSchema}
-									value={diplomaDetail.diplomaName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setDiplomaDetail({
-												...diplomaDetail,
-												diplomaName: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-						</>
+						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+							<FormItemInput
+								disabled={!_.isEmpty(params.params.uuid)}
+								label="Diploma Type"
+								itemName="diplomaType"
+								rules={diplomaTypeSchema}
+								value={diplomaDetail.diplomaType}
+								onChangeFunction={(e) => {
+									dispatch(
+										setDiplomaDetail({
+											...diplomaDetail,
+											diplomaType: e.target.value,
+										})
+									);
+								}}
+							/>
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Diploma Name"
+								itemName="diplomaName"
+								rules={diplomaNameSchema}
+								value={diplomaDetail.diplomaName}
+								onChangeFunction={(e) => {
+									dispatch(
+										setDiplomaDetail({
+											...diplomaDetail,
+											diplomaName: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
 					}
 				/>
 			)}

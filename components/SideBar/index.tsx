@@ -15,21 +15,30 @@ export default function SideBar() {
 		const storedData = localStorage.getItem("page_access");
 		if (storedData) {
 			const parsedData = JSON.parse(storedData) as SideBarModule[];
-			const sidebarItems: MenuItem[] = parsedData.map(
-				(item: SideBarModule) => ({
-					key: item.moduleCode,
-					label: item.moduleName,
-					icon: <ContainerOutlined />, // Adjust the icon as needed
-					children: item.subModules.map((subModule: SubModule) => ({
-						key: subModule.code,
-						label: subModule.name,
-						children: subModule.pages.map((page: Page) => ({
-							key: page.path + "*" + page.pageLevel,
-							label: page.pageName,
-						})),
-					})),
-				})
-			);
+			// Function to create MenuItem from Page
+			const createPageMenuItem = (page: Page): MenuItem => ({
+				key: `${page.path}*${page.pageLevel}`,
+				label: page.pageName,
+			});
+
+			// Function to create MenuItem from SubModule
+			const createSubModuleMenuItem = (subModule: SubModule): MenuItem => ({
+				key: subModule.code,
+				label: subModule.name,
+				children: subModule.pages.map(createPageMenuItem),
+			});
+
+			// Function to create MenuItem from SideBarModule
+			const createModuleMenuItem = (item: SideBarModule): MenuItem => ({
+				key: item.moduleCode,
+				label: item.moduleName,
+				icon: <ContainerOutlined />, // Adjust the icon as needed
+				children: item.subModules.map(createSubModuleMenuItem),
+			});
+
+			// Main mapping function
+			const sidebarItems: MenuItem[] = parsedData.map(createModuleMenuItem);
+			console.log("sidebarItems", sidebarItems);
 			setItems(sidebarItems);
 		}
 	}, []);

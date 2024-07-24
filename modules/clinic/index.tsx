@@ -8,11 +8,9 @@ import { initClinicGrid } from "./service";
 import { columns } from "./model";
 
 import { LINKS } from "@/constants/links";
-import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setClinicFilter, setOrder, setPagination } from "./redux";
 import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
-import Button from "wcf-component-lib/node_modules/antd/es/button";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
@@ -83,14 +81,13 @@ export default function Clinic() {
 				}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButton={
-					<Button
+					<BaseButton
 						size="large"
 						className="text-xl px-3 py-2"
 						onClick={() => dispatch(setIsOpenDrawer(true))}
+						label="ตัวกรอง"
 						icon={<FilterOutlined />}
-					>
-						<p className=" whitespace-nowrap">ตัวกรอง</p>
-					</Button>
+					/>
 				}
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
 				AddLabel="เพิ่มคลินิค"
