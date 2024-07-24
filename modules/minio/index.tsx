@@ -9,21 +9,33 @@ import {
 } from "./service";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
+import { SliceModel } from "@/redux/slices/model";
+import { setFile, setMultipleFiles } from "./redux";
 
 export default function Minio() {
-	const [file, setFile] = useState<File | null>(null);
-	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+	// const [file, setFile] = useState<File | null>(null);
+	// const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 	const dispatch: AppDispatch = useDispatch();
-
+	const { file, files } = useSelector(
+		(state: SliceModel) => ({
+			// isOpen: state.drawer.isOpen,
+			// isLoading: state.loading.isLoading,
+			file: state.minIO.file,
+			files: state.minIO.files,
+		}),
+		shallowEqual
+	);
 	const handleFileChangeMultiple = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
-			setSelectedFiles(Array.from(e.target.files));
+			// setSelectedFiles(Array.from(e.target.files));
+			dispatch(setMultipleFiles(Array.from(e.target.files)));
 		}
 	};
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
-			setFile(e.target.files[0]);
+			// setFile(e.target.files[0]);
+			dispatch(setFile(e.target.files[0]));
 		}
 	};
 
@@ -35,7 +47,7 @@ export default function Minio() {
 			{/* <button onClick={handleUpload}>Upload</button> */}
 			<button
 				onClick={() => {
-					dispatch(handleUploadMultipleMinIO(selectedFiles));
+					dispatch(handleUploadMultipleMinIO(files));
 				}}
 			>
 				Upload Multiple file
