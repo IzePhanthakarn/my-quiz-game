@@ -48,6 +48,7 @@ const API_PATH = {
 
 	MINIO: {
 		UPLOAD: "/api/files/upload",
+		UPLOAD_MULTIPLE: "/api/files/upload-multiple",
 		DOWNLOAD: "/api/files/download/",
 	},
 };

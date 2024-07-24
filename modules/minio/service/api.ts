@@ -19,6 +19,23 @@ export const minioUpload = createAsyncThunk(
 	}
 );
 
+export const minioUploadMultiple = createAsyncThunk(
+	"Medical/minioUploadMultiple",
+	async (body: FormData, thunkApi) => {
+		try {
+			const apiPath = `${API_PATH.MINIO.UPLOAD_MULTIPLE}`;
+			const response = await axios.post(apiPath, body, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
+			return response.data;
+		} catch (err) {
+			return thunkApi.rejectWithValue("");
+		}
+	}
+);
+
 export const minioDownload = createAsyncThunk(
 	"Medical/minioDownload",
 	async (fileName: string, thunkApi) => {
