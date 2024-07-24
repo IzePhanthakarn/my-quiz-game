@@ -13,7 +13,7 @@ export const grid: TableProps["columns"] = [
 		title: "สถานะ",
 		key: "isActive",
 		dataIndex: "isActive",
-		width: 100,
+		width: 150,
 		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{

@@ -13,7 +13,7 @@ export const columns: TableProps["columns"] = [
 		title: "สถานะ",
 		dataIndex: "isActive",
 		key: "isActive",
-		width: 100,
+		width: 150,
 		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{

@@ -11,6 +11,25 @@ import { useRouter } from "next/navigation";
 export default function SideBar() {
 	const router = useRouter();
 	const [items, setItems] = React.useState<MenuItem[]>([]);
+
+	const handleClick = (path: string) => {
+		const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+		if (path) {
+			// Remove the basePath if it exists in the path
+			const cleanedPath = path.startsWith(basePath ?? "")
+				? path.substring(basePath?.length ?? 0)
+				: path;
+
+			// Ensure the path starts with a slash
+			const finalPath = cleanedPath.startsWith("/")
+				? cleanedPath
+				: `/${cleanedPath}`;
+
+			// Navigate to the cleaned path
+			router.push(finalPath);
+		}
+	};
+
 	React.useEffect(() => {
 		const storedData = localStorage.getItem("page_access");
 		if (storedData) {
@@ -50,7 +69,7 @@ export default function SideBar() {
 			<BaseSideBar
 				items={items}
 				onMenuClick={(e) => {
-					router.push(window.location.origin + "/" + e.key);
+					handleClick(e.key);
 				}}
 			/>
 		</div>
