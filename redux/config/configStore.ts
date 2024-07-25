@@ -12,6 +12,7 @@ import minIOSlice from "@/modules/minio/redux";
 import courseCertificateSlice from "@/modules/course-certificate/redux";
 import loginSlice from "@/modules/login/redux";
 import drawerSlice from "../slices/drawer";
+import medicalAmountSlice from "@/modules/medical-amount/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -28,6 +29,7 @@ export const store = configureStore({
 		courseCertificate: courseCertificateSlice,
 		courseOrganSystemGroup: courseOrganSystemGroupSlice,
 		minIO: minIOSlice,
+		medicalAmount: medicalAmountSlice,
 	},
 });
 

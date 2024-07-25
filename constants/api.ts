@@ -45,11 +45,17 @@ const API_PATH = {
 		GET_BY_UUID: "/course/organ-system-group",
 		UPDATE_BY_UUID: "/course/organ-system-group",
 	},
-
 	MINIO: {
 		UPLOAD: "/api/files/upload",
 		UPLOAD_MULTIPLE: "/api/files/upload-multiple",
 		DOWNLOAD: "/api/files/download/",
+	},
+	MEDICAL_AMOUNT: {
+		GET_LIST: "/master/medical-amount/list",
+		GET_RECORD: "/master/medical-amount",
+		ADD: "/master/medical-amount",
+		GET_BY_UUID: "/master/medical-amount",
+		UPDATE_BY_UUID: "/master/medical-amount",
 	},
 };
 
