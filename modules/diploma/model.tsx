@@ -22,7 +22,7 @@ export const columns: TableProps["columns"] = [
 				<CustomHeaderSort
 					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 					headerKey={"diplomaType"}
-					label={"รหัสคลินิค"}
+					label={"รหัสประกาศนียบัตร"}
 					sort={columns?.sortColumns}
 				/>
 			</div>
@@ -36,7 +36,7 @@ export const columns: TableProps["columns"] = [
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"diplomaName"}
-				label={"ชื่อคลินิค"}
+				label={"ชื่อประกาศนียบัตร"}
 				sort={columns?.sortColumns}
 			/>
 		),

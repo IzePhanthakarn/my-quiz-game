@@ -11,7 +11,6 @@ import {
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setOrganSystemWpiFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
-import _ from "lodash";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();

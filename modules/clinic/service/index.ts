@@ -18,8 +18,8 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
-	clinicCode: string | null;
-	clinicName: string | null;
+	clinicCodeLike: string | null;
+	clinicNameLike: string | null;
 }
 
 export interface ClinicPagination extends ClinicGridParams {
@@ -28,14 +28,14 @@ export interface ClinicPagination extends ClinicGridParams {
 
 export const clinicPagination: ClinicPagination = {
 	pagination: modelPaginationOptions,
-	clinicCode: "",
-	clinicName: "",
+	clinicCodeLike: "",
+	clinicNameLike: "",
 	isActive: undefined,
 };
 
 export const getClinicList = createAsyncThunk(
 	"Medical/getClinicDetail",
-	async (params: ClinicPagination = clinicPagination, thunkAPi) => {
+	async (params: ClinicPagination, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
 			const response = await axios.post(apiPath, params);
@@ -72,8 +72,8 @@ export const initClinicGrid =
 	(params: ClinicPagination) => async (dispatch: AppDispatch) => {
 		const newParams = {
 			...params,
-			clinicCode: handleEmptyStringToNull(params.clinicCode),
-			clinicName: handleEmptyStringToNull(params.clinicName),
+			clinicCodeLike: handleEmptyStringToNull(params.clinicCodeLike),
+			clinicNameLike: handleEmptyStringToNull(params.clinicNameLike),
 		};
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getClinicList(newParams));

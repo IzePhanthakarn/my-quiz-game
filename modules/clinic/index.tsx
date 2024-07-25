@@ -10,12 +10,10 @@ import { columns } from "./model";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setClinicFilter, setOrder, setPagination } from "./redux";
-import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import Drawer from "./drawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
@@ -39,8 +37,8 @@ export default function Clinic() {
 		dispatch(
 			initClinicGrid({
 				pagination: { ...page },
-				clinicCode: filter.clinicCode,
-				clinicName: filter.clinicName,
+				clinicCodeLike: filter.clinicCodeLike,
+				clinicNameLike: filter.clinicNameLike,
 				isActive: filter.isActive,
 			})
 		);
@@ -70,8 +68,8 @@ export default function Clinic() {
 							dispatch(
 								initClinicGrid({
 									pagination: { ...page },
-									clinicCode: filter.clinicCode,
-									clinicName: filter.clinicName,
+									clinicCodeLike: filter.clinicCodeLike,
+									clinicNameLike: filter.clinicNameLike,
 									isActive: filter.isActive,
 								})
 							)
@@ -80,15 +78,7 @@ export default function Clinic() {
 					/>
 				}
 				FilterTextField={<Input className="w-[300px]" />}
-				FilterButton={
-					<BaseButton
-						size="large"
-						className="text-xl px-3 py-2"
-						onClick={() => dispatch(setIsOpenDrawer(true))}
-						label="ตัวกรอง"
-						icon={<FilterOutlined />}
-					/>
-				}
+				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
 				AddLabel="เพิ่มคลินิค"
 				Header="Clinic"

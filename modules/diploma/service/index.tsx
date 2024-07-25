@@ -13,22 +13,22 @@ import { DiplomaList } from "../redux/master/model";
 import { setTotalData, setDiplomaGrid } from "../redux";
 
 export interface DiplomaPagination {
-	diplomaType: string | null;
-	diplomaName: string | null;
+	diplomaTypeLike: string | null;
+	diplomaNameLike: string | null;
 	pagination: PaginationOptions;
-	isActive: IsActive | null;
+	isActive: IsActive | undefined;
 }
 
 export const diplomaPagination: DiplomaPagination = {
 	pagination: modelPaginationOptions,
-	diplomaType: "",
-	diplomaName: "",
-	isActive: null,
+	diplomaTypeLike: "",
+	diplomaNameLike: "",
+	isActive: undefined,
 };
 
 export const getDiplomaList = createAsyncThunk(
 	"Medical/getDiplomaDetail",
-	async (params: DiplomaPagination = diplomaPagination, thunkAPi) => {
+	async (params: DiplomaPagination, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_DIPLOMA_PAGE}`;
 			const response = await axios.post(apiPath, params);
@@ -44,8 +44,8 @@ export const initDiplomaGrid =
 	async (dispatch: AppDispatch) => {
 		const newParams = {
 			...params,
-			diplomaType: handleEmptyStringToNull(params.diplomaType),
-			diplomaName: handleEmptyStringToNull(params.diplomaName),
+			diplomaTypeLike: handleEmptyStringToNull(params.diplomaTypeLike),
+			diplomaNameLike: handleEmptyStringToNull(params.diplomaNameLike),
 		};
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDiplomaList(newParams));

@@ -34,6 +34,7 @@ export default function Drawer() {
 							setClinicFilter({
 								...filter,
 								checkClinicCode: !filter.checkClinicCode,
+								clinicCodeLike: "",
 							})
 						)
 					}
@@ -42,12 +43,12 @@ export default function Drawer() {
 					<div className=" pt-1">
 						<FormItemInput
 							itemName="clinicCode"
-							value={filter.clinicCode}
+							value={filter.clinicCodeLike}
 							onChangeFunction={(e) => {
 								dispatch(
 									setClinicFilter({
 										...filter,
-										clinicCode: e.target.value,
+										clinicCodeLike: e.target.value,
 									})
 								);
 							}}
@@ -66,6 +67,7 @@ export default function Drawer() {
 							setClinicFilter({
 								...filter,
 								checkClinicName: !filter.checkClinicName,
+								clinicNameLike: "",
 							})
 						)
 					}
@@ -73,12 +75,12 @@ export default function Drawer() {
 				{filter.checkClinicName && (
 					<FormItemInput
 						itemName="clinicName"
-						value={filter.clinicName}
+						value={filter.clinicNameLike}
 						onChangeFunction={(e) => {
 							dispatch(
 								setClinicFilter({
 									...filter,
-									clinicName: e.target.value,
+									clinicNameLike: e.target.value,
 								})
 							);
 						}}

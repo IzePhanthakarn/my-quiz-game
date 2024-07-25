@@ -5,7 +5,6 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
-import Button from "wcf-component-lib/node_modules/antd/es/button";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -13,7 +12,6 @@ import { initDiplomaGrid } from "./service";
 import { columns } from "./model";
 import { setDiplomaFilter, setOrder, setPagination } from "./redux";
 import Drawer from "./drawer";
-import FilterOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FilterOutlined";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelDiplomaFilter } from "./redux/filter/model";
 import { LINKS } from "@/constants/links";
@@ -22,9 +20,9 @@ import { useRouter } from "next/navigation";
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { form, rows, isOpen, page, filter, isLoading } = useSelector(
+	const { rows, isOpen, page, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			form: state.crud.formData,
+			// form: state.crud.formData,
 			rows: state.diploma.grid.list,
 			isOpen: state.drawer.isOpen,
 			page: state.diploma.grid.page,
@@ -38,8 +36,8 @@ export default function Diploma() {
 		dispatch(
 			initDiplomaGrid({
 				pagination: { ...page },
-				diplomaType: filter.diplomaType,
-				diplomaName: filter.diplomaName,
+				diplomaTypeLike: filter.diplomaTypeLike,
+				diplomaNameLike: filter.diplomaNameLike,
 				isActive: filter.isActive,
 			})
 		);
@@ -50,7 +48,7 @@ export default function Diploma() {
 				Grid={
 					<BaseGrid
 						rows={rows}
-						loading={false}
+						loading={isLoading}
 						columns={columns}
 						page={page}
 						twoToneColor={true}
@@ -68,8 +66,8 @@ export default function Diploma() {
 							dispatch(
 								initDiplomaGrid({
 									pagination: { ...page },
-									diplomaType: filter.diplomaType,
-									diplomaName: filter.diplomaName,
+									diplomaTypeLike: filter.diplomaTypeLike,
+									diplomaNameLike: filter.diplomaNameLike,
 									isActive: filter.isActive,
 								})
 							)
@@ -78,16 +76,7 @@ export default function Diploma() {
 					/>
 				}
 				FilterTextField={<Input className="w-[300px]" />}
-				FilterButton={
-					<Button
-						size="large"
-						className="text-xl px-3 py-2"
-						onClick={() => dispatch(setIsOpenDrawer(true))}
-						icon={<FilterOutlined />}
-					>
-						<p className=" whitespace-nowrap">ตัวกรอง</p>
-					</Button>
-				}
+				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
 				AddLabel="เพิ่มประกาศนียบัตร"
 				Header="Diploma"
