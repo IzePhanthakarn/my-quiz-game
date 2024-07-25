@@ -21,8 +21,8 @@ export interface MedicalAmountGridData {
 	amount: number;
 	fareAmount: number;
 	amountLimit: number;
-	startEffectiveDate: Date | string;
-	endEffectiveDate: Date | string;
+	startEffectiveDate: null | string;
+	endEffectiveDate: null | string;
 	notice: string;
 
 	createdBy: string;
@@ -37,8 +37,8 @@ export interface MedicalAmountFilter {
 	amountLike: number;
 	fareAmountLike: number;
 	amountLimitLike: number;
-	startEffectiveDateLike: Date | string;
-	endEffectiveDateLike: Date | string;
+	startEffectiveDateLike: null | string;
+	endEffectiveDateLike: null | string;
 	noticeLike: string;
 
 	checkAmount: boolean;
@@ -58,8 +58,8 @@ export interface MedicalAmountForm {
 	amount: string;
 	fareAmount: string;
 	amountLimit: string;
-	startEffectiveDate: Date | string;
-	endEffectiveDate: Date | string;
+	startEffectiveDate: null | string;
+	endEffectiveDate: null | string;
 	notice: string;
 
 	createdBy: string;
@@ -100,8 +100,8 @@ export const modelMedicalAmount: MedicalAmount = {
 		amount: "0",
 		fareAmount: "0",
 		amountLimit: "0",
-		startEffectiveDate: "2024-07-06",
-		endEffectiveDate: "2024-07-06",
+		startEffectiveDate: null,
+		endEffectiveDate: null,
 		notice: "",
 
 		createdBy: "",

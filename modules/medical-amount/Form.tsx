@@ -25,6 +25,7 @@ import {
 	updateMedicalAmount,
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
+import FormDatePicker from "wcf-component-lib/src/components/FormDatePicker/FormDatePicker";
 
 const Form = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -52,7 +53,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = (_values) => {
+	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = (values) => {
 		if (!_.isEmpty(params.params.uuid)) {
 			dispatch(updateMedicalAmount(form));
 		} else {
@@ -94,6 +95,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 			{isInit && (
 				<MasterDataForm
 					disabled={_.isEmpty(write)}
+					// initialValues={{ ...form, endEffectiveDate: null }}
 					initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
@@ -111,6 +113,36 @@ const Form = (params: MedicalAmountFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+							<FormDatePicker
+								label="Start Effective Date"
+								itemName="startEffectiveDate"
+								rules={medicalAmountRules.startEffectiveDateSchema}
+								value={form.startEffectiveDate}
+								onChangeFunction={(e) => {
+									dispatch(
+										setMedicalAmountForm({
+											...form,
+											startEffectiveDate: e,
+										})
+									);
+								}}
+							/>
+
+							<FormDatePicker
+								label="End Effective Date"
+								itemName="endEffectiveDate"
+								rules={medicalAmountRules.endEffectiveDateSchema}
+								value={form.endEffectiveDate}
+								onChangeFunction={(e) => {
+									dispatch(
+										setMedicalAmountForm({
+											...form,
+											endEffectiveDate: e,
+										})
+									);
+								}}
+							/>
+
 							<FormItemInput
 								disabled={_.isEmpty(write)}
 								label="Amount"
