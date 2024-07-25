@@ -41,4 +41,10 @@ export const LINKS = {
 		add: "/course-organ-system-group/form/",
 		edit: "/course-organ-system-group/edit/",
 	},
+	MEDICAL_AMOUNT: {
+		name: "MEDICAL_AMOUNT",
+		link: "/medical-amount",
+		add: "/medical-amount/form/",
+		edit: "/medical-amount/edit/",
+	},
 };
