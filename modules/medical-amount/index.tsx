@@ -42,16 +42,7 @@ export default function MedicalAmount() {
 				Header="Course"
 				SubHeader="List Course"
 				FilterTextField={<Input className="w-[300px]" />}
-				FilterButton={
-					<Button
-						size="large"
-						className="text-xl px-3 py-2"
-						onClick={() => dispatch(setIsOpenDrawer(true))}
-						icon={<FilterOutlined />}
-					>
-						ตัวกรอง
-					</Button>
-				}
+				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={medicalAmount.grid.data}
