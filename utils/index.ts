@@ -3,6 +3,7 @@ import { DateFormat } from "@/constants/date-format.constant";
 import dayjs from "dayjs";
 import _ from "lodash";
 import { ScopesPermissions } from "./model";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export function getCurrentDateString() {
 	return dayjs().format(DateFormat.DDMMYYYY).toString();
@@ -41,4 +42,22 @@ export function getScopesPermissions(scopes: string[]) {
 		},
 		{ read: null, write: null }
 	);
+}
+
+export function handleRouterPush(path: string, router: AppRouterInstance) {
+	const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+	if (path) {
+		// Remove the basePath if it exists in the path
+		const cleanedPath = path.startsWith(basePath ?? "")
+			? path.substring(basePath?.length ?? 0)
+			: path;
+
+		// Ensure the path starts with a slash
+		const finalPath = cleanedPath.startsWith("/")
+			? cleanedPath
+			: `/${cleanedPath}`;
+
+		// Navigate to the cleaned path
+		router.push(finalPath);
+	}
 }

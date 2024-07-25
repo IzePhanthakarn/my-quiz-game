@@ -57,7 +57,7 @@ export const initGetCourseCertificateDetail =
 			if (_.get(response.payload, "error.message") === "Rejected") {
 				return;
 			}
-			await dispatch(setCourseCertificateForm(response.payload));
+			dispatch(setCourseCertificateForm(response.payload));
 		}
 	};
 

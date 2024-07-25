@@ -1,7 +1,7 @@
 kind: ConfigMap 
 apiVersion: v1 
 metadata:
-  name: medical-web-dev
+  name: medical-web
 data:
   NEXT_PUBLIC_API_URL: "https://api-dev-wcf.soilfish.co/med"
   GET_PAGE_ACCESSES_PATH: "https://api-dev-wcf.soilfish.co/ums/users"

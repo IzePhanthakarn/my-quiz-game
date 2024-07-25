@@ -18,7 +18,7 @@ export interface Crud {
 	bodyMutation: boolean;
 }
 
-export type formDataType = {} & ClinicForm & DoctorInfomation;
+export type formDataType = ClinicForm & DoctorInfomation;
 
 const initFormData: formDataType = {
 	...modelClinicForm,

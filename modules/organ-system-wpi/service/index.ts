@@ -57,7 +57,7 @@ export const initOrganSystemWpiDetail =
 			if (_.get(response.payload, "error.message") === "Rejected") {
 				return;
 			}
-			await dispatch(setOrganSystemWpiForm(response.payload));
+			dispatch(setOrganSystemWpiForm(response.payload));
 		}
 	};
 

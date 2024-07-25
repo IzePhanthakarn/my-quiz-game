@@ -4,6 +4,7 @@ import axios from "axios";
 import { Login } from "../redux/model";
 import { setCookie } from "./cookie";
 import { AppDispatch } from "@/redux/config/configStore";
+import _ from "lodash";
 
 export const getToken = createAsyncThunk(
 	"User/getCourseList",
@@ -48,7 +49,6 @@ export const getAccessToken =
 		if (result.payload.access_token) {
 			setCookie("Bearer", await result.payload.access_token);
 			await dispatch(getPageAccess(params.username));
-			window.location.href = "/med/clinic";
 		}
 	};
 
@@ -56,6 +56,9 @@ export const getPageAccess =
 	(username: string) => async (dispatch: AppDispatch) => {
 		const result = await dispatch(getPage(username));
 		if (!result) return;
-		const pageAccess = JSON.stringify(await result.payload);
-		localStorage.setItem("page_access", pageAccess);
+		if (!_.isEmpty(result.payload)) {
+			const pageAccess = JSON.stringify(await result.payload);
+			localStorage.setItem("page_access", pageAccess);
+			window.location.href = "/med/clinic";
+		}
 	};

@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Read the version from package.json
-                    sh 'docker pull soilfish/wcf-component-lib:1.0.3'
+                    sh 'docker pull soilfish/wcf-component-lib:1.0.0'
                 }
             }
         }
@@ -98,8 +98,8 @@ pipeline {
         stage('Deploy kube') {
             steps {
                 withKubeConfig([credentialsId: 'wcf2-kube-config']) {
-                    sh 'kubectl replace -f deployment/dev/configmap.yml --force'
-                    sh 'kubectl replace -f deployment/dev/medical-web.yml --force'
+                    sh 'kubectl replace -f deploy/dev/configmaps.yml --force'
+                    sh 'kubectl replace -f deploy/dev/deployment.yml --force'
                 }
             }
         }

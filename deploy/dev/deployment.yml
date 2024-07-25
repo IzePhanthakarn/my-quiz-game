@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: medical-web-dev
+  name: medical-web
 spec:
   type: ClusterIP
   ports:
     - port: 3000
       targetPort: 3000
   selector:
-    app: medical-web-dev
+    app: medical-web
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: medical-web-dev-deployment
+  name: medical-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: medical-web-dev
+      app: medical-web
   template:
     metadata:
       labels:
-        app: medical-web-dev
+        app: medical-web
     spec:
       imagePullSecrets:
         - name: soilfish-registry-secret
@@ -42,4 +42,4 @@ spec:
             - containerPort: 3000
           envFrom:
             - configMapRef:
-                name: medical-web-dev
+                name: medical-web
