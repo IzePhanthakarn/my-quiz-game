@@ -57,7 +57,7 @@ export const initGetCourseCategoryDetail =
 			if (_.get(response.payload, "error.message") === "Rejected") {
 				return;
 			}
-			await dispatch(setCourseCategoryForm(response.payload));
+			dispatch(setCourseCategoryForm(response.payload));
 		}
 	};
 
