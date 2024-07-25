@@ -7,28 +7,12 @@ import BaseSideBar, {
 import ContainerOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/ContainerOutlined";
 import { SideBarModule, SubModule, Page } from "./model";
 import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { handleRouterPush } from "@/utils";
 
 export default function SideBar() {
-	const router = useRouter();
+	const router: AppRouterInstance = useRouter();
 	const [items, setItems] = React.useState<MenuItem[]>([]);
-
-	const handleClick = (path: string) => {
-		const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
-		if (path) {
-			// Remove the basePath if it exists in the path
-			const cleanedPath = path.startsWith(basePath ?? "")
-				? path.substring(basePath?.length ?? 0)
-				: path;
-
-			// Ensure the path starts with a slash
-			const finalPath = cleanedPath.startsWith("/")
-				? cleanedPath
-				: `/${cleanedPath}`;
-
-			// Navigate to the cleaned path
-			router.push(finalPath);
-		}
-	};
 
 	React.useEffect(() => {
 		const storedData = localStorage.getItem("page_access");
@@ -69,7 +53,7 @@ export default function SideBar() {
 			<BaseSideBar
 				items={items}
 				onMenuClick={(e) => {
-					handleClick(e.key);
+					handleRouterPush(e.key, router);
 				}}
 			/>
 		</div>

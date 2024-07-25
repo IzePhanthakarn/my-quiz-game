@@ -1,6 +1,6 @@
 "use client";
 
-import { findScope, getScopesPermissions } from "@/utils";
+import { findScope, getScopesPermissions, handleRouterPush } from "@/utils";
 import { BUTTON_MODE } from "./model";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
 import Row from "@/components/Row";
@@ -46,7 +46,7 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 				{(write || read) && (
 					<Button
 						className="border-0 h-fit bg-transparent p-0"
-						onClick={() => router.push(editLink ?? "")}
+						onClick={() => handleRouterPush(editLink ?? "", router)}
 					>
 						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
 					</Button>
