@@ -3,9 +3,14 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
+import {
+	FormItemCheckbox,
+	FormItemCheckboxFilterGroup,
+	FormItemInput,
+} from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setDiplomaFilter } from "./redux";
+import { IsActive } from "@/constants/constants";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -17,77 +22,100 @@ export default function Drawer() {
 	);
 
 	return (
-		<>
-			<Column className="space-y-4">
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkClinicCode"
-						label="รหัสประกาศนียบัตร"
-						checked={filter.checkDiplomaType}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
+		<Column className="space-y-4">
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkDiplomaType"
+					label="รหัสประกาศนียบัตร"
+					checked={filter.checkDiplomaType}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setDiplomaFilter({
+								...filter,
+								checkDiplomaType: !filter.checkDiplomaType,
+								diplomaTypeLike: "",
+							})
+						)
+					}
+				/>
+				{filter.checkDiplomaType && (
+					<FormItemInput
+						itemName="diplomaTypeLike"
+						value={filter.diplomaTypeLike}
+						onChangeFunction={(e) => {
 							dispatch(
 								setDiplomaFilter({
 									...filter,
-									checkDiplomaType: !filter.checkDiplomaType,
+									diplomaTypeLike: e.target.value,
 								})
-							)
-						}
+							);
+						}}
 					/>
-					{filter.checkDiplomaType && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="clinicCode"
-								value={filter.diplomaType}
-								onChangeFunction={(e) => {
-									dispatch(
-										setDiplomaFilter({
-											...filter,
-											diplomaType: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkClinicName"
-						label="ชื่อประกาศนียบัตร"
-						checked={filter.checkDiplomaName}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setDiplomaFilter({
-									...filter,
-									checkDiplomaName: !filter.checkDiplomaName,
-								})
-							)
-						}
-						// rules={[
-						// 	{
-						// 		required: true,
-						// 		message: "Please input your Clinic Code!",
-						// 	},
-						// ]}
-					/>
-					{filter.checkDiplomaName && (
-						<FormItemInput
-							itemName="clinicName"
-							value={filter.diplomaName}
-							onChangeFunction={(e) => {
-								dispatch(
-									setDiplomaFilter({
-										...filter,
-										diplomaName: e.target.value,
-									})
-								);
-							}}
-						/>
-					)}
-				</Column>
+				)}
 			</Column>
-		</>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkDiplomaName"
+					label="ชื่อประกาศนียบัตร"
+					checked={filter.checkDiplomaName}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setDiplomaFilter({
+								...filter,
+								checkDiplomaName: !filter.checkDiplomaName,
+								diplomaNameLike: "",
+							})
+						)
+					}
+				/>
+				{filter.checkDiplomaName && (
+					<FormItemInput
+						itemName="diplomaNameLike"
+						value={filter.diplomaNameLike}
+						onChangeFunction={(e) => {
+							dispatch(
+								setDiplomaFilter({
+									...filter,
+									diplomaNameLike: e.target.value,
+								})
+							);
+						}}
+					/>
+				)}
+			</Column>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckboxFilterGroup
+					isMainInputChecked={filter.checkIsActive}
+					onClickMainInputFunction={() => {
+						dispatch(
+							setDiplomaFilter({
+								...filter,
+								checkIsActive: !filter.checkIsActive,
+								isActive: undefined,
+							})
+						);
+					}}
+					subInputValue={filter.isActive}
+					onClickSubInputYFunction={() => {
+						dispatch(
+							setDiplomaFilter({
+								...filter,
+								isActive: IsActive.Y,
+							})
+						);
+					}}
+					onClickSubInputNFunction={() => {
+						dispatch(
+							setDiplomaFilter({
+								...filter,
+								isActive: IsActive.N,
+							})
+						);
+					}}
+				/>
+			</Column>
+		</Column>
 	);
 }

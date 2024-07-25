@@ -1,23 +1,18 @@
 import { IsActive } from "@/constants/constants";
-import { BaseClinic } from "../master/model";
-
-export interface ClinicFilter extends BaseClinic {
+export interface ClinicFilter {
 	checkClinicCode: boolean;
 	checkClinicName: boolean;
-	checkStatus: boolean;
-	isActive: IsActive | undefined;
 	checkIsActive: boolean;
-	isDelete: IsActive;
+	clinicCodeLike: string;
+	clinicNameLike: string;
+	isActive: IsActive | undefined;
 }
 
 export const modelClinicFilter: ClinicFilter = {
-	clinicCode: "",
-	clinicName: "",
-	checkStatus: false,
 	checkClinicCode: false,
 	checkClinicName: false,
-	isActive: undefined,
 	checkIsActive: false,
-	isDelete: IsActive.Y,
-	uuid: "",
+	clinicCodeLike: "",
+	clinicNameLike: "",
+	isActive: undefined,
 };

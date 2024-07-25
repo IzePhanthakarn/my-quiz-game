@@ -1,21 +1,19 @@
 import { IsActive } from "@/constants/constants";
-import { DiplomaForm } from "../model";
 
-export interface DiplomaFilter extends DiplomaForm {
+export interface DiplomaFilter {
 	checkDiplomaType: boolean;
 	checkDiplomaName: boolean;
-	checkStatus: boolean;
-	isActive: IsActive;
-	isDelete: IsActive;
+	checkIsActive: boolean;
+	diplomaTypeLike: string;
+	diplomaNameLike: string;
+	isActive: IsActive | undefined;
 }
 
 export const modelDiplomaFilter: DiplomaFilter = {
-	diplomaType: "",
-	diplomaName: "",
-	checkStatus: false,
+	diplomaTypeLike: "",
+	diplomaNameLike: "",
 	checkDiplomaType: false,
 	checkDiplomaName: false,
-	isActive: IsActive.N,
-	isDelete: IsActive.Y,
-	uuid: "",
+	isActive: undefined,
+	checkIsActive: false,
 };

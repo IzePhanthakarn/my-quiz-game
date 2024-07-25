@@ -90,7 +90,7 @@ const spaceBetween = [
 
 const heightClasses = [
 	{
-		pattern: /^h-(\d{1,3}|auto|px|full|screen)$/,
+		pattern: /^h-(\d{1,3}|auto|full|screen|\[\d+px\])$/,
 	},
 ];
 
@@ -125,6 +125,7 @@ const rotate = [
 ];
 
 const customSafelist = [
+	"h-[50px]",
 	...padding,
 	...rounded,
 	...margin,

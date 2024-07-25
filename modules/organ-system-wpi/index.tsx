@@ -7,17 +7,13 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 import { LINKS } from "@/constants/links";
-import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
-import Button from "wcf-component-lib/node_modules/antd/es/button";
 import MasterData from "wcf-component-lib/src/layout/MasterData";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { columns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
-// import { setOrganSystemWpiPagination } from "./redux";
 import FilterDrawer from "./filterDrawer";
 
 export default function OrganSystemWpi() {
@@ -43,16 +39,7 @@ export default function OrganSystemWpi() {
 				Header="Organ"
 				SubHeader="List Organ"
 				FilterTextField={<Input className="w-[300px]" />}
-				FilterButton={
-					<Button
-						size="large"
-						className="text-xl px-3 py-2"
-						onClick={() => dispatch(setIsOpenDrawer(true))}
-						icon={<FilterOutlined />}
-					>
-						ตัวกรอง
-					</Button>
-				}
+				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={organ.grid.data}
