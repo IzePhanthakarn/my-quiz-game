@@ -6,8 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
-import dayjs from "dayjs";
-import { DateFormat } from "@/constants/date-format.constant";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
@@ -50,7 +48,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetCourseOrganSystemGroupDetail(params));
 				} else {
-					await dispatch(
+					dispatch(
 						setCourseOrganSystemGroupForm(modelCourseOrganSystemGroup.form)
 					);
 				}
@@ -101,11 +99,11 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 
 			{isInit && (
 				<MasterDataForm
-					disabled={_.isEmpty(write) ? true : false}
+					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					switchCheckValue={_.trim(form.isActive) === IsActive.Y ? true : false}
+					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseOrganSystemGroupForm({
@@ -118,56 +116,54 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 						router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 					}}
 					inputs={
-						<>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Course Category"
-									itemName="courseCategory"
-									rules={courseOrganSystemGroupRules.courseCategorySchema}
-									value={form.courseCategory}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupForm({
-												...form,
-												courseCategory: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Organ System Group"
-									itemName="organSystemGroup"
-									rules={courseOrganSystemGroupRules.organSystemGroupSchema}
-									value={form.organSystemGroup}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupForm({
-												...form,
-												organSystemGroup: e.target.value,
-											})
-										);
-									}}
-								/>
+						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Course Category"
+								itemName="courseCategory"
+								rules={courseOrganSystemGroupRules.courseCategorySchema}
+								value={form.courseCategory}
+								onChangeFunction={(e) => {
+									dispatch(
+										setCourseOrganSystemGroupForm({
+											...form,
+											courseCategory: e.target.value,
+										})
+									);
+								}}
+							/>
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Organ System Group"
+								itemName="organSystemGroup"
+								rules={courseOrganSystemGroupRules.organSystemGroupSchema}
+								value={form.organSystemGroup}
+								onChangeFunction={(e) => {
+									dispatch(
+										setCourseOrganSystemGroupForm({
+											...form,
+											organSystemGroup: e.target.value,
+										})
+									);
+								}}
+							/>
 
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Organ System No"
-									itemName="organSystemNo"
-									rules={courseOrganSystemGroupRules.organSystemNoSchema}
-									value={form.organSystemNo}
-									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupForm({
-												...form,
-												organSystemNo: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-						</>
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Organ System No"
+								itemName="organSystemNo"
+								rules={courseOrganSystemGroupRules.organSystemNoSchema}
+								value={form.organSystemNo}
+								onChangeFunction={(e) => {
+									dispatch(
+										setCourseOrganSystemGroupForm({
+											...form,
+											organSystemNo: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
 					}
 				/>
 			)}

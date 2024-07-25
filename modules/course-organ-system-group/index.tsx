@@ -5,7 +5,6 @@ import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
-import _ from "lodash";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
 import Button from "wcf-component-lib/node_modules/antd/es/button";

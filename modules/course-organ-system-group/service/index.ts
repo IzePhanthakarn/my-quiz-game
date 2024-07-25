@@ -60,7 +60,7 @@ export const initGetCourseOrganSystemGroupDetail =
 			if (_.get(response.payload, "error.message") === "Rejected") {
 				return;
 			}
-			await dispatch(setCourseOrganSystemGroupForm(response.payload));
+			dispatch(setCourseOrganSystemGroupForm(response.payload));
 		}
 	};
 

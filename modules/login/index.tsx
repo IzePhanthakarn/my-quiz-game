@@ -1,17 +1,23 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { validateLogin } from "./service";
-import { AppDispatch } from "@/redux/config/configStore";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getAccessToken } from "./service";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
-import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { SliceModel } from "@/redux/slices/model";
+import Button from "wcf-component-lib/node_modules/antd/es/button";
 import { setPassword, setUserName } from "./redux";
-// import { useRouter } from "next/navigation";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/redux/config/configStore";
+import { SliceModel } from "@/redux/slices/model";
+import { useState } from "react";
+
+interface Login {
+	username: string;
+	password: string;
+	grant_type: string;
+}
+
 export default function Login() {
 	const dispatch: AppDispatch = useDispatch();
-	// const router = useRouter();
+	const [loading, setLoading] = useState(false);
 	const { login } = useSelector(
 		(state: SliceModel) => ({
 			login: state.login,
@@ -20,9 +26,9 @@ export default function Login() {
 	);
 
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
+		<div className="w-full flex items-center justify-center">
 			<div className="w-1/4 px-4 py-4 border-2 border-black flex flex-col items-center justify-center space-y-4">
-				<p>เข้าสู่ระบบ</p>
+				<p className="text-black">เข้าสู่ระบบ</p>
 				<Input
 					value={login.username}
 					className="border-2 border-black"
@@ -37,13 +43,18 @@ export default function Login() {
 						dispatch(setPassword({ ...login, password: e.target.value }));
 					}}
 				/>
-				<BaseButton
-					label="เข้าสู่ระบบ"
+				<Button
+					type="primary"
 					onClick={async () => {
-						await dispatch(validateLogin(login));
-						// router.push("/med/clinic");
+						setLoading(true);
+						await dispatch(getAccessToken(login));
+						setLoading(false);
 					}}
-				/>
+					loading={loading}
+					iconPosition={"end"}
+				>
+					เข้าสู่ระบบ
+				</Button>
 			</div>
 		</div>
 	);

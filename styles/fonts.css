@@ -1,55 +1,55 @@
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Thin v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Thin v3.2.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Thin It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Thin It v3.2.ttf') format('truetype');
   font-weight: 100;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Li v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Li v3.2.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Li It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Li It v3.2.ttf') format('truetype');
   font-weight: 300;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X v3.2.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X It v3.2.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Med v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Med v3.2.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Med It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Med It v3.2.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
 }
@@ -57,28 +57,28 @@
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Bd v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Bd v3.2.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Bd It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Bd It v3.2.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Blk v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Blk v3.2.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvethaica';
-  src: url('/fonts/DB Helvethaica X Blk It v3.2.ttf') format('truetype');
+  src: url('/med/fonts/DB Helvethaica X Blk It v3.2.ttf') format('truetype');
   font-weight: 900;
   font-style: italic;
 }

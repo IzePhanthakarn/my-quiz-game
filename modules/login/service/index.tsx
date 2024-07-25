@@ -2,27 +2,8 @@ import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Login } from "../redux/model";
-import Cookies from "js-cookie";
+import { setCookie } from "./cookie";
 import { AppDispatch } from "@/redux/config/configStore";
-// import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import _ from "lodash";
-
-export const validateLogin =
-	(
-		params: Login
-		// , router: AppRouterInstance
-	) =>
-	async (dispatch: AppDispatch) => {
-		const response = await dispatch(getToken(params));
-		if (_.get(response, "error.message") === "Rejected") {
-			return;
-		}
-		Cookies.set("Bearer", response.payload.access_token, {
-			expires: 7,
-			path: "/",
-		});
-		window.location.href = "/med/clinic";
-	};
 
 export const getToken = createAsyncThunk(
 	"User/getCourseList",
@@ -46,3 +27,35 @@ export const getToken = createAsyncThunk(
 		}
 	}
 );
+
+export const getPage = createAsyncThunk(
+	"Users/getPageAccess",
+	async (username: string, thunkAPi) => {
+		try {
+			const apiPath = `https://api-dev-wcf.soilfish.co/ums/users/${username}/page-accesses`;
+			const response = await axios.get(apiPath);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
+export const getAccessToken =
+	(params: Login) => async (dispatch: AppDispatch) => {
+		const result = await dispatch(getToken(params));
+		if (!result) return;
+		if (result.payload.access_token) {
+			setCookie("Bearer", await result.payload.access_token);
+			dispatch(getPageAccess(params.username));
+			window.location.href = "/med/clinic";
+		}
+	};
+
+export const getPageAccess =
+	(username: string) => async (dispatch: AppDispatch) => {
+		const result = await dispatch(getPage(username));
+		if (!result) return;
+		const pageAccess = JSON.stringify(await result.payload);
+		localStorage.setItem("page_access", pageAccess);
+	};

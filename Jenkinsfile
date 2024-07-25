@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Read the version from package.json
-                    sh 'docker pull soilfish/wcf-component-lib:1.0.0'
+                    sh 'docker pull soilfish/wcf-component-lib:1.0.3'
                 }
             }
         }

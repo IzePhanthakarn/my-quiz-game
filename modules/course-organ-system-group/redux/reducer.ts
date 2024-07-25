@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CourseOrganSystemGroup } from "./model";
 import {
 	CourseOrganSystemGroupForm,
 	CourseOrganSystemGroupGrid,
 	CourseOrganSystemGroupFilter,
+	CourseOrganSystemGroup,
 } from "./model";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 export const courseCertificateReducers = {

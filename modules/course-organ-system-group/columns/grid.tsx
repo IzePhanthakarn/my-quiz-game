@@ -13,7 +13,7 @@ export const grid: TableProps["columns"] = [
 		title: "สถานะ",
 		key: "isActive",
 		dataIndex: "isActive",
-		width: 100,
+		width: 150,
 		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 	},
 	{
@@ -62,7 +62,6 @@ export const grid: TableProps["columns"] = [
 		render: (_, { uuid }) => (
 			<CustomCellButton
 				editLink={`${LINKS.COURSE_ORGAN_SYSTEM_GROUP.edit}${uuid}`}
-				viewLink={`${LINKS.COURSE_ORGAN_SYSTEM_GROUP.edit}${uuid}`}
 				mode={BUTTON_MODE.VIEW_EDIT_ICON}
 			/>
 		),

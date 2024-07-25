@@ -5,7 +5,7 @@ export interface Login {
 }
 
 export const modelLogin: Login = {
-	username: "",
-	password: "",
+	username: "sjittikhun2",
+	password: "dev@0162",
 	grant_type: "password",
 };

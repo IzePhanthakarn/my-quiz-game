@@ -45,7 +45,7 @@ const Form = (params: UuidFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetClinicDetail(params));
 				} else {
-					await dispatch(setClinicDetail(modelClinicDetail));
+					dispatch(setClinicDetail(modelClinicDetail));
 				}
 				setIsInit(true);
 			}
@@ -93,13 +93,11 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataForm
-					disabled={_.isEmpty(write) ? true : false}
+					disabled={_.isEmpty(write)}
 					initialValues={clinicDetail}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					switchCheckValue={
-						_.trim(clinicDetail.isActive) === IsActive.Y ? true : false
-					}
+					switchCheckValue={_.trim(clinicDetail.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setClinicDetail({
@@ -112,40 +110,38 @@ const Form = (params: UuidFormPageProps) => {
 						router.push(LINKS.CLINIC.link);
 					}}
 					inputs={
-						<>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Clinic Code"
-									itemName="clinicCode"
-									rules={clinicCodeSchema}
-									value={clinicDetail.clinicCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicDetail({
-												...clinicDetail,
-												clinicCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<FormItemInput
-									disabled={_.isEmpty(write) ? true : false}
-									label="Clinic Name"
-									itemName="clinicName"
-									rules={clinicNameSchema}
-									value={clinicDetail.clinicName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicDetail({
-												...clinicDetail,
-												clinicName: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-						</>
+						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Clinic Code"
+								itemName="clinicCode"
+								rules={clinicCodeSchema}
+								value={clinicDetail.clinicCode}
+								onChangeFunction={(e) => {
+									dispatch(
+										setClinicDetail({
+											...clinicDetail,
+											clinicCode: e.target.value,
+										})
+									);
+								}}
+							/>
+							<FormItemInput
+								disabled={_.isEmpty(write)}
+								label="Clinic Name"
+								itemName="clinicName"
+								rules={clinicNameSchema}
+								value={clinicDetail.clinicName}
+								onChangeFunction={(e) => {
+									dispatch(
+										setClinicDetail({
+											...clinicDetail,
+											clinicName: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
 					}
 				/>
 			)}

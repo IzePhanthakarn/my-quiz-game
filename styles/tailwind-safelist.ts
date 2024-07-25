@@ -1,6 +1,6 @@
 const padding = [
 	{
-		pattern: /^p[xtylrb]?-[0-9]+(\.[05])?$/, // Regex pattern สำหรับ padding classes แบบตัวเลข
+		pattern: /^p[xtylrb]?-\d+(\.[05])?$/, // Regex pattern สำหรับ padding classes แบบตัวเลข
 	},
 	{
 		pattern: /^p[xtylrb]?-\[\d+px\]$/, // Regex pattern สำหรับ padding classes แบบ px
@@ -21,7 +21,7 @@ const rounded = [
 
 const margin = [
 	{
-		pattern: /^m[xtylrb]?-[0-9]+(\.[05])?$/, // Regex pattern สำหรับ margin classes แบบตัวเลข
+		pattern: /^m[xtylrb]?-\d+(\.[05])?$/, // Regex pattern สำหรับ margin classes แบบตัวเลข
 	},
 	{
 		pattern: /^m[xtylrb]?-\[\d+px\]$/, // Regex pattern สำหรับ margin classes แบบ px
@@ -31,20 +31,20 @@ const margin = [
 const background = [
 	{
 		pattern:
-			/^bg-(red|green|blue|yellow|purple|pink|gray|indigo|black|white)-[0-9]{1,3}$/, // Regex pattern สำหรับสีพื้นฐานและระดับสี
+			/^bg-(red|green|blue|yellow|purple|pink|gray|indigo|black|white)-\d{1,3}$/, // Regex pattern สำหรับสีพื้นฐานและระดับสี
 	},
 	{
-		pattern: /^bg-\[\#[0-9A-Fa-f]{6}\]$/, // Regex pattern สำหรับ custom hex color codes
+		pattern: /^bg-\[#([0-9A-Fa-f]{6})\]$/, // Regex pattern สำหรับ custom hex color codes
 	},
 ];
 
 const text = [
 	{
 		pattern:
-			/^text-(red|green|blue|yellow|purple|pink|gray|indigo|black|white)-[0-9]{1,3}$/, // Regex pattern สำหรับสีพื้นฐานและระดับสี
+			/^text-(red|green|blue|yellow|purple|pink|gray|indigo|black|white)-\d{1,3}$/, // Regex pattern สำหรับสีพื้นฐานและระดับสี
 	},
 	{
-		pattern: /^text-\[\#[0-9A-Fa-f]{6}\]$/, // Regex pattern สำหรับ custom hex color codes
+		pattern: /^text-\[#[0-9A-Fa-f]{6}\]$/, // Regex pattern สำหรับ custom hex color codes
 	},
 	{
 		pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)$/, // Regex pattern สำหรับขนาดตัวอักษร
@@ -84,7 +84,7 @@ const textAlign = [
 
 const spaceBetween = [
 	{
-		pattern: /^space-(x|y)-(start|end|center|between|around)$/,
+		pattern: /^space-[xy]-(start|end|center|between|around)$/,
 	},
 ];
 
@@ -109,7 +109,18 @@ const justifyContent = [
 const alignItems = [
 	{
 		pattern: /^items-(start|end|center|baseline|stretch)$/,
-		description: "Regex pattern สำหรับการจัด align items ใน flex container",
+	},
+];
+
+const rotate = [
+	{
+		pattern: /^rotate-\d+$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+	{
+		pattern: /^rotate-\[\d+deg\]$/, // rotate-[10deg], rotate-[45deg], rotate-[90deg], etc.
+	},
+	{
+		pattern: /^rotate-(90|180|270|360)$/, // rotate-90, rotate-180, rotate-270, rotate-360
 	},
 ];
 
@@ -127,6 +138,7 @@ const customSafelist = [
 	...widthClasses,
 	...justifyContent,
 	...alignItems,
+	...rotate,
 ];
 
 export const safelistConfig = customSafelist;

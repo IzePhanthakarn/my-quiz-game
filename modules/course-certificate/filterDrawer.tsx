@@ -11,7 +11,6 @@ import {
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setCourseCertificateFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
-import _ from "lodash";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -23,168 +22,166 @@ export default function FilterDrawer() {
 	);
 
 	return (
-		<>
-			<Column className="space-y-4">
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkCourseCategory"
-						label="Course Category"
-						checked={filter.checkCourseCategory}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									checkCourseCategory: !filter.checkCourseCategory,
-								})
-							)
-						}
-					/>
-					{filter.checkCourseCategory && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="courseCategoryLike"
-								value={filter.courseCategoryLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCertificateFilter({
-											...filter,
-											courseCategoryLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkSsoCourseCode"
-						label="Sso CourseCode"
-						checked={filter.checkSsoCourseCode}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									checkSsoCourseCode: !filter.checkSsoCourseCode,
-								})
-							)
-						}
-					/>
-					{filter.checkSsoCourseCode && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="ssoCourseCodeLike"
-								value={filter.ssoCourseCodeLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCertificateFilter({
-											...filter,
-											ssoCourseCodeLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkCourseDescription"
-						label="Course Description"
-						checked={filter.checkCourseDescription}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									checkCourseDescription: !filter.checkCourseDescription,
-								})
-							)
-						}
-					/>
-					{filter.checkCourseDescription && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="courseDescriptionLike"
-								value={filter.courseDescriptionLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCertificateFilter({
-											...filter,
-											courseDescriptionLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckbox
-						itemName="checkCourseYear"
-						label="Course Year"
-						checked={filter.checkCourseYear}
-						labelPosition={FormItemPosition.RIGHT}
-						onClickFunction={() =>
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									checkCourseYear: !filter.checkCourseYear,
-								})
-							)
-						}
-					/>
-					{filter.checkCourseYear && (
-						<div className=" pt-1">
-							<FormItemInput
-								itemName="courseYearLike"
-								value={filter.courseYearLike}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCertificateFilter({
-											...filter,
-											courseYearLike: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
-					)}
-				</Column>
-				<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-					<FormItemCheckboxFilterGroup
-						isMainInputChecked={filter.checkIsActive}
-						onClickMainInputFunction={() => {
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									checkIsActive: !filter.checkIsActive,
-									isActive: undefined,
-								})
-							);
-						}}
-						subInputValue={filter.isActive}
-						onClickSubInputYFunction={() => {
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									isActive: IsActive.Y,
-								})
-							);
-						}}
-						onClickSubInputNFunction={() => {
-							dispatch(
-								setCourseCertificateFilter({
-									...filter,
-									isActive: IsActive.N,
-								})
-							);
-						}}
-					/>
-				</Column>
+		<Column className="space-y-4">
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkCourseCategory"
+					label="Course Category"
+					checked={filter.checkCourseCategory}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								checkCourseCategory: !filter.checkCourseCategory,
+							})
+						)
+					}
+				/>
+				{filter.checkCourseCategory && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="courseCategoryLike"
+							value={filter.courseCategoryLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setCourseCertificateFilter({
+										...filter,
+										courseCategoryLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
 			</Column>
-		</>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkSsoCourseCode"
+					label="Sso CourseCode"
+					checked={filter.checkSsoCourseCode}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								checkSsoCourseCode: !filter.checkSsoCourseCode,
+							})
+						)
+					}
+				/>
+				{filter.checkSsoCourseCode && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="ssoCourseCodeLike"
+							value={filter.ssoCourseCodeLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setCourseCertificateFilter({
+										...filter,
+										ssoCourseCodeLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
+			</Column>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkCourseDescription"
+					label="Course Description"
+					checked={filter.checkCourseDescription}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								checkCourseDescription: !filter.checkCourseDescription,
+							})
+						)
+					}
+				/>
+				{filter.checkCourseDescription && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="courseDescriptionLike"
+							value={filter.courseDescriptionLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setCourseCertificateFilter({
+										...filter,
+										courseDescriptionLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
+			</Column>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckbox
+					itemName="checkCourseYear"
+					label="Course Year"
+					checked={filter.checkCourseYear}
+					labelPosition={FormItemPosition.RIGHT}
+					onClickFunction={() =>
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								checkCourseYear: !filter.checkCourseYear,
+							})
+						)
+					}
+				/>
+				{filter.checkCourseYear && (
+					<div className=" pt-1">
+						<FormItemInput
+							itemName="courseYearLike"
+							value={filter.courseYearLike}
+							onChangeFunction={(e) => {
+								dispatch(
+									setCourseCertificateFilter({
+										...filter,
+										courseYearLike: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+				)}
+			</Column>
+			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<FormItemCheckboxFilterGroup
+					isMainInputChecked={filter.checkIsActive}
+					onClickMainInputFunction={() => {
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								checkIsActive: !filter.checkIsActive,
+								isActive: undefined,
+							})
+						);
+					}}
+					subInputValue={filter.isActive}
+					onClickSubInputYFunction={() => {
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								isActive: IsActive.Y,
+							})
+						);
+					}}
+					onClickSubInputNFunction={() => {
+						dispatch(
+							setCourseCertificateFilter({
+								...filter,
+								isActive: IsActive.N,
+							})
+						);
+					}}
+				/>
+			</Column>
+		</Column>
 	);
 }
