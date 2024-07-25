@@ -26,6 +26,25 @@ import {
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
 import FormDatePicker from "wcf-component-lib/src/components/FormDatePicker/FormDatePicker";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+
+import dayjs from "dayjs";
+
+// import weekday from "dayjs/plugin/weekday";
+// import advancedFormat from "dayjs/plugin/advancedFormat";
+// dayjs.extend(weekday);
+// dayjs.extend(advancedFormat);
+
+import weekday from "dayjs/plugin/weekday";
+// import localizedFormat from "dayjs/plugin/localizedFormat";
+// import customParseFormat from "dayjs/plugin/customParseFormat";
+import localeData from "dayjs/plugin/localeData";
+// Extend dayjs with the necessary plugins
+dayjs.extend(weekday);
+// dayjs.extend(localizedFormat);
+// dayjs.extend(customParseFormat);
+dayjs.extend(localeData);
+// dayjs().localeData();
 
 const Form = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -95,8 +114,27 @@ const Form = (params: MedicalAmountFormPageProps) => {
 			{isInit && (
 				<MasterDataForm
 					disabled={_.isEmpty(write)}
-					// initialValues={{ ...form, endEffectiveDate: null }}
-					initialValues={form}
+					initialValues={{
+						...form,
+						endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),
+						startEffectiveDate: dayjs(
+							form.startEffectiveDate,
+							DateFormat.YYYYMMDD
+						),
+
+						// endEffectiveDate: moment(
+						// 	form.endEffectiveDate,
+						// 	DateFormat.YYYYMMDD
+						// ),
+						// startEffectiveDate: moment(
+						// 	form.startEffectiveDate,
+						// 	DateFormat.YYYYMMDD
+						// ),
+
+						// endEffectiveDate: null,
+						// startEffectiveDate: null,
+					}}
+					// initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}

@@ -58,8 +58,8 @@ export interface MedicalAmountForm {
 	amount: string;
 	fareAmount: string;
 	amountLimit: string;
-	startEffectiveDate: null | string;
-	endEffectiveDate: null | string;
+	startEffectiveDate: string | undefined;
+	endEffectiveDate: string | undefined;
 	notice: string;
 
 	createdBy: string;
@@ -100,8 +100,8 @@ export const modelMedicalAmount: MedicalAmount = {
 		amount: "0",
 		fareAmount: "0",
 		amountLimit: "0",
-		startEffectiveDate: null,
-		endEffectiveDate: null,
+		startEffectiveDate: undefined,
+		endEffectiveDate: undefined,
 		notice: "",
 
 		createdBy: "",
