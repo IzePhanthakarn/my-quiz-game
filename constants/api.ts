@@ -45,6 +45,12 @@ const API_PATH = {
 		GET_BY_UUID: "/course/organ-system-group",
 		UPDATE_BY_UUID: "/course/organ-system-group",
 	},
+
+	MINIO: {
+		UPLOAD: "/api/files/upload",
+		UPLOAD_MULTIPLE: "/api/files/upload-multiple",
+		DOWNLOAD: "/api/files/download/",
+	},
 };
 
 export default API_PATH;

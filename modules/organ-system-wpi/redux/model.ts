@@ -34,8 +34,8 @@ export interface OrganSystemWpiFilter {
 
 	checkOrganSystemNo: boolean;
 	checkDescription: boolean;
-
-	isActive: IsActive;
+	isActive: IsActive | undefined;
+	checkIsActive: boolean;
 }
 
 export interface OrganSystemWpiForm {
@@ -63,7 +63,8 @@ export const modelOrganSystemWpi: OrganSystemWpi = {
 		descriptionLike: "",
 		checkOrganSystemNo: false,
 		checkDescription: false,
-		isActive: IsActive.Y,
+		isActive: undefined,
+		checkIsActive: false,
 	},
 	form: {
 		createdDate: "",

@@ -3,7 +3,11 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { FormItemCheckbox, FormItemInput } from "wcf-component-lib/src";
+import {
+	FormItemCheckbox,
+	FormItemCheckboxFilterGroup,
+	FormItemInput,
+} from "wcf-component-lib/src";
 import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setOrganSystemWpiFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
@@ -85,7 +89,7 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				{/* <FormItemCheckbox
 					itemName="isActive"
 					label="สถานะการลบข้อมูล"
 					checked={_.trim(filter.isActive) === IsActive.Y}
@@ -101,6 +105,36 @@ export default function FilterDrawer() {
 							})
 						)
 					}
+				/> */}
+
+				<FormItemCheckboxFilterGroup
+					isMainInputChecked={filter.checkIsActive}
+					onClickMainInputFunction={() => {
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								checkIsActive: !filter.checkIsActive,
+								isActive: undefined,
+							})
+						);
+					}}
+					subInputValue={filter.isActive}
+					onClickSubInputYFunction={() => {
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								isActive: IsActive.Y,
+							})
+						);
+					}}
+					onClickSubInputNFunction={() => {
+						dispatch(
+							setOrganSystemWpiFilter({
+								...filter,
+								isActive: IsActive.N,
+							})
+						);
+					}}
 				/>
 			</Column>
 		</Column>

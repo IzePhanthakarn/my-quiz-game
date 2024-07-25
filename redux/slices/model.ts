@@ -10,6 +10,7 @@ import { BaseDrawer } from "./drawer/model";
 import { BaseDialog } from "./dialog/model";
 import { CourseCertificate } from "@/modules/course-certificate/redux/model";
 import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redux/model";
+import { MinIO } from "@/modules/minio/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;
@@ -24,4 +25,5 @@ export interface SliceModel {
 	courseCategory: CourseCategory;
 	courseCertificate: CourseCertificate;
 	courseOrganSystemGroup: CourseOrganSystemGroup;
+	minIO: MinIO;
 }
