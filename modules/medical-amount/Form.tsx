@@ -29,22 +29,10 @@ import FormDatePicker from "wcf-component-lib/src/components/FormDatePicker/Form
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 import dayjs from "dayjs";
-
-// import weekday from "dayjs/plugin/weekday";
-// import advancedFormat from "dayjs/plugin/advancedFormat";
-// dayjs.extend(weekday);
-// dayjs.extend(advancedFormat);
-
 import weekday from "dayjs/plugin/weekday";
-// import localizedFormat from "dayjs/plugin/localizedFormat";
-// import customParseFormat from "dayjs/plugin/customParseFormat";
 import localeData from "dayjs/plugin/localeData";
-// Extend dayjs with the necessary plugins
 dayjs.extend(weekday);
-// dayjs.extend(localizedFormat);
-// dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
-// dayjs().localeData();
 
 const Form = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -121,20 +109,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 							form.startEffectiveDate,
 							DateFormat.YYYYMMDD
 						),
-
-						// endEffectiveDate: moment(
-						// 	form.endEffectiveDate,
-						// 	DateFormat.YYYYMMDD
-						// ),
-						// startEffectiveDate: moment(
-						// 	form.startEffectiveDate,
-						// 	DateFormat.YYYYMMDD
-						// ),
-
-						// endEffectiveDate: null,
-						// startEffectiveDate: null,
 					}}
-					// initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
@@ -165,11 +140,10 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-
 							<FormDatePicker
 								label="End Effective Date"
 								itemName="endEffectiveDate"
-								rules={medicalAmountRules.endEffectiveDateSchema}
+								// rules={medicalAmountRules.endEffectiveDateSchema}
 								value={form.endEffectiveDate}
 								onChangeFunction={(e) => {
 									dispatch(
@@ -180,7 +154,6 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-
 							<FormItemInput
 								disabled={_.isEmpty(write)}
 								label="Amount"

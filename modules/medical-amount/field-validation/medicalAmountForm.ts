@@ -6,10 +6,16 @@ import {
 
 export const medicalAmountRules = {
 	noticeSchema: [maxRule("notice", 200)],
-	endEffectiveDateSchema: [requiredRule("End Effective Date")],
-	startEffectiveDateSchema: [requiredRule("End Effective Date")],
+	// endEffectiveDateSchema: [requiredRule("End Effective Date")],
 
-	amountSchema: [onlyDecimalRule("Amount")],
-	fareAmountSchema: [onlyDecimalRule("Fare Amount")],
-	amountLimitSchema: [onlyDecimalRule("Amount Limit")],
+	startEffectiveDateSchema: [requiredRule("End Effective Date")],
+	amountSchema: [onlyDecimalRule("Amount"), requiredRule("End Effective Date")],
+	fareAmountSchema: [
+		onlyDecimalRule("Fare Amount"),
+		requiredRule("End Effective Date"),
+	],
+	amountLimitSchema: [
+		onlyDecimalRule("Amount Limit"),
+		requiredRule("End Effective Date"),
+	],
 };
