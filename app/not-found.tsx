@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function NotFound() {
-	return <div>not-found</div>;
+	return <div>Not Found From Web</div>;
 }

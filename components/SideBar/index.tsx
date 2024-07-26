@@ -6,16 +6,17 @@ import BaseSideBar, {
 } from "wcf-component-lib/src/components/BaseSideBar";
 import ContainerOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/ContainerOutlined";
 import { SideBarModule, SubModule, Page } from "./model";
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+// import { useRouter } from "next/navigation";
+// import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function SideBar() {
-	const router: AppRouterInstance = useRouter();
+	// const router: AppRouterInstance = useRouter();
 	const [items, setItems] = React.useState<MenuItem[]>([]);
 	const [origin, setOrigin] = React.useState<string>("");
 
 	React.useEffect(() => {
-		const currentOrigin = new URL(window.location.href).origin;
+		const currentOrigin =
+			window.location.protocol + "//" + window.location.host;
 		setOrigin(currentOrigin);
 		const storedData = localStorage.getItem("page_access");
 		if (storedData) {
@@ -46,7 +47,7 @@ export default function SideBar() {
 		>
 			<BaseSideBar
 				items={items}
-				onMenuClick={(e) => router.push(origin + "/" + e.key)}
+				onMenuClick={(e) => (window.location.href = origin + "/" + e.key)}
 			/>
 		</div>
 	);
