@@ -18,25 +18,38 @@ export const columns: TableProps["columns"] = [
 	},
 	{
 		sorter: true,
-		key: "courseCategoryId",
-		dataIndex: "courseCategoryId",
-		title: (columns: ColumnTitleProps<any>) => (
-			<CustomHeaderSort
-				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-				headerKey={"courseCategoryId"}
-				label={"Course Category Id"}
-				sort={columns?.sortColumns}
-			/>
-		),
-	},
-	{
-		sorter: true,
 		key: "categoryDescription",
 		dataIndex: "categoryDescription",
 		title: (columns: ColumnTitleProps<any>) => (
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"categoryDescription"}
+				label={"Description"}
+				sort={columns?.sortColumns}
+			/>
+		),
+	},
+	{
+		sorter: true,
+		key: "categorySubDesc",
+		dataIndex: "categorySubDesc",
+		title: (columns: ColumnTitleProps<any>) => (
+			<CustomHeaderSort
+				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				headerKey={"categorySubDesc"}
+				label={"Description"}
+				sort={columns?.sortColumns}
+			/>
+		),
+	},
+	{
+		sorter: true,
+		key: "courseCategory",
+		dataIndex: "courseCategory",
+		title: (columns: ColumnTitleProps<any>) => (
+			<CustomHeaderSort
+				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				headerKey={"courseCategory"}
 				label={"Description"}
 				sort={columns?.sortColumns}
 			/>

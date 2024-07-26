@@ -43,9 +43,9 @@ export interface CourseCertificateFilter {
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
 }
-
-export type GetCourseCertificateList = CourseCertificateFilter &
-	PaginationOptions;
+export interface GetCourseCertificateList extends CourseCertificateFilter {
+	pagination: PaginationOptions;
+}
 
 export interface CourseCertificateForm {
 	courseCategory: string;

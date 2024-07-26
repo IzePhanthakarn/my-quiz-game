@@ -52,8 +52,9 @@ export interface MedicalAmountFilter {
 	checkIsActive: boolean;
 }
 
-export type GetMedicalAmountList = MedicalAmountFilter & PaginationOptions;
-
+export interface GetMedicalAmountList extends MedicalAmountFilter {
+	pagination: PaginationOptions;
+}
 export interface MedicalAmountForm {
 	amount: string;
 	fareAmount: string;

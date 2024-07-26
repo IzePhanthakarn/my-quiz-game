@@ -13,9 +13,9 @@ export interface OrganSystemWpi {
 export interface OrganSystemWpiGrid extends PaginationModel {
 	data: OrganSystemWpiGridData[];
 }
-
-export type GetOrganSystemWpiList = OrganSystemWpiFilter & PaginationOptions;
-
+export interface GetOrganSystemWpiList extends OrganSystemWpiFilter {
+	pagination: PaginationOptions;
+}
 export interface OrganSystemWpiGridData {
 	createdDate: string;
 	createdBy: string;

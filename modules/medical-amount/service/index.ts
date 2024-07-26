@@ -21,8 +21,8 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 export const fetchMedicalAmountList =
 	(course: MedicalAmount) => async (dispatch: AppDispatch) => {
 		const body: GetMedicalAmountList = {
+			pagination: { ...course.grid.page },
 			...course.filter,
-			...course.grid.page,
 			amount: _.isEmpty(course.filter.amount) ? null : course.filter.amount,
 			fareAmount: _.isEmpty(course.filter.fareAmount)
 				? null

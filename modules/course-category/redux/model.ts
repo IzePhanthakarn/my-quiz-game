@@ -31,8 +31,9 @@ export interface CourseCategoryFilter {
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
 }
-
-export type GetCourseCategoryList = CourseCategoryFilter & PaginationOptions;
+export interface GetCourseCategoryList extends CourseCategoryFilter {
+	pagination: PaginationOptions;
+}
 export interface CourseCategoryForm {
 	categoryDescription: string;
 	categorySubDesc: string;

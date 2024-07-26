@@ -40,9 +40,10 @@ export interface CourseOrganSystemGroupFilter {
 	checkIsActive: boolean;
 }
 
-export type GetCourseOrganSystemGroupList = CourseOrganSystemGroupFilter &
-	PaginationOptions;
-
+export interface GetCourseOrganSystemGroupList
+	extends CourseOrganSystemGroupFilter {
+	pagination: PaginationOptions;
+}
 export interface CourseOrganSystemGroupForm {
 	organSystemGroup: string;
 	courseCategory: string;
