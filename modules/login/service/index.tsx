@@ -7,7 +7,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 
 export const getToken = createAsyncThunk(
-	"User/getCourseList",
+	"User/getToken",
 	async (params: Login, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.GET_ACCESS_TOKEN}`;
