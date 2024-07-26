@@ -1,7 +1,7 @@
 definitions:
   steps:
     - step: &SetEnvironmentVariables
-        name: 'Set environment variables'
+        name: "Set environment variables"
         script:
           - echo "export DOCKER_PASS_TOKEN=$DOCKER_PASS_TOKEN" >> .envs
           - echo "export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')" >> .envs
@@ -17,7 +17,7 @@ definitions:
         services: [docker-with-large-memory]
         script:
           - source .envs
-          - export IMAGE_FIX=soilfish/medical-web:${VERSION}-test
+          - export IMAGE_FIX=soilfish/medical-web:0.1.0
           - echo $IMAGE_FIX
           - echo $VERSION
           - ls -al
