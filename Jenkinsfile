@@ -48,7 +48,7 @@ pipeline {
                     registryIP = 'registry.hub.docker.com'
                     sh 'npm -v'
                     sh 'which node'
-                    sh 'yarn install'
+                    sh 'npm install'
                 }
             }
         }
