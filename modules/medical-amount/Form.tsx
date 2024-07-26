@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
-import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
@@ -25,7 +25,7 @@ import {
 	updateMedicalAmount,
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
-import FormDatePicker from "wcf-component-lib/src/components/FormDatePicker/FormDatePicker";
+import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 import dayjs from "dayjs";
@@ -126,7 +126,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<FormDatePicker
+							<BaseDatePicker
 								label="Start Effective Date"
 								itemName="startEffectiveDate"
 								rules={medicalAmountRules.startEffectiveDateSchema}
@@ -140,7 +140,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-							<FormDatePicker
+							<BaseDatePicker
 								label="End Effective Date"
 								itemName="endEffectiveDate"
 								// rules={medicalAmountRules.endEffectiveDateSchema}
@@ -154,7 +154,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Amount"
 								itemName="amount"
@@ -169,7 +169,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Fare Amount"
 								itemName="fareAmount"
@@ -184,7 +184,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Amount Limit"
 								itemName="amountLimit"
@@ -199,7 +199,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Notice"
 								itemName="notice"

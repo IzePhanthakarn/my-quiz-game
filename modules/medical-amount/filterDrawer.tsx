@@ -3,12 +3,11 @@
 // import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 // import { shallowEqual, useDispatch, useSelector } from "react-redux";
-// import {
-// 	FormItemCheckbox,
-// 	FormItemInput,
-// 	FormItemCheckboxFilterGroup,
-// } from "wcf-component-lib/src";
-// import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+// import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+// import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+// import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
+
+// import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 // import { setMedicalAmountFilter } from "./redux";
 // import { IsActive } from "../../constants/constants";
 

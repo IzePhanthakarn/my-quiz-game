@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
-import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
@@ -111,7 +111,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Category Description"
 								itemName="categoryDescription"
@@ -126,7 +126,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Category SubDesc"
 								itemName="categorySubDesc"
@@ -141,7 +141,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="CourseCategory Category"
 								itemName="courseCategory"
@@ -156,7 +156,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Format Code"
 								itemName="formatCode"
@@ -171,7 +171,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Organize Group Code"
 								itemName="organizeGroupCode"
@@ -186,7 +186,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Organize Sub Group Code"
 								itemName="organizeSubGroupCode"
@@ -201,7 +201,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Situation"
 								itemName="situation"

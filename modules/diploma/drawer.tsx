@@ -3,12 +3,11 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {
-	FormItemCheckbox,
-	FormItemCheckboxFilterGroup,
-	FormItemInput,
-} from "wcf-component-lib/src";
-import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
+
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setDiplomaFilter } from "./redux";
 import { IsActive } from "@/constants/constants";
 
@@ -24,11 +23,11 @@ export default function Drawer() {
 	return (
 		<Column className="space-y-4">
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkDiplomaType"
 					label="รหัสประกาศนียบัตร"
 					checked={filter.checkDiplomaType}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDiplomaFilter({
@@ -40,7 +39,7 @@ export default function Drawer() {
 					}
 				/>
 				{filter.checkDiplomaType && (
-					<FormItemInput
+					<BaseItemInput
 						itemName="diplomaTypeLike"
 						value={filter.diplomaTypeLike}
 						onChangeFunction={(e) => {
@@ -55,11 +54,11 @@ export default function Drawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkDiplomaName"
 					label="ชื่อประกาศนียบัตร"
 					checked={filter.checkDiplomaName}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDiplomaFilter({
@@ -71,7 +70,7 @@ export default function Drawer() {
 					}
 				/>
 				{filter.checkDiplomaName && (
-					<FormItemInput
+					<BaseItemInput
 						itemName="diplomaNameLike"
 						value={filter.diplomaNameLike}
 						onChangeFunction={(e) => {
@@ -86,7 +85,7 @@ export default function Drawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckboxFilterGroup
+				<BaseItemCheckboxFilterGroup
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(

@@ -13,7 +13,7 @@ import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
-import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import {
 	clinicCodeSchema,
@@ -111,7 +111,7 @@ const Form = (params: UuidFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Clinic Code"
 								itemName="clinicCode"
@@ -126,7 +126,7 @@ const Form = (params: UuidFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Clinic Name"
 								itemName="clinicName"

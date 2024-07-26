@@ -3,12 +3,11 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {
-	FormItemCheckbox,
-	FormItemCheckboxFilterGroup,
-	FormItemInput,
-} from "wcf-component-lib/src";
-import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
+
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setOrganSystemWpiFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
 
@@ -24,11 +23,11 @@ export default function FilterDrawer() {
 	return (
 		<Column className="space-y-4">
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkOrganSystemNo"
 					label="Organ SystemNo"
 					checked={filter.checkOrganSystemNo}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setOrganSystemWpiFilter({
@@ -40,7 +39,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkOrganSystemNo && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="organSystemNoLike"
 							value={filter.organSystemNoLike}
 							onChangeFunction={(e) => {
@@ -56,11 +55,11 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkDescription"
 					label="Description"
 					checked={filter.checkDescription}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setOrganSystemWpiFilter({
@@ -72,7 +71,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkDescription && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="descriptionLike"
 							value={filter.descriptionLike}
 							onChangeFunction={(e) => {
@@ -88,25 +87,7 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				{/* <FormItemCheckbox
-					itemName="isActive"
-					label="สถานะการลบข้อมูล"
-					checked={_.trim(filter.isActive) === IsActive.Y}
-					labelPosition={FormItemPosition.RIGHT}
-					onClickFunction={() =>
-						dispatch(
-							setOrganSystemWpiFilter({
-								...filter,
-								isActive:
-									_.trim(filter.isActive) === IsActive.Y
-										? IsActive.N
-										: IsActive.Y,
-							})
-						)
-					}
-				/> */}
-
-				<FormItemCheckboxFilterGroup
+				<BaseItemCheckboxFilterGroup
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(

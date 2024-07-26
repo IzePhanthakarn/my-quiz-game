@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
-import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
@@ -111,7 +111,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Course Category"
 								itemName="courseCategory"
@@ -126,7 +126,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Sso Course Code"
 								itemName="ssoCourseCode"
@@ -141,7 +141,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Course Description"
 								itemName="courseDescription"
@@ -156,7 +156,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Course Year"
 								itemName="courseYear"
@@ -171,7 +171,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Organize Code"
 								itemName="organizeCode"
@@ -186,7 +186,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Gen No"
 								itemName="genNo"
@@ -201,7 +201,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Organ System Group"
 								itemName="organSystemGroup"
@@ -217,7 +217,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								}}
 							/>
 
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Organ System No"
 								itemName="organSystemNo"
@@ -233,7 +233,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								}}
 							/>
 
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Order No"
 								itemName="orderNo"
@@ -249,7 +249,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								}}
 							/>
 
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Receiver Phone Number"
 								itemName="receiverPhoneNumber"
@@ -265,7 +265,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								}}
 							/>
 
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Receiver Address"
 								itemName="receiverAddress"

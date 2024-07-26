@@ -5,12 +5,11 @@ import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
 import { IsActive } from "@/constants/constants";
-import {
-	FormItemCheckbox,
-	FormItemCheckboxFilterGroup,
-	FormItemInput,
-} from "wcf-component-lib/src";
-import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
 
 export default function Drawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -24,11 +23,11 @@ export default function Drawer() {
 	return (
 		<Column className="space-y-4">
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkClinicCode"
 					label="รหัสคลินิค"
 					checked={filter.checkClinicCode}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setClinicFilter({
@@ -41,7 +40,7 @@ export default function Drawer() {
 				/>
 				{filter.checkClinicCode && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="clinicCode"
 							value={filter.clinicCodeLike}
 							onChangeFunction={(e) => {
@@ -57,11 +56,11 @@ export default function Drawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkClinicName"
 					label="ชื่อคลินิค"
 					checked={filter.checkClinicName}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setClinicFilter({
@@ -73,7 +72,7 @@ export default function Drawer() {
 					}
 				/>
 				{filter.checkClinicName && (
-					<FormItemInput
+					<BaseItemInput
 						itemName="clinicName"
 						value={filter.clinicNameLike}
 						onChangeFunction={(e) => {
@@ -88,7 +87,7 @@ export default function Drawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckboxFilterGroup
+				<BaseItemCheckboxFilterGroup
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(

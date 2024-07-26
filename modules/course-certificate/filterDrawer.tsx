@@ -3,12 +3,11 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {
-	FormItemCheckbox,
-	FormItemCheckboxFilterGroup,
-	FormItemInput,
-} from "wcf-component-lib/src";
-import { FormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
+
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setCourseCertificateFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
 
@@ -24,11 +23,11 @@ export default function FilterDrawer() {
 	return (
 		<Column className="space-y-4">
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkCourseCategory"
 					label="Course Category"
 					checked={filter.checkCourseCategory}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setCourseCertificateFilter({
@@ -40,7 +39,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkCourseCategory && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="courseCategoryLike"
 							value={filter.courseCategoryLike}
 							onChangeFunction={(e) => {
@@ -56,11 +55,11 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkSsoCourseCode"
 					label="Sso CourseCode"
 					checked={filter.checkSsoCourseCode}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setCourseCertificateFilter({
@@ -72,7 +71,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkSsoCourseCode && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="ssoCourseCodeLike"
 							value={filter.ssoCourseCodeLike}
 							onChangeFunction={(e) => {
@@ -88,11 +87,11 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkCourseDescription"
 					label="Course Description"
 					checked={filter.checkCourseDescription}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setCourseCertificateFilter({
@@ -104,7 +103,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkCourseDescription && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="courseDescriptionLike"
 							value={filter.courseDescriptionLike}
 							onChangeFunction={(e) => {
@@ -120,11 +119,11 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckbox
+				<BaseItemCheckbox
 					itemName="checkCourseYear"
 					label="Course Year"
 					checked={filter.checkCourseYear}
-					labelPosition={FormItemPosition.RIGHT}
+					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setCourseCertificateFilter({
@@ -136,7 +135,7 @@ export default function FilterDrawer() {
 				/>
 				{filter.checkCourseYear && (
 					<div className=" pt-1">
-						<FormItemInput
+						<BaseItemInput
 							itemName="courseYearLike"
 							value={filter.courseYearLike}
 							onChangeFunction={(e) => {
@@ -152,7 +151,7 @@ export default function FilterDrawer() {
 				)}
 			</Column>
 			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
-				<FormItemCheckboxFilterGroup
+				<BaseItemCheckboxFilterGroup
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(

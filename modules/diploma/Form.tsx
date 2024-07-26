@@ -10,7 +10,7 @@ import { LINKS } from "../../constants/links";
 import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
-import { FormItemInput } from "wcf-component-lib/src/components/FormItemInput";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -113,7 +113,7 @@ const Form = (params: UuidFormPageProps) => {
 					}}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<FormItemInput
+							<BaseItemInput
 								disabled={!_.isEmpty(params.params.uuid)}
 								label="Diploma Type"
 								itemName="diplomaType"
@@ -128,7 +128,7 @@ const Form = (params: UuidFormPageProps) => {
 									);
 								}}
 							/>
-							<FormItemInput
+							<BaseItemInput
 								disabled={_.isEmpty(write)}
 								label="Diploma Name"
 								itemName="diplomaName"
