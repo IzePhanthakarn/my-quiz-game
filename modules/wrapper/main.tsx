@@ -20,7 +20,6 @@ import _ from "lodash";
 import Cookies from "js-cookie";
 
 type Props = {
-	origin: string;
 	children: ReactNode;
 };
 const MainWrapper: React.FC<Props> = (props) => {
@@ -68,7 +67,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		<div>
 			<NavBar />
 			<Row className="h-[calc(100vh-75px)]">
-				<SideBar origin={props.origin} />
+				<SideBar />
 				<main
 					className={cn(
 						`p-4 bg-[#FAFAFA]`,

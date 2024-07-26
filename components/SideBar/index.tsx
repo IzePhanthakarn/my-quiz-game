@@ -8,7 +8,7 @@ import ContainerOutlined from "wcf-component-lib/node_modules/@ant-design/icons/
 import { SideBarModule, SubModule, Page } from "./model";
 import { useRouter } from "next/navigation";
 
-export default function SideBar({ origin }: { origin: string }) {
+export default function SideBar() {
 	const router = useRouter();
 	const [items, setItems] = React.useState<MenuItem[]>([]);
 	React.useEffect(() => {
@@ -41,7 +41,7 @@ export default function SideBar({ origin }: { origin: string }) {
 		>
 			<BaseSideBar
 				items={items}
-				onMenuClick={(e) => router.push(origin + "/" + e.key)}
+				onMenuClick={(e) => router.push("https://dev-wcf.soilfish.co" + e.key)}
 			/>
 		</div>
 	);
