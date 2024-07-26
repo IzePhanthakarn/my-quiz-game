@@ -34,12 +34,12 @@ export interface MedicalAmountGridData {
 }
 
 export interface MedicalAmountFilter {
-	amountLike: number;
-	fareAmountLike: number;
-	amountLimitLike: number;
-	startEffectiveDateLike: null | string;
-	endEffectiveDateLike: null | string;
-	noticeLike: string;
+	amount: string | null;
+	fareAmount: string | null;
+	amountLimit: string | null;
+	startEffectiveDate: null | string;
+	endEffectiveDate: null | string;
+	noticeLike: null | string;
 
 	checkAmount: boolean;
 	checkFareAmount: boolean;
@@ -80,11 +80,13 @@ export const modelMedicalAmount: MedicalAmount = {
 		},
 	},
 	filter: {
-		amountLike: 0.0,
-		fareAmountLike: 0.0,
-		amountLimitLike: 0.0,
-		startEffectiveDateLike: getCurrentDateString(),
-		endEffectiveDateLike: getCurrentDateString(),
+		amount: "",
+		fareAmount: "",
+		amountLimit: "",
+		// startEffectiveDate: getCurrentDateString(),
+		// endEffectiveDate: getCurrentDateString(),
+		startEffectiveDate: "",
+		endEffectiveDate: "",
 		noticeLike: "",
 
 		checkAmount: false,
