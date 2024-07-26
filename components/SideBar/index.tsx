@@ -15,7 +15,7 @@ export default function SideBar() {
 	const [origin, setOrigin] = React.useState<string>("");
 
 	React.useEffect(() => {
-		const currentOrigin = new URL(window.location.href).origin;
+		const currentOrigin =  window.location.protocol + "//" + window.location.host;
 		setOrigin(currentOrigin);
 		const storedData = localStorage.getItem("page_access");
 		if (storedData) {
