@@ -46,7 +46,7 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 				{(write || read) && (
 					<Button
 						className="border-0 h-fit bg-transparent p-0"
-						onClick={() => handleRouterPush(editLink ?? "", router)}
+						onClick={() => router.push(editLink ?? "")}
 					>
 						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
 					</Button>
