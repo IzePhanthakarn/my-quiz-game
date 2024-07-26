@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { AntdProvider } from "wcf-component-lib/src/provider/AntdProvider";
 import MainWrapper from "@/modules/wrapper/main";
-// import { GetOrigin } from "@/components/SideBar/Origin";
+import { GetOrigin } from "@/components/SideBar/Origin";
 
 export const metadata: Metadata = {
 	title: "WCF-Digital",
@@ -18,7 +18,8 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	// const origin = GetOrigin();
+	const origin = GetOrigin();
+	console.log("origin", origin);
 	return (
 		<html lang="en">
 			<AntdProvider>

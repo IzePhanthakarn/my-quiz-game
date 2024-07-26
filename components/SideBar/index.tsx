@@ -41,7 +41,7 @@ export default function SideBar() {
 		>
 			<BaseSideBar
 				items={items}
-				onMenuClick={(e) => router.push("https://dev-wcf.soilfish.co" + e.key)}
+				onMenuClick={(e) => router.push(`https://dev-wcf.soilfish.co${e.key}`)}
 			/>
 		</div>
 	);
