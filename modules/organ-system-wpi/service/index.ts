@@ -21,8 +21,8 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 export const fetchOrganList =
 	(organ: OrganSystemWpi) => async (dispatch: AppDispatch) => {
 		const body: GetOrganSystemWpiList = {
+			pagination: { ...organ.grid.page },
 			...organ.filter,
-			...organ.grid.page,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getOrganList(body));

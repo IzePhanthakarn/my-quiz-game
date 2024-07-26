@@ -21,8 +21,8 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {
 		const body: GetCourseCategoryList = {
+			pagination: { ...course.grid.page },
 			...course.filter,
-			...course.grid.page,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getCourseList(body));
