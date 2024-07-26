@@ -6,11 +6,11 @@ import BaseSideBar, {
 } from "wcf-component-lib/src/components/BaseSideBar";
 import ContainerOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/ContainerOutlined";
 import { SideBarModule, SubModule, Page } from "./model";
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+// import { useRouter } from "next/navigation";
+// import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function SideBar() {
-	const router: AppRouterInstance = useRouter();
+	// const router: AppRouterInstance = useRouter();
 	const [items, setItems] = React.useState<MenuItem[]>([]);
 	const [origin, setOrigin] = React.useState<string>("");
 
