@@ -5,7 +5,6 @@ import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
 import NavBar from "@/components/NavBar";
 import SideBar from "@/components/SideBar";
-import Row from "@/components/Row";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
@@ -18,6 +17,7 @@ import { pathMapping } from "@/constants/path-mapping";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
 import Cookies from "js-cookie";
+import BaseRow from "wcf-component-lib/src/components/BaseRow";
 
 type Props = {
 	children: ReactNode;
@@ -66,7 +66,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	return (
 		<div>
 			<NavBar />
-			<Row className="h-[calc(100vh-75px)]">
+			<BaseRow className="h-[calc(100vh-75px)]">
 				<SideBar />
 				<main
 					className={cn(
@@ -78,7 +78,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 					<BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} />
 					{props.children}
 				</main>
-			</Row>
+			</BaseRow>
 			{/* Loading */}
 			{isLoading && <BaseLoading />}
 			{/* Dialog */}

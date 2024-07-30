@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import MasterData from "wcf-component-lib/src/layout/MasterData";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
@@ -35,7 +35,7 @@ export default function CourseCertificate() {
 
 	return (
 		<div>
-			<MasterData
+			<MasterDataLayout
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
 				SubHeader="List Course"

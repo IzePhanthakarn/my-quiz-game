@@ -1,4 +1,3 @@
-import Column from "@/components/Column";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React from "react";
@@ -10,6 +9,7 @@ import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseIt
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setCourseCategoryFilter } from "./redux";
 import { IsActive } from "../../constants/constants";
+import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -21,8 +21,8 @@ export default function FilterDrawer() {
 	);
 
 	return (
-		<Column className="space-y-4">
-			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+		<BaseColumn className="space-y-4">
+			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkClinicCode"
 					label="Category Description"
@@ -54,8 +54,8 @@ export default function FilterDrawer() {
 						/>
 					</div>
 				)}
-			</Column>
-			<Column className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+			</BaseColumn>
+			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckboxFilterGroup
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
@@ -85,7 +85,7 @@ export default function FilterDrawer() {
 						);
 					}}
 				/>
-			</Column>
-		</Column>
+			</BaseColumn>
+		</BaseColumn>
 	);
 }

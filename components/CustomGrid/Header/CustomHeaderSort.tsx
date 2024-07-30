@@ -23,7 +23,7 @@ const SortIconStatus = (props: Props) => {
 
 	return (
 		<div key={headerKey} className="flex space-x-2">
-			<p>{label}</p>
+			<p className={sort?.[0]?.order ? "text-blue-500" : ""}>{label}</p>
 			<div className="flex space-x-2">
 				<ArrowUpOutlined
 					className={`${toggleSortIcon(
