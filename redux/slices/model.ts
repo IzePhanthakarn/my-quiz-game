@@ -12,6 +12,7 @@ import { CourseCertificate } from "@/modules/course-certificate/redux/model";
 import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redux/model";
 import { MinIO } from "@/modules/minio/redux/model";
 import { MedicalAmount } from "@/modules/medical-amount/redux/model";
+import { LtProperties } from "@/modules/lt-properties/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;
@@ -28,4 +29,5 @@ export interface SliceModel {
 	courseOrganSystemGroup: CourseOrganSystemGroup;
 	minIO: MinIO;
 	medicalAmount: MedicalAmount;
+	ltProperties: LtProperties;
 }

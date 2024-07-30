@@ -57,6 +57,13 @@ const API_PATH = {
 		GET_BY_UUID: "/master/medical-amount",
 		UPDATE_BY_UUID: "/master/medical-amount",
 	},
+	LT_PROPERTIES: {
+		GET_LIST: "/master/lt-properties/list",
+		GET_RECORD: "/master/lt-properties",
+		ADD: "/master/lt-properties",
+		GET_BY_UUID: "/master/lt-properties",
+		UPDATE_BY_UUID: "/master/lt-properties",
+	},
 };
 
 export default API_PATH;
