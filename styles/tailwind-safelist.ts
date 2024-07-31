@@ -84,7 +84,7 @@ const textAlign = [
 
 const spaceBetween = [
 	{
-		pattern: /^space-[xy]-(start|end|center|between|around)$/,
+		pattern: /^space-[xy]-(start|end|center|between|around|\d+|\[\d+px\])$/,
 	},
 ];
 
@@ -96,7 +96,7 @@ const heightClasses = [
 
 const widthClasses = [
 	{
-		pattern: /^w-(\d{1,3}|auto|px|full|screen)$/,
+		pattern: /^w-(\d{1,3}|auto|full|screen|\[\d+px\])$/,
 	},
 ];
 
@@ -124,8 +124,22 @@ const rotate = [
 	},
 ];
 
+const generateSafelist = () => {
+	const classes: string[] = [];
+	const dynamicClasses = ["w", "h", "space"]; // Add other prefixes as needed
+
+	dynamicClasses.forEach((prefix) => {
+		classes.push(
+			`${prefix}-[50px]`,
+			`${prefix}-[186px]`
+			// Add other dynamic values as needed
+		);
+	});
+
+	return classes.join(" ");
+};
+
 const customSafelist = [
-	"h-[50px]",
 	...padding,
 	...rounded,
 	...margin,
@@ -140,6 +154,7 @@ const customSafelist = [
 	...justifyContent,
 	...alignItems,
 	...rotate,
+	generateSafelist(),
 ];
 
 export const safelistConfig = customSafelist;

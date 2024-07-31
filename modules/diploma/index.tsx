@@ -80,7 +80,7 @@ export default function Diploma() {
 				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
 				AddLabel="เพิ่มประกาศนียบัตร"
 				Header="Diploma"
-				SubHeader="List Diploma"
+				TotalItems={page.totalData}
 			/>
 		</div>
 	);

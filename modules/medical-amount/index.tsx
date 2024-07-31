@@ -40,7 +40,7 @@ export default function MedicalAmount() {
 			<MasterDataLayout
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
-				SubHeader="List Course"
+				TotalItems={medicalAmount.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

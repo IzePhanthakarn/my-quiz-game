@@ -38,7 +38,7 @@ export default function CourseCertificate() {
 			<MasterDataLayout
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
-				SubHeader="List Course"
+				TotalItems={courseCertificate.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

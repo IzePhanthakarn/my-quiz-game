@@ -4,7 +4,7 @@ import {
 	ArrowDownOutlined,
 	ArrowUpOutlined,
 } from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons";
-import { toggleSortIcon } from "./service";
+import { toggleSortColor, toggleTitleColor } from "./service";
 import { handleOrderBy } from "@/utils";
 import {
 	ColumnType,
@@ -23,10 +23,18 @@ const SortIconStatus = (props: Props) => {
 
 	return (
 		<div key={headerKey} className="flex space-x-2">
-			<p className={sort?.[0]?.order ? "text-blue-500" : ""}>{label}</p>
+			<p
+				className={`${toggleTitleColor(
+					handleOrderBy(sort?.[0]?.order ?? ""),
+					headerKey,
+					columnKey
+				)}`}
+			>
+				{label}
+			</p>
 			<div className="flex space-x-2">
 				<ArrowUpOutlined
-					className={`${toggleSortIcon(
+					className={`${toggleSortColor(
 						handleOrderBy(sort?.[0]?.order ?? ""),
 						headerKey,
 						columnKey,
@@ -34,7 +42,7 @@ const SortIconStatus = (props: Props) => {
 					)}`}
 				/>
 				<ArrowDownOutlined
-					className={`${toggleSortIcon(
+					className={`${toggleSortColor(
 						handleOrderBy(sort?.[0]?.order ?? ""),
 						headerKey,
 						columnKey,

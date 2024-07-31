@@ -33,11 +33,11 @@ export default function OrganSystemWpi() {
 	}, []);
 
 	return (
-		<div>
+		<div className="w-full h-full">
 			<MasterDataLayout
 				AddLabel="เพิ่มออร์แกน"
 				Header="Organ"
-				SubHeader="List Organ"
+				TotalItems={organ.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

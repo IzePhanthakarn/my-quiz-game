@@ -64,15 +64,12 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<div>
+		<div className="h-screen">
 			<NavBar />
-			<BaseRow className="h-[calc(100vh-75px)]">
+			<BaseRow className="h-full">
 				<SideBar />
 				<main
-					className={cn(
-						`p-4 bg-[#FAFAFA]`,
-						sidebarWidth && `w-[calc(100vw-280px)] relative`
-					)}
+					className={cn(`p-4 bg-[#FAFAFA]`, sidebarWidth && `w-full relative`)}
 				>
 					{/* Bread Crumb */}
 					<BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} />

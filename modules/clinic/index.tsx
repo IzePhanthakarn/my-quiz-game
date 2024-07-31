@@ -81,7 +81,7 @@ export default function Clinic() {
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
 				AddLabel="เพิ่มคลินิค"
 				Header="Clinic"
-				SubHeader="List Clinic"
+				TotalItems={page.totalData}
 			/>
 		</div>
 	);
