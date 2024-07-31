@@ -44,45 +44,43 @@ export default function Clinic() {
 	}, [page.pageNumber, page.pageSize, page.orders]);
 
 	return (
-		<div>
-			<MasterDataLayout
-				Grid={
-					<BaseGrid
-						rows={rows}
-						columns={columns}
-						page={page}
-						loading={isLoading}
-						twoToneColor={true}
-						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => dispatch(setPagination(page))}
-					/>
-				}
-				Drawer={
-					<BaseDrawer
-						isOpen={isOpen}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						content={<Drawer />}
-						isFilter
-						confirmFuntion={() =>
-							dispatch(
-								initClinicGrid({
-									pagination: { ...page },
-									clinicCodeLike: filter.clinicCodeLike,
-									clinicNameLike: filter.clinicNameLike,
-									isActive: filter.isActive,
-								})
-							)
-						}
-						clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
-					/>
-				}
-				FilterTextField={<Input className="w-[300px]" />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				AddFunction={() => router.push(LINKS.CLINIC.add)}
-				AddLabel="เพิ่มคลินิค"
-				Header="Clinic"
-				TotalItems={page.totalData}
-			/>
-		</div>
+		<MasterDataLayout
+			Grid={
+				<BaseGrid
+					rows={rows}
+					columns={columns}
+					page={page}
+					loading={isLoading}
+					twoToneColor={true}
+					setOrder={(e) => dispatch(setOrder(e))}
+					setPagination={(page) => dispatch(setPagination(page))}
+				/>
+			}
+			Drawer={
+				<BaseDrawer
+					isOpen={isOpen}
+					setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+					content={<Drawer />}
+					isFilter
+					confirmFuntion={() =>
+						dispatch(
+							initClinicGrid({
+								pagination: { ...page },
+								clinicCodeLike: filter.clinicCodeLike,
+								clinicNameLike: filter.clinicNameLike,
+								isActive: filter.isActive,
+							})
+						)
+					}
+					clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
+				/>
+			}
+			FilterTextField={<Input className="w-[300px]" />}
+			FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+			AddFunction={() => router.push(LINKS.CLINIC.add)}
+			AddLabel="เพิ่มคลินิค"
+			Header="Clinic"
+			TotalItems={page.totalData}
+		/>
 	);
 }
