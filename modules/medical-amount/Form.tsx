@@ -104,11 +104,16 @@ const Form = (params: MedicalAmountFormPageProps) => {
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,
-						endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),
-						startEffectiveDate: dayjs(
-							form.startEffectiveDate,
-							DateFormat.YYYYMMDD
-						),
+						endEffectiveDate: !_.isEmpty(form.endEffectiveDate)
+							? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD).isValid()
+								? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD)
+								: undefined
+							: undefined,
+						startEffectiveDate: !_.isEmpty(form.startEffectiveDate)
+							? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD).isValid()
+								? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD)
+								: undefined
+							: undefined,
 					}}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}

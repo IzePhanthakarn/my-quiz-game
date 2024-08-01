@@ -59,8 +59,8 @@ export interface MedicalAmountForm {
 	amount: string;
 	fareAmount: string;
 	amountLimit: string;
-	startEffectiveDate: string | undefined;
-	endEffectiveDate: string | undefined;
+	startEffectiveDate: null | string | undefined;
+	endEffectiveDate: null | string | undefined;
 	notice: string;
 
 	createdBy: string;

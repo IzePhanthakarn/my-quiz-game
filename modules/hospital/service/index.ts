@@ -1,0 +1,88 @@
+import _ from "lodash";
+import { setIsLoading } from "@/components/Loading/redux";
+import { AppDispatch } from "@/redux/config/configStore";
+import {
+	addHospitalAPI,
+	getHospitalDetail,
+	getHospitalList,
+	updateHospitalApi,
+} from "./api";
+import { setHospitalForm, setHospitalGrid } from "@/modules/hospital/redux";
+import {
+	Hospital,
+	HospitalForm,
+	GetHospitalList,
+} from "@/modules/hospital/redux/model";
+import { setIsOpenDialog } from "@/redux/slices/dialog";
+
+export const fetchHospitalList =
+	(course: Hospital) => async (dispatch: AppDispatch) => {
+		const body: GetHospitalList = {
+			pagination: { ...course.grid.page },
+			...course.filter,
+			hospitalWcfCodeLike: _.isEmpty(course.filter.hospitalWcfCodeLike)
+				? null
+				: course.filter.hospitalWcfCodeLike,
+			hospitalDbmsCodeLike: _.isEmpty(course.filter.hospitalDbmsCodeLike)
+				? null
+				: course.filter.hospitalDbmsCodeLike,
+			hospitalMinistryCodeLike: _.isEmpty(
+				course.filter.hospitalMinistryCodeLike
+			)
+				? null
+				: course.filter.hospitalMinistryCodeLike,
+			hospitalNameLike: _.isEmpty(course.filter.hospitalNameLike)
+				? null
+				: course.filter.hospitalNameLike,
+		};
+		dispatch(setIsLoading(true));
+		const result = await dispatch(getHospitalList(body));
+		dispatch(setIsLoading(false));
+		if (_.get(result, "error.message") === "Rejected") return;
+		dispatch(
+			setHospitalGrid({
+				data: result.payload.content,
+				page: {
+					...course.grid.page,
+					totalData: result.payload.totalElements,
+				},
+			})
+		);
+	};
+
+export const addHospital =
+	(form: HospitalForm) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(addHospitalAPI(form));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			dispatch(setIsOpenDialog(true));
+		}
+	};
+
+export const initGetHospitalDetail =
+	(params: HospitalFormPageProps) => async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const response = await dispatch(getHospitalDetail(`${uuid}`));
+			if (_.get(response.payload, "error.message") === "Rejected") {
+				return;
+			}
+			dispatch(setHospitalForm(response.payload));
+		}
+	};
+
+export const updateHospital =
+	(form: HospitalForm) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateHospitalApi({
+				uuid: form.uuid,
+				body: form,
+			})
+		);
+		if (_.get(data.payload, "error.message") === "Rejected") {
+			return;
+		} else {
+			dispatch(setIsOpenDialog(true));
+		}
+	};
