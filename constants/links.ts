@@ -10,6 +10,13 @@ export const LINKS = {
 		view: "/clinic/view/",
 		add: "/clinic/form",
 	},
+	DOCTOR: {
+		name: "แพทย์",
+		link: "/doctor",
+		edit: "/doctor/edit/",
+		view: "/doctor/view/",
+		add: "/doctor/form",
+	},
 	DIPLOMA: {
 		name: "ประกาศนียบัตร",
 		link: "/diploma",

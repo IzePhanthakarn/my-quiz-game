@@ -15,6 +15,12 @@ const API_PATH = {
 	CREATE_DIPLOMA: "master/diploma",
 	UPDATE_DIPLOMA: "master/diploma",
 
+	// DOCTOR
+	GET_DOCTOR_DETAIL: "doctor",
+	GET_DOCTOR_PAGE: "doctor/list",
+	CREATE_DOCTOR: "doctor",
+	UPDATE_DOCTOR: "doctor",
+
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {
 		GET_ORGAN_SYSTEM_WPI_LIST: "/master/organ-system-wpi/list",

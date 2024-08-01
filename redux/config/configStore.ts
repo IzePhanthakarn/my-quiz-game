@@ -19,7 +19,6 @@ export const store = configureStore({
 	reducer: {
 		crud: crudSlice,
 		clinic: clinicSlice,
-		doctor: doctorSlice,
 		drawer: drawerSlice,
 		dialog: dialogSlice,
 		loading: loadingSlice,
@@ -32,6 +31,7 @@ export const store = configureStore({
 		minIO: minIOSlice,
 		medicalAmount: medicalAmountSlice,
 		ltProperties: ltPropertiesSlice,
+		doctor: doctorSlice,
 	},
 });
 
