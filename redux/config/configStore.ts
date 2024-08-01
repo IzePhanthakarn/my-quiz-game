@@ -13,6 +13,7 @@ import courseCertificateSlice from "@/modules/course-certificate/redux";
 import loginSlice from "@/modules/login/redux";
 import drawerSlice from "../slices/drawer";
 import medicalAmountSlice from "@/modules/medical-amount/redux";
+import ltPropertiesSlice from "@/modules/lt-properties/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -30,6 +31,7 @@ export const store = configureStore({
 		courseOrganSystemGroup: courseOrganSystemGroupSlice,
 		minIO: minIOSlice,
 		medicalAmount: medicalAmountSlice,
+		ltProperties: ltPropertiesSlice,
 	},
 });
 

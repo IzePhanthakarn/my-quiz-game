@@ -47,4 +47,10 @@ export const LINKS = {
 		add: "/medical-amount/form/",
 		edit: "/medical-amount/edit/",
 	},
+	LT_PROPERTIES: {
+		name: "LT_PROPERTIES",
+		link: "/lt-properties",
+		add: "/lt-properties/form/",
+		edit: "/lt-properties/edit/",
+	},
 };
