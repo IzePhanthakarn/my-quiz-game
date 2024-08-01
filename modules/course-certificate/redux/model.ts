@@ -1,5 +1,6 @@
 import { IsActive } from "../../../constants/constants";
 import {
+	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
@@ -71,11 +72,7 @@ export interface CourseCertificateForm {
 export const modelCourseCertificate: CourseCertificate = {
 	grid: {
 		data: [],
-		page: {
-			totalData: 0,
-			pageNumber: 0,
-			pageSize: 10,
-		},
+		page: { ...modelPaginationOptions },
 	},
 	filter: {
 		courseCategoryLike: "",

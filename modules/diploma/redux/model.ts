@@ -1,4 +1,7 @@
-import { PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
+import {
+	modelPaginationOptions,
+	PaginationModel,
+} from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "./master/model";
 import { DiplomaFilter, modelDiplomaFilter } from "./filter/model";
 import { DiplomaDetail, modelDiaplomaDetail } from "./form/model";
@@ -22,11 +25,7 @@ export interface DiplomaGrid extends PaginationModel {
 export const modelDiploma: Diploma = {
 	grid: {
 		list: [],
-		page: {
-			pageSize: 10,
-			pageNumber: 0,
-			totalData: 0,
-		},
+		page: { ...modelPaginationOptions },
 	},
 	diplomaDetail: modelDiaplomaDetail,
 	diplomaFilter: modelDiplomaFilter,
