@@ -18,13 +18,14 @@ export function toggleIsActive(status: IsActive) {
 	return toggle;
 }
 
-export function handleOrderBy(orderBy: string) {
-	if (orderBy === "descend") {
-		return "DESC";
-	} else if (orderBy === "ascend") {
-		return "ASC";
-	} else {
-		return "undefined";
+export function handleOrderBy(orderBy: string): "ASC" | "DESC" | undefined {
+	switch (orderBy) {
+		case "descend":
+			return "DESC";
+		case "ascend":
+			return "ASC";
+		default:
+			return undefined;
 	}
 }
 

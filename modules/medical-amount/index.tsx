@@ -8,7 +8,7 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
-import MasterData from "wcf-component-lib/src/layout/MasterData";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
@@ -37,10 +37,10 @@ export default function MedicalAmount() {
 
 	return (
 		<div>
-			<MasterData
+			<MasterDataLayout
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
-				SubHeader="List Course"
+				TotalItems={medicalAmount.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

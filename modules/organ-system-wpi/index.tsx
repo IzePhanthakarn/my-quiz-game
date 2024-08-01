@@ -8,7 +8,7 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import MasterData from "wcf-component-lib/src/layout/MasterData";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
@@ -33,11 +33,11 @@ export default function OrganSystemWpi() {
 	}, []);
 
 	return (
-		<div>
-			<MasterData
+		<div className="w-full h-full">
+			<MasterDataLayout
 				AddLabel="เพิ่มออร์แกน"
 				Header="Organ"
-				SubHeader="List Organ"
+				TotalItems={organ.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

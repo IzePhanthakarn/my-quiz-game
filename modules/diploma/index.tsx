@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import MasterData from "wcf-component-lib/src/layout/MasterData";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -44,7 +44,7 @@ export default function Diploma() {
 	}, [page.pageNumber, page.pageSize, page.orders]);
 	return (
 		<div>
-			<MasterData
+			<MasterDataLayout
 				Grid={
 					<BaseGrid
 						rows={rows}
@@ -80,7 +80,7 @@ export default function Diploma() {
 				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
 				AddLabel="เพิ่มประกาศนียบัตร"
 				Header="Diploma"
-				SubHeader="List Diploma"
+				TotalItems={page.totalData}
 			/>
 		</div>
 	);

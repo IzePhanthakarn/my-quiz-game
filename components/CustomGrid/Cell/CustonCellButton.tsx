@@ -1,10 +1,10 @@
 "use client";
 
-import { findScope, getScopesPermissions, handleRouterPush } from "@/utils";
+import { findScope, getScopesPermissions } from "@/utils";
 import { BUTTON_MODE } from "./model";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
-import Row from "@/components/Row";
 import { useRouter } from "next/navigation";
+import BaseRow from "wcf-component-lib/src/components/BaseRow";
 
 interface Props {
 	mode: BUTTON_MODE;
@@ -29,20 +29,20 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 
 	if (mode === BUTTON_MODE.VIEW_EDIT) {
 		return (
-			<Row className="items-center space-x-1">
+			<BaseRow className="items-center space-x-1">
 				<Button className={`bg-[#2196F3] text-white`}>รายละเอียด</Button>
 				<Button className={`bg-[#D32F2F] text-white`}>ลบ</Button>
-			</Row>
+			</BaseRow>
 		);
 	} else if (mode === BUTTON_MODE.VIEW_ONLY) {
 		return (
-			<Row className="items-center">
+			<BaseRow className="items-center">
 				<Button className={`bg-[#2196F3] text-white`}>ดูรายละเอียด</Button>
-			</Row>
+			</BaseRow>
 		);
 	} else if (mode === BUTTON_MODE.VIEW_EDIT_ICON) {
 		return (
-			<Row className="items-center space-x-1">
+			<BaseRow className="items-center space-x-1">
 				{(write || read) && (
 					<Button
 						className="border-0 h-fit bg-transparent p-0"
@@ -51,7 +51,7 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
 					</Button>
 				)}
-			</Row>
+			</BaseRow>
 		);
 	}
 };

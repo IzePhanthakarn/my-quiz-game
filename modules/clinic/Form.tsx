@@ -9,7 +9,7 @@ import { setClinicDetail } from "./redux";
 import { IsActive } from "../../constants/constants";
 import _ from "lodash";
 import { LINKS } from "../../constants/links";
-import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
+import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
@@ -92,7 +92,7 @@ const Form = (params: UuidFormPageProps) => {
 			/>
 
 			{isInit && (
-				<MasterDataForm
+				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
 					initialValues={clinicDetail}
 					onFinish={onFinish}

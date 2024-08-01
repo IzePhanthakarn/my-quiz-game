@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { IsActive } from "../../constants/constants";
 import _ from "lodash";
 import { LINKS } from "../../constants/links";
-import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
+import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -94,7 +94,7 @@ const Form = (params: UuidFormPageProps) => {
 			/>
 
 			{isInit && (
-				<MasterDataForm
+				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
 					initialValues={diplomaDetail}
 					onFinish={onFinish}
