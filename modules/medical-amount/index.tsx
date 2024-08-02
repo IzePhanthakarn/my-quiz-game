@@ -15,7 +15,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { grid } from "./columns/grid";
 import { fetchMedicalAmountList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./filterDrawer";
+import FilterDrawer from "./FilterDrawer";
 import { modelMedicalAmount } from "./redux/model";
 import { setMedicalAmountFilter } from "./redux";
 

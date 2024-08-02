@@ -11,7 +11,7 @@ import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseIt
 import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 
-export default function Drawer() {
+export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
 	const { filter } = useSelector(
 		(state: SliceModel) => ({

@@ -15,7 +15,7 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelDiplomaFilter } from "./redux/filter/model";
 import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
-import Drawer from "./Drawer";
+import FilterDrawer from "./FilterDrawer";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -60,7 +60,7 @@ export default function Diploma() {
 					<BaseDrawer
 						isOpen={isOpen}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						content={<Drawer />}
+						content={<FilterDrawer />}
 						isFilter
 						confirmFuntion={() =>
 							dispatch(
