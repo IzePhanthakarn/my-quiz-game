@@ -14,6 +14,7 @@ import loginSlice from "@/modules/login/redux";
 import drawerSlice from "../slices/drawer";
 import medicalAmountSlice from "@/modules/medical-amount/redux";
 import ltPropertiesSlice from "@/modules/lt-properties/redux";
+import toastSlice from "../slices/toast";
 import hospitalSlice from "@/modules/hospital/redux";
 
 export const store = configureStore({
@@ -34,6 +35,7 @@ export const store = configureStore({
 		ltProperties: ltPropertiesSlice,
 		hospital: hospitalSlice,
 		doctor: doctorSlice,
+		toast: toastSlice,
 	},
 });
 

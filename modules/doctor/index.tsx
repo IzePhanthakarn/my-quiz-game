@@ -76,6 +76,7 @@ export default function Doctor() {
 				AddLabel="สร้างแพทย์"
 				Header="Doctor"
 				TotalItems={page.totalData}
+				SearchButtonFunction={() => {}}
 			/>
 		</div>
 	);

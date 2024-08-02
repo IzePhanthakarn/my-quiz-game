@@ -6,6 +6,7 @@ import { OrganSystemWpi } from "@/modules/organ-system-wpi/redux/model";
 import { CourseCategory } from "@/modules/course-category/redux/model";
 import { Login } from "@/modules/login/redux/model";
 import { BaseDrawer } from "./drawer/model";
+import { ToastNotification } from "./toast/model";
 import { BaseDialog } from "./dialog/model";
 import { CourseCertificate } from "@/modules/course-certificate/redux/model";
 import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redux/model";
@@ -31,5 +32,6 @@ export interface SliceModel {
 	minIO: MinIO;
 	medicalAmount: MedicalAmount;
 	ltProperties: LtProperties;
+	toast: ToastNotification;
 	hospital: Hospital;
 }

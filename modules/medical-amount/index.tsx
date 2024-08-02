@@ -41,6 +41,7 @@ export default function MedicalAmount() {
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
 				TotalItems={medicalAmount.grid.page.totalData}
+				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

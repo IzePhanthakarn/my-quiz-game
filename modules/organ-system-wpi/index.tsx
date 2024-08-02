@@ -38,6 +38,7 @@ export default function OrganSystemWpi() {
 				AddLabel="เพิ่มออร์แกน"
 				Header="Organ"
 				TotalItems={organ.grid.page.totalData}
+				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

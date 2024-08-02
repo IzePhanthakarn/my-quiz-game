@@ -4,6 +4,12 @@ import dayjs from "dayjs";
 import _ from "lodash";
 import { ScopesPermissions } from "./model";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { NotificationArgsProps } from "wcf-component-lib/node_modules/antd";
+import { AppDispatch } from "@/redux/config/configStore";
+import { setToast } from "@/redux/slices/toast";
+import { modelToastNotification } from "@/redux/slices/toast/model";
+
+type NotificationPlacement = NotificationArgsProps["placement"];
 
 export function getCurrentDateString() {
 	return dayjs().format(DateFormat.DDMMYYYY).toString();
@@ -62,3 +68,42 @@ export function handleRouterPush(path: string, router: AppRouterInstance) {
 		router.push(finalPath);
 	}
 }
+
+export const openNotification =
+	(params: {
+		content: any;
+		placement?: NotificationPlacement;
+		message: string;
+		description: string;
+		type: "success" | "info" | "warning" | "error";
+		onClick?: () => void;
+		onClose?: () => void;
+	}) =>
+	(dispatch: AppDispatch) => {
+		const { content } = params;
+		console.log("placementplacementplacement", params.placement);
+		const setContent = {
+			...params,
+			onClick: () => {
+				if (params.onClick) params.onClick();
+			},
+			onClose: () => {
+				if (params.onClose) params.onClose();
+			},
+		};
+		switch (params.type) {
+			case "success":
+				content.success(setContent);
+				break;
+			case "info":
+				content.info(setContent);
+				break;
+			case "warning":
+				content.warning(setContent);
+				break;
+			case "error":
+				content.error(setContent);
+				break;
+		}
+		dispatch(setToast(modelToastNotification));
+	};
