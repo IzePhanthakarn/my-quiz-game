@@ -13,7 +13,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { grid } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./filterDrawer";
+import FilterDrawer from "./FilterDrawer";
 import { modelCourseOrganSystemGroup } from "./redux/model";
 import { setCourseOrganSystemGroupFilter } from "./redux";
 

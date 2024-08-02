@@ -13,7 +13,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { grid } from "./columns/grid";
 import { fetchLtPropertiesList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./filterDrawer";
+import FilterDrawer from "./FilterDrawer";
 import { modelLtProperties } from "./redux/model";
 import { setLtPropertiesFilter, setLtPropertiesGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";

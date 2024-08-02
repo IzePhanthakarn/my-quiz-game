@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { initDoctorGrid } from "./service";
 import { modelDoctorFilter } from "./redux/filter/model";
 import { columns } from "./model";
-import Drawer from "./Drawer";
+import FilterDrawer from "./FilterDrawer";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -57,7 +57,7 @@ export default function Doctor() {
 					<BaseDrawer
 						isOpen={isOpen}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						content={<Drawer />}
+						content={<FilterDrawer />}
 						isFilter
 						confirmFuntion={() =>
 							dispatch(
