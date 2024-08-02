@@ -60,4 +60,10 @@ export const LINKS = {
 		add: "/lt-properties/form/",
 		edit: "/lt-properties/edit/",
 	},
+	HOSPITAL: {
+		name: "HOSPITAL",
+		link: "/hospital",
+		add: "/hospital/form/",
+		edit: "/hospital/edit/",
+	},
 };

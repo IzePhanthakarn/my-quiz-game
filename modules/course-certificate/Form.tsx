@@ -79,7 +79,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 	const { write } = getScopesPermissions(resourceScopes);
 
 	return (
-		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
+		<>
 			<BaseDialog
 				isOpen={isOpen}
 				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
@@ -93,6 +93,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
+					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
@@ -284,7 +286,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 					}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 export default dynamic(() => Promise.resolve(Form), { ssr: false });

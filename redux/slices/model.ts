@@ -13,6 +13,7 @@ import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redu
 import { MinIO } from "@/modules/minio/redux/model";
 import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
+import { Hospital } from "@/modules/hospital/redux/model";
 import { Doctor } from "@/modules/doctor/redux/model";
 export interface SliceModel {
 	crud: Crud;
@@ -32,4 +33,5 @@ export interface SliceModel {
 	medicalAmount: MedicalAmount;
 	ltProperties: LtProperties;
 	toast: ToastNotification;
+	hospital: Hospital;
 }
