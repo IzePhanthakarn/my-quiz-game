@@ -39,6 +39,7 @@ export default function CourseCertificate() {
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
 				TotalItems={courseCertificate.grid.page.totalData}
+				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={

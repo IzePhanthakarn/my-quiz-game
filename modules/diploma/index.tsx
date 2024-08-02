@@ -81,6 +81,7 @@ export default function Diploma() {
 				AddLabel="เพิ่มประกาศนียบัตร"
 				Header="Diploma"
 				TotalItems={page.totalData}
+				SearchButtonFunction={() => {}}
 			/>
 		</div>
 	);

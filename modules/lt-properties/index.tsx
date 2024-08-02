@@ -40,6 +40,7 @@ export default function LtProperties() {
 				AddLabel="เพิ่มคอร์ส"
 				Header="Course"
 				TotalItems={ltProperties.grid.page.totalData}
+				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
