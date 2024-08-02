@@ -1,3 +1,4 @@
+import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import { IsActive } from "../../../constants/constants";
 import { ClinicFilter, modelClinicFilter } from "./filter/model";
 import { ClinicGrid } from "./master/model";
@@ -24,11 +25,7 @@ export const modelClinicDetail: ClinicDetail = {
 export const modelClinic: Clinic = {
 	grid: {
 		list: [],
-		page: {
-			pageSize: 10,
-			pageNumber: 0,
-			totalData: 0,
-		},
+		page: { ...modelPaginationOptions },
 	},
 	clinicDetail: modelClinicDetail,
 	clinicFilter: modelClinicFilter,

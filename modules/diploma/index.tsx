@@ -11,11 +11,11 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { initDiplomaGrid } from "./service";
 import { columns } from "./model";
 import { setDiplomaFilter, setOrder, setPagination } from "./redux";
-import Drawer from "./drawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelDiplomaFilter } from "./redux/filter/model";
 import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
+import Drawer from "./Drawer";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();

@@ -1,4 +1,5 @@
 import {
+	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
@@ -53,9 +54,7 @@ export const modelOrganSystemWpi: OrganSystemWpi = {
 	grid: {
 		data: [],
 		page: {
-			totalData: 0,
-			pageNumber: 0,
-			pageSize: 10,
+			...modelPaginationOptions,
 		},
 	},
 	filter: {

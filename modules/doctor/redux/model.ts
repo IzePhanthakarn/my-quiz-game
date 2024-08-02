@@ -1,9 +1,17 @@
-import { DoctorInfomation, modelDoctorInfomation } from "./infomation/model";
+import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { DoctorGrid } from "./master/model";
+import { DoctorFilter, modelDoctorFilter } from "./filter/model";
 
 export interface Doctor {
-  infomation: DoctorInfomation;
+	grid: DoctorGrid;
+	// doctorDetail: DoctorDetail;
+	doctorFilter: DoctorFilter;
 }
 
 export const modelDoctor: Doctor = {
-  infomation: modelDoctorInfomation,
+	grid: {
+		list: [],
+		page: { ...modelPaginationOptions },
+	},
+	doctorFilter: modelDoctorFilter,
 };

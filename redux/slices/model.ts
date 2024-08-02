@@ -1,6 +1,5 @@
 import { Crud } from "./crud/model";
 import { Clinic, ClinicDetail } from "../../modules/clinic/redux/model";
-import { Doctor } from "@/modules/doctor/redux/model";
 import { Loading } from "@/components/Loading/redux/model";
 import { Diploma } from "@/modules/diploma/redux/model";
 import { OrganSystemWpi } from "@/modules/organ-system-wpi/redux/model";
@@ -14,6 +13,7 @@ import { MinIO } from "@/modules/minio/redux/model";
 import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
 import { Hospital } from "@/modules/hospital/redux/model";
+import { Doctor } from "@/modules/doctor/redux/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;

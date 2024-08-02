@@ -1,5 +1,6 @@
 import { IsActive } from "../../../constants/constants";
 import {
+	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
@@ -60,11 +61,7 @@ export interface CourseOrganSystemGroupForm {
 export const modelCourseOrganSystemGroup: CourseOrganSystemGroup = {
 	grid: {
 		data: [],
-		page: {
-			totalData: 0,
-			pageNumber: 0,
-			pageSize: 10,
-		},
+		page: { ...modelPaginationOptions },
 	},
 	filter: {
 		organSystemGroupLike: "",
