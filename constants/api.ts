@@ -70,6 +70,13 @@ const API_PATH = {
 		GET_BY_UUID: "/master/lt-properties",
 		UPDATE_BY_UUID: "/master/lt-properties",
 	},
+	HOSPITAL: {
+		GET_LIST: "/hospital/list",
+		GET_RECORD: "/hospital",
+		ADD: "/hospital",
+		GET_BY_UUID: "/hospital",
+		UPDATE_BY_UUID: "/hospital",
+	},
 };
 
 export default API_PATH;

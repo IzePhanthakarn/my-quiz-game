@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
@@ -17,6 +16,7 @@ import FilterDrawer from "./FilterDrawer";
 import { modelLtProperties } from "./redux/model";
 import { setLtPropertiesFilter, setLtPropertiesGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 
 export default function LtProperties() {
 	const dispatch: AppDispatch = useDispatch();

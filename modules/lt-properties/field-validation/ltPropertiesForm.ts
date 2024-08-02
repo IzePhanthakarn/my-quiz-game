@@ -22,5 +22,4 @@ export const ltPropertiesRules = {
 		onlyNumberRule(sortingOrderName),
 	],
 	descriptionSchema: [maxRule(descriptionName, 200)],
-	onlyNumberRule,
 };

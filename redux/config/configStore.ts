@@ -14,6 +14,7 @@ import loginSlice from "@/modules/login/redux";
 import drawerSlice from "../slices/drawer";
 import medicalAmountSlice from "@/modules/medical-amount/redux";
 import ltPropertiesSlice from "@/modules/lt-properties/redux";
+import hospitalSlice from "@/modules/hospital/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
 		minIO: minIOSlice,
 		medicalAmount: medicalAmountSlice,
 		ltProperties: ltPropertiesSlice,
+		hospital: hospitalSlice,
 		doctor: doctorSlice,
 	},
 });
