@@ -9,6 +9,10 @@ const padding = [
 
 const rounded = [
 	{
+		pattern: /^rounded$/,
+	},
+
+	{
 		pattern: /^rounded-\[\d+px\]$/, // rounded-[10px], rounded-[20px], ...
 	},
 	{
@@ -16,6 +20,9 @@ const rounded = [
 	},
 	{
 		pattern: /^rounded-(full|lg|md|sm|none|xl)$/, // rounded-full, rounded-lg, rounded-md, rounded-sm, rounded-none, rounded-xl
+	},
+	{
+		pattern: /^rounded-(t|r|b|l|tl|tr|br|bl)-(full|lg|md|sm|none|xl)$/, // rounded-full, rounded-lg, rounded-md, rounded-sm, rounded-none, rounded-xl
 	},
 ];
 
@@ -124,6 +131,12 @@ const rotate = [
 	},
 ];
 
+const self = [
+	{
+		pattern: /^self-(auto|start|end|center|stretch|baseline)$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+];
+
 const generateSafelist = () => {
 	const classes: string[] = [];
 	const dynamicClasses = ["w", "h", "space"]; // Add other prefixes as needed
@@ -154,6 +167,7 @@ const customSafelist = [
 	...justifyContent,
 	...alignItems,
 	...rotate,
+	...self,
 	generateSafelist(),
 ];
 

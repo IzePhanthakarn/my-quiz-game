@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
-import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
+import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -32,8 +32,8 @@ import {
 	propertyTextName,
 	sortingOrderName,
 } from "./field-validation/ltPropertiesForm";
-import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+// import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
+// import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -94,7 +94,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	const { write } = getScopesPermissions(resourceScopes);
 
 	return (
-		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
+		<>
 			<BaseDialog
 				isOpen={isOpen}
 				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
@@ -107,8 +107,10 @@ const Form = (params: LtPropertiesFormPageProps) => {
 			/>
 
 			{isInit && (
-				<MasterDataForm
+				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
+					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
+					textHeader="100120-ส่วนงานสิทธิประโยชน์"
 					initialValues={{
 						...form,
 						// endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),
@@ -212,7 +214,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 					}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 export default dynamic(() => Promise.resolve(Form), { ssr: false });

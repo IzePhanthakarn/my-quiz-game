@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
-import MasterDataForm from "wcf-component-lib/src/layout/MasterDataForm";
+import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -81,7 +81,7 @@ const Form = (params: HospitalFormPageProps) => {
 	const { write } = getScopesPermissions(resourceScopes);
 
 	return (
-		<div className="w-full flex flex-col relative py-3 px-3 bg-white">
+		<>
 			<BaseDialog
 				isOpen={isOpen}
 				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
@@ -94,7 +94,8 @@ const Form = (params: HospitalFormPageProps) => {
 			/>
 
 			{isInit && (
-				<MasterDataForm
+				<MasterDataFormLayout
+					textHeader="100120-ส่วนงานสิทธิประโยชน์"
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,
@@ -175,6 +176,7 @@ const Form = (params: HospitalFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.HOSPITAL.link);
 					}}
+					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 							<BaseItemInput
@@ -726,7 +728,7 @@ const Form = (params: HospitalFormPageProps) => {
 					}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 export default dynamic(() => Promise.resolve(Form), { ssr: false });
