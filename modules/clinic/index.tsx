@@ -16,6 +16,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
+import { setToast } from "@/redux/slices/toast";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -44,43 +45,55 @@ export default function Clinic() {
 	}, [page.pageNumber, page.pageSize, page.orders]);
 
 	return (
-		<MasterDataLayout
-			Grid={
-				<BaseGrid
-					rows={rows}
-					columns={columns}
-					page={page}
-					loading={isLoading}
-					twoToneColor={true}
-					setOrder={(e) => dispatch(setOrder(e))}
-					setPagination={(page) => dispatch(setPagination(page))}
-				/>
-			}
-			Drawer={
-				<BaseDrawer
-					isOpen={isOpen}
-					setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-					content={<FilterDrawer />}
-					isFilter
-					confirmFuntion={() =>
-						dispatch(
-							initClinicGrid({
-								pagination: { ...page },
-								clinicCodeLike: filter.clinicCodeLike,
-								clinicNameLike: filter.clinicNameLike,
-								isActive: filter.isActive,
-							})
-						)
-					}
-					clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
-				/>
-			}
-			FilterTextField={<Input className="w-[300px]" />}
-			FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-			AddFunction={() => router.push(LINKS.CLINIC.add)}
-			AddLabel="เพิ่มคลินิค"
-			Header="Clinic"
-			TotalItems={page.totalData}
-		/>
+		<div>
+			<MasterDataLayout
+				Grid={
+					<BaseGrid
+						rows={rows}
+						columns={columns}
+						page={page}
+						loading={isLoading}
+						twoToneColor={true}
+						setOrder={(e) => dispatch(setOrder(e))}
+						setPagination={(page) => dispatch(setPagination(page))}
+					/>
+				}
+				Drawer={
+					<BaseDrawer
+						isOpen={isOpen}
+						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+						content={<FilterDrawer />}
+						isFilter
+						confirmFuntion={() =>
+							dispatch(
+								initClinicGrid({
+									pagination: { ...page },
+									clinicCodeLike: filter.clinicCodeLike,
+									clinicNameLike: filter.clinicNameLike,
+									isActive: filter.isActive,
+								})
+							)
+						}
+						clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
+					/>
+				}
+				FilterTextField={<Input className="w-[300px]" />}
+				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				AddFunction={() => router.push(LINKS.CLINIC.add)}
+				AddLabel="เพิ่มคลินิค"
+				Header="Clinic"
+				TotalItems={page.totalData}
+				SearchButtonFunction={() =>
+					dispatch(
+						setToast({
+							isOpen: true,
+							message: "Search",
+							type: "success",
+							description: "Search Description",
+						})
+					)
+				}
+			/>
+		</div>
 	);
 }

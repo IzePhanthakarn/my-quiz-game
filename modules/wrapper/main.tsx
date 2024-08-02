@@ -18,10 +18,16 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
+import type { NotificationArgsProps } from "wcf-component-lib/node_modules/antd";
+import notification from "wcf-component-lib/node_modules/antd/es/notification";
+import { openNotification } from "@/utils";
 
 type Props = {
 	children: ReactNode;
 };
+
+type NotificationPlacement = NotificationArgsProps["placement"];
+
 const MainWrapper: React.FC<Props> = (props) => {
 	const pathname = usePathname();
 	const dispatch: AppDispatch = useDispatch();
@@ -30,10 +36,32 @@ const MainWrapper: React.FC<Props> = (props) => {
 	const [textDetail, setTextDetail] = useState<string>("");
 	const [textHeader, setTextHeader] = useState<string>("");
 
-	const { isLoading } = useSelector(
-		(state: SliceModel) => ({ isLoading: state.loading.isLoading }),
+	const { isLoading, toast } = useSelector(
+		(state: SliceModel) => ({
+			isLoading: state.loading.isLoading,
+			toast: state.toast,
+		}),
 		shallowEqual
 	);
+
+	const [content, contextHolder] = notification.useNotification({
+		duration: 3,
+		showProgress: true,
+	});
+
+	useEffect(() => {
+		if (toast.isOpen) {
+			dispatch(
+				openNotification({
+					content: content,
+					placement: toast.placement,
+					message: toast.message,
+					description: toast.description,
+					type: toast.type,
+				})
+			);
+		}
+	}, [toast.isOpen]);
 
 	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -65,6 +93,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	return (
 		<div className="h-screen">
+			{contextHolder}
 			<NavBar />
 			<BaseRow className="h-full">
 				<SideBar />
