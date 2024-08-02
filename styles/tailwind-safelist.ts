@@ -15,7 +15,10 @@ const rounded = [
 		pattern: /^rounded-[trbl]{1,2}-\[\d+px\]$/, // rounded-t-[10px], rounded-r-[20px], ...
 	},
 	{
-		pattern: /^rounded-(full|lg|md|sm|none|xl)$/, // rounded-full, rounded-lg, rounded-md, rounded-sm, rounded-none, rounded-xl
+		pattern: /^rounded-(full|lg|md|sm|none|xl|2xl|3xl)$/, // rounded-full, rounded-lg, rounded-md, rounded-sm, rounded-none, rounded-xl
+	},
+	{
+		pattern: /^rounded-[trbl]{1,2}-(full|lg|md|sm|none|xl|2xl|3xl)$/, // rounded-t-full, rounded-b-2xl, ...
 	},
 ];
 
@@ -130,6 +133,7 @@ const generateSafelist = () => {
 
 	dynamicClasses.forEach((prefix) => {
 		classes.push(
+			`${prefix}-[40px]`,
 			`${prefix}-[50px]`,
 			`${prefix}-[186px]`
 			// Add other dynamic values as needed
