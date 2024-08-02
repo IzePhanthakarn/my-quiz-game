@@ -13,7 +13,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { columns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./filterDrawer";
+import FilterDrawer from "./FilterDrawer";
 import { setCourseCategoryFilter } from "./redux";
 import { modelCourseCategory } from "./redux/model";
 

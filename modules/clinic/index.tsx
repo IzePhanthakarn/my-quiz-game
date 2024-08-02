@@ -13,7 +13,7 @@ import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import Drawer from "./drawer";
+import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 
@@ -60,7 +60,7 @@ export default function Clinic() {
 				<BaseDrawer
 					isOpen={isOpen}
 					setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-					content={<Drawer />}
+					content={<FilterDrawer />}
 					isFilter
 					confirmFuntion={() =>
 						dispatch(

@@ -11,7 +11,7 @@ import { IsActive } from "@/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { setDoctorFilter } from "./redux";
 
-export default function Drawer() {
+export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
 	const { filter } = useSelector(
 		(state: SliceModel) => ({

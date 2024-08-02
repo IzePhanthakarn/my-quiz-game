@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { columns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
-import FilterDrawer from "./filterDrawer";
+import FilterDrawer from "./FilterDrawer";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
