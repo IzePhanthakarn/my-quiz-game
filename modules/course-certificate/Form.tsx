@@ -58,7 +58,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<CourseCertificateForm>["onFinish"] = (values) => {
+	const onFinish: FormProps<CourseCertificateForm>["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
