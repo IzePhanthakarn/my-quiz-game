@@ -18,14 +18,14 @@ import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { setToast } from "@/redux/slices/toast";
-import { modelToastNotification } from "@/redux/slices/toast/model";
+import { modelToastNotification } from "wcf-component-lib/src/components/BaseToastNotification/model";
 
 type Props = {
 	children: ReactNode;
 };
 
 const MainWrapper: React.FC<Props> = (props) => {
-	const pathname = usePathname();
+	// const pathname = usePathname();
 	const dispatch: AppDispatch = useDispatch();
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -39,25 +39,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 		}),
 		shallowEqual
 	);
-
-	// const [content, contextHolder] = notification.useNotification({
-	// 	duration: 3,
-	// 	showProgress: true,
-	// });
-
-	// useEffect(() => {
-	// 	if (toast.isOpen) {
-	// 		dispatch(
-	// 			openNotification({
-	// 				content: content,
-	// 				placement: toast.placement,
-	// 				message: toast.message,
-	// 				description: toast.description,
-	// 				type: toast.type,
-	// 			})
-	// 		);
-	// 	}
-	// }, [toast.isOpen]);
 
 	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
