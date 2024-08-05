@@ -1,7 +1,9 @@
 export interface BaseDialog {
-  isOpen: boolean;
+	isOpen: boolean;
+	isOpenBaseConfirmDialog: boolean;
 }
 
 export const modelDialog: BaseDialog = {
-  isOpen: false,
+	isOpen: false,
+	isOpenBaseConfirmDialog: false,
 };

@@ -140,6 +140,27 @@ const self = [
 	},
 ];
 
+const cursor = [
+	{
+		pattern: /cursor-\w+$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+	{
+		pattern: /cursor-\w+-\w+$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+];
+
+const grid = [
+	{
+		pattern: /grid$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+	{
+		pattern: /gap-(x|y)-\d+$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+	{
+		pattern: /grid-cols-\d+$/, // rotate-0, rotate-1, rotate-2, ..., rotate-180, rotate-360, etc.
+	},
+];
+
 const generateSafelist = () => {
 	const classes: string[] = [];
 	const dynamicClasses = ["w", "h", "space"]; // Add other prefixes as needed
@@ -157,6 +178,8 @@ const generateSafelist = () => {
 };
 
 const customSafelist = [
+	...grid,
+	...cursor,
 	...padding,
 	...rounded,
 	...margin,

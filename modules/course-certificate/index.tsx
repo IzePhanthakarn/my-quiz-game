@@ -36,7 +36,7 @@ export default function CourseCertificate() {
 	return (
 		<div>
 			<MasterDataLayout
-				AddLabel="เพิ่มคอร์ส"
+				AddLabel="เพิ่ม Course Certificate"
 				Header="Course"
 				TotalItems={courseCertificate.grid.page.totalData}
 				SearchButtonFunction={() => {}}

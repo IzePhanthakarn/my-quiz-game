@@ -14,7 +14,10 @@ import { IsActive } from "@/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
@@ -126,7 +129,8 @@ export const addClinic =
 				isActive: clinicDetail.isActive,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
@@ -165,7 +169,8 @@ export const updateClinic =
 				},
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));

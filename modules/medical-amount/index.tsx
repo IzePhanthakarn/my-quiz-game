@@ -38,7 +38,7 @@ export default function MedicalAmount() {
 	return (
 		<div>
 			<MasterDataLayout
-				AddLabel="เพิ่มคอร์ส"
+				AddLabel="เพิ่ม Medical Amount"
 				Header="Course"
 				TotalItems={medicalAmount.grid.page.totalData}
 				SearchButtonFunction={() => {}}

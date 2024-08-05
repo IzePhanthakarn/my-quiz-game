@@ -16,7 +16,10 @@ import {
 	CourseOrganSystemGroupForm,
 	GetCourseOrganSystemGroupList,
 } from "@/modules/course-organ-system-group/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseOrganSystemGroup) => async (dispatch: AppDispatch) => {
@@ -42,7 +45,8 @@ export const fetchCourseList =
 export const addCourseOrganSystemGroup =
 	(form: CourseOrganSystemGroupForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addCourseOrganSystemGroupAPI(form));
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
@@ -57,7 +61,7 @@ export const initGetCourseOrganSystemGroupDetail =
 			const response = await dispatch(
 				getCourseOrganSystemGroupDetail(`${uuid}`)
 			);
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setCourseOrganSystemGroupForm(response.payload));
@@ -73,7 +77,8 @@ export const updateCourseOrganSystemGroup =
 				body: clinicDetail,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));

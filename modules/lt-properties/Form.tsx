@@ -14,7 +14,10 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setLtPropertiesForm } from "./redux";
@@ -38,6 +41,8 @@ import {
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -46,9 +51,10 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.ltProperties.form,
 		}),
 		shallowEqual
@@ -68,11 +74,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<LtPropertiesForm>["onFinish"] = (values) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateLtProperties(form));
-		} else {
-			dispatch(addLtProperties(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<LtPropertiesForm>["onFinishFailed"] = (
@@ -106,6 +108,23 @@ const Form = (params: LtPropertiesFormPageProps) => {
 				}}
 			/>
 
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateLtProperties(form));
+					} else {
+						dispatch(addLtProperties(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+			/>
+
 			{isInit && (
 				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
@@ -134,83 +153,91 @@ const Form = (params: LtPropertiesFormPageProps) => {
 						router.push(LINKS.LT_PROPERTIES.link);
 					}}
 					inputs={
-						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={groupNameName}
-								itemName="groupName"
-								rules={ltPropertiesRules.groupNameSchema}
-								value={form.groupName}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											groupName: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={propertyCodeName}
-								itemName="propertyCode"
-								rules={ltPropertiesRules.propertyCodeSchema}
-								value={form.propertyCode}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											propertyCode: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={propertyTextName}
-								itemName="propertyText"
-								rules={ltPropertiesRules.propertyTextSchema}
-								value={form.propertyText}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											propertyText: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={sortingOrderName}
-								itemName="sortingOrder"
-								rules={ltPropertiesRules.sortingOrderSchema}
-								value={form.sortingOrder}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											sortingOrder: parseInt(e.target.value),
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={descriptionName}
-								itemName="description"
-								rules={ltPropertiesRules.descriptionSchema}
-								value={form.description}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											description: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
+						<>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={groupNameName}
+									itemName="groupName"
+									rules={ltPropertiesRules.groupNameSchema}
+									value={form.groupName}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												groupName: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={propertyCodeName}
+									itemName="propertyCode"
+									rules={ltPropertiesRules.propertyCodeSchema}
+									value={form.propertyCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												propertyCode: e.target.value,
+											})
+										);
+									}}
+								/>
+
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={sortingOrderName}
+									itemName="sortingOrder"
+									rules={ltPropertiesRules.sortingOrderSchema}
+									value={form.sortingOrder}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												sortingOrder: parseInt(e.target.value),
+											})
+										);
+									}}
+								/>
+							</div>
+
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label={propertyTextName}
+									itemName="propertyText"
+									rules={ltPropertiesRules.propertyTextSchema}
+									value={form.propertyText}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												propertyText: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label={descriptionName}
+									itemName="description"
+									rules={ltPropertiesRules.descriptionSchema}
+									value={form.description}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												description: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+						</>
 					}
 				/>
 			)}

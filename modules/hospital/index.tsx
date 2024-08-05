@@ -39,7 +39,7 @@ export default function Hospital() {
 	return (
 		<div>
 			<MasterDataLayout
-				AddLabel="เพิ่มคอร์ส"
+				AddLabel="เพิ่มสถานพยาบาล"
 				Header="Course"
 				SearchButtonFunction={() => {}}
 				TotalItems={hospital.grid.page.totalData}
