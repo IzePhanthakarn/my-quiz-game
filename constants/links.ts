@@ -26,9 +26,9 @@ export const LINKS = {
 	},
 	ORGAN_SYSTEM_WPI: {
 		name: "ออร์แกน",
-		link: "/organ-system-wpi",
-		add: "/organ-system-wpi/form/",
-		edit: "/organ-system-wpi/edit/",
+		link: "/organ-wpi",
+		add: "/organ-wpi/form/",
+		edit: "/organ-wpi/edit/",
 	},
 	CATEGORY_COURSE: {
 		name: "CATEGORY_COURSE",

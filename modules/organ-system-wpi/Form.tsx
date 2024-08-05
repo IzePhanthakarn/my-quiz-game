@@ -14,7 +14,10 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setOrganSystemWpiForm } from "./redux";
@@ -25,15 +28,18 @@ import {
 	initOrganSystemWpiDetail,
 	updateOrganSystemWpi,
 } from "./service";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.organSystemWpi.form,
 		}),
 		shallowEqual
@@ -53,11 +59,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<OrganSystemWpiForm>["onFinish"] = () => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateOrganSystemWpi(form));
-		} else {
-			dispatch(addOrganSystemWpi(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<OrganSystemWpiForm>["onFinishFailed"] = (
@@ -91,6 +93,23 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				}}
 			/>
 
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateOrganSystemWpi(form));
+					} else {
+						dispatch(addOrganSystemWpi(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+			/>
+
 			{isInit && (
 				<MasterDataFormLayout
 					textHeader="100120-ส่วนงานสิทธิประโยชน์"
@@ -112,38 +131,42 @@ const Form = (params: CourseCategoryFormPageProps) => {
 						router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 					}}
 					inputs={
-						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Description"
-								itemName="description"
-								rules={organSystemWpiFormRules.description}
-								value={form.description}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiForm({
-											...form,
-											description: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organ System No"
-								itemName="organSystemNo"
-								rules={organSystemWpiFormRules.organSystemNo}
-								value={form.organSystemNo}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiForm({
-											...form,
-											organSystemNo: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
+						<>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="Organ System No"
+									itemName="organSystemNo"
+									rules={organSystemWpiFormRules.organSystemNo}
+									value={form.organSystemNo}
+									onChangeFunction={(e) => {
+										dispatch(
+											setOrganSystemWpiForm({
+												...form,
+												organSystemNo: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label="Description"
+									itemName="description"
+									rules={organSystemWpiFormRules.description}
+									value={form.description}
+									onChangeFunction={(e) => {
+										dispatch(
+											setOrganSystemWpiForm({
+												...form,
+												description: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+						</>
 					}
 				/>
 			)}

@@ -14,8 +14,12 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { IsActive } from "@/constants/constants";
 import { setMedicalAmountForm } from "./redux";
 import { MedicalAmountForm, modelMedicalAmount } from "./redux/model";
@@ -26,6 +30,8 @@ import {
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 import dayjs from "dayjs";
@@ -39,9 +45,10 @@ const Form = (params: MedicalAmountFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.medicalAmount.form,
 		}),
 		shallowEqual
@@ -60,12 +67,8 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = (values) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateMedicalAmount(form));
-		} else {
-			dispatch(addMedicalAmount(form));
-		}
+	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = () => {
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<MedicalAmountForm>["onFinishFailed"] = (
@@ -96,6 +99,23 @@ const Form = (params: MedicalAmountFormPageProps) => {
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.MEDICAL_AMOUNT.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateMedicalAmount(form));
+					} else {
+						dispatch(addMedicalAmount(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
 
@@ -229,7 +249,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 								/>
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
-								<BaseItemInput
+								<BaseItemTextArea
 									disabled={_.isEmpty(write)}
 									label="Notice"
 									itemName="notice"

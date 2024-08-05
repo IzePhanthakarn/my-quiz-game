@@ -16,7 +16,10 @@ import {
 	OrganSystemWpi,
 	OrganSystemWpiForm,
 } from "@/modules/organ-system-wpi/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchOrganList =
 	(organ: OrganSystemWpi) => async (dispatch: AppDispatch) => {
@@ -42,7 +45,8 @@ export const fetchOrganList =
 export const addOrganSystemWpi =
 	(form: OrganSystemWpiForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addOrganSystemWpiAPI(form));
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
@@ -54,7 +58,7 @@ export const initOrganSystemWpiDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getOrganSystemWpiDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setOrganSystemWpiForm(response.payload));
@@ -70,7 +74,8 @@ export const updateOrganSystemWpi =
 				body: organSystemWpiDetail,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));

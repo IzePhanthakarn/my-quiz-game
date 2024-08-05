@@ -1,84 +1,111 @@
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Thin v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Thin It v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-ThinItalic.ttf') format('truetype');
   font-weight: 100;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Li v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Li It v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-LightItalic.ttf') format('truetype');
   font-weight: 300;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X It v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Med v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Med It v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-MediumItalic.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
 }
 
+@font-face {
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Bd v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Bd It v3.2.ttf') format('truetype');
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Blk v3.2.ttf') format('truetype');
-  font-weight: 900;
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Helvethaica';
-  src: url('/med/fonts/DB Helvethaica X Blk It v3.2.ttf') format('truetype');
-  font-weight: 900;
+  font-family: "Sarabun", sans-serif;
+  src: url('/med/fonts/Sarabun-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
   font-style: italic;
 }

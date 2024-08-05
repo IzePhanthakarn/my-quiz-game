@@ -16,7 +16,10 @@ import {
 	CourseCertificateForm,
 	GetCourseCertificateList,
 } from "@/modules/course-certificate/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCertificate) => async (dispatch: AppDispatch) => {
@@ -42,7 +45,8 @@ export const fetchCourseList =
 export const addCourseCertificate =
 	(form: CourseCertificateForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addCourseCertificateAPI(form));
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
@@ -54,7 +58,7 @@ export const initGetCourseCertificateDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getCourseCertificateDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setCourseCertificateForm(response.payload));
@@ -69,7 +73,8 @@ export const updateCourseCertificate =
 				body: clinicDetail,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));

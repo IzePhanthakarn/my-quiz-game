@@ -36,7 +36,7 @@ export default function CourseManipulate() {
 	return (
 		<div>
 			<MasterDataLayout
-				AddLabel="เพิ่มคอร์ส"
+				AddLabel="เพิ่ม Course Category"
 				Header="Course"
 				TotalItems={course.grid.page.totalData}
 				SearchButtonFunction={() => {}}

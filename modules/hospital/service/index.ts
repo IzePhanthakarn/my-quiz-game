@@ -13,7 +13,10 @@ import {
 	HospitalForm,
 	GetHospitalList,
 } from "@/modules/hospital/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -53,6 +56,7 @@ export const fetchHospitalList =
 export const addHospital =
 	(form: HospitalForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addHospitalAPI(form));
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
@@ -65,7 +69,7 @@ export const initGetHospitalDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getHospitalDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setHospitalForm(response.payload));
@@ -80,6 +84,7 @@ export const updateHospital =
 				body: form,
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
