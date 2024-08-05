@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
 import NavBar from "@/components/NavBar";
@@ -10,23 +10,19 @@ import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../components/Loading/redux";
-import BaseBreadCrumb from "wcf-component-lib/src/components/BaseBreadCrumb";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
 import { usePathname } from "next/navigation";
-import { pathMapping } from "@/constants/path-mapping";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
-import type { NotificationArgsProps } from "wcf-component-lib/node_modules/antd";
-import notification from "wcf-component-lib/node_modules/antd/es/notification";
-import { openNotification } from "@/utils";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
+import { setToast } from "@/redux/slices/toast";
+import { modelToastNotification } from "@/redux/slices/toast/model";
 
 type Props = {
 	children: ReactNode;
 };
-
-type NotificationPlacement = NotificationArgsProps["placement"];
 
 const MainWrapper: React.FC<Props> = (props) => {
 	const pathname = usePathname();
@@ -44,24 +40,24 @@ const MainWrapper: React.FC<Props> = (props) => {
 		shallowEqual
 	);
 
-	const [content, contextHolder] = notification.useNotification({
-		duration: 3,
-		showProgress: true,
-	});
+	// const [content, contextHolder] = notification.useNotification({
+	// 	duration: 3,
+	// 	showProgress: true,
+	// });
 
-	useEffect(() => {
-		if (toast.isOpen) {
-			dispatch(
-				openNotification({
-					content: content,
-					placement: toast.placement,
-					message: toast.message,
-					description: toast.description,
-					type: toast.type,
-				})
-			);
-		}
-	}, [toast.isOpen]);
+	// useEffect(() => {
+	// 	if (toast.isOpen) {
+	// 		dispatch(
+	// 			openNotification({
+	// 				content: content,
+	// 				placement: toast.placement,
+	// 				message: toast.message,
+	// 				description: toast.description,
+	// 				type: toast.type,
+	// 			})
+	// 		);
+	// 	}
+	// }, [toast.isOpen]);
 
 	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -93,7 +89,12 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	return (
 		<div className="h-screen">
-			{contextHolder}
+			<BaseToastNotification
+				{...toast}
+				onClick={() => console.log("click")}
+				onClose={() => console.log("close")}
+				setDefault={() => dispatch(setToast(modelToastNotification))}
+			/>
 			<NavBar />
 			<BaseRow className="h-full">
 				<SideBar />
