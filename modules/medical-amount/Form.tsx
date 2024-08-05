@@ -14,8 +14,12 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { IsActive } from "@/constants/constants";
 import { setMedicalAmountForm } from "./redux";
 import { MedicalAmountForm, modelMedicalAmount } from "./redux/model";
@@ -39,9 +43,10 @@ const Form = (params: MedicalAmountFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.medicalAmount.form,
 		}),
 		shallowEqual
@@ -61,11 +66,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = (values) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateMedicalAmount(form));
-		} else {
-			dispatch(addMedicalAmount(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<MedicalAmountForm>["onFinishFailed"] = (
@@ -96,6 +97,23 @@ const Form = (params: MedicalAmountFormPageProps) => {
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.MEDICAL_AMOUNT.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateMedicalAmount(form));
+					} else {
+						dispatch(addMedicalAmount(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
 				}}
 			/>
 

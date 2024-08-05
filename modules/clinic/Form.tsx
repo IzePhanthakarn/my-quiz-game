@@ -6,9 +6,9 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
-import { IsActive } from "../../constants/constants";
+import { IsActive } from "@/constants/constants";
 import _ from "lodash";
-import { LINKS } from "../../constants/links";
+import { LINKS } from "@/constants/links";
 import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
@@ -21,17 +21,22 @@ import {
 } from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "../../redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, isOpen } = useSelector(
+	const { clinicDetail, isOpen, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			isOpen: state.dialog.isOpen,
 		}),
 		shallowEqual
@@ -53,11 +58,7 @@ const Form = (params: UuidFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<ClinicDetail>["onFinish"] = () => {
-		if (_.isEmpty(params.params.uuid)) {
-			dispatch(addClinic(clinicDetail));
-		} else {
-			dispatch(updateClinic(clinicDetail));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (_) => {};
@@ -88,6 +89,23 @@ const Form = (params: UuidFormPageProps) => {
 				}}
 				onConfirm={() => {
 					router.push(LINKS.CLINIC.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (_.isEmpty(params.params.uuid)) {
+						dispatch(addClinic(clinicDetail));
+					} else {
+						dispatch(updateClinic(clinicDetail));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
 				}}
 			/>
 

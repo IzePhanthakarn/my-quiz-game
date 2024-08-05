@@ -14,7 +14,10 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setCourseCertificateForm } from "./redux";
@@ -25,15 +28,17 @@ import {
 	initGetCourseCertificateDetail,
 	updateCourseCertificate,
 } from "./service";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: CourseCertificateFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.courseCertificate.form,
 		}),
 		shallowEqual
@@ -53,11 +58,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<CourseCertificateForm>["onFinish"] = (values) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateCourseCertificate(form));
-		} else {
-			dispatch(addCourseCertificate(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<CourseCertificateForm>["onFinishFailed"] = (
@@ -88,6 +89,23 @@ const Form = (params: CourseCertificateFormPageProps) => {
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.CATEGORY_CERTIFICATE.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateCourseCertificate(form));
+					} else {
+						dispatch(addCourseCertificate(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
 				}}
 			/>
 

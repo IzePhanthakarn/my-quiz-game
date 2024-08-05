@@ -16,7 +16,10 @@ import {
 	LtPropertiesForm,
 	GetLtPropertiesList,
 } from "@/modules/lt-properties/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchLtPropertiesList =
 	(course: LtProperties) => async (dispatch: AppDispatch) => {
@@ -56,6 +59,7 @@ export const addLtProperties =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -83,5 +87,6 @@ export const updateLtProperties =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

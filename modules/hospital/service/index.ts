@@ -13,7 +13,10 @@ import {
 	HospitalForm,
 	GetHospitalList,
 } from "@/modules/hospital/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -57,6 +60,7 @@ export const addHospital =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -84,5 +88,6 @@ export const updateHospital =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

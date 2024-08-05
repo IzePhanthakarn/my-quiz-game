@@ -16,7 +16,10 @@ import {
 	CourseOrganSystemGroupForm,
 	GetCourseOrganSystemGroupList,
 } from "@/modules/course-organ-system-group/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseOrganSystemGroup) => async (dispatch: AppDispatch) => {
@@ -46,6 +49,7 @@ export const addCourseOrganSystemGroup =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -77,5 +81,6 @@ export const updateCourseOrganSystemGroup =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

@@ -16,7 +16,10 @@ import {
 	OrganSystemWpi,
 	OrganSystemWpiForm,
 } from "@/modules/organ-system-wpi/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchOrganList =
 	(organ: OrganSystemWpi) => async (dispatch: AppDispatch) => {
@@ -46,6 +49,7 @@ export const addOrganSystemWpi =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -74,5 +78,6 @@ export const updateOrganSystemWpi =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

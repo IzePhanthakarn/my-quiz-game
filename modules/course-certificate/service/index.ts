@@ -16,7 +16,10 @@ import {
 	CourseCertificateForm,
 	GetCourseCertificateList,
 } from "@/modules/course-certificate/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCertificate) => async (dispatch: AppDispatch) => {
@@ -46,6 +49,7 @@ export const addCourseCertificate =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -73,5 +77,6 @@ export const updateCourseCertificate =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

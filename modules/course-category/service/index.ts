@@ -16,7 +16,10 @@ import {
 	CourseCategoryForm,
 	GetCourseCategoryList,
 } from "@/modules/course-category/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {
@@ -46,6 +49,7 @@ export const addCourseCategory =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -73,5 +77,6 @@ export const updateCourseCategory =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

@@ -14,7 +14,10 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setCourseOrganSystemGroupForm } from "./redux";
@@ -28,15 +31,17 @@ import {
 	initGetCourseOrganSystemGroupDetail,
 	updateCourseOrganSystemGroup,
 } from "./service";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.courseOrganSystemGroup.form,
 		}),
 		shallowEqual
@@ -60,11 +65,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const onFinish: FormProps<CourseOrganSystemGroupForm>["onFinish"] = (
 		_values
 	) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateCourseOrganSystemGroup(form));
-		} else {
-			dispatch(addCourseOrganSystemGroup(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<CourseOrganSystemGroupForm>["onFinishFailed"] =
@@ -94,6 +95,23 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateCourseOrganSystemGroup(form));
+					} else {
+						dispatch(addCourseOrganSystemGroup(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
 				}}
 			/>
 

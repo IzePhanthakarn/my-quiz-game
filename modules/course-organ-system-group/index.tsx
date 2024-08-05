@@ -36,7 +36,7 @@ export default function CourseOrganSystemGroup() {
 	return (
 		<div>
 			<MasterDataLayout
-				AddLabel="เพิ่มคอร์ส"
+				AddLabel="เพิ่ม Course organ system group"
 				Header="Course"
 				TotalItems={courseOrganSystemGroup.grid.page.totalData}
 				SearchButtonFunction={() => {}}

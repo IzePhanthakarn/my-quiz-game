@@ -16,7 +16,10 @@ import {
 	MedicalAmountForm,
 	GetMedicalAmountList,
 } from "@/modules/medical-amount/redux/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 
 export const fetchMedicalAmountList =
 	(course: MedicalAmount) => async (dispatch: AppDispatch) => {
@@ -56,6 +59,7 @@ export const addMedicalAmount =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -83,5 +87,6 @@ export const updateMedicalAmount =
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
+			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

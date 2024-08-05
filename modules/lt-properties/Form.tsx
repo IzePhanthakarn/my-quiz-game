@@ -14,7 +14,10 @@ import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
+import {
+	setIsOpenBaseConfirmDialog,
+	setIsOpenDialog,
+} from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "@/constants/constants";
 import { setLtPropertiesForm } from "./redux";
@@ -38,6 +41,7 @@ import {
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -46,9 +50,10 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.ltProperties.form,
 		}),
 		shallowEqual
@@ -68,11 +73,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<LtPropertiesForm>["onFinish"] = (values) => {
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateLtProperties(form));
-		} else {
-			dispatch(addLtProperties(form));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<LtPropertiesForm>["onFinishFailed"] = (
@@ -103,6 +104,23 @@ const Form = (params: LtPropertiesFormPageProps) => {
 				setIsOpen={(value) => {
 					dispatch(setIsOpenDialog(value));
 					router.push(LINKS.LT_PROPERTIES.link);
+				}}
+			/>
+
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(updateLtProperties(form));
+					} else {
+						dispatch(addLtProperties(form));
+					}
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenDialog(false));
 				}}
 			/>
 
