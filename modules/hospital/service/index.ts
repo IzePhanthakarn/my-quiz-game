@@ -56,11 +56,11 @@ export const fetchHospitalList =
 export const addHospital =
 	(form: HospitalForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addHospitalAPI(form));
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -69,7 +69,7 @@ export const initGetHospitalDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getHospitalDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setHospitalForm(response.payload));
@@ -84,10 +84,10 @@ export const updateHospital =
 				body: form,
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

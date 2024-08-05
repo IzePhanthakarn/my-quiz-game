@@ -45,11 +45,11 @@ export const fetchCourseList =
 export const addCourseCategory =
 	(form: CourseCategoryForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addCourseCategoryList(form));
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -58,7 +58,7 @@ export const initGetCourseCategoryDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getCourseCategoryDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setCourseCategoryForm(response.payload));
@@ -73,10 +73,10 @@ export const updateCourseCategory =
 				body: clinicDetail,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

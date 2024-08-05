@@ -102,10 +102,10 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					}
 				}}
 				cancelFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 				closeFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
 

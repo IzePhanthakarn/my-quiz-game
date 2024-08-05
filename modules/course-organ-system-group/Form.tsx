@@ -108,10 +108,10 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 					}
 				}}
 				cancelFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 				closeFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
 

@@ -30,6 +30,8 @@ import {
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 import dayjs from "dayjs";
@@ -110,10 +112,10 @@ const Form = (params: MedicalAmountFormPageProps) => {
 					}
 				}}
 				cancelFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 				closeFunction={() => {
-					dispatch(setIsOpenDialog(false));
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
 
@@ -247,7 +249,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 								/>
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
-								<BaseItemInput
+								<BaseItemTextArea
 									disabled={_.isEmpty(write)}
 									label="Notice"
 									itemName="notice"

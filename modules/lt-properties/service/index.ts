@@ -55,11 +55,11 @@ export const fetchLtPropertiesList =
 export const addLtProperties =
 	(form: LtPropertiesForm) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(addLtPropertiesAPI(form));
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -68,7 +68,7 @@ export const initGetLtPropertiesDetail =
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(getLtPropertiesDetail(`${uuid}`));
-			if (_.get(response.payload, "error.message") === "Rejected") {
+			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(setLtPropertiesForm(response.payload));
@@ -83,10 +83,10 @@ export const updateLtProperties =
 				body: clinicDetail,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};

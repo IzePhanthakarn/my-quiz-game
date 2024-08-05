@@ -129,11 +129,11 @@ export const addClinic =
 				isActive: clinicDetail.isActive,
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
 
@@ -169,10 +169,10 @@ export const updateClinic =
 				},
 			})
 		);
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			dispatch(setIsOpenDialog(true));
-			dispatch(setIsOpenBaseConfirmDialog(false));
 		}
 	};
