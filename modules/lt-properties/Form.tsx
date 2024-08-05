@@ -42,6 +42,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -152,83 +153,91 @@ const Form = (params: LtPropertiesFormPageProps) => {
 						router.push(LINKS.LT_PROPERTIES.link);
 					}}
 					inputs={
-						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={groupNameName}
-								itemName="groupName"
-								rules={ltPropertiesRules.groupNameSchema}
-								value={form.groupName}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											groupName: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={propertyCodeName}
-								itemName="propertyCode"
-								rules={ltPropertiesRules.propertyCodeSchema}
-								value={form.propertyCode}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											propertyCode: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={propertyTextName}
-								itemName="propertyText"
-								rules={ltPropertiesRules.propertyTextSchema}
-								value={form.propertyText}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											propertyText: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={sortingOrderName}
-								itemName="sortingOrder"
-								rules={ltPropertiesRules.sortingOrderSchema}
-								value={form.sortingOrder}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											sortingOrder: parseInt(e.target.value),
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label={descriptionName}
-								itemName="description"
-								rules={ltPropertiesRules.descriptionSchema}
-								value={form.description}
-								onChangeFunction={(e) => {
-									dispatch(
-										setLtPropertiesForm({
-											...form,
-											description: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
+						<>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={groupNameName}
+									itemName="groupName"
+									rules={ltPropertiesRules.groupNameSchema}
+									value={form.groupName}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												groupName: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={propertyCodeName}
+									itemName="propertyCode"
+									rules={ltPropertiesRules.propertyCodeSchema}
+									value={form.propertyCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												propertyCode: e.target.value,
+											})
+										);
+									}}
+								/>
+
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={sortingOrderName}
+									itemName="sortingOrder"
+									rules={ltPropertiesRules.sortingOrderSchema}
+									value={form.sortingOrder}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												sortingOrder: parseInt(e.target.value),
+											})
+										);
+									}}
+								/>
+							</div>
+
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label={propertyTextName}
+									itemName="propertyText"
+									rules={ltPropertiesRules.propertyTextSchema}
+									value={form.propertyText}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												propertyText: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label={descriptionName}
+									itemName="description"
+									rules={ltPropertiesRules.descriptionSchema}
+									value={form.description}
+									onChangeFunction={(e) => {
+										dispatch(
+											setLtPropertiesForm({
+												...form,
+												description: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+						</>
 					}
 				/>
 			)}

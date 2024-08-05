@@ -29,6 +29,7 @@ import {
 	updateCourseCategory,
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -130,113 +131,123 @@ const Form = (params: CourseCategoryFormPageProps) => {
 						router.push(LINKS.CATEGORY_COURSE.link);
 					}}
 					inputs={
-						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Category Description"
-								itemName="categoryDescription"
-								rules={courseCategoryRules.categoryDescriptionSchema}
-								value={form.categoryDescription}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											categoryDescription: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Category SubDesc"
-								itemName="categorySubDesc"
-								rules={courseCategoryRules.categorySubDescSchema}
-								value={form.categorySubDesc}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											categorySubDesc: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="CourseCategory Category"
-								itemName="courseCategory"
-								rules={courseCategoryRules.courseCategorySchema}
-								value={form.courseCategory}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											courseCategory: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Format Code"
-								itemName="formatCode"
-								rules={courseCategoryRules.formatCodeSchema}
-								value={form.formatCode}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											formatCode: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organize Group Code"
-								itemName="organizeGroupCode"
-								rules={courseCategoryRules.organizeGroupCodeSchema}
-								value={form.organizeGroupCode}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											organizeGroupCode: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organize Sub Group Code"
-								itemName="organizeSubGroupCode"
-								rules={courseCategoryRules.organizeSubGroupCodeSchema}
-								value={form.organizeSubGroupCode}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											organizeSubGroupCode: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Situation"
-								itemName="situation"
-								rules={courseCategoryRules.situationSchema}
-								value={form.situation}
-								onChangeFunction={(e) => {
-									dispatch(
-										setCourseCategoryForm({
-											...form,
-											situation: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
+						<>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="CourseCategory Category"
+									itemName="courseCategory"
+									rules={courseCategoryRules.courseCategorySchema}
+									value={form.courseCategory}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												courseCategory: e.target.value,
+											})
+										);
+									}}
+								/>
+
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="Organize Group Code"
+									itemName="organizeGroupCode"
+									rules={courseCategoryRules.organizeGroupCodeSchema}
+									value={form.organizeGroupCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												organizeGroupCode: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="Organize Sub Group Code"
+									itemName="organizeSubGroupCode"
+									rules={courseCategoryRules.organizeSubGroupCodeSchema}
+									value={form.organizeSubGroupCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												organizeSubGroupCode: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="Situation"
+									itemName="situation"
+									rules={courseCategoryRules.situationSchema}
+									value={form.situation}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												situation: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label="Category Description"
+									itemName="categoryDescription"
+									rules={courseCategoryRules.categoryDescriptionSchema}
+									value={form.categoryDescription}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												categoryDescription: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label="Category SubDesc"
+									itemName="categorySubDesc"
+									rules={courseCategoryRules.categorySubDescSchema}
+									value={form.categorySubDesc}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												categorySubDesc: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label="Format Code"
+									itemName="formatCode"
+									rules={courseCategoryRules.formatCodeSchema}
+									value={form.formatCode}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryForm({
+												...form,
+												formatCode: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+						</>
 					}
 				/>
 			)}

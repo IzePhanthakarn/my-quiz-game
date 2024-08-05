@@ -29,6 +29,7 @@ import {
 	updateOrganSystemWpi,
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -130,38 +131,42 @@ const Form = (params: CourseCategoryFormPageProps) => {
 						router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 					}}
 					inputs={
-						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Description"
-								itemName="description"
-								rules={organSystemWpiFormRules.description}
-								value={form.description}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiForm({
-											...form,
-											description: e.target.value,
-										})
-									);
-								}}
-							/>
-							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organ System No"
-								itemName="organSystemNo"
-								rules={organSystemWpiFormRules.organSystemNo}
-								value={form.organSystemNo}
-								onChangeFunction={(e) => {
-									dispatch(
-										setOrganSystemWpiForm({
-											...form,
-											organSystemNo: e.target.value,
-										})
-									);
-								}}
-							/>
-						</div>
+						<>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+								<BaseItemInput
+									disabled={_.isEmpty(write)}
+									label="Organ System No"
+									itemName="organSystemNo"
+									rules={organSystemWpiFormRules.organSystemNo}
+									value={form.organSystemNo}
+									onChangeFunction={(e) => {
+										dispatch(
+											setOrganSystemWpiForm({
+												...form,
+												organSystemNo: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+								<BaseItemTextArea
+									disabled={_.isEmpty(write)}
+									label="Description"
+									itemName="description"
+									rules={organSystemWpiFormRules.description}
+									value={form.description}
+									onChangeFunction={(e) => {
+										dispatch(
+											setOrganSystemWpiForm({
+												...form,
+												description: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
+						</>
 					}
 				/>
 			)}
