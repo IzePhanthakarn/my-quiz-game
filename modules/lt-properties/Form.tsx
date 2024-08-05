@@ -73,7 +73,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<LtPropertiesForm>["onFinish"] = (values) => {
+	const onFinish: FormProps<LtPropertiesForm>["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 

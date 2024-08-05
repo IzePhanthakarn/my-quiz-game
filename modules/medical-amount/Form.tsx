@@ -67,7 +67,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = (values) => {
+	const onFinish: FormProps<MedicalAmountForm>["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
