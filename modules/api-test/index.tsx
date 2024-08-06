@@ -1,36 +1,62 @@
 "use client";
 
-import { AppDispatch } from "@/redux/config/configStore";
-import { SliceModel } from "@/redux/slices/model";
 import React from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import TestApi from "wcf-component-lib/src/components/TestApi";
-import { getClinicList } from "../clinic/service";
+import BaseThaiAddress from "wcf-component-lib/src/components/BaseThaiAddress";
 
 export default function Api() {
-	const dispatch: AppDispatch = useDispatch();
-	const { page, filter } = useSelector(
-		(state: SliceModel) => ({
-			page: state.clinic.grid.page,
-			filter: state.clinic.clinicFilter,
-		}),
-		shallowEqual
-	);
+	const modelAddress: Address = {
+		id: "",
+		zipcode: "",
+		tambons_id: "",
+		tambons_name: "",
+		amphure_id: "",
+		amphure_name: "",
+		province_id: "",
+		province_name: "",
+	};
 
+	interface Address {
+		id: string;
+		zipcode: string;
+		tambons_id: string;
+		tambons_name: string;
+		amphure_id: string;
+		amphure_name: string;
+		province_id: string;
+		province_name: string;
+		[key: string]: string;
+	}
+	const [value, setValue] = React.useState<Address>(modelAddress);
 	return (
-		<TestApi
-			label={"asd"}
-			onClick={() => console.log("asd")}
-			apiTest={() =>
-				dispatch(
-					getClinicList({
-						pagination: { ...page },
-						clinicCodeLike: filter.clinicCodeLike,
-						clinicNameLike: filter.clinicNameLike,
-						isActive: filter.isActive,
-					})
-				)
-			}
-		/>
+		<>
+			<BaseThaiAddress
+				label="ตำบล"
+				address={value}
+				setAddress={setValue}
+				type="tambons_name"
+				className="w-[400px]"
+			/>
+			<BaseThaiAddress
+				label="อำเภอ"
+				address={value}
+				setAddress={setValue}
+				type="amphure_name"
+				className="w-[400px]"
+			/>
+			<BaseThaiAddress
+				label="จังหวัด"
+				address={value}
+				setAddress={setValue}
+				type="province_name"
+				className="w-[400px]"
+			/>
+			<BaseThaiAddress
+				label="รหัสไปรษณีย์"
+				address={value}
+				setAddress={setValue}
+				type="zipcode"
+				className="w-[400px]"
+			/>
+		</>
 	);
 }

@@ -5,6 +5,7 @@ import { BUTTON_MODE } from "./model";
 import Button from "wcf-component-lib/node_modules/antd/es/button";
 import { useRouter } from "next/navigation";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
+import EditFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/EditFilled";
 
 interface Props {
 	mode: BUTTON_MODE;
@@ -44,12 +45,21 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 		return (
 			<BaseRow className="items-center space-x-1">
 				{(write || read) && (
-					<Button
-						className="border-0 h-fit bg-transparent p-0"
+					<EditFilled
 						onClick={() => router.push(editLink ?? "")}
-					>
-						<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
-					</Button>
+						className="text-2xl p-2.5"
+						style={{
+							color: "#193f49",
+							backgroundColor: "#ededed",
+							borderRadius: "99%",
+						}}
+					/>
+					// <Button
+					// 	className="border-0 h-fit bg-[#A4B5B9] p-2.5 rounded-full"
+					// 	onClick={() => router.push(editLink ?? "")}
+					// >
+					// 	<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
+					// </Button>
 				)}
 			</BaseRow>
 		);
