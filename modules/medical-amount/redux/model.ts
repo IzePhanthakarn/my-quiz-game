@@ -4,9 +4,6 @@ import {
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-import { DateFormat } from "../../../constants/date-format.constant";
-import dayjs from "dayjs";
-import { getCurrentDateString } from "../../../utils";
 
 export interface MedicalAmount {
 	grid: MedicalAmountGrid;

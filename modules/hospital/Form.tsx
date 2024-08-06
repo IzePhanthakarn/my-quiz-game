@@ -13,7 +13,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions, openNotification } from "@/utils";
+import { findScope, getScopesPermissions } from "@/utils";
 import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
@@ -25,16 +25,7 @@ import { HospitalForm, modelHospital } from "./redux/model";
 import { addHospital, initGetHospitalDetail, updateHospital } from "./service";
 import { names, rules } from "./field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-
-import dayjs from "dayjs";
-import weekday from "dayjs/plugin/weekday";
-import localeData from "dayjs/plugin/localeData";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
-
-import { setIsLoading } from "../../components/Loading/redux";
-dayjs.extend(weekday);
-dayjs.extend(localeData);
 
 const Form = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -83,16 +74,6 @@ const Form = (params: HospitalFormPageProps) => {
 
 	const resourceScopes = findScope(scopes, "resource:");
 	const { write } = getScopesPermissions(resourceScopes);
-	// dispatch(setIsLoading(true));
-	// dispatch(
-	// 	openNotification({
-	// 		content: "content",
-	// 		placement: toast.placement,
-	// 		message: toast.message,
-	// 		description: toast.description,
-	// 		type: toast.type,
-	// 	})
-	// );
 	return (
 		<>
 			<BaseDialog
@@ -129,68 +110,72 @@ const Form = (params: HospitalFormPageProps) => {
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,
-						contractStartDate: !_.isEmpty(form.contractStartDate)
-							? dayjs(form.contractStartDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.contractStartDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						contractEndDate: !_.isEmpty(form.contractEndDate)
-							? dayjs(form.contractEndDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.contractEndDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						sp7StartDate: !_.isEmpty(form.sp7StartDate)
-							? dayjs(form.sp7StartDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.sp7StartDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						sp7EndDate: !_.isEmpty(form.sp7EndDate)
-							? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						sp19StartDate: !_.isEmpty(form.sp19StartDate)
-							? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						sp19EndDate: !_.isEmpty(form.sp19EndDate)
-							? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						levelChangeDate: !_.isEmpty(form.levelChangeDate)
-							? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						hospitalChangeNameDate: !_.isEmpty(form.hospitalChangeNameDate)
-							? dayjs(
-									form.hospitalChangeNameDate,
-									DateFormat.YYYYMMDD
-							  ).isValid()
-								? dayjs(form.hospitalChangeNameDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						hospitalListBoiStartDate: !_.isEmpty(form.hospitalListBoiStartDate)
-							? dayjs(
-									form.hospitalListBoiStartDate,
-									DateFormat.YYYYMMDD
-							  ).isValid()
-								? dayjs(form.hospitalListBoiStartDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
+						// contractStartDate: !_.isEmpty(form.contractStartDate)
+						// 	? dayjs(form.contractStartDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(
+						// 				dayjs(form.contractStartDate, DateFormat.DDMMYYYY)
+						// 					.format(DateFormat.YYYYMMDD)
+						// 					.toString() + "00:00:00"
+						// 		  )
+						// 		: undefined
+						// 	: undefined,
+						// contractEndDate: !_.isEmpty(form.contractEndDate)
+						// 	? dayjs(form.contractEndDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.contractEndDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// sp7StartDate: !_.isEmpty(form.sp7StartDate)
+						// 	? dayjs(form.sp7StartDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.sp7StartDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// sp7EndDate: !_.isEmpty(form.sp7EndDate)
+						// 	? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// sp19StartDate: !_.isEmpty(form.sp19StartDate)
+						// 	? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// sp19EndDate: !_.isEmpty(form.sp19EndDate)
+						// 	? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// levelChangeDate: !_.isEmpty(form.levelChangeDate)
+						// 	? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// hospitalChangeNameDate: !_.isEmpty(form.hospitalChangeNameDate)
+						// 	? dayjs(
+						// 			form.hospitalChangeNameDate,
+						// 			DateFormat.YYYYMMDD
+						// 	  ).isValid()
+						// 		? dayjs(form.hospitalChangeNameDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// hospitalListBoiStartDate: !_.isEmpty(form.hospitalListBoiStartDate)
+						// 	? dayjs(
+						// 			form.hospitalListBoiStartDate,
+						// 			DateFormat.YYYYMMDD
+						// 	  ).isValid()
+						// 		? dayjs(form.hospitalListBoiStartDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
 
-						hospitalListBoiExpireDate: !_.isEmpty(
-							form.hospitalListBoiExpireDate
-						)
-							? dayjs(
-									form.hospitalListBoiExpireDate,
-									DateFormat.YYYYMMDD
-							  ).isValid()
-								? dayjs(form.hospitalListBoiExpireDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
+						// hospitalListBoiExpireDate: !_.isEmpty(
+						// 	form.hospitalListBoiExpireDate
+						// )
+						// 	? dayjs(
+						// 			form.hospitalListBoiExpireDate,
+						// 			DateFormat.YYYYMMDD
+						// 	  ).isValid()
+						// 		? dayjs(form.hospitalListBoiExpireDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
 					}}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
