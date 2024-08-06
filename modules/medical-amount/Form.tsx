@@ -15,7 +15,7 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setMedicalAmountForm } from "./redux";
 import { MedicalAmountForm, modelMedicalAmount } from "./redux/model";
 import {

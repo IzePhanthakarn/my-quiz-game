@@ -1,21 +1,8 @@
-import { IsActive } from "@/constants/constants";
 import { DiplomaForm } from "../model";
+import { baseMasterDataModel } from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
-export interface DiplomaDetail extends DiplomaForm {
-	createdBy: string;
-	createdDate: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-}
-
-export const modelDiaplomaDetail: DiplomaDetail = {
+export const modelDiaplomaDetail: DiplomaForm = {
+	...baseMasterDataModel,
 	diplomaType: "",
 	diplomaName: "",
-	createdBy: "",
-	createdDate: "",
-	isActive: IsActive.Y,
-	updatedBy: "",
-	updatedDate: "",
-	uuid: "",
 };

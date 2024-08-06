@@ -1,4 +1,4 @@
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { NameFilter } from "@/utils/model";
 
 export interface DoctorFilter extends NameFilter {

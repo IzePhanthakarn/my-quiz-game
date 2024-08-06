@@ -1,9 +1,12 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface LtProperties {
 	grid: LtPropertiesGrid;
 	filter: LtPropertiesFilter;
@@ -49,19 +52,12 @@ export interface LtPropertiesFilter {
 export interface GetLtPropertiesList extends LtPropertiesFilter {
 	pagination: PaginationOptions;
 }
-export interface LtPropertiesForm {
+export interface LtPropertiesForm extends BaseMasterDataInterface {
 	propertyCode: string;
 	groupName: string;
 	propertyText: string;
 	sortingOrder: number;
 	description: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: IsActive;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export const modelLtProperties: LtProperties = {
@@ -90,17 +86,11 @@ export const modelLtProperties: LtProperties = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		propertyCode: "",
 		groupName: "",
 		propertyText: "",
 		sortingOrder: 0,
 		description: "",
-
-		createdBy: "",
-		createdDate: "",
-		isActive: IsActive.Y,
-		updatedBy: "",
-		updatedDate: "",
-		uuid: "",
 	},
 };

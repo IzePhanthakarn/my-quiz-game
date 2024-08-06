@@ -1,10 +1,13 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface MedicalAmount {
 	grid: MedicalAmountGrid;
 	filter: MedicalAmountFilter;
@@ -53,20 +56,13 @@ export interface MedicalAmountFilter {
 export interface GetMedicalAmountList extends MedicalAmountFilter {
 	pagination: PaginationOptions;
 }
-export interface MedicalAmountForm {
+export interface MedicalAmountForm extends BaseMasterDataInterface {
 	amount: string;
 	fareAmount: string;
 	amountLimit: string;
 	startEffectiveDate: null | string | undefined;
 	endEffectiveDate: null | string | undefined;
 	notice: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: IsActive;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export const modelMedicalAmount: MedicalAmount = {
@@ -94,18 +90,12 @@ export const modelMedicalAmount: MedicalAmount = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		amount: "0",
 		fareAmount: "0",
 		amountLimit: "0",
 		startEffectiveDate: undefined,
 		endEffectiveDate: undefined,
 		notice: "",
-
-		createdBy: "",
-		createdDate: "",
-		isActive: IsActive.Y,
-		updatedBy: "",
-		updatedDate: "",
-		uuid: "",
 	},
 };

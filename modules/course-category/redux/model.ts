@@ -1,9 +1,14 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
+
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
 export interface CourseCategory {
 	grid: CourseCategoryGrid;
@@ -35,7 +40,7 @@ export interface CourseCategoryFilter {
 export interface GetCourseCategoryList extends CourseCategoryFilter {
 	pagination: PaginationOptions;
 }
-export interface CourseCategoryForm {
+export interface CourseCategoryForm extends BaseMasterDataInterface {
 	categoryDescription: string;
 	categorySubDesc: string;
 	courseCategory: string;
@@ -43,13 +48,6 @@ export interface CourseCategoryForm {
 	organizeGroupCode: string;
 	organizeSubGroupCode: string;
 	situation: string;
-
-	// createdBy: string;
-	// createdDate: string;
-	isActive: string;
-	// updatedBy: string;
-	// updatedDate: string;
-	uuid: string;
 }
 
 export const modelCourseCategory: CourseCategory = {
@@ -64,6 +62,7 @@ export const modelCourseCategory: CourseCategory = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		categoryDescription: "",
 		categorySubDesc: "",
 		courseCategory: "",
@@ -71,11 +70,5 @@ export const modelCourseCategory: CourseCategory = {
 		organizeGroupCode: "",
 		organizeSubGroupCode: "",
 		situation: "",
-		// createdBy: "",
-		// createdDate: "",
-		isActive: IsActive.Y,
-		// updatedBy: "",
-		// updatedDate: "",
-		uuid: "",
 	},
 };

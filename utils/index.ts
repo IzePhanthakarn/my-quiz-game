@@ -1,4 +1,4 @@
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import dayjs from "dayjs";
 import _ from "lodash";
 import { ScopesPermissions } from "./model";

@@ -1,10 +1,13 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface CourseCertificate {
 	grid: CourseCertificateGrid;
 	filter: CourseCertificateFilter;
@@ -48,7 +51,7 @@ export interface GetCourseCertificateList extends CourseCertificateFilter {
 	pagination: PaginationOptions;
 }
 
-export interface CourseCertificateForm {
+export interface CourseCertificateForm extends BaseMasterDataInterface {
 	courseCategory: string;
 	ssoCourseCode: string;
 	courseDescription: string;
@@ -60,13 +63,6 @@ export interface CourseCertificateForm {
 	orderNo: string;
 	receiverPhoneNumber: string;
 	receiverAddress: string;
-
-	// createdBy: string;
-	// createdDate: string;
-	isActive: IsActive;
-	// updatedBy: string;
-	// updatedDate: string;
-	uuid: string;
 }
 
 export const modelCourseCertificate: CourseCertificate = {
@@ -87,6 +83,7 @@ export const modelCourseCertificate: CourseCertificate = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		courseCategory: "",
 		ssoCourseCode: "",
 		courseDescription: "",
@@ -98,11 +95,5 @@ export const modelCourseCertificate: CourseCertificate = {
 		orderNo: "",
 		receiverPhoneNumber: "",
 		receiverAddress: "",
-		// createdBy: "",
-		// createdDate: "",
-		isActive: IsActive.Y,
-		// updatedBy: "",
-		// updatedDate: "",
-		uuid: "",
 	},
 };

@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
 import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
@@ -14,7 +14,6 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import {
 	clinicCodeSchema,
 	clinicNameSchema,

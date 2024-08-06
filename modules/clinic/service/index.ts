@@ -10,7 +10,7 @@ import {
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
 import _ from "lodash";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";

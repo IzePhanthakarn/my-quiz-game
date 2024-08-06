@@ -10,13 +10,11 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
 import { addHospital, initGetHospitalDetail, updateHospital } from "./service";

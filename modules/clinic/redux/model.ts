@@ -1,7 +1,10 @@
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
-import { IsActive } from "../../../constants/constants";
 import { ClinicFilter, modelClinicFilter } from "./filter/model";
 import { ClinicGrid } from "./master/model";
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
 export interface Clinic {
 	grid: ClinicGrid;
@@ -10,16 +13,9 @@ export interface Clinic {
 }
 
 export const modelClinicDetail: ClinicDetail = {
+	...baseMasterDataModel,
 	clinicCode: "",
-	// clinicCodeError: "",
 	clinicName: "",
-	createdBy: "",
-	createdDate: "",
-	// isDeleted: IsDelete.N,
-	isActive: IsActive.Y,
-	updatedBy: "",
-	updatedDate: "",
-	uuid: "",
 };
 
 export const modelClinic: Clinic = {
@@ -30,15 +26,7 @@ export const modelClinic: Clinic = {
 	clinicDetail: modelClinicDetail,
 	clinicFilter: modelClinicFilter,
 };
-export interface ClinicDetail {
+export interface ClinicDetail extends BaseMasterDataInterface {
 	clinicCode: string;
-	// clinicCodeError: string;
 	clinicName: string;
-	createdBy: string;
-	createdDate: string;
-	// isDeleted: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }

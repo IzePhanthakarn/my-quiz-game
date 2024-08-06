@@ -8,7 +8,7 @@ import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseIt
 
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setLtPropertiesFilter } from "./redux";
-import { IsActive } from "../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 
 export default function FilterDrawer() {

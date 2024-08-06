@@ -3,8 +3,7 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setClinicFilter } from "./redux";
-import { IsActive } from "@/constants/constants";
-
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";

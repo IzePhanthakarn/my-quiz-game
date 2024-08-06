@@ -19,7 +19,7 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setCourseCertificateForm } from "./redux";
 import { CourseCertificateForm, modelCourseCertificate } from "./redux/model";
 import { courseCertificateRules } from "./field-validation/courseCategoryForm";

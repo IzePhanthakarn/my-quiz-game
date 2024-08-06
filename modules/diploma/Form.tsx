@@ -4,7 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { IsActive } from "../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import _ from "lodash";
 import { LINKS } from "../../constants/links";
 import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
