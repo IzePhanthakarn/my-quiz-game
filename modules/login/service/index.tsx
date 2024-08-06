@@ -50,6 +50,7 @@ export const getAccessToken =
 			setCookie("Bearer", await result.payload.access_token);
 			await dispatch(getPageAccess(params.username));
 		}
+		window.location.href = "/med/clinic";
 	};
 
 export const getPageAccess =
