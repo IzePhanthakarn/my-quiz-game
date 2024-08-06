@@ -13,7 +13,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
+import { findScope, getScopesPermissions, openNotification } from "@/utils";
 import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
@@ -31,10 +31,8 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
-import {
-	updateMedicalAmount,
-	addMedicalAmount,
-} from "../medical-amount/service";
+
+import { setIsLoading } from "../../components/Loading/redux";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -43,11 +41,12 @@ const Form = (params: HospitalFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { isOpen, form, isOpenBaseConfirmDialog, toast } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.hospital.form,
+			toast: state.toast,
 		}),
 		shallowEqual
 	);
@@ -84,7 +83,16 @@ const Form = (params: HospitalFormPageProps) => {
 
 	const resourceScopes = findScope(scopes, "resource:");
 	const { write } = getScopesPermissions(resourceScopes);
-
+	// dispatch(setIsLoading(true));
+	// dispatch(
+	// 	openNotification({
+	// 		content: "content",
+	// 		placement: toast.placement,
+	// 		message: toast.message,
+	// 		description: toast.description,
+	// 		type: toast.type,
+	// 	})
+	// );
 	return (
 		<>
 			<BaseDialog
@@ -484,6 +492,8 @@ const Form = (params: HospitalFormPageProps) => {
 										);
 									}}
 								/>
+							</div>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseDatePicker
 									label={names.contractStartDate}
 									itemName="contractStartDate"
@@ -568,6 +578,8 @@ const Form = (params: HospitalFormPageProps) => {
 										);
 									}}
 								/>
+							</div>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseDatePicker
 									label={names.levelChangeDate}
 									itemName="levelChangeDate"
@@ -658,6 +670,8 @@ const Form = (params: HospitalFormPageProps) => {
 										);
 									}}
 								/>
+							</div>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseDatePicker
 									label={names.hospitalChangeNameDate}
 									itemName="hospitalChangeNameDate"
