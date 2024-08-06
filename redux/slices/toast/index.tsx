@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ToastNotification, modelToastNotification } from "./model";
 import lodash from "lodash";
+import {
+	modelToastNotification,
+	ToastNotification,
+} from "wcf-component-lib/src/components/BaseToastNotification/model";
 
 export const toastSlice = createSlice({
 	name: "Toast",

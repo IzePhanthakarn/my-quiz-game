@@ -6,7 +6,6 @@ import { OrganSystemWpi } from "@/modules/organ-system-wpi/redux/model";
 import { CourseCategory } from "@/modules/course-category/redux/model";
 import { Login } from "@/modules/login/redux/model";
 import { BaseDrawer } from "./drawer/model";
-import { ToastNotification } from "./toast/model";
 import { BaseDialog } from "./dialog/model";
 import { CourseCertificate } from "@/modules/course-certificate/redux/model";
 import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redux/model";
@@ -15,6 +14,7 @@ import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
 import { Hospital } from "@/modules/hospital/redux/model";
 import { Doctor } from "@/modules/doctor/redux/model";
+import { ToastNotification } from "wcf-component-lib/src/components/BaseToastNotification/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;
