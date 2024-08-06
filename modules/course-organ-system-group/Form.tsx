@@ -38,9 +38,8 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.courseOrganSystemGroup.form,
 		}),
@@ -87,24 +86,13 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateCourseOrganSystemGroup(form));
+						dispatch(updateCourseOrganSystemGroup(form, router));
 					} else {
-						dispatch(addCourseOrganSystemGroup(form));
+						dispatch(addCourseOrganSystemGroup(form, router));
 					}
 				}}
 				cancelFunction={() => {

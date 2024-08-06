@@ -21,6 +21,14 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+
 export const fetchCourseList =
 	(course: CourseOrganSystemGroup) => async (dispatch: AppDispatch) => {
 		const body: GetCourseOrganSystemGroupList = {
@@ -43,13 +51,23 @@ export const fetchCourseList =
 	};
 
 export const addCourseOrganSystemGroup =
-	(form: CourseOrganSystemGroupForm) => async (dispatch: AppDispatch) => {
+	(form: CourseOrganSystemGroupForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(addCourseOrganSystemGroupAPI(form));
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 		}
 	};
 
@@ -69,18 +87,27 @@ export const initGetCourseOrganSystemGroupDetail =
 	};
 
 export const updateCourseOrganSystemGroup =
-	(clinicDetail: CourseOrganSystemGroupForm) =>
+	(form: CourseOrganSystemGroupForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateCourseOrganSystemGroupApi({
-				uuid: clinicDetail.uuid,
-				body: clinicDetail,
+				uuid: form.uuid,
+				body: form,
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 		}
 	};

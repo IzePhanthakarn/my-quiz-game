@@ -33,11 +33,10 @@ const Form = (params: UuidFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, isOpen, isOpenBaseConfirmDialog } = useSelector(
+	const { clinicDetail, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
-			isOpen: state.dialog.isOpen,
 		}),
 		shallowEqual
 	);
@@ -79,26 +78,13 @@ const Form = (params: UuidFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-				}}
-				onConfirm={() => {
-					router.push(LINKS.CLINIC.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (_.isEmpty(params.params.uuid)) {
-						dispatch(addClinic(clinicDetail));
+						dispatch(addClinic(clinicDetail, router));
 					} else {
-						dispatch(updateClinic(clinicDetail));
+						dispatch(updateClinic(clinicDetail, router));
 					}
 				}}
 				cancelFunction={() => {

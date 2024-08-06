@@ -70,7 +70,7 @@ export default function CourseManipulate() {
 						}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CATEGORY_COURSE.add)}
+				AddFunction={() => router.push(LINKS.COURSE_CATEGORY.add)}
 			/>
 		</div>
 	);

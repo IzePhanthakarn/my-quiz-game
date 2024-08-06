@@ -18,6 +18,14 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
 		const body: GetHospitalList = {
@@ -54,13 +62,23 @@ export const fetchHospitalList =
 	};
 
 export const addHospital =
-	(form: HospitalForm) => async (dispatch: AppDispatch) => {
+	(form: HospitalForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(addHospitalAPI(form));
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};
 
@@ -77,7 +95,8 @@ export const initGetHospitalDetail =
 	};
 
 export const updateHospital =
-	(form: HospitalForm) => async (dispatch: AppDispatch) => {
+	(form: HospitalForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalApi({
 				uuid: form.uuid,
@@ -88,6 +107,15 @@ export const updateHospital =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};

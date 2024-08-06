@@ -36,9 +36,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.courseCertificate.form,
 		}),
@@ -82,24 +81,13 @@ const Form = (params: CourseCertificateFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.CATEGORY_CERTIFICATE.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateCourseCertificate(form));
+						dispatch(updateCourseCertificate(form, router));
 					} else {
-						dispatch(addCourseCertificate(form));
+						dispatch(addCourseCertificate(form, router));
 					}
 				}}
 				cancelFunction={() => {
@@ -128,7 +116,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 						);
 					}}
 					cancelFunction={() => {
-						router.push(LINKS.CATEGORY_CERTIFICATE.link);
+						router.push(LINKS.COURSE_CERTIFICATE.link);
 					}}
 					inputs={
 						<>

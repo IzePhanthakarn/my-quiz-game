@@ -48,7 +48,7 @@ export const grid: TableProps["columns"] = [
 		dataIndex: "uuid",
 		render: (_, { uuid }) => (
 			<CustomCellButton
-				editLink={`${LINKS.CATEGORY_CERTIFICATE.edit}${uuid}`}
+				editLink={`${LINKS.COURSE_CERTIFICATE.edit}${uuid}`}
 				mode={BUTTON_MODE.VIEW_EDIT_ICON}
 			/>
 		),

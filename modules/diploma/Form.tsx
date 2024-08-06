@@ -11,11 +11,9 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenDialog } from "../../redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { DiplomaDetail, modelDiaplomaDetail } from "./redux/form/model";
 import { setDiplomaDetail } from "./redux";
 import {
@@ -27,16 +25,17 @@ import {
 	diplomaNameSchema,
 	diplomaTypeSchema,
 } from "./field-validation/diplomaForm";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { diplomaDetail, isOpen } = useSelector(
+	const { diplomaDetail, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			diplomaDetail: state.diploma.diplomaDetail,
-			isOpen: state.dialog.isOpen,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 		}),
 		shallowEqual
 	);
@@ -55,11 +54,7 @@ const Form = (params: UuidFormPageProps) => {
 	}, []);
 
 	const onFinish: FormProps<DiplomaDetail>["onFinish"] = () => {
-		if (_.isEmpty(params.params.uuid)) {
-			dispatch(addDiploma(diplomaDetail));
-		} else {
-			dispatch(updateDiploma(diplomaDetail));
-		}
+		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
 	const onFinishFailed: FormProps<DiplomaDetail>["onFinishFailed"] = (_) => {};
@@ -80,16 +75,20 @@ const Form = (params: UuidFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					if (_.isEmpty(params.params.uuid)) {
+						dispatch(addDiploma(diplomaDetail, router));
+					} else {
+						dispatch(updateDiploma(diplomaDetail, router));
+					}
 				}}
-				onConfirm={() => {
-					router.push(LINKS.DIPLOMA.link);
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
 
