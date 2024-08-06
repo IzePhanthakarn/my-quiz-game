@@ -21,6 +21,14 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+
 export const fetchOrganList =
 	(organ: OrganSystemWpi) => async (dispatch: AppDispatch) => {
 		const body: GetOrganSystemWpiList = {
@@ -43,13 +51,23 @@ export const fetchOrganList =
 	};
 
 export const addOrganSystemWpi =
-	(form: OrganSystemWpiForm) => async (dispatch: AppDispatch) => {
+	(form: OrganSystemWpiForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(addOrganSystemWpiAPI(form));
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 		}
 	};
 
@@ -66,7 +84,7 @@ export const initOrganSystemWpiDetail =
 	};
 
 export const updateOrganSystemWpi =
-	(organSystemWpiDetail: OrganSystemWpiForm) =>
+	(organSystemWpiDetail: OrganSystemWpiForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateOrganSystemWpiApi({
@@ -78,6 +96,15 @@ export const updateOrganSystemWpi =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 		}
 	};

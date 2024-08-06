@@ -19,7 +19,7 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setLtPropertiesForm } from "./redux";
 import { LtPropertiesForm, modelLtProperties } from "./redux/model";
 import {
@@ -51,9 +51,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.ltProperties.form,
 		}),
@@ -97,24 +96,13 @@ const Form = (params: LtPropertiesFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.LT_PROPERTIES.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateLtProperties(form));
+						dispatch(updateLtProperties(form, router));
 					} else {
-						dispatch(addLtProperties(form));
+						dispatch(addLtProperties(form, router));
 					}
 				}}
 				cancelFunction={() => {

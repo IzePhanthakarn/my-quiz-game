@@ -21,6 +21,14 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+
 export const fetchLtPropertiesList =
 	(course: LtProperties) => async (dispatch: AppDispatch) => {
 		const body: GetLtPropertiesList = {
@@ -53,13 +61,23 @@ export const fetchLtPropertiesList =
 	};
 
 export const addLtProperties =
-	(form: LtPropertiesForm) => async (dispatch: AppDispatch) => {
+	(form: LtPropertiesForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(addLtPropertiesAPI(form));
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.LT_PROPERTIES.link);
 		}
 	};
 
@@ -76,17 +94,27 @@ export const initGetLtPropertiesDetail =
 	};
 
 export const updateLtProperties =
-	(clinicDetail: LtPropertiesForm) => async (dispatch: AppDispatch) => {
+	(form: LtPropertiesForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateLtPropertiesApi({
-				uuid: clinicDetail.uuid,
-				body: clinicDetail,
+				uuid: form.uuid,
+				body: form,
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.LT_PROPERTIES.link);
 		}
 	};

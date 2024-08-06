@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addClinic, initGetClinicDetail, updateClinic } from "./service";
 import { setClinicDetail } from "./redux";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
 import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
@@ -14,7 +14,6 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { ClinicDetail, modelClinicDetail } from "./redux/model";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import {
 	clinicCodeSchema,
 	clinicNameSchema,
@@ -33,11 +32,10 @@ const Form = (params: UuidFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, isOpen, isOpenBaseConfirmDialog } = useSelector(
+	const { clinicDetail, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
-			isOpen: state.dialog.isOpen,
 		}),
 		shallowEqual
 	);
@@ -79,26 +77,13 @@ const Form = (params: UuidFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-				}}
-				onConfirm={() => {
-					router.push(LINKS.CLINIC.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (_.isEmpty(params.params.uuid)) {
-						dispatch(addClinic(clinicDetail));
+						dispatch(addClinic(clinicDetail, router));
 					} else {
-						dispatch(updateClinic(clinicDetail));
+						dispatch(updateClinic(clinicDetail, router));
 					}
 				}}
 				cancelFunction={() => {

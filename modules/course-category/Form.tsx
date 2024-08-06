@@ -19,7 +19,7 @@ import {
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setCourseCategoryForm } from "./redux";
 import { CourseCategoryForm, modelCourseCategory } from "./redux/model";
 import { courseCategoryRules } from "./field-validation/courseCategoryForm";
@@ -36,9 +36,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.courseCategory.form,
 		}),
@@ -82,24 +81,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.CATEGORY_COURSE.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateCourseCategory(form));
+						dispatch(updateCourseCategory(form, router));
 					} else {
-						dispatch(addCourseCategory(form));
+						dispatch(addCourseCategory(form, router));
 					}
 				}}
 				cancelFunction={() => {
@@ -128,7 +116,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 						);
 					}}
 					cancelFunction={() => {
-						router.push(LINKS.CATEGORY_COURSE.link);
+						router.push(LINKS.COURSE_CATEGORY.link);
 					}}
 					inputs={
 						<>

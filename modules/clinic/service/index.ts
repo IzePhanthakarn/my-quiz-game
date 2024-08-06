@@ -10,7 +10,7 @@ import {
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
 import _ from "lodash";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
 import { setIsLoading } from "@/components/Loading/redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
@@ -18,6 +18,14 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
+
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
 
 interface ClinicGridParams {
 	pagination: PaginationOptions;
@@ -121,7 +129,8 @@ export const createClinicApi = createAsyncThunk(
 	}
 );
 export const addClinic =
-	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+	(clinicDetail: ClinicDetail, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			createClinicApi({
 				clinicCode: clinicDetail.clinicCode,
@@ -133,7 +142,16 @@ export const addClinic =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.CLINIC.link);
 		}
 	};
 
@@ -159,7 +177,8 @@ export const updateClinicApi = createAsyncThunk(
 	}
 );
 export const updateClinic =
-	(clinicDetail: ClinicDetail) => async (dispatch: AppDispatch) => {
+	(clinicDetail: ClinicDetail, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateClinicApi({
 				uuid: clinicDetail.uuid,
@@ -173,6 +192,15 @@ export const updateClinic =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.CLINIC.link);
 		}
 	};

@@ -7,6 +7,15 @@ import { DiplomaDetail } from "../redux/form/model";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 import { setDiplomaDetail } from "../redux";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setToast } from "@/redux/slices/toast";
+import {
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+import { setIsLoading } from "@/components/Loading/redux";
+
 export const getDiplomaDetail = createAsyncThunk(
 	"Medical/getDiplomaDetail",
 	async (id: string, thunkAPi) => {
@@ -72,7 +81,8 @@ export const updateDiplomaApi = createAsyncThunk(
 );
 
 export const updateDiploma =
-	(diplomaDetail: DiplomaDetail) => async (dispatch: AppDispatch) => {
+	(diplomaDetail: DiplomaDetail, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateDiplomaApi({
 				uuid: diplomaDetail.uuid,
@@ -85,12 +95,22 @@ export const updateDiploma =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.DIPLOMA.link);
 		}
 	};
 
 export const addDiploma =
-	(diplomaDetail: DiplomaDetail) => async (dispatch: AppDispatch) => {
+	(diplomaDetail: DiplomaDetail, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			createDiplomaApi({
 				diplomaType: diplomaDetail.diplomaType,
@@ -101,6 +121,15 @@ export const addDiploma =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.DIPLOMA.link);
 		}
 	};

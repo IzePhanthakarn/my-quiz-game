@@ -8,7 +8,7 @@ export const medicalAmountRules = {
 	noticeSchema: [maxRule("notice", 200)],
 	// endEffectiveDateSchema: [requiredRule("End Effective Date")],
 
-	startEffectiveDateSchema: [requiredRule("End Effective Date")],
+	startEffectiveDateSchema: [requiredRule("Start Effective Date")],
 	amountSchema: [onlyDecimalRule("Amount"), requiredRule("End Effective Date")],
 	fareAmountSchema: [
 		onlyDecimalRule("Fare Amount"),

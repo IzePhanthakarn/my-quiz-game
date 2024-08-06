@@ -4,7 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { handleEmptyStringToNull } from "@/utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationOptions,

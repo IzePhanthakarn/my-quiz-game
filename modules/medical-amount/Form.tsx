@@ -10,17 +10,12 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
-
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import {
-	setIsOpenBaseConfirmDialog,
-	setIsOpenDialog,
-} from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setMedicalAmountForm } from "./redux";
 import { MedicalAmountForm, modelMedicalAmount } from "./redux/model";
 import {
@@ -31,21 +26,14 @@ import {
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
-
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-
-import dayjs from "dayjs";
-import weekday from "dayjs/plugin/weekday";
-import localeData from "dayjs/plugin/localeData";
-dayjs.extend(weekday);
-dayjs.extend(localeData);
+import { setToast } from "../../redux/slices/toast";
 
 const Form = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
@@ -91,24 +79,13 @@ const Form = (params: MedicalAmountFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.MEDICAL_AMOUNT.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateMedicalAmount(form));
+						dispatch(updateMedicalAmount(form, router));
 					} else {
-						dispatch(addMedicalAmount(form));
+						dispatch(addMedicalAmount(form, router));
 					}
 				}}
 				cancelFunction={() => {
@@ -125,30 +102,30 @@ const Form = (params: MedicalAmountFormPageProps) => {
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,
-						endEffectiveDate: !_.isEmpty(form.endEffectiveDate)
-							? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						startEffectiveDate: !_.isEmpty(form.startEffectiveDate)
-							? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD)
-								: undefined
-							: undefined,
-						updatedDate: !_.isEmpty(form.updatedDate)
-							? dayjs(form.updatedDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.updatedDate, DateFormat.YYYYMMDD).format(
-										DateFormat.DDMMYYYY
-								  )
-								: ""
-							: "",
-						createdDate: !_.isEmpty(form.createdDate)
-							? dayjs(form.createdDate, DateFormat.YYYYMMDD).isValid()
-								? dayjs(form.createdDate, DateFormat.YYYYMMDD).format(
-										DateFormat.DDMMYYYY
-								  )
-								: ""
-							: "",
+						// endEffectiveDate: !_.isEmpty(form.endEffectiveDate)
+						// 	? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// startEffectiveDate: !_.isEmpty(form.startEffectiveDate)
+						// 	? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD)
+						// 		: undefined
+						// 	: undefined,
+						// updatedDate: !_.isEmpty(form.updatedDate)
+						// 	? dayjs(form.updatedDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.updatedDate, DateFormat.YYYYMMDD).format(
+						// 				DateFormat.DDMMYYYY
+						// 		  )
+						// 		: ""
+						// 	: "",
+						// createdDate: !_.isEmpty(form.createdDate)
+						// 	? dayjs(form.createdDate, DateFormat.YYYYMMDD).isValid()
+						// 		? dayjs(form.createdDate, DateFormat.YYYYMMDD).format(
+						// 				DateFormat.DDMMYYYY
+						// 		  )
+						// 		: ""
+						// 	: "",
 					}}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}

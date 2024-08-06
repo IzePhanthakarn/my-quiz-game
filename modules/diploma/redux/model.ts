@@ -4,18 +4,21 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "./master/model";
 import { DiplomaFilter, modelDiplomaFilter } from "./filter/model";
-import { DiplomaDetail, modelDiaplomaDetail } from "./form/model";
+import { modelDiaplomaDetail } from "./form/model";
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
 export interface Diploma {
 	grid: DiplomaGrid;
-	diplomaDetail: DiplomaDetail;
+	diplomaDetail: DiplomaForm;
 	diplomaFilter: DiplomaFilter;
 }
 
-export interface DiplomaForm {
+export interface DiplomaForm extends BaseMasterDataInterface {
 	diplomaType: string;
 	diplomaName: string;
-	uuid: string;
 }
 
 export interface DiplomaGrid extends PaginationModel {

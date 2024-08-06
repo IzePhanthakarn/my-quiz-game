@@ -16,10 +16,14 @@ import {
 	MedicalAmountForm,
 	GetMedicalAmountList,
 } from "@/modules/medical-amount/redux/model";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { setToast } from "@/redux/slices/toast";
+import { LINKS } from "@/constants/links";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {
-	setIsOpenBaseConfirmDialog,
-	setIsOpenDialog,
-} from "@/redux/slices/dialog";
+	BaseToastNotificationMessage,
+	BaseToastNotificationType,
+} from "wcf-component-lib/src/constants/base-toast-notification";
 
 export const fetchMedicalAmountList =
 	(course: MedicalAmount) => async (dispatch: AppDispatch) => {
@@ -53,13 +57,23 @@ export const fetchMedicalAmountList =
 	};
 
 export const addMedicalAmount =
-	(form: MedicalAmountForm) => async (dispatch: AppDispatch) => {
+	(form: MedicalAmountForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(addMedicalAmountAPI(form));
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.INSERT_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.MEDICAL_AMOUNT.link);
 		}
 	};
 
@@ -76,7 +90,8 @@ export const initGetMedicalAmountDetail =
 	};
 
 export const updateMedicalAmount =
-	(medicalAmount: MedicalAmountForm) => async (dispatch: AppDispatch) => {
+	(medicalAmount: MedicalAmountForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateMedicalAmountApi({
 				uuid: medicalAmount.uuid,
@@ -87,6 +102,15 @@ export const updateMedicalAmount =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(setIsOpenDialog(true));
+			dispatch(
+				setToast({
+					isOpen: true,
+					message: BaseToastNotificationMessage.PATCH_SUCCESS,
+					type: BaseToastNotificationType.SUCCESS,
+					description: "Search Description",
+				})
+			);
+			dispatch(setIsLoading(true));
+			router.push(LINKS.MEDICAL_AMOUNT.link);
 		}
 	};

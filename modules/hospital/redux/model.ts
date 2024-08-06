@@ -1,9 +1,12 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface Hospital {
 	grid: HospitalGrid;
 	filter: HospitalFilter;
@@ -79,7 +82,7 @@ export interface HospitalFilter {
 export interface GetHospitalList extends HospitalFilter {
 	pagination: PaginationOptions;
 }
-export interface HospitalForm {
+export interface HospitalForm extends BaseMasterDataInterface {
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -117,13 +120,6 @@ export interface HospitalForm {
 	tambolCode: string;
 	remarkChangeName: string;
 	ssoProject: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: IsActive;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export const modelHospital: Hospital = {
@@ -150,6 +146,7 @@ export const modelHospital: Hospital = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
 		hospitalMinistryCode: "",
@@ -187,11 +184,5 @@ export const modelHospital: Hospital = {
 		tambolCode: "",
 		remarkChangeName: "",
 		ssoProject: "",
-		createdBy: "",
-		createdDate: "",
-		isActive: IsActive.Y,
-		updatedBy: "",
-		updatedDate: "",
-		uuid: "",
 	},
 };

@@ -19,7 +19,7 @@ import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { setToast } from "@/redux/slices/toast";
 import { modelToastNotification } from "wcf-component-lib/src/components/BaseToastNotification/model";
-
+import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
 type Props = {
 	children: ReactNode;
 };
@@ -61,10 +61,16 @@ const MainWrapper: React.FC<Props> = (props) => {
 		},
 		(error) => {
 			dispatch(setIsLoading(false));
-			setIsOpen(true);
-			setTextHeader(error.response.data.title);
-			setTextDetail(error.response.data.detail);
-			return Promise.reject(error);
+			return Promise.reject(error).then(null, (err) => {
+				dispatch(
+					setToast({
+						isOpen: true,
+						message: err.response.data.title,
+						type: BaseToastNotificationType.ERROR,
+						description: err.response.data.detail,
+					})
+				);
+			});
 		}
 	);
 

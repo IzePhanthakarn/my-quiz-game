@@ -30,14 +30,14 @@ export const LINKS = {
 		add: "/organ-wpi/form/",
 		edit: "/organ-wpi/edit/",
 	},
-	CATEGORY_COURSE: {
-		name: "CATEGORY_COURSE",
+	COURSE_CATEGORY: {
+		name: "COURSE_CATEGORY",
 		link: "/course-category",
 		add: "/course-category/form/",
 		edit: "/course-category/edit/",
 	},
-	CATEGORY_CERTIFICATE: {
-		name: "CATEGORY_CERTIFICATE",
+	COURSE_CERTIFICATE: {
+		name: "COURSE_CERTIFICATE",
 		link: "/course-certificate",
 		add: "/course-certificate/form/",
 		edit: "/course-certificate/edit/",

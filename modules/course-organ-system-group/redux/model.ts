@@ -1,10 +1,13 @@
-import { IsActive } from "../../../constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface CourseOrganSystemGroup {
 	grid: CourseOrganSystemGroupGrid;
 	filter: CourseOrganSystemGroupFilter;
@@ -45,17 +48,10 @@ export interface GetCourseOrganSystemGroupList
 	extends CourseOrganSystemGroupFilter {
 	pagination: PaginationOptions;
 }
-export interface CourseOrganSystemGroupForm {
+export interface CourseOrganSystemGroupForm extends BaseMasterDataInterface {
 	organSystemGroup: string;
 	courseCategory: string;
 	organSystemNo: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: IsActive;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export const modelCourseOrganSystemGroup: CourseOrganSystemGroup = {
@@ -74,15 +70,9 @@ export const modelCourseOrganSystemGroup: CourseOrganSystemGroup = {
 		checkIsActive: false,
 	},
 	form: {
+		...baseMasterDataModel,
 		organSystemGroup: "",
 		courseCategory: "",
 		organSystemNo: "",
-
-		createdBy: "",
-		createdDate: "",
-		isActive: IsActive.Y,
-		updatedBy: "",
-		updatedDate: "",
-		uuid: "",
 	},
 };

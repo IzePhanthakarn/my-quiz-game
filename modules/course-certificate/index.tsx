@@ -75,7 +75,7 @@ export default function CourseCertificate() {
 						}}
 					/>
 				}
-				AddFunction={() => router.push(LINKS.CATEGORY_CERTIFICATE.add)}
+				AddFunction={() => router.push(LINKS.COURSE_CERTIFICATE.add)}
 			/>
 		</div>
 	);

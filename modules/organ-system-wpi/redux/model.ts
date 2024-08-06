@@ -3,8 +3,11 @@ import {
 	PaginationModel,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-import { IsActive } from "../../../constants/constants";
-
+import { IsActive } from "wcf-component-lib/src/constants/constants";
+import {
+	BaseMasterDataInterface,
+	baseMasterDataModel,
+} from "wcf-component-lib/src/interfaces/base-master-data-interface";
 export interface OrganSystemWpi {
 	grid: OrganSystemWpiGrid;
 	filter: OrganSystemWpiFilter;
@@ -39,15 +42,9 @@ export interface OrganSystemWpiFilter {
 	checkIsActive: boolean;
 }
 
-export interface OrganSystemWpiForm {
+export interface OrganSystemWpiForm extends BaseMasterDataInterface {
 	organSystemNo: string;
 	description: string;
-	createdDate: string;
-	createdBy: string;
-	updatedDate: string;
-	updatedBy: string;
-	isActive: IsActive;
-	uuid: string;
 }
 
 export const modelOrganSystemWpi: OrganSystemWpi = {
@@ -66,12 +63,7 @@ export const modelOrganSystemWpi: OrganSystemWpi = {
 		checkIsActive: false,
 	},
 	form: {
-		createdDate: "",
-		createdBy: "",
-		updatedDate: "",
-		updatedBy: "",
-		isActive: IsActive.Y,
-		uuid: "",
+		...baseMasterDataModel,
 		organSystemNo: "",
 		description: "",
 	},

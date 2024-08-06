@@ -10,16 +10,11 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import {
-	setIsOpenBaseConfirmDialog,
-	setIsOpenDialog,
-} from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
-import { IsActive } from "@/constants/constants";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setOrganSystemWpiForm } from "./redux";
 import { OrganSystemWpiForm, modelOrganSystemWpi } from "./redux/model";
 import { organSystemWpiFormRules } from "./field-validation/organSystemWpiForm";
@@ -36,9 +31,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { isOpen, form, isOpenBaseConfirmDialog } = useSelector(
+	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.dialog.isOpen,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			form: state.organSystemWpi.form,
 		}),
@@ -82,24 +76,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 	return (
 		<>
-			<BaseDialog
-				isOpen={isOpen}
-				content={<>ระบบบันทึกข้อมูลใหม่สำเร็จแล้ว</>}
-				baseDialogType={BaseDialogType.SUCCESS}
-				headerText={<>บันทึกข้อมูลสำเร็จ</>}
-				setIsOpen={(value) => {
-					dispatch(setIsOpenDialog(value));
-					router.push(LINKS.ORGAN_SYSTEM_WPI.link);
-				}}
-			/>
-
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateOrganSystemWpi(form));
+						dispatch(updateOrganSystemWpi(form, router));
 					} else {
-						dispatch(addOrganSystemWpi(form));
+						dispatch(addOrganSystemWpi(form, router));
 					}
 				}}
 				cancelFunction={() => {

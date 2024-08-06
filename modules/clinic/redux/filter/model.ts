@@ -1,4 +1,4 @@
-import { IsActive } from "@/constants/constants";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
 export interface ClinicFilter {
 	checkClinicCode: boolean;
 	checkClinicName: boolean;
