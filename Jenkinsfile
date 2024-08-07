@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-		parameters {
+	parameters {
         booleanParam(name: 'Lint', defaultValue: true, description: '')
         booleanParam(name: 'Sonarqube', defaultValue: true, description: '')
     }
@@ -26,6 +26,7 @@ pipeline {
             steps {
                 script {
                     // Read the version from package.json
+                    
                     sh 'docker pull soilfish/wcf-component-lib:1.0.0'
                 }
             }
@@ -44,11 +45,26 @@ pipeline {
         stage('Prepare') {
             steps {
                 script {
+
+                    
+
+                    slackChannel = 'df-sso-wcf-noti'
                     projectID = 'medical-web'
+                    goodStatus = 'good'
+                    warningStatus = 'warning'
                     registryIP = 'registry.hub.docker.com'
+                    imgTag = version
+                    KUBERNETES_DEPLOYMENT = 'med-web'
+                    KUBERNETES_NAMESPACE = 'default'
+
+                    slackSend color: warningStatus,
+                    message: "Prepare Build started: ${projectID}:${imgTag}",
+                    channel: "${slackChannel}"
+                    
+
                     sh 'npm -v'
                     sh 'which node'
-                    sh 'npm install'
+                    sh 'yarn install'
                 }
             }
         }
@@ -83,14 +99,30 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 script {
-                    echo "Start building image [${projectID}:${version}]"
+                    slackSend color: warningStatus,
+                    message: "Build image: [${projectID}:${imgTag}]",
+                    channel: "${slackChannel}"
+                    echo "Start building image [${projectID}:${imgTag}]"
+
                     docker.withRegistry("http://${registryIP}", 'dockerhubSoilfish') {
-                        def img = docker.build("soilfish/${projectID}:${version}")
-                        img.push("${version}")
+                        def img = docker.build("soilfish/${projectID}:${imgTag}", '--no-cache .')
+                        img.push("${imgTag}")
                     }
-                    echo "Removing docker image ${projectID}:${version}"
-                    sh "docker rmi soilfish/${projectID}:${version}"
-                    sh "docker rmi ${registryIP}/soilfish/${projectID}:${version}"
+                    sh "docker image tag soilfish/${projectID}:${imgTag} soilfish/${projectID}:latest"
+                    sh "docker push soilfish/${projectID}:latest"
+                    echo "Removing docker image soilfish/${projectID}:${imgTag}"
+                    sh "docker rmi soilfish/${projectID}:${imgTag}"
+                    sh "docker rmi soilfish/${projectID}:latest"
+                    sh "docker rmi ${registryIP}/soilfish/${projectID}:${imgTag}"
+                    slackSend color: "${goodStatus}", message: "Completed Build soilfish/${projectID}:${imgTag}", channel: "${slackChannel}"
+                }
+            }
+        }
+
+        stage('Delete image Dependencies') {
+            steps {
+                script {
+                    sh 'docker image rm soilfish/wcf-component-lib:1.0.0'
                 }
             }
         }
@@ -98,10 +130,29 @@ pipeline {
         stage('Deploy kube') {
             steps {
                 withKubeConfig([credentialsId: 'wcf2-kube-config']) {
-                    sh 'kubectl replace -f deploy/dev/configmaps.yml --force'
-                    sh 'kubectl replace -f deploy/dev/deployment.yml --force'
+                    sh """
+                    kubectl set image deployment/${KUBERNETES_DEPLOYMENT} ${KUBERNETES_DEPLOYMENT}=soilfish/${projectID}:${imgTag} --namespace=${KUBERNETES_NAMESPACE}
+                    """
+
+                    sh """
+                    kubectl rollout restart deployment ${KUBERNETES_DEPLOYMENT}  -n default
+                    """
+
+                    slackSend color: "${goodStatus}", message: "Deploy soilfish/${projectID}:${imgTag} successfully", channel: "${slackChannel}"
                 }
             }
+        }
+    }
+    post {
+        success {
+            slackSend color: "${goodStatus}",
+                        message: 'follower link: https://dev-wcf.soilfish.co/login',
+                        channel: "${slackChannel}"
+        }
+        failure {
+            slackSend color: "${warning}",
+                message: 'Deploying Failed ${projectID}',
+                channel: "${slackChannel}"
         }
     }
 }
