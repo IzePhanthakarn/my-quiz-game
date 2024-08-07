@@ -134,9 +134,9 @@ pipeline {
                     kubectl set image deployment/${KUBERNETES_DEPLOYMENT} ${KUBERNETES_DEPLOYMENT}=soilfish/${projectID}:${imgTag} --namespace=${KUBERNETES_NAMESPACE}
                     """
 
-                    sh '''
-                    kubectl rollout restart deployment reg-service  -n default
-                    '''
+                    sh """
+                    kubectl rollout restart deployment ${KUBERNETES_DEPLOYMENT}  -n default
+                    """
 
                     slackSend color: "${goodStatus}", message: "Deploy soilfish/${projectID}:${imgTag} successfully", channel: "${slackChannel}"
                 }
