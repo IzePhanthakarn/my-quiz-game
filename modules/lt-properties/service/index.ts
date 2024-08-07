@@ -16,18 +16,12 @@ import {
 	LtPropertiesForm,
 	GetLtPropertiesList,
 } from "@/modules/lt-properties/redux/model";
-import {
-	setIsOpenBaseConfirmDialog,
-	setIsOpenDialog,
-} from "@/redux/slices/dialog";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { setToast } from "@/redux/slices/toast";
-import {
-	BaseToastNotificationMessage,
-	BaseToastNotificationType,
-} from "wcf-component-lib/src/constants/base-toast-notification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 
 export const fetchLtPropertiesList =
 	(course: LtProperties) => async (dispatch: AppDispatch) => {
@@ -68,14 +62,10 @@ export const addLtProperties =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.INSERT_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.INSERT_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.LT_PROPERTIES.link);
 		}
@@ -106,14 +96,10 @@ export const updateLtProperties =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.PATCH_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.LT_PROPERTIES.link);
 		}

@@ -16,7 +16,7 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
-import { setToast } from "@/redux/slices/toast";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -83,16 +83,7 @@ export default function Clinic() {
 				AddLabel="เพิ่มคลินิค"
 				Header="Clinic"
 				TotalItems={page.totalData}
-				SearchButtonFunction={() =>
-					dispatch(
-						setToast({
-							isOpen: true,
-							message: "Search",
-							type: "success",
-							description: "Search Description",
-						})
-					)
-				}
+				SearchButtonFunction={() => console.log("🚀 search")}
 			/>
 		</div>
 	);

@@ -14,7 +14,6 @@ import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
 import { Hospital } from "@/modules/hospital/redux/model";
 import { Doctor } from "@/modules/doctor/redux/model";
-import { ToastNotification } from "wcf-component-lib/src/components/BaseToastNotification/model";
 export interface SliceModel {
 	crud: Crud;
 	loading: Loading;
@@ -32,6 +31,5 @@ export interface SliceModel {
 	minIO: MinIO;
 	medicalAmount: MedicalAmount;
 	ltProperties: LtProperties;
-	toast: ToastNotification;
 	hospital: Hospital;
 }

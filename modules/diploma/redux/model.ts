@@ -5,10 +5,7 @@ import {
 import { DiplomaList } from "./master/model";
 import { DiplomaFilter, modelDiplomaFilter } from "./filter/model";
 import { modelDiaplomaDetail } from "./form/model";
-import {
-	BaseMasterDataInterface,
-	baseMasterDataModel,
-} from "wcf-component-lib/src/interfaces/base-master-data-interface";
+import { BaseMasterDataInterface } from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
 export interface Diploma {
 	grid: DiplomaGrid;

@@ -26,7 +26,6 @@ import {
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
-import { setToast } from "../../redux/slices/toast";
 
 const Form = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
