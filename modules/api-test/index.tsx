@@ -35,6 +35,7 @@ export default function Api() {
 				setAddress={setValue}
 				type="tambons_name"
 				className="w-[400px]"
+				itemName={""}
 			/>
 			<BaseThaiAddress
 				label="อำเภอ"
@@ -42,6 +43,7 @@ export default function Api() {
 				setAddress={setValue}
 				type="amphure_name"
 				className="w-[400px]"
+				itemName={""}
 			/>
 			<BaseThaiAddress
 				label="จังหวัด"
@@ -49,6 +51,7 @@ export default function Api() {
 				setAddress={setValue}
 				type="province_name"
 				className="w-[400px]"
+				itemName={""}
 			/>
 			<BaseThaiAddress
 				label="รหัสไปรษณีย์"
@@ -56,6 +59,7 @@ export default function Api() {
 				setAddress={setValue}
 				type="zipcode"
 				className="w-[400px]"
+				itemName={""}
 			/>
 		</>
 	);
