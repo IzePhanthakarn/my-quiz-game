@@ -22,12 +22,9 @@ import {
 } from "@/redux/slices/dialog";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { setToast } from "@/redux/slices/toast";
-import {
-	BaseToastNotificationMessage,
-	BaseToastNotificationType,
-} from "wcf-component-lib/src/constants/base-toast-notification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {
@@ -58,14 +55,10 @@ export const addCourseCategory =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.INSERT_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.INSERT_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.COURSE_CATEGORY.link);
 		}
@@ -96,14 +89,10 @@ export const updateCourseCategory =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.PATCH_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.COURSE_CATEGORY.link);
 		}

@@ -3,18 +3,15 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import _ from "lodash";
-import { DiplomaDetail } from "../redux/form/model";
-import { setIsOpenDialog } from "@/redux/slices/dialog";
 import { setDiplomaDetail } from "../redux";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { setToast } from "@/redux/slices/toast";
-import {
-	BaseToastNotificationMessage,
-	BaseToastNotificationType,
-} from "wcf-component-lib/src/constants/base-toast-notification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { setIsLoading } from "@/components/Loading/redux";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { DiplomaForm } from "../redux/model";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 export const getDiplomaDetail = createAsyncThunk(
 	"Medical/getDiplomaDetail",
@@ -42,9 +39,9 @@ export const createDiplomaApi = createAsyncThunk(
 	"Medical/createDiplomaApi",
 	async (
 		body: {
-			diplomaType: DiplomaDetail["diplomaType"];
-			diplomaName: DiplomaDetail["diplomaName"];
-			isActive: DiplomaDetail["isActive"];
+			diplomaType: DiplomaForm["diplomaType"];
+			diplomaName: DiplomaForm["diplomaName"];
+			isActive: DiplomaForm["isActive"];
 		},
 		thunkAPi
 	) => {
@@ -63,10 +60,10 @@ export const updateDiplomaApi = createAsyncThunk(
 	async (
 		body: {
 			body: {
-				diplomaName: DiplomaDetail["diplomaName"];
-				isActive: DiplomaDetail["isActive"];
+				diplomaName: DiplomaForm["diplomaName"];
+				isActive: DiplomaForm["isActive"];
 			};
-			uuid: DiplomaDetail["uuid"];
+			uuid: DiplomaForm["uuid"];
 		},
 		thunkAPi
 	) => {
@@ -81,7 +78,7 @@ export const updateDiplomaApi = createAsyncThunk(
 );
 
 export const updateDiploma =
-	(diplomaDetail: DiplomaDetail, router: AppRouterInstance) =>
+	(diplomaDetail: DiplomaForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateDiplomaApi({
@@ -92,24 +89,21 @@ export const updateDiploma =
 				},
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.PATCH_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.DIPLOMA.link);
 		}
 	};
 
 export const addDiploma =
-	(diplomaDetail: DiplomaDetail, router: AppRouterInstance) =>
+	(diplomaDetail: DiplomaForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			createDiplomaApi({
@@ -118,17 +112,14 @@ export const addDiploma =
 				isActive: diplomaDetail.isActive,
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			dispatch(
-				setToast({
-					isOpen: true,
-					message: BaseToastNotificationMessage.INSERT_SUCCESS,
-					type: BaseToastNotificationType.SUCCESS,
-					description: "Search Description",
-				})
-			);
+			baseToastNotification({
+				message: BaseToastNotificationMessage.INSERT_SUCCESS,
+				description: "Description",
+			});
 			dispatch(setIsLoading(true));
 			router.push(LINKS.DIPLOMA.link);
 		}

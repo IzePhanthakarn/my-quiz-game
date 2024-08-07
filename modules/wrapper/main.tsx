@@ -11,15 +11,12 @@ import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../components/Loading/redux";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
-import { usePathname } from "next/navigation";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
-import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
-import { setToast } from "@/redux/slices/toast";
-import { modelToastNotification } from "wcf-component-lib/src/components/BaseToastNotification/model";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 type Props = {
 	children: ReactNode;
 };
@@ -32,10 +29,9 @@ const MainWrapper: React.FC<Props> = (props) => {
 	const [textDetail, setTextDetail] = useState<string>("");
 	const [textHeader, setTextHeader] = useState<string>("");
 
-	const { isLoading, toast } = useSelector(
+	const { isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isLoading: state.loading.isLoading,
-			toast: state.toast,
 		}),
 		shallowEqual
 	);
@@ -62,26 +58,18 @@ const MainWrapper: React.FC<Props> = (props) => {
 		(error) => {
 			dispatch(setIsLoading(false));
 			return Promise.reject(error).then(null, (err) => {
-				dispatch(
-					setToast({
-						isOpen: true,
-						message: err.response.data.title,
-						type: BaseToastNotificationType.ERROR,
-						description: err.response.data.detail,
-					})
-				);
+				baseToastNotification({
+					message: err.response.data.title,
+					type: BaseToastNotificationType.ERROR,
+					description: err.response.data.detail,
+					duration: 0,
+				});
 			});
 		}
 	);
 
 	return (
 		<div className="h-screen">
-			<BaseToastNotification
-				{...toast}
-				onClick={() => console.log("click")}
-				onClose={() => console.log("close")}
-				setDefault={() => dispatch(setToast(modelToastNotification))}
-			/>
 			<NavBar />
 			<BaseRow className="h-full">
 				<SideBar />

@@ -14,7 +14,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
-import { DiplomaDetail, modelDiaplomaDetail } from "./redux/form/model";
+import { modelDiaplomaDetail } from "./redux/form/model";
 import { setDiplomaDetail } from "./redux";
 import {
 	addDiploma,
@@ -26,6 +26,7 @@ import {
 	diplomaTypeSchema,
 } from "./field-validation/diplomaForm";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import { DiplomaForm } from "./redux/model";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,11 +54,11 @@ const Form = (params: UuidFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<DiplomaDetail>["onFinish"] = () => {
+	const onFinish: FormProps<DiplomaForm>["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<DiplomaDetail>["onFinishFailed"] = (_) => {};
+	const onFinishFailed: FormProps<DiplomaForm>["onFinishFailed"] = (_) => {};
 
 	const scopes = [
 		"location:read",
