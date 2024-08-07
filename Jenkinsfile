@@ -122,7 +122,7 @@ pipeline {
         stage('Delete image Dependencies') {
             steps {
                 script {
-                    sh 'docker image rmi soilfish/wcf-component-lib:1.0.0'
+                    sh 'docker rmi soilfish/wcf-component-lib:1.0.0'
                 }
             }
         }
