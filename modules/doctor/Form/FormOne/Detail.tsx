@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -7,10 +7,12 @@ import {
 	Address,
 	modelAddress,
 } from "wcf-component-lib/src/components/BaseThaiAddress/model";
-// import { useForm } from "react-hook-form";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
 
 export default function Detail() {
-	const onFinish: FormProps<any>["onFinish"] = () => {};
+	const onFinish: FormProps<any>["onFinish"] = async (values: any) => {
+		console.log("value", values);
+	};
 
 	const onFinishFailed: FormProps<any>["onFinishFailed"] = (_) => {};
 
@@ -22,96 +24,39 @@ export default function Detail() {
 			child={
 				<div className="grid grid-cols-4 gap-y-9 gap-x-8">
 					<BaseItemInput
-						label="เลขทะเบียนวิชาชีพ"
-						itemName="professionalCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
+						label="doctorCode"
+						itemName="username"
+						rules={[{ required: true }]}
 					/>
+					<BaseItemInput label="เลขทะเบียนวิชาชีพ" itemName="email" />
 					<BaseItemInput
 						label="เลขทะเบียน สปส"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
+						itemName="country"
+						rules={[{ required: true }]}
 					/>
 					<BaseItemInput
-						label="รุ่นที่อบรม"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
+						label="เลขทะเบียน สปส2"
+						itemName="country2"
+						rules={[{ required: true }]}
 					/>
-					<BaseItemInput
-						label="วันที่อบรม"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
+					<BaseItemInput label="position" itemName="position" rules={[]} />
+					<BaseItemInput label="doctorType" itemName="doctorType" rules={[]} />
+					<BaseItemInput label="รุ่นที่อบรม" itemName="clinicCode" rules={[]} />
+					<BaseItemInput label="วันที่อบรม" itemName="clinicCode" rules={[]} />
 					<BaseItemInput
 						label="เลขที่บัตรประจำตัวประชาชน"
-						itemName="clinicCode"
+						itemName="citizenId"
 						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
 					/>
-					<BaseItemInput
-						label="ชื่อ"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="นามสกุล"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="ประเภทแพทย์"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="เลขที่ภาษี"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="ที่อยู่"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="หมู่ที่"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="ถนน"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
-					<BaseItemInput
-						label="ซอย"
-						itemName="clinicCode"
-						rules={[]}
-						value={""}
-						onChangeFunction={() => {}}
-					/>
+					<BaseItemInput label="คำนำหน้า" itemName="title" rules={[]} />
+					<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
+					<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
+					<BaseItemInput label="ประเภทแพทย์" itemName="clinicCode" rules={[]} />
+					<BaseItemInput label="เลขที่ภาษี" itemName="revenueNo" rules={[]} />
+					<BaseItemInput label="ที่อยู่" itemName="houseNum" rules={[]} />
+					<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
+					<BaseItemInput label="ถนน" itemName="road" rules={[]} />
+					<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
 					<BaseThaiAddress
 						label="ตำบล"
 						address={value}
@@ -144,6 +89,7 @@ export default function Detail() {
 						itemName={""}
 						value={null}
 					/>
+					<BaseButton label="บันทึก" htmlType="submit" />
 				</div>
 			}
 			name={"doctorForm"}

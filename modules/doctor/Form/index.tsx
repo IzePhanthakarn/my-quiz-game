@@ -7,6 +7,7 @@ import FormOne from "./FormOne";
 import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
+import Two from "./Two";
 
 const DoctorForm = (params: UuidFormPageProps) => {
 	const items: TabsProps["items"] = [
@@ -18,7 +19,7 @@ const DoctorForm = (params: UuidFormPageProps) => {
 		{
 			key: "2",
 			label: "From2",
-			children: <div>DoctorType</div>,
+			children: <Two />,
 		},
 		{
 			key: "3",
