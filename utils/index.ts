@@ -62,3 +62,19 @@ export function handleRouterPush(path: string, router: AppRouterInstance) {
 		router.push(finalPath);
 	}
 }
+
+export function handleMultiForm(values: any) {
+	const groupedValues: any[] = [];
+	Object.keys(values).forEach((key) => {
+		const match = key.match(/(\d+)$/);
+		if (match) {
+			const index = parseInt(match[1], 10);
+			if (!groupedValues[index]) {
+				groupedValues[index] = {};
+			}
+			const fieldName = key.replace(/\d+$/, "");
+			groupedValues[index][fieldName] = values[key];
+		}
+	});
+	console.log("Grouped values", groupedValues);
+}
