@@ -79,7 +79,6 @@ export const initGetMedicalAmountDetail =
 				return;
 			}
 			dispatch(setMedicalAmountForm(response.payload));
-			return response.payload;
 		}
 	};
 
