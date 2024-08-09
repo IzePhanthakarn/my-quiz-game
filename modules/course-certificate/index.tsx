@@ -23,7 +23,7 @@ export default function CourseCertificate() {
 	const { courseCertificate, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			courseCertificate: state.courseCertificate,
 		}),
 		shallowEqual

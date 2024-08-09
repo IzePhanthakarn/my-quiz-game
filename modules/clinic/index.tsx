@@ -16,19 +16,17 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 	const { rows, page, isOpen, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			// form: state.crud.formData,
 			rows: state.clinic.grid.list,
 			page: state.clinic.grid.page,
 			isOpen: state.drawer.isOpen,
 			filter: state.clinic.clinicFilter,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);

@@ -19,7 +19,7 @@ export default function Minio() {
 	const { file, files } = useSelector(
 		(state: SliceModel) => ({
 			// isOpen: state.drawer.isOpen,
-			// isLoading: state.loading.isLoading,
+			// isLoading: state.container.isLoading,
 			file: state.minIO.file,
 			files: state.minIO.files,
 		}),

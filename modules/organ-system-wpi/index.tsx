@@ -22,7 +22,7 @@ export default function OrganSystemWpi() {
 	const { organ, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			organ: state.organSystemWpi,
 		}),
 		shallowEqual

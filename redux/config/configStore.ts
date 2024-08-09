@@ -3,7 +3,7 @@ import crudSlice from "../slices/crud";
 import clinicSlice from "../../modules/clinic/redux";
 import doctorSlice from "@/modules/doctor/redux";
 import dialogSlice from "@/redux/slices/dialog";
-import loadingSlice from "@/components/Loading/redux";
+import containerSlice from "@/redux/slices/container";
 import diplomaSlice from "@/modules/diploma/redux";
 import organSystemWpiSlice from "@/modules/organ-system-wpi/redux";
 import courseCategorySlice from "@/modules/course-category/redux";
@@ -22,7 +22,7 @@ export const store = configureStore({
 		clinic: clinicSlice,
 		drawer: drawerSlice,
 		dialog: dialogSlice,
-		loading: loadingSlice,
+		container: containerSlice,
 		login: loginSlice,
 		diploma: diplomaSlice,
 		organSystemWpi: organSystemWpiSlice,

@@ -14,7 +14,6 @@ export default function FormOne() {
 	return (
 		<div className="flex flex-col space-y-2">
 			<BaseCollapse items={items} defaultActiveKey={"1"} />
-			{/* <BaseCollapse items={items} defaultActiveKey={"1"} /> */}
 		</div>
 	);
 }

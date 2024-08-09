@@ -37,7 +37,7 @@ export default function SideBar() {
 
 	return (
 		<div
-			className={`min-w-[280px] h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col `}
+			className={`w-24 h-full bg-[#214FF3] border-r-2 border-[#FFF] flex flex-col `}
 		>
 			<BaseSideBar
 				items={items}
