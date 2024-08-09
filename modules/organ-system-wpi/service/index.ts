@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { setIsLoading } from "@/components/Loading/redux";
+import { setIsLoading } from "@/redux/slices/container";
 import {
 	setOrganSystemWpiForm,
 	setOrganSystemWpiGrid,

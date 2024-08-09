@@ -23,7 +23,7 @@ export default function CourseManipulate() {
 	const { course, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			course: state.courseCategory,
 		}),
 		shallowEqual

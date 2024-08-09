@@ -41,6 +41,7 @@ export default function Two() {
 									<BaseItemInput
 										label="doctorCode"
 										itemName={`username${key}`}
+										rules={[{ required: true }]}
 									/>
 									<BaseItemInput
 										label="เลขทะเบียนวิชาชีพ"

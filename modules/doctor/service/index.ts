@@ -1,16 +1,15 @@
-import { setIsLoading } from "@/components/Loading/redux";
-import API_PATH from "@/constants/api";
+import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import { handleEmptyStringToNull } from "@/utils";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-import { setDoctorGrid, setTotalData } from "../redux";
+import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
 import { DoctorList } from "../redux/master/model";
+import { getDoctorForm, getDoctorList } from "./api";
+import _ from "lodash";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -30,19 +29,16 @@ export const doctorPagination: DoctorPagination = {
 	lastnameLike: "",
 };
 
-export const getDoctorList = createAsyncThunk(
-	"Medical/getDoctorDetail",
-	async (params: DoctorPagination, thunkAPi) => {
-		try {
-			const apiPath = `${API_PATH.GET_DOCTOR_PAGE}`;
-			const response = await axios.post(apiPath, params);
-			return response.data;
-		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+// Form
+export const initGetDoctorForm =
+	(uuid: string) => async (dispatch: AppDispatch) => {
+		if (!_.isEmpty(uuid)) {
+			const response = await dispatch(getDoctorForm(uuid));
+			dispatch(setDoctorForm(response.payload));
 		}
-	}
-);
+	};
 
+// List
 export const initDoctorGrid =
 	(params: DoctorPagination = doctorPagination) =>
 	async (dispatch: AppDispatch) => {

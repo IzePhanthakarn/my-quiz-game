@@ -8,8 +8,19 @@ import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
 import Two from "./Two";
+import { AppDispatch } from "@/redux/config/configStore";
+import { useDispatch } from "react-redux";
+import { setUuid } from "@/redux/slices/container";
+import { getValue } from "@/utils";
 
 const DoctorForm = (params: UuidFormPageProps) => {
+	const dispatch: AppDispatch = useDispatch();
+
+	useEffect(() => {
+		const uuid = getValue(params, "params.uuid");
+		dispatch(setUuid(uuid));
+	}, []);
+
 	const items: TabsProps["items"] = [
 		{
 			key: "1",

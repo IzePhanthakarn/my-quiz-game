@@ -1,4 +1,4 @@
-import { setIsLoading } from "@/components/Loading/redux";
+import { setIsLoading } from "@/redux/slices/container";
 import API_PATH from "@/constants/api";
 import { AppDispatch } from "@/redux/config/configStore";
 import { handleEmptyStringToNull } from "@/utils";

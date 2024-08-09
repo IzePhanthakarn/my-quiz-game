@@ -23,7 +23,7 @@ export default function CourseOrganSystemGroup() {
 	const { courseOrganSystemGroup, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			courseOrganSystemGroup: state.courseOrganSystemGroup,
 		}),
 		shallowEqual
