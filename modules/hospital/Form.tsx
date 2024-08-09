@@ -26,6 +26,7 @@ import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/HomeFilled";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import BaseCollapseLabelHeader from "wcf-component-lib/src/components/BaseCollapseLabelHeader";
 
 const Form = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -76,7 +77,12 @@ const Form = (params: HospitalFormPageProps) => {
 	const firstSection: CollapseProps["items"] = [
 		{
 			key: "1",
-			label: "ข้อมูลสถานพยาบาล",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อมูลสถานพยาบาล"
+					description="ข้อมูลภาพรวมและรายละเอียดของสถานพยาล"
+				/>
+			),
 			children: (
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -266,7 +272,12 @@ const Form = (params: HospitalFormPageProps) => {
 	const secondSection: CollapseProps["items"] = [
 		{
 			key: "2",
-			label: "ข้อมูลกองทุนเงินทดแทน",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อมูลกองทุนเงินทดแทน"
+					description="ข้อมูลภาพรวมและรายละเอียดกองทุนเงินทดแทนสำหรับสถานพยาบาล"
+				/>
+			),
 			children: (
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -626,7 +637,12 @@ const Form = (params: HospitalFormPageProps) => {
 	const thSection: CollapseProps["items"] = [
 		{
 			key: "3",
-			label: "ข้อมูลการเปลี่ยนชื่อสถานพยาบาล",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อมูลการเปลี่ยนชื่อสถานพยาบาล"
+					description="ข้อมูลภาพรวมและรายละเอียดการเปลี่ยนชื่อสถานพยาบาล"
+				/>
+			),
 			children: (
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
