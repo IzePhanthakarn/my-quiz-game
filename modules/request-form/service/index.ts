@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { setIsLoading } from "@/components/Loading/redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import { RequestForm, RequestFormDetail } from "../redux/model";
 import {
@@ -13,6 +12,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
+import { setIsLoading } from "@/redux/slices/container";
 
 export const handleOnGetRequestFormList =
 	(requestForm: RequestForm) => async (dispatch: AppDispatch) => {

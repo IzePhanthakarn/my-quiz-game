@@ -16,51 +16,26 @@ export default function Section3(props: { uuid: boolean }) {
 	];
 	return (
 		<div>
-			{!uuid ? (
-				<BaseColumn className="space-y-2">
-					<div className="grid grid-cols-4 gap-y-2 gap-x-8">
-						<BaseDatePicker
-							label="วันที่ทำการตรวจสอบ"
-							itemName={"assessDate"}
-						/>
-						<BaseDatePicker label="วันที่ออกใบคำขอ" itemName={"approveDate"} />
-						<div className="col-span-2 items-end grid grid-cols-3 gap-x-8">
-							<BaseRadio
-								label="ทำการตรวจ ณ"
-								itemName={"inAnotherPlace"}
-								items={items}
-							/>
-							<BaseDropDown itemName={"inAnotherPlace"} option={option} />
-							<BaseItemCheckbox
-								label="อื่นๆ"
-								itemName={""}
-								onClickFunction={() => {}}
-							/>
-						</div>
+			{uuid ? (
+				<div className="grid grid-cols-4 gap-y-2 gap-x-8">
+					<BaseDatePicker label="วันที่ทำการตรวจสอบ" itemName={"assessDate"} />
+					<BaseDatePicker label="วันที่ออกใบคำขอ" itemName={"approveDate"} />
+					<div className="col-span-2 items-end grid grid-cols-3 gap-x-8">
+						<BaseRadio label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} items={items}/>
+						<BaseDropDown itemName={"inAnotherPlace"} option={option} />
+						<BaseItemCheckbox label="อื่นๆ" itemName={""} onClickFunction={() => {console.log("")}}/>
 					</div>
-
+					<BaseItemInput label="ค่าตรวจประเมิน" itemName={"fareAmount"} />
+				</div>
+			) : (
+				<div className="grid grid-cols-4 gap-y-2 gap-x-8">
+					<BaseDatePicker label="วันที่ทำการตรวจสอบ" itemName={"assessDate"} />
+					<BaseDatePicker label="วันที่ออกใบคำขอ" itemName={"approveDate"} />
+					<BaseDatePicker label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} />
 					<BaseItemInput label="ค่าตรวจประเมิน" itemName={"fareAmount"} />
 					<BaseItemInput label="ผู้บันทึก" itemName={"userName"} />
-				</BaseColumn>
-			) : (
-				<></>
+				</div>
 			)}
 		</div>
 	);
 }
-
-// {!_.isEmpty(uuid) ? (
-// 	<div className="flex space-x-2">
-// 		<BaseItemInput label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} />
-// 		<BaseItemInput label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} />
-// 	</div>
-// ) : (
-// 	<div className="flex flex-col space-x-2">
-// 		<BaseItemInput label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} />
-// 		<BaseRadio itemName={"inAnotherPlace"} items={atPlace} />
-// 	</div>
-// )}
-// <BaseItemInput label="ค่าตรวจประเมิน" itemName={"fareAmount"} />
-// {!_.isEmpty(uuid) && (
-// 	<BaseItemInput label="ผู้บันทึก" itemName={"userName"} />
-// )}

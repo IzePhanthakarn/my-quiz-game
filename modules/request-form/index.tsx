@@ -17,7 +17,7 @@ export default function RequestForm() {
 	const router = useRouter();
 	const { requestForm, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			requestForm: state.requestForm,
 		}),
 		shallowEqual
