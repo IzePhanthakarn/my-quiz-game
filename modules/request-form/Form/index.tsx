@@ -31,9 +31,6 @@ const RequestFormDetail = () => {
 			name={""}
 			initialValues={form}
 			child={<Collapse uuid={_.isEmpty(uuid)} />}
-			onFinish={() => {
-				console.log(form);
-			}}
 			onValuesChange={(e) => dispatch(setRequestFormDetail({ ...form, ...e }))}
 		/>
 	);
