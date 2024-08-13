@@ -4,11 +4,11 @@ export interface BaseDoctor {
 	doctorCode: string;
 	uuid: string;
 }
-export interface DoctorForm extends BaseDoctor {
-	doctorTypeCode: string;
-}
 
-export interface DoctorList extends DoctorForm {
+export interface DoctorList {
+	doctorType: any;
+	doctorCode: any;
+	uuid: any;
 	id: string;
 	firstname: string;
 	lastname: string;
@@ -17,10 +17,3 @@ export interface DoctorList extends DoctorForm {
 export interface DoctorGrid extends PaginationModel {
 	list: DoctorList[];
 }
-
-export const modelDoctorForm: DoctorForm = {
-	doctorTypeCode: "",
-	doctorType: "",
-	doctorCode: "",
-	uuid: "",
-};

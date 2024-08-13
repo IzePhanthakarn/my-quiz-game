@@ -9,7 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { sidebarWidth } from "@/constants/global";
 import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
-import { setIsLoading } from "../../components/Loading/redux";
+import { setIsLoading } from "../../redux/slices/container";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
 import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
@@ -31,7 +31,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	const { isLoading } = useSelector(
 		(state: SliceModel) => ({
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
@@ -74,10 +74,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 			<BaseRow className="h-full">
 				<SideBar />
 				<main
-					className={cn(
-						`p-4 pt-0 bg-[#E7ECF2]`,
-						sidebarWidth && `w-full relative`
-					)}
+					className={cn(`p-4  bg-[#E7ECF2]`, sidebarWidth && `w-full relative`)}
 				>
 					{/* Bread Crumb */}
 					{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}

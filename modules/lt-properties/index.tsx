@@ -24,7 +24,7 @@ export default function LtProperties() {
 	const { ltProperties, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			ltProperties: state.ltProperties,
 		}),
 		shallowEqual

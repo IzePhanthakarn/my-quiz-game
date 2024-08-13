@@ -27,7 +27,7 @@ export default function Diploma() {
 			isOpen: state.drawer.isOpen,
 			page: state.diploma.grid.page,
 			filter: state.diploma.diplomaFilter,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);

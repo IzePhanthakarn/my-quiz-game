@@ -62,3 +62,30 @@ export function handleRouterPush(path: string, router: AppRouterInstance) {
 		router.push(finalPath);
 	}
 }
+
+export function handleMultiForm(values: any) {
+	const groupedValues: any[] = [];
+	Object.keys(values).forEach((key) => {
+		const match = key.match(/(\d+)$/);
+		if (match) {
+			const index = parseInt(match[1], 10);
+			if (!groupedValues[index]) {
+				groupedValues[index] = {};
+			}
+			const fieldName = key.replace(/\d+$/, "");
+			groupedValues[index][fieldName] = values[key];
+		}
+	});
+	console.log("Grouped values", groupedValues);
+}
+
+export const getValue = (obj: any, key: string, def = null): any => {
+	let value = _.get(obj, key, def);
+	if (_.isArray(obj)) {
+		value = _.get(obj, `[0].${key}`, def);
+	}
+	if (typeof value === "number") return value;
+	if (_.isArray(value) || _.isObject(value)) return value;
+
+	return _.isNull(value) ? null : _.trim(value);
+};

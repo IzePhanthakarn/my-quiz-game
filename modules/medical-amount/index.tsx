@@ -25,7 +25,7 @@ export default function MedicalAmount() {
 	const { medicalAmount, isOpen, isLoading } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 			medicalAmount: state.medicalAmount,
 		}),
 		shallowEqual

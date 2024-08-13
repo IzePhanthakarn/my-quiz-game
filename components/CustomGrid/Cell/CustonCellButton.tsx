@@ -54,12 +54,6 @@ const InputEditButtonCell = ({ mode, editLink }: Props) => {
 							borderRadius: "99%",
 						}}
 					/>
-					// <Button
-					// 	className="border-0 h-fit bg-[#A4B5B9] p-2.5 rounded-full"
-					// 	onClick={() => router.push(editLink ?? "")}
-					// >
-					// 	<img className="cursor-pointer " src="/med/icons/edit.svg" alt="" />
-					// </Button>
 				)}
 			</BaseRow>
 		);

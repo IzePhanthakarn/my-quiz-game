@@ -8,7 +8,7 @@ import { setDiplomaDetail } from "../redux";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
-import { setIsLoading } from "@/components/Loading/redux";
+import { setIsLoading } from "@/redux/slices/container";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { DiplomaForm } from "../redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";

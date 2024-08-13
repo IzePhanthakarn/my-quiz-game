@@ -1,6 +1,5 @@
 import { Crud } from "./crud/model";
 import { Clinic, ClinicDetail } from "../../modules/clinic/redux/model";
-import { Loading } from "@/components/Loading/redux/model";
 import { Diploma } from "@/modules/diploma/redux/model";
 import { OrganSystemWpi } from "@/modules/organ-system-wpi/redux/model";
 import { CourseCategory } from "@/modules/course-category/redux/model";
@@ -15,9 +14,10 @@ import { LtProperties } from "@/modules/lt-properties/redux/model";
 import { Hospital } from "@/modules/hospital/redux/model";
 import { Doctor } from "@/modules/doctor/redux/model";
 import { RequestForm } from "@/modules/request-form/redux/model";
+import { Container } from "./container/model";
 export interface SliceModel {
 	crud: Crud;
-	loading: Loading;
+	container: Container;
 	login: Login;
 	doctor: Doctor;
 	clinic: Clinic;

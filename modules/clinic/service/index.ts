@@ -12,7 +12,7 @@ import {
 import _ from "lodash";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { handleEmptyStringToNull } from "@/utils";
-import { setIsLoading } from "@/components/Loading/redux";
+import { setIsLoading } from "@/redux/slices/container";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import {
 	setIsOpenBaseConfirmDialog,

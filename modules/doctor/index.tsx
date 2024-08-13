@@ -26,7 +26,7 @@ export default function Doctor() {
 			isOpen: state.drawer.isOpen,
 			page: state.doctor.grid.page,
 			filter: state.doctor.doctorFilter,
-			isLoading: state.loading.isLoading,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
