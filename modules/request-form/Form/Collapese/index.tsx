@@ -5,26 +5,26 @@ import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section3 from "./Section3";
 
-export default function Collapse() {
+export default function Collapse(props: { uuid: boolean }) {
 	const items: CollapseProps["items"] = [
 		{
 			key: "1",
 			label: "ข้อมูลบันทึกใบคำขอค่าตรวจประเมิน",
-			children: <Section1 />,
+			children: <Section1 {...props} />,
 		},
 		{
 			key: "2",
 			label: "ข้อมูลแพทย์ผู้ประเมิน",
-			children: <Section2 />,
+			children: <Section2 {...props} />,
 		},
 		{
 			key: "3",
 			label: "เลขที่ใบคำขอค่าตรวจประเมิน",
-			children: <Section3 />,
+			children: <Section3 {...props} />,
 		},
 	];
 	return (
-		<div className="flex flex-col space-y-2">
+		<div className="flex flex-col mt-2 space-y-2">
 			<p className="text-2xl">สืบค้นใบคำขอรับค่าตรวจประเมิน MED01001</p>
 			<BaseCollapse items={items} defaultActiveKey={["1", "2", "3"]} />
 		</div>

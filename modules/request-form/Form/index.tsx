@@ -6,17 +6,19 @@ import { SliceModel } from "@/redux/slices/model";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { useParams } from "next/navigation";
-import { BaseFormMaster } from "wcf-component-lib/src/components/BaseFormMaster";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import Collapse from "./Collapese";
 import dynamic from "next/dynamic";
 import { handleOnGetRequestFormDetail } from "../service";
+import { useForm } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
 
 const RequestFormDetail = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const { uuid } = useParams();
-	const { form } = useSelector(
+	const { initialValues } = useSelector(
 		(state: SliceModel) => ({
-			form: state.requestForm.form,
+			initialValues: state.requestForm.form,
 		}),
 		shallowEqual
 	);
@@ -25,13 +27,21 @@ const RequestFormDetail = () => {
 		if (uuid) dispatch(handleOnGetRequestFormDetail(`${uuid}`));
 	}, [uuid]);
 
+	const [form] = useForm();
 	return (
-		<BaseFormMaster
+		<BaseForm
 			name={""}
-		
-			initialValues={form}
-			child={<Collapse />}
-			isActiveSection={undefined}
+			form={form}
+			initialValues={initialValues}
+			child={
+				<>
+					<Collapse uuid={_.isEmpty(_.trim(`${uuid}`))} />
+					<BaseButton
+						onClick={() => {
+							console.log(form.getFieldValue("requestFormCode"));
+						} } label={"ddd"}					/>
+				</>
+			}
 			onFinish={() => {}}
 			onFinishFailed={() => {}}
 		/>
