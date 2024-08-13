@@ -13,6 +13,7 @@ import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
 import { Hospital } from "@/modules/hospital/redux/model";
 import { Doctor } from "@/modules/doctor/redux/model";
+import { RequestForm } from "@/modules/request-form/redux/model";
 import { Container } from "./container/model";
 export interface SliceModel {
 	crud: Crud;
@@ -32,4 +33,5 @@ export interface SliceModel {
 	medicalAmount: MedicalAmount;
 	ltProperties: LtProperties;
 	hospital: Hospital;
+	requestForm: RequestForm;
 }
