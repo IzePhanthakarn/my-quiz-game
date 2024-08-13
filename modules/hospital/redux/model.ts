@@ -17,7 +17,7 @@ export interface HospitalGrid extends PaginationModel {
 	data: HospitalGridData[];
 }
 
-export interface HospitalGridData {
+export interface HospitalGridData extends BaseMasterDataInterface {
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string | null;
 	hospitalMinistryCode: string | null;
@@ -55,13 +55,6 @@ export interface HospitalGridData {
 	tambolCode: string | null;
 	remarkChangeName: string | null;
 	ssoProject: string | null;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export interface HospitalFilter {

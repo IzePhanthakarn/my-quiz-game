@@ -17,19 +17,12 @@ export interface LtPropertiesGrid extends PaginationModel {
 	data: LtPropertiesGridData[];
 }
 
-export interface LtPropertiesGridData {
+export interface LtPropertiesGridData extends BaseMasterDataInterface {
 	propertyCode: string;
 	groupName: string;
 	propertyText: string;
 	sortingOrder: number;
 	description: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export interface LtPropertiesFilter {

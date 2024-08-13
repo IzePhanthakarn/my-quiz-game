@@ -77,6 +77,13 @@ const API_PATH = {
 		GET_BY_UUID: "/hospital",
 		UPDATE_BY_UUID: "/hospital",
 	},
+	DOCUMENT: {
+		GET_LIST: "/master/document/list",
+		GET_RECORD: "/master/document",
+		ADD: "/master/document",
+		GET_BY_UUID: "/master/document",
+		UPDATE_BY_UUID: "/master/document",
+	},
 };
 
 export default API_PATH;
