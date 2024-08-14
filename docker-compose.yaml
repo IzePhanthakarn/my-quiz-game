@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  storybook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "6006:6006"
+    command: sh -c "npm run storybook"
