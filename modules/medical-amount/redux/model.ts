@@ -18,20 +18,13 @@ export interface MedicalAmountGrid extends PaginationModel {
 	data: MedicalAmountGridData[];
 }
 
-export interface MedicalAmountGridData {
+export interface MedicalAmountGridData extends BaseMasterDataInterface {
 	amount: number;
 	fareAmount: number;
 	amountLimit: number;
 	startEffectiveDate: null | string;
 	endEffectiveDate: null | string;
 	notice: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export interface MedicalAmountFilter {

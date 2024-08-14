@@ -18,17 +18,11 @@ export interface CourseOrganSystemGroupGrid extends PaginationModel {
 	data: CourseOrganSystemGroupGridData[];
 }
 
-export interface CourseOrganSystemGroupGridData {
+export interface CourseOrganSystemGroupGridData
+	extends BaseMasterDataInterface {
 	organSystemGroup: string;
 	courseCategory: string;
 	organSystemNo: string;
-
-	createdBy: string;
-	createdDate: string;
-	isActive: string;
-	updatedBy: string;
-	updatedDate: string;
-	uuid: string;
 }
 
 export interface CourseOrganSystemGroupFilter {
