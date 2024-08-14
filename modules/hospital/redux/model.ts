@@ -32,7 +32,7 @@ export interface HospitalGridData extends BaseMasterDataInterface {
 	revenueRegistrationCode: string | null;
 	contractStartDate: null | string | undefined;
 	contractEndDate: null | string | undefined;
-	sp7StartDate: null | string | undefined;
+	sp7StartDated: null | string | undefined;
 	sp7EndDate: null | string | undefined;
 	sp19StartDate: null | string | undefined;
 	sp19EndDate: null | string | undefined;
@@ -90,7 +90,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	revenueRegistrationCode: string;
 	contractStartDate: null | string | undefined;
 	contractEndDate: null | string | undefined;
-	sp7StartDate: null | string | undefined;
+	sp7StartDated: null | string | undefined;
 	sp7EndDate: null | string | undefined;
 	sp19StartDate: null | string | undefined;
 	sp19EndDate: null | string | undefined;
@@ -154,7 +154,7 @@ export const modelHospital: Hospital = {
 		revenueRegistrationCode: "",
 		contractStartDate: undefined,
 		contractEndDate: undefined,
-		sp7StartDate: undefined,
+		sp7StartDated: undefined,
 		sp7EndDate: undefined,
 		sp19StartDate: undefined,
 		sp19EndDate: undefined,
