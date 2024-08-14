@@ -20,13 +20,7 @@ export interface OrganSystemWpiGrid extends PaginationModel {
 export interface GetOrganSystemWpiList extends OrganSystemWpiFilter {
 	pagination: PaginationOptions;
 }
-export interface OrganSystemWpiGridData {
-	createdDate: string;
-	createdBy: string;
-	updatedDate: string;
-	updatedBy: string;
-	isActive: string;
-	uuid: string;
+export interface OrganSystemWpiGridData extends BaseMasterDataInterface {
 	systemId: number;
 	organSystemNo: number;
 	description: string;

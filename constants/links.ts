@@ -66,4 +66,16 @@ export const LINKS = {
 		add: "/hospital/form/",
 		edit: "/hospital/edit/",
 	},
+	DOCUMENT: {
+		name: "document",
+		link: "/document",
+		add: "/document/form/",
+		edit: "/document/edit/",
+	},
+	REQUEST_FORM: {
+		name: "REQUEST_FROM",
+		link: "/request-form",
+		add: "/request-form/form/",
+		edit: "/request-form/edit/",
+	},
 };
