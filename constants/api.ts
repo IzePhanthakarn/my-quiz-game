@@ -84,6 +84,12 @@ const API_PATH = {
 		GET_BY_UUID: "/master/document",
 		UPDATE_BY_UUID: "/master/document",
 	},
+	REQUEST_FORM: {
+		CREATE: "/request-form",
+		UPDATE: "/request-form",
+		GET_LIST: "/request-form/list",
+		GET_BY_UUID: "/request-form",
+	},
 };
 
 export default API_PATH;

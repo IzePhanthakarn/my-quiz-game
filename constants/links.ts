@@ -72,4 +72,10 @@ export const LINKS = {
 		add: "/document/form/",
 		edit: "/document/edit/",
 	},
+	REQUEST_FORM: {
+		name: "REQUEST_FROM",
+		link: "/request-form",
+		add: "/request-form/form/",
+		edit: "/request-form/edit/",
+	},
 };

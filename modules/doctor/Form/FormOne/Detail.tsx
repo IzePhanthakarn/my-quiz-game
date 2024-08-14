@@ -4,18 +4,13 @@ import React, { useEffect } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import {
-	Address,
-	modelAddress,
-} from "wcf-component-lib/src/components/BaseThaiAddress/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 import { initGetDoctorForm } from "../../service";
-import { DoctorForm, modelDoctorForm } from "../../redux/form/model";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { DoctorForm } from "../../redux/form/model";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 
 export default function Detail() {
@@ -27,8 +22,6 @@ export default function Detail() {
 		}),
 		shallowEqual
 	);
-
-	const [form] = Form.useForm();
 
 	// const handleAddress = (asd: string) => {
 	// 	const raw_address = JSON.parse(
@@ -52,7 +45,6 @@ export default function Detail() {
 	const onFinishFailed: FormProps<DoctorForm>["onFinishFailed"] = (_) => {};
 
 	// Mock wait redux
-	const [value, setValue] = React.useState<Address>(modelAddress);
 	const [init, setInit] = React.useState<boolean>(false);
 
 	useEffect(() => {
@@ -130,7 +122,6 @@ export default function Detail() {
 					name={"doctorForm"}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-					form={form}
 				/>
 			)}
 		</>
