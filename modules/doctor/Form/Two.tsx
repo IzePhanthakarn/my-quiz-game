@@ -34,33 +34,32 @@ export default function Two() {
 
 			<div>
 				<BaseForm
-					child={
-						<>
-							{test.map((_, key) => (
-								<div key={key} className="grid grid-cols-4 gap-y-9 gap-x-8">
-									<BaseItemInput
-										label="doctorCode"
-										itemName={`username${key}`}
-										rules={[{ required: true }]}
-									/>
-									<BaseItemInput
-										label="เลขทะเบียนวิชาชีพ"
-										itemName={`email${key}`}
-									/>
-									<BaseItemInput
-										label="เลขทะเบียน สปส"
-										itemName={`country${key}`}
-									/>
-									<BaseButton label="ลบ" onClick={() => removeForm(key)} />
-								</div>
-							))}
-							<BaseButton className="mt-20" label="บันทึก" htmlType="submit" />
-						</>
-					}
 					name={"doctorForm"}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-				/>
+				>
+					<>
+						{test.map((_, key) => (
+							<div key={key} className="grid grid-cols-4 gap-y-9 gap-x-8">
+								<BaseItemInput
+									label="doctorCode"
+									itemName={`username${key}`}
+									rules={[{ required: true }]}
+								/>
+								<BaseItemInput
+									label="เลขทะเบียนวิชาชีพ"
+									itemName={`email${key}`}
+								/>
+								<BaseItemInput
+									label="เลขทะเบียน สปส"
+									itemName={`country${key}`}
+								/>
+								<BaseButton label="ลบ" onClick={() => removeForm(key)} />
+							</div>
+						))}
+						<BaseButton className="mt-20" label="บันทึก" htmlType="submit" />
+					</>
+				</BaseForm>
 			</div>
 		</>
 	);
