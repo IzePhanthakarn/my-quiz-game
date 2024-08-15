@@ -1,9 +1,8 @@
 import React from "react";
-import { NextPage } from "next";
 import DoctorForm from "@/modules/doctor/Form";
 
-const DoctorFormPage: NextPage<UuidFormPageProps> = ({ params }) => {
-	return <DoctorForm params={params} />;
+const DoctorFormPage = () => {
+	return <DoctorForm />;
 };
 
 export default DoctorFormPage;
