@@ -10,12 +10,12 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setClinicFilter, setOrder, setPagination } from "./redux";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
-import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -75,7 +75,7 @@ export default function Clinic() {
 						clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
 					/>
 				}
-				FilterTextField={<Input className="w-[300px]" />}
+				FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
 				AddLabel="เพิ่มคลินิค"
