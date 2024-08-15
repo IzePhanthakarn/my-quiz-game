@@ -27,6 +27,10 @@ import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizonta
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/HomeFilled";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import BaseCollapseLabelHeader from "wcf-component-lib/src/components/BaseCollapseLabelHeader";
+import BaseButtonCancel from "wcf-component-lib/src/components/BaseButtonCancel";
+import BaseButtonDraft from "wcf-component-lib/src/components/BaseButtonDraft";
+import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
 
 const Form = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -56,6 +60,7 @@ const Form = (params: HospitalFormPageProps) => {
 
 	const onFinish: FormProps<HospitalForm>["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
+		console.log("🚀 ~ Form ~ onFinish:", 1);
 	};
 
 	const onFinishFailed: FormProps<HospitalForm>["onFinishFailed"] = (_) => {};
@@ -721,11 +726,20 @@ const Form = (params: HospitalFormPageProps) => {
 
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
-				<div className="">
+				<BaseForm
+					name={"hospitalForm"}
+					onFinish={onFinish}
+					onFinishFailed={onFinishFailed}
+				>
 					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
 					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
 					<BaseCollapse items={thSection} defaultActiveKey={"3"} />
-				</div>
+					<div className="flex justify-end">
+						<BaseButtonCancel className="mr-3" />
+						<BaseButtonDraft className="mr-3" />
+						<BaseButtonSave className="" htmlType="submit" />
+					</div>
+				</BaseForm>
 			)}
 
 			{/* {isInit && (
