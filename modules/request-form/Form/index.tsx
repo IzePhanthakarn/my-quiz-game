@@ -30,9 +30,10 @@ const RequestFormDetail = () => {
 		<BaseForm
 			name={""}
 			initialValues={form}
-			child={<Collapse uuid={_.isEmpty(uuid)} />}
 			onValuesChange={(e) => dispatch(setRequestFormDetail({ ...form, ...e }))}
-		/>
+		>
+			<Collapse uuid={_.isEmpty(uuid)} />
+		</BaseForm>
 	);
 };
 export default dynamic(() => Promise.resolve(RequestFormDetail), {

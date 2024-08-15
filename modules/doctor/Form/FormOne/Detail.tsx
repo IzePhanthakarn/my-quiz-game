@@ -60,69 +60,57 @@ export default function Detail() {
 			{!_.isEmpty(doctorForm.doctorCode) && (
 				<BaseForm
 					initialValues={doctorForm}
-					child={
-						<div className="grid grid-cols-4 gap-y-2 gap-x-8">
-							<BaseDropDown
-								label="diploma"
-								option={[]}
-								itemName="diploma"
-								type="diploma"
-							/>
-							<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
-							<BaseItemInput label="amphur" itemName="amphur" rules={[]} />
-							<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
-							<BaseItemInput label="moo" itemName="moo" rules={[]} />
-							<BaseItemInput label="province" itemName="province" rules={[]} />
-							<BaseItemInput label="road" itemName="road" rules={[]} />
-							<BaseItemInput label="soi" itemName="soi" rules={[]} />
-							<BaseItemInput label="tambol" itemName="tambol" rules={[]} />
-							<BaseItemInput
-								label="citizenId"
-								itemName="citizenId"
-								rules={[]}
-							/>
-							<BaseItemInput
-								label="doctorCode"
-								itemName="doctorCode"
-								rules={[]}
-							/>
-							<BaseItemInput
-								label="doctorType"
-								itemName="doctorType"
-								rules={[]}
-							/>
-							<BaseItemInput
-								label="firstName"
-								itemName="firstName"
-								rules={[]}
-							/>
-							<BaseItemInput label="lastName" itemName="lastName" rules={[]} />
-							<BaseItemInput label="position" itemName="position" rules={[]} />
-							<BaseItemInput
-								label="postalName"
-								itemName="postalName"
-								rules={[]}
-							/>
-							<BaseItemInput label="postcode" itemName="postcode" rules={[]} />
-							<BaseItemInput
-								label="professionalCode"
-								itemName="professionalCode"
-								rules={[]}
-							/>
-							<BaseItemInput
-								label="revenueNo"
-								itemName="revenueNo"
-								rules={[]}
-							/>
-							<BaseItemInput label="title" itemName="title" rules={[]} />
-
-							<BaseButton label="บันทึก" htmlType="submit" />
-						</div>
-					}
 					name={"doctorForm"}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
-				/>
+				>
+					{" "}
+					<div className="grid grid-cols-4 gap-y-2 gap-x-8">
+						<BaseDropDown
+							label="diploma"
+							option={[]}
+							itemName="diploma"
+							type="diploma"
+						/>
+						<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
+						<BaseItemInput label="amphur" itemName="amphur" rules={[]} />
+						<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
+						<BaseItemInput label="moo" itemName="moo" rules={[]} />
+						<BaseItemInput label="province" itemName="province" rules={[]} />
+						<BaseItemInput label="road" itemName="road" rules={[]} />
+						<BaseItemInput label="soi" itemName="soi" rules={[]} />
+						<BaseItemInput label="tambol" itemName="tambol" rules={[]} />
+						<BaseItemInput label="citizenId" itemName="citizenId" rules={[]} />
+						<BaseItemInput
+							label="doctorCode"
+							itemName="doctorCode"
+							rules={[]}
+						/>
+						<BaseItemInput
+							label="doctorType"
+							itemName="doctorType"
+							rules={[]}
+						/>
+						<BaseItemInput label="firstName" itemName="firstName" rules={[]} />
+						<BaseItemInput label="lastName" itemName="lastName" rules={[]} />
+						<BaseItemInput label="position" itemName="position" rules={[]} />
+						<BaseItemInput
+							label="postalName"
+							itemName="postalName"
+							rules={[]}
+						/>
+						<BaseItemInput label="postcode" itemName="postcode" rules={[]} />
+						<BaseItemInput
+							label="professionalCode"
+							itemName="professionalCode"
+							rules={[]}
+						/>
+						<BaseItemInput label="revenueNo" itemName="revenueNo" rules={[]} />
+						<BaseItemInput label="title" itemName="title" rules={[]} />
+
+						<BaseButton label="บันทึก" htmlType="submit" />
+					</div>
+				</BaseForm>
 			)}
 		</>
 	);
