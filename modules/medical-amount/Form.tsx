@@ -153,7 +153,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									itemName="startEffectiveDate"
 									rules={medicalAmountRules.startEffectiveDateSchema}
 									value={form.startEffectiveDate}
-									onChangeFunction={(e) => {
+									onChangeDateFunction={(e) => {
 										dispatch(
 											setMedicalAmountForm({
 												...form,
@@ -167,7 +167,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 									itemName="endEffectiveDate"
 									// rules={medicalAmountRules.endEffectiveDateSchema}
 									value={form.endEffectiveDate}
-									onChangeFunction={(e) => {
+									onChangeDateFunction={(e) => {
 										dispatch(
 											setMedicalAmountForm({
 												...form,
