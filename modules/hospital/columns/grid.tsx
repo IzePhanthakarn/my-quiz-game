@@ -7,6 +7,7 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { LINKS } from "@/constants/links";
+import { names } from "../field-validation/FormValidation";
 
 export const grid: TableProps["columns"] = [
 	{
@@ -24,7 +25,7 @@ export const grid: TableProps["columns"] = [
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"hospitalWcfCode"}
-				label={"Hospital Wcf Code"}
+				label={names.hospitalWcfCode}
 				sort={columns?.sortColumns}
 			/>
 		),
@@ -37,7 +38,7 @@ export const grid: TableProps["columns"] = [
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"hospitalDbmsCode"}
-				label={"Hospital Dbms Code"}
+				label={names.hospitalDbmsCode}
 				sort={columns?.sortColumns}
 			/>
 		),
@@ -50,7 +51,7 @@ export const grid: TableProps["columns"] = [
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"hospitalMinistryCode"}
-				label={"Hospital Ministry Code"}
+				label={names.hospitalMinistryCode}
 				sort={columns?.sortColumns}
 			/>
 		),
@@ -63,7 +64,7 @@ export const grid: TableProps["columns"] = [
 			<CustomHeaderSort
 				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 				headerKey={"hospitalName"}
-				label={"Hospital Name"}
+				label={names.hospitalName}
 				sort={columns?.sortColumns}
 			/>
 		),
