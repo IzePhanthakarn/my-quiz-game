@@ -7,7 +7,7 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { LINKS } from "@/constants/links";
-import { names } from "../field-validation/FormValidation";
+import { names } from "../interfaces/names";
 
 export const grid: TableProps["columns"] = [
 	{

@@ -17,7 +17,7 @@ import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
 import { addHospital, initGetHospitalDetail, updateHospital } from "./service";
-import { names, rules } from "./field-validation/FormValidation";
+import { rules } from "./field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
@@ -30,6 +30,7 @@ import BaseButtonCancel from "wcf-component-lib/src/components/BaseButtonCancel"
 import BaseButtonDraft from "wcf-component-lib/src/components/BaseButtonDraft";
 import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { names } from "./interfaces/names";
 
 const Form = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();

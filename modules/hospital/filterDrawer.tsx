@@ -10,7 +10,7 @@ import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseIt
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setHospitalFilter } from "./redux";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
-import { names } from "./field-validation/FormValidation";
+import { names } from "./interfaces/names";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();

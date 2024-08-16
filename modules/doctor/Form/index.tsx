@@ -62,17 +62,15 @@ const DoctorFormTabs = () => {
 			</button>
 			<BaseForm
 				initialValues={doctorForm}
-				child={
-					<div>
-						<p>asd {customValue}</p>
-						<BaseTabs defaultActiveKey={"1"} items={itemsTabs} />
-					</div>
-				}
 				name={"doctorForm"}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				onValuesChange={(e) => console.log("e", e)}
 			/>
+			<div>
+				<p>asd {customValue}</p>
+				<BaseTabs defaultActiveKey={"1"} items={itemsTabs} />
+			</div>
 		</BaseColumn>
 	);
 };
