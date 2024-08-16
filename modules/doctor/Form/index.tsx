@@ -66,11 +66,9 @@ const DoctorFormTabs = () => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				onValuesChange={(e) => console.log("e", e)}
-			/>
-			<div>
-				<p>asd {customValue}</p>
+			>
 				<BaseTabs defaultActiveKey={"1"} items={itemsTabs} />
-			</div>
+			</BaseForm>
 		</BaseColumn>
 	);
 };
