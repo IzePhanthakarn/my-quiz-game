@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { safelistConfig } from "./styles/tailwind-safelist";
+import { safelistConfig } from "wcf-component-lib/styles/tailwind-safelist";
 
 const config: Config = {
 	important: true,
