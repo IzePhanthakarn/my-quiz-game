@@ -10,6 +10,7 @@ import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseIt
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { setHospitalFilter } from "./redux";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
+import { names } from "./field-validation/FormValidation";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="CheckHospitalWcfCode"
-					label="Hospital Wcf Code"
+					label={names.hospitalWcfCode}
 					checked={filter.CheckHospitalWcfCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
@@ -58,7 +59,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="CheckHospitalDbmsCode"
-					label="Hospital Dbms Code"
+					label={names.hospitalDbmsCode}
 					checked={filter.CheckHospitalDbmsCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
@@ -91,7 +92,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="CheckHospitalMinistryCode"
-					label="Hospital Ministry Code"
+					label={names.hospitalMinistryCode}
 					checked={filter.CheckHospitalMinistryCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
@@ -124,7 +125,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="CheckHospitalName"
-					label="Hospital Name"
+					label={names.hospitalName}
 					checked={filter.CheckHospitalName}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>

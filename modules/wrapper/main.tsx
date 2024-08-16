@@ -74,7 +74,10 @@ const MainWrapper: React.FC<Props> = (props) => {
 			<BaseRow className="h-full">
 				<SideBar />
 				<main
-					className={cn(`p-4  bg-[#E7ECF2]`, sidebarWidth && `w-full relative`)}
+					className={cn(
+						`p-4 h-fit bg-[#E7ECF2]`,
+						sidebarWidth && `w-full relative`
+					)}
 				>
 					{/* Bread Crumb */}
 					{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}
