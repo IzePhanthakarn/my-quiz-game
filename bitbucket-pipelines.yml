@@ -5,6 +5,7 @@ definitions:
         script:
           - echo "export DOCKER_PASS_TOKEN=$DOCKER_PASS_TOKEN" >> .envs
           - echo "export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')" >> .envs
+          - export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')
           - echo "export IMAGE_FIX=soilfish/medical-web:${VERSION}" >> .envs
           - echo "export ENV=$ENV" >> .envs
         artifacts:
