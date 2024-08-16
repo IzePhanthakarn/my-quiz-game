@@ -54,7 +54,7 @@ export default function DoctorDetail() {
 	const [value, setValue] = React.useState<Address>(modelAddress);
 
 	return (
-		<div className="grid grid-cols-4 gap-y-2 gap-x-8">
+		<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
 			<BaseDropDown
 				label="diploma"
 				option={[]}

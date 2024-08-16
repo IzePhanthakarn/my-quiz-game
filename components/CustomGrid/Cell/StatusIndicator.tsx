@@ -14,7 +14,7 @@ const StatusIndicator = ({ status }: Props) => {
 				className={`w-2 h-2 rounded-full
       ${status === STATUS.ACTIVE ? "bg-green-500" : "bg-red-500"}`}
 			></div>
-			<p>{status === STATUS.ACTIVE ? "อนุมัติ" : "รออนุมัติ"}</p>
+			<p>{status === STATUS.ACTIVE ? "ใช้งาน" : "ไม่ใช้งาน"}</p>
 		</div>
 	);
 };
