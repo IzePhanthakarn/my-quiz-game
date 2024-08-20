@@ -13,11 +13,10 @@ import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import { initGetDoctorForm } from "../../service";
 import { DoctorForm, modelDoctorForm } from "../../redux/form/model";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import BaseThaiAddress from "wcf-component-lib/src/components/BaseThaiAddress";
+import { itemsTables } from "./model";
+import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 
 export default function DoctorDetail() {
 	const dispatch: AppDispatch = useDispatch();
@@ -55,12 +54,6 @@ export default function DoctorDetail() {
 
 	return (
 		<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
-			<BaseDropDown
-				label="diploma"
-				option={[]}
-				itemName="diploma"
-				type="diploma"
-			/>
 			<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
 			<BaseItemInput label="amphur" itemName="amphur" rules={[]} />
 			<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
@@ -113,6 +106,15 @@ export default function DoctorDetail() {
 				itemName={"tambons"}
 			/>
 			<BaseButton label="บันทึก" htmlType="submit" />
+			<div className="col-span-4">
+				{itemsTables?.map((_, index) => (
+					<BaseCollapse
+						key={index}
+						defaultActiveKey={index + 1}
+						items={[(itemsTables ?? [])[index]]}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }

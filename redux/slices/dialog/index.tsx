@@ -14,10 +14,23 @@ export const dialogSlice = createSlice({
 		) => {
 			state.isOpenBaseConfirmDialog = actions.payload;
 		},
+		setContentDialog: (
+			state: BaseDialog,
+			actions: PayloadAction<JSX.Element>
+		) => {
+			state.content = actions.payload;
+		},
+		setDialog: (_, actions: PayloadAction<BaseDialog>) => {
+			return { ...actions.payload };
+		},
 	},
 });
 
-export const { setIsOpenDialog, setIsOpenBaseConfirmDialog } =
-	dialogSlice.actions;
+export const {
+	setIsOpenDialog,
+	setIsOpenBaseConfirmDialog,
+	setContentDialog,
+	setDialog,
+} = dialogSlice.actions;
 
 export default dialogSlice.reducer;
