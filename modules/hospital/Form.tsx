@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { LINKS } from "@/constants/links";
-import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -18,7 +17,7 @@ import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
 import { addHospital, initGetHospitalDetail, updateHospital } from "./service";
-import { names, rules } from "./field-validation/FormValidation";
+import { rules } from "./field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
@@ -31,6 +30,7 @@ import BaseButtonCancel from "wcf-component-lib/src/components/BaseButtonCancel"
 import BaseButtonDraft from "wcf-component-lib/src/components/BaseButtonDraft";
 import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { names } from "./interfaces/names";
 
 const Form = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -207,15 +207,15 @@ const Form = (params: HospitalFormPageProps) => {
 						/>
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
-							label={names.provinceCode}
-							itemName="provinceCode"
-							rules={rules.provinceCodeSchema}
-							value={form.provinceCode}
+							label={names.tambolCode}
+							itemName="tambolCode"
+							rules={rules.tambolCodeSchema}
+							value={form.tambolCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
 										...form,
-										provinceCode: e.target.value,
+										tambolCode: e.target.value,
 									})
 								);
 							}}
@@ -239,15 +239,15 @@ const Form = (params: HospitalFormPageProps) => {
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
-							label={names.tambolCode}
-							itemName="tambolCode"
-							rules={rules.tambolCodeSchema}
-							value={form.tambolCode}
+							label={names.provinceCode}
+							itemName="provinceCode"
+							rules={rules.provinceCodeSchema}
+							value={form.provinceCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
 										...form,
-										tambolCode: e.target.value,
+										provinceCode: e.target.value,
 									})
 								);
 							}}
@@ -730,12 +730,20 @@ const Form = (params: HospitalFormPageProps) => {
 					name={"hospitalForm"}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
+					initialValues={{
+						...form,
+					}}
 				>
 					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
 					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
 					<BaseCollapse items={thSection} defaultActiveKey={"3"} />
 					<div className="flex justify-end">
-						<BaseButtonCancel className="mr-3" />
+						<BaseButtonCancel
+							className="mr-3"
+							onClick={() => {
+								router.push(LINKS.HOSPITAL.link);
+							}}
+						/>
 						<BaseButtonDraft className="mr-3" />
 						<BaseButtonSave className="" htmlType="submit" />
 					</div>
