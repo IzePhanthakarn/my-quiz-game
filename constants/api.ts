@@ -76,6 +76,9 @@ const API_PATH = {
 		ADD: "/hospital",
 		GET_BY_UUID: "/hospital",
 		UPDATE_BY_UUID: "/hospital",
+		EXPORT_PAGES: {
+			MED5008: "/hospital/export/med5008",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

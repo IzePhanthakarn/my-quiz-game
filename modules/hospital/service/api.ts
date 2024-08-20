@@ -1,10 +1,10 @@
 import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "axios";
-import { HospitalForm, GetHospitalList } from "../redux/model";
+import { HospitalForm, GetHospitalList, ExportPages } from "../redux/model";
 
 export const getHospitalDetail = createAsyncThunk(
-	"Medical/getHospitalDetail",
+	"Hospital/getHospitalDetail",
 	async (uuid: string, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.GET_BY_UUID}/${uuid}`;
@@ -17,7 +17,7 @@ export const getHospitalDetail = createAsyncThunk(
 );
 
 export const updateHospitalApi = createAsyncThunk(
-	"Medical/updateHospitalApi",
+	"Hospital/updateHospitalApi",
 	async (
 		body: {
 			body: HospitalForm;
@@ -36,7 +36,7 @@ export const updateHospitalApi = createAsyncThunk(
 );
 
 export const getHospitalList = createAsyncThunk(
-	"Medical/getHospitalList",
+	"Hospital/getHospitalList",
 	async (body: GetHospitalList, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.GET_LIST}`;
@@ -49,10 +49,23 @@ export const getHospitalList = createAsyncThunk(
 );
 
 export const addHospitalAPI = createAsyncThunk(
-	"Medical/addHospitalAPI",
+	"Hospital/addHospitalAPI",
 	async (body: HospitalForm, thunkAPi) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ADD}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
+export const exportMed5008Api = createAsyncThunk(
+	"Hospital/exportMed5008Api",
+	async (body: ExportPages["med5008"], thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PAGES.MED5008}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {

@@ -3,18 +3,19 @@ import { modelHospital } from "./model";
 import { hospitalReducers } from "./reducer";
 
 export const hospitalSlice = createSlice({
-  name: "Clinic",
-  initialState: modelHospital,
-  reducers: {
-    ...hospitalReducers,
-  },
+	name: "Clinic",
+	initialState: modelHospital,
+	reducers: {
+		...hospitalReducers,
+	},
 });
 
 export const {
-  setHospitalForm,
-  setHospitalGrid,
-  setHospitalFilter,
-  setHospitalPagination,
+	setHospitalForm,
+	setHospitalGrid,
+	setHospitalFilter,
+	setHospitalPagination,
+	setExportPages,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;
