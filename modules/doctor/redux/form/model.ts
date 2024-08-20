@@ -1,9 +1,6 @@
-export interface DoctorForm {
-	doctorId: number;
-	createdBy: string;
-	createdDate: string;
-	updatedBy: string;
-	updatedDate: string;
+import { BaseEntity } from "@/interfaces/baseEntity";
+
+export interface DoctorData {
 	amphur: string;
 	houseNum: string;
 	moo: string;
@@ -26,14 +23,44 @@ export interface DoctorForm {
 	uuid: string;
 }
 
-interface DoctorDetail {}
+interface Training extends BaseEntity {
+	doctorCode: string;
+	trainingNo: string;
+	trainingTime: string;
+	trainingYear: string;
+	trainingDate: string;
+}
+interface DoctorDetail extends BaseEntity {
+	doctorCode: string;
+	diplomaType: string;
+}
 
-export const modelDoctorForm: DoctorForm = {
-	doctorId: 0,
-	createdBy: "",
-	createdDate: "",
-	updatedBy: "",
-	updatedDate: "",
+interface DoctorBank extends BaseEntity {
+	doctorCode: string;
+	bankAccountName: string;
+	bankDigitCode: string;
+	bankSortingCode: string;
+	bankAccount: string;
+}
+
+interface DoctorHospital extends BaseEntity {
+	doctorCode: string;
+	hospitalWcfCode: string;
+	jobType: string;
+	clinicCode: string | null;
+	position: string | null;
+	hospitalWcfName: string | null;
+}
+
+export interface DoctorForm {
+	doctor: DoctorData;
+	doctorDetail: DoctorDetail[];
+	doctorHospital: DoctorHospital[];
+	doctorBank: DoctorBank[];
+	training: Training[];
+}
+
+const modelDoctor: DoctorData = {
 	amphur: "",
 	houseNum: "",
 	moo: "",
@@ -54,4 +81,12 @@ export const modelDoctorForm: DoctorForm = {
 	title: "",
 	isActive: "",
 	uuid: "",
+};
+
+export const modelDoctorForm: DoctorForm = {
+	doctor: modelDoctor,
+	doctorDetail: [],
+	doctorHospital: [],
+	doctorBank: [],
+	training: [],
 };
