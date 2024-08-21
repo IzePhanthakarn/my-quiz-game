@@ -87,11 +87,11 @@ export const initGetHospitalDetail =
 	};
 
 export const updateHospital =
-	(form: HospitalForm, router: AppRouterInstance) =>
+	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalApi({
-				uuid: form.uuid,
+				uuid: uuid,
 				body: form,
 			})
 		);
