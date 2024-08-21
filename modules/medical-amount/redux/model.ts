@@ -28,12 +28,12 @@ export interface MedicalAmountGridData extends BaseMasterDataInterface {
 }
 
 export interface MedicalAmountFilter {
-	amount: string | null;
-	fareAmount: string | null;
-	amountLimit: string | null;
+	amount: string | null | undefined;
+	fareAmount: string | null | undefined;
+	amountLimit: string | null | undefined;
 	startEffectiveDate: null | string;
 	endEffectiveDate: null | string;
-	noticeLike: null | string;
+	noticeLike: null | string | undefined;
 
 	checkAmount: boolean;
 	checkFareAmount: boolean;
@@ -64,14 +64,14 @@ export const modelMedicalAmount: MedicalAmount = {
 		page: { ...modelPaginationOptions },
 	},
 	filter: {
-		amount: "",
-		fareAmount: "",
-		amountLimit: "",
+		amount: undefined,
+		fareAmount: undefined,
+		amountLimit: undefined,
 		// startEffectiveDate: getCurrentDateString(),
 		// endEffectiveDate: getCurrentDateString(),
 		startEffectiveDate: "",
 		endEffectiveDate: "",
-		noticeLike: "",
+		noticeLike: undefined,
 
 		checkAmount: false,
 		checkFareAmount: false,

@@ -33,6 +33,7 @@ export default function FilterDrawer() {
 							setMedicalAmountFilter({
 								...filter,
 								checkAmount: !filter.checkAmount,
+								amount: undefined,
 							})
 						)
 					}
@@ -55,7 +56,7 @@ export default function FilterDrawer() {
 				)}
 			</BaseColumn>
 
-			{/* <BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkFareAmount"
 					label="Fare Amount"
@@ -66,6 +67,7 @@ export default function FilterDrawer() {
 							setMedicalAmountFilter({
 								...filter,
 								checkFareAmount: !filter.checkFareAmount,
+								fareAmount: undefined,
 							})
 						)
 					}
@@ -86,9 +88,9 @@ export default function FilterDrawer() {
 						/>
 					</div>
 				)}
-			</BaseColumn> */}
+			</BaseColumn>
 
-			{/* <BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkAmountLimit"
 					label="Amount Limit"
@@ -99,6 +101,7 @@ export default function FilterDrawer() {
 							setMedicalAmountFilter({
 								...filter,
 								checkAmountLimit: !filter.checkAmountLimit,
+								amountLimit: undefined,
 							})
 						)
 					}
@@ -119,7 +122,7 @@ export default function FilterDrawer() {
 						/>
 					</div>
 				)}
-			</BaseColumn> */}
+			</BaseColumn>
 
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
@@ -132,6 +135,7 @@ export default function FilterDrawer() {
 							setMedicalAmountFilter({
 								...filter,
 								checkNotice: !filter.checkNotice,
+								noticeLike: undefined,
 							})
 						)
 					}
