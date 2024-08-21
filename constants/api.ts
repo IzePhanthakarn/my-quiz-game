@@ -20,6 +20,7 @@ const API_PATH = {
 	GET_DOCTOR_PAGE: "doctor/list",
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
+	GET_DOCTOR_FORM: "doctor/getForm",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {

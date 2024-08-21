@@ -22,7 +22,7 @@ export const getDoctorForm = createAsyncThunk(
 	"Medical/getDoctorForm",
 	async (id: string, thunkAPi) => {
 		try {
-			const apiPath = `${API_PATH.GET_DOCTOR_DETAIL}/${id}`;
+			const apiPath = `${API_PATH.GET_DOCTOR_FORM}/${id}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
