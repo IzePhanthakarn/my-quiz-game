@@ -30,7 +30,7 @@ interface Training extends BaseEntity {
 	trainingYear: string;
 	trainingDate: string;
 }
-interface DoctorDetail extends BaseEntity {
+export interface DoctorDetail extends BaseEntity {
 	doctorCode: string;
 	diplomaType: string;
 }
@@ -53,14 +53,20 @@ interface DoctorHospital extends BaseEntity {
 }
 
 export interface DoctorForm {
-	doctor: DoctorData;
+	doctorData: DoctorData;
 	doctorDetail: DoctorDetail[];
 	doctorHospital: DoctorHospital[];
 	doctorBank: DoctorBank[];
 	training: Training[];
+	[key: string]:
+		| DoctorData
+		| DoctorDetail[]
+		| DoctorHospital[]
+		| DoctorBank[]
+		| Training[];
 }
 
-const modelDoctor: DoctorData = {
+const modelDoctorData: DoctorData = {
 	amphur: "",
 	houseNum: "",
 	moo: "",
@@ -84,7 +90,7 @@ const modelDoctor: DoctorData = {
 };
 
 export const modelDoctorForm: DoctorForm = {
-	doctor: modelDoctor,
+	doctorData: modelDoctorData,
 	doctorDetail: [],
 	doctorHospital: [],
 	doctorBank: [],
