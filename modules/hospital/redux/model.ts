@@ -11,6 +11,7 @@ export interface Hospital {
 	grid: HospitalGrid;
 	filter: HospitalFilter;
 	form: HospitalForm;
+	exportPages: ExportPages;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -75,6 +76,16 @@ export interface HospitalFilter {
 export interface GetHospitalList extends HospitalFilter {
 	pagination: PaginationOptions;
 }
+
+export interface ExportPages {
+	med5008: {
+		sp7StartDated: null | string | undefined;
+		sp7EndDate: null | string | undefined;
+		sp19StartDate: null | string | undefined;
+		sp19EndDate: null | string | undefined;
+	};
+}
+
 export interface HospitalForm extends BaseMasterDataInterface {
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
@@ -137,6 +148,14 @@ export const modelHospital: Hospital = {
 
 		isActive: undefined,
 		checkIsActive: false,
+	},
+	exportPages: {
+		med5008: {
+			sp7StartDated: "",
+			sp7EndDate: "",
+			sp19StartDate: "",
+			sp19EndDate: "",
+		},
 	},
 	form: {
 		...baseMasterDataModel,
