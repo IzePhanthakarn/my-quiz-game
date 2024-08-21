@@ -3,7 +3,7 @@ import { modelHospital } from "./model";
 import { hospitalReducers } from "./reducer";
 
 export const hospitalSlice = createSlice({
-	name: "Clinic",
+	name: "Hospital",
 	initialState: modelHospital,
 	reducers: {
 		...hospitalReducers,
