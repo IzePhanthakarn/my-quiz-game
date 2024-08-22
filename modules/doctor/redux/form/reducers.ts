@@ -7,6 +7,6 @@ export const doctorFormReducers = {
 		state.doctorForm = { ...action.payload };
 	},
 	setDoctorData: (state: Doctor, action: PayloadAction<DoctorData>) => {
-		state.doctorForm.doctor = { ...action.payload };
+		state.doctorForm.doctorData = { ...action.payload };
 	},
 };
