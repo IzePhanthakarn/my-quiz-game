@@ -31,16 +31,19 @@ import BaseButtonDraft from "wcf-component-lib/src/components/BaseButtonDraft";
 import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { names } from "./interfaces/names";
+import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
 
-const Form = (params: HospitalFormPageProps) => {
+const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
+	const [form] = Form.useForm<HospitalForm>();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { form, isOpenBaseConfirmDialog } = useSelector(
+	const { hospitalForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
-			form: state.hospital.form,
+			hospitalForm: state.hospital.form,
 		}),
 		shallowEqual
 	);
@@ -58,9 +61,20 @@ const Form = (params: HospitalFormPageProps) => {
 		})();
 	}, []);
 
-	const onFinish: FormProps<HospitalForm>["onFinish"] = () => {
+	const onFinish: FormProps<HospitalForm>["onFinish"] = async () => {
+		if (
+			!_.isEmpty(form.getFieldsValue().contractEndDate) &&
+			_.isEmpty(form.getFieldsValue().remarkChangeName)
+		) {
+			form.setFields([
+				{
+					name: "remarkChangeName", // Replace with your actual field name
+					errors: [`กรุณาใส่ ${names.remarkChangeName}`], // Custom error message
+				},
+			]);
+			return;
+		}
 		dispatch(setIsOpenBaseConfirmDialog(true));
-		console.log("🚀 ~ Form ~ onFinish:", 1);
 	};
 
 	const onFinishFailed: FormProps<HospitalForm>["onFinishFailed"] = (_) => {};
@@ -96,11 +110,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalDbmsCode}
 							itemName="hospitalDbmsCode"
 							rules={rules.hospitalDbmsCodeSchema}
-							value={form.hospitalDbmsCode}
+							value={hospitalForm.hospitalDbmsCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalDbmsCode: e.target.value,
 									})
 								);
@@ -111,11 +125,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalWcfCode}
 							itemName="hospitalWcfCode"
 							rules={rules.hospitalWcfCodeSchema}
-							value={form.hospitalWcfCode}
+							value={hospitalForm.hospitalWcfCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalWcfCode: e.target.value,
 									})
 								);
@@ -127,11 +141,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalMinistryCode}
 							itemName="hospitalMinistryCode"
 							rules={rules.hospitalMinistryCodeSchema}
-							value={form.hospitalMinistryCode}
+							value={hospitalForm.hospitalMinistryCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalMinistryCode: e.target.value,
 									})
 								);
@@ -148,11 +162,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalName}
 							itemName="hospitalName"
 							rules={rules.hospitalNameSchema}
-							value={form.hospitalName}
+							value={hospitalForm.hospitalName}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalName: e.target.value,
 									})
 								);
@@ -163,11 +177,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.companyName}
 							itemName="companyName"
 							rules={rules.companyNameSchema}
-							value={form.companyName}
+							value={hospitalForm.companyName}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										companyName: e.target.value,
 									})
 								);
@@ -178,11 +192,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.revenueRegistrationCode}
 							itemName="revenueRegistrationCode"
 							rules={rules.revenueRegistrationCodeSchema}
-							value={form.revenueRegistrationCode}
+							value={hospitalForm.revenueRegistrationCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										revenueRegistrationCode: e.target.value,
 									})
 								);
@@ -195,11 +209,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.address}
 							itemName="address"
 							rules={rules.addressSchema}
-							value={form.address}
+							value={hospitalForm.address}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										address: e.target.value,
 									})
 								);
@@ -210,11 +224,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.tambolCode}
 							itemName="tambolCode"
 							rules={rules.tambolCodeSchema}
-							value={form.tambolCode}
+							value={hospitalForm.tambolCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										tambolCode: e.target.value,
 									})
 								);
@@ -225,11 +239,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.amphurCode}
 							itemName="amphurCode"
 							rules={rules.amphurCodeSchema}
-							value={form.amphurCode}
+							value={hospitalForm.amphurCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										amphurCode: e.target.value,
 									})
 								);
@@ -242,11 +256,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.provinceCode}
 							itemName="provinceCode"
 							rules={rules.provinceCodeSchema}
-							value={form.provinceCode}
+							value={hospitalForm.provinceCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										provinceCode: e.target.value,
 									})
 								);
@@ -257,11 +271,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.postalCode}
 							itemName="postalCode"
 							rules={rules.postalCodeSchema}
-							value={form.postalCode}
+							value={hospitalForm.postalCode}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										postalCode: e.target.value,
 									})
 								);
@@ -274,11 +288,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.telephoneNumber}
 							itemName="telephoneNumber"
 							rules={rules.telephoneNumberSchema}
-							value={form.telephoneNumber}
+							value={hospitalForm.telephoneNumber}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										telephoneNumber: e.target.value,
 									})
 								);
@@ -289,11 +303,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.faxNumber}
 							itemName="faxNumber"
 							rules={rules.faxNumberSchema}
-							value={form.faxNumber}
+							value={hospitalForm.faxNumber}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										faxNumber: e.target.value,
 									})
 								);
@@ -321,11 +335,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.contractStartDate}
 							itemName="contractStartDate"
 							rules={rules.contractStartDateSchema}
-							value={form.contractStartDate}
+							value={hospitalForm.contractStartDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										contractStartDate: e,
 									})
 								);
@@ -336,11 +350,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalType}
 							itemName="hospitalType"
 							rules={rules.hospitalTypeSchema}
-							value={form.hospitalType}
+							value={hospitalForm.hospitalType}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalType: e.target.value,
 									})
 								);
@@ -351,12 +365,27 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalCategory}
 							itemName="hospitalCategory"
 							rules={rules.hospitalCategorySchema}
-							value={form.hospitalCategory}
+							value={hospitalForm.hospitalCategory}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalCategory: e.target.value,
+									})
+								);
+							}}
+						/>
+						<BaseDropDown
+							itemName={"inAnotherPlace"}
+							option={[
+								{ label: "โรงพยาบาล", value: "โรงพยาบาล" },
+								{ label: "มหาวิทยาลัย", value: "มหาวิทยาลัย" },
+							]}
+							getValue={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalCategory: e,
 									})
 								);
 							}}
@@ -367,11 +396,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.sp7StartDated}
 							itemName="sp7StartDated"
 							rules={rules.sp7StartDatedSchema}
-							value={form.sp7StartDated}
+							value={hospitalForm.sp7StartDated}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										sp7StartDated: e,
 									})
 								);
@@ -381,11 +410,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.sp7EndDate}
 							itemName="sp7EndDate"
 							rules={rules.sp7EndDateSchema}
-							value={form.sp7EndDate}
+							value={hospitalForm.sp7EndDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										sp7EndDate: e,
 									})
 								);
@@ -395,11 +424,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.sp19StartDate}
 							itemName="sp19StartDate"
 							rules={rules.sp19StartDateSchema}
-							value={form.sp19StartDate}
+							value={hospitalForm.sp19StartDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										sp19StartDate: e,
 									})
 								);
@@ -409,11 +438,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.sp19EndDate}
 							itemName="sp19EndDate"
 							rules={rules.sp19EndDateSchema}
-							value={form.sp19EndDate}
+							value={hospitalForm.sp19EndDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										sp19EndDate: e,
 									})
 								);
@@ -424,11 +453,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.ssoProject}
 							itemName="ssoProject"
 							rules={rules.ssoProjectSchema}
-							value={form.ssoProject}
+							value={hospitalForm.ssoProject}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										ssoProject: e.target.value,
 									})
 								);
@@ -441,11 +470,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.belongTo}
 							itemName="belongTo"
 							rules={rules.belongToSchema}
-							value={form.belongTo}
+							value={hospitalForm.belongTo}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										belongTo: e.target.value,
 									})
 								);
@@ -456,11 +485,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.numberOfBed}
 							itemName="numberOfBed"
 							rules={rules.numberOfBedSchema}
-							value={form.numberOfBed}
+							value={hospitalForm.numberOfBed}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										numberOfBed: parseInt(e.target.value),
 									})
 								);
@@ -471,11 +500,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.bps}
 							itemName="bps"
 							rules={rules.bpsSchema}
-							value={form.bps}
+							value={hospitalForm.bps}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										bps: parseInt(e.target.value),
 									})
 								);
@@ -488,11 +517,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.levelChangeDate}
 							itemName="levelChangeDate"
 							rules={rules.levelChangeDateSchema}
-							value={form.levelChangeDate}
+							value={hospitalForm.levelChangeDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										levelChangeDate: e,
 									})
 								);
@@ -504,11 +533,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.ssoPartner}
 							itemName="ssoPartner"
 							rules={rules.ssoPartnerSchema}
-							value={form.ssoPartner}
+							value={hospitalForm.ssoPartner}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										ssoPartner: e.target.value,
 									})
 								);
@@ -519,11 +548,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.tempColumn2}
 							itemName="tempColumn2"
 							rules={rules.tempColumn2Schema}
-							value={form.tempColumn2}
+							value={hospitalForm.tempColumn2}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										tempColumn2: e.target.value,
 									})
 								);
@@ -534,11 +563,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.tempColumn3}
 							itemName="tempColumn3"
 							rules={rules.tempColumn3Schema}
-							value={form.tempColumn3}
+							value={hospitalForm.tempColumn3}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										tempColumn3: e.target.value,
 									})
 								);
@@ -549,11 +578,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.tempColumn4}
 							itemName="tempColumn4"
 							rules={rules.tempColumn4Schema}
-							value={form.tempColumn4}
+							value={hospitalForm.tempColumn4}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										tempColumn4: e.target.value,
 									})
 								);
@@ -564,11 +593,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.tempColumn5}
 							itemName="tempColumn5"
 							rules={rules.tempColumn5Schema}
-							value={form.tempColumn5}
+							value={hospitalForm.tempColumn5}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										tempColumn5: e.target.value,
 									})
 								);
@@ -581,11 +610,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalListBoi}
 							itemName="hospitalListBoi"
 							rules={rules.hospitalListBoiSchema}
-							value={form.hospitalListBoi}
+							value={hospitalForm.hospitalListBoi}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalListBoi: e.target.value,
 									})
 								);
@@ -595,11 +624,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalListBoiStartDate}
 							itemName="hospitalListBoiStartDate"
 							rules={rules.hospitalListBoiStartDateSchema}
-							value={form.hospitalListBoiStartDate}
+							value={hospitalForm.hospitalListBoiStartDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalListBoiStartDate: e,
 									})
 								);
@@ -609,11 +638,11 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.hospitalListBoiExpireDate}
 							itemName="hospitalListBoiExpireDate"
 							rules={rules.hospitalListBoiExpireDateSchema}
-							value={form.hospitalListBoiExpireDate}
+							value={hospitalForm.hospitalListBoiExpireDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalListBoiExpireDate: e,
 									})
 								);
@@ -636,16 +665,33 @@ const Form = (params: HospitalFormPageProps) => {
 			),
 			children: (
 				<>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
+						<BaseItemInput
+							disabled={_.isEmpty(write)}
+							label={names.oldHospitalName}
+							itemName="oldHospitalName"
+							rules={rules.oldHospitalNameSchema}
+							// value={hospitalForm.oldHospitalName}
+							// onChangeFunction={(e) => {
+							// 	dispatch(
+							// 		setHospitalForm({
+							// 			...hospitalForm,
+							// 			oldHospitalName: e.target.value,
+							// 		})
+							// 	);
+							// }}
+						/>
+					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
 							label={names.hospitalChangeNameDate}
 							itemName="hospitalChangeNameDate"
 							rules={rules.hospitalChangeNameDateSchema}
-							value={form.hospitalChangeNameDate}
+							value={hospitalForm.hospitalChangeNameDate}
 							onChangeDateFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										hospitalChangeNameDate: e,
 									})
 								);
@@ -655,15 +701,21 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.contractEndDate}
 							itemName="contractEndDate"
 							rules={rules.contractEndDateSchema}
-							value={form.contractEndDate}
-							onChangeDateFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...form,
-										contractEndDate: e,
-									})
-								);
-							}}
+							// value={hospitalForm.contractEndDate}
+							disabled={
+								!_.isEmpty(params.params.uuid) &&
+								!_.isEmpty(hospitalForm.contractEndDate)
+									? true
+									: false
+							}
+							// onChangeDateFunction={(e) => {
+							// 	dispatch(
+							// 		setHospitalForm({
+							// 			...hospitalForm,
+							// 			contractEndDate: e,
+							// 		})
+							// 	);
+							// }}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
@@ -673,29 +725,12 @@ const Form = (params: HospitalFormPageProps) => {
 							label={names.remarkChangeName}
 							itemName="remarkChangeName"
 							rules={rules.remarkChangeNameSchema}
-							value={form.remarkChangeName}
+							value={hospitalForm.remarkChangeName}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
-										...form,
+										...hospitalForm,
 										remarkChangeName: e.target.value,
-									})
-								);
-							}}
-						/>
-					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
-							label={names.oldHospitalName}
-							itemName="oldHospitalName"
-							rules={rules.oldHospitalNameSchema}
-							value={form.oldHospitalName}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...form,
-										oldHospitalName: e.target.value,
 									})
 								);
 							}}
@@ -711,9 +746,15 @@ const Form = (params: HospitalFormPageProps) => {
 				isOpen={isOpenBaseConfirmDialog}
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(updateHospital(form, router));
+						dispatch(
+							updateHospital(
+								form.getFieldsValue(),
+								router,
+								`${params.params.uuid}`
+							)
+						);
 					} else {
-						dispatch(addHospital(form, router));
+						dispatch(addHospital(form.getFieldsValue(), router));
 					}
 				}}
 				cancelFunction={() => {
@@ -731,8 +772,9 @@ const Form = (params: HospitalFormPageProps) => {
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					initialValues={{
-						...form,
+						...hospitalForm,
 					}}
+					extraForm={form}
 				>
 					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
 					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
@@ -749,668 +791,7 @@ const Form = (params: HospitalFormPageProps) => {
 					</div>
 				</BaseForm>
 			)}
-
-			{/* {isInit && (
-				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
-					disabled={_.isEmpty(write)}
-					initialValues={{
-						...form,
-						// contractStartDate: !_.isEmpty(form.contractStartDate)
-						// 	? dayjs(form.contractStartDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(
-						// 				dayjs(form.contractStartDate, DateFormat.DDMMYYYY)
-						// 					.format(DateFormat.YYYYMMDD)
-						// 					.toString() + "00:00:00"
-						// 		  )
-						// 		: undefined
-						// 	: undefined,
-						// contractEndDate: !_.isEmpty(form.contractEndDate)
-						// 	? dayjs(form.contractEndDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.contractEndDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// sp7StartDated: !_.isEmpty(form.sp7StartDated)
-						// 	? dayjs(form.sp7StartDated, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.sp7StartDated, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// sp7EndDate: !_.isEmpty(form.sp7EndDate)
-						// 	? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.sp7EndDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// sp19StartDate: !_.isEmpty(form.sp19StartDate)
-						// 	? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.sp19StartDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// sp19EndDate: !_.isEmpty(form.sp19EndDate)
-						// 	? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.sp19EndDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// levelChangeDate: !_.isEmpty(form.levelChangeDate)
-						// 	? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.levelChangeDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// hospitalChangeNameDate: !_.isEmpty(form.hospitalChangeNameDate)
-						// 	? dayjs(
-						// 			form.hospitalChangeNameDate,
-						// 			DateFormat.YYYYMMDD
-						// 	  ).isValid()
-						// 		? dayjs(form.hospitalChangeNameDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// hospitalListBoiStartDate: !_.isEmpty(form.hospitalListBoiStartDate)
-						// 	? dayjs(
-						// 			form.hospitalListBoiStartDate,
-						// 			DateFormat.YYYYMMDD
-						// 	  ).isValid()
-						// 		? dayjs(form.hospitalListBoiStartDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-
-						// hospitalListBoiExpireDate: !_.isEmpty(
-						// 	form.hospitalListBoiExpireDate
-						// )
-						// 	? dayjs(
-						// 			form.hospitalListBoiExpireDate,
-						// 			DateFormat.YYYYMMDD
-						// 	  ).isValid()
-						// 		? dayjs(form.hospitalListBoiExpireDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-					}}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
-					onChangeSwitchFunction={(e) => {
-						dispatch(
-							setHospitalForm({
-								...form,
-								isActive: e ? IsActive.Y : IsActive.N,
-							})
-						);
-					}}
-					cancelFunction={() => {
-						router.push(LINKS.HOSPITAL.link);
-					}}
-					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					inputs={
-						<>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalWcfCode}
-									itemName="hospitalWcfCode"
-									rules={rules.hospitalWcfCodeSchema}
-									value={form.hospitalWcfCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalWcfCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalDbmsCode}
-									itemName="hospitalDbmsCode"
-									rules={rules.hospitalDbmsCodeSchema}
-									value={form.hospitalDbmsCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalDbmsCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalMinistryCode}
-									itemName="hospitalMinistryCode"
-									rules={rules.hospitalMinistryCodeSchema}
-									value={form.hospitalMinistryCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalMinistryCode: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalName}
-									itemName="hospitalName"
-									rules={rules.hospitalNameSchema}
-									value={form.hospitalName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalName: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.oldHospitalName}
-									itemName="oldHospitalName"
-									rules={rules.oldHospitalNameSchema}
-									value={form.oldHospitalName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												oldHospitalName: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.address}
-									itemName="address"
-									rules={rules.addressSchema}
-									value={form.address}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												address: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.amphurCode}
-									itemName="amphurCode"
-									rules={rules.amphurCodeSchema}
-									value={form.amphurCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												amphurCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.provinceCode}
-									itemName="provinceCode"
-									rules={rules.provinceCodeSchema}
-									value={form.provinceCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												provinceCode: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.postalCode}
-									itemName="postalCode"
-									rules={rules.postalCodeSchema}
-									value={form.postalCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												postalCode: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								{" "}
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.telephoneNumber}
-									itemName="telephoneNumber"
-									rules={rules.telephoneNumberSchema}
-									value={form.telephoneNumber}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												telephoneNumber: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.faxNumber}
-									itemName="faxNumber"
-									rules={rules.faxNumberSchema}
-									value={form.faxNumber}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												faxNumber: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.belongTo}
-									itemName="belongTo"
-									rules={rules.belongToSchema}
-									value={form.belongTo}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												belongTo: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.numberOfBed}
-									itemName="numberOfBed"
-									rules={rules.numberOfBedSchema}
-									value={form.numberOfBed}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												numberOfBed: parseInt(e.target.value),
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.bps}
-									itemName="bps"
-									rules={rules.bpsSchema}
-									value={form.bps}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												bps: parseInt(e.target.value),
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalType}
-									itemName="hospitalType"
-									rules={rules.hospitalTypeSchema}
-									value={form.hospitalType}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalType: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalCategory}
-									itemName="hospitalCategory"
-									rules={rules.hospitalCategorySchema}
-									value={form.hospitalCategory}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalCategory: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.companyName}
-									itemName="companyName"
-									rules={rules.companyNameSchema}
-									value={form.companyName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												companyName: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.revenueRegistrationCode}
-									itemName="revenueRegistrationCode"
-									rules={rules.revenueRegistrationCodeSchema}
-									value={form.revenueRegistrationCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												revenueRegistrationCode: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseDatePicker
-									label={names.contractStartDate}
-									itemName="contractStartDate"
-									rules={rules.contractStartDateSchema}
-									value={form.contractStartDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												contractStartDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.contractEndDate}
-									itemName="contractEndDate"
-									rules={rules.contractEndDateSchema}
-									value={form.contractEndDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												contractEndDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp7StartDated}
-									itemName="sp7StartDated"
-									rules={rules.sp7StartDatedSchema}
-									value={form.sp7StartDated}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												sp7StartDated: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp7EndDate}
-									itemName="sp7EndDate"
-									rules={rules.sp7EndDateSchema}
-									value={form.sp7EndDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												sp7EndDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp19StartDate}
-									itemName="sp19StartDate"
-									rules={rules.sp19StartDateSchema}
-									value={form.sp19StartDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												sp19StartDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp19EndDate}
-									itemName="sp19EndDate"
-									rules={rules.sp19EndDateSchema}
-									value={form.sp19EndDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												sp19EndDate: e,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseDatePicker
-									label={names.levelChangeDate}
-									itemName="levelChangeDate"
-									rules={rules.levelChangeDateSchema}
-									value={form.levelChangeDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												levelChangeDate: e,
-											})
-										);
-									}}
-								/>
-
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.ssoPartner}
-									itemName="ssoPartner"
-									rules={rules.ssoPartnerSchema}
-									value={form.ssoPartner}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												ssoPartner: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.tempColumn2}
-									itemName="tempColumn2"
-									rules={rules.tempColumn2Schema}
-									value={form.tempColumn2}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												tempColumn2: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.tempColumn3}
-									itemName="tempColumn3"
-									rules={rules.tempColumn3Schema}
-									value={form.tempColumn3}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												tempColumn3: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.tempColumn4}
-									itemName="tempColumn4"
-									rules={rules.tempColumn4Schema}
-									value={form.tempColumn4}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												tempColumn4: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.tempColumn5}
-									itemName="tempColumn5"
-									rules={rules.tempColumn5Schema}
-									value={form.tempColumn5}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												tempColumn5: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-								<BaseDatePicker
-									label={names.hospitalChangeNameDate}
-									itemName="hospitalChangeNameDate"
-									rules={rules.hospitalChangeNameDateSchema}
-									value={form.hospitalChangeNameDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalChangeNameDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.hospitalListBoi}
-									itemName="hospitalListBoi"
-									rules={rules.hospitalListBoiSchema}
-									value={form.hospitalListBoi}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalListBoi: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.hospitalListBoiStartDate}
-									itemName="hospitalListBoiStartDate"
-									rules={rules.hospitalListBoiStartDateSchema}
-									value={form.hospitalListBoiStartDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalListBoiStartDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.hospitalListBoiExpireDate}
-									itemName="hospitalListBoiExpireDate"
-									rules={rules.hospitalListBoiExpireDateSchema}
-									value={form.hospitalListBoiExpireDate}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												hospitalListBoiExpireDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.tambolCode}
-									itemName="tambolCode"
-									rules={rules.tambolCodeSchema}
-									value={form.tambolCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												tambolCode: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.remarkChangeName}
-									itemName="remarkChangeName"
-									rules={rules.remarkChangeNameSchema}
-									value={form.remarkChangeName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												remarkChangeName: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.ssoProject}
-									itemName="ssoProject"
-									rules={rules.ssoProjectSchema}
-									value={form.ssoProject}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...form,
-												ssoProject: e.target.value,
-											})
-										);
-									}}
-								/>
-							</div>
-						</>
-					}
-				/>
-			)} */}
 		</>
 	);
 };
-export default dynamic(() => Promise.resolve(Form), { ssr: false });
+export default dynamic(() => Promise.resolve(HospitalFormPage), { ssr: false });

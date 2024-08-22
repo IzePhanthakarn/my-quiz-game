@@ -70,6 +70,20 @@ export const grid: TableProps["columns"] = [
 		),
 	},
 	{
+		sorter: true,
+		key: "contractEndDate",
+		dataIndex: "contractEndDate",
+		title: (columns: ColumnTitleProps<any>) => (
+			<CustomHeaderSort
+				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				headerKey={"contractEndDate"}
+				label={names.contractEndDate}
+				sort={columns?.sortColumns}
+			/>
+		),
+	},
+
+	{
 		key: "uuid",
 		title: "คำสั่ง",
 		dataIndex: "uuid",

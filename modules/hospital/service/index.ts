@@ -3,6 +3,7 @@ import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAPI,
+	exportMed5008Api,
 	getHospitalDetail,
 	getHospitalList,
 	updateHospitalApi,
@@ -12,6 +13,7 @@ import {
 	Hospital,
 	HospitalForm,
 	GetHospitalList,
+	ExportPages,
 } from "@/modules/hospital/redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
@@ -85,11 +87,11 @@ export const initGetHospitalDetail =
 	};
 
 export const updateHospital =
-	(form: HospitalForm, router: AppRouterInstance) =>
+	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalApi({
-				uuid: form.uuid,
+				uuid: uuid,
 				body: form,
 			})
 		);
@@ -104,4 +106,12 @@ export const updateHospital =
 			dispatch(setIsLoading(true));
 			router.push(LINKS.HOSPITAL.link);
 		}
+	};
+
+export const exportMed5008Function =
+	(form: ExportPages["med5008"]) => async (dispatch: AppDispatch) => {
+		console.log("🚀 ~ form:", form);
+
+		const data = await dispatch(exportMed5008Api(form));
+		console.log("🚀 ~ data:", data);
 	};
