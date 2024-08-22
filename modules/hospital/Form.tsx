@@ -345,7 +345,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-						<BaseItemInput
+						{/* <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.hospitalType}
 							itemName="hospitalType"
@@ -359,8 +359,22 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
+						/> */}
+						<BaseDropDown
+							itemName={"hospitalType"}
+							label={names.hospitalType}
+							type="hospitalType"
+							rules={rules.hospitalTypeSchema}
+							getValue={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalType: e,
+									})
+								);
+							}}
 						/>
-						<BaseItemInput
+						{/* <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.hospitalCategory}
 							itemName="hospitalCategory"
@@ -374,13 +388,12 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/>
+						/> */}
 						<BaseDropDown
-							itemName={"inAnotherPlace"}
-							option={[
-								{ label: "โรงพยาบาล", value: "โรงพยาบาล" },
-								{ label: "มหาวิทยาลัย", value: "มหาวิทยาลัย" },
-							]}
+							itemName={"hospitalCategory"}
+							label={names.hospitalCategory}
+							rules={rules.hospitalCategorySchema}
+							type="hospitalCategory"
 							getValue={(e) => {
 								dispatch(
 									setHospitalForm({
@@ -697,6 +710,24 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
+					</div>
+				</>
+			),
+		},
+	];
+
+	const fourthSection: CollapseProps["items"] = [
+		{
+			key: "4",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อมูลการยกเลิกสถานพยาบาล"
+					description="ข้อมูลภาพรวมและรายละเอียดการเปลี่ยนชื่อสถานพยาบาล"
+				/>
+			),
+			children: (
+				<>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
 							label={names.contractEndDate}
 							itemName="contractEndDate"
@@ -740,6 +771,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 		},
 	];
+
 	return (
 		<>
 			<BaseConfirmDialog
@@ -779,6 +811,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
 					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
 					<BaseCollapse items={thSection} defaultActiveKey={"3"} />
+					<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
+
 					<div className="flex justify-end">
 						<BaseButtonCancel
 							className="mr-3"

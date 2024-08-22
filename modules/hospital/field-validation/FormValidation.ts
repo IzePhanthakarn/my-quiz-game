@@ -29,11 +29,11 @@ export const rules = {
 	bpsSchema: [onlyNumberRule(names.bps)],
 	hospitalTypeSchema: [
 		maxRule(names.hospitalType, 1),
-		requiredRule(names.hospitalName),
+		requiredRule(names.hospitalType),
 	],
 	hospitalCategorySchema: [
 		maxRule(names.hospitalCategory, 1),
-		requiredRule(names.hospitalName),
+		requiredRule(names.hospitalCategory),
 	],
 	companyNameSchema: [maxRule(names.companyName, 200)],
 	revenueRegistrationCodeSchema: [maxRule(names.revenueRegistrationCode, 13)],
