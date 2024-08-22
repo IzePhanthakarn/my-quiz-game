@@ -1,6 +1,6 @@
 import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
-import { handleEmptyStringToNull } from "@/utils";
+import { addId, handleEmptyStringToNull } from "@/utils";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
@@ -10,6 +10,13 @@ import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
 import { DoctorList } from "../redux/master/model";
 import { getDoctorForm, getDoctorList } from "./api";
 import _ from "lodash";
+import {
+	DoctorBankList,
+	DoctorDetailList,
+	DoctorForm,
+	DoctorHospitalList,
+	TrainingList,
+} from "../redux/form/model";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -32,10 +39,19 @@ export const doctorPagination: DoctorPagination = {
 // Form
 export const initGetDoctorForm =
 	(uuid: string) => async (dispatch: AppDispatch) => {
-		if (!_.isEmpty(uuid)) {
-			const response = await dispatch(getDoctorForm(uuid));
-			dispatch(setDoctorForm(response.payload));
-		}
+		if (!uuid) return;
+
+		const response = await dispatch(getDoctorForm(uuid));
+		const data = response.payload;
+
+		const result = {
+			...data,
+			doctorBank: addId(data.doctorBank),
+			doctorDetail: addId(data.doctorDetail),
+			doctorHospital: addId(data.doctorHospital),
+			training: addId(data.training),
+		};
+		dispatch(setDoctorForm(result));
 	};
 
 // List

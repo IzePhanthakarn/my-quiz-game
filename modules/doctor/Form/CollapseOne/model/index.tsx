@@ -26,3 +26,35 @@ export const itemsTables: TabsProps["items"] = [
 		children: <Training />,
 	},
 ];
+
+export const itemsDoctorHospital: TabsProps["items"] = [
+	{
+		key: "1",
+		label: "สังกัดโรงพยาบาล",
+		children: <DoctorHospital />,
+	},
+];
+
+export const itemsDoctorDetail: TabsProps["items"] = [
+	{
+		key: "2",
+		label: "ข้อมูลวุฒิบัตรเฉพาะทาง",
+		children: <DoctorDetail />,
+	},
+];
+
+export const itemsDoctorBank: TabsProps["items"] = [
+	{
+		key: "3",
+		label: "รายละเอียดการจ่าย",
+		children: <DoctorBank />,
+	},
+];
+
+export const itemsTraining: TabsProps["items"] = [
+	{
+		key: "4",
+		label: "ข้อมูลการอบรม",
+		children: <Training />,
+	},
+];
