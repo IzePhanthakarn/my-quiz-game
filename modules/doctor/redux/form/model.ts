@@ -23,6 +23,22 @@ export interface DoctorData {
 	uuid: string;
 }
 
+export interface TrainingList extends Training {
+	id: number;
+}
+
+export interface DoctorDetailList extends DoctorDetail {
+	id: number;
+}
+
+export interface DoctorHospitalList extends DoctorHospital {
+	id: number;
+}
+
+export interface DoctorBankList extends DoctorBank {
+	id: number;
+}
+
 interface Training extends BaseEntity {
 	doctorCode: string;
 	trainingNo: string;
@@ -30,7 +46,7 @@ interface Training extends BaseEntity {
 	trainingYear: string;
 	trainingDate: string;
 }
-export interface DoctorDetail extends BaseEntity {
+interface DoctorDetail extends BaseEntity {
 	doctorCode: string;
 	diplomaType: string;
 }
@@ -54,16 +70,16 @@ interface DoctorHospital extends BaseEntity {
 
 export interface DoctorForm {
 	doctorData: DoctorData;
-	doctorDetail: DoctorDetail[];
-	doctorHospital: DoctorHospital[];
-	doctorBank: DoctorBank[];
-	training: Training[];
+	doctorDetail: DoctorDetailList[];
+	doctorHospital: DoctorHospitalList[];
+	doctorBank: DoctorBankList[];
+	training: TrainingList[];
 	[key: string]:
 		| DoctorData
-		| DoctorDetail[]
-		| DoctorHospital[]
-		| DoctorBank[]
-		| Training[];
+		| DoctorDetailList[]
+		| DoctorHospitalList[]
+		| DoctorBankList[]
+		| TrainingList[];
 }
 
 const modelDoctorData: DoctorData = {

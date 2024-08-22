@@ -6,6 +6,10 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 
 export const columns: TableProps["columns"] = [
 	{
+		dataIndex: "id",
+		key: "id",
+	},
+	{
 		title: (columns: ColumnTitleProps<any>) => (
 			<div>
 				<CustomHeaderSort

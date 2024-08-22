@@ -7,7 +7,6 @@ import { columns } from "../model/DoctorDetailModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
-import { DoctorDetail } from "@/modules/doctor/redux/form/model";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
