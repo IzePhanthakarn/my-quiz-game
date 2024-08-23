@@ -2,119 +2,161 @@
 
 import React, { useEffect } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseForm from "wcf-component-lib/src/components/BaseForm";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import {
-	Address,
-	modelAddress,
-} from "wcf-component-lib/src/components/BaseThaiAddress/model";
+import { Address } from "wcf-component-lib/src/components/BaseThaiAddress/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import { DoctorForm, modelDoctorForm } from "../../redux/form/model";
-import BaseThaiAddress from "wcf-component-lib/src/components/BaseThaiAddress";
-import { itemsTables } from "./model";
+import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
+import { setDoctorData } from "../../redux";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { DoctorData } from "../../redux/form/model";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
+import { itemsTables } from "./model";
+import { setDialog } from "@/redux/slices/dialog";
 
 export default function DoctorDetail() {
 	const dispatch: AppDispatch = useDispatch();
-	const { uuid, doctorForm } = useSelector(
+	const { doctorData, dialog } = useSelector(
 		(state: SliceModel) => ({
-			uuid: state.container.uuid,
-			doctorForm: state.doctor.doctorForm,
+			doctorData: state.doctor.doctorForm.doctorData,
+			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
 
-	// const [form] = Form.useForm();
-
-	// const handleAddress = (asd: string) => {
-	// 	const raw_address = JSON.parse(
-	// 		sessionStorage.getItem("raw_address") ?? "[]"
-	// 	);
-	// 	const data: Address = raw_address.find(
-	// 		(e: Address) => e.province_id === asd
-	// 	);
-	// 	console.log("data.province_name", data.province_name);
-	// };
-
-	// console.log("form", form.getFieldValue("province"));
-	// console.log(handleAddress(form.getFieldValue("province")));
-
-	const onFinish: FormProps<DoctorForm>["onFinish"] = async (
-		values: DoctorForm
+	const onFinish: FormProps<DoctorData>["onFinish"] = async (
+		values: DoctorData
 	) => {
 		console.log("value", values);
+		dispatch(
+			setDialog({
+				...dialog,
+				isOpen: true,
+				content: <>asd</>,
+			})
+		);
 	};
 
-	// Mock wait redux
-	const [value, setValue] = React.useState<Address>(modelAddress);
+	const onFinishFailed: FormProps<DoctorData>["onFinishFailed"] = (_) => {};
 
 	return (
-		<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
-			<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
-			<BaseItemInput label="amphur" itemName="amphur" rules={[]} />
-			<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
-			<BaseItemInput label="moo" itemName="moo" rules={[]} />
-			<BaseItemInput label="province" itemName="province" rules={[]} />
-			<BaseItemInput label="road" itemName="road" rules={[]} />
-			<BaseItemInput label="soi" itemName="soi" rules={[]} />
-			<BaseItemInput label="tambol" itemName="tambol" rules={[]} />
-			<BaseItemInput label="citizenId" itemName="citizenId" rules={[]} />
-			<BaseItemInput label="doctorCode" itemName="doctorCode" rules={[]} />
-			<BaseItemInput label="doctorType" itemName="doctorType" rules={[]} />
-			<BaseItemInput label="firstName" itemName="firstname" rules={[]} />
-			<BaseItemInput label="lastName" itemName="lastname" rules={[]} />
-			<BaseItemInput label="position" itemName="position" rules={[]} />
-			<BaseItemInput label="postalName" itemName="postalName" rules={[]} />
-			<BaseItemInput label="postcode" itemName="postcode" rules={[]} />
-			<BaseItemInput
-				label="professionalCode"
-				itemName="professionalCode"
-				rules={[]}
-			/>
-			<BaseItemInput label="revenueNo" itemName="revenueNo" rules={[]} />
-			<BaseItemInput label="title" itemName="title" rules={[]} />
-			<BaseThaiAddress
-				address={value}
-				setAddress={(e: Address) => setValue(e)}
-				type={"tambons_name"}
-				label={"ตำบล"}
-				itemName={"tambons"}
-			/>
-			<BaseThaiAddress
-				address={value}
-				setAddress={(e: Address) => setValue(e)}
-				type={"amphure_name"}
-				label={"อำเภอ"}
-				itemName={"tambons"}
-			/>
-			<BaseThaiAddress
-				address={value}
-				setAddress={(e: Address) => setValue(e)}
-				type={"province_name"}
-				label={"จังหวัด"}
-				itemName={"province"}
-			/>
-			<BaseThaiAddress
-				address={value}
-				setAddress={(e: Address) => setValue(e)}
-				type={"zipcode"}
-				label={"รหัสไปรษณีย์"}
-				itemName={"tambons"}
-			/>
-			<BaseButton label="บันทึก" htmlType="submit" />
-			<div className="col-span-4">
-				{itemsTables?.map((_, index) => (
-					<BaseCollapse
-						key={index}
-						defaultActiveKey={index + 1}
-						items={[(itemsTables ?? [])[index]]}
-					/>
-				))}
+		<BaseForm
+			initialValues={doctorData}
+			name={"doctorForm"}
+			onFinish={onFinish}
+			onFinishFailed={onFinishFailed}
+		>
+			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
+				<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
+				<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
+				<BaseItemInput label="moo" itemName="moo" rules={[]} />
+				<BaseItemInput label="road" itemName="road" rules={[]} />
+				<BaseItemInput label="soi" itemName="soi" rules={[]} />
+				<BaseItemInput label="citizenId" itemName="citizenId" rules={[]} />
+				<BaseItemInput label="doctorCode" itemName="doctorCode" rules={[]} />
+				<BaseItemInput label="doctorType" itemName="doctorType" rules={[]} />
+				<BaseItemInput label="firstName" itemName="firstname" rules={[]} />
+				<BaseItemInput label="lastName" itemName="lastname" rules={[]} />
+				<BaseItemInput label="position" itemName="position" rules={[]} />
+				<BaseItemInput label="postalName" itemName="postalName" rules={[]} />
+				<BaseItemInput
+					label="professionalCode"
+					itemName="professionalCode"
+					rules={[]}
+				/>
+				<BaseItemInput label="revenueNo" itemName="revenueNo" rules={[]} />
+				<BaseItemInput label="title" itemName="title" rules={[]} />
+				<BaseDropDown
+					label="ตำบล"
+					itemName="tambol"
+					type="tambons_name"
+					getValue={(e: Address) =>
+						dispatch(
+							setDoctorData({
+								...doctorData,
+								amphur: e.amphure_id,
+								province: e.province_id,
+								tambol: e.tambons_id,
+								postcode: e.zipcode,
+							})
+						)
+					}
+					labelRender={() => (
+						<p>{findLabelAddress({ redux: doctorData }).tambons_name}</p>
+					)}
+				/>
+				<BaseDropDown
+					label="อำเภอ"
+					itemName="amphur"
+					type="amphure_name"
+					getValue={(e: Address) =>
+						dispatch(
+							setDoctorData({
+								...doctorData,
+								amphur: e.amphure_id,
+								province: e.province_id,
+								tambol: e.tambons_id,
+								postcode: e.zipcode,
+							})
+						)
+					}
+					labelRender={() => (
+						<p>{findLabelAddress({ redux: doctorData }).amphure_name}</p>
+					)}
+				/>
+				<BaseDropDown
+					label="จังหวัด"
+					itemName="province"
+					type="province_name"
+					getValue={(e: Address) =>
+						dispatch(
+							setDoctorData({
+								...doctorData,
+								amphur: e.amphure_id,
+								province: e.province_id,
+								tambol: e.tambons_id,
+								postcode: e.zipcode,
+							})
+						)
+					}
+					labelRender={() => (
+						<p>{findLabelAddress({ redux: doctorData }).province_name}</p>
+					)}
+				/>
+				<BaseDropDown
+					label="รหัสไปรษณีย์"
+					itemName="postcode"
+					type="zipcode"
+					getValue={(e: Address) =>
+						dispatch(
+							setDoctorData({
+								...doctorData,
+								amphur: e.amphure_id,
+								province: e.province_id,
+								tambol: e.tambons_id,
+								postcode: e.zipcode,
+							})
+						)
+					}
+					labelRender={() => (
+						<p>{findLabelAddress({ redux: doctorData }).zipcode}</p>
+					)}
+				/>
+				<BaseButton label="บันทึก" htmlType="submit" />
+				<div className="col-span-4">
+					{itemsTables?.map((item, index: number) => (
+						<BaseCollapse
+							key={item.key}
+							defaultActiveKey={index + 1}
+							items={[item]}
+						/>
+					))}
+				</div>
 			</div>
-		</div>
+		</BaseForm>
 	);
 }

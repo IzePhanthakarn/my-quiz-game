@@ -5,7 +5,6 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns } from "../model/DoctorHospitalModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import { setDialog } from "@/redux/slices/dialog";
 
 export default function DoctorHospital() {
