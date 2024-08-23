@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import { Address } from "wcf-component-lib/src/components/BaseThaiAddress/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
@@ -17,6 +16,10 @@ import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./model";
 import { setDialog } from "@/redux/slices/dialog";
+import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
+import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
+import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserOutlined";
+import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 
 export default function DoctorDetail() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,62 +34,79 @@ export default function DoctorDetail() {
 	const onFinish: FormProps<DoctorData>["onFinish"] = async (
 		values: DoctorData
 	) => {
-		console.log("value", values);
-		dispatch(
-			setDialog({
-				...dialog,
-				isOpen: true,
-				content: <>asd</>,
-			})
-		);
+		console.log("value Finish", values);
+		// dispatch(
+		// 	setDialog({
+		// 		...dialog,
+		// 		isOpen: true,
+		// 		content: <>asd</>,
+		// 	})
+		// );
 	};
 
 	const onFinishFailed: FormProps<DoctorData>["onFinishFailed"] = (_) => {};
 
 	return (
 		<BaseForm
-			initialValues={doctorData}
+			initialValues={{ ...doctorData }}
 			name={"doctorForm"}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
+			// onValuesChange={(e: DoctorData) => {
+			// 	dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
+			// }}
 		>
 			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
-				<BaseItemInput label="doctorId" itemName="doctorId" rules={[]} />
-				<BaseItemInput label="houseNum" itemName="houseNum" rules={[]} />
-				<BaseItemInput label="moo" itemName="moo" rules={[]} />
-				<BaseItemInput label="road" itemName="road" rules={[]} />
-				<BaseItemInput label="soi" itemName="soi" rules={[]} />
-				<BaseItemInput label="citizenId" itemName="citizenId" rules={[]} />
-				<BaseItemInput label="doctorCode" itemName="doctorCode" rules={[]} />
-				<BaseItemInput label="doctorType" itemName="doctorType" rules={[]} />
-				<BaseItemInput label="firstName" itemName="firstname" rules={[]} />
-				<BaseItemInput label="lastName" itemName="lastname" rules={[]} />
-				<BaseItemInput label="position" itemName="position" rules={[]} />
-				<BaseItemInput label="postalName" itemName="postalName" rules={[]} />
+				<div className="col-span-4">
+					<BaseHorizontalHeader title={"รายละเอียด"} icons={<UserOutlined />} />
+				</div>
 				<BaseItemInput
-					label="professionalCode"
+					label="เลขทะเบียนวิชาชีพ"
 					itemName="professionalCode"
 					rules={[]}
 				/>
-				<BaseItemInput label="revenueNo" itemName="revenueNo" rules={[]} />
-				<BaseItemInput label="title" itemName="title" rules={[]} />
+				<BaseItemInput
+					label="เลขทะเบียน สปส"
+					itemName="doctorCode"
+					rules={[]}
+				/>
+				<BaseItemInput
+					label="เลขที่บัตรประชาชน"
+					itemName="citizenId"
+					rules={[]}
+				/>
+				<div></div>
+				<BaseItemInput label="คำนำหน้า" itemName="title" rules={[]} />
+				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
+				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
+				<div></div>
+				<BaseItemInput label="ประเภทแพทย์" itemName="doctorType" rules={[]} />
+				<BaseItemInput label="เลขที่ภาษี" itemName="revenueNo" rules={[]} />
+				<div className="col-span-2"></div>
+				<div className="col-span-4 ">
+					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
+				</div>
+				<BaseItemInput label="ที่อยู่" itemName="houseNum" rules={[]} />
+				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
+				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
+				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
 				<BaseDropDown
-					label="ตำบล"
-					itemName="tambol"
-					type="tambons_name"
+					label="จังหวัด"
+					itemName="province"
+					type="province_name"
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
 								...doctorData,
-								amphur: e.amphure_id,
-								province: e.province_id,
-								tambol: e.tambons_id,
-								postcode: e.zipcode,
+								amphur: e.amphurCode,
+								province: e.provinceCode,
+								tambol: e.tambolCode,
+								postcode: e.postalCode,
 							})
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).tambons_name}</p>
+						<p>{findLabelAddress({ redux: doctorData }).provinceName}</p>
 					)}
 				/>
 				<BaseDropDown
@@ -97,34 +117,35 @@ export default function DoctorDetail() {
 						dispatch(
 							setDoctorData({
 								...doctorData,
-								amphur: e.amphure_id,
-								province: e.province_id,
-								tambol: e.tambons_id,
-								postcode: e.zipcode,
+								amphur: e.amphurCode,
+								province: e.provinceCode,
+								tambol: e.tambolCode,
+								postcode: e.postalCode,
 							})
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).amphure_name}</p>
+						<p>{findLabelAddress({ redux: doctorData }).amphurName}</p>
 					)}
 				/>
 				<BaseDropDown
-					label="จังหวัด"
-					itemName="province"
-					type="province_name"
-					getValue={(e: Address) =>
+					label="ตำบล"
+					itemName="tambol"
+					type="tambons_name"
+					getValue={(e: Address) => {
+						console.log("return", e);
 						dispatch(
 							setDoctorData({
 								...doctorData,
-								amphur: e.amphure_id,
-								province: e.province_id,
-								tambol: e.tambons_id,
-								postcode: e.zipcode,
+								amphur: e.amphurCode,
+								province: e.provinceCode,
+								tambol: e.tambolCode,
+								postcode: e.postalCode,
 							})
-						)
-					}
+						);
+					}}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).province_name}</p>
+						<p>{findLabelAddress({ redux: doctorData }).tambolName}</p>
 					)}
 				/>
 				<BaseDropDown
@@ -135,18 +156,20 @@ export default function DoctorDetail() {
 						dispatch(
 							setDoctorData({
 								...doctorData,
-								amphur: e.amphure_id,
-								province: e.province_id,
-								tambol: e.tambons_id,
-								postcode: e.zipcode,
+								amphur: e.amphurCode,
+								province: e.provinceCode,
+								tambol: e.tambolCode,
+								postcode: e.postalCode,
 							})
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).zipcode}</p>
+						<p>{findLabelAddress({ redux: doctorData }).postalCode}</p>
 					)}
 				/>
-				<BaseButton label="บันทึก" htmlType="submit" />
+				{/* <BaseItemInput label="ตำแหน่ง" itemName="position" rules={[]} /> */}
+				<div className="col-span-3"></div>
+				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
 				<div className="col-span-4">
 					{itemsTables?.map((item, index: number) => (
 						<BaseCollapse

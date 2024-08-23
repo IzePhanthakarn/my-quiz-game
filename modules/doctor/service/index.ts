@@ -1,6 +1,6 @@
 import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
-import { addId, handleEmptyStringToNull } from "@/utils";
+import { mapIdByIndex, handleEmptyStringToNull } from "@/utils";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
@@ -43,15 +43,14 @@ export const initGetDoctorForm =
 
 		const response = await dispatch(getDoctorForm(uuid));
 		const data = response.payload;
-
 		const result = {
 			...data,
-			doctorBank: addId(data.doctorBank),
-			doctorDetail: addId(data.doctorDetail),
-			doctorHospital: addId(data.doctorHospital),
-			training: addId(data.training),
+			doctorBank: mapIdByIndex(data.doctorBank),
+			doctorDetail: mapIdByIndex(data.doctorDetail),
+			doctorHospital: mapIdByIndex(data.doctorHospital),
+			training: mapIdByIndex(data.training),
 		};
-		dispatch(setDoctorForm(result));
+		dispatch(setDoctorForm(await result));
 	};
 
 // List
