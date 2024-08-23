@@ -96,7 +96,7 @@ export const updateHospital =
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
-		if (_.get(data.payload, "error.message") === "Rejected") {
+		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
 			baseToastNotification({

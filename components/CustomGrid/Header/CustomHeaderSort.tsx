@@ -11,6 +11,8 @@ import {
 	SortOrder,
 } from "wcf-component-lib/node_modules/antd/es/table/interface";
 
+// import "wcf-component-lib/src/scss/variable.scss";
+
 interface Props {
 	label: string;
 	headerKey: string;
@@ -22,7 +24,7 @@ const SortIconStatus = (props: Props) => {
 	const { label, headerKey, columnKey, sort } = props;
 
 	return (
-		<div key={headerKey} className="flex space-x-2">
+		<div key={headerKey} className="flex space-x-2 ">
 			<p
 				className={`${toggleTitleColor(
 					handleOrderBy(sort?.[0]?.order ?? ""),

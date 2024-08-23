@@ -43,4 +43,7 @@ export const names = {
 	contractEndDate: "วันที่ยกเลิกสถานพยาบาล",
 	remarkChangeName: "สาเหตุการยกเลิก",
 	oldHospitalName: "ชื่อเดิมของสถานพยาบาล",
+
+	latitude: "ละติจูด",
+	longitude: "ลองจิจูด",
 };
