@@ -9,7 +9,7 @@ export function getCurrentDateString() {
 	return dayjs().format(DateFormat.DDMMYYYY).toString();
 }
 
-export const addId = (items: any[]) =>
+export const mapIdByIndex = (items: any[]) =>
 	items.map((item, index) => ({ ...item, id: index + 1 }));
 
 export function handleEmptyStringToNull(text: string | null) {
