@@ -2,6 +2,7 @@ import {
 	maxRule,
 	onlyNumberRule,
 	requiredRule,
+	onlyDecimalRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
 import { names } from "../interfaces/names";
 
@@ -71,4 +72,6 @@ export const rules = {
 		maxRule(names.ssoProject, 1),
 		requiredRule(names.ssoProject),
 	],
+	latitudeSchema: [onlyDecimalRule(names.latitude)],
+	longitudeSchema: [onlyDecimalRule(names.longitude)],
 };

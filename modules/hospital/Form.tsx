@@ -661,6 +661,38 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
+
+						<BaseItemInput
+							disabled={_.isEmpty(write)}
+							label={names.latitude}
+							itemName="latitude"
+							rules={rules.latitudeSchema}
+							value={hospitalForm.latitude}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										latitude: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<BaseItemInput
+							disabled={_.isEmpty(write)}
+							label={names.longitude}
+							itemName="longitude"
+							rules={rules.longitudeSchema}
+							value={hospitalForm.longitude}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										longitude: e.target.value,
+									})
+								);
+							}}
+						/>
 					</div>
 				</>
 			),

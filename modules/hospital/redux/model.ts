@@ -56,6 +56,8 @@ export interface HospitalGridData extends BaseMasterDataInterface {
 	tambolCode: string | null;
 	remarkChangeName: string | null;
 	ssoProject: string | null;
+	latitude: string;
+	longitude: string;
 }
 
 export interface HospitalFilter {
@@ -124,6 +126,8 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	tambolCode: string;
 	remarkChangeName: string;
 	ssoProject: string;
+	latitude: string;
+	longitude: string;
 }
 
 export const modelHospital: Hospital = {
@@ -167,6 +171,8 @@ export const modelHospital: Hospital = {
 		belongTo: "",
 		numberOfBed: 0,
 		bps: 0,
+		latitude: "",
+		longitude: "",
 		hospitalType: "",
 		hospitalCategory: "",
 		companyName: "",
