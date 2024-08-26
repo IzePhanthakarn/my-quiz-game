@@ -8,7 +8,8 @@ export const handleUploadMultipleMinIO =
 		for (let i = 0; i < selectedFiles.length; i++) {
 			formData.append("files", selectedFiles[i]);
 		}
-		formData.append("subfolder", "/test1/test2/test3/test4/");
+		formData.append("subfolder", "");
+		// formData.append("subfolder", "");
 		await dispatch(minioUploadMultiple(formData));
 	};
 
@@ -17,7 +18,7 @@ export const handleUploadMinIO =
 		if (file) {
 			const formData = new FormData();
 			formData.append("file", file);
-			formData.append("subfolder", "/test1/test2/test3/test4/");
+			formData.append("subfolder", "");
 			await dispatch(minioUpload(formData));
 		} else {
 			console.error("No file selected");
