@@ -34,6 +34,9 @@ import { names } from "./interfaces/names";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
+import BaseUploadDragger from "wcf-component-lib/src/components/BaseUploadDragger";
+import { setMultipleFiles } from "../minio/redux";
+import { handleUploadMultipleMinIO } from "../minio/service";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -41,10 +44,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const [form] = Form.useForm<HospitalForm>();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { hospitalForm, isOpenBaseConfirmDialog } = useSelector(
+	const { hospitalForm, isOpenBaseConfirmDialog, files } = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
+			files: state.minIO.files,
 		}),
 		shallowEqual
 	);
@@ -833,6 +837,19 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
 				<>
+					<BaseUploadDragger
+						onChangeFunction={(e) => {
+							console.log("🚀 ~ HospitalFormPage ~ e:", e);
+							dispatch(setMultipleFiles(Array.from(e)));
+						}}
+					/>
+					<button
+						onClick={() => {
+							dispatch(handleUploadMultipleMinIO(files));
+						}}
+					>
+						Upload Multiple file
+					</button>
 					<BaseHeaderNameAndSwitch
 						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
 						onChangeSwitchFunction={(e) => {
