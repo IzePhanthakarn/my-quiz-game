@@ -37,7 +37,7 @@ export default function CourseCertificate() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Course Certificate"
-				Header="Course"
+				Header="Course Certificate"
 				TotalItems={courseCertificate.grid.page.totalData}
 				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}

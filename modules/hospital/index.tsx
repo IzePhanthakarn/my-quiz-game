@@ -40,7 +40,7 @@ export default function Hospital() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่มสถานพยาบาล"
-				Header="Course"
+				Header="สถานพยาบาล"
 				SearchButtonFunction={() => {}}
 				TotalItems={hospital.grid.page.totalData}
 				FilterTextField={<Input className="w-[300px]" />}

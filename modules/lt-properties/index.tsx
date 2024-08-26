@@ -38,7 +38,7 @@ export default function LtProperties() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Lt Property"
-				Header="Course"
+				Header="Lt Property"
 				TotalItems={ltProperties.grid.page.totalData}
 				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}

@@ -37,7 +37,7 @@ export default function CourseOrganSystemGroup() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Course organ system group"
-				Header="Course"
+				Header="Course organ system group"
 				TotalItems={courseOrganSystemGroup.grid.page.totalData}
 				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
