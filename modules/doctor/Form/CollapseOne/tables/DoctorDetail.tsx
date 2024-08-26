@@ -1,6 +1,6 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns } from "../model/DoctorDetailModel";
