@@ -37,7 +37,7 @@ export default function CourseManipulate() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Course Category"
-				Header="Course"
+				Header="Course Category"
 				TotalItems={course.grid.page.totalData}
 				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
