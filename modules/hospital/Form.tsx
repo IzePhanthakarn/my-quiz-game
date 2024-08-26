@@ -33,6 +33,7 @@ import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { names } from "./interfaces/names";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
+import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -831,31 +832,45 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
-				<BaseForm
-					name={"hospitalForm"}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					initialValues={{
-						...hospitalForm,
-					}}
-					extraForm={form}
-				>
-					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
-					<BaseCollapse items={thSection} defaultActiveKey={"3"} />
-					<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
+				<>
+					<BaseHeaderNameAndSwitch
+						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
+						onChangeSwitchFunction={(e) => {
+							dispatch(
+								setHospitalForm({
+									...hospitalForm,
+									isActive: e ? IsActive.Y : IsActive.N,
+								})
+							);
+						}}
+						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
+					/>
+					<BaseForm
+						name={"hospitalForm"}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						initialValues={{
+							...hospitalForm,
+						}}
+						extraForm={form}
+					>
+						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
+						<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
+						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
+						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
 
-					<div className="flex justify-end">
-						<BaseButtonCancel
-							className="mr-3"
-							onClick={() => {
-								router.push(LINKS.HOSPITAL.link);
-							}}
-						/>
-						<BaseButtonDraft className="mr-3" />
-						<BaseButtonSave className="" htmlType="submit" />
-					</div>
-				</BaseForm>
+						<div className="flex justify-end">
+							<BaseButtonCancel
+								className="mr-3"
+								onClick={() => {
+									router.push(LINKS.HOSPITAL.link);
+								}}
+							/>
+							<BaseButtonDraft className="mr-3" />
+							<BaseButtonSave className="" htmlType="submit" />
+						</div>
+					</BaseForm>
+				</>
 			)}
 		</>
 	);
