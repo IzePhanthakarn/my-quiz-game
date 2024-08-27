@@ -90,3 +90,33 @@ export const handleUploadSp7HospitalApi = createAsyncThunk(
 		}
 	}
 );
+
+export const exportExcelMed5012 = createAsyncThunk(
+	"Hospital/exportMed5012Api",
+	async (body: ExportPages["med5012"], thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PAGES.MED5012}`;
+			const response = await axios.post(apiPath, body, {
+				responseType: "arraybuffer",
+			});
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
+export const exportPdfMed5012 = createAsyncThunk(
+	"Hospital/exportMed5012Api",
+	async (body: ExportPages["med5012"], thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PDF.MED5012}`;
+			const response = await axios.post(apiPath, body, {
+				responseType: "arraybuffer",
+			});
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
