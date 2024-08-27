@@ -86,6 +86,10 @@ export interface ExportPages {
 		sp19StartDate: null | string | undefined;
 		sp19EndDate: null | string | undefined;
 	};
+	med5012: {
+		fromDate: string;
+		toDate: string;
+	};
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
@@ -159,6 +163,10 @@ export const modelHospital: Hospital = {
 			sp7EndDate: "",
 			sp19StartDate: "",
 			sp19EndDate: "",
+		},
+		med5012: {
+			fromDate: "",
+			toDate: "",
 		},
 	},
 	form: {
