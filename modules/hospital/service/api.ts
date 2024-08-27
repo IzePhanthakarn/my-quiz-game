@@ -73,3 +73,20 @@ export const exportMed5008Api = createAsyncThunk(
 		}
 	}
 );
+
+export const handleUploadSp7HospitalApi = createAsyncThunk(
+	"Hospital/handleUploadSp7HospitalApi",
+	async (body: FormData, thunkApi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.UPLOAD_SP7}`;
+			const response = await axios.post(apiPath, body, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
+			return response.data;
+		} catch (err) {
+			return thunkApi.rejectWithValue("");
+		}
+	}
+);

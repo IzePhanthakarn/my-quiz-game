@@ -6,6 +6,7 @@ import {
 	exportMed5008Api,
 	getHospitalDetail,
 	getHospitalList,
+	handleUploadSp7HospitalApi,
 	updateHospitalApi,
 } from "./api";
 import { setHospitalForm, setHospitalGrid } from "@/modules/hospital/redux";
@@ -21,6 +22,8 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { LINKS } from "@/constants/links";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
+import { minioUploadMultiple } from "../../minio/service/api";
+import { handleUploadFiles } from "wcf-component-lib/src/utils/";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -114,4 +117,10 @@ export const exportMed5008Function =
 
 		const data = await dispatch(exportMed5008Api(form));
 		console.log("🚀 ~ data:", data);
+	};
+
+export const handleUploadSp7Hospital =
+	(selectedFiles: File[]) => async (dispatch: AppDispatch) => {
+		const formData = handleUploadFiles(selectedFiles);
+		await dispatch(handleUploadSp7HospitalApi(formData));
 	};
