@@ -16,7 +16,12 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
-import { addHospital, initGetHospitalDetail, updateHospital } from "./service";
+import {
+	addHospital,
+	handleUploadSp7Hospital,
+	initGetHospitalDetail,
+	updateHospital,
+} from "./service";
 import { rules } from "./field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
@@ -36,7 +41,6 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDragger from "wcf-component-lib/src/components/BaseUploadDragger";
 import { setMultipleFiles } from "../minio/redux";
-import { handleUploadMultipleMinIO } from "../minio/service";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -845,7 +849,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					/>
 					<button
 						onClick={() => {
-							dispatch(handleUploadMultipleMinIO(files));
+							dispatch(handleUploadSp7Hospital(files));
 						}}
 					>
 						Upload Multiple file
