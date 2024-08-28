@@ -39,7 +39,7 @@ import { names } from "./interfaces/names";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
-import BaseUploadDragger from "wcf-component-lib/src/components/BaseUploadDragger";
+import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 import { setMultipleFiles } from "../minio/redux";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
@@ -841,7 +841,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
 				<>
-					<BaseUploadDragger
+					<BaseUploadDraggerHospital
 						onChangeFunction={(e) => {
 							console.log("🚀 ~ HospitalFormPage ~ e:", e);
 							dispatch(setMultipleFiles(Array.from(e)));
