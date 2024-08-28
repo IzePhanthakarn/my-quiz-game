@@ -15,11 +15,11 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./model";
-import { setDialog } from "@/redux/slices/dialog";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
 import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserOutlined";
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
+import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 
 export default function DoctorDetail() {
 	const dispatch: AppDispatch = useDispatch();
@@ -106,7 +106,7 @@ export default function DoctorDetail() {
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).provinceName}</p>
+						<p>{findLabelAddress(doctorData.province, ADDRESS.PROVINCE)}</p>
 					)}
 				/>
 				<BaseDropDown
@@ -125,7 +125,7 @@ export default function DoctorDetail() {
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).amphurName}</p>
+						<p>{findLabelAddress(doctorData.amphur, ADDRESS.AMPHUR)}</p>
 					)}
 				/>
 				<BaseDropDown
@@ -133,7 +133,6 @@ export default function DoctorDetail() {
 					itemName="tambol"
 					type="tambons_name"
 					getValue={(e: Address) => {
-						console.log("return", e);
 						dispatch(
 							setDoctorData({
 								...doctorData,
@@ -145,7 +144,7 @@ export default function DoctorDetail() {
 						);
 					}}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).tambolName}</p>
+						<p>{findLabelAddress(doctorData.tambol, ADDRESS.TAMBOL)}</p>
 					)}
 				/>
 				<BaseDropDown
@@ -164,7 +163,7 @@ export default function DoctorDetail() {
 						)
 					}
 					labelRender={() => (
-						<p>{findLabelAddress({ redux: doctorData }).postalCode}</p>
+						<p>{findLabelAddress(doctorData.postcode, ADDRESS.POSTCODE)}</p>
 					)}
 				/>
 				{/* <BaseItemInput label="ตำแหน่ง" itemName="position" rules={[]} /> */}
