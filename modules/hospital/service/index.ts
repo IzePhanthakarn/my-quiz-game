@@ -124,7 +124,7 @@ export const exportMed5008Function =
 
 export const handleUploadSp7Hospital =
 	(selectedFiles: File[]) => async (dispatch: AppDispatch) => {
-		const formData = handleUploadFiles(selectedFiles);
+		const formData = handleUploadFiles(selectedFiles, "sp7");
 		await dispatch(handleUploadSp7HospitalApi(formData));
 	};
 
