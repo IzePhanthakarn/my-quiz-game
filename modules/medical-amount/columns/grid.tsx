@@ -1,12 +1,13 @@
 "use client";
 
-import CustomCellButton from "@/components/CustomGrid/Cell/CustonCellButton";
-import { BUTTON_MODE } from "@/components/CustomGrid/Cell/model";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { LINKS } from "@/constants/links";
+import ExtraRouter from "@/utils/function-component/ExtraRouter";
 
 export const grid: TableProps["columns"] = [
 	{
@@ -98,11 +99,14 @@ export const grid: TableProps["columns"] = [
 		key: "uuid",
 		title: "คำสั่ง",
 		dataIndex: "uuid",
-		render: (_, { uuid }) => (
-			<CustomCellButton
-				editLink={`${LINKS.MEDICAL_AMOUNT.edit}${uuid}`}
-				mode={BUTTON_MODE.VIEW_EDIT_ICON}
-			/>
-		),
+		render: (_, { uuid }) => {
+			const router = ExtraRouter();
+			return (
+				<CustomCellButton
+					editFunction={() => router.push(LINKS.MEDICAL_AMOUNT.edit + uuid)}
+					mode={BUTTON_MODE.EDIT_ONLY_ICON}
+				/>
+			);
+		},
 	},
 ];

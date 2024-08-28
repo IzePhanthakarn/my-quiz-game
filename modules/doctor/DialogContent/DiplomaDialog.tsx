@@ -1,51 +1,67 @@
 import { DiplomaForm, modelDiplomaForm } from "@/modules/diploma/redux/model";
 import { AppDispatch } from "@/redux/config/configStore";
-import { SliceModel } from "@/redux/slices/model";
 import _ from "lodash";
-import React from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
-import { addDoctorDetailRows } from "./service";
+import { handleDoctorDetailRows } from "./service";
+import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
+import { DoctorDetailList, DoctorData } from "../redux/form/model";
 
-export default function DiplomaDialog() {
+interface Props {
+	doctorDetailGrid: DoctorDetailList[];
+	doctor: DoctorData;
+	editId?: number;
+}
+
+export default function DiplomaDialog(props: Props) {
+	const { doctorDetailGrid, doctor, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
-	const { grid, doctor } = useSelector(
-		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.doctorDetail,
-			doctor: state.doctor.doctorForm.doctorData,
-		}),
-		shallowEqual
-	);
 
 	const [diploma, setDiploma] = React.useState<DiplomaForm>(modelDiplomaForm);
 
+	useEffect(() => {
+		const data = _.find(doctorDetailGrid, ["id", editId]);
+		setDiploma({ ...diploma, diplomaType: data?.diplomaType ?? "" });
+	}, [editId]);
+
 	return (
-		<div className="flex flex-col w-full">
+		<div className="flex space-y-2 flex-col w-full">
+			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลวุฒิบัตรเฉพาะทาง</p>
 			<div className="w-full">
 				<BaseDropDown
+					notForm={true}
+					className="h-full w-full"
 					label="วุฒิบัตรเฉพาะทาง"
 					itemName="diploma"
 					type="diploma"
+					value={_.isEmpty(diploma.diplomaType) ? null : diploma.diplomaType}
 					getValue={(e) => {
 						setDiploma(e[0]);
 					}}
 				/>
 			</div>
-			<BaseButton
-				className="mt-2"
-				onClick={() => {
-					dispatch(
-						addDoctorDetailRows({
-							diplomaType: diploma.diplomaType,
-							doctorCode: doctor.doctorCode,
-							doctorDetail: grid,
-						})
-					);
-				}}
-				label="เพิ่มข้อมูลวุฒิบัตรเฉพาะทาง"
-			/>
+			<div className="flex space-x-2 justify-center">
+				<BaseButton className="mt-2 w-40" label="ยกเลิก" />
+				<BaseButton
+					className="mt-2 w-40"
+					disabled={_.isEmpty(diploma.diplomaType)}
+					onClick={() => {
+						dispatch(
+							handleDoctorDetailRows({
+								diplomaType: diploma.diplomaType,
+								doctorCode: doctor.doctorCode,
+								doctorDetailGrid,
+								editId,
+							})
+						);
+						setDiploma(modelDiplomaForm);
+					}}
+					label="บันทึก"
+				/>
+			</div>
 		</div>
 	);
 }

@@ -32,7 +32,7 @@ const Form = (params: UuidFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, isOpenBaseConfirmDialog } = useSelector(
+	const { clinicDetail, isOpenBaseConfirmDialog = false } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,

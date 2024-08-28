@@ -1,18 +1,20 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { columns } from "../model/DoctorDetailModel";
+import { getColumns } from "../model/DoctorDetailModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
+import _ from "lodash";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
-	const { grid, dialog } = useSelector(
+	const { doctorDetailGrid, doctor, dialog } = useSelector(
 		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.doctorDetail,
+			doctorDetailGrid: state.doctor.doctorForm.doctorDetail,
+			doctor: state.doctor.doctorForm.doctorData,
 			dialog: state.dialog,
 		}),
 		shallowEqual
@@ -26,14 +28,22 @@ export default function DoctorDetails() {
 						setDialog({
 							...dialog,
 							isOpen: true,
-							uniqueContent: <DiplomaDialog />,
+							uniqueContent: (
+								<DiplomaDialog
+									doctorDetailGrid={doctorDetailGrid}
+									doctor={doctor}
+								/>
+							),
 						})
 					);
 				}}
 				className="self-end"
 				label="เพิ่มข้อมูลวุฒิบัตรเฉพาะทาง"
 			/>
-			<BaseGrid rows={grid} columns={columns} />
+			<BaseGrid
+				rows={doctorDetailGrid}
+				columns={dispatch(getColumns({ doctorDetailGrid, doctor }))}
+			/>
 		</div>
 	);
 }

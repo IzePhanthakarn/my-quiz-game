@@ -1,7 +1,7 @@
 "use client";
 
-import CustomCellButton from "@/components/CustomGrid/Cell/CustonCellButton";
-import { BUTTON_MODE } from "@/components/CustomGrid/Cell/model";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
@@ -12,6 +12,7 @@ import {
 	documentNameName,
 	isNecessaryName,
 } from "../field-validation/form";
+import ExtraRouter from "@/utils/function-component/ExtraRouter";
 
 export const grid: TableProps["columns"] = [
 	{
@@ -64,11 +65,14 @@ export const grid: TableProps["columns"] = [
 		key: "uuid",
 		title: "คำสั่ง",
 		dataIndex: "uuid",
-		render: (_, { uuid }) => (
-			<CustomCellButton
-				editLink={`${LINKS.DOCUMENT.edit}${uuid}`}
-				mode={BUTTON_MODE.VIEW_EDIT_ICON}
-			/>
-		),
+		render: (_, { uuid }) => {
+			const router = ExtraRouter();
+			return (
+				<CustomCellButton
+					editFunction={() => router.push(LINKS.DOCUMENT.edit + uuid)}
+					mode={BUTTON_MODE.EDIT_ONLY_ICON}
+				/>
+			);
+		},
 	},
 ];
