@@ -14,6 +14,7 @@ import {
 } from "@/modules/doctor/redux/form/model";
 import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
 import { useMemo } from "react";
+import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -26,23 +27,32 @@ export const GetColumns = (props: Props) => {
 	const columns = useMemo(
 		() => [
 			{
+				title: "ลำดับ",
 				dataIndex: "id",
 				key: "id",
 			},
 			{
-				title: (columns: ColumnTitleProps<any>) => (
-					<div>
-						<CustomHeaderSort
-							columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-							headerKey={"diplomaType"}
-							label={"diplomaType"}
-							sort={columns?.sortColumns}
-						/>
-					</div>
-				),
+				title: "เลขทะเบียน สปส",
+				dataIndex: "doctorCode",
+				key: "doctorCode",
+			},
+			{
+				title: "วุฒิบัตรเฉพาะทาง",
 				dataIndex: "diplomaType",
 				key: "diplomaType",
-				sorter: true,
+				render: (_: any, { diplomaType }: any) => {
+					const diploma = JSON.parse(sessionStorage.getItem("diploma") ?? "[]");
+					const data: Diploma[] = diploma.filter(
+						(item: Diploma) => item.diplomaType === diplomaType
+					);
+					return <p>{data[0].diplomaName}</p>;
+				},
+			},
+			{
+				title: "เลขทะเบียนวิชาชีพ",
+				render: () => {
+					return <p>{doctor.professionalCode}</p>;
+				},
 			},
 			{
 				title: "คำสั่ง",

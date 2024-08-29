@@ -35,7 +35,6 @@ export const handleDoctorDetailRows =
 		};
 
 		const newGrid = _.cloneDeep(doctorDetailGrid);
-		console.log("newGrid", newGrid);
 		if (!_.isUndefined(editId)) {
 			const index = newGrid.findIndex((item) => item.id === editId);
 			if (isDelete) newGrid.splice(index, 1);

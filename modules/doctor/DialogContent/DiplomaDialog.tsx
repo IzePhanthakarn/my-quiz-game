@@ -19,11 +19,11 @@ export default function DiplomaDialog(props: Props) {
 	const { doctorDetailGrid, doctor, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 
-	const [diploma, setDiploma] = React.useState<DiplomaForm>(modelDiplomaForm);
+	const [diplomaType, setDiplomaType] = React.useState("");
 
 	useEffect(() => {
 		const data = _.find(doctorDetailGrid, ["id", editId]);
-		setDiploma({ ...diploma, diplomaType: data?.diplomaType ?? "" });
+		setDiplomaType(data?.diplomaType ?? "");
 	}, [doctorDetailGrid, editId]);
 
 	return (
@@ -37,9 +37,9 @@ export default function DiplomaDialog(props: Props) {
 					label="วุฒิบัตรเฉพาะทาง"
 					itemName="diploma"
 					type="diploma"
-					value={_.isEmpty(diploma.diplomaType) ? null : diploma.diplomaType}
+					value={_.isEmpty(diplomaType) ? null : diplomaType}
 					getValue={(e) => {
-						setDiploma(e[0]);
+						setDiplomaType(e);
 					}}
 				/>
 			</div>
@@ -47,17 +47,17 @@ export default function DiplomaDialog(props: Props) {
 				className="mt-2"
 				icon={<ArrowRightOutlined />}
 				iconPosition="end"
-				disabled={_.isEmpty(diploma.diplomaType)}
+				disabled={_.isEmpty(diplomaType)}
 				onClick={() => {
 					dispatch(
 						handleDoctorDetailRows({
-							diplomaType: diploma.diplomaType,
+							diplomaType: diplomaType,
 							doctorCode: doctor.doctorCode,
 							doctorDetailGrid,
 							editId,
 						})
 					);
-					setDiploma(modelDiplomaForm);
+					setDiplomaType("");
 				}}
 				label="บันทึก"
 			/>

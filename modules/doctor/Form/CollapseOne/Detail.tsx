@@ -93,7 +93,7 @@ export default function DoctorDetail() {
 				<BaseDropDown
 					label="จังหวัด"
 					itemName="province"
-					type="province_name"
+					type="provinceName"
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -112,7 +112,7 @@ export default function DoctorDetail() {
 				<BaseDropDown
 					label="อำเภอ"
 					itemName="amphur"
-					type="amphure_name"
+					type="amphurName"
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -131,7 +131,7 @@ export default function DoctorDetail() {
 				<BaseDropDown
 					label="ตำบล"
 					itemName="tambol"
-					type="tambons_name"
+					type="tambolName"
 					getValue={(e: Address) => {
 						dispatch(
 							setDoctorData({
@@ -150,7 +150,7 @@ export default function DoctorDetail() {
 				<BaseDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
-					type="zipcode"
+					type="postalCode"
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({

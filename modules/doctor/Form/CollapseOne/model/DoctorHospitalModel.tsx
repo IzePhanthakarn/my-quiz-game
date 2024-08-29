@@ -1,53 +1,66 @@
 "use client";
 
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
+import { DoctorHospitalList } from "@/modules/doctor/redux/form/model";
+import { useMemo } from "react";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
+import { AppDispatch } from "@/redux/config/configStore";
 
-export const columns: TableProps["columns"] = [
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"hospitalWcfCode"}
-					label={"รหัสโรงพยาบาล"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "hospitalWcfCode",
-		key: "hospitalWcfCode",
-		sorter: true,
-	},
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"hospitalWcfName"}
-					label={"ชื่อโรงพยาบาล"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "hospitalWcfName",
-		key: "hospitalWcfName",
-		sorter: true,
-	},
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"jobType"}
-					label={"jobType"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "jobType",
-		key: "jobType",
-		sorter: true,
-	},
-];
+interface Props {
+	doctorHospitalGrid: DoctorHospitalList[];
+	dispatch: AppDispatch;
+}
+
+export const GetColumns = (props: Props) => {
+	const { doctorHospitalGrid, dispatch } = props;
+	const columns = useMemo(
+		() => [
+			{
+				title: "ลำดับ",
+				dataIndex: "id",
+				key: "id",
+			},
+			{
+				title: "เลขทะเบียน สปส",
+				dataIndex: "doctorCode",
+				key: "doctorCode",
+			},
+			{
+				title: "รหัสโรงพยาบาล",
+				dataIndex: "hospitalWcfCode",
+				key: "hospitalWcfCode",
+			},
+			{
+				title: "ชื่อโรงพยาบาล",
+				dataIndex: "hospitalWcfName",
+				key: "hospitalWcfName",
+			},
+			{
+				title: "ลักษณะงานที่รับผิดชอบ",
+				dataIndex: "jobType",
+				key: "jobType",
+			},
+			{
+				title: "ตำแหน่ง",
+				dataIndex: "position",
+				key: "position",
+			},
+			{
+				title: "คำสั่ง",
+				dataIndex: "uuid",
+				key: "uuid",
+				render: (_: any, { id }: any) => {
+					return (
+						<CustomCellButton
+							editFunction={() => {}}
+							deleteFunction={() => {}}
+							mode={BUTTON_MODE.EDIT_DELETE_ICON}
+						/>
+					);
+				},
+			},
+		],
+		[doctorHospitalGrid]
+	);
+	return columns;
+};

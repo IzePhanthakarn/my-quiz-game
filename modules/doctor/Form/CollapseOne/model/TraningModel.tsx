@@ -3,66 +3,52 @@
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
+import { TrainingList } from "@/modules/doctor/redux/form/model";
+import { AppDispatch } from "@/redux/config/configStore";
+import { useMemo } from "react";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 
-export const columns: TableProps["columns"] = [
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"trainingNo"}
-					label={"trainingNo"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "trainingNo",
-		key: "trainingNo",
-		sorter: true,
-	},
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"trainingDate"}
-					label={"trainingDate"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "trainingDate",
-		key: "trainingDate",
-		sorter: true,
-	},
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"trainingYear"}
-					label={"trainingYear"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "trainingYear",
-		key: "trainingYear",
-		sorter: true,
-	},
-	{
-		title: (columns: ColumnTitleProps<any>) => (
-			<div>
-				<CustomHeaderSort
-					columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-					headerKey={"trainingTime"}
-					label={"trainingTime"}
-					sort={columns?.sortColumns}
-				/>
-			</div>
-		),
-		dataIndex: "trainingTime",
-		key: "trainingTime",
-		sorter: true,
-	},
-];
+interface Props {
+	trainingGrid: TrainingList[];
+	dispatch: AppDispatch;
+}
+
+export const GetColumns = (props: Props) => {
+	const { trainingGrid, dispatch } = props;
+	const columns = useMemo(
+		() => [
+			{
+				title: "รุ่นที่อบรม",
+				dataIndex: "trainingNo",
+				key: "trainingNo",
+			},
+			{
+				title: "ปีที่อบรม",
+				dataIndex: "trainingYear",
+				key: "trainingYear",
+			},
+			{
+				title: "วันที่อบรม",
+				dataIndex: "trainingDate",
+				key: "trainingDate",
+			},
+			{
+				title: "คำสั่ง",
+				dataIndex: "uuid",
+				key: "uuid",
+				render: (_: any, { id }: any) => {
+					return (
+						<CustomCellButton
+							editFunction={() => {}}
+							deleteFunction={() => {}}
+							mode={BUTTON_MODE.EDIT_DELETE_ICON}
+						/>
+					);
+				},
+			},
+		],
+		[trainingGrid]
+	);
+	return columns;
+};
