@@ -18,7 +18,7 @@ import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
 import {
 	addHospital,
-	handleUploadSp7Hospital,
+	handleUploadHospital,
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
@@ -52,7 +52,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
-			files: state.minIO.files,
+			files: state.hospital.form.files,
 		}),
 		shallowEqual
 	);
@@ -77,8 +77,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		) {
 			form.setFields([
 				{
-					name: "remarkChangeName", // Replace with your actual field name
-					errors: [`กรุณาใส่ ${names.remarkChangeName}`], // Custom error message
+					name: "remarkChangeName",
+					errors: [`กรุณาใส่ ${names.remarkChangeName}`],
 				},
 			]);
 			return;
@@ -842,14 +842,66 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				// <div className="flex flex-col space-y-2">
 				<>
 					<BaseUploadDraggerHospital
+						fileList={hospitalForm.files.sp7}
 						onChangeFunction={(e) => {
-							console.log("🚀 ~ HospitalFormPage ~ e:", e);
-							dispatch(setMultipleFiles(Array.from(e)));
+							// dispatch(setMultipleFiles(Array.from(e)));
+							dispatch(
+								setHospitalForm({
+									...hospitalForm,
+									files: { sp7: Array.from(e) },
+								})
+							);
 						}}
 					/>
 					<button
-						onClick={() => {
-							dispatch(handleUploadSp7Hospital(files));
+						onClick={async () => {
+							if (files.sp7.length) {
+								const errorArray = [];
+								errorArray.push({
+									name: "sp7StartDated",
+									errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
+										? [`กรุณาใส่ ${names.sp7StartDated}`]
+										: undefined,
+								});
+								errorArray.push({
+									name: "sp7EndDate",
+									errors: _.isEmpty(form.getFieldsValue().sp7EndDate)
+										? [`กรุณาใส่ ${names.sp7EndDate}`]
+										: undefined,
+								});
+								form.setFields(errorArray);
+
+								/**
+								 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
+								 * ถ้าใช่จะ return true
+								 * */
+								const checkCondition = _.every(errorArray, (obj) => {
+									return _.isUndefined(obj.errors);
+								});
+								// /**
+								//  * จาก checkCondition ด้านบน จะ return true หาก errors key ทุกตัวเป็น undefined
+								//  * แต่ต้องการเช็คเงื่อนไขว่า ถ้าทุกตัว "ไม่ใช่" undefined จึงจะทำเงื่อนไขใดๆ
+								//  */
+								// if (!checkCondition) {
+								// 	return;
+								// }
+								if (checkCondition) {
+									await dispatch(
+										handleUploadHospital(
+											files.sp7,
+											"hospital/sp7",
+											hospitalForm
+										)
+									);
+
+									dispatch(
+										setHospitalForm({
+											...hospitalForm,
+											files: { sp7: [] },
+										})
+									);
+								}
+							}
 						}}
 					>
 						Upload Multiple file
