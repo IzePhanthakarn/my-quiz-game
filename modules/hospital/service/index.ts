@@ -3,9 +3,12 @@ import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAPI,
+	exportExcelMed5012,
 	exportMed5008Api,
+	exportPdfMed5012,
 	getHospitalDetail,
 	getHospitalList,
+	handleUploadSp7HospitalApi,
 	updateHospitalApi,
 } from "./api";
 import { setHospitalForm, setHospitalGrid } from "@/modules/hospital/redux";
@@ -21,6 +24,9 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { LINKS } from "@/constants/links";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
+import dayjs from "dayjs";
+import { minioUploadMultiple } from "../../minio/service/api";
+import { handleUploadFiles } from "wcf-component-lib/src/utils/";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -114,4 +120,48 @@ export const exportMed5008Function =
 
 		const data = await dispatch(exportMed5008Api(form));
 		console.log("🚀 ~ data:", data);
+	};
+
+export const handleUploadSp7Hospital =
+	(selectedFiles: File[]) => async (dispatch: AppDispatch) => {
+		const formData = handleUploadFiles(selectedFiles, "sp7");
+		await dispatch(handleUploadSp7HospitalApi(formData));
+	};
+
+export const handleOnExportExcel5012 =
+	(med5012: ExportPages["med5012"]) => async (dispatch: AppDispatch) => {
+		dispatch(setIsLoading(true));
+		const result = await dispatch(exportExcelMed5012(med5012));
+		dispatch(setIsLoading(false));
+		if (_.get(result, "error.message") === "Rejected") return;
+		const blob = new Blob([result.payload], {
+			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		});
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = `${dayjs().format("YYYY-MM-DD HHmmss")}.xlsx`;
+		document.body.appendChild(a);
+		a.click();
+		URL.revokeObjectURL(url);
+	};
+
+export const handleOnExportPdf5012 =
+	(med5012: ExportPages["med5012"], isPreview: boolean) =>
+	async (dispatch: AppDispatch) => {
+		dispatch(setIsLoading(true));
+		const result = await dispatch(exportPdfMed5012(med5012));
+		dispatch(setIsLoading(false));
+		if (_.get(result, "error.message") === "Rejected") return;
+		const blob = new Blob([result.payload], { type: "application/pdf" });
+		const url = URL.createObjectURL(blob);
+		if (isPreview) window.open(url, "_blank");
+		else {
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = `${dayjs().format("YYYY-MM-DD HHmmss")}.pdf`;
+			document.body.appendChild(a);
+			a.click();
+		}
+		URL.revokeObjectURL(url);
 	};

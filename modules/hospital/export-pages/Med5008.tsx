@@ -86,7 +86,7 @@ const Form = () => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="MED5008"
+					textHeader="MED5008 รายงานวันสิ้นสุดใบอนุญาตสถานพยาบาลในความตกลงของกองทุนเงินทดแทน ระบุเงื่อนไขที่ต้องการเรียกรายงาน"
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,
@@ -98,6 +98,7 @@ const Form = () => {
 					cancelFunction={() => {
 						router.push(LINKS.HOSPITAL.link);
 					}}
+					isShowHeaderSwitch={false}
 					isEdit={false}
 					inputs={
 						<>

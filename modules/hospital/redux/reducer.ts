@@ -33,6 +33,6 @@ export const hospitalReducers = {
 			value: ExportPages[keyof ExportPages];
 		}>
 	) => {
-		state.exportPages[action.payload.key] = action.payload.value;
+		state.exportPages = { ...state.exportPages, [action.payload.key]: action.payload.value };
 	},
 };

@@ -16,7 +16,12 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setHospitalForm } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
-import { addHospital, initGetHospitalDetail, updateHospital } from "./service";
+import {
+	addHospital,
+	handleUploadSp7Hospital,
+	initGetHospitalDetail,
+	updateHospital,
+} from "./service";
 import { rules } from "./field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
@@ -33,6 +38,9 @@ import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { names } from "./interfaces/names";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
+import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
+import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
+import { setMultipleFiles } from "../minio/redux";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -40,10 +48,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const [form] = Form.useForm<HospitalForm>();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { hospitalForm, isOpenBaseConfirmDialog } = useSelector(
+	const { hospitalForm, isOpenBaseConfirmDialog, files } = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
+			files: state.minIO.files,
 		}),
 		shallowEqual
 	);
@@ -831,31 +840,58 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
-				<BaseForm
-					name={"hospitalForm"}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					initialValues={{
-						...hospitalForm,
-					}}
-					extraForm={form}
-				>
-					<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-					<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
-					<BaseCollapse items={thSection} defaultActiveKey={"3"} />
-					<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
+				<>
+					<BaseUploadDraggerHospital
+						onChangeFunction={(e) => {
+							console.log("🚀 ~ HospitalFormPage ~ e:", e);
+							dispatch(setMultipleFiles(Array.from(e)));
+						}}
+					/>
+					<button
+						onClick={() => {
+							dispatch(handleUploadSp7Hospital(files));
+						}}
+					>
+						Upload Multiple file
+					</button>
+					<BaseHeaderNameAndSwitch
+						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
+						onChangeSwitchFunction={(e) => {
+							dispatch(
+								setHospitalForm({
+									...hospitalForm,
+									isActive: e ? IsActive.Y : IsActive.N,
+								})
+							);
+						}}
+						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
+					/>
+					<BaseForm
+						name={"hospitalForm"}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						initialValues={{
+							...hospitalForm,
+						}}
+						extraForm={form}
+					>
+						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
+						<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
+						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
+						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
 
-					<div className="flex justify-end">
-						<BaseButtonCancel
-							className="mr-3"
-							onClick={() => {
-								router.push(LINKS.HOSPITAL.link);
-							}}
-						/>
-						<BaseButtonDraft className="mr-3" />
-						<BaseButtonSave className="" htmlType="submit" />
-					</div>
-				</BaseForm>
+						<div className="flex justify-end">
+							<BaseButtonCancel
+								className="mr-3"
+								onClick={() => {
+									router.push(LINKS.HOSPITAL.link);
+								}}
+							/>
+							<BaseButtonDraft className="mr-3" />
+							<BaseButtonSave className="" htmlType="submit" />
+						</div>
+					</BaseForm>
+				</>
 			)}
 		</>
 	);

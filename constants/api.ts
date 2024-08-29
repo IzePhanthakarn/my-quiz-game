@@ -77,8 +77,13 @@ const API_PATH = {
 		ADD: "/hospital",
 		GET_BY_UUID: "/hospital",
 		UPDATE_BY_UUID: "/hospital",
+		UPLOAD_SP7: "/hospital-sp7",
 		EXPORT_PAGES: {
 			MED5008: "/hospital/export/med5008",
+			MED5012: "/hospital/excel/med5012",
+		},
+		EXPORT_PDF: {
+			MED5012: "/hospital/pdf/med5012",
 		},
 	},
 	DOCUMENT: {
