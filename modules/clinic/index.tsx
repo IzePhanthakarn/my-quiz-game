@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
 // import { columns } from "./model";
@@ -16,12 +16,7 @@ import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
-import StatusIndicator from "@/components/CustomGrid/Cell/StatusIndicator";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { getColumns } from "./model";
+import { GetColumns } from "./model";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -36,26 +31,6 @@ export default function Clinic() {
 		}),
 		shallowEqual
 	);
-
-	const columns: TableProps["columns"] = [
-		{
-			title: (columns: ColumnTitleProps<any>) => {
-				return (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"isActive"}
-						label={"สถานะ"}
-						sort={columns?.sortColumns}
-					/>
-				);
-			},
-			sorter: true,
-			dataIndex: "isActive",
-			key: "isActive",
-			width: 150,
-			render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-		},
-	];
 
 	useEffect(() => {
 		dispatch(
@@ -74,7 +49,7 @@ export default function Clinic() {
 				Grid={
 					<BaseGrid
 						rows={rows}
-						columns={getColumns()}
+						columns={GetColumns(router)}
 						page={page}
 						loading={isLoading}
 						twoToneColor={true}

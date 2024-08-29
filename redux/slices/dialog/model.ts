@@ -1,6 +1,6 @@
 export interface BaseDialog {
 	isOpen: boolean;
-	isOpenBaseConfirmDialog?: boolean;
+	isOpenBaseConfirmDialog?: boolean | undefined;
 	content?: JSX.Element;
 	headerText?: string;
 	uniqueContent?: JSX.Element;

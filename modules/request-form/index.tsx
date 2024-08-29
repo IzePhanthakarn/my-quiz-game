@@ -8,7 +8,7 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import { requestFormColumn as columns } from "./columns";
+import { GetColumns } from "./columns";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { handleOnGetRequestFormList } from "./service";
 
@@ -40,7 +40,7 @@ export default function RequestForm() {
 			Grid={
 				<BaseGrid
 					rows={requestForm.grid.data}
-					columns={columns}
+					columns={GetColumns(router)}
 					page={requestForm.grid.page}
 					loading={isLoading}
 					twoToneColor={true}

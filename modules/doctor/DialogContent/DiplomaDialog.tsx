@@ -8,7 +8,7 @@ import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { handleDoctorDetailRows } from "./service";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
-
+import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;
@@ -24,7 +24,7 @@ export default function DiplomaDialog(props: Props) {
 	useEffect(() => {
 		const data = _.find(doctorDetailGrid, ["id", editId]);
 		setDiploma({ ...diploma, diplomaType: data?.diplomaType ?? "" });
-	}, [editId]);
+	}, [doctorDetailGrid, editId]);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
@@ -43,25 +43,24 @@ export default function DiplomaDialog(props: Props) {
 					}}
 				/>
 			</div>
-			<div className="flex space-x-2 justify-center">
-				<BaseButton className="mt-2 w-40" label="ยกเลิก" />
-				<BaseButton
-					className="mt-2 w-40"
-					disabled={_.isEmpty(diploma.diplomaType)}
-					onClick={() => {
-						dispatch(
-							handleDoctorDetailRows({
-								diplomaType: diploma.diplomaType,
-								doctorCode: doctor.doctorCode,
-								doctorDetailGrid,
-								editId,
-							})
-						);
-						setDiploma(modelDiplomaForm);
-					}}
-					label="บันทึก"
-				/>
-			</div>
+			<BaseButton
+				className="mt-2"
+				icon={<ArrowRightOutlined />}
+				iconPosition="end"
+				disabled={_.isEmpty(diploma.diplomaType)}
+				onClick={() => {
+					dispatch(
+						handleDoctorDetailRows({
+							diplomaType: diploma.diplomaType,
+							doctorCode: doctor.doctorCode,
+							doctorDetailGrid,
+							editId,
+						})
+					);
+					setDiploma(modelDiplomaForm);
+				}}
+				label="บันทึก"
+			/>
 		</div>
 	);
 }

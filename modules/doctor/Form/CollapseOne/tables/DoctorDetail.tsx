@@ -3,7 +3,7 @@ import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { getColumns } from "../model/DoctorDetailModel";
+import { GetColumns } from "../model/DoctorDetailModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
@@ -42,7 +42,7 @@ export default function DoctorDetails() {
 			/>
 			<BaseGrid
 				rows={doctorDetailGrid}
-				columns={dispatch(getColumns({ doctorDetailGrid, doctor }))}
+				columns={GetColumns({ doctorDetailGrid, doctor, dispatch })}
 			/>
 		</div>
 	);

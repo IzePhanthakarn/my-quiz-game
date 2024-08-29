@@ -12,67 +12,74 @@ import {
 	documentNameName,
 	isNecessaryName,
 } from "../field-validation/form";
-import ExtraRouter from "@/utils/function-component/ExtraRouter";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import router from "next/router";
+import { useMemo } from "react";
 
-export const grid: TableProps["columns"] = [
-	{
-		title: "สถานะ",
-		key: "isActive",
-		dataIndex: "isActive",
-		width: 150,
-		render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-	},
-	{
-		sorter: true,
-		key: "documentName",
-		dataIndex: "documentName",
-		title: (columns: ColumnTitleProps<any>) => (
-			<CustomHeaderSort
-				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-				headerKey={"documentName"}
-				label={documentNameName}
-				sort={columns?.sortColumns}
-			/>
-		),
-	},
-	{
-		sorter: true,
-		key: "isNecessary",
-		dataIndex: "isNecessary",
-		title: (columns: ColumnTitleProps<any>) => (
-			<CustomHeaderSort
-				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-				headerKey={"isNecessary"}
-				label={isNecessaryName}
-				sort={columns?.sortColumns}
-			/>
-		),
-	},
-	{
-		sorter: true,
-		key: "disabled",
-		dataIndex: "disabled",
-		title: (columns: ColumnTitleProps<any>) => (
-			<CustomHeaderSort
-				columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-				headerKey={"disabled"}
-				label={disabledName}
-				sort={columns?.sortColumns}
-			/>
-		),
-	},
-	{
-		key: "uuid",
-		title: "คำสั่ง",
-		dataIndex: "uuid",
-		render: (_, { uuid }) => {
-			const router = ExtraRouter();
-			return (
-				<CustomCellButton
-					editFunction={() => router.push(LINKS.DOCUMENT.edit + uuid)}
-					mode={BUTTON_MODE.EDIT_ONLY_ICON}
-				/>
-			);
-		},
-	},
-];
+export const GetColumns = (router: AppRouterInstance) => {
+	const columns: TableProps["columns"] = useMemo(
+		() => [
+			{
+				title: "สถานะ",
+				key: "isActive",
+				dataIndex: "isActive",
+				width: 150,
+				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
+			},
+			{
+				sorter: true,
+				key: "documentName",
+				dataIndex: "documentName",
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"documentName"}
+						label={documentNameName}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "isNecessary",
+				dataIndex: "isNecessary",
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"isNecessary"}
+						label={isNecessaryName}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "disabled",
+				dataIndex: "disabled",
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"disabled"}
+						label={disabledName}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				key: "uuid",
+				title: "คำสั่ง",
+				dataIndex: "uuid",
+				render: (_, { uuid }) => {
+					return (
+						<CustomCellButton
+							editFunction={() => router.push(LINKS.DOCUMENT.edit + uuid)}
+							mode={BUTTON_MODE.EDIT_ONLY_ICON}
+						/>
+					);
+				},
+			},
+		],
+		[]
+	);
+	return columns;
+};

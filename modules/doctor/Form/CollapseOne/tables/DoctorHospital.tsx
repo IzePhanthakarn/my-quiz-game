@@ -11,7 +11,7 @@ export default function DoctorHospital() {
 	const dispatch: AppDispatch = useDispatch();
 	const { grid, dialog } = useSelector(
 		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.doctorDetail,
+			grid: state.doctor.doctorForm.doctorHospital,
 			dialog: state.dialog,
 		}),
 		shallowEqual

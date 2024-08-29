@@ -24,7 +24,6 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: UuidFormPageProps) => {
@@ -32,7 +31,7 @@ const Form = (params: UuidFormPageProps) => {
 	const router = useRouter();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { clinicDetail, isOpenBaseConfirmDialog = false } = useSelector(
+	const { clinicDetail, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			clinicDetail: state.clinic.clinicDetail,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,

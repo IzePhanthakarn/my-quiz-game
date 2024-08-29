@@ -9,7 +9,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { initDiplomaGrid } from "./service";
-import { columns } from "./model";
+import { GetColumns } from "./model";
 import { setDiplomaFilter, setOrder, setPagination } from "./redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelDiplomaFilter } from "./redux/filter/model";
@@ -49,7 +49,7 @@ export default function Diploma() {
 					<BaseGrid
 						rows={rows}
 						loading={isLoading}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}

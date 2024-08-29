@@ -13,64 +13,68 @@ import {
 	DoctorDetailList,
 } from "@/modules/doctor/redux/form/model";
 import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
+import { useMemo } from "react";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;
+	dispatch: AppDispatch;
 }
 
-export const getColumns = (props: Props) => (dispatch: AppDispatch) => {
-	const { doctorDetailGrid } = props;
-
-	const columns: TableProps["columns"] = [
-		{
-			dataIndex: "id",
-			key: "id",
-		},
-		{
-			title: (columns: ColumnTitleProps<any>) => (
-				<div>
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"diplomaType"}
-						label={"diplomaType"}
-						sort={columns?.sortColumns}
-					/>
-				</div>
-			),
-			dataIndex: "diplomaType",
-			key: "diplomaType",
-			sorter: true,
-		},
-		{
-			title: "คำสั่ง",
-			dataIndex: "uuid",
-			key: "uuid",
-			render: (_, { id }) => {
-				return (
-					<CustomCellButton
-						editFunction={() => {
-							dispatch(
-								setDialog({
-									isOpen: true,
-									uniqueContent: <DiplomaDialog {...props} editId={id} />,
-								})
-							);
-						}}
-						deleteFunction={() => {
-							dispatch(
-								handleDoctorDetailRows({
-									doctorDetailGrid,
-									editId: id,
-									isDelete: true,
-								})
-							);
-						}}
-						mode={BUTTON_MODE.EDIT_DELETE_ICON}
-					/>
-				);
+export const GetColumns = (props: Props) => {
+	const { doctorDetailGrid, doctor, dispatch } = props;
+	const columns = useMemo(
+		() => [
+			{
+				dataIndex: "id",
+				key: "id",
 			},
-		},
-	];
+			{
+				title: (columns: ColumnTitleProps<any>) => (
+					<div>
+						<CustomHeaderSort
+							columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+							headerKey={"diplomaType"}
+							label={"diplomaType"}
+							sort={columns?.sortColumns}
+						/>
+					</div>
+				),
+				dataIndex: "diplomaType",
+				key: "diplomaType",
+				sorter: true,
+			},
+			{
+				title: "คำสั่ง",
+				dataIndex: "uuid",
+				key: "uuid",
+				render: (_: any, { id }: any) => {
+					return (
+						<CustomCellButton
+							editFunction={() => {
+								dispatch(
+									setDialog({
+										isOpen: true,
+										uniqueContent: <DiplomaDialog {...props} editId={id} />,
+									})
+								);
+							}}
+							deleteFunction={() => {
+								dispatch(
+									handleDoctorDetailRows({
+										doctorDetailGrid,
+										editId: id,
+										isDelete: true,
+									})
+								);
+							}}
+							mode={BUTTON_MODE.EDIT_DELETE_ICON}
+						/>
+					);
+				},
+			},
+		],
+		[doctorDetailGrid, doctor]
+	);
 	return columns;
 };

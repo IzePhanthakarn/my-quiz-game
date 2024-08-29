@@ -14,7 +14,7 @@ import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import { initDoctorGrid } from "./service";
 import { modelDoctorFilter } from "./redux/filter/model";
-import { columns } from "./model";
+import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
 
 export default function Doctor() {
@@ -46,7 +46,7 @@ export default function Doctor() {
 					<BaseGrid
 						rows={rows}
 						loading={isLoading}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
