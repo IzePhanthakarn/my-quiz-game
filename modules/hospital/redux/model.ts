@@ -93,6 +93,9 @@ export interface ExportPages {
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
+	files: {
+		sp7: File[];
+	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -171,6 +174,9 @@ export const modelHospital: Hospital = {
 	},
 	form: {
 		...baseMasterDataModel,
+		files: {
+			sp7: [],
+		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
 		hospitalMinistryCode: "",

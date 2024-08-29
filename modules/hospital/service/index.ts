@@ -20,6 +20,7 @@ import {
 } from "@/modules/hospital/redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
+// import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { LINKS } from "@/constants/links";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
@@ -122,10 +123,24 @@ export const exportMed5008Function =
 		console.log("🚀 ~ data:", data);
 	};
 
-export const handleUploadSp7Hospital =
-	(selectedFiles: File[]) => async (dispatch: AppDispatch) => {
-		const formData = handleUploadFiles(selectedFiles, "sp7");
+export const handleUploadHospital =
+	(selectedFiles: File[], subfolder: string, hospitalForm: HospitalForm) =>
+	async (dispatch: AppDispatch) => {
+		// form.setFields([
+		// 	{
+		// 		name: "remarkChangeName",
+		// 		errors: [`กรุณาใส่ test`],
+		// 	},
+		// ]);
+		const formData = handleUploadFiles(selectedFiles, subfolder);
 		await dispatch(handleUploadSp7HospitalApi(formData));
+
+		// dispatch(
+		// 	setHospitalForm({
+		// 		...hospitalForm,
+		// 		files: { sp7: [] },
+		// 	})
+		// );
 	};
 
 export const handleOnExportExcel5012 =
