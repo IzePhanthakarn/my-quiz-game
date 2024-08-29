@@ -2,10 +2,10 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { initClinicGrid } from "./service";
-import { columns } from "./model";
+// import { columns } from "./model";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { setClinicFilter, setOrder, setPagination } from "./redux";
@@ -16,6 +16,7 @@ import FilterDrawer from "./FilterDrawer";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import { GetColumns } from "./model";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -48,11 +49,11 @@ export default function Clinic() {
 				Grid={
 					<BaseGrid
 						rows={rows}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={page}
 						loading={isLoading}
 						twoToneColor={true}
-						setOrder={(e) => dispatch(setOrder(e))}
+						setOrder={(e) => console.log("eeee", e)}
 						setPagination={(page) => dispatch(setPagination(page))}
 					/>
 				}

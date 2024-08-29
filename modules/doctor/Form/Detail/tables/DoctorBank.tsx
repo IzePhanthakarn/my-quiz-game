@@ -3,15 +3,15 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { columns } from "../model/DoctorBankModel";
+import { GetColumns } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
-	const { grid, dialog } = useSelector(
+	const { doctorBankGrid, dialog } = useSelector(
 		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.doctorBank,
+			doctorBankGrid: state.doctor.doctorForm.doctorBank,
 			dialog: state.dialog,
 		}),
 		shallowEqual
@@ -53,7 +53,10 @@ export default function DoctorBank() {
 					label="เพิ่มไปรษณีย์ปลายทาง"
 				/>
 			</div>
-			<BaseGrid rows={grid} columns={columns} />
+			<BaseGrid
+				rows={doctorBankGrid}
+				columns={GetColumns({ doctorBankGrid, dispatch })}
+			/>
 		</div>
 	);
 }

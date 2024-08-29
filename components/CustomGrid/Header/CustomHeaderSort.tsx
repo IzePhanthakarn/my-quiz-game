@@ -16,13 +16,12 @@ import {
 interface Props {
 	label: string;
 	headerKey: string;
-	columnKey: string;
+	columnKey: any;
 	sort: { column: ColumnType<any>; order: SortOrder }[] | undefined;
 }
 
-const SortIconStatus = (props: Props) => {
+const CustomHeaderSort = (props: Props) => {
 	const { label, headerKey, columnKey, sort } = props;
-
 	return (
 		<div key={headerKey} className="flex space-x-2 ">
 			<p
@@ -54,10 +53,6 @@ const SortIconStatus = (props: Props) => {
 			</div>
 		</div>
 	);
-};
-
-const CustomHeaderSort = (props: Props) => {
-	return <SortIconStatus {...props} />;
 };
 
 export default CustomHeaderSort;
