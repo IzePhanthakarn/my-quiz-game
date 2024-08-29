@@ -24,7 +24,6 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: UuidFormPageProps) => {

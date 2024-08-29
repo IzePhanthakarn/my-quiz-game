@@ -9,7 +9,7 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { grid } from "./columns/grid";
+import { GetColumns } from "./columns/grid";
 import { fetchLtPropertiesList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
@@ -46,7 +46,7 @@ export default function LtProperties() {
 				Grid={
 					<BaseGrid
 						rows={ltProperties.grid.data}
-						columns={grid}
+						columns={GetColumns(router)}
 						page={ltProperties.grid.page}
 						loading={isLoading}
 						twoToneColor={true}

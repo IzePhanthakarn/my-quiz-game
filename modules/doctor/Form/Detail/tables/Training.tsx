@@ -3,37 +3,43 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { columns } from "../model/DoctorDetailModel";
+import { GetColumns } from "../model/TraningModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
-import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
 
-export default function DoctorDetails() {
+export default function Training() {
 	const dispatch: AppDispatch = useDispatch();
-	const { grid, dialog } = useSelector(
+	const { trainingGrid, dialog } = useSelector(
 		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.doctorDetail,
+			trainingGrid: state.doctor.doctorForm.training,
 			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
 
+	const dialogContent = () => {
+		return <div>DoctorDetail</div>;
+	};
+
 	return (
 		<div className="space-y-2 flex flex-col">
 			<BaseButton
-				onClick={() => {
+				onClick={() =>
 					dispatch(
 						setDialog({
 							...dialog,
 							isOpen: true,
-							uniqueContent: <DiplomaDialog />,
+							content: dialogContent(),
 						})
-					);
-				}}
+					)
+				}
 				className="self-end"
-				label="เพิ่มข้อมูลวุฒิบัตรเฉพาะทาง"
+				label="เพิ่มข้อมูลการอบรม"
 			/>
-			<BaseGrid rows={grid} columns={columns} />
+			<BaseGrid
+				rows={trainingGrid}
+				columns={GetColumns({ trainingGrid, dispatch })}
+			/>
 		</div>
 	);
 }

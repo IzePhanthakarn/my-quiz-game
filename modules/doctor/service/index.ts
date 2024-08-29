@@ -10,13 +10,6 @@ import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
 import { DoctorList } from "../redux/master/model";
 import { getDoctorForm, getDoctorList } from "./api";
 import _ from "lodash";
-import {
-	DoctorBankList,
-	DoctorDetailList,
-	DoctorForm,
-	DoctorHospitalList,
-	TrainingList,
-} from "../redux/form/model";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;

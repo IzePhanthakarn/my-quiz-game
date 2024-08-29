@@ -94,6 +94,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 				content={dialog.content}
 				headerText={dialog.headerText}
 				uniqueContent={dialog.uniqueContent}
+				onConfirm={dialog.onConfirm}
+				onCancel={dialog.onCancel}
 			/>
 		</div>
 	);

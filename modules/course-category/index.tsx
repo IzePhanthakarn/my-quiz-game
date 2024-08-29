@@ -10,7 +10,7 @@ import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { columns } from "./columns/manipulate";
+import { GetColumns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
@@ -45,7 +45,7 @@ export default function CourseManipulate() {
 				Grid={
 					<BaseGrid
 						rows={course.grid.data}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={course.grid.page}
 						loading={isLoading}
 						twoToneColor={true}

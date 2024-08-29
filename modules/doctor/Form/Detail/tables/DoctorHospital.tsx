@@ -3,15 +3,17 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { columns } from "../model/TraningModel";
+import { GetColumns } from "../model/DoctorHospitalModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
+import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
 
-export default function Training() {
+export default function DoctorHospital() {
 	const dispatch: AppDispatch = useDispatch();
-	const { grid, dialog } = useSelector(
+	const { doctorHospitalGrid, doctor, dialog } = useSelector(
 		(state: SliceModel) => ({
-			grid: state.doctor.doctorForm.training,
+			doctorHospitalGrid: state.doctor.doctorForm.doctorHospital,
+			doctor: state.doctor.doctorForm.doctorData,
 			dialog: state.dialog,
 		}),
 		shallowEqual
@@ -29,14 +31,25 @@ export default function Training() {
 						setDialog({
 							...dialog,
 							isOpen: true,
-							content: dialogContent(),
+							uniqueContent: (
+								<HospitalDialog
+									doctorHospitalGrid={doctorHospitalGrid}
+									doctor={doctor}
+								/>
+							),
 						})
 					)
 				}
 				className="self-end"
-				label="เพิ่มข้อมูลการอบรม"
+				label="เพิ่มสังกัดโรงพยาบาล"
 			/>
-			<BaseGrid rows={grid} columns={columns} />
+			<BaseGrid
+				rows={doctorHospitalGrid}
+				columns={GetColumns({
+					doctorHospitalGrid,
+					dispatch,
+				})}
+			/>
 		</div>
 	);
 }
