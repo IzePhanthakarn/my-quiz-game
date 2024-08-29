@@ -9,6 +9,7 @@ import { handleDoctorDetailRows } from "./service";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
+import { setOnCancelDialog } from "@/redux/slices/dialog";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;
@@ -20,6 +21,11 @@ export default function DiplomaDialog(props: Props) {
 	const dispatch: AppDispatch = useDispatch();
 
 	const [diplomaType, setDiplomaType] = React.useState("");
+
+	useEffect(() => {
+		const handleCancel = () => setDiplomaType("");
+		dispatch(setOnCancelDialog(handleCancel));
+	}, []);
 
 	useEffect(() => {
 		const data = _.find(doctorDetailGrid, ["id", editId]);

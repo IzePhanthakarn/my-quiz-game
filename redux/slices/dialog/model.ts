@@ -4,6 +4,8 @@ export interface BaseDialog {
 	content?: JSX.Element;
 	headerText?: string;
 	uniqueContent?: JSX.Element;
+	onConfirm?: () => void;
+	onCancel?: () => void;
 }
 
 export const modelDialog: BaseDialog = {

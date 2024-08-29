@@ -19,6 +19,11 @@ export const GetColumns = (props: Props) => {
 	const columns = useMemo(
 		() => [
 			{
+				title: "ลำดับ",
+				dataIndex: "id",
+				key: "id",
+			},
+			{
 				title: "รุ่นที่อบรม",
 				dataIndex: "trainingNo",
 				key: "trainingNo",

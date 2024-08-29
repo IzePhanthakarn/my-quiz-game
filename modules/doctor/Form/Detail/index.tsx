@@ -172,7 +172,7 @@ export default function DoctorDetail() {
 				<div className="col-span-4">
 					{itemsTables?.map((item, index: number) => (
 						<BaseCollapse
-							key={item.key}
+							key={item.key || index}
 							defaultActiveKey={index + 1}
 							items={[item]}
 						/>
