@@ -842,7 +842,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				// <div className="flex flex-col space-y-2">
 				<>
 					<BaseUploadDraggerHospital
-						// fileList={hospitalForm.files.sp7}
+						fileList={hospitalForm.files.sp7}
 						onChangeFunction={(e) => {
 							// dispatch(setMultipleFiles(Array.from(e)));
 							dispatch(
