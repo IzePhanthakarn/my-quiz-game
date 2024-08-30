@@ -13,21 +13,34 @@ import {
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import { handleHospital, handleHospitalRows } from "./service";
 interface Props {
+	doctorCode: string;
 	doctorHospitalGrid: DoctorHospitalList[];
-	doctor: DoctorData;
 	editId?: number;
 }
 
 export default function HospitalDialog(props: Props) {
-	const { doctorHospitalGrid, doctor, editId } = props;
+	const { doctorHospitalGrid, doctorCode, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 
 	const [hospital, setHospital] =
 		React.useState<DoctorHospital>(modelDoctorHospital);
 
 	useEffect(() => {
-		const data = _.find(doctorHospitalGrid, ["id", editId]);
+		if (editId) {
+			const data = _.find(doctorHospitalGrid, ["id", editId]);
+			if (!_.isEmpty(data)) {
+				setHospital({
+					hospitalWcfCode: data.hospitalWcfCode ?? "",
+					hospitalName: data.hospitalWcfName ?? "",
+					jobType: data.jobType ?? "",
+					position: data.position ?? "",
+				});
+			}
+		} else {
+			setHospital(modelDoctorHospital);
+		}
 	}, [doctorHospitalGrid, editId]);
 
 	return (
@@ -43,7 +56,7 @@ export default function HospitalDialog(props: Props) {
 					value={
 						_.isEmpty(hospital.hospitalWcfCode)
 							? null
-							: `${hospital.hospitalWcfCode}-${hospital.hospitalName}`
+							: handleHospital(hospital, setHospital)
 					}
 					getValue={(e) => {
 						const data = e.split("-");
@@ -57,8 +70,8 @@ export default function HospitalDialog(props: Props) {
 				<BaseDropDown
 					notForm
 					className="h-full w-full"
-					label="รหัสโรงพยาบาล"
-					type="hospital"
+					label="ลักษณะงานที่รับผิดชอบ"
+					type="jobType"
 					value={_.isEmpty(hospital.jobType) ? null : hospital.jobType}
 					getValue={(e) => {
 						setHospital({
@@ -83,8 +96,14 @@ export default function HospitalDialog(props: Props) {
 				iconPosition="end"
 				disabled={_.some(_.values(hospital), (value) => value === "")}
 				onClick={() => {
-					console.log("hospital", hospital);
-					setHospital(modelDoctorHospital);
+					dispatch(
+						handleHospitalRows({
+							hospital,
+							doctorCode,
+							doctorHospitalGrid,
+							editId,
+						})
+					);
 				}}
 				label="บันทึก"
 			/>

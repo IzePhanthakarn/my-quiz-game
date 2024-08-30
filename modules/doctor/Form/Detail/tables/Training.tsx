@@ -6,20 +6,18 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { GetColumns } from "../model/TraningModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
+import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
 
 export default function Training() {
 	const dispatch: AppDispatch = useDispatch();
-	const { trainingGrid, dialog } = useSelector(
+	const { trainingGrid, doctor, dialog } = useSelector(
 		(state: SliceModel) => ({
 			trainingGrid: state.doctor.doctorForm.training,
+			doctor: state.doctor.doctorForm.doctorData,
 			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
-
-	const dialogContent = () => {
-		return <div>DoctorDetail</div>;
-	};
 
 	return (
 		<div className="space-y-2 flex flex-col">
@@ -29,7 +27,12 @@ export default function Training() {
 						setDialog({
 							...dialog,
 							isOpen: true,
-							content: dialogContent(),
+							uniqueContent: (
+								<TraningDialog
+									trainingGrid={trainingGrid}
+									doctorCode={doctor.doctorCode}
+								/>
+							),
 						})
 					)
 				}
@@ -38,7 +41,11 @@ export default function Training() {
 			/>
 			<BaseGrid
 				rows={trainingGrid}
-				columns={GetColumns({ trainingGrid, dispatch })}
+				columns={GetColumns({
+					trainingGrid,
+					doctorCode: doctor.doctorCode,
+					dispatch,
+				})}
 			/>
 		</div>
 	);

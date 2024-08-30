@@ -1,3 +1,5 @@
+"use client";
+
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";

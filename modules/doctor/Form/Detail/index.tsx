@@ -21,7 +21,7 @@ import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserO
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 
-export default function DoctorDetail() {
+export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData, dialog } = useSelector(
 		(state: SliceModel) => ({
@@ -169,7 +169,7 @@ export default function DoctorDetail() {
 				{/* <BaseItemInput label="ตำแหน่ง" itemName="position" rules={[]} /> */}
 				<div className="col-span-3"></div>
 				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
-				<div className="col-span-4">
+				{/* <div className="col-span-4">
 					{itemsTables?.map((item, index: number) => (
 						<BaseCollapse
 							key={item.key || index}
@@ -177,7 +177,7 @@ export default function DoctorDetail() {
 							items={[item]}
 						/>
 					))}
-				</div>
+				</div> */}
 			</div>
 		</BaseForm>
 	);

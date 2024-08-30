@@ -1,3 +1,5 @@
+"use client";
+
 import { DiplomaForm, modelDiplomaForm } from "@/modules/diploma/redux/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
@@ -28,8 +30,12 @@ export default function DiplomaDialog(props: Props) {
 	}, []);
 
 	useEffect(() => {
-		const data = _.find(doctorDetailGrid, ["id", editId]);
-		setDiplomaType(data?.diplomaType ?? "");
+		if (editId) {
+			const data = _.find(doctorDetailGrid, ["id", editId]);
+			setDiplomaType(data?.diplomaType ?? "");
+		} else {
+			setDiplomaType("");
+		}
 	}, [doctorDetailGrid, editId]);
 
 	return (
@@ -63,7 +69,6 @@ export default function DiplomaDialog(props: Props) {
 							editId,
 						})
 					);
-					setDiplomaType("");
 				}}
 				label="บันทึก"
 			/>
