@@ -19,6 +19,7 @@ import {
 	ExportPages,
 } from "@/modules/hospital/redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
 
 // import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -124,7 +125,11 @@ export const exportMed5008Function =
 	};
 
 export const handleUploadHospital =
-	(selectedFiles: File[], subfolder: string, hospitalForm: HospitalForm) =>
+	(
+		selectedFiles: UploadFile<any>[],
+		subfolder: string,
+		hospitalForm: HospitalForm
+	) =>
 	async (dispatch: AppDispatch) => {
 		// form.setFields([
 		// 	{

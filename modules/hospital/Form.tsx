@@ -41,6 +41,9 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 import { setMultipleFiles } from "../minio/redux";
+import API_PATH from "@/constants/api";
+// import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
+import Cookies from "js-cookie";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -842,13 +845,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				// <div className="flex flex-col space-y-2">
 				<>
 					<BaseUploadDraggerHospital
-						fileList={hospitalForm.files.sp7}
+						uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+						subFolderPath="hospital/sp7"
+						bearer={`${Cookies.get("Bearer")}`}
 						onChangeFunction={(e) => {
-							// dispatch(setMultipleFiles(Array.from(e)));
 							dispatch(
 								setHospitalForm({
 									...hospitalForm,
-									files: { sp7: Array.from(e) },
+									files: { sp7: e },
 								})
 							);
 						}}
