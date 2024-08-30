@@ -13,6 +13,7 @@ export interface Hospital {
 	form: HospitalForm;
 	exportPages: ExportPages;
 }
+import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
 
 export interface HospitalGrid extends PaginationModel {
 	data: HospitalGridData[];
@@ -94,7 +95,7 @@ export interface ExportPages {
 
 export interface HospitalForm extends BaseMasterDataInterface {
 	files: {
-		sp7: File[];
+		sp7: UploadFile<any>[];
 	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;

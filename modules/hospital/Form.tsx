@@ -845,10 +845,15 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						fileList={hospitalForm.files.sp7}
 						onChangeFunction={(e) => {
 							// dispatch(setMultipleFiles(Array.from(e)));
+							console.log(
+								"🚀 ~ HospitalFormPage ~ Array.from(e):",
+								Array.from(e)
+							);
+
 							dispatch(
 								setHospitalForm({
 									...hospitalForm,
-									files: { sp7: Array.from(e) },
+									files: { sp7: e },
 								})
 							);
 						}}
