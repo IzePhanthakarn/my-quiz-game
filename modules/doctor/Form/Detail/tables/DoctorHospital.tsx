@@ -34,7 +34,7 @@ export default function DoctorHospital() {
 							uniqueContent: (
 								<HospitalDialog
 									doctorHospitalGrid={doctorHospitalGrid}
-									doctor={doctor}
+									doctorCode={doctor.doctorCode}
 								/>
 							),
 						})
@@ -46,6 +46,7 @@ export default function DoctorHospital() {
 			<BaseGrid
 				rows={doctorHospitalGrid}
 				columns={GetColumns({
+					doctorCode: doctor.doctorCode,
 					doctorHospitalGrid,
 					dispatch,
 				})}

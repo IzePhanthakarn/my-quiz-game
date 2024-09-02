@@ -6,6 +6,7 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { GetColumns } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
+import PostalCodeDialog from "@/modules/doctor/DialogContent/PostCodeDialog";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
@@ -17,14 +18,6 @@ export default function DoctorBank() {
 		shallowEqual
 	);
 
-	const dialogContentBank = () => {
-		return <div>DoctorDetail</div>;
-	};
-
-	const dialogContentPostal = () => {
-		return <div>DoctorDetail</div>;
-	};
-
 	return (
 		<div className="space-y-2 flex flex-col">
 			<div className="flex self-end space-x-2">
@@ -34,7 +27,7 @@ export default function DoctorBank() {
 							setDialog({
 								...dialog,
 								isOpen: true,
-								content: dialogContentBank(),
+								uniqueContent: <PostalCodeDialog />,
 							})
 						)
 					}
@@ -46,7 +39,7 @@ export default function DoctorBank() {
 							setDialog({
 								...dialog,
 								isOpen: true,
-								content: dialogContentPostal(),
+								uniqueContent: <PostalCodeDialog />,
 							})
 						)
 					}

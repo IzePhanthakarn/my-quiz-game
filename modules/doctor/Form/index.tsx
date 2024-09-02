@@ -8,7 +8,8 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import { initGetDoctorForm } from "../service";
 import { useParams } from "next/navigation";
-import DoctorDetail from "./Detail";
+import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
+import { itemsTables } from "./Detail/model";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -20,7 +21,13 @@ const DoctorFormTabs = () => {
 
 	return (
 		<BaseColumn className="bg-white p-2 h-full">
-			<DoctorDetail />
+			{itemsTables?.map((item, index: number) => (
+				<BaseCollapse
+					key={item.key}
+					defaultActiveKey={index + 1}
+					items={[item]}
+				/>
+			))}
 		</BaseColumn>
 	);
 };

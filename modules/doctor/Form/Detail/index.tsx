@@ -7,21 +7,20 @@ import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { setDoctorData } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { DoctorData } from "../../redux/form/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
-import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
-import { itemsTables } from "./model";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
 import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserOutlined";
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 
-export default function DoctorDetail() {
+export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData, dialog } = useSelector(
 		(state: SliceModel) => ({
@@ -90,10 +89,19 @@ export default function DoctorDetail() {
 				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
 				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
-				<BaseDropDown
+				<MedDropDown
+					type={DROPDOWN_TYPE.HOSPITAL_TYPE}
+					label="ทดสอบ"
+					className="h-full w-full"
+					bodyRequest={{
+						groupNameLike: DROPDOWN_TYPE.HOSPITAL_TYPE,
+					}}
+				/>
+				<MedDropDown
+					type={DROPDOWN_TYPE.ADDRESS}
 					label="จังหวัด"
 					itemName="province"
-					type="provinceName"
+					className="h-full w-full"
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -109,10 +117,10 @@ export default function DoctorDetail() {
 						<p>{findLabelAddress(doctorData.province, ADDRESS.PROVINCE)}</p>
 					)}
 				/>
-				<BaseDropDown
+				<MedDropDown
 					label="อำเภอ"
 					itemName="amphur"
-					type="amphurName"
+					type={DROPDOWN_TYPE.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -128,10 +136,10 @@ export default function DoctorDetail() {
 						<p>{findLabelAddress(doctorData.amphur, ADDRESS.AMPHUR)}</p>
 					)}
 				/>
-				<BaseDropDown
+				<MedDropDown
 					label="ตำบล"
 					itemName="tambol"
-					type="tambolName"
+					type={DROPDOWN_TYPE.ADDRESS}
 					getValue={(e: Address) => {
 						dispatch(
 							setDoctorData({
@@ -147,10 +155,10 @@ export default function DoctorDetail() {
 						<p>{findLabelAddress(doctorData.tambol, ADDRESS.TAMBOL)}</p>
 					)}
 				/>
-				<BaseDropDown
+				<MedDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
-					type="postalCode"
+					type={DROPDOWN_TYPE.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -169,7 +177,7 @@ export default function DoctorDetail() {
 				{/* <BaseItemInput label="ตำแหน่ง" itemName="position" rules={[]} /> */}
 				<div className="col-span-3"></div>
 				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
-				<div className="col-span-4">
+				{/* <div className="col-span-4">
 					{itemsTables?.map((item, index: number) => (
 						<BaseCollapse
 							key={item.key || index}
@@ -177,7 +185,7 @@ export default function DoctorDetail() {
 							items={[item]}
 						/>
 					))}
-				</div>
+				</div> */}
 			</div>
 		</BaseForm>
 	);
