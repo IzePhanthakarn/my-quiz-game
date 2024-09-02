@@ -8,9 +8,13 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { useMemo } from "react";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
+import { setDialog } from "@/redux/slices/dialog";
+import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
+import { handleTrainingRows } from "@/modules/doctor/DialogContent/service";
 
 interface Props {
 	trainingGrid: TrainingList[];
+	doctorCode: string;
 	dispatch: AppDispatch;
 }
 
@@ -45,8 +49,23 @@ export const GetColumns = (props: Props) => {
 				render: (_: any, { id }: any) => {
 					return (
 						<CustomCellButton
-							editFunction={() => {}}
-							deleteFunction={() => {}}
+							editFunction={() => {
+								dispatch(
+									setDialog({
+										isOpen: true,
+										uniqueContent: <TraningDialog {...props} editId={id} />,
+									})
+								);
+							}}
+							deleteFunction={() => {
+								dispatch(
+									handleTrainingRows({
+										trainingGrid,
+										editId: id,
+										isDelete: true,
+									})
+								);
+							}}
 							mode={BUTTON_MODE.EDIT_DELETE_ICON}
 						/>
 					);

@@ -36,7 +36,7 @@ export const dialogSlice = createSlice({
 			state: BaseDialog,
 			actions: PayloadAction<JSX.Element>
 		) => {
-			state.content = actions.payload;
+			state.uniqueContent = actions.payload;
 		},
 		setDialog: (_, actions: PayloadAction<BaseDialog>) => {
 			return { ...actions.payload };

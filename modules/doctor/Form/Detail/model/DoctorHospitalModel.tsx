@@ -5,9 +5,13 @@ import { useMemo } from "react";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppDispatch } from "@/redux/config/configStore";
+import { setDialog } from "@/redux/slices/dialog";
+import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
+import { handleHospitalRows } from "@/modules/doctor/DialogContent/service";
 
 interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
+	doctorCode: string;
 	dispatch: AppDispatch;
 }
 
@@ -52,8 +56,23 @@ export const GetColumns = (props: Props) => {
 				render: (_: any, { id }: any) => {
 					return (
 						<CustomCellButton
-							editFunction={() => {}}
-							deleteFunction={() => {}}
+							editFunction={() => {
+								dispatch(
+									setDialog({
+										isOpen: true,
+										uniqueContent: <HospitalDialog {...props} editId={id} />,
+									})
+								);
+							}}
+							deleteFunction={() => {
+								dispatch(
+									handleHospitalRows({
+										doctorHospitalGrid,
+										editId: id,
+										isDelete: true,
+									})
+								);
+							}}
 							mode={BUTTON_MODE.EDIT_DELETE_ICON}
 						/>
 					);

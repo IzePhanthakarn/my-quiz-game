@@ -17,6 +17,8 @@ export const doctorSlice = createSlice({
 export const actionsDoctor = doctorSlice.actions;
 
 export const {
+	setTrainingList,
+	setDoctorHospitalList,
 	setDoctorDetailList,
 	setDoctorData,
 	setDoctorForm,

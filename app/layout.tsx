@@ -23,9 +23,9 @@ export default function RootLayout({
 			<AntdProvider>
 				<StoreProvider>
 					<body>
-						<MasterDataProvider>
-							<MainWrapper>{children}</MainWrapper>
-						</MasterDataProvider>
+						{/* <MasterDataProvider> */}
+						<MainWrapper>{children}</MainWrapper>
+						{/* </MasterDataProvider> */}
 					</body>
 				</StoreProvider>
 			</AntdProvider>
