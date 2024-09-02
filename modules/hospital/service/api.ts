@@ -2,6 +2,7 @@ import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "axios";
 import { HospitalForm, GetHospitalList, ExportPages } from "../redux/model";
+import { GetHospitalSp7List } from "../redux/sp7model";
 
 export const getHospitalDetail = createAsyncThunk(
 	"Hospital/getHospitalDetail",
@@ -16,11 +17,25 @@ export const getHospitalDetail = createAsyncThunk(
 	}
 );
 
+export const getHospitalSp7List = createAsyncThunk(
+	"Hospital/Sp7/List",
+
+	async (body: GetHospitalSp7List, thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.SP7.GET_LIST}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
 export const updateHospitalApi = createAsyncThunk(
 	"Hospital/updateHospitalApi",
 	async (
 		body: {
-			body: HospitalForm;
+			body: { hospitalPatch: HospitalForm; sp7: HospitalForm["files"]["sp7"] };
 			uuid: HospitalForm["uuid"];
 		},
 		thunkAPi

@@ -85,6 +85,9 @@ const API_PATH = {
 		EXPORT_PDF: {
 			MED5012: "/hospital/pdf/med5012",
 		},
+		SP7: {
+			GET_LIST: "/hospital-sp7/list",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

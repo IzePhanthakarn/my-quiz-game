@@ -8,10 +8,15 @@ import {
 	exportPdfMed5012,
 	getHospitalDetail,
 	getHospitalList,
+	getHospitalSp7List,
 	handleUploadSp7HospitalApi,
 	updateHospitalApi,
 } from "./api";
-import { setHospitalForm, setHospitalGrid } from "@/modules/hospital/redux";
+import {
+	setHospitalForm,
+	setHospitalGrid,
+	setHospitalSp7Grid,
+} from "@/modules/hospital/redux";
 import {
 	Hospital,
 	HospitalForm,
@@ -29,6 +34,7 @@ import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/ba
 import dayjs from "dayjs";
 import { minioUploadMultiple } from "../../minio/service/api";
 import { handleUploadFiles } from "wcf-component-lib/src/utils/";
+import { GetHospitalSp7List, HospitalSp7 } from "../redux/sp7model";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -94,13 +100,43 @@ export const initGetHospitalDetail =
 		}
 	};
 
+export const fetchHospitalSp7List =
+	(params: HospitalFormPageProps, hospitalSp7: HospitalSp7) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const body: GetHospitalSp7List = {
+				pagination: { ...hospitalSp7.grid.page },
+				...hospitalSp7.filter,
+				// uuid: `${uuid}`,
+				hospitalId: 353,
+			};
+			const result = await dispatch(getHospitalSp7List(body));
+			if (_.get(result, "error.message") === "Rejected") {
+				return;
+			}
+			// dispatch(setHospitalSp7Grid(response.payload));
+			dispatch(
+				setHospitalSp7Grid({
+					data: result.payload.content,
+					page: {
+						...hospitalSp7.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
+	};
+
 export const updateHospital =
 	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
 	async (dispatch: AppDispatch) => {
+		console.log("🚀 ~ form:", form);
+
 		const data = await dispatch(
 			updateHospitalApi({
 				uuid: uuid,
-				body: form,
+				body: { hospitalPatch: form, sp7: form?.files?.sp7 },
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
@@ -111,8 +147,8 @@ export const updateHospital =
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
-			dispatch(setIsLoading(true));
-			router.push(LINKS.HOSPITAL.link);
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
 		}
 	};
 
