@@ -12,6 +12,7 @@ import _ from "lodash";
 import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 
 interface MedDropDownProps extends BaseDropDownProps {
+	type: DROPDOWN_TYPE;
 	queryString?: string;
 	bodyRequest?: any;
 }
