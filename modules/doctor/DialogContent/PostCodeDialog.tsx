@@ -9,6 +9,8 @@ import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { setOnCancelDialog } from "@/redux/slices/dialog";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;
@@ -23,8 +25,8 @@ export default function PostalCodeDialog() {
 	const [postalName, setPostalName] = React.useState("");
 
 	useEffect(() => {
-		const handleCancel = () => setPostalCode("");
-		dispatch(setOnCancelDialog(handleCancel));
+		setPostalCode("");
+		setPostalName("");
 	}, []);
 
 	return (
@@ -32,11 +34,11 @@ export default function PostalCodeDialog() {
 			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลไปรษณีย์ปลายทาง</p>
 			<div className="w-full">
-				<BaseDropDown
+				<MedDropDown
 					notForm={true}
 					className="h-full w-full"
 					label="รหัสไปรษณีย์"
-					type="postalCode"
+					type={DROPDOWN_TYPE.ADDRESS}
 					value={_.isEmpty(postalName) ? null : postalName}
 					getValue={(e) => {
 						setPostalCode(e.postalCode);

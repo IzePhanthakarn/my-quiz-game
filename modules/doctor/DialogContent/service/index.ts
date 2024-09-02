@@ -146,7 +146,7 @@ export const handleHospital = (
 	setHospital: (hospital: DoctorHospital) => void
 ) => {
 	if (_.isEmpty(hospital.hospitalName)) {
-		const raw_hospital = JSON.parse(sessionStorage.getItem("hospital") ?? "[]");
+		const raw_hospital = JSON.parse(sessionStorage.getItem("HOSPITAL") ?? "[]");
 		const name = raw_hospital.find(
 			(e: DoctorHospital) => e.hospitalWcfCode === hospital.hospitalWcfCode
 		);

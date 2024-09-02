@@ -14,6 +14,8 @@ import {
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { handleHospital, handleHospitalRows } from "./service";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 interface Props {
 	doctorCode: string;
 	doctorHospitalGrid: DoctorHospitalList[];
@@ -48,11 +50,11 @@ export default function HospitalDialog(props: Props) {
 			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลโรงพยาบาลของแพทย์</p>
 			<div className="w-full space-y-2">
-				<BaseDropDown
+				<MedDropDown
 					notForm
 					className="h-full w-full"
 					label="รหัสโรงพยาบาล"
-					type="hospital"
+					type={DROPDOWN_TYPE.HOSPITAL}
 					value={
 						_.isEmpty(hospital.hospitalWcfCode)
 							? null
@@ -67,11 +69,11 @@ export default function HospitalDialog(props: Props) {
 						});
 					}}
 				/>
-				<BaseDropDown
+				<MedDropDown
 					notForm
 					className="h-full w-full"
 					label="ลักษณะงานที่รับผิดชอบ"
-					type="jobType"
+					type={DROPDOWN_TYPE.JOB_TYPE}
 					value={_.isEmpty(hospital.jobType) ? null : hospital.jobType}
 					getValue={(e) => {
 						setHospital({

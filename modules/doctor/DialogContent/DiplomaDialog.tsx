@@ -1,17 +1,17 @@
 "use client";
 
-import { DiplomaForm, modelDiplomaForm } from "@/modules/diploma/redux/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { handleDoctorDetailRows } from "./service";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { setOnCancelDialog } from "@/redux/slices/dialog";
+import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import MedDropDown from "@/components/MedDropDown";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;
@@ -43,17 +43,20 @@ export default function DiplomaDialog(props: Props) {
 			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลวุฒิบัตรเฉพาะทาง</p>
 			<div className="w-full">
-				<BaseDropDown
+				<MedDropDown
 					notForm={true}
+					type={DROPDOWN_TYPE.DIPLOMA}
 					className="h-full w-full"
 					label="วุฒิบัตรเฉพาะทาง"
-					itemName="diploma"
-					type="diploma"
+					getValue={(e) => setDiplomaType(e)}
 					value={_.isEmpty(diplomaType) ? null : diplomaType}
+				/>
+				{/* <BaseDropDown
+					type="diploma"
 					getValue={(e) => {
 						setDiplomaType(e);
 					}}
-				/>
+				/> */}
 			</div>
 			<BaseButton
 				className="mt-2"
