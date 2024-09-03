@@ -12,8 +12,10 @@ export interface Hospital {
 	filter: HospitalFilter;
 	form: HospitalForm;
 	exportPages: ExportPages;
+	hospitalSp7: HospitalSp7;
 }
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
+import { HospitalSp7, modelHospitalSp7 } from "./sp7model";
 
 export interface HospitalGrid extends PaginationModel {
 	data: HospitalGridData[];
@@ -139,6 +141,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 }
 
 export const modelHospital: Hospital = {
+	hospitalSp7: { ...modelHospitalSp7 },
 	grid: {
 		data: [],
 		page: {

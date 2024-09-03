@@ -14,11 +14,12 @@ import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
-import { setHospitalForm } from "./redux";
+import { setHospitalForm, setHospitalSp7Grid } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/model";
 import {
 	addHospital,
-	handleUploadHospital,
+	fetchHospitalSp7List,
+	// handleUploadHospital,
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
@@ -39,6 +40,9 @@ import { names } from "./interfaces/names";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
+// import { setMultipleFiles } from "../minio/redux";
+import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
+import { Sp7Grid } from "./columns/sp7Grid";
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
@@ -51,11 +55,19 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const [form] = Form.useForm<HospitalForm>();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
-	const { hospitalForm, isOpenBaseConfirmDialog, files } = useSelector(
+	const {
+		hospitalForm,
+		isOpenBaseConfirmDialog,
+		files,
+		hospitalSp7,
+		isLoading,
+	} = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
+			hospitalSp7: state.hospital.hospitalSp7,
 			files: state.hospital.form.files,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
@@ -65,8 +77,10 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
+					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
+					dispatch(setHospitalSp7Grid(modelHospital.hospitalSp7.grid));
 				}
 				setIsInit(true);
 			}
@@ -85,6 +99,54 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				},
 			]);
 			return;
+		}
+
+		if (files?.sp7?.length) {
+			const errorArray = [];
+			errorArray.push({
+				name: "sp7StartDated",
+				errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
+					? [`กรุณาใส่ ${names.sp7StartDated}`]
+					: undefined,
+			});
+			errorArray.push({
+				name: "sp7EndDate",
+				errors: _.isEmpty(form.getFieldsValue().sp7EndDate)
+					? [`กรุณาใส่ ${names.sp7EndDate}`]
+					: undefined,
+			});
+			form.setFields(errorArray);
+
+			/**
+			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
+			 * ถ้าใช่จะ return true
+			 * */
+			const checkCondition = _.every(errorArray, (obj) => {
+				return _.isUndefined(obj.errors);
+			});
+
+			// /**
+			//  * จาก checkCondition ด้านบน จะ return true หาก errors key ทุกตัวเป็น undefined
+			//  * แต่ต้องการเช็คเงื่อนไขว่า ถ้าทุกตัว "ไม่ใช่" undefined จึงจะทำเงื่อนไขใดๆ
+			//  */
+			if (!checkCondition) {
+				return;
+			}
+			// if (checkCondition) {
+			// await dispatch(
+			// 	handleUploadHospital(files.sp7, "hospital/sp7", hospitalForm)
+			// );
+
+			// dispatch(
+			// 	setHospitalForm({
+			// 		...hospitalForm,
+			// 		files: { sp7: [] },
+			// 	})
+			// );
+			// } else {
+			// return;
+
+			// }
 		}
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
@@ -372,7 +434,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<MedDropDown
+						{/* <MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
 							type={DROPDOWN_TYPE.HOSPITAL_TYPE}
@@ -385,7 +447,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/>
+						/> */}
 						{/* <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.hospitalCategory}
@@ -401,7 +463,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<MedDropDown
+						{/* <MedDropDown
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
@@ -414,7 +476,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/>
+						/> */}
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
@@ -823,14 +885,10 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
 						dispatch(
-							updateHospital(
-								form.getFieldsValue(),
-								router,
-								`${params.params.uuid}`
-							)
+							updateHospital(hospitalForm, router, `${params.params.uuid}`)
 						);
 					} else {
-						dispatch(addHospital(form.getFieldsValue(), router));
+						dispatch(addHospital(hospitalForm, router));
 					}
 				}}
 				cancelFunction={() => {
@@ -838,6 +896,26 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				}}
 				closeFunction={() => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+			/>
+
+			<BaseGrid
+				rows={hospitalSp7.grid.data}
+				columns={Sp7Grid({
+					hospitalSp7: hospitalSp7,
+					dispatch: dispatch,
+					params: params,
+				})}
+				page={hospitalSp7.grid.page}
+				loading={isLoading}
+				twoToneColor={true}
+				setPagination={(page) => {
+					dispatch(
+						fetchHospitalSp7List(params, {
+							...hospitalSp7,
+							grid: { ...hospitalSp7.grid, page },
+						})
+					);
 				}}
 			/>
 
@@ -857,59 +935,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							);
 						}}
 					/>
-					<button
-						onClick={async () => {
-							if (files.sp7.length) {
-								const errorArray = [];
-								errorArray.push({
-									name: "sp7StartDated",
-									errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
-										? [`กรุณาใส่ ${names.sp7StartDated}`]
-										: undefined,
-								});
-								errorArray.push({
-									name: "sp7EndDate",
-									errors: _.isEmpty(form.getFieldsValue().sp7EndDate)
-										? [`กรุณาใส่ ${names.sp7EndDate}`]
-										: undefined,
-								});
-								form.setFields(errorArray);
-
-								/**
-								 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
-								 * ถ้าใช่จะ return true
-								 * */
-								const checkCondition = _.every(errorArray, (obj) => {
-									return _.isUndefined(obj.errors);
-								});
-								// /**
-								//  * จาก checkCondition ด้านบน จะ return true หาก errors key ทุกตัวเป็น undefined
-								//  * แต่ต้องการเช็คเงื่อนไขว่า ถ้าทุกตัว "ไม่ใช่" undefined จึงจะทำเงื่อนไขใดๆ
-								//  */
-								// if (!checkCondition) {
-								// 	return;
-								// }
-								if (checkCondition) {
-									await dispatch(
-										handleUploadHospital(
-											files.sp7,
-											"hospital/sp7",
-											hospitalForm
-										)
-									);
-
-									dispatch(
-										setHospitalForm({
-											...hospitalForm,
-											files: { sp7: [] },
-										})
-									);
-								}
-							}
-						}}
-					>
-						Upload Multiple file
-					</button>
+					{/* <button onClick={async () => {}}>Upload Multiple file</button> */}
 					<BaseHeaderNameAndSwitch
 						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
 						onChangeSwitchFunction={(e) => {
