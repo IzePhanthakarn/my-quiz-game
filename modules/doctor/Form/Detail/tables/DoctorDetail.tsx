@@ -11,7 +11,7 @@ import { setDialog } from "@/redux/slices/dialog";
 import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
 import _ from "lodash";
 import { handleSession } from "@/components/MedDropDown/service";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();

@@ -9,7 +9,7 @@ import { handleSession, handleGetValue } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "./model";
 
 interface MedDropDownProps extends BaseDropDownProps {
 	type: DROPDOWN_TYPE;

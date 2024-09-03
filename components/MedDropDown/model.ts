@@ -1,0 +1,75 @@
+export enum DROPDOWN_TYPE {
+	DEFAULT = "",
+	DIPLOMA = "DIPLOMA",
+	HOSPITAL_TYPE = "HOSPITAL_TYPE",
+	HOSPITAL_CATEGORY = "HOSPITAL_CATEGORY",
+	DOCTOR_BANK = "DOCTOR_BANK",
+	TRAINING = "TRAINING",
+	HOSPITAL = "HOSPITAL",
+	JOB_TYPE = "JOB_TYPE",
+	ADDRESS = "ADDRESS",
+}
+
+export enum API_METHOD {
+	GET = "GET",
+	POST = "POST",
+}
+
+export const DROPDOWN = {
+	[DROPDOWN_TYPE.DIPLOMA]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/diploma",
+		sessionName: DROPDOWN_TYPE.DIPLOMA,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.HOSPITAL_TYPE]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
+		sessionName: "HOSPITAL_TYPE",
+		method: API_METHOD.POST,
+		baseBody: { groupName: "HOSPITAL_TYPE" },
+	},
+	[DROPDOWN_TYPE.HOSPITAL_CATEGORY]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/hospital-category",
+		sessionName: "HOSPITAL_CATEGORY",
+		method: API_METHOD.POST,
+		baseBody: { groupName: "HOSPITAL_CATEGORY" },
+	},
+	[DROPDOWN_TYPE.DOCTOR_BANK]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/doctor-bank",
+		sessionName: "DOCTOR_BANK",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.TRAINING]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/training",
+		sessionName: "TRAINING",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.HOSPITAL]: {
+		apiPath: "http://localhost:8111/med/hospital",
+		sessionName: "HOSPITAL",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.JOB_TYPE]: {
+		apiPath: `http://localhost:8111/med/master/med-lt-properties/?groupName=JOB_TYPE`,
+		sessionName: "JOB_TYPE",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.ADDRESS]: {
+		apiPath: "http://localhost:8111/med/master/address/list",
+		sessionName: "ADDRESS",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.DEFAULT]: {
+		apiPath: "",
+		sessionName: "",
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+};
+
+// https://api-dev-wcf.soilfish.co/med/master/address/list
