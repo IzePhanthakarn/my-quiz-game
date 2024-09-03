@@ -131,17 +131,13 @@ export const fetchDropDownList = createAsyncThunk(
 export const findNameDisplay = (type: DROPDOWN_TYPE, value: any) => {
 	switch (type) {
 		case DROPDOWN_TYPE.DOCTOR_TYPE:
-			const doctorType = JSON.parse(
-				sessionStorage.getItem(DROPDOWN_TYPE.DOCTOR_TYPE) ?? "[]"
-			);
+			const doctorType = JSON.parse(sessionStorage.getItem(type) ?? "[]");
 			const doctorTypeResult = doctorType.find(
 				(e: LtPropertiesList) => e.propertyCode === value
 			);
 			return doctorTypeResult?.propertyText ?? "";
 		case DROPDOWN_TYPE.TITLE:
-			const title = JSON.parse(
-				sessionStorage.getItem(DROPDOWN_TYPE.TITLE) ?? "[]"
-			);
+			const title = JSON.parse(sessionStorage.getItem(type) ?? "[]");
 			const titleResult = title.find((e: Title) => e.titleCode === value);
 			return titleResult?.titleName ?? "";
 		default:

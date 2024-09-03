@@ -9,6 +9,9 @@ import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import { findDiplomaDisplay, findHospitalDisplay } from "@/utils";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -22,25 +25,10 @@ export const GetColumns = (router: AppRouterInstance) => {
 			},
 			{
 				title: (columns: ColumnTitleProps<any>) => (
-					<div>
-						<CustomHeaderSort
-							columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-							headerKey={"doctorType"}
-							label={"ประเภทแพทย์"}
-							sort={columns?.sortColumns}
-						/>
-					</div>
-				),
-				dataIndex: "doctorType",
-				key: "doctorType",
-				sorter: true,
-			},
-			{
-				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"doctorCode"}
-						label={"รหัสแพทย์"}
+						headerKey="doctorCode"
+						label="เลขทะเบียน สปส"
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -52,8 +40,21 @@ export const GetColumns = (router: AppRouterInstance) => {
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"firstname"}
-						label={"ชื่อ-นามสกุล"}
+						headerKey="professionalCode"
+						label="เลขทะเบียนวิชาชีพ"
+						sort={columns?.sortColumns}
+					/>
+				),
+				dataIndex: "professionalCode",
+				key: "professionalCode",
+				sorter: true,
+			},
+			{
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey="firstname"
+						label="ชื่อ-นามสกุล"
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -63,20 +64,69 @@ export const GetColumns = (router: AppRouterInstance) => {
 				render: (_, { firstname, lastname }) => `${firstname} ${lastname}`,
 			},
 			{
+				title: "วุฒิเฉพาะทาง",
+				dataIndex: "diplomaType",
+				key: "diplomaType",
+				render: (_, { diplomaType }) => (
+					<>
+						{diplomaType.map((item: string) => (
+							<p key={item}>
+								{findDiplomaDisplay(item)
+									? `- ${findDiplomaDisplay(item)}`
+									: ""}
+							</p>
+						))}
+					</>
+				),
+			},
+			{
+				title: "ชื่อโรงพยาบาล",
+				dataIndex: "hospitalWcfCode",
+				key: "hospitalWcfCode",
+				width: 400,
+				render: (_, { hospitalWcfCode }) => (
+					<>
+						{hospitalWcfCode.map((item: string) => (
+							<p key={item}>
+								{findHospitalDisplay(item)
+									? `- ${findHospitalDisplay(item).hospitalName}`
+									: ""}
+							</p>
+						))}
+					</>
+				),
+			},
+			{
+				title: "จังหวัด",
+				dataIndex: "hospitalWcfCode",
+				key: "hospitalWcfCode",
+				width: 200,
+				render: (_, { hospitalWcfCode }) => (
+					<>
+						{hospitalWcfCode.map((item: string) => {
+							const hospital = findHospitalDisplay(item);
+							return hospital ? (
+								<p key={item}>
+									- {findLabelAddress(hospital.provinceCode, ADDRESS.PROVINCE)}
+								</p>
+							) : null;
+						})}
+					</>
+				),
+			},
+			{
 				title: "คำสั่ง",
 				dataIndex: "uuid",
 				key: "uuid",
-				render: (_, { uuid }) => {
-					return (
-						<CustomCellButton
-							editFunction={() => router.push(LINKS.DOCTOR.edit + uuid)}
-							mode={BUTTON_MODE.EDIT_ONLY_ICON}
-						/>
-					);
-				},
+				render: (_, { uuid }) => (
+					<CustomCellButton
+						editFunction={() => router.push(LINKS.DOCTOR.edit + uuid)}
+						mode={BUTTON_MODE.EDIT_ONLY_ICON}
+					/>
+				),
 			},
 		],
-		[]
+		[router]
 	);
 	return columns;
 };
