@@ -7,12 +7,14 @@ import { GetColumns } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import PostalCodeDialog from "@/modules/doctor/DialogContent/PostCodeDialog";
+import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
-	const { doctorBankGrid, dialog } = useSelector(
+	const { doctorBankGrid, doctor, dialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorBankGrid: state.doctor.doctorForm.doctorBank,
+			doctor: state.doctor.doctorForm.doctorData,
 			dialog: state.dialog,
 		}),
 		shallowEqual
@@ -27,7 +29,12 @@ export default function DoctorBank() {
 							setDialog({
 								...dialog,
 								isOpen: true,
-								uniqueContent: <PostalCodeDialog />,
+								uniqueContent: (
+									<BankDialog
+										doctorBankList={doctorBankGrid}
+										doctorCode={doctor.doctorCode}
+									/>
+								),
 							})
 						)
 					}

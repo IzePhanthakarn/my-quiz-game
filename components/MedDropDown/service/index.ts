@@ -7,11 +7,11 @@ import {
 	Diploma,
 	DoctorHospital,
 	Option,
-	OptionLtPropertiesType,
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { API_METHOD, DROPDOWN_TYPE, DROPDOWN } from "../model";
+import { Title } from "./model";
 
 interface DropDownParams {
 	apiPath: string;
@@ -89,22 +89,20 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 					e.postalCode,
 			}));
 			return option_address;
-		case DROPDOWN_TYPE.JOB_TYPE:
-			const jobType: OptionLtPropertiesType[] = result.map(
-				(e: LtPropertiesList) => ({
-					value: e.propertyCode,
-					label: e.propertyText,
-				})
-			);
-			return jobType;
 		case DROPDOWN_TYPE.HOSPITAL_TYPE:
-			const hospitalType: OptionLtPropertiesType[] = result.content.map(
-				(e: LtPropertiesList) => ({
-					value: e.propertyCode,
-					label: e.propertyText,
-				})
-			);
-			return hospitalType;
+		case DROPDOWN_TYPE.JOB_TYPE:
+		case DROPDOWN_TYPE.DOCTOR_TYPE:
+			const data: Option[] = result.map((e: LtPropertiesList) => ({
+				value: e.propertyCode,
+				label: e.propertyText,
+			}));
+			return data;
+		case DROPDOWN_TYPE.TITLE:
+			const title: Option[] = result.map((e: Title) => ({
+				label: e.titleName,
+				value: e.titleCode,
+			}));
+			return title;
 		default:
 			return [];
 	}
@@ -129,3 +127,24 @@ export const fetchDropDownList = createAsyncThunk(
 		}
 	}
 );
+
+export const findNameDisplay = (type: DROPDOWN_TYPE, value: any) => {
+	switch (type) {
+		case DROPDOWN_TYPE.DOCTOR_TYPE:
+			const doctorType = JSON.parse(
+				sessionStorage.getItem(DROPDOWN_TYPE.DOCTOR_TYPE) ?? "[]"
+			);
+			const doctorTypeResult = doctorType.find(
+				(e: LtPropertiesList) => e.propertyCode === value
+			);
+			return doctorTypeResult?.propertyText ?? "";
+		case DROPDOWN_TYPE.TITLE:
+			const title = JSON.parse(
+				sessionStorage.getItem(DROPDOWN_TYPE.TITLE) ?? "[]"
+			);
+			const titleResult = title.find((e: Title) => e.titleCode === value);
+			return titleResult?.titleName ?? "";
+		default:
+			return value;
+	}
+};

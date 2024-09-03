@@ -25,8 +25,7 @@ export default function DiplomaDialog(props: Props) {
 	const [diplomaType, setDiplomaType] = React.useState("");
 
 	useEffect(() => {
-		const handleCancel = () => setDiplomaType("");
-		dispatch(setOnCancelDialog(handleCancel));
+		setDiplomaType("");
 	}, []);
 
 	useEffect(() => {

@@ -19,6 +19,7 @@ import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFil
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { findNameDisplay } from "@/components/MedDropDown/service";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -51,9 +52,9 @@ export default function DoctorDetailForm() {
 			name={"doctorForm"}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
-			// onValuesChange={(e: DoctorData) => {
-			// 	dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
-			// }}
+			onValuesChange={(e: DoctorData) => {
+				dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
+			}}
 		>
 			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
 				<div className="col-span-4">
@@ -75,11 +76,32 @@ export default function DoctorDetailForm() {
 					rules={[]}
 				/>
 				<div></div>
-				<BaseItemInput label="คำนำหน้า" itemName="title" rules={[]} />
+				<MedDropDown
+					type={DROPDOWN_TYPE.TITLE}
+					label="คำนำหน้า"
+					itemName="title"
+					className="h-full w-full"
+					labelRender={() => (
+						<p>{findNameDisplay(DROPDOWN_TYPE.TITLE, doctorData.title)}</p>
+					)}
+				/>
 				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
 				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
 				<div></div>
-				<BaseItemInput label="ประเภทแพทย์" itemName="doctorType" rules={[]} />
+				<MedDropDown
+					type={DROPDOWN_TYPE.DOCTOR_TYPE}
+					label="ประเภทแพทย์"
+					itemName="doctorType"
+					className="h-full w-full"
+					labelRender={() => (
+						<p>
+							{findNameDisplay(
+								DROPDOWN_TYPE.DOCTOR_TYPE,
+								doctorData.doctorType
+							)}
+						</p>
+					)}
+				/>
 				<BaseItemInput label="เลขที่ภาษี" itemName="revenueNo" rules={[]} />
 				<div className="col-span-2"></div>
 				<div className="col-span-4 ">
@@ -89,14 +111,6 @@ export default function DoctorDetailForm() {
 				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
 				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
-				<MedDropDown
-					type={DROPDOWN_TYPE.HOSPITAL_TYPE}
-					label="ทดสอบ"
-					className="h-full w-full"
-					bodyRequest={{
-						groupNameLike: DROPDOWN_TYPE.HOSPITAL_TYPE,
-					}}
-				/>
 				<MedDropDown
 					type={DROPDOWN_TYPE.ADDRESS}
 					label="จังหวัด"
@@ -174,18 +188,8 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.postcode, ADDRESS.POSTCODE)}</p>
 					)}
 				/>
-				{/* <BaseItemInput label="ตำแหน่ง" itemName="position" rules={[]} /> */}
 				<div className="col-span-3"></div>
 				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
-				{/* <div className="col-span-4">
-					{itemsTables?.map((item, index: number) => (
-						<BaseCollapse
-							key={item.key || index}
-							defaultActiveKey={index + 1}
-							items={[item]}
-						/>
-					))}
-				</div> */}
 			</div>
 		</BaseForm>
 	);
