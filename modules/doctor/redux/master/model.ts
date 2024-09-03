@@ -6,13 +6,15 @@ export interface BaseDoctor {
 }
 
 export interface DoctorList {
-	doctorType: any;
-	doctorCode: any;
-	uuid: any;
+	professionalCode: string;
+	doctorCode: string;
+	uuid: string;
 	id: string;
 	firstname: string;
 	lastname: string;
 	isActive: string;
+	doctorDetails: any;
+	doctorHospital: any;
 }
 export interface DoctorGrid extends PaginationModel {
 	list: DoctorList[];

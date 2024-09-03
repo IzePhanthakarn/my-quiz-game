@@ -71,7 +71,16 @@ export default function Doctor() {
 						clearFilter={() => dispatch(setDoctorFilter(modelDoctorFilter))}
 					/>
 				}
-				FilterTextField={<BaseItemInput label="ค้นหา" />}
+				FilterTextField={
+					<div className="flex space-x-2">
+						<div className="w-[280px]">
+							<BaseItemInput label="เลขทะเบียน สปส" />
+						</div>
+						<div className="w-[280px]">
+							<BaseItemInput label="ชื่อ - นามสกุล" />
+						</div>
+					</div>
+				}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
 				AddLabel="สร้างแพทย์"

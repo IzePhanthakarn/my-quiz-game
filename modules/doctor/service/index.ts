@@ -63,13 +63,17 @@ export const initDoctorGrid =
 		const grid = data.payload.content.map((data: DoctorList, index: number) => {
 			return {
 				id: index,
-				doctorType: data.doctorType,
+				professionalCode: data.professionalCode,
 				doctorCode: data.doctorCode,
 				uuid: data.uuid,
 				isActive: data.isActive,
 				firstname: data.firstname,
 				lastname: data.lastname,
 				doctorFullName: `${data.firstname} ${data.lastname}`,
+				diplomaType: data.doctorDetails.map((item: any) => item.diplomaType),
+				hospitalWcfCode: data.doctorHospital.map(
+					(item: any) => item.hospitalWcfCode
+				),
 			};
 		});
 		const totalData = data.payload.totalElements;
