@@ -114,7 +114,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="Lt Properties"
 					initialValues={{
 						...form,
 						// endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),
