@@ -19,10 +19,6 @@ export default function DoctorHospital() {
 		shallowEqual
 	);
 
-	const dialogContent = () => {
-		return <div>DoctorDetail</div>;
-	};
-
 	return (
 		<div className="space-y-2 flex flex-col">
 			<BaseButton

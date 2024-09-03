@@ -8,6 +8,8 @@ export enum DROPDOWN_TYPE {
 	HOSPITAL = "HOSPITAL",
 	JOB_TYPE = "JOB_TYPE",
 	ADDRESS = "ADDRESS",
+	TITLE = "TITLE",
+	DOCTOR_TYPE = "DOCTOR_TYPE",
 }
 
 export enum API_METHOD {
@@ -24,43 +26,55 @@ export const DROPDOWN = {
 	},
 	[DROPDOWN_TYPE.HOSPITAL_TYPE]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
-		sessionName: "HOSPITAL_TYPE",
+		sessionName: DROPDOWN_TYPE.HOSPITAL_TYPE,
 		method: API_METHOD.POST,
 		baseBody: { groupName: "HOSPITAL_TYPE" },
 	},
 	[DROPDOWN_TYPE.HOSPITAL_CATEGORY]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/hospital-category",
-		sessionName: "HOSPITAL_CATEGORY",
+		sessionName: DROPDOWN_TYPE.HOSPITAL_CATEGORY,
 		method: API_METHOD.POST,
 		baseBody: { groupName: "HOSPITAL_CATEGORY" },
 	},
 	[DROPDOWN_TYPE.DOCTOR_BANK]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/doctor-bank",
-		sessionName: "DOCTOR_BANK",
+		sessionName: DROPDOWN_TYPE.DOCTOR_BANK,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.TRAINING]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/training",
-		sessionName: "TRAINING",
+		sessionName: DROPDOWN_TYPE.TRAINING,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.HOSPITAL]: {
-		apiPath: "http://localhost:8111/med/hospital",
-		sessionName: "HOSPITAL",
+		apiPath: "https://api-dev-wcf.soilfish.co/med/hospital",
+		sessionName: DROPDOWN_TYPE.HOSPITAL,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.JOB_TYPE]: {
-		apiPath: `http://localhost:8111/med/master/med-lt-properties/?groupName=JOB_TYPE`,
-		sessionName: "JOB_TYPE",
+		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=JOB_TYPE`,
+		sessionName: DROPDOWN_TYPE.JOB_TYPE,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.ADDRESS]: {
-		apiPath: "http://localhost:8111/med/master/address/list",
-		sessionName: "ADDRESS",
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
+		sessionName: DROPDOWN_TYPE.ADDRESS,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.TITLE]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/title",
+		sessionName: DROPDOWN_TYPE.TITLE,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.DOCTOR_TYPE]: {
+		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=DOCTOR_TYPE`,
+		sessionName: DROPDOWN_TYPE.DOCTOR_TYPE,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
@@ -71,5 +85,3 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 };
-
-// https://api-dev-wcf.soilfish.co/med/master/address/list

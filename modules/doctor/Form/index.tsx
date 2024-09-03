@@ -10,6 +10,7 @@ import { initGetDoctorForm } from "../service";
 import { useParams } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./Detail/model";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -28,6 +29,13 @@ const DoctorFormTabs = () => {
 					items={[item]}
 				/>
 			))}
+			<div className="py-2 w-full sticky bottom-0">
+				<BaseButton
+					size="large"
+					className="w-full border-4 border-[#b3e2a4] drop-shadow-2xl"
+					label="บันทึก"
+				/>
+			</div>
 		</BaseColumn>
 	);
 };
