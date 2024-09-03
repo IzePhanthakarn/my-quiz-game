@@ -10,8 +10,8 @@ import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { setOnCancelDialog } from "@/redux/slices/dialog";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
 	doctor: DoctorData;

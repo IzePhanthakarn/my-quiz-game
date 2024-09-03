@@ -4,7 +4,6 @@ import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
 import BaseRadio from "wcf-component-lib/src/components/BaseRadio";
-import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 export default function Section3(props: { uuid: boolean }) {
@@ -21,9 +20,19 @@ export default function Section3(props: { uuid: boolean }) {
 					<BaseDatePicker label="วันที่ทำการตรวจสอบ" itemName={"assessDate"} />
 					<BaseDatePicker label="วันที่ออกใบคำขอ" itemName={"approveDate"} />
 					<div className="col-span-2 items-end grid grid-cols-3 gap-x-8">
-						<BaseRadio label="ทำการตรวจ ณ" itemName={"inAnotherPlace"} items={items}/>
+						<BaseRadio
+							label="ทำการตรวจ ณ"
+							itemName={"inAnotherPlace"}
+							items={items}
+						/>
 						<BaseDropDown itemName={"inAnotherPlace"} option={option} />
-						<BaseItemCheckbox label="อื่นๆ" itemName={""} onClickFunction={() => {console.log("")}}/>
+						<BaseItemCheckbox
+							label="อื่นๆ"
+							itemName={""}
+							onClickFunction={() => {
+								console.log("");
+							}}
+						/>
 					</div>
 					<BaseItemInput label="ค่าตรวจประเมิน" itemName={"fareAmount"} />
 				</div>

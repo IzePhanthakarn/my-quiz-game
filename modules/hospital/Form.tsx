@@ -37,16 +37,17 @@ import BaseButtonDraft from "wcf-component-lib/src/components/BaseButtonDraft";
 import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { names } from "./interfaces/names";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 // import { setMultipleFiles } from "../minio/redux";
+import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
+import { Sp7Grid } from "./columns/sp7Grid";
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
-import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { Sp7Grid } from "./columns/sp7Grid";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import MedDropDown from "@/components/MedDropDown";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -433,10 +434,10 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<BaseDropDown
+						<MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
-							type="hospitalType"
+							type={DROPDOWN_TYPE.HOSPITAL_TYPE}
 							rules={rules.hospitalTypeSchema}
 							getValue={(e) => {
 								dispatch(
@@ -462,11 +463,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<BaseDropDown
+						<MedDropDown
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
-							type="hospitalCategory"
+							type={DROPDOWN_TYPE.HOSPITAL_CATEGORY}
 							getValue={(e) => {
 								dispatch(
 									setHospitalForm({

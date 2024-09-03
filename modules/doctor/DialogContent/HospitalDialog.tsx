@@ -3,9 +3,8 @@ import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
-import { DoctorData, DoctorHospitalList } from "../redux/form/model";
+import { DoctorHospitalList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import {
 	DoctorHospital,
@@ -15,7 +14,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { handleHospital, handleHospitalRows } from "./service";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 interface Props {
 	doctorCode: string;
 	doctorHospitalGrid: DoctorHospitalList[];
