@@ -47,19 +47,19 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.HOSPITAL]: {
-		apiPath: "http://localhost:8111/med/hospital",
+		apiPath: "https://api-dev-wcf.soilfish.co/med/hospital",
 		sessionName: "HOSPITAL",
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.JOB_TYPE]: {
-		apiPath: `http://localhost:8111/med/master/med-lt-properties/?groupName=JOB_TYPE`,
+		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=JOB_TYPE`,
 		sessionName: "JOB_TYPE",
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.ADDRESS]: {
-		apiPath: "http://localhost:8111/med/master/address/list",
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
 		sessionName: "ADDRESS",
 		method: API_METHOD.GET,
 		baseBody: undefined,
@@ -71,5 +71,3 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 };
-
-// https://api-dev-wcf.soilfish.co/med/master/address/list
