@@ -97,7 +97,7 @@ const Form = (params: MedicalAmountFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="Medical amount"
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,

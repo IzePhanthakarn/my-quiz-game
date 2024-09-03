@@ -16,6 +16,7 @@ export const {
 	setHospitalFilter,
 	setHospitalPagination,
 	setExportPages,
+	setHospitalSp7Grid,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;
