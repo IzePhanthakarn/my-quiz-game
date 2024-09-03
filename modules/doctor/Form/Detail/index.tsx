@@ -18,7 +18,7 @@ import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserO
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();

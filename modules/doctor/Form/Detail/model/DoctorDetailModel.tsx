@@ -16,7 +16,7 @@ import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
 import { useMemo } from "react";
 import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];

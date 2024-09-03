@@ -1,9 +1,3 @@
-import {
-	API_METHOD,
-	DROPDOWN,
-	DROPDOWN_TYPE,
-} from "wcf-component-lib/src/constants/dropdown";
-
 import { AppDispatch } from "@/redux/config/configStore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -17,6 +11,7 @@ import {
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
+import { API_METHOD, DROPDOWN_TYPE, DROPDOWN } from "../model";
 
 interface DropDownParams {
 	apiPath: string;

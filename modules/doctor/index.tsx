@@ -16,6 +16,7 @@ import { initDoctorGrid } from "./service";
 import { modelDoctorFilter } from "./redux/filter/model";
 import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -70,7 +71,7 @@ export default function Doctor() {
 						clearFilter={() => dispatch(setDoctorFilter(modelDoctorFilter))}
 					/>
 				}
-				FilterTextField={<Input className="w-[300px]" />}
+				FilterTextField={<BaseItemInput label="ค้นหา" />}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
 				AddLabel="สร้างแพทย์"

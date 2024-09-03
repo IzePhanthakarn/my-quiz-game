@@ -42,7 +42,7 @@ import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUplo
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
-import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
