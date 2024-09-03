@@ -4,11 +4,9 @@ import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
-import { setOnCancelDialog } from "@/redux/slices/dialog";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "wcf-component-lib/src/constants/dropdown";
 interface Props {

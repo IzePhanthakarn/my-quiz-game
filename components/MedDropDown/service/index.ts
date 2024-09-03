@@ -33,7 +33,7 @@ export const handleSession =
 		bodyRequest?: any
 	) =>
 	async (dispatch: AppDispatch) => {
-		const { apiPath, sessionName, method } = DROPDOWN[type];
+		const { apiPath, sessionName, method, baseBody } = DROPDOWN[type];
 
 		const getSession = JSON.parse(sessionStorage.getItem(sessionName) ?? "[]");
 
@@ -43,6 +43,7 @@ export const handleSession =
 			return;
 		}
 
+		if (!_.isEmpty(baseBody)) bodyRequest = baseBody;
 		const response = await dispatch(
 			fetchDropDownList({ apiPath, method, queryString, bodyRequest })
 		);

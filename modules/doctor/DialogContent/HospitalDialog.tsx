@@ -3,7 +3,6 @@ import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorData, DoctorHospitalList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
