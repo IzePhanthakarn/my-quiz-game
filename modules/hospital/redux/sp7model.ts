@@ -19,6 +19,9 @@ export interface HospitalSp7Grid extends PaginationModel {
 
 export interface HospitalSp7GridData extends BaseMasterDataInterface {
 	fileName: string;
+	uuid: string;
+	sp7StartDated: null | string | undefined;
+	sp7EndDate: null | string | undefined;
 }
 
 export interface HospitalSp7GridFilter {
@@ -39,6 +42,7 @@ export interface HospitalSp7GridFilter {
 
 export interface GetHospitalSp7List extends HospitalSp7GridFilter {
 	pagination: PaginationOptions;
+	hospitalUuid?: string | undefined | null;
 }
 
 export const modelHospitalSp7: HospitalSp7 = {

@@ -434,7 +434,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<MedDropDown
+						{/* <MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
 							type={DROPDOWN_TYPE.HOSPITAL_TYPE}
@@ -447,7 +447,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/>
+						/> */}
 						{/* <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.hospitalCategory}
@@ -463,7 +463,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/> */}
-						<MedDropDown
+						{/* <MedDropDown
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
@@ -476,7 +476,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/>
+						/> */}
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
@@ -885,15 +885,10 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
 						dispatch(
-							updateHospital(
-								// form.getFieldsValue(),
-								hospitalForm,
-								router,
-								`${params.params.uuid}`
-							)
+							updateHospital(hospitalForm, router, `${params.params.uuid}`)
 						);
 					} else {
-						dispatch(addHospital(form.getFieldsValue(), router));
+						dispatch(addHospital(hospitalForm, router));
 					}
 				}}
 				cancelFunction={() => {
@@ -906,7 +901,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 			<BaseGrid
 				rows={hospitalSp7.grid.data}
-				columns={Sp7Grid(router)}
+				columns={Sp7Grid({
+					hospitalSp7: hospitalSp7,
+					dispatch: dispatch,
+					params: params,
+				})}
 				page={hospitalSp7.grid.page}
 				loading={isLoading}
 				twoToneColor={true}

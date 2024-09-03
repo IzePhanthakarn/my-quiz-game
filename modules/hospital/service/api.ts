@@ -31,6 +31,20 @@ export const getHospitalSp7List = createAsyncThunk(
 	}
 );
 
+export const getHospitalSp7ListByHospitalUuid = createAsyncThunk(
+	"Hospital/Sp7/List",
+
+	async (body: GetHospitalSp7List, thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.SP7.GET_LIST_BY_HOSPITAL_UUID}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
 export const updateHospitalApi = createAsyncThunk(
 	"Hospital/updateHospitalApi",
 	async (
@@ -42,6 +56,27 @@ export const updateHospitalApi = createAsyncThunk(
 	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.UPDATE_BY_UUID}/${body.uuid}`;
+			const response = await axios.patch(apiPath, body.body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
+export const updateHospitalSp7Api = createAsyncThunk(
+	"Hospital/updateHospitalSp7Api",
+	async (
+		body: {
+			body: {
+				isActive: string;
+			};
+			uuid: HospitalForm["uuid"];
+		},
+		thunkAPi
+	) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.SP7.UPDATE_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
@@ -65,7 +100,10 @@ export const getHospitalList = createAsyncThunk(
 
 export const addHospitalAPI = createAsyncThunk(
 	"Hospital/addHospitalAPI",
-	async (body: HospitalForm, thunkAPi) => {
+	async (
+		body: { hospitalCreate: HospitalForm; sp7: HospitalForm["files"]["sp7"] },
+		thunkAPi
+	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ADD}`;
 			const response = await axios.post(apiPath, body);

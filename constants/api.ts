@@ -87,6 +87,8 @@ const API_PATH = {
 		},
 		SP7: {
 			GET_LIST: "/hospital-sp7/list",
+			UPDATE_BY_UUID: "/hospital-sp7",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp7/list-by-hospital-uuid",
 		},
 	},
 	DOCUMENT: {

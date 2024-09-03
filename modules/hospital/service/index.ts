@@ -9,8 +9,10 @@ import {
 	getHospitalDetail,
 	getHospitalList,
 	getHospitalSp7List,
+	getHospitalSp7ListByHospitalUuid,
 	handleUploadSp7HospitalApi,
 	updateHospitalApi,
+	updateHospitalSp7Api,
 } from "./api";
 import {
 	setHospitalForm,
@@ -34,7 +36,11 @@ import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/ba
 import dayjs from "dayjs";
 import { minioUploadMultiple } from "../../minio/service/api";
 import { handleUploadFiles } from "wcf-component-lib/src/utils/";
-import { GetHospitalSp7List, HospitalSp7 } from "../redux/sp7model";
+import {
+	GetHospitalSp7List,
+	HospitalSp7,
+	HospitalSp7Grid,
+} from "../redux/sp7model";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -74,7 +80,9 @@ export const fetchHospitalList =
 export const addHospital =
 	(form: HospitalForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
-		const data = await dispatch(addHospitalAPI(form));
+		const data = await dispatch(
+			addHospitalAPI({ hospitalCreate: form, sp7: form?.files?.sp7 })
+		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
@@ -83,8 +91,8 @@ export const addHospital =
 				message: BaseToastNotificationMessage.INSERT_SUCCESS,
 				description: "Description",
 			});
-			dispatch(setIsLoading(true));
-			router.push(LINKS.HOSPITAL.link);
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
 		}
 	};
 
@@ -108,10 +116,9 @@ export const fetchHospitalSp7List =
 			const body: GetHospitalSp7List = {
 				pagination: { ...hospitalSp7.grid.page },
 				...hospitalSp7.filter,
-				// uuid: `${uuid}`,
-				hospitalId: 353,
+				hospitalUuid: uuid,
 			};
-			const result = await dispatch(getHospitalSp7List(body));
+			const result = await dispatch(getHospitalSp7ListByHospitalUuid(body));
 			if (_.get(result, "error.message") === "Rejected") {
 				return;
 			}
@@ -131,8 +138,6 @@ export const fetchHospitalSp7List =
 export const updateHospital =
 	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
 	async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ form:", form);
-
 		const data = await dispatch(
 			updateHospitalApi({
 				uuid: uuid,
@@ -140,6 +145,29 @@ export const updateHospital =
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
+		}
+	};
+
+export const updateInActiveHospitalSp7 =
+	(uuid: string) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateHospitalSp7Api({
+				uuid: uuid,
+				body: {
+					isActive: "N",
+				},
+			})
+		);
+		// dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
