@@ -29,6 +29,6 @@ export const doctorFormReducers = {
 	},
 
 	setTrainingList: (state: Doctor, action: PayloadAction<TrainingList[]>) => {
-		state.doctorForm.training = action.payload;
+		state.doctorForm.doctorTraining = action.payload;
 	},
 };

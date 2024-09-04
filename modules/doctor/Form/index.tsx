@@ -29,10 +29,10 @@ const DoctorFormTabs = () => {
 					items={[item]}
 				/>
 			))}
-			<div className="py-2 w-full sticky bottom-0">
+			<div className="py-2 w-full flex justify-end sticky bottom-0">
 				<BaseButton
 					size="large"
-					className="w-full border-4 border-[#b3e2a4] drop-shadow-2xl"
+					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
 					label="บันทึก"
 				/>
 			</div>

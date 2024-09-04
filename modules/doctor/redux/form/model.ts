@@ -39,6 +39,14 @@ export interface DoctorBankList extends DoctorBank {
 	id: number;
 }
 
+export interface DoctorPostalList extends DoctorPostal {
+	id: number;
+}
+
+interface DoctorPostal extends BaseEntity {
+	doctorCode: string;
+	postalId: string;
+}
 interface Training extends BaseEntity {
 	doctorCode: string;
 	trainingNo: string;
@@ -73,13 +81,15 @@ export interface DoctorForm {
 	doctorDetail: DoctorDetailList[];
 	doctorHospital: DoctorHospitalList[];
 	doctorBank: DoctorBankList[];
-	training: TrainingList[];
+	doctorTraining: TrainingList[];
+	doctorPostal: DoctorPostalList[];
 	[key: string]:
 		| DoctorData
 		| DoctorDetailList[]
 		| DoctorHospitalList[]
 		| DoctorBankList[]
-		| TrainingList[];
+		| TrainingList[]
+		| DoctorPostalList[];
 }
 
 const modelDoctorData: DoctorData = {
@@ -110,5 +120,6 @@ export const modelDoctorForm: DoctorForm = {
 	doctorDetail: [],
 	doctorHospital: [],
 	doctorBank: [],
-	training: [],
+	doctorTraining: [],
+	doctorPostal: [],
 };

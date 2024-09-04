@@ -12,7 +12,7 @@ export default function Training() {
 	const dispatch: AppDispatch = useDispatch();
 	const { trainingGrid, doctor, dialog } = useSelector(
 		(state: SliceModel) => ({
-			trainingGrid: state.doctor.doctorForm.training,
+			trainingGrid: state.doctor.doctorForm.doctorTraining,
 			doctor: state.doctor.doctorForm.doctorData,
 			dialog: state.dialog,
 		}),

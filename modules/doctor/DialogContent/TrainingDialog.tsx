@@ -46,9 +46,9 @@ export default function TraningDialog(props: Props) {
 		}
 	}, [trainingGrid, editId]);
 
-	useEffect(() => {
-		setTraining(defaultTraining);
-	}, []);
+	// useEffect(() => {
+	// 	setTraining(defaultTraining);
+	// }, []);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">

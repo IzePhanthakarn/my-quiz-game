@@ -17,6 +17,8 @@ import { modelDoctorFilter } from "./redux/filter/model";
 import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import { handleSession } from "@/components/MedDropDown/service";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -33,6 +35,9 @@ export default function Doctor() {
 	);
 
 	useEffect(() => {
+		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
+		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
+		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },

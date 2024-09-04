@@ -188,8 +188,6 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.postcode, ADDRESS.POSTCODE)}</p>
 					)}
 				/>
-				<div className="col-span-3"></div>
-				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
 			</div>
 		</BaseForm>
 	);
