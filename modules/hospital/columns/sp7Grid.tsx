@@ -45,32 +45,32 @@ export const Sp7Grid = (props: Props) => {
 					/>
 				),
 			},
-			{
-				sorter: true,
-				key: "sp7EndDate",
-				dataIndex: "sp7EndDate",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"sp7EndDate"}
-						label="วันที่สิ้นสุดใบอนุญาต"
-						sort={columns?.sortColumns}
-					/>
-				),
-			},
-			{
-				sorter: true,
-				key: "fileName",
-				dataIndex: "fileName",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"fileName"}
-						label="ชื่อไฟล์ สพ.7"
-						sort={columns?.sortColumns}
-					/>
-				),
-			},
+			// {
+			// 	sorter: true,
+			// 	key: "sp7EndDate",
+			// 	dataIndex: "sp7EndDate",
+			// 	title: (columns: ColumnTitleProps<any>) => (
+			// 		<CustomHeaderSort
+			// 			columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+			// 			headerKey={"sp7EndDate"}
+			// 			label="วันที่สิ้นสุดใบอนุญาต"
+			// 			sort={columns?.sortColumns}
+			// 		/>
+			// 	),
+			// },
+			// {
+			// 	sorter: true,
+			// 	key: "fileName",
+			// 	dataIndex: "fileName",
+			// 	title: (columns: ColumnTitleProps<any>) => (
+			// 		<CustomHeaderSort
+			// 			columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+			// 			headerKey={"fileName"}
+			// 			label="ชื่อไฟล์ สพ.7"
+			// 			sort={columns?.sortColumns}
+			// 		/>
+			// 	),
+			// },
 			{
 				key: "uuid",
 				title: "คำสั่ง",

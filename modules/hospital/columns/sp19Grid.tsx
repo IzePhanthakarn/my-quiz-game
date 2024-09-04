@@ -62,6 +62,8 @@ export const Sp19Grid = (props: Props) => {
 				sorter: true,
 				key: "fileName",
 				dataIndex: "fileName",
+				width: 150,
+
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
