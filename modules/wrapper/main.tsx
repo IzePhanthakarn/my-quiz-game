@@ -23,12 +23,7 @@ type Props = {
 };
 
 const MainWrapper: React.FC<Props> = (props) => {
-	// const pathname = usePathname();
 	const dispatch: AppDispatch = useDispatch();
-
-	const [textDetail, setTextDetail] = useState<string>("");
-	const [textHeader, setTextHeader] = useState<string>("");
-
 	const { isLoading, dialog } = useSelector(
 		(state: SliceModel) => ({
 			isLoading: state.container.isLoading,
