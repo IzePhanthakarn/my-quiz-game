@@ -9,7 +9,10 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { fetchHospitalSp7List, updateInActiveHospitalSp7 } from "../service";
-import { HospitalSp7, HospitalSp7GridData } from "../redux/sp7model";
+import {
+	HospitalSp7,
+	HospitalSp7GridData,
+} from "@/modules/hospital/redux/models/sp7Model";
 
 interface Props {
 	hospitalSp7: HospitalSp7;
@@ -78,8 +81,6 @@ export const Sp7Grid = (props: Props) => {
 							onClick={async () => {
 								await dispatch(updateInActiveHospitalSp7(uuid));
 								await dispatch(fetchHospitalSp7List(params, hospitalSp7));
-								// console.log("🚀 ~ Sp7Grid ~ params:", params);
-								// console.log("🚀 ~ Sp7Grid ~ uuid:", hospitalSp7.grid.data);
 							}}
 						/>
 					);

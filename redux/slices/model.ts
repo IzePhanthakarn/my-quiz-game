@@ -11,12 +11,11 @@ import { CourseOrganSystemGroup } from "@/modules/course-organ-system-group/redu
 import { MinIO } from "@/modules/minio/redux/model";
 import { MedicalAmount } from "@/modules/medical-amount/redux/model";
 import { LtProperties } from "@/modules/lt-properties/redux/model";
-import { Hospital } from "@/modules/hospital/redux/model";
+import { Hospital } from "@/modules/hospital/redux/models/hospitalModel";
 import { Doctor } from "@/modules/doctor/redux/model";
 import { RequestForm } from "@/modules/request-form/redux/model";
 import { Container } from "./container/model";
 import { Document } from "@/modules/document/redux/model";
-import { HospitalSp7 } from "@/modules/hospital/redux/sp7model";
 
 export interface SliceModel {
 	crud: Crud;

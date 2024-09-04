@@ -90,6 +90,11 @@ const API_PATH = {
 			UPDATE_BY_UUID: "/hospital-sp7",
 			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp7/list-by-hospital-uuid",
 		},
+		SP19: {
+			GET_LIST: "/hospital-sp19/list",
+			UPDATE_BY_UUID: "/hospital-sp19",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp19/list-by-hospital-uuid",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

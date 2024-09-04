@@ -8,15 +8,18 @@ import {
 	exportPdfMed5012,
 	getHospitalDetail,
 	getHospitalList,
+	getHospitalSp19ListByHospitalUuid,
 	getHospitalSp7List,
 	getHospitalSp7ListByHospitalUuid,
 	handleUploadSp7HospitalApi,
 	updateHospitalApi,
+	updateHospitalSp19Api,
 	updateHospitalSp7Api,
 } from "./api";
 import {
 	setHospitalForm,
 	setHospitalGrid,
+	setHospitalSp19Grid,
 	setHospitalSp7Grid,
 } from "@/modules/hospital/redux";
 import {
@@ -24,7 +27,7 @@ import {
 	HospitalForm,
 	GetHospitalList,
 	ExportPages,
-} from "@/modules/hospital/redux/model";
+} from "@/modules/hospital/redux/models/hospitalModel";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
 
@@ -40,7 +43,12 @@ import {
 	GetHospitalSp7List,
 	HospitalSp7,
 	HospitalSp7Grid,
-} from "../redux/sp7model";
+} from "@/modules/hospital/redux/models/sp7Model";
+import {
+	GetHospitalSp19List,
+	HospitalSp19,
+	HospitalSp19Grid,
+} from "@/modules/hospital/redux/models/sp19Model";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -81,7 +89,11 @@ export const addHospital =
 	(form: HospitalForm, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
-			addHospitalAPI({ hospitalCreate: form, sp7: form?.files?.sp7 })
+			addHospitalAPI({
+				hospitalCreate: form,
+				sp7: form?.files?.sp7,
+				sp19: form?.files?.sp19,
+			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
@@ -122,12 +134,37 @@ export const fetchHospitalSp7List =
 			if (_.get(result, "error.message") === "Rejected") {
 				return;
 			}
-			// dispatch(setHospitalSp7Grid(response.payload));
 			dispatch(
 				setHospitalSp7Grid({
 					data: result.payload.content,
 					page: {
 						...hospitalSp7.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
+	};
+
+export const fetchHospitalSp19List =
+	(params: HospitalFormPageProps, hospitalSp19: HospitalSp19) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const body: GetHospitalSp19List = {
+				pagination: { ...hospitalSp19.grid.page },
+				...hospitalSp19.filter,
+				hospitalUuid: uuid,
+			};
+			const result = await dispatch(getHospitalSp19ListByHospitalUuid(body));
+			if (_.get(result, "error.message") === "Rejected") {
+				return;
+			}
+			dispatch(
+				setHospitalSp19Grid({
+					data: result.payload.content,
+					page: {
+						...hospitalSp19.grid.page,
 						totalData: result.payload.totalElements,
 					},
 				})
@@ -141,7 +178,11 @@ export const updateHospital =
 		const data = await dispatch(
 			updateHospitalApi({
 				uuid: uuid,
-				body: { hospitalPatch: form, sp7: form?.files?.sp7 },
+				body: {
+					hospitalPatch: form,
+					sp7: form?.files?.sp7,
+					sp19: form?.files?.sp19,
+				},
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
@@ -161,6 +202,29 @@ export const updateInActiveHospitalSp7 =
 	(uuid: string) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalSp7Api({
+				uuid: uuid,
+				body: {
+					isActive: "N",
+				},
+			})
+		);
+		// dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
+		}
+	};
+
+export const updateInActiveHospitalSp19 =
+	(uuid: string) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateHospitalSp19Api({
 				uuid: uuid,
 				body: {
 					isActive: "N",

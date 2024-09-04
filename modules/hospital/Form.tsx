@@ -14,10 +14,15 @@ import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
-import { setHospitalForm, setHospitalSp7Grid } from "./redux";
-import { HospitalForm, modelHospital } from "./redux/model";
+import {
+	setHospitalForm,
+	setHospitalSp19Grid,
+	setHospitalSp7Grid,
+} from "./redux";
+import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
 import {
 	addHospital,
+	fetchHospitalSp19List,
 	fetchHospitalSp7List,
 	// handleUploadHospital,
 	initGetHospitalDetail,
@@ -48,6 +53,7 @@ import API_PATH from "@/constants/api";
 import Cookies from "js-cookie";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
+import { Sp19Grid } from "./columns/sp19Grid";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -60,12 +66,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		isOpenBaseConfirmDialog,
 		files,
 		hospitalSp7,
+		hospitalSp19,
 		isLoading,
 	} = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
 			hospitalSp7: state.hospital.hospitalSp7,
+			hospitalSp19: state.hospital.hospitalSp19,
 			files: state.hospital.form.files,
 			isLoading: state.container.isLoading,
 		}),
@@ -78,9 +86,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
 					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
+					await dispatch(fetchHospitalSp19List(params, hospitalSp19));
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
 					dispatch(setHospitalSp7Grid(modelHospital.hospitalSp7.grid));
+					dispatch(setHospitalSp19Grid(modelHospital.hospitalSp19.grid));
 				}
 				setIsInit(true);
 			}
@@ -148,6 +158,55 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 			// }
 		}
+
+		if (files?.sp19?.length) {
+			const errorArray = [];
+			errorArray.push({
+				name: "sp19StartDate",
+				errors: _.isEmpty(form.getFieldsValue().sp19StartDate)
+					? [`กรุณาใส่ ${names.sp19StartDate}`]
+					: undefined,
+			});
+			errorArray.push({
+				name: "sp19EndDate",
+				errors: _.isEmpty(form.getFieldsValue().sp19EndDate)
+					? [`กรุณาใส่ ${names.sp19EndDate}`]
+					: undefined,
+			});
+			form.setFields(errorArray);
+
+			/**
+			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
+			 * ถ้าใช่จะ return true
+			 * */
+			const checkCondition = _.every(errorArray, (obj) => {
+				return _.isUndefined(obj.errors);
+			});
+
+			// /**
+			//  * จาก checkCondition ด้านบน จะ return true หาก errors key ทุกตัวเป็น undefined
+			//  * แต่ต้องการเช็คเงื่อนไขว่า ถ้าทุกตัว "ไม่ใช่" undefined จึงจะทำเงื่อนไขใดๆ
+			//  */
+			if (!checkCondition) {
+				return;
+			}
+			// if (checkCondition) {
+			// await dispatch(
+			// 	handleUploadHospital(files.sp19, "hospital/sp19", hospitalForm)
+			// );
+
+			// dispatch(
+			// 	setHospitalForm({
+			// 		...hospitalForm,
+			// 		files: { sp19: [] },
+			// 	})
+			// );
+			// } else {
+			// return;
+
+			// }
+		}
+
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
@@ -900,6 +959,39 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			/>
 
 			<BaseGrid
+				rows={hospitalSp19.grid.data}
+				columns={Sp19Grid({
+					hospitalSp19: hospitalSp19,
+					dispatch: dispatch,
+					params: params,
+				})}
+				page={hospitalSp19.grid.page}
+				loading={isLoading}
+				twoToneColor={true}
+				setPagination={(page) => {
+					dispatch(
+						fetchHospitalSp19List(params, {
+							...hospitalSp19,
+							grid: { ...hospitalSp19.grid, page },
+						})
+					);
+				}}
+			/>
+			<BaseUploadDraggerHospital
+				uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+				subFolderPath="hospital/sp19"
+				bearer={`${Cookies.get("Bearer")}`}
+				onChangeFunction={(e) => {
+					dispatch(
+						setHospitalForm({
+							...hospitalForm,
+							files: { ...hospitalForm.files, sp19: e },
+						})
+					);
+				}}
+			/>
+
+			<BaseGrid
 				rows={hospitalSp7.grid.data}
 				columns={Sp7Grid({
 					hospitalSp7: hospitalSp7,
@@ -918,23 +1010,23 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					);
 				}}
 			/>
+			<BaseUploadDraggerHospital
+				uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+				subFolderPath="hospital/sp7"
+				bearer={`${Cookies.get("Bearer")}`}
+				onChangeFunction={(e) => {
+					dispatch(
+						setHospitalForm({
+							...hospitalForm,
+							files: { ...hospitalForm.files, sp7: e },
+						})
+					);
+				}}
+			/>
 
 			{isInit && (
 				// <div className="flex flex-col space-y-2">
 				<>
-					<BaseUploadDraggerHospital
-						uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-						subFolderPath="hospital/sp7"
-						bearer={`${Cookies.get("Bearer")}`}
-						onChangeFunction={(e) => {
-							dispatch(
-								setHospitalForm({
-									...hospitalForm,
-									files: { sp7: e },
-								})
-							);
-						}}
-					/>
 					{/* <button onClick={async () => {}}>Upload Multiple file</button> */}
 					<BaseHeaderNameAndSwitch
 						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
