@@ -98,6 +98,9 @@ export interface ExportPages {
 		sp19StartDate: null | string | undefined;
 		sp19EndDate: null | string | undefined;
 	};
+	med5009: {
+		propertyCode: string;
+	};
 	med5012: {
 		fromDate: string;
 		toDate: string;
@@ -181,6 +184,9 @@ export const modelHospital: Hospital = {
 			sp7EndDate: "",
 			sp19StartDate: "",
 			sp19EndDate: "",
+		},
+		med5009: {
+			propertyCode: "",
 		},
 		med5012: {
 			fromDate: "",

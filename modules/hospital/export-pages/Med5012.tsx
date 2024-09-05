@@ -10,7 +10,8 @@ import dynamic from "next/dynamic";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setExportPages } from "../redux";
-import { handleOnExportExcel5012, handleOnExportPdf5012 } from "../service";
+import { REPORT_TYPES } from "@/constants/reports";
+import { handleOnExportExcel, handleOnExportPdf } from "@/utils/report/common";
 
 const HospitalReportMed5012 = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,34 +26,40 @@ const HospitalReportMed5012 = () => {
 			name={""}
 			initialValues={med5012}
 			children={
-				<div className="grid grid-cols-2 gap-x-4 gap-y-4">
-					<p className="col-span-2 text-2xl">
+				<div className="grid grid-cols-4 gap-x-4 gap-y-4">
+					<p className="col-span-4 text-2xl">
 						MED5012 รายงานการตรวจสถานพยาบาลในความตกลงของกองทุนเงินทดแทน
 					</p>
+					<div></div>
 					<BaseDatePicker label="วันที่ตรวจสถานพยาบาล" itemName={"fromDate"} />
 					<BaseDatePicker label="ถึงวันที่" itemName={"toDate"} />
-					<div className="col-span-2 space-x-2">
-						<BaseButton
-							className="w-1/4"
-							label="Excel"
-							onClick={() => {
-								dispatch(handleOnExportExcel5012(med5012));
-							}}
-						/>
-						<BaseButton
-							className="w-1/4"
-							label="Pdf"
-							onClick={() => {
-								dispatch(handleOnExportPdf5012(med5012, false));
-							}}
-						/>
-						<BaseButton
-							className="w-1/4"
-							label="Preview"
-							onClick={() => {
-								dispatch(handleOnExportPdf5012(med5012, true));
-							}}
-						/>
+					<div></div>
+					<div className="col-span-4">
+						<div className="flex justify-center space-x-2">
+							<BaseButton
+								className="w-1/6"
+								label="Excel"
+								onClick={() => {
+									dispatch(handleOnExportExcel(med5012, REPORT_TYPES.MED5012));
+								}}
+							/>
+							<BaseButton
+								className="w-1/6"
+								label="Pdf"
+								onClick={() => {
+									dispatch(handleOnExportPdf(med5012, REPORT_TYPES.MED5012));
+								}}
+							/>
+							<BaseButton
+								className="w-1/6"
+								label="Preview"
+								onClick={() => {
+									dispatch(
+										handleOnExportPdf(med5012, REPORT_TYPES.MED5012, true)
+									);
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			}

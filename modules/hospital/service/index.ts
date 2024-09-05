@@ -3,9 +3,7 @@ import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAPI,
-	exportExcelMed5012,
 	exportMed5008Api,
-	exportPdfMed5012,
 	getHospitalDetail,
 	getHospitalList,
 	getHospitalSp19ListByHospitalUuid,
@@ -30,14 +28,10 @@ import {
 } from "@/modules/hospital/redux/models/hospitalModel";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
-
 // import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { LINKS } from "@/constants/links";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
-import dayjs from "dayjs";
-import { minioUploadMultiple } from "../../minio/service/api";
 import { handleUploadFiles } from "wcf-component-lib/src/utils/";
 import {
 	GetHospitalSp7List,
@@ -274,42 +268,4 @@ export const handleUploadHospital =
 		// 		files: { sp7: [] },
 		// 	})
 		// );
-	};
-
-export const handleOnExportExcel5012 =
-	(med5012: ExportPages["med5012"]) => async (dispatch: AppDispatch) => {
-		dispatch(setIsLoading(true));
-		const result = await dispatch(exportExcelMed5012(med5012));
-		dispatch(setIsLoading(false));
-		if (_.get(result, "error.message") === "Rejected") return;
-		const blob = new Blob([result.payload], {
-			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-		});
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement("a");
-		a.href = url;
-		a.download = `${dayjs().format("YYYY-MM-DD HHmmss")}.xlsx`;
-		document.body.appendChild(a);
-		a.click();
-		URL.revokeObjectURL(url);
-	};
-
-export const handleOnExportPdf5012 =
-	(med5012: ExportPages["med5012"], isPreview: boolean) =>
-	async (dispatch: AppDispatch) => {
-		dispatch(setIsLoading(true));
-		const result = await dispatch(exportPdfMed5012(med5012));
-		dispatch(setIsLoading(false));
-		if (_.get(result, "error.message") === "Rejected") return;
-		const blob = new Blob([result.payload], { type: "application/pdf" });
-		const url = URL.createObjectURL(blob);
-		if (isPreview) window.open(url, "_blank");
-		else {
-			const a = document.createElement("a");
-			a.href = url;
-			a.download = `${dayjs().format("YYYY-MM-DD HHmmss")}.pdf`;
-			document.body.appendChild(a);
-			a.click();
-		}
-		URL.revokeObjectURL(url);
 	};
