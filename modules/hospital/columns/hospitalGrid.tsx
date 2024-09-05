@@ -11,7 +11,7 @@ import { names } from "../interfaces/names";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 
-export const GetColumns = (router: AppRouterInstance) => {
+export const GetHospitalColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
 			{
