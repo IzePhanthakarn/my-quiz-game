@@ -11,7 +11,7 @@ import {
 export interface RequestForm {
 	grid: RequestFormGrid;
 	filter: RequestFormFilter;
-	form: RequestFormDetail;
+	detail: RequestFormDetail;
 }
 
 export interface RequestFormGrid extends PaginationModel {
@@ -120,5 +120,5 @@ export const modelRequestFormDetail: RequestFormDetail = {
 export const modelRequestForm: RequestForm = {
 	grid: modelRequestFormGrid,
 	filter: modelRequestFormFilter,
-	form: modelRequestFormDetail,
+	detail: modelRequestFormDetail,
 };
