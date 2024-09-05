@@ -15,9 +15,9 @@ import { setRequestFormDetail } from "../redux";
 const RequestFormDetail = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const { uuid } = useParams();
-	const { form } = useSelector(
+	const { detail } = useSelector(
 		(state: SliceModel) => ({
-			form: state.requestForm.form,
+			detail: state.requestForm.detail,
 		}),
 		shallowEqual
 	);
@@ -29,8 +29,8 @@ const RequestFormDetail = () => {
 	return (
 		<BaseForm
 			name={""}
-			initialValues={form}
-			onValuesChange={(e) => dispatch(setRequestFormDetail({ ...form, ...e }))}
+			initialValues={detail}
+			onValuesChange={(e) => dispatch(setRequestFormDetail({ ...detail, ...e }))}
 		>
 			<Collapse uuid={_.isEmpty(uuid)} />
 		</BaseForm>
