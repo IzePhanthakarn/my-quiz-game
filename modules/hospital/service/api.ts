@@ -1,8 +1,13 @@
 import API_PATH from "@/constants/api";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "axios";
-import { HospitalForm, GetHospitalList, ExportPages } from "../redux/model";
-import { GetHospitalSp7List } from "../redux/sp7model";
+import {
+	HospitalForm,
+	GetHospitalList,
+	ExportPages,
+} from "@/modules/hospital/redux/models/hospitalModel";
+import { GetHospitalSp7List } from "@/modules/hospital/redux/models/sp7Model";
+import { GetHospitalSp19List } from "@/modules/hospital/redux/models/sp19Model";
 
 export const getHospitalDetail = createAsyncThunk(
 	"Hospital/getHospitalDetail",
@@ -45,11 +50,29 @@ export const getHospitalSp7ListByHospitalUuid = createAsyncThunk(
 	}
 );
 
+export const getHospitalSp19ListByHospitalUuid = createAsyncThunk(
+	"Hospital/Sp19/List",
+
+	async (body: GetHospitalSp19List, thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.SP19.GET_LIST_BY_HOSPITAL_UUID}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
 export const updateHospitalApi = createAsyncThunk(
 	"Hospital/updateHospitalApi",
 	async (
 		body: {
-			body: { hospitalPatch: HospitalForm; sp7: HospitalForm["files"]["sp7"] };
+			body: {
+				hospitalPatch: HospitalForm;
+				sp7: HospitalForm["files"]["sp7"];
+				sp19: HospitalForm["files"]["sp19"];
+			};
 			uuid: HospitalForm["uuid"];
 		},
 		thunkAPi
@@ -85,6 +108,27 @@ export const updateHospitalSp7Api = createAsyncThunk(
 	}
 );
 
+export const updateHospitalSp19Api = createAsyncThunk(
+	"Hospital/updateHospitalSp19Api",
+	async (
+		body: {
+			body: {
+				isActive: string;
+			};
+			uuid: HospitalForm["uuid"];
+		},
+		thunkAPi
+	) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.SP19.UPDATE_BY_UUID}/${body.uuid}`;
+			const response = await axios.patch(apiPath, body.body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
 export const getHospitalList = createAsyncThunk(
 	"Hospital/getHospitalList",
 	async (body: GetHospitalList, thunkAPi) => {
@@ -101,7 +145,11 @@ export const getHospitalList = createAsyncThunk(
 export const addHospitalAPI = createAsyncThunk(
 	"Hospital/addHospitalAPI",
 	async (
-		body: { hospitalCreate: HospitalForm; sp7: HospitalForm["files"]["sp7"] },
+		body: {
+			hospitalCreate: HospitalForm;
+			sp7: HospitalForm["files"]["sp7"];
+			sp19: HospitalForm["files"]["sp19"];
+		},
 		thunkAPi
 	) => {
 		try {

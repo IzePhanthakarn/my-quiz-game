@@ -15,7 +15,10 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { setExportPages } from "@/modules/hospital/redux";
-import { HospitalForm, modelHospital } from "@/modules/hospital/redux/model";
+import {
+	HospitalForm,
+	modelHospital,
+} from "@/modules/hospital/redux/models/hospitalModel";
 import { exportMed5008Function } from "@/modules/hospital/service";
 import { rules } from "@/modules/hospital/field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
