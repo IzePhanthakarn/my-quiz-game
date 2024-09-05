@@ -3,11 +3,12 @@ import { SliceModel } from "@/redux/slices/model";
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { GetColumnBank, GetColumnPostal } from "../model/DoctorBankModel";
+import { GetColumnBank } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import PostalCodeDialog from "@/modules/doctor/DialogContent/PostCodeDialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
+import { GetColumnPostal } from "../model/DoctorPostalModel";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function DoctorBank() {
 								isOpen: true,
 								uniqueContent: (
 									<BankDialog
-										doctorBankList={doctorBankGrid}
+										doctorBankGrid={doctorBankGrid}
 										doctorCode={doctor.doctorCode}
 									/>
 								),
@@ -47,7 +48,12 @@ export default function DoctorBank() {
 							setDialog({
 								...dialog,
 								isOpen: true,
-								uniqueContent: <PostalCodeDialog />,
+								uniqueContent: (
+									<PostalCodeDialog
+										doctorPostalGrid={doctorPostalGrid}
+										doctorCode={doctor.doctorCode}
+									/>
+								),
 							})
 						)
 					}
@@ -56,11 +62,19 @@ export default function DoctorBank() {
 			</div>
 			<BaseGrid
 				rows={doctorBankGrid}
-				columns={GetColumnBank({ doctorBankGrid, dispatch })}
+				columns={GetColumnBank({
+					doctorBankGrid,
+					doctorCode: doctor.doctorCode,
+					dispatch,
+				})}
 			/>
 			<BaseGrid
 				rows={doctorPostalGrid}
-				columns={GetColumnPostal({ doctorPostalGrid, dispatch })}
+				columns={GetColumnPostal({
+					doctorPostalGrid,
+					doctorCode: doctor.doctorCode,
+					dispatch,
+				})}
 			/>
 		</div>
 	);

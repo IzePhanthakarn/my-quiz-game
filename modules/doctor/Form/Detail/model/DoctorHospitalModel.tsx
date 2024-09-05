@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const GetColumns = (props: Props) => {
-	const { doctorHospitalGrid, dispatch } = props;
+	const { doctorHospitalGrid, doctorCode, dispatch } = props;
 	const columns = useMemo(
 		() => [
 			{
@@ -26,8 +26,9 @@ export const GetColumns = (props: Props) => {
 			},
 			{
 				title: "เลขทะเบียน สปส",
-				dataIndex: "doctorCode",
-				key: "doctorCode",
+				render: () => {
+					return <p>{doctorCode}</p>;
+				},
 			},
 			{
 				title: "รหัสโรงพยาบาล",

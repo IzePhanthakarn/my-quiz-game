@@ -35,8 +35,9 @@ export const GetColumns = (props: Props) => {
 			},
 			{
 				title: "เลขทะเบียน สปส",
-				dataIndex: "doctorCode",
-				key: "doctorCode",
+				render: () => {
+					return <p>{doctor.doctorCode}</p>;
+				},
 			},
 			{
 				title: "วุฒิบัตรเฉพาะทาง",

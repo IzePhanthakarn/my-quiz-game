@@ -4,7 +4,7 @@ import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import _ from "lodash";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { handleDoctorDetailRows } from "./service";
+import { handleBankRows, handleDoctorDetailRows } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
@@ -13,12 +13,12 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
 interface Props {
-	doctorBankList: DoctorBankList[];
+	doctorBankGrid: DoctorBankList[];
 	doctorCode: string;
 	editId?: number;
 }
 
-interface Bank {
+export interface Bank {
 	bankAccountName: string;
 	bankDigitCode: string;
 	bankSortingCode: string;
@@ -33,12 +33,17 @@ const modelBank: Bank = {
 };
 
 export default function BankDialog(props: Props) {
-	// const { doctorBankList, doctorCode, editId } = props;
+	const { doctorBankGrid, doctorCode, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 	const [bank, setBank] = React.useState(modelBank);
 
 	useEffect(() => {
-		setBank(modelBank);
+		if (editId) {
+			const data = _.find(doctorBankGrid, ["id", editId]);
+			setBank({ ...bank, ...data });
+		} else {
+			setBank(modelBank);
+		}
 	}, []);
 
 	return (
@@ -88,7 +93,9 @@ export default function BankDialog(props: Props) {
 				iconPosition="end"
 				disabled={_.some(_.values(bank), (value) => value === "")}
 				onClick={() => {
-					console.log("bank", bank);
+					dispatch(
+						handleBankRows({ bank, doctorCode, doctorBankGrid, editId })
+					);
 				}}
 				label="บันทึก"
 			/>
