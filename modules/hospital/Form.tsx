@@ -15,7 +15,9 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
-	setHospitalAttachmentGrid,
+	setHospitalAttachmentFile1Grid,
+	setHospitalCertificateOfIncorporationAttachmentGrid,
+	// setHospitalAttachmentGrid,
 	setHospitalEtcFilesGrid,
 	setHospitalForm,
 	setHospitalSp19Grid,
@@ -77,7 +79,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		hospitalSp7,
 		hospitalSp19,
 		hospitalEtcFiles,
-		hospitalAttachment,
+		hospitalCertificateOfIncorporationAttachment,
+		hospitalAttachmentFile1,
 		isLoading,
 	} = useSelector(
 		(state: SliceModel) => ({
@@ -86,7 +89,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			hospitalSp7: state.hospital.hospitalSp7,
 			hospitalSp19: state.hospital.hospitalSp19,
 			hospitalEtcFiles: state.hospital.hospitalEtcFiles,
-			hospitalAttachment: state.hospital.hospitalAttachment,
+			hospitalCertificateOfIncorporationAttachment:
+				state.hospital.hospitalCertificateOfIncorporationAttachment,
+			hospitalAttachmentFile1: state.hospital.hospitalAttachmentFile1,
 			files: state.hospital.form.files,
 			isLoading: state.container.isLoading,
 		}),
@@ -108,8 +113,18 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					dispatch(
 						setHospitalEtcFilesGrid(modelHospital.hospitalEtcFiles.grid)
 					);
+					// dispatch(
+					// 	setHospitalAttachmentGrid(modelHospital.hospitalAttachment.grid)
+					// );
 					dispatch(
-						setHospitalAttachmentGrid(modelHospital.hospitalAttachment.grid)
+						setHospitalCertificateOfIncorporationAttachmentGrid(
+							modelHospital.hospitalCertificateOfIncorporationAttachment.grid
+						)
+					);
+					dispatch(
+						setHospitalAttachmentFile1Grid(
+							modelHospital.hospitalAttachmentFile1.grid
+						)
 					);
 				}
 				setIsInit(true);
@@ -808,6 +823,69 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			children: (
 				<>
 					<BaseHorizontalHeader
+						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalAttachmentFile1.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment: hospitalAttachmentFile1,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalAttachmentFile1.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalAttachmentFile1,
+												grid: {
+													...hospitalAttachmentFile1.grid,
+													page,
+												},
+											},
+											"AttachmentFile1"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/attachmentFile1"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													attachmentFile1: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
 						title={"สพ7"}
 						icons={<HomeFilled />}
 						className="mb-7"
@@ -981,13 +1059,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					<div className="grid grid-cols-12 gap-4">
 						<div className="col-span-8 ">
 							<BaseGrid
-								rows={hospitalAttachment.grid.data}
+								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
 								columns={HospitalAttachmentGrid({
-									hospitalAttachment: hospitalAttachment,
+									hospitalAttachment:
+										hospitalCertificateOfIncorporationAttachment,
 									dispatch: dispatch,
 									params: params,
 								})}
-								page={hospitalAttachment.grid.page}
+								page={hospitalCertificateOfIncorporationAttachment.grid.page}
 								loading={isLoading}
 								twoToneColor={true}
 								setPagination={(page) => {
@@ -995,8 +1074,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										fetchHospitalAttachmentList(
 											hospitalForm,
 											{
-												...hospitalAttachment,
-												grid: { ...hospitalAttachment.grid, page },
+												...hospitalCertificateOfIncorporationAttachment,
+												grid: {
+													...hospitalCertificateOfIncorporationAttachment.grid,
+													page,
+												},
 											},
 											"CertificateOfIncorporation"
 										)

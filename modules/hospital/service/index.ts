@@ -18,7 +18,8 @@ import {
 	updateHospitalSp7Api,
 } from "./api";
 import {
-	setHospitalAttachmentGrid,
+	setHospitalCertificateOfIncorporationAttachmentGrid,
+	setHospitalAttachmentFile1Grid,
 	setHospitalEtcFilesGrid,
 	setHospitalForm,
 	setHospitalGrid,
@@ -103,6 +104,8 @@ export const addHospital =
 				sp7: form?.files?.sp7,
 				sp19: form?.files?.sp19,
 				etcFiles: form?.files?.etcFiles,
+				certificateOfIncorporation: form?.files?.certificateOfIncorporation,
+				attachmentFile1: form?.files?.attachmentFile1,
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
@@ -133,6 +136,14 @@ export const initGetHospitalDetail =
 					response.payload,
 					modelHospitalAttachment,
 					"CertificateOfIncorporation"
+				)
+			);
+
+			dispatch(
+				fetchHospitalAttachmentList(
+					response.payload,
+					modelHospitalAttachment,
+					"AttachmentFile1"
 				)
 			);
 		}
@@ -225,7 +236,7 @@ export const fetchHospitalAttachmentList =
 	(
 		form: HospitalForm,
 		hospitalAttachment: HospitalAttachment,
-		fieldName: string
+		fieldName: "CertificateOfIncorporation" | "AttachmentFile1"
 	) =>
 	async (dispatch: AppDispatch) => {
 		const body: GetHospitalAttachmentList = {
@@ -241,15 +252,27 @@ export const fetchHospitalAttachmentList =
 		if (_.get(result, "error.message") === "Rejected") {
 			return;
 		}
-		dispatch(
-			setHospitalAttachmentGrid({
-				data: result.payload.content,
-				page: {
-					...hospitalAttachment.grid.page,
-					totalData: result.payload.totalElements,
-				},
-			})
-		);
+		if (fieldName === "CertificateOfIncorporation") {
+			await dispatch(
+				setHospitalCertificateOfIncorporationAttachmentGrid({
+					data: result.payload.content,
+					page: {
+						...hospitalAttachment.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		} else if (fieldName === "AttachmentFile1") {
+			await dispatch(
+				setHospitalAttachmentFile1Grid({
+					data: result.payload.content,
+					page: {
+						...hospitalAttachment.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
 	};
 
 export const updateHospital =
@@ -264,6 +287,7 @@ export const updateHospital =
 					sp19: form?.files?.sp19,
 					etcFiles: form?.files?.etcFiles,
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
+					attachmentFile1: form?.files?.attachmentFile1,
 				},
 			})
 		);

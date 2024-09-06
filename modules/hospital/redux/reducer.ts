@@ -61,10 +61,16 @@ export const hospitalReducers = {
 	) => {
 		state.hospitalEtcFiles.grid = action.payload;
 	},
-	setHospitalAttachmentGrid: (
+	setHospitalCertificateOfIncorporationAttachmentGrid: (
 		state: Hospital,
 		action: PayloadAction<HospitalAttachmentGrid>
 	) => {
-		state.hospitalAttachment.grid = action.payload;
+		state.hospitalCertificateOfIncorporationAttachment.grid = action.payload;
+	},
+	setHospitalAttachmentFile1Grid: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachmentGrid>
+	) => {
+		state.hospitalAttachmentFile1.grid = action.payload;
 	},
 };

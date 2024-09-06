@@ -105,6 +105,7 @@ export const updateHospitalApi = createAsyncThunk(
 				sp19: HospitalForm["files"]["sp19"];
 				etcFiles: HospitalForm["files"]["etcFiles"];
 				certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
+				attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
 			};
 			uuid: HospitalForm["uuid"];
 		},
@@ -204,6 +205,8 @@ export const addHospitalAPI = createAsyncThunk(
 			sp7: HospitalForm["files"]["sp7"];
 			sp19: HospitalForm["files"]["sp19"];
 			etcFiles: HospitalForm["files"]["etcFiles"];
+			certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
+			attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
 		},
 		thunkAPi
 	) => {

@@ -27,7 +27,8 @@ export interface Hospital {
 	hospitalSp7: HospitalSp7;
 	hospitalSp19: HospitalSp19;
 	hospitalEtcFiles: HospitalEtcFiles;
-	hospitalAttachment: HospitalAttachment;
+	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
+	hospitalAttachmentFile1: HospitalAttachment;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -117,6 +118,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 		sp19: UploadFile<any>[];
 		etcFiles: UploadFile<any>[];
 		certificateOfIncorporation: UploadFile<any>[];
+		attachmentFile1: UploadFile<any>[];
 	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
@@ -163,7 +165,8 @@ export const modelHospital: Hospital = {
 	hospitalSp7: { ...modelHospitalSp7 },
 	hospitalSp19: { ...modelHospitalSp19 },
 	hospitalEtcFiles: { ...modelHospitalEtcFiles },
-	hospitalAttachment: { ...modelHospitalAttachment },
+	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
+	hospitalAttachmentFile1: { ...modelHospitalAttachment },
 	grid: {
 		data: [],
 		page: {
@@ -208,6 +211,7 @@ export const modelHospital: Hospital = {
 			sp19: [],
 			etcFiles: [],
 			certificateOfIncorporation: [],
+			attachmentFile1: [],
 		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
