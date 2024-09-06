@@ -97,13 +97,21 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 			}));
 			return postalIdLabel;
 		case DROPDOWN_TYPE.HOSPITAL_TYPE:
+		case DROPDOWN_TYPE.HOSPITAL_CATEGORY:
+			const ltProperties: Option[] = result.content.map(
+				(e: LtPropertiesList) => ({
+					value: e.propertyCode,
+					label: e.propertyText,
+				})
+			);
+			return ltProperties;
 		case DROPDOWN_TYPE.JOB_TYPE:
 		case DROPDOWN_TYPE.DOCTOR_TYPE:
-			const data: Option[] = result.content.map((e: LtPropertiesList) => ({
+			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
 			}));
-			return data;
+			return medLtProperties;
 		case DROPDOWN_TYPE.TITLE:
 			const title: Option[] = result.map((e: Title) => ({
 				label: e.titleName,
@@ -142,7 +150,6 @@ export const findNameDisplay = (type: DROPDOWN_TYPE, value: any) => {
 			const doctorTypeResult = doctorType.find(
 				(e: LtPropertiesList) => e.propertyCode === value
 			);
-			console.log("doctorTypeResult?.propertyText", value);
 			return doctorTypeResult?.propertyText ?? null;
 		case DROPDOWN_TYPE.TITLE:
 			const title = JSON.parse(sessionStorage.getItem(type) ?? "[]");

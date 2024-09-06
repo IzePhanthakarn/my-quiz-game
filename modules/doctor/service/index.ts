@@ -16,6 +16,11 @@ import {
 } from "./api";
 import _ from "lodash";
 import { DoctorForm } from "../redux/form/model";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -89,7 +94,9 @@ export const initDoctorGrid =
 	};
 
 export const handleDoctorFormSubmit =
-	(doctorForm: DoctorForm, uuid: string) => async (dispatch: AppDispatch) => {
+	(doctorForm: DoctorForm, uuid: string, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
+		dispatch(setIsOpenBaseConfirmDialog(false));
 		let result;
 		dispatch(setIsLoading(true));
 		if (!_.isEmpty(uuid)) {
@@ -98,5 +105,27 @@ export const handleDoctorFormSubmit =
 			result = await dispatch(createDoctorForm(doctorForm));
 		}
 		dispatch(setIsLoading(false));
-		console.log("🚀 ~ file: index.ts:handleDoctorFormSubmit ~ result:", result);
+		let message = "";
+		let description = "";
+		if (_.get(result, "error.message") === "Rejected") {
+			if (!_.isEmpty(uuid)) message = BaseToastNotificationMessage.PATCH_ERROR;
+			else message = BaseToastNotificationMessage.INSERT_ERROR;
+			baseToastNotification({
+				message: message,
+				description: `${_.get(result, "error.message")}`,
+			});
+		} else {
+			if (!_.isEmpty(uuid)) {
+				description = "แก้ไขสำเร็จ";
+				message = BaseToastNotificationMessage.PATCH_SUCCESS;
+			} else {
+				description = "เพิ่มสำเร็จ";
+				message = BaseToastNotificationMessage.INSERT_SUCCESS;
+			}
+			router.push(LINKS.DOCTOR.link);
+			baseToastNotification({
+				message: message,
+				description: description,
+			});
+		}
 	};

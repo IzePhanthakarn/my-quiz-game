@@ -7,7 +7,7 @@ import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { handleDoctorFormSubmit, initGetDoctorForm } from "../service";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
@@ -20,7 +20,7 @@ import { handleSession } from "@/components/MedDropDown/service";
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
-
+	const router = useRouter();
 	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorForm: state.doctor.doctorForm,
@@ -42,8 +42,9 @@ const DoctorFormTabs = () => {
 		<BaseColumn className="bg-white p-2 h-full">
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
+				bodyDescriptionText="คุณต้องการบันทึก / แก้ไข ข้อมูลแพทย์ใช่หรือไม่"
 				confirmFunction={() => {
-					dispatch(handleDoctorFormSubmit(doctorForm, uuid as string));
+					dispatch(handleDoctorFormSubmit(doctorForm, uuid as string, router));
 				}}
 				cancelFunction={() => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
