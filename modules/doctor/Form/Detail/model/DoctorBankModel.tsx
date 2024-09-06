@@ -14,7 +14,6 @@ import { handleBankRows } from "@/modules/doctor/DialogContent/service";
 
 interface BankProps {
 	doctorBankGrid: DoctorBankList[];
-	doctorCode: string;
 	dispatch: AppDispatch;
 }
 

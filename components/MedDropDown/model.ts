@@ -10,6 +10,7 @@ export enum DROPDOWN_TYPE {
 	ADDRESS = "ADDRESS",
 	TITLE = "TITLE",
 	DOCTOR_TYPE = "DOCTOR_TYPE",
+	POSTAL_ID = "POSTAL_ID",
 }
 
 export enum API_METHOD {
@@ -61,6 +62,12 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 	[DROPDOWN_TYPE.ADDRESS]: {
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
+		sessionName: DROPDOWN_TYPE.ADDRESS,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[DROPDOWN_TYPE.POSTAL_ID]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
 		sessionName: DROPDOWN_TYPE.ADDRESS,
 		method: API_METHOD.GET,

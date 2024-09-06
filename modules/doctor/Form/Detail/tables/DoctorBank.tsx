@@ -6,7 +6,7 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { GetColumnBank } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
-import PostalCodeDialog from "@/modules/doctor/DialogContent/PostCodeDialog";
+import PostalCodeDialog from "@/modules/doctor/DialogContent/PostalIdDialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
 import { GetColumnPostal } from "../model/DoctorPostalModel";
 
@@ -31,12 +31,7 @@ export default function DoctorBank() {
 							setDialog({
 								...dialog,
 								isOpen: true,
-								uniqueContent: (
-									<BankDialog
-										doctorBankGrid={doctorBankGrid}
-										doctorCode={doctor.doctorCode}
-									/>
-								),
+								uniqueContent: <BankDialog doctorBankGrid={doctorBankGrid} />,
 							})
 						)
 					}
@@ -49,10 +44,7 @@ export default function DoctorBank() {
 								...dialog,
 								isOpen: true,
 								uniqueContent: (
-									<PostalCodeDialog
-										doctorPostalGrid={doctorPostalGrid}
-										doctorCode={doctor.doctorCode}
-									/>
+									<PostalCodeDialog doctorPostalGrid={doctorPostalGrid} />
 								),
 							})
 						)
@@ -64,7 +56,6 @@ export default function DoctorBank() {
 				rows={doctorBankGrid}
 				columns={GetColumnBank({
 					doctorBankGrid,
-					doctorCode: doctor.doctorCode,
 					dispatch,
 				})}
 			/>
@@ -72,7 +63,6 @@ export default function DoctorBank() {
 				rows={doctorPostalGrid}
 				columns={GetColumnPostal({
 					doctorPostalGrid,
-					doctorCode: doctor.doctorCode,
 					dispatch,
 				})}
 			/>

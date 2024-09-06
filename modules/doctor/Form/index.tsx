@@ -5,23 +5,54 @@ import _ from "lodash";
 import dynamic from "next/dynamic";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { AppDispatch } from "@/redux/config/configStore";
-import { useDispatch } from "react-redux";
-import { initGetDoctorForm } from "../service";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { handleDoctorFormSubmit, initGetDoctorForm } from "../service";
 import { useParams } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import { SliceModel } from "@/redux/slices/model";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { handleSession } from "@/components/MedDropDown/service";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 
+	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
+		(state: SliceModel) => ({
+			doctorForm: state.doctor.doctorForm,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
+		}),
+		shallowEqual
+	);
+
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
 	}, [uuid]);
 
+	useEffect(() => {
+		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
+		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
+	}, []);
+
 	return (
 		<BaseColumn className="bg-white p-2 h-full">
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				confirmFunction={() => {
+					dispatch(handleDoctorFormSubmit(doctorForm, uuid as string));
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+			/>
+
 			{itemsTables?.map((item, index: number) => (
 				<BaseCollapse
 					key={item.key}
@@ -34,6 +65,7 @@ const DoctorFormTabs = () => {
 					size="large"
 					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
 					label="บันทึก"
+					onClick={() => dispatch(setIsOpenBaseConfirmDialog(true))}
 				/>
 			</div>
 		</BaseColumn>

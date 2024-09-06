@@ -27,12 +27,7 @@ export default function Training() {
 						setDialog({
 							...dialog,
 							isOpen: true,
-							uniqueContent: (
-								<TraningDialog
-									trainingGrid={trainingGrid}
-									doctorCode={doctor.doctorCode}
-								/>
-							),
+							uniqueContent: <TraningDialog trainingGrid={trainingGrid} />,
 						})
 					)
 				}
@@ -43,7 +38,6 @@ export default function Training() {
 				rows={trainingGrid}
 				columns={GetColumns({
 					trainingGrid,
-					doctorCode: doctor.doctorCode,
 					dispatch,
 				})}
 			/>

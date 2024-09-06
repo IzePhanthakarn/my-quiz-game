@@ -9,13 +9,13 @@ import {
 
 export const getCourseCertificateDetail = createAsyncThunk(
 	"Medical/getCourseCertificateDetail",
-	async (uuid: string, thunkAPi) => {
+	async (uuid: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.COURSE_CERTIFICATE.GET_BY_UUID}/${uuid}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -27,40 +27,40 @@ export const updateCourseCertificateApi = createAsyncThunk(
 			body: CourseCertificateForm;
 			uuid: CourseCertificateForm["uuid"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.COURSE_CERTIFICATE.UPDATE_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const getCourseCertificateList = createAsyncThunk(
 	"Medical/getCourseCertificateList",
-	async (body: GetCourseCertificateList, thunkAPi) => {
+	async (body: GetCourseCertificateList, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.COURSE_CERTIFICATE.GET_LIST}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const addCourseCertificateAPI = createAsyncThunk(
 	"Medical/addCourseCertificateAPI",
-	async (body: CourseCertificateForm, thunkAPi) => {
+	async (body: CourseCertificateForm, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.COURSE_CERTIFICATE.ADD}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

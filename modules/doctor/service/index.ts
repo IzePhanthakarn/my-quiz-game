@@ -8,8 +8,14 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
 import { DoctorList } from "../redux/master/model";
-import { getDoctorForm, getDoctorList } from "./api";
+import {
+	createDoctorForm,
+	getDoctorForm,
+	getDoctorList,
+	updateDoctorForm,
+} from "./api";
 import _ from "lodash";
+import { DoctorForm } from "../redux/form/model";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -37,14 +43,14 @@ export const initGetDoctorForm =
 		const response = await dispatch(getDoctorForm(uuid));
 		const data = response.payload;
 		const result = {
-			...data,
+			doctorData: data.doctorData,
 			doctorBank: mapIdByIndex(data.doctorBank),
 			doctorDetail: mapIdByIndex(data.doctorDetail),
 			doctorHospital: mapIdByIndex(data.doctorHospital),
 			doctorTraining: mapIdByIndex(data.training),
 			doctorPostal: mapIdByIndex(data.doctorPostal),
 		};
-		dispatch(setDoctorForm(await result));
+		dispatch(setDoctorForm(result));
 	};
 
 // List
@@ -80,4 +86,17 @@ export const initDoctorGrid =
 		const totalData = data.payload.totalElements;
 		dispatch(setTotalData(totalData));
 		dispatch(setDoctorGrid(grid));
+	};
+
+export const handleDoctorFormSubmit =
+	(doctorForm: DoctorForm, uuid: string) => async (dispatch: AppDispatch) => {
+		let result;
+		dispatch(setIsLoading(true));
+		if (!_.isEmpty(uuid)) {
+			result = await dispatch(updateDoctorForm({ params: doctorForm, uuid }));
+		} else {
+			result = await dispatch(createDoctorForm(doctorForm));
+		}
+		dispatch(setIsLoading(false));
+		console.log("🚀 ~ file: index.ts:handleDoctorFormSubmit ~ result:", result);
 	};

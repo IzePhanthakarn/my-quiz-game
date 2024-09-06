@@ -1,4 +1,4 @@
-import PostalCodeDialog from "@/modules/doctor/DialogContent/PostCodeDialog";
+import PostalIdDialog from "@/modules/doctor/DialogContent/PostalIdDialog";
 import { handlePostalRows } from "@/modules/doctor/DialogContent/service";
 import { DoctorPostalList } from "@/modules/doctor/redux/form/model";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -11,7 +11,6 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 
 interface PostalProps {
 	doctorPostalGrid: DoctorPostalList[];
-	doctorCode: string;
 	dispatch: AppDispatch;
 }
 
@@ -48,7 +47,7 @@ export const GetColumnPostal = (props: PostalProps) => {
 								dispatch(
 									setDialog({
 										isOpen: true,
-										uniqueContent: <PostalCodeDialog {...props} editId={id} />,
+										uniqueContent: <PostalIdDialog {...props} editId={id} />,
 									})
 								);
 							}}

@@ -8,10 +8,11 @@ import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGri
 import { setDialog } from "@/redux/slices/dialog";
 import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
 import { handleTrainingRows } from "@/modules/doctor/DialogContent/service";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 interface Props {
 	trainingGrid: TrainingList[];
-	doctorCode: string;
 	dispatch: AppDispatch;
 }
 
@@ -38,6 +39,10 @@ export const GetColumns = (props: Props) => {
 				title: "วันที่อบรม",
 				dataIndex: "trainingDate",
 				key: "trainingDate",
+				render: (_: any, { trainingDate }: any) => {
+					const date = dayjs(trainingDate).format(DateFormat.DDMMYYYY);
+					return <p>{date}</p>;
+				},
 			},
 			{
 				title: "คำสั่ง",

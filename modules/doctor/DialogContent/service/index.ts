@@ -11,8 +11,10 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 import { mapIdByIndex } from "@/utils";
 import _ from "lodash";
 import {
+	setDoctorBankList,
 	setDoctorDetailList,
 	setDoctorHospitalList,
+	setDoctorPostalList,
 	setTrainingList,
 } from "../../redux";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
@@ -22,24 +24,17 @@ import { Bank } from "../BankDialog";
 export const handleDoctorDetailRows =
 	(params: {
 		diplomaType?: string;
-		doctorCode?: string;
 		doctorDetailGrid: DoctorDetailList[];
 		editId?: number;
 		isDelete?: boolean;
+		uuid?: string | null;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const {
-			diplomaType = "",
-			doctorCode = "",
-			doctorDetailGrid,
-			editId,
-			isDelete,
-		} = params;
+		const { diplomaType = "", doctorDetailGrid, editId, isDelete } = params;
 		const newDoctorDetail: DoctorDetailList = {
 			id: 0,
-			doctorCode: doctorCode,
 			diplomaType: diplomaType,
-			uuid: "",
+			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -60,29 +55,21 @@ export const handleDoctorDetailRows =
 export const handleHospitalRows =
 	(params: {
 		hospital?: DoctorHospital;
-		doctorCode?: string;
 		doctorHospitalGrid: DoctorHospitalList[];
 		editId?: number;
 		isDelete?: boolean;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const {
-			doctorCode = "",
-			doctorHospitalGrid,
-			editId,
-			isDelete,
-			hospital,
-		} = params;
+		const { doctorHospitalGrid, editId, isDelete, hospital } = params;
 
 		const newDoctorHospital: DoctorHospitalList = {
 			id: 0,
-			doctorCode: doctorCode,
 			hospitalWcfCode: hospital?.hospitalWcfCode ?? "",
 			jobType: hospital?.jobType ?? "",
 			clinicCode: null,
 			position: hospital?.position ?? "",
 			hospitalWcfName: hospital?.hospitalName ?? "",
-			uuid: "",
+			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -103,26 +90,18 @@ export const handleHospitalRows =
 export const handleTrainingRows =
 	(params: {
 		training?: TraningState;
-		doctorCode?: string;
 		trainingGrid: TrainingList[];
 		editId?: number;
 		isDelete?: boolean;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const {
-			doctorCode = "",
-			trainingGrid,
-			editId,
-			isDelete,
-			training,
-		} = params;
+		const { trainingGrid, editId, isDelete, training } = params;
 
 		const year = (training?.trainingDate ?? "").split("-")[0];
 
 		const newTraining: TrainingList = {
 			id: 0,
-			doctorCode: doctorCode,
-			uuid: "",
+			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -131,7 +110,7 @@ export const handleTrainingRows =
 			trainingNo: training?.trainingNo ?? "",
 			trainingTime: "",
 			trainingYear: year,
-			trainingDate: training?.trainingDate ?? "",
+			trainingDate: `${training?.trainingDate ?? ""}T00:00:00`,
 		};
 
 		const newGrid = _.cloneDeep(trainingGrid);
@@ -161,17 +140,15 @@ export const handleHospital = (
 export const handleBankRows =
 	(params: {
 		bank?: Bank;
-		doctorCode?: string;
 		doctorBankGrid: DoctorBankList[];
 		editId?: number;
 		isDelete?: boolean;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const { bank, doctorCode = "", doctorBankGrid, editId, isDelete } = params;
+		const { bank, doctorBankGrid, editId, isDelete } = params;
 		const newDoctorDetail: DoctorBankList = {
 			id: 0,
-			doctorCode: doctorCode,
-			uuid: "",
+			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -189,36 +166,28 @@ export const handleBankRows =
 			if (isDelete) newGrid.splice(index, 1);
 			else newGrid[index] = { ...newDoctorDetail, id: editId };
 		} else newGrid.push(newDoctorDetail);
-		dispatch(setDoctorDetailList(mapIdByIndex(newGrid)));
+		dispatch(setDoctorBankList(mapIdByIndex(newGrid)));
 		dispatch(setIsOpenDialog(false));
 	};
 
 export const handlePostalRows =
 	(params: {
-		postalCode?: string;
-		doctorCode?: string;
+		postalId?: string;
 		doctorPostalGrid: DoctorPostalList[];
 		editId?: number;
 		isDelete?: boolean;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const {
-			postalCode,
-			doctorCode = "",
-			doctorPostalGrid,
-			editId,
-			isDelete,
-		} = params;
+		const { postalId = "", doctorPostalGrid, editId, isDelete } = params;
 		const newDoctorDetail: DoctorPostalList = {
 			id: 0,
-			doctorCode: doctorCode,
-			uuid: "",
+			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
 			updatedDate: "",
 			updatedBy: "",
-			postalId: postalCode ?? "",
+			postalId: postalId,
 		};
 
 		const newGrid = _.cloneDeep(doctorPostalGrid);
@@ -227,6 +196,6 @@ export const handlePostalRows =
 			if (isDelete) newGrid.splice(index, 1);
 			else newGrid[index] = { ...newDoctorDetail, id: editId };
 		} else newGrid.push(newDoctorDetail);
-		dispatch(setDoctorDetailList(mapIdByIndex(newGrid)));
+		dispatch(setDoctorPostalList(mapIdByIndex(newGrid)));
 		dispatch(setIsOpenDialog(false));
 	};

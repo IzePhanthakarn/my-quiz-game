@@ -14,7 +14,7 @@ export const minioUpload = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -31,7 +31,7 @@ export const minioUploadMultiple = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -48,7 +48,7 @@ export const minioDownload = createAsyncThunk(
 
 			return { url, fileName };
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

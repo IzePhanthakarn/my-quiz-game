@@ -8,6 +8,8 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
 import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
 import { handleHospitalRows } from "@/modules/doctor/DialogContent/service";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { LtPropertiesForm } from "@/modules/lt-properties/redux/model";
 
 interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
@@ -44,6 +46,15 @@ export const GetColumns = (props: Props) => {
 				title: "ลักษณะงานที่รับผิดชอบ",
 				dataIndex: "jobType",
 				key: "jobType",
+				render: (_: any, { jobType }: any) => {
+					const sessionJobType = JSON.parse(
+						sessionStorage.getItem(DROPDOWN_TYPE.JOB_TYPE) ?? "[]"
+					);
+					const data: LtPropertiesForm[] = sessionJobType.filter(
+						(item: LtPropertiesForm) => item.propertyCode === jobType
+					);
+					return <p>{data[0]?.propertyText ?? ""}</p>;
+				},
 			},
 			{
 				title: "ตำแหน่ง",
