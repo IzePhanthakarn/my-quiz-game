@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const minioUpload = createAsyncThunk(
 	"Medical/minioUpload",
-	async (body: FormData, thunkApi) => {
+	async (body: FormData, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.UPLOAD}`;
 			const response = await axios.post(apiPath, body, {
@@ -21,7 +21,7 @@ export const minioUpload = createAsyncThunk(
 
 export const minioUploadMultiple = createAsyncThunk(
 	"Medical/minioUploadMultiple",
-	async (body: FormData, thunkApi) => {
+	async (body: FormData, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.UPLOAD_MULTIPLE}`;
 			const response = await axios.post(apiPath, body, {
@@ -38,7 +38,7 @@ export const minioUploadMultiple = createAsyncThunk(
 
 export const minioDownload = createAsyncThunk(
 	"Medical/minioDownload",
-	async (fileName: string, thunkApi) => {
+	async (fileName: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.DOWNLOAD}${fileName}`;
 			const response = await axios.get(apiPath, {
