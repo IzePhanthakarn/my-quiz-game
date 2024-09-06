@@ -14,13 +14,13 @@ import { useMemo } from "react";
 export const GetHospitalColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
-			{
-				title: "สถานะ",
-				key: "isActive",
-				dataIndex: "isActive",
-				width: 150,
-				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-			},
+			// {
+			// 	title: "สถานะ",
+			// 	key: "isActive",
+			// 	dataIndex: "isActive",
+			// 	width: 150,
+			// 	render: (_, { isActive }) => <StatusIndicator status={isActive} />,
+			// },
 			{
 				sorter: true,
 				key: "hospitalWcfCode",
