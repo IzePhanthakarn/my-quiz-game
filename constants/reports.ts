@@ -1,10 +1,14 @@
 export enum REPORT_TYPES {
+	MED01001 = "med01001",
 	MED5008 = "med5008",
 	MED5009 = "med5009",
 	MED5012 = "med5012",
 }
 
 export const REPORT_PAGES = {
+	[REPORT_TYPES.MED01001]: {
+		reportName: "med01001",
+	},
 	[REPORT_TYPES.MED5008]: {
 		reportName: "med5008",
 	},
