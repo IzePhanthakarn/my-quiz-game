@@ -63,15 +63,7 @@ pipelines:
           <<: *SetEnvironmentVariables
       - step:
           <<: *BuildImage
-    develop:
-      - step:
-          deployment: development
-          <<: *SetEnvironmentVariables
-      - step:
-          <<: *BuildImage
-      - step:
-          <<: *Deploy
-    dev-tg:
+    dev:
       - step:
           deployment: development
           <<: *SetEnvironmentVariables
