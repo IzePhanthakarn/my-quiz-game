@@ -5,9 +5,8 @@ import { ScopesPermissions } from "./model";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
-import { Diploma, DiplomaForm } from "@/modules/diploma/redux/model";
+import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
-import { DiplomaList } from "@/modules/diploma/redux/master/model";
 
 export function getCurrentDateString() {
 	return dayjs().format(DateFormat.DDMMYYYY).toString();

@@ -37,10 +37,7 @@ export default function DoctorDetails() {
 							...dialog,
 							isOpen: true,
 							uniqueContent: (
-								<DiplomaDialog
-									doctorDetailGrid={doctorDetailGrid}
-									doctor={doctor}
-								/>
+								<DiplomaDialog doctorDetailGrid={doctorDetailGrid} />
 							),
 						})
 					);

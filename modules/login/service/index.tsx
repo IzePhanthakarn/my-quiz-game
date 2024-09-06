@@ -8,7 +8,7 @@ import _ from "lodash";
 
 export const getToken = createAsyncThunk(
 	"User/getToken",
-	async (params: Login, thunkAPi) => {
+	async (params: Login, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.GET_ACCESS_TOKEN}`;
 			const response = await axios.post(apiPath, null, {
@@ -24,20 +24,20 @@ export const getToken = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const getPage = createAsyncThunk(
 	"Users/getPageAccess",
-	async (username: string, thunkAPi) => {
+	async (username: string, thunkAPI) => {
 		try {
 			const apiPath = `https://api-dev-wcf.soilfish.co/ums/users/${username}/page-accesses`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

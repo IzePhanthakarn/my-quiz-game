@@ -28,10 +28,7 @@ export default function DoctorHospital() {
 							...dialog,
 							isOpen: true,
 							uniqueContent: (
-								<HospitalDialog
-									doctorHospitalGrid={doctorHospitalGrid}
-									doctorCode={doctor.doctorCode}
-								/>
+								<HospitalDialog doctorHospitalGrid={doctorHospitalGrid} />
 							),
 						})
 					)

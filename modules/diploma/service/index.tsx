@@ -28,13 +28,13 @@ export const diplomaPagination: DiplomaPagination = {
 
 export const getDiplomaList = createAsyncThunk(
 	"Medical/getDiplomaDetail",
-	async (params: DiplomaPagination, thunkAPi) => {
+	async (params: DiplomaPagination, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.GET_DIPLOMA_PAGE}`;
 			const response = await axios.post(apiPath, params);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

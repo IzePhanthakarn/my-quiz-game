@@ -1,8 +1,5 @@
 "use client";
 
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { TrainingList } from "@/modules/doctor/redux/form/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useMemo } from "react";
@@ -11,10 +8,11 @@ import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGri
 import { setDialog } from "@/redux/slices/dialog";
 import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
 import { handleTrainingRows } from "@/modules/doctor/DialogContent/service";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 interface Props {
 	trainingGrid: TrainingList[];
-	doctorCode: string;
 	dispatch: AppDispatch;
 }
 
@@ -41,6 +39,10 @@ export const GetColumns = (props: Props) => {
 				title: "วันที่อบรม",
 				dataIndex: "trainingDate",
 				key: "trainingDate",
+				render: (_: any, { trainingDate }: any) => {
+					const date = dayjs(trainingDate).format(DateFormat.DDMMYYYY);
+					return <p>{date}</p>;
+				},
 			},
 			{
 				title: "คำสั่ง",

@@ -43,26 +43,26 @@ export const clinicPagination: ClinicPagination = {
 
 export const getClinicList = createAsyncThunk(
 	"Medical/getClinicDetail",
-	async (params: ClinicPagination, thunkAPi) => {
+	async (params: ClinicPagination, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_PAGE}`;
 			const response = await axios.post(apiPath, params);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const getClinicDetail = createAsyncThunk(
 	"Medical/getClinicDetail",
-	async (id: string, thunkAPi) => {
+	async (id: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.GET_CLINIC_DETAIL}/${id}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -114,14 +114,14 @@ export const createClinicApi = createAsyncThunk(
 			clinicName: ClinicDetail["clinicName"];
 			isActive: ClinicDetail["isActive"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.CREATE_CLINIC}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -158,14 +158,14 @@ export const updateClinicApi = createAsyncThunk(
 			};
 			uuid: ClinicDetail["uuid"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.UPDATE_CLINIC}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

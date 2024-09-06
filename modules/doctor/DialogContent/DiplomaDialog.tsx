@@ -3,39 +3,42 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { handleDoctorDetailRows } from "./service";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
-import { setOnCancelDialog } from "@/redux/slices/dialog";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SliceModel } from "@/redux/slices/model";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
-	doctor: DoctorData;
 	editId?: number;
 }
 
 export default function DiplomaDialog(props: Props) {
-	const { doctorDetailGrid, doctor, editId } = props;
+	const { doctorDetailGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 
 	const [diplomaType, setDiplomaType] = React.useState("");
+	const [uuid, setUuid] = React.useState<string | null>(null);
+
+	const { isOpen } = useSelector(
+		(state: SliceModel) => ({
+			isOpen: state.dialog.isOpen,
+		}),
+		shallowEqual
+	);
 
 	useEffect(() => {
 		setDiplomaType("");
-	}, []);
-
-	useEffect(() => {
 		if (editId) {
 			const data = _.find(doctorDetailGrid, ["id", editId]);
 			setDiplomaType(data?.diplomaType ?? "");
-		} else {
-			setDiplomaType("");
+			setUuid(data?.uuid ?? null);
 		}
-	}, [doctorDetailGrid, editId]);
+	}, [doctorDetailGrid, isOpen, editId]);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
@@ -50,12 +53,6 @@ export default function DiplomaDialog(props: Props) {
 					getValue={(e) => setDiplomaType(e)}
 					value={_.isEmpty(diplomaType) ? null : diplomaType}
 				/>
-				{/* <BaseDropDown
-					type="diploma"
-					getValue={(e) => {
-						setDiplomaType(e);
-					}}
-				/> */}
 			</div>
 			<BaseButton
 				className="mt-2"
@@ -66,9 +63,9 @@ export default function DiplomaDialog(props: Props) {
 					dispatch(
 						handleDoctorDetailRows({
 							diplomaType: diplomaType,
-							doctorCode: doctor.doctorCode,
 							doctorDetailGrid,
 							editId,
+							uuid,
 						})
 					);
 				}}

@@ -17,13 +17,6 @@ export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
 			{
-				title: "สถานะ",
-				dataIndex: "isActive",
-				key: "isActive",
-				width: 150,
-				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-			},
-			{
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
@@ -115,6 +108,13 @@ export const GetColumns = (router: AppRouterInstance) => {
 				),
 			},
 			{
+				title: "สถานะ",
+				dataIndex: "isActive",
+				key: "isActive",
+				width: 150,
+				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
+			},
+			{
 				title: "คำสั่ง",
 				dataIndex: "uuid",
 				key: "uuid",
@@ -126,7 +126,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 				),
 			},
 		],
-		[router]
+		[]
 	);
 	return columns;
 };

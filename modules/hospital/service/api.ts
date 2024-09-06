@@ -13,13 +13,13 @@ import { GetHospitalAttachmentList } from "../redux/models/attachmentModel";
 
 export const getHospitalDetail = createAsyncThunk(
 	"Hospital/getHospitalDetail",
-	async (uuid: string, thunkAPi) => {
+	async (uuid: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.GET_BY_UUID}/${uuid}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -27,13 +27,13 @@ export const getHospitalDetail = createAsyncThunk(
 export const getHospitalSp7List = createAsyncThunk(
 	"Hospital/Sp7/List",
 
-	async (body: GetHospitalSp7List, thunkAPi) => {
+	async (body: GetHospitalSp7List, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.SP7.GET_LIST}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -41,13 +41,13 @@ export const getHospitalSp7List = createAsyncThunk(
 export const getHospitalSp7ListByHospitalUuid = createAsyncThunk(
 	"Hospital/Sp7/List",
 
-	async (body: GetHospitalSp7List, thunkAPi) => {
+	async (body: GetHospitalSp7List, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.SP7.GET_LIST_BY_HOSPITAL_UUID}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -109,14 +109,14 @@ export const updateHospitalApi = createAsyncThunk(
 			};
 			uuid: HospitalForm["uuid"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.UPDATE_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -130,14 +130,14 @@ export const updateHospitalSp7Api = createAsyncThunk(
 			};
 			uuid: HospitalForm["uuid"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.SP7.UPDATE_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -186,13 +186,13 @@ export const updateHospitalEtcFilesApi = createAsyncThunk(
 
 export const getHospitalList = createAsyncThunk(
 	"Hospital/getHospitalList",
-	async (body: GetHospitalList, thunkAPi) => {
+	async (body: GetHospitalList, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.GET_LIST}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -208,34 +208,34 @@ export const addHospitalAPI = createAsyncThunk(
 			certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
 			attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ADD}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const exportMed5008Api = createAsyncThunk(
 	"Hospital/exportMed5008Api",
-	async (body: ExportPages["med5008"], thunkAPi) => {
+	async (body: ExportPages["med5008"], thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PAGES.MED5008}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const handleUploadSp7HospitalApi = createAsyncThunk(
 	"Hospital/handleUploadSp7HospitalApi",
-	async (body: FormData, thunkApi) => {
+	async (body: FormData, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.UPLOAD_SP7}`;
 			const response = await axios.post(apiPath, body, {
@@ -245,7 +245,37 @@ export const handleUploadSp7HospitalApi = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
+export const exportExcelMed5012 = createAsyncThunk(
+	"Hospital/exportMed5012Api",
+	async (body: ExportPages["med5012"], thunkAPI) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PAGES.MED5012}`;
+			const response = await axios.post(apiPath, body, {
+				responseType: "arraybuffer",
+			});
+			return response.data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
+export const exportPdfMed5012 = createAsyncThunk(
+	"Hospital/exportMed5012Api",
+	async (body: ExportPages["med5012"], thunkAPI) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.EXPORT_PDF.MED5012}`;
+			const response = await axios.post(apiPath, body, {
+				responseType: "arraybuffer",
+			});
+			return response.data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
