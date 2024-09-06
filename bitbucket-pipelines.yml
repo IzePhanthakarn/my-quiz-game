@@ -71,7 +71,7 @@ pipelines:
           <<: *BuildImage
       - step:
           <<: *Deploy
-    dev:
+    dev-tg:
       - step:
           deployment: development
           <<: *SetEnvironmentVariables
