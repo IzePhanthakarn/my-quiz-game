@@ -89,7 +89,7 @@ export default function Doctor() {
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
 				AddLabel="สร้างแพทย์"
-				Header="Doctor"
+				Header="ข้อมูลแพทย์"
 				TotalItems={page.totalData}
 				SearchButtonFunction={() => {}}
 			/>
