@@ -14,10 +14,21 @@ import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
-import { setHospitalForm, setHospitalSp7Grid } from "./redux";
-import { HospitalForm, modelHospital } from "./redux/model";
+import {
+	setHospitalAttachmentFile1Grid,
+	setHospitalCertificateOfIncorporationAttachmentGrid,
+	// setHospitalAttachmentGrid,
+	setHospitalEtcFilesGrid,
+	setHospitalForm,
+	setHospitalSp19Grid,
+	setHospitalSp7Grid,
+} from "./redux";
+import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
 import {
 	addHospital,
+	fetchHospitalAttachmentList,
+	fetchHospitalEtcFilesList,
+	fetchHospitalSp19List,
 	fetchHospitalSp7List,
 	// handleUploadHospital,
 	initGetHospitalDetail,
@@ -41,6 +52,9 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 // import { setMultipleFiles } from "../minio/redux";
+
+import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
+
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Sp7Grid } from "./columns/sp7Grid";
 import API_PATH from "@/constants/api";
@@ -48,6 +62,9 @@ import API_PATH from "@/constants/api";
 import Cookies from "js-cookie";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
+import { Sp19Grid } from "./columns/sp19Grid";
+import { EtcFilesGrid } from "./columns/etcFilesGrid";
+import { HospitalAttachmentGrid } from "./columns/hospitalAttachmentGrid";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -60,12 +77,21 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		isOpenBaseConfirmDialog,
 		files,
 		hospitalSp7,
+		hospitalSp19,
+		hospitalEtcFiles,
+		hospitalCertificateOfIncorporationAttachment,
+		hospitalAttachmentFile1,
 		isLoading,
 	} = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
 			hospitalSp7: state.hospital.hospitalSp7,
+			hospitalSp19: state.hospital.hospitalSp19,
+			hospitalEtcFiles: state.hospital.hospitalEtcFiles,
+			hospitalCertificateOfIncorporationAttachment:
+				state.hospital.hospitalCertificateOfIncorporationAttachment,
+			hospitalAttachmentFile1: state.hospital.hospitalAttachmentFile1,
 			files: state.hospital.form.files,
 			isLoading: state.container.isLoading,
 		}),
@@ -78,9 +104,28 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
 					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
+					await dispatch(fetchHospitalSp19List(params, hospitalSp19));
+					await dispatch(fetchHospitalEtcFilesList(params, hospitalEtcFiles));
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
 					dispatch(setHospitalSp7Grid(modelHospital.hospitalSp7.grid));
+					dispatch(setHospitalSp19Grid(modelHospital.hospitalSp19.grid));
+					dispatch(
+						setHospitalEtcFilesGrid(modelHospital.hospitalEtcFiles.grid)
+					);
+					// dispatch(
+					// 	setHospitalAttachmentGrid(modelHospital.hospitalAttachment.grid)
+					// );
+					dispatch(
+						setHospitalCertificateOfIncorporationAttachmentGrid(
+							modelHospital.hospitalCertificateOfIncorporationAttachment.grid
+						)
+					);
+					dispatch(
+						setHospitalAttachmentFile1Grid(
+							modelHospital.hospitalAttachmentFile1.grid
+						)
+					);
 				}
 				setIsInit(true);
 			}
@@ -148,6 +193,55 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 			// }
 		}
+
+		if (files?.sp19?.length) {
+			const errorArray = [];
+			errorArray.push({
+				name: "sp19StartDate",
+				errors: _.isEmpty(form.getFieldsValue().sp19StartDate)
+					? [`กรุณาใส่ ${names.sp19StartDate}`]
+					: undefined,
+			});
+			errorArray.push({
+				name: "sp19EndDate",
+				errors: _.isEmpty(form.getFieldsValue().sp19EndDate)
+					? [`กรุณาใส่ ${names.sp19EndDate}`]
+					: undefined,
+			});
+			form.setFields(errorArray);
+
+			/**
+			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
+			 * ถ้าใช่จะ return true
+			 * */
+			const checkCondition = _.every(errorArray, (obj) => {
+				return _.isUndefined(obj.errors);
+			});
+
+			// /**
+			//  * จาก checkCondition ด้านบน จะ return true หาก errors key ทุกตัวเป็น undefined
+			//  * แต่ต้องการเช็คเงื่อนไขว่า ถ้าทุกตัว "ไม่ใช่" undefined จึงจะทำเงื่อนไขใดๆ
+			//  */
+			if (!checkCondition) {
+				return;
+			}
+			// if (checkCondition) {
+			// await dispatch(
+			// 	handleUploadHospital(files.sp19, "hospital/sp19", hospitalForm)
+			// );
+
+			// dispatch(
+			// 	setHospitalForm({
+			// 		...hospitalForm,
+			// 		files: { sp19: [] },
+			// 	})
+			// );
+			// } else {
+			// return;
+
+			// }
+		}
+
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
@@ -479,62 +573,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/> */}
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseDatePicker
-							label={names.sp7StartDated}
-							itemName="sp7StartDated"
-							rules={rules.sp7StartDatedSchema}
-							value={hospitalForm.sp7StartDated}
-							onChangeDateFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										sp7StartDated: e,
-									})
-								);
-							}}
-						/>
-						<BaseDatePicker
-							label={names.sp7EndDate}
-							itemName="sp7EndDate"
-							rules={rules.sp7EndDateSchema}
-							value={hospitalForm.sp7EndDate}
-							onChangeDateFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										sp7EndDate: e,
-									})
-								);
-							}}
-						/>
-						<BaseDatePicker
-							label={names.sp19StartDate}
-							itemName="sp19StartDate"
-							rules={rules.sp19StartDateSchema}
-							value={hospitalForm.sp19StartDate}
-							onChangeDateFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										sp19StartDate: e,
-									})
-								);
-							}}
-						/>
-						<BaseDatePicker
-							label={names.sp19EndDate}
-							itemName="sp19EndDate"
-							rules={rules.sp19EndDateSchema}
-							value={hospitalForm.sp19EndDate}
-							onChangeDateFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										sp19EndDate: e,
-									})
-								);
-							}}
-						/>
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.ssoProject}
@@ -773,6 +811,366 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		},
 	];
 
+	const uploadFilesSection: CollapseProps["items"] = [
+		{
+			key: "5",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
+					description="ข้อมูลภาพรวมและรายละเอียดกองทุนเงินทดแทนสำหรับสถานพยาบาล"
+				/>
+			),
+			children: (
+				<>
+					<BaseHorizontalHeader
+						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalAttachmentFile1.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment: hospitalAttachmentFile1,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalAttachmentFile1.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalAttachmentFile1,
+												grid: {
+													...hospitalAttachmentFile1.grid,
+													page,
+												},
+											},
+											"AttachmentFile1"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/attachmentFile1"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													attachmentFile1: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"สพ7"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalSp7.grid.data}
+								columns={Sp7Grid({
+									hospitalSp7: hospitalSp7,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalSp7.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalSp7List(params, {
+											...hospitalSp7,
+											grid: { ...hospitalSp7.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร สพ7"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className="mb-7"
+							/>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
+								<BaseDatePicker
+									label={names.sp7StartDated}
+									itemName="sp7StartDated"
+									rules={rules.sp7StartDatedSchema}
+									value={hospitalForm.sp7StartDated}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp7StartDated: e,
+											})
+										);
+									}}
+								/>
+								<BaseDatePicker
+									label={names.sp7EndDate}
+									itemName="sp7EndDate"
+									rules={rules.sp7EndDateSchema}
+									value={hospitalForm.sp7EndDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp7EndDate: e,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									// backgroundColor="BBC8CB"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/sp7"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, sp7: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+					<BaseHorizontalHeader
+						title={"สพ19"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalSp19.grid.data}
+								columns={Sp19Grid({
+									hospitalSp19: hospitalSp19,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalSp19.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalSp19List(params, {
+											...hospitalSp19,
+											grid: { ...hospitalSp19.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร สพ19"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className="mb-7"
+							/>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
+								<BaseDatePicker
+									label={names.sp19StartDate}
+									itemName="sp19StartDate"
+									rules={rules.sp19StartDateSchema}
+									value={hospitalForm.sp19StartDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp19StartDate: e,
+											})
+										);
+									}}
+								/>
+								<BaseDatePicker
+									label={names.sp19EndDate}
+									itemName="sp19EndDate"
+									rules={rules.sp19EndDateSchema}
+									value={hospitalForm.sp19EndDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp19EndDate: e,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/sp19"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, sp19: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"หนังสือรับรองนิติบุคคล"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment:
+										hospitalCertificateOfIncorporationAttachment,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalCertificateOfIncorporationAttachment.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalCertificateOfIncorporationAttachment,
+												grid: {
+													...hospitalCertificateOfIncorporationAttachment.grid,
+													page,
+												},
+											},
+											"CertificateOfIncorporation"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร หนังสือรับรองนิติบุคคล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/certificateOfIncorporation"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													certificateOfIncorporation: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"ภาคผนวกและอื่น ๆ"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalEtcFiles.grid.data}
+								columns={EtcFilesGrid({
+									hospitalEtcFiles: hospitalEtcFiles,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalEtcFiles.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalEtcFilesList(params, {
+											...hospitalEtcFiles,
+											grid: { ...hospitalEtcFiles.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร ภาคผนวกและอื่น ๆ"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/etcFiles"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, etcFiles: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+				</>
+			),
+		},
+	];
+
 	const thSection: CollapseProps["items"] = [
 		{
 			key: "3",
@@ -899,43 +1297,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				}}
 			/>
 
-			<BaseGrid
-				rows={hospitalSp7.grid.data}
-				columns={Sp7Grid({
-					hospitalSp7: hospitalSp7,
-					dispatch: dispatch,
-					params: params,
-				})}
-				page={hospitalSp7.grid.page}
-				loading={isLoading}
-				twoToneColor={true}
-				setPagination={(page) => {
-					dispatch(
-						fetchHospitalSp7List(params, {
-							...hospitalSp7,
-							grid: { ...hospitalSp7.grid, page },
-						})
-					);
-				}}
-			/>
-
 			{isInit && (
-				// <div className="flex flex-col space-y-2">
 				<>
-					<BaseUploadDraggerHospital
-						uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-						subFolderPath="hospital/sp7"
-						bearer={`${Cookies.get("Bearer")}`}
-						onChangeFunction={(e) => {
-							dispatch(
-								setHospitalForm({
-									...hospitalForm,
-									files: { sp7: e },
-								})
-							);
-						}}
-					/>
-					{/* <button onClick={async () => {}}>Upload Multiple file</button> */}
 					<BaseHeaderNameAndSwitch
 						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
 						onChangeSwitchFunction={(e) => {
@@ -959,6 +1322,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					>
 						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
 						<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
+						<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
 						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
 						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
 

@@ -1,4 +1,8 @@
 const API_PATH = {
+	// REPORT
+	REPORT_PDF: "pdf",
+	REPORT_EXCEL: "excel",
+
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
 
@@ -89,6 +93,24 @@ const API_PATH = {
 			GET_LIST: "/hospital-sp7/list",
 			UPDATE_BY_UUID: "/hospital-sp7",
 			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp7/list-by-hospital-uuid",
+		},
+		SP19: {
+			GET_LIST: "/hospital-sp19/list",
+			UPDATE_BY_UUID: "/hospital-sp19",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp19/list-by-hospital-uuid",
+		},
+		ETC_FILES: {
+			GET_LIST: "/hospital-etc-files/list",
+			UPDATE_BY_UUID: "/hospital-etc-files",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-etc-files/list-by-hospital-uuid",
+		},
+		ATTACHMENT: {
+			GET_LIST: "/hospital-attachment/list",
+			UPDATE_BY_UUID: "/hospital-attachment",
+			GET_LIST_BY_HOSPITAL_WCF_CODE:
+				"/hospital-attachment/list-by-hospital-wcf-code",
+			GET_LIST_BY_HOSPITAL_WCF_CODE_AND_FIELD_NAME:
+				"/hospital-attachment/list-by-hospital-wcf-code-and-field-name",
 		},
 	},
 	DOCUMENT: {

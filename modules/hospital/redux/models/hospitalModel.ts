@@ -7,15 +7,29 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
+import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
+import {
+	HospitalSp7,
+	modelHospitalSp7,
+} from "@/modules/hospital/redux/models/sp7Model";
+import {
+	HospitalSp19,
+	modelHospitalSp19,
+} from "@/modules/hospital/redux/models/sp19Model";
+import { HospitalEtcFiles, modelHospitalEtcFiles } from "./etcFilesModel";
+import { HospitalAttachment, modelHospitalAttachment } from "./attachmentModel";
+
 export interface Hospital {
 	grid: HospitalGrid;
 	filter: HospitalFilter;
 	form: HospitalForm;
 	exportPages: ExportPages;
 	hospitalSp7: HospitalSp7;
+	hospitalSp19: HospitalSp19;
+	hospitalEtcFiles: HospitalEtcFiles;
+	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
+	hospitalAttachmentFile1: HospitalAttachment;
 }
-import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
-import { HospitalSp7, modelHospitalSp7 } from "./sp7model";
 
 export interface HospitalGrid extends PaginationModel {
 	data: HospitalGridData[];
@@ -89,6 +103,9 @@ export interface ExportPages {
 		sp19StartDate: null | string | undefined;
 		sp19EndDate: null | string | undefined;
 	};
+	med5009: {
+		propertyCode: string;
+	};
 	med5012: {
 		fromDate: string;
 		toDate: string;
@@ -98,6 +115,10 @@ export interface ExportPages {
 export interface HospitalForm extends BaseMasterDataInterface {
 	files: {
 		sp7: UploadFile<any>[];
+		sp19: UploadFile<any>[];
+		etcFiles: UploadFile<any>[];
+		certificateOfIncorporation: UploadFile<any>[];
+		attachmentFile1: UploadFile<any>[];
 	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
@@ -142,6 +163,10 @@ export interface HospitalForm extends BaseMasterDataInterface {
 
 export const modelHospital: Hospital = {
 	hospitalSp7: { ...modelHospitalSp7 },
+	hospitalSp19: { ...modelHospitalSp19 },
+	hospitalEtcFiles: { ...modelHospitalEtcFiles },
+	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
+	hospitalAttachmentFile1: { ...modelHospitalAttachment },
 	grid: {
 		data: [],
 		page: {
@@ -171,6 +196,9 @@ export const modelHospital: Hospital = {
 			sp19StartDate: "",
 			sp19EndDate: "",
 		},
+		med5009: {
+			propertyCode: "",
+		},
 		med5012: {
 			fromDate: "",
 			toDate: "",
@@ -180,6 +208,10 @@ export const modelHospital: Hospital = {
 		...baseMasterDataModel,
 		files: {
 			sp7: [],
+			sp19: [],
+			etcFiles: [],
+			certificateOfIncorporation: [],
+			attachmentFile1: [],
 		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",

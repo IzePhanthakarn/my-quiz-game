@@ -5,9 +5,12 @@ import {
 	HospitalFilter,
 	Hospital,
 	ExportPages,
-} from "./model";
+} from "./models/hospitalModel";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
-import { HospitalSp7, HospitalSp7Grid } from "./sp7model";
+import { HospitalSp7Grid } from "@/modules/hospital/redux/models/sp7Model";
+import { HospitalSp19Grid } from "@/modules/hospital/redux/models/sp19Model";
+import { HospitalEtcFilesGrid } from "./models/etcFilesModel";
+import { HospitalAttachmentGrid } from "./models/attachmentModel";
 export const hospitalReducers = {
 	setHospitalGrid: (state: Hospital, action: PayloadAction<HospitalGrid>) => {
 		state.grid = action.payload;
@@ -44,5 +47,30 @@ export const hospitalReducers = {
 		action: PayloadAction<HospitalSp7Grid>
 	) => {
 		state.hospitalSp7.grid = action.payload;
+	},
+	setHospitalSp19Grid: (
+		state: Hospital,
+		action: PayloadAction<HospitalSp19Grid>
+	) => {
+		state.hospitalSp19.grid = action.payload;
+	},
+
+	setHospitalEtcFilesGrid: (
+		state: Hospital,
+		action: PayloadAction<HospitalEtcFilesGrid>
+	) => {
+		state.hospitalEtcFiles.grid = action.payload;
+	},
+	setHospitalCertificateOfIncorporationAttachmentGrid: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachmentGrid>
+	) => {
+		state.hospitalCertificateOfIncorporationAttachment.grid = action.payload;
+	},
+	setHospitalAttachmentFile1Grid: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachmentGrid>
+	) => {
+		state.hospitalAttachmentFile1.grid = action.payload;
 	},
 };

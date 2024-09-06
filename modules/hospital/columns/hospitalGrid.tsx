@@ -11,16 +11,16 @@ import { names } from "../interfaces/names";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 
-export const GetColumns = (router: AppRouterInstance) => {
+export const GetHospitalColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
-			{
-				title: "สถานะ",
-				key: "isActive",
-				dataIndex: "isActive",
-				width: 150,
-				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-			},
+			// {
+			// 	title: "สถานะ",
+			// 	key: "isActive",
+			// 	dataIndex: "isActive",
+			// 	width: 150,
+			// 	render: (_, { isActive }) => <StatusIndicator status={isActive} />,
+			// },
 			{
 				sorter: true,
 				key: "hospitalWcfCode",

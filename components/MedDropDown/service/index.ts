@@ -99,7 +99,7 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 		case DROPDOWN_TYPE.HOSPITAL_TYPE:
 		case DROPDOWN_TYPE.JOB_TYPE:
 		case DROPDOWN_TYPE.DOCTOR_TYPE:
-			const data: Option[] = result.map((e: LtPropertiesList) => ({
+			const data: Option[] = result.content.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
 			}));

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: med-web-config
+data:
+  GET_PAGE_ACCESSES_PATH: "https://api-dev-wcf.soilfish.co/ums/users"
+  NEXT_PUBLIC_API_URL: "https://api-dev-wcf.soilfish.co/med"
