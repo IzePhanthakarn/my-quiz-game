@@ -4,17 +4,23 @@ import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAPI,
 	exportMed5008Api,
+	getHospitalAttachmentListByHospitalWcfCodeAndFieldName,
 	getHospitalDetail,
+	getHospitalEtcFilesListByHospitalUuid,
 	getHospitalList,
 	getHospitalSp19ListByHospitalUuid,
 	getHospitalSp7List,
 	getHospitalSp7ListByHospitalUuid,
 	handleUploadSp7HospitalApi,
 	updateHospitalApi,
+	updateHospitalEtcFilesApi,
 	updateHospitalSp19Api,
 	updateHospitalSp7Api,
 } from "./api";
 import {
+	setHospitalCertificateOfIncorporationAttachmentGrid,
+	setHospitalAttachmentFile1Grid,
+	setHospitalEtcFilesGrid,
 	setHospitalForm,
 	setHospitalGrid,
 	setHospitalSp19Grid,
@@ -43,6 +49,16 @@ import {
 	HospitalSp19,
 	HospitalSp19Grid,
 } from "@/modules/hospital/redux/models/sp19Model";
+import {
+	GetHospitalEtcFilesList,
+	HospitalEtcFiles,
+} from "../redux/models/etcFilesModel";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
+import {
+	GetHospitalAttachmentList,
+	HospitalAttachment,
+	modelHospitalAttachment,
+} from "../redux/models/attachmentModel";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -87,6 +103,9 @@ export const addHospital =
 				hospitalCreate: form,
 				sp7: form?.files?.sp7,
 				sp19: form?.files?.sp19,
+				etcFiles: form?.files?.etcFiles,
+				certificateOfIncorporation: form?.files?.certificateOfIncorporation,
+				attachmentFile1: form?.files?.attachmentFile1,
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
@@ -111,6 +130,22 @@ export const initGetHospitalDetail =
 				return;
 			}
 			dispatch(setHospitalForm(response.payload));
+
+			dispatch(
+				fetchHospitalAttachmentList(
+					response.payload,
+					modelHospitalAttachment,
+					"CertificateOfIncorporation"
+				)
+			);
+
+			dispatch(
+				fetchHospitalAttachmentList(
+					response.payload,
+					modelHospitalAttachment,
+					"AttachmentFile1"
+				)
+			);
 		}
 	};
 
@@ -123,6 +158,7 @@ export const fetchHospitalSp7List =
 				pagination: { ...hospitalSp7.grid.page },
 				...hospitalSp7.filter,
 				hospitalUuid: uuid,
+				isActive: IsActive.Y,
 			};
 			const result = await dispatch(getHospitalSp7ListByHospitalUuid(body));
 			if (_.get(result, "error.message") === "Rejected") {
@@ -149,6 +185,7 @@ export const fetchHospitalSp19List =
 				pagination: { ...hospitalSp19.grid.page },
 				...hospitalSp19.filter,
 				hospitalUuid: uuid,
+				isActive: IsActive.Y,
 			};
 			const result = await dispatch(getHospitalSp19ListByHospitalUuid(body));
 			if (_.get(result, "error.message") === "Rejected") {
@@ -166,6 +203,78 @@ export const fetchHospitalSp19List =
 		}
 	};
 
+export const fetchHospitalEtcFilesList =
+	(params: HospitalFormPageProps, hospitalEtcFiles: HospitalEtcFiles) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const body: GetHospitalEtcFilesList = {
+				pagination: { ...hospitalEtcFiles.grid.page },
+				...hospitalEtcFiles.filter,
+				hospitalUuid: uuid,
+				isActive: IsActive.Y,
+			};
+			const result = await dispatch(
+				getHospitalEtcFilesListByHospitalUuid(body)
+			);
+			if (_.get(result, "error.message") === "Rejected") {
+				return;
+			}
+			dispatch(
+				setHospitalEtcFilesGrid({
+					data: result.payload.content,
+					page: {
+						...hospitalEtcFiles.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
+	};
+
+export const fetchHospitalAttachmentList =
+	(
+		form: HospitalForm,
+		hospitalAttachment: HospitalAttachment,
+		fieldName: "CertificateOfIncorporation" | "AttachmentFile1"
+	) =>
+	async (dispatch: AppDispatch) => {
+		const body: GetHospitalAttachmentList = {
+			pagination: { ...hospitalAttachment.grid.page },
+			...hospitalAttachment.filter,
+			hospitalWcfCode: form.hospitalWcfCode,
+			isActive: IsActive.Y,
+			fieldName: fieldName,
+		};
+		const result = await dispatch(
+			getHospitalAttachmentListByHospitalWcfCodeAndFieldName(body)
+		);
+		if (_.get(result, "error.message") === "Rejected") {
+			return;
+		}
+		if (fieldName === "CertificateOfIncorporation") {
+			await dispatch(
+				setHospitalCertificateOfIncorporationAttachmentGrid({
+					data: result.payload.content,
+					page: {
+						...hospitalAttachment.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		} else if (fieldName === "AttachmentFile1") {
+			await dispatch(
+				setHospitalAttachmentFile1Grid({
+					data: result.payload.content,
+					page: {
+						...hospitalAttachment.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
+	};
+
 export const updateHospital =
 	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
 	async (dispatch: AppDispatch) => {
@@ -176,6 +285,9 @@ export const updateHospital =
 					hospitalPatch: form,
 					sp7: form?.files?.sp7,
 					sp19: form?.files?.sp19,
+					etcFiles: form?.files?.etcFiles,
+					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
+					attachmentFile1: form?.files?.attachmentFile1,
 				},
 			})
 		);
@@ -219,6 +331,29 @@ export const updateInActiveHospitalSp19 =
 	(uuid: string) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalSp19Api({
+				uuid: uuid,
+				body: {
+					isActive: "N",
+				},
+			})
+		);
+		// dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
+		}
+	};
+
+export const updateInActiveHospitalEtcFiles =
+	(uuid: string) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateHospitalEtcFilesApi({
 				uuid: uuid,
 				body: {
 					isActive: "N",
