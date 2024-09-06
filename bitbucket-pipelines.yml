@@ -3,9 +3,15 @@ definitions:
     - step: &SetEnvironmentVariables
         name: "Set environment variables"
         script:
-          - echo "export DOCKER_PASS_TOKEN=$DOCKER_PASS_TOKEN" >> .envs
+          - echo "export DOCKER_SOILFISH_PASS_TOKEN=$DOCKER_SOILFISH_PASS_TOKEN" >> .envs
           - echo "export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')" >> .envs
+          - export VERSION=$(grep version package.json | cut -f 4 -d ' ' | tr -d '",')
+          - export SUFFIX_VERSION=${BITBUCKET_COMMIT:0:7}
+          - echo "export IMAGE_FIX=soilfish/medical-web:${VERSION}" >> .envs
+          - echo "export IMAGE_UPD=soilfish/medical-web:${VERSION}-${SUFFIX_VERSION}" >> .envs
           - echo "export ENV=$ENV" >> .envs
+          - echo "export IMAGE_TAG=${VERSION}-${BITBUCKET_COMMIT:0:7}" >> .envs
+          - echo "export WCFD_KUBE_CONFIG=$WCFD_KUBE_CONFIG" >> .envs
         artifacts:
           - .envs
     - step: &BuildImage
@@ -17,13 +23,14 @@ definitions:
         services: [docker-with-large-memory]
         script:
           - source .envs
-          - export IMAGE_FIX=soilfish/medical-web:0.1.0
+          - echo ${DOCKER_SOILFISH_PASS_TOKEN} | docker login --username soilfish --password-stdin
           - echo $IMAGE_FIX
-          - echo $VERSION
-          - ls -al
-          - echo ${DOCKER_PASS_TOKEN} | docker login --username soilfish --password-stdin
-          - docker build -t $IMAGE_FIX .
+          - echo $HOME
+          - docker build -f ./Dockerfile -t $IMAGE_FIX .
+          - docker tag $IMAGE_FIX $IMAGE_UPD
+          - echo ${DOCKER_SOILFISH_PASS_TOKEN} | docker login --username soilfish --password-stdin
           - docker push $IMAGE_FIX
+          - docker push $IMAGE_UPD
         artifacts:
           paths:
             - build
@@ -35,13 +42,12 @@ definitions:
         script:
           - source .envs
           - helm version
-          - export VERSION=${BITBUCKET_COMMIT:0:7}
           - mkdir -p ~/.kube
           - echo $ENV
-          - echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
+          - echo -n $WCFD_KUBE_CONFIG | base64 -d > ~/.kube/config
           - chmod 400 ~/.kube/config
-          - cd helm/$APPLICATION
-          - helm --namespace $NAMESPACE upgrade --kubeconfig "/root/.kube/config" -i $APPLICATION . --set image.tag=$ENV-$VERSION -f values/$ENV.values.yaml
+          - cd helm/med-web
+          - helm --namespace default upgrade --install --kubeconfig "/root/.kube/config" med-web . --set image.tag=$IMAGE_TAG -f values.yaml --history-max 3 --set podAnnotations.deployedDate=$(date +%Y-%m-%dT%H:%M:%S)
   services:
     docker:
       memory: 1024
