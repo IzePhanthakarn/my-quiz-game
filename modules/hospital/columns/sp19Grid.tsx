@@ -25,13 +25,13 @@ export const Sp19Grid = (props: Props) => {
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
-			{
-				title: "สถานะ",
-				key: "isActive",
-				dataIndex: "isActive",
-				width: 150,
-				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
-			},
+			// {
+			// 	title: "สถานะ",
+			// 	key: "isActive",
+			// 	dataIndex: "isActive",
+			// 	width: 150,
+			// 	render: (_, { isActive }) => <StatusIndicator status={isActive} />,
+			// },
 			{
 				sorter: true,
 				key: "sp19StartDate",
@@ -62,7 +62,7 @@ export const Sp19Grid = (props: Props) => {
 				sorter: true,
 				key: "fileName",
 				dataIndex: "fileName",
-				width: 150,
+				// width: 150,
 
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort

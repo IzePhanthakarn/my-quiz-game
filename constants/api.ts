@@ -99,6 +99,19 @@ const API_PATH = {
 			UPDATE_BY_UUID: "/hospital-sp19",
 			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp19/list-by-hospital-uuid",
 		},
+		ETC_FILES: {
+			GET_LIST: "/hospital-etc-files/list",
+			UPDATE_BY_UUID: "/hospital-etc-files",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-etc-files/list-by-hospital-uuid",
+		},
+		ATTACHMENT: {
+			GET_LIST: "/hospital-attachment/list",
+			UPDATE_BY_UUID: "/hospital-attachment",
+			GET_LIST_BY_HOSPITAL_WCF_CODE:
+				"/hospital-attachment/list-by-hospital-wcf-code",
+			GET_LIST_BY_HOSPITAL_WCF_CODE_AND_FIELD_NAME:
+				"/hospital-attachment/list-by-hospital-wcf-code-and-field-name",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

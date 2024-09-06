@@ -15,6 +15,8 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
+	setHospitalAttachmentGrid,
+	setHospitalEtcFilesGrid,
 	setHospitalForm,
 	setHospitalSp19Grid,
 	setHospitalSp7Grid,
@@ -22,6 +24,8 @@ import {
 import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
 import {
 	addHospital,
+	fetchHospitalAttachmentList,
+	fetchHospitalEtcFilesList,
 	fetchHospitalSp19List,
 	fetchHospitalSp7List,
 	// handleUploadHospital,
@@ -57,6 +61,8 @@ import Cookies from "js-cookie";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
 import { Sp19Grid } from "./columns/sp19Grid";
+import { EtcFilesGrid } from "./columns/etcFilesGrid";
+import { HospitalAttachmentGrid } from "./columns/hospitalAttachmentGrid";
 
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -70,6 +76,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		files,
 		hospitalSp7,
 		hospitalSp19,
+		hospitalEtcFiles,
+		hospitalAttachment,
 		isLoading,
 	} = useSelector(
 		(state: SliceModel) => ({
@@ -77,6 +85,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			hospitalForm: state.hospital.form,
 			hospitalSp7: state.hospital.hospitalSp7,
 			hospitalSp19: state.hospital.hospitalSp19,
+			hospitalEtcFiles: state.hospital.hospitalEtcFiles,
+			hospitalAttachment: state.hospital.hospitalAttachment,
 			files: state.hospital.form.files,
 			isLoading: state.container.isLoading,
 		}),
@@ -90,10 +100,17 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					await dispatch(initGetHospitalDetail(params));
 					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
 					await dispatch(fetchHospitalSp19List(params, hospitalSp19));
+					await dispatch(fetchHospitalEtcFilesList(params, hospitalEtcFiles));
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
 					dispatch(setHospitalSp7Grid(modelHospital.hospitalSp7.grid));
 					dispatch(setHospitalSp19Grid(modelHospital.hospitalSp19.grid));
+					dispatch(
+						setHospitalEtcFilesGrid(modelHospital.hospitalEtcFiles.grid)
+					);
+					dispatch(
+						setHospitalAttachmentGrid(modelHospital.hospitalAttachment.grid)
+					);
 				}
 				setIsInit(true);
 			}
@@ -872,7 +889,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							</div>
 						</div>
 					</div>
-
 					<BaseHorizontalHeader
 						title={"สพ19"}
 						icons={<HomeFilled />}
@@ -948,6 +964,119 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 											setHospitalForm({
 												...hospitalForm,
 												files: { ...hospitalForm.files, sp19: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"หนังสือรับรองนิติบุคคล"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalAttachment.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment: hospitalAttachment,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalAttachment.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalAttachment,
+												grid: { ...hospitalAttachment.grid, page },
+											},
+											"CertificateOfIncorporation"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร หนังสือรับรองนิติบุคคล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/certificateOfIncorporation"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													certificateOfIncorporation: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"ภาคผนวกและอื่น ๆ"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalEtcFiles.grid.data}
+								columns={EtcFilesGrid({
+									hospitalEtcFiles: hospitalEtcFiles,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalEtcFiles.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalEtcFilesList(params, {
+											...hospitalEtcFiles,
+											grid: { ...hospitalEtcFiles.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร ภาคผนวกและอื่น ๆ"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/etcFiles"
+									bearer={`${Cookies.get("Bearer")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, etcFiles: e },
 											})
 										);
 									}}

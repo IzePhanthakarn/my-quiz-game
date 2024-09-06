@@ -9,6 +9,8 @@ import {
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import { HospitalSp7Grid } from "@/modules/hospital/redux/models/sp7Model";
 import { HospitalSp19Grid } from "@/modules/hospital/redux/models/sp19Model";
+import { HospitalEtcFilesGrid } from "./models/etcFilesModel";
+import { HospitalAttachmentGrid } from "./models/attachmentModel";
 export const hospitalReducers = {
 	setHospitalGrid: (state: Hospital, action: PayloadAction<HospitalGrid>) => {
 		state.grid = action.payload;
@@ -51,5 +53,18 @@ export const hospitalReducers = {
 		action: PayloadAction<HospitalSp19Grid>
 	) => {
 		state.hospitalSp19.grid = action.payload;
+	},
+
+	setHospitalEtcFilesGrid: (
+		state: Hospital,
+		action: PayloadAction<HospitalEtcFilesGrid>
+	) => {
+		state.hospitalEtcFiles.grid = action.payload;
+	},
+	setHospitalAttachmentGrid: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachmentGrid>
+	) => {
+		state.hospitalAttachment.grid = action.payload;
 	},
 };

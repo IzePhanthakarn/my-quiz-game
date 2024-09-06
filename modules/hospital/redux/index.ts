@@ -18,6 +18,8 @@ export const {
 	setExportPages,
 	setHospitalSp7Grid,
 	setHospitalSp19Grid,
+	setHospitalEtcFilesGrid,
+	setHospitalAttachmentGrid,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

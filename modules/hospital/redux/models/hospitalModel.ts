@@ -16,6 +16,8 @@ import {
 	HospitalSp19,
 	modelHospitalSp19,
 } from "@/modules/hospital/redux/models/sp19Model";
+import { HospitalEtcFiles, modelHospitalEtcFiles } from "./etcFilesModel";
+import { HospitalAttachment, modelHospitalAttachment } from "./attachmentModel";
 
 export interface Hospital {
 	grid: HospitalGrid;
@@ -24,6 +26,8 @@ export interface Hospital {
 	exportPages: ExportPages;
 	hospitalSp7: HospitalSp7;
 	hospitalSp19: HospitalSp19;
+	hospitalEtcFiles: HospitalEtcFiles;
+	hospitalAttachment: HospitalAttachment;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -111,6 +115,8 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	files: {
 		sp7: UploadFile<any>[];
 		sp19: UploadFile<any>[];
+		etcFiles: UploadFile<any>[];
+		certificateOfIncorporation: UploadFile<any>[];
 	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
@@ -156,6 +162,8 @@ export interface HospitalForm extends BaseMasterDataInterface {
 export const modelHospital: Hospital = {
 	hospitalSp7: { ...modelHospitalSp7 },
 	hospitalSp19: { ...modelHospitalSp19 },
+	hospitalEtcFiles: { ...modelHospitalEtcFiles },
+	hospitalAttachment: { ...modelHospitalAttachment },
 	grid: {
 		data: [],
 		page: {
@@ -198,6 +206,8 @@ export const modelHospital: Hospital = {
 		files: {
 			sp7: [],
 			sp19: [],
+			etcFiles: [],
+			certificateOfIncorporation: [],
 		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
