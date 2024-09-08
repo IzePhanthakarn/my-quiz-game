@@ -160,7 +160,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					? [`กรุณาใส่ ${names.sp7EndDate}`]
 					: undefined,
 			});
-			form.setFields(errorArray);
+			// form.setFields(errorArray);
 
 			/**
 			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
@@ -208,7 +208,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					? [`กรุณาใส่ ${names.sp19EndDate}`]
 					: undefined,
 			});
-			form.setFields(errorArray);
+			// form.setFields(errorArray);
 
 			/**
 			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
