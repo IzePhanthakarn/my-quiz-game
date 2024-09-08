@@ -42,13 +42,12 @@ definitions:
         script:
           - source .envs
           - helm version
-          - export VERSION=${BITBUCKET_COMMIT:0:7}
           - mkdir -p ~/.kube
           - echo $ENV
-          - echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
+          - echo -n $WCFD_KUBE_CONFIG | base64 -d > ~/.kube/config
           - chmod 400 ~/.kube/config
-          - cd helm/$APPLICATION
-          - helm --namespace $NAMESPACE upgrade --kubeconfig "/root/.kube/config" -i $APPLICATION . --set image.tag=$ENV-$VERSION -f values/$ENV.values.yaml
+          - cd helm/med-web
+          - helm --namespace default upgrade --install --kubeconfig "/root/.kube/config" med-web . --set image.tag=$IMAGE_TAG -f values.yaml --history-max 3 --set podAnnotations.deployedDate=$(date +%Y-%m-%dT%H:%M:%S)
   services:
     docker:
       memory: 1024
