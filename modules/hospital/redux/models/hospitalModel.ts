@@ -7,10 +7,28 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
+import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
+import {
+	HospitalSp7,
+	modelHospitalSp7,
+} from "@/modules/hospital/redux/models/sp7Model";
+import {
+	HospitalSp19,
+	modelHospitalSp19,
+} from "@/modules/hospital/redux/models/sp19Model";
+import { HospitalEtcFiles, modelHospitalEtcFiles } from "./etcFilesModel";
+import { HospitalAttachment, modelHospitalAttachment } from "./attachmentModel";
+
 export interface Hospital {
 	grid: HospitalGrid;
 	filter: HospitalFilter;
 	form: HospitalForm;
+	exportPages: ExportPages;
+	hospitalSp7: HospitalSp7;
+	hospitalSp19: HospitalSp19;
+	hospitalEtcFiles: HospitalEtcFiles;
+	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
+	hospitalAttachmentFile1: HospitalAttachment;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -55,6 +73,8 @@ export interface HospitalGridData extends BaseMasterDataInterface {
 	tambolCode: string | null;
 	remarkChangeName: string | null;
 	ssoProject: string | null;
+	latitude: string;
+	longitude: string;
 }
 
 export interface HospitalFilter {
@@ -75,7 +95,31 @@ export interface HospitalFilter {
 export interface GetHospitalList extends HospitalFilter {
 	pagination: PaginationOptions;
 }
+
+export interface ExportPages {
+	med5008: {
+		sp7StartDated: null | string | undefined;
+		sp7EndDate: null | string | undefined;
+		sp19StartDate: null | string | undefined;
+		sp19EndDate: null | string | undefined;
+	};
+	med5009: {
+		propertyCode: string;
+	};
+	med5012: {
+		fromDate: string;
+		toDate: string;
+	};
+}
+
 export interface HospitalForm extends BaseMasterDataInterface {
+	files: {
+		sp7: UploadFile<any>[];
+		sp19: UploadFile<any>[];
+		etcFiles: UploadFile<any>[];
+		certificateOfIncorporation: UploadFile<any>[];
+		attachmentFile1: UploadFile<any>[];
+	};
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -113,9 +157,16 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	tambolCode: string;
 	remarkChangeName: string;
 	ssoProject: string;
+	latitude: string;
+	longitude: string;
 }
 
 export const modelHospital: Hospital = {
+	hospitalSp7: { ...modelHospitalSp7 },
+	hospitalSp19: { ...modelHospitalSp19 },
+	hospitalEtcFiles: { ...modelHospitalEtcFiles },
+	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
+	hospitalAttachmentFile1: { ...modelHospitalAttachment },
 	grid: {
 		data: [],
 		page: {
@@ -138,8 +189,30 @@ export const modelHospital: Hospital = {
 		isActive: undefined,
 		checkIsActive: false,
 	},
+	exportPages: {
+		med5008: {
+			sp7StartDated: "",
+			sp7EndDate: "",
+			sp19StartDate: "",
+			sp19EndDate: "",
+		},
+		med5009: {
+			propertyCode: "",
+		},
+		med5012: {
+			fromDate: "",
+			toDate: "",
+		},
+	},
 	form: {
 		...baseMasterDataModel,
+		files: {
+			sp7: [],
+			sp19: [],
+			etcFiles: [],
+			certificateOfIncorporation: [],
+			attachmentFile1: [],
+		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
 		hospitalMinistryCode: "",
@@ -148,6 +221,8 @@ export const modelHospital: Hospital = {
 		belongTo: "",
 		numberOfBed: 0,
 		bps: 0,
+		latitude: "",
+		longitude: "",
 		hospitalType: "",
 		hospitalCategory: "",
 		companyName: "",

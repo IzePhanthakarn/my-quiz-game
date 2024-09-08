@@ -10,15 +10,12 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
-
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setLtPropertiesForm } from "./redux";
 import { LtPropertiesForm, modelLtProperties } from "./redux/model";
@@ -117,7 +114,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 				<MasterDataFormLayout
 					disabled={_.isEmpty(write)}
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="Lt Properties"
 					initialValues={{
 						...form,
 						// endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),

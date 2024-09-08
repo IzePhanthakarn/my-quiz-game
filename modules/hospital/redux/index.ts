@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { modelHospital } from "./model";
+import { modelHospital } from "./models/hospitalModel";
 import { hospitalReducers } from "./reducer";
 
 export const hospitalSlice = createSlice({
-  name: "Clinic",
-  initialState: modelHospital,
-  reducers: {
-    ...hospitalReducers,
-  },
+	name: "Hospital",
+	initialState: modelHospital,
+	reducers: {
+		...hospitalReducers,
+	},
 });
 
 export const {
-  setHospitalForm,
-  setHospitalGrid,
-  setHospitalFilter,
-  setHospitalPagination,
+	setHospitalForm,
+	setHospitalGrid,
+	setHospitalFilter,
+	setHospitalPagination,
+	setExportPages,
+	setHospitalSp7Grid,
+	setHospitalSp19Grid,
+	setHospitalEtcFilesGrid,
+	setHospitalCertificateOfIncorporationAttachmentGrid,
+	setHospitalAttachmentFile1Grid,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

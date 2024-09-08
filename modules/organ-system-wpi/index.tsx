@@ -12,7 +12,7 @@ import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { columns } from "./columns/manipulate";
+import { GetColumns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
 import FilterDrawer from "./FilterDrawer";
 
@@ -44,7 +44,7 @@ export default function OrganSystemWpi() {
 				Grid={
 					<BaseGrid
 						rows={organ.grid.data}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={organ.grid.page}
 						loading={isLoading}
 						twoToneColor={true}

@@ -10,15 +10,9 @@ import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLay
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
-
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import {
-	setIsOpenBaseConfirmDialog,
-	setIsOpenDialog,
-} from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setCourseOrganSystemGroupForm } from "./redux";
 import {
@@ -105,7 +99,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="course organ system group"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					disabled={_.isEmpty(write)}
 					initialValues={form}

@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { AntdProvider } from "wcf-component-lib/src/provider/AntdProvider";
 import MainWrapper from "@/modules/wrapper/main";
-import MasterDataProvider from "wcf-component-lib/src/provider/MasterDataProvider";
 
 export const metadata: Metadata = {
 	title: "WCF-Digital",
@@ -23,9 +22,7 @@ export default function RootLayout({
 			<AntdProvider>
 				<StoreProvider>
 					<body>
-						<MasterDataProvider>
-							<MainWrapper>{children}</MainWrapper>
-						</MasterDataProvider>
+						<MainWrapper>{children}</MainWrapper>
 					</body>
 				</StoreProvider>
 			</AntdProvider>

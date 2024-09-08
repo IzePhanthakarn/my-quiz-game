@@ -24,7 +24,6 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
-import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 
 const Form = (params: UuidFormPageProps) => {
@@ -96,7 +95,7 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="ข้อมูลแพทย์"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					disabled={_.isEmpty(write)}
 					initialValues={clinicDetail}

@@ -97,7 +97,7 @@ const Form = (params: DocumentFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="Document"
 					disabled={_.isEmpty(write)}
 					initialValues={{
 						...form,

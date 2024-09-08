@@ -1,0 +1,34 @@
+import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
+import DoctorHospital from "../tables/DoctorHospital";
+import DoctorDetail from "../tables/DoctorDetail";
+import DoctorBank from "../tables/DoctorBank";
+import Training from "../tables/Training";
+import DoctorDetailForm from "..";
+
+export const itemsTables: TabsProps["items"] = [
+	{
+		key: "1",
+		label: "รายละเอียดแพทย์",
+		children: <DoctorDetailForm />,
+	},
+	{
+		key: "2",
+		label: "สังกัดโรงพยาบาล",
+		children: <DoctorHospital />,
+	},
+	{
+		key: "3",
+		label: "ข้อมูลวุฒิบัตรเฉพาะทาง",
+		children: <DoctorDetail />,
+	},
+	{
+		key: "4",
+		label: "รายละเอียดการจ่าย",
+		children: <DoctorBank />,
+	},
+	{
+		key: "5",
+		label: "ข้อมูลการอบรม",
+		children: <Training />,
+	},
+];

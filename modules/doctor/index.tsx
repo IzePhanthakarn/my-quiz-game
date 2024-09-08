@@ -14,8 +14,11 @@ import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import { initDoctorGrid } from "./service";
 import { modelDoctorFilter } from "./redux/filter/model";
-import { columns } from "./model";
+import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import { handleSession } from "@/components/MedDropDown/service";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -32,6 +35,9 @@ export default function Doctor() {
 	);
 
 	useEffect(() => {
+		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
+		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
+		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },
@@ -46,7 +52,7 @@ export default function Doctor() {
 					<BaseGrid
 						rows={rows}
 						loading={isLoading}
-						columns={columns}
+						columns={GetColumns(router)}
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
@@ -70,11 +76,20 @@ export default function Doctor() {
 						clearFilter={() => dispatch(setDoctorFilter(modelDoctorFilter))}
 					/>
 				}
-				FilterTextField={<Input className="w-[300px]" />}
+				FilterTextField={
+					<div className="flex space-x-2">
+						<div className="w-[280px]">
+							<BaseItemInput label="เลขทะเบียน สปส" />
+						</div>
+						<div className="w-[280px]">
+							<BaseItemInput label="ชื่อ - นามสกุล" />
+						</div>
+					</div>
+				}
 				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
 				AddLabel="สร้างแพทย์"
-				Header="Doctor"
+				Header="ข้อมูลแพทย์"
 				TotalItems={page.totalData}
 				SearchButtonFunction={() => {}}
 			/>

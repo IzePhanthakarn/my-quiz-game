@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const minioUpload = createAsyncThunk(
 	"Medical/minioUpload",
-	async (body: FormData, thunkApi) => {
+	async (body: FormData, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.UPLOAD}`;
 			const response = await axios.post(apiPath, body, {
@@ -14,14 +14,14 @@ export const minioUpload = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const minioUploadMultiple = createAsyncThunk(
 	"Medical/minioUploadMultiple",
-	async (body: FormData, thunkApi) => {
+	async (body: FormData, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.UPLOAD_MULTIPLE}`;
 			const response = await axios.post(apiPath, body, {
@@ -31,14 +31,14 @@ export const minioUploadMultiple = createAsyncThunk(
 			});
 			return response.data;
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
 
 export const minioDownload = createAsyncThunk(
 	"Medical/minioDownload",
-	async (fileName: string, thunkApi) => {
+	async (fileName: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.MINIO.DOWNLOAD}${fileName}`;
 			const response = await axios.get(apiPath, {
@@ -48,7 +48,7 @@ export const minioDownload = createAsyncThunk(
 
 			return { url, fileName };
 		} catch (err) {
-			return thunkApi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );

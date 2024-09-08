@@ -10,7 +10,7 @@ import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import { grid } from "./columns/grid";
+import { GetColumns } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
@@ -37,7 +37,7 @@ export default function CourseOrganSystemGroup() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Course organ system group"
-				Header="Course"
+				Header="Course organ system group"
 				TotalItems={courseOrganSystemGroup.grid.page.totalData}
 				SearchButtonFunction={() => {}}
 				FilterTextField={<Input className="w-[300px]" />}
@@ -45,7 +45,7 @@ export default function CourseOrganSystemGroup() {
 				Grid={
 					<BaseGrid
 						rows={courseOrganSystemGroup.grid.data}
-						columns={grid}
+						columns={GetColumns(router)}
 						page={courseOrganSystemGroup.grid.page}
 						loading={isLoading}
 						twoToneColor={true}

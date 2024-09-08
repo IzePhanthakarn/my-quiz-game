@@ -69,3 +69,14 @@ export const handleOnUpdateRequestForm =
 		});
 		router.push(LINKS.COURSE_CERTIFICATE.link);
 	};
+
+export const handleOnSubmitRequestForm =
+	(
+		uuid: boolean,
+		requestFormDetail: RequestFormDetail,
+		router: AppRouterInstance
+	) =>
+	(dispatch: AppDispatch) => {
+		if (uuid) dispatch(handleOnUpdateRequestForm(requestFormDetail, router));
+		else dispatch(handleOnCreateRequestForm(requestFormDetail, router));
+	};

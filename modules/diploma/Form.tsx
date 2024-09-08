@@ -95,7 +95,7 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="100120-ส่วนงานสิทธิประโยชน์"
+					textHeader="วุฒิบัตร"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					disabled={_.isEmpty(write)}
 					initialValues={diplomaDetail}

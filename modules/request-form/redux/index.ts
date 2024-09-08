@@ -28,7 +28,7 @@ export const requestFormSlice = createSlice({
 			state: RequestForm,
 			action: PayloadAction<RequestFormDetail>
 		) => {
-			state.form = { ...action.payload };
+			state.detail = { ...action.payload };
 		},
 		setRequestFormPagination: (
 			state: RequestForm,

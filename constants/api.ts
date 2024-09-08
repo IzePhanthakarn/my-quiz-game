@@ -1,4 +1,8 @@
 const API_PATH = {
+	// REPORT
+	REPORT_PDF: "pdf",
+	REPORT_EXCEL: "excel",
+
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
 
@@ -20,6 +24,7 @@ const API_PATH = {
 	GET_DOCTOR_PAGE: "doctor/list",
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
+	GET_DOCTOR_FORM: "doctor/getForm",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {
@@ -76,6 +81,37 @@ const API_PATH = {
 		ADD: "/hospital",
 		GET_BY_UUID: "/hospital",
 		UPDATE_BY_UUID: "/hospital",
+		UPLOAD_SP7: "/hospital-sp7",
+		EXPORT_PAGES: {
+			MED5008: "/hospital/export/med5008",
+			MED5012: "/hospital/excel/med5012",
+		},
+		EXPORT_PDF: {
+			MED5012: "/hospital/pdf/med5012",
+		},
+		SP7: {
+			GET_LIST: "/hospital-sp7/list",
+			UPDATE_BY_UUID: "/hospital-sp7",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp7/list-by-hospital-uuid",
+		},
+		SP19: {
+			GET_LIST: "/hospital-sp19/list",
+			UPDATE_BY_UUID: "/hospital-sp19",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp19/list-by-hospital-uuid",
+		},
+		ETC_FILES: {
+			GET_LIST: "/hospital-etc-files/list",
+			UPDATE_BY_UUID: "/hospital-etc-files",
+			GET_LIST_BY_HOSPITAL_UUID: "/hospital-etc-files/list-by-hospital-uuid",
+		},
+		ATTACHMENT: {
+			GET_LIST: "/hospital-attachment/list",
+			UPDATE_BY_UUID: "/hospital-attachment",
+			GET_LIST_BY_HOSPITAL_WCF_CODE:
+				"/hospital-attachment/list-by-hospital-wcf-code",
+			GET_LIST_BY_HOSPITAL_WCF_CODE_AND_FIELD_NAME:
+				"/hospital-attachment/list-by-hospital-wcf-code-and-field-name",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

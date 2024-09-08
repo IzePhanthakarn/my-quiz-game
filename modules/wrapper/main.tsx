@@ -17,21 +17,17 @@ import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { setIsOpenDialog } from "@/redux/slices/dialog";
 type Props = {
 	children: ReactNode;
 };
 
 const MainWrapper: React.FC<Props> = (props) => {
-	// const pathname = usePathname();
 	const dispatch: AppDispatch = useDispatch();
-
-	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [textDetail, setTextDetail] = useState<string>("");
-	const [textHeader, setTextHeader] = useState<string>("");
-
-	const { isLoading } = useSelector(
+	const { isLoading, dialog } = useSelector(
 		(state: SliceModel) => ({
 			isLoading: state.container.isLoading,
+			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
@@ -88,10 +84,13 @@ const MainWrapper: React.FC<Props> = (props) => {
 			{isLoading && <BaseLoading />}
 			{/* Dialog */}
 			<BaseDialog
-				isOpen={isOpen}
-				setIsOpen={(value) => setIsOpen(value)}
-				content={<p>{textDetail}</p>}
-				headerText={<p>{textHeader}</p>}
+				isOpen={dialog.isOpen}
+				setIsOpen={() => dispatch(setIsOpenDialog(false))}
+				content={dialog.content}
+				headerText={dialog.headerText}
+				uniqueContent={dialog.uniqueContent}
+				onConfirm={dialog.onConfirm}
+				onCancel={dialog.onCancel}
 			/>
 		</div>
 	);

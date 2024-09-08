@@ -3,72 +3,72 @@
 import React, { useEffect } from "react";
 import _ from "lodash";
 import dynamic from "next/dynamic";
-import FormOne from "./CollapseOne";
-import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
-import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
-import Two from "./Two";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setUuid } from "@/redux/slices/container";
-import { getValue } from "@/utils";
-import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { handleDoctorFormSubmit, initGetDoctorForm } from "../service";
+import { useParams, useRouter } from "next/navigation";
+import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
+import { itemsTables } from "./Detail/model";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { SliceModel } from "@/redux/slices/model";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import {
-	DoctorForm,
-	modelDoctorForm,
-} from "../../../modules/doctor/redux/form/model";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
-import { initGetDoctorForm } from "../service";
-import { useParams } from "next/navigation";
-import { itemsTabs } from "./model";
+import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { handleSession } from "@/components/MedDropDown/service";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
-
-	const [form] = Form.useForm();
-
-	const { doctorForm } = useSelector(
+	const router = useRouter();
+	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorForm: state.doctor.doctorForm,
+			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 		}),
 		shallowEqual
 	);
-
-	const onFinish: FormProps<DoctorForm>["onFinish"] = async (
-		values: DoctorForm
-	) => {
-		console.log("value", values);
-	};
-
-	console.log("form", form.getFieldsValue());
-	const onFinishFailed: FormProps<DoctorForm>["onFinishFailed"] = (_) => {};
 
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
 	}, [uuid]);
 
-	const customValue = Form.useWatch(
-		(values: DoctorForm) => `name: ${values.firstName || ""}`,
-		form
-	);
+	useEffect(() => {
+		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
+		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
+	}, []);
 
 	return (
 		<BaseColumn className="bg-white p-2 h-full">
-			<button onClick={() => console.log("form", form.getFieldsValue())}>
-				กดนิดๆ
-			</button>
-			<BaseForm
-				initialValues={doctorForm}
-				name={"doctorForm"}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				onValuesChange={(e) => console.log("e", e)}
-			>
-				<BaseTabs defaultActiveKey={"1"} items={itemsTabs} />
-			</BaseForm>
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				bodyDescriptionText="คุณต้องการบันทึก / แก้ไข ข้อมูลแพทย์ใช่หรือไม่"
+				confirmFunction={() => {
+					dispatch(handleDoctorFormSubmit(doctorForm, uuid as string, router));
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+			/>
+
+			{itemsTables?.map((item, index: number) => (
+				<BaseCollapse
+					key={item.key}
+					defaultActiveKey={index + 1}
+					items={[item]}
+				/>
+			))}
+			<div className="py-2 w-full flex justify-end sticky bottom-0">
+				<BaseButton
+					size="large"
+					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
+					label="บันทึก"
+					onClick={() => dispatch(setIsOpenBaseConfirmDialog(true))}
+				/>
+			</div>
 		</BaseColumn>
 	);
 };
