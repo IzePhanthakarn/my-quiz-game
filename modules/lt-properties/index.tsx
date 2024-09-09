@@ -17,6 +17,9 @@ import { modelLtProperties } from "./redux/model";
 import { setLtPropertiesFilter, setLtPropertiesGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function LtProperties() {
 	const dispatch: AppDispatch = useDispatch();
@@ -30,6 +33,22 @@ export default function LtProperties() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					Header="Lt Property"
+					SearchButtonFunction={() => {}}
+					FilterTextField={<BaseItemInput className="w-[300px]" />}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
 	useEffect(() => {
 		dispatch(fetchLtPropertiesList(ltProperties));
 	}, []);
@@ -38,11 +57,7 @@ export default function LtProperties() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Lt Property"
-				Header="Lt Property"
 				TotalItems={ltProperties.grid.page.totalData}
-				SearchButtonFunction={() => {}}
-				FilterTextField={<Input className="w-[300px]" />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={ltProperties.grid.data}

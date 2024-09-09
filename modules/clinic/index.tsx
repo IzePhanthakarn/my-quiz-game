@@ -17,6 +17,8 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,6 +33,22 @@ export default function Clinic() {
 		}),
 		shallowEqual
 	);
+
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					Header="ข้อมูลคลินิค"
+					SearchButtonFunction={() => console.log("🚀 search")}
+					FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
 
 	useEffect(() => {
 		dispatch(
@@ -76,13 +94,9 @@ export default function Clinic() {
 						clearFilter={() => dispatch(setClinicFilter(modelClinicFilter))}
 					/>
 				}
-				FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
 				AddLabel="เพิ่มคลินิค"
-				Header="Clinic"
 				TotalItems={page.totalData}
-				SearchButtonFunction={() => console.log("🚀 search")}
 			/>
 		</div>
 	);

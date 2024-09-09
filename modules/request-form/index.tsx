@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { GetColumns } from "./columns";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { handleOnGetRequestFormList } from "./service";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function RequestForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -23,6 +25,22 @@ export default function RequestForm() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					Header="Request Form"
+					SearchButtonFunction={() => {}}
+					FilterTextField={<></>}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
 	useEffect(() => {
 		dispatch(handleOnGetRequestFormList(requestForm));
 	}, []);
@@ -30,11 +48,7 @@ export default function RequestForm() {
 	return (
 		<MasterDataLayout
 			AddLabel="เพิ่ม Requst Form"
-			Header="Request Form"
 			TotalItems={requestForm.grid.page.totalData}
-			SearchButtonFunction={() => {}}
-			FilterTextField={<></>}
-			FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 			Drawer={<></>}
 			AddFunction={() => router.push(LINKS.REQUEST_FORM.add)}
 			Grid={
