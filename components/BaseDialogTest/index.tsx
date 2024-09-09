@@ -13,7 +13,7 @@ export interface BaseDialogProps {
 	onCancel?: () => void;
 	baseDialogType?: BaseDialogType;
 	headerText?: React.ReactNode;
-	uniqueContent?: React.ReactNode;
+	uniqueContent?: JSX.Element;
 }
 
 const BaseDialogTest = (props: BaseDialogProps) => {
