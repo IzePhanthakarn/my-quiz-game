@@ -28,6 +28,12 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 		uniqueContent,
 	} = props;
 
+	const handleTest = (uniqueContent: React.ReactNode) => {
+		return typeof uniqueContent === "bigint"
+			? uniqueContent.toString()
+			: uniqueContent;
+	};
+
 	return (
 		<Modal
 			open={isOpen}
@@ -36,7 +42,7 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 			maskClosable={false}
 			footer={null}
 		>
-			{uniqueContent ?? (
+			{handleTest(uniqueContent) ?? (
 				<div style={{ textAlign: "center" }}>
 					{baseDialogType === BaseDialogType.SUCCESS && (
 						<CheckCircleOutlined
