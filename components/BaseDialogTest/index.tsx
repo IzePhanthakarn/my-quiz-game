@@ -13,7 +13,7 @@ export interface BaseDialogProps {
 	onCancel?: () => void;
 	baseDialogType?: BaseDialogType;
 	headerText?: React.ReactNode;
-	uniqueContent?: React.ReactNode | bigint;
+	uniqueContent?: React.ReactNode;
 }
 
 const BaseDialogTest = (props: BaseDialogProps) => {
@@ -28,12 +28,6 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 		uniqueContent,
 	} = props;
 
-	const handleTest = (uniqueContent: React.ReactNode | bigint) => {
-		return typeof uniqueContent === "bigint"
-			? uniqueContent.toString()
-			: uniqueContent;
-	};
-
 	return (
 		<Modal
 			open={isOpen}
@@ -42,7 +36,7 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 			maskClosable={false}
 			footer={null}
 		>
-			{handleTest(uniqueContent) ?? (
+			{(uniqueContent as React.ReactNode) ?? (
 				<div style={{ textAlign: "center" }}>
 					{baseDialogType === BaseDialogType.SUCCESS && (
 						<CheckCircleOutlined
