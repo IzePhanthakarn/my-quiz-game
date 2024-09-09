@@ -84,7 +84,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 			{/* Loading */}
 			{isLoading && <BaseLoading />}
 			{/* Dialog */}
-			<BaseDialogTest
+			{/* <BaseDialogTest
 				isOpen={dialog.isOpen}
 				setIsOpen={() => dispatch(setIsOpenDialog(false))}
 				content={dialog.content}
@@ -92,7 +92,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 				uniqueContent={dialog.uniqueContent}
 				onConfirm={dialog.onConfirm}
 				onCancel={dialog.onCancel}
-			/>
+			/> */}
 		</div>
 	);
 };
