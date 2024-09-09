@@ -18,6 +18,9 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -27,6 +30,19 @@ export default function DoctorDetailForm() {
 		}),
 		shallowEqual
 	);
+
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<p className="font-bold text-4xl leading-[48px]">
+					บันทึก/แก้ไข ข้อมูลแพทย์
+				</p>
+			),
+		});
+	}, [dispatchLayout]);
 
 	return (
 		<BaseForm
