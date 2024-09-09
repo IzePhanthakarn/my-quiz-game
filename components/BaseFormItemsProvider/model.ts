@@ -9,7 +9,7 @@ export interface BaseFormProviderProps {
 	onChangeFunction?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	labelPosition?: BaseFormItemPosition.LEFT | BaseFormItemPosition.TOP;
 	labelLeftSpan?: number;
-	children?: React.ReactNode;
+	children?: JSX.Element;
 	notForm?: boolean;
 	className?: string;
 }
