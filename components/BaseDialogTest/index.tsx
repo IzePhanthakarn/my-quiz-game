@@ -28,7 +28,7 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 		uniqueContent,
 	} = props;
 
-	const handleTest = (uniqueContent: React.ReactNode) => {
+	const handleTest = (uniqueContent: React.ReactNode | bigint) => {
 		return typeof uniqueContent === "bigint"
 			? uniqueContent.toString()
 			: uniqueContent;
