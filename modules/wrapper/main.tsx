@@ -11,13 +11,14 @@ import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../redux/slices/container";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
-import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
+// import BaseDialog from "wcf-component-lib/src/components/BaseDialog";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
+import BaseDialogTest from "@/components/BaseDialogTest";
 type Props = {
 	children: ReactNode;
 };
@@ -83,7 +84,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 			{/* Loading */}
 			{isLoading && <BaseLoading />}
 			{/* Dialog */}
-			<BaseDialog
+			<BaseDialogTest
 				isOpen={dialog.isOpen}
 				setIsOpen={() => dispatch(setIsOpenDialog(false))}
 				content={dialog.content}

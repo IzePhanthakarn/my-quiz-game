@@ -57,7 +57,7 @@ definitions:
 
 pipelines:
   branches:
-    dev-test:
+    dev-wleenavo:
       - step:
           deployment: development
           <<: *SetEnvironmentVariables
