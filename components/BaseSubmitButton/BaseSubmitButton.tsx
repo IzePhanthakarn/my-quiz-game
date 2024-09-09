@@ -11,7 +11,7 @@ export interface Props {
 	htmlType?: ButtonHTMLType | undefined;
 	onClickFunction?: () => void;
 	customStyle?: React.CSSProperties | undefined;
-	icon?: React.ReactNode | undefined;
+	icon?: JSX.Element | undefined;
 	iconPosition?: "start" | "end" | undefined;
 }
 
@@ -36,7 +36,7 @@ export default function BaseSubmitButtonTest(props: Props) {
 				className={`${className}`}
 				style={customStyle}
 				// icon={<ClockCircleOutlined />}
-				icon={<>icon</>}
+				icon={icon}
 				iconPosition={iconPosition}
 				// styles={{ icon: { marginTop: "205px" } }}
 			>

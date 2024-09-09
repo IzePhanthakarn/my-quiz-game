@@ -1,8 +1,7 @@
-import { BaseFormItemPosition } from "../../constants/form-item-position";
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 
 export interface BaseFormProviderProps {
 	itemName?: string | string[];
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rules?: Array<{ [key: string]: any }>;
 	value?: string | number | null;
 	disabled?: boolean;

@@ -1,10 +1,13 @@
-import Form from "antd/es/form";
 import _ from "lodash";
-import { BaseFormItemPosition } from "../../constants/form-item-position";
-import Row from "antd/es/row";
-import Col from "antd/es/col";
-import { handleInputSpan, handleLabelTopSpan } from "../../utils";
+import Row from "wcf-component-lib/node_modules/antd/es/row";
+import Col from "wcf-component-lib/node_modules/antd/es/col";
 import { BaseFormProviderProps } from "./model";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import {
+	handleLabelTopSpan,
+	handleInputSpan,
+} from "wcf-component-lib/src/utils";
 
 export default function BaseFormItemsProvider(props: BaseFormProviderProps) {
 	const {
