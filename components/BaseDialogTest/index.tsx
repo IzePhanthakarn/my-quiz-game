@@ -13,7 +13,7 @@ export interface BaseDialogProps {
 	onCancel?: () => void;
 	baseDialogType?: BaseDialogType;
 	headerText?: React.ReactNode;
-	uniqueContent?: React.ReactNode;
+	uniqueContent?: JSX.Element;
 }
 
 const BaseDialogTest = (props: BaseDialogProps) => {
@@ -36,9 +36,7 @@ const BaseDialogTest = (props: BaseDialogProps) => {
 			maskClosable={false}
 			footer={null}
 		>
-			{uniqueContent ? (
-				<div>{uniqueContent}</div>
-			) : (
+			{uniqueContent ?? (
 				<div style={{ textAlign: "center" }}>
 					{baseDialogType === BaseDialogType.SUCCESS && (
 						<CheckCircleOutlined

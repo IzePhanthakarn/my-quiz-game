@@ -34,6 +34,7 @@ const DoctorFormTabs = () => {
 	}, [uuid]);
 
 	useEffect(() => {
+		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
 		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
 		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
 	}, []);
