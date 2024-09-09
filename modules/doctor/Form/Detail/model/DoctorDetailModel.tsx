@@ -1,8 +1,5 @@
 "use client";
 
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppDispatch } from "@/redux/config/configStore";
