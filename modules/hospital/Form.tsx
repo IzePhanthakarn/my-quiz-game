@@ -868,7 +868,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/attachmentFile1"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -954,7 +954,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									// backgroundColor="BBC8CB"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp7"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1036,7 +1036,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp19"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1097,7 +1097,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/certificateOfIncorporation"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1153,7 +1153,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/etcFiles"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({

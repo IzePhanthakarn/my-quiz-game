@@ -4,8 +4,6 @@ import { ReactNode } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { sidebarWidth } from "@/constants/global";
-import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../redux/slices/container";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
@@ -39,7 +37,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	axios.interceptors.request.use(
 		(config) => {
 			dispatch(setIsLoading(true));
-			config.headers.Authorization = `Bearer ${Cookies.get("Bearer")}`;
+			config.headers.Authorization = `Bearer ${Cookies.get("accessToken")}`;
 			return config;
 		},
 		(error) => {
