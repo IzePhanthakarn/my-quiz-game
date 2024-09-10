@@ -32,7 +32,7 @@ export default function RequestForm() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Request Form"
+					// Header="Request Form"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<></>}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

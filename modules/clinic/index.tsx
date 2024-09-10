@@ -41,7 +41,7 @@ export default function Clinic() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="ข้อมูลคลินิค"
+					// Header="ข้อมูลคลินิค"
 					SearchButtonFunction={() => console.log("🚀 search")}
 					FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

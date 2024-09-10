@@ -36,11 +36,7 @@ export default function DoctorDetailForm() {
 	useEffect(() => {
 		dispatchLayout({
 			type: "setChildrenHeader",
-			payload: (
-				<p className="font-bold text-4xl leading-[48px]">
-					บันทึก/แก้ไข ข้อมูลแพทย์
-				</p>
-			),
+			payload: <p className="font-bold text-4xl leading-[48px]"></p>,
 		});
 	}, [dispatchLayout]);
 

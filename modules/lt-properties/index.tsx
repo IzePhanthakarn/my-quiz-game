@@ -40,7 +40,7 @@ export default function LtProperties() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Lt Property"
+					// Header="Lt Property"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

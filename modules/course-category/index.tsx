@@ -38,7 +38,7 @@ export default function CourseManipulate() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Course Category"
+					// Header="Course Category"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

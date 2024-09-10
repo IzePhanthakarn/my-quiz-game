@@ -38,7 +38,7 @@ export default function CourseOrganSystemGroup() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Course organ system group"
+					// Header="Course organ system group"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

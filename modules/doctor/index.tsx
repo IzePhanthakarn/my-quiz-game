@@ -42,7 +42,7 @@ export default function Doctor() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="ข้อมูลแพทย์"
+					// Header="ข้อมูลแพทย์"
 					FilterTextField={
 						<div className="flex space-x-2">
 							<div className="w-[280px]">

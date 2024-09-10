@@ -36,7 +36,7 @@ export default function OrganSystemWpi() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Organ"
+					// Header="Organ"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

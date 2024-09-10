@@ -16,7 +16,7 @@ import { baseToastNotification } from "wcf-component-lib/src/components/BaseToas
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
-import { DataStructureURL } from "wcf-component-lib/src/provider/LayoutProvider/type";
+import { configPage } from "@/constants/config-page";
 
 type Props = {
 	children: ReactNode;
@@ -63,17 +63,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 			});
 		}
 	);
-
-	const configPage: DataStructureURL = {
-		med: {
-			doctor: {
-				url: "/med/doctor",
-				breadcrumb: ["doctor"],
-				text: "",
-				pageLevel: { form: [0] },
-			},
-		},
-	};
 
 	return (
 		<div className="h-screen">

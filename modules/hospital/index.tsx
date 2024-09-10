@@ -39,7 +39,7 @@ export default function Hospital() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="สถานพยาบาล"
+					// Header="สถานพยาบาล"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

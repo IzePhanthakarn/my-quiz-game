@@ -38,7 +38,7 @@ export default function CourseCertificate() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Course Certificate"
+					// Header="Course Certificate"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

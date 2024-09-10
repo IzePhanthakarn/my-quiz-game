@@ -38,7 +38,7 @@ export default function Document() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Document"
+					// Header="Document"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

@@ -38,7 +38,7 @@ export default function MedicalAmount() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					Header="Medical Amount"
+					// Header="Medical Amount"
 					SearchButtonFunction={() => {}}
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}

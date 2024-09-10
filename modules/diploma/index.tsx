@@ -43,7 +43,7 @@ export default function Diploma() {
 				<HeaderLayout
 					FilterTextField={<BaseItemInput className="w-[300px]" />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-					Header="Diploma"
+					// Header="Diploma"
 					SearchButtonFunction={() => {}}
 				/>
 			),
