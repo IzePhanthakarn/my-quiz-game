@@ -11,7 +11,7 @@ import { setDialog } from "@/redux/slices/dialog";
 import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
 import _ from "lodash";
 import { handleSession } from "@/components/MedDropDown/service";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function DoctorDetails() {
 	);
 
 	useEffect(() => {
-		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
+		dispatch(handleSession(SESSION_NAME.DIPLOMA));
 	}, []);
 
 	return (

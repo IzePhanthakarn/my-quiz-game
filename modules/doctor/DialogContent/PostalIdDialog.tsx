@@ -7,7 +7,7 @@ import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorPostalList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handlePostalRows } from "./service";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
@@ -58,7 +58,7 @@ export default function PostalCodeDialog(props: Props) {
 					notForm={true}
 					className="h-full w-full"
 					label="รหัสไปรษณีย์"
-					type={DROPDOWN_TYPE.POSTAL_ID}
+					type={SESSION_NAME.POSTAL_ID}
 					value={
 						_.isEmpty(postal.postalName)
 							? null

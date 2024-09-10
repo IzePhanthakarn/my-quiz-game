@@ -60,7 +60,7 @@ import { Sp7Grid } from "./columns/sp7Grid";
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
 import { Sp19Grid } from "./columns/sp19Grid";
 import { EtcFilesGrid } from "./columns/etcFilesGrid";
@@ -531,7 +531,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						{/* <MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
-							type={DROPDOWN_TYPE.HOSPITAL_TYPE}
+							type={SESSION_NAME.HOSPITAL_TYPE}
 							rules={rules.hospitalTypeSchema}
 							getValue={(e) => {
 								dispatch(
@@ -561,7 +561,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
-							type={DROPDOWN_TYPE.HOSPITAL_CATEGORY}
+							type={SESSION_NAME.HOSPITAL_CATEGORY}
 							getValue={(e) => {
 								dispatch(
 									setHospitalForm({

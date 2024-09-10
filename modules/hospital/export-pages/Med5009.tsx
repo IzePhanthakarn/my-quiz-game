@@ -11,7 +11,7 @@ import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setExportPages } from "../redux";
 import { REPORT_TYPES } from "@/constants/reports";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleOnExportExcel, handleOnExportPdf } from "@/utils/report/common";
 
 const HospitalReportMed5009 = () => {
@@ -41,7 +41,7 @@ const HospitalReportMed5009 = () => {
 				<MedDropDown
 					itemName="propertyCode"
 					label="ระดับของสถานพยาบาล"
-					type={DROPDOWN_TYPE.HOSPITAL_TYPE}
+					type={SESSION_NAME.HOSPITAL_TYPE}
 				/>
 				<div></div>
 				<div className="col-span-3">

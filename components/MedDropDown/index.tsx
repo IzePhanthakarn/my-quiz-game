@@ -9,10 +9,10 @@ import { handleSession, handleGetValue } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
-import { DROPDOWN_TYPE } from "./model";
+import { SESSION_NAME } from "./model";
 
 interface MedDropDownProps extends BaseDropDownProps {
-	type: DROPDOWN_TYPE;
+	type: SESSION_NAME;
 	queryString?: string;
 	bodyRequest?: any;
 }
@@ -21,7 +21,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 	const {
 		option = [],
 		placeholder = "โปรดระบุ",
-		type = DROPDOWN_TYPE.DEFAULT,
+		type = SESSION_NAME.DEFAULT,
 		queryString = "",
 		bodyRequest,
 		getValue = () => {},

@@ -17,7 +17,7 @@ import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { handleSession } from "@/components/MedDropDown/service";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 
@@ -61,9 +61,9 @@ export default function Doctor() {
 	}, [dispatchLayout]);
 
 	useEffect(() => {
-		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
-		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
-		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
+		dispatch(handleSession(SESSION_NAME.ADDRESS));
+		dispatch(handleSession(SESSION_NAME.DIPLOMA));
+		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },

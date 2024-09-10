@@ -14,7 +14,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { handleHospital, handleHospitalRows } from "./service";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { SliceModel } from "@/redux/slices/model";
 interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
@@ -59,7 +59,7 @@ export default function HospitalDialog(props: Props) {
 					notForm
 					className="h-full w-full"
 					label="รหัสโรงพยาบาล"
-					type={DROPDOWN_TYPE.HOSPITAL}
+					type={SESSION_NAME.HOSPITAL}
 					value={
 						_.isEmpty(hospital.hospitalWcfCode)
 							? null
@@ -78,7 +78,7 @@ export default function HospitalDialog(props: Props) {
 					notForm
 					className="h-full w-full"
 					label="ลักษณะงานที่รับผิดชอบ"
-					type={DROPDOWN_TYPE.JOB_TYPE}
+					type={SESSION_NAME.JOB_TYPE}
 					value={_.isEmpty(hospital.jobType) ? null : hospital.jobType}
 					getValue={(e) => {
 						setHospital({

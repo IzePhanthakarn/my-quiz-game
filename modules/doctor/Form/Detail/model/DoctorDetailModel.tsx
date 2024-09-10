@@ -12,6 +12,7 @@ import {
 import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
 import { useMemo } from "react";
 import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -39,7 +40,9 @@ export const GetColumns = (props: Props) => {
 				dataIndex: "diplomaType",
 				key: "diplomaType",
 				render: (_: any, { diplomaType }: any) => {
-					const diploma = JSON.parse(sessionStorage.getItem("DIPLOMA") ?? "[]");
+					const diploma = JSON.parse(
+						sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
+					);
 					const data: Diploma[] = diploma.filter(
 						(item: Diploma) => item.diplomaType === diplomaType
 					);

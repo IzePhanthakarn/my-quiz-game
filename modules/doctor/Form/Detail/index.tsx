@@ -16,10 +16,8 @@ import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserO
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function DoctorDetailForm() {
@@ -69,28 +67,25 @@ export default function DoctorDetailForm() {
 				/>
 				<div></div>
 				<MedDropDown
-					type={DROPDOWN_TYPE.TITLE}
+					type={SESSION_NAME.TITLE}
 					label="คำนำหน้า"
 					itemName="title"
 					className="h-full w-full"
 					labelRender={() => (
-						<p>{findNameDisplay(DROPDOWN_TYPE.TITLE, doctorData.title)}</p>
+						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
 					)}
 				/>
 				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
 				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
 				<div></div>
 				<MedDropDown
-					type={DROPDOWN_TYPE.DOCTOR_TYPE}
+					type={SESSION_NAME.DOCTOR_TYPE}
 					label="ประเภทแพทย์"
 					itemName="doctorType"
 					className="h-full w-full"
 					labelRender={() => (
 						<p>
-							{findNameDisplay(
-								DROPDOWN_TYPE.DOCTOR_TYPE,
-								doctorData.doctorType
-							)}
+							{findNameDisplay(SESSION_NAME.DOCTOR_TYPE, doctorData.doctorType)}
 						</p>
 					)}
 				/>
@@ -106,7 +101,7 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="ตำบล"
 					itemName="tambol"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) => {
 						dispatch(
 							setDoctorData({
@@ -125,7 +120,7 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="อำเภอ"
 					itemName="amphur"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -142,7 +137,7 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<MedDropDown
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					label="จังหวัด"
 					itemName="province"
 					className="h-full w-full"
@@ -165,7 +160,7 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({

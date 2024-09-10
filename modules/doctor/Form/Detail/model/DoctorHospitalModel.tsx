@@ -8,7 +8,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
 import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
 import { handleHospitalRows } from "@/modules/doctor/DialogContent/service";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { LtPropertiesForm } from "@/modules/lt-properties/redux/model";
 
 interface Props {
@@ -48,7 +48,7 @@ export const GetColumns = (props: Props) => {
 				key: "jobType",
 				render: (_: any, { jobType }: any) => {
 					const sessionJobType = JSON.parse(
-						sessionStorage.getItem(DROPDOWN_TYPE.JOB_TYPE) ?? "[]"
+						sessionStorage.getItem(SESSION_NAME.JOB_TYPE) ?? "[]"
 					);
 					const data: LtPropertiesForm[] = sessionJobType.filter(
 						(item: LtPropertiesForm) => item.propertyCode === jobType
