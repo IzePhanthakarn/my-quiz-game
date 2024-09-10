@@ -881,6 +881,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}`}
 					>
 						<BaseUploadDraggerHospital
+							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
+							showUploadList={false}
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/attachmentFile1"
@@ -1154,6 +1156,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}`}
 					>
 						<BaseUploadDraggerHospital
+							reset={
+								hospitalCertificateOfIncorporationAttachment.toPreview
+									.length === 0 && true
+							}
+							showUploadList={false}
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/attachmentFile1"
