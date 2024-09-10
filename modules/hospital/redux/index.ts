@@ -21,6 +21,8 @@ export const {
 	setHospitalEtcFilesGrid,
 	setHospitalCertificateOfIncorporationAttachmentGrid,
 	setHospitalAttachmentFile1Grid,
+	setHospitalAttachmentFile1ToPreview,
+	setHospitalCertificateOfIncorporationAttachmentToPreview,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

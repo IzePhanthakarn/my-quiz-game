@@ -25,6 +25,8 @@ import {
 	setHospitalGrid,
 	setHospitalSp19Grid,
 	setHospitalSp7Grid,
+	setHospitalAttachmentFile1ToPreview,
+	setHospitalCertificateOfIncorporationAttachmentToPreview,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
@@ -57,6 +59,7 @@ import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	GetHospitalAttachmentList,
 	HospitalAttachment,
+	HospitalAttachmentGridData,
 	modelHospitalAttachment,
 } from "../redux/models/attachmentModel";
 
@@ -262,6 +265,14 @@ export const fetchHospitalAttachmentList =
 					},
 				})
 			);
+			await dispatch(
+				setHospitalCertificateOfIncorporationAttachmentToPreview(
+					convertAttachmentFileToPreview(
+						result.payload.content,
+						"certificateOfIncorporation"
+					)
+				)
+			);
 		} else if (fieldName === "AttachmentFile1") {
 			await dispatch(
 				setHospitalAttachmentFile1Grid({
@@ -272,8 +283,35 @@ export const fetchHospitalAttachmentList =
 					},
 				})
 			);
+
+			await dispatch(
+				setHospitalAttachmentFile1ToPreview(
+					convertAttachmentFileToPreview(
+						result.payload.content,
+						"attachmentFile1"
+					)
+				)
+			);
 		}
 	};
+
+export const convertAttachmentFileToPreview = (
+	items: HospitalAttachmentGridData[],
+	subFolder: string
+) => {
+	const toPreview: HospitalAttachment["toPreview"] = [];
+	for (let index = 0; index < items.length; index++) {
+		const item: HospitalAttachmentGridData = items[index];
+		toPreview.push({
+			uid: item.uuid,
+			name: `${item.attachmentName}.${item.extension}`,
+			// status: "done",
+			url: `http://128.199.197.112:9000/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
+			type: item.extension,
+		});
+	}
+	return toPreview;
+};
 
 export const updateHospital =
 	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
