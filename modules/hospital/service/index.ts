@@ -267,7 +267,10 @@ export const fetchHospitalAttachmentList =
 			);
 			await dispatch(
 				setHospitalCertificateOfIncorporationAttachmentToPreview(
-					convertAttachmentFileToPreview(result.payload.content)
+					convertAttachmentFileToPreview(
+						result.payload.content,
+						"certificateOfIncorporation"
+					)
 				)
 			);
 		} else if (fieldName === "AttachmentFile1") {
@@ -283,14 +286,18 @@ export const fetchHospitalAttachmentList =
 
 			await dispatch(
 				setHospitalAttachmentFile1ToPreview(
-					convertAttachmentFileToPreview(result.payload.content)
+					convertAttachmentFileToPreview(
+						result.payload.content,
+						"attachmentFile1"
+					)
 				)
 			);
 		}
 	};
 
 export const convertAttachmentFileToPreview = (
-	items: HospitalAttachmentGridData[]
+	items: HospitalAttachmentGridData[],
+	subFolder: string
 ) => {
 	const toPreview: HospitalAttachment["toPreview"] = [];
 	for (let index = 0; index < items.length; index++) {
@@ -299,7 +306,7 @@ export const convertAttachmentFileToPreview = (
 			uid: item.uuid,
 			name: `${item.attachmentName}.${item.extension}`,
 			// status: "done",
-			url: "http://128.199.197.112:9000/wcf2-public/hospital/attachmentFile1/testtt.pdf",
+			url: `http://128.199.197.112:9000/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
 			type: item.extension,
 		});
 	}

@@ -1163,7 +1163,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							showUploadList={false}
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/attachmentFile1"
+							subFolderPath="hospital/certificateOfIncorporation"
 							bearer={`${Cookies.get("Bearer")}`}
 							onChangeFunction={(e) => {
 								dispatch(
@@ -1446,11 +1446,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						extraForm={form}
 					>
-						{/* <BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-						<BaseCollapse items={secondSection} defaultActiveKey={"2"} /> */}
+						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
+						<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
 						<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
-						{/* <BaseCollapse items={thSection} defaultActiveKey={"3"} />
-						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} /> */}
+						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
+						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
 
 						<div className="flex justify-end">
 							<BaseButtonCancel
