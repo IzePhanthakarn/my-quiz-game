@@ -9,6 +9,7 @@ import { LINKS } from "@/constants/links";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import BasePreview from "wcf-component-lib/src/components/BasePreview";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -822,6 +823,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 			children: (
 				<>
+					<BasePreview />
+
 					<BaseHorizontalHeader
 						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
 						icons={<HomeFilled />}
