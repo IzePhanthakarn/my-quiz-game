@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
 	// const referer = request.headers.get("referer");
 	// const url = new URL(request.url);
 	// const response = NextResponse.next();
-	// const token = request.cookies.get("Bearer")?.value; // Get the token from cookies
+	// const token = request.cookies.get("accessToken")?.value; // Get the token from cookies
 	// if (typeof token === "undefined") {
 	// 	return NextResponse.redirect(new URL("/login", request.url));
 	// }

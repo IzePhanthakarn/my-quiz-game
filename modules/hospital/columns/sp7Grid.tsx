@@ -1,9 +1,9 @@
 "use client";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/StatusIndicator";
+import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
+import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";

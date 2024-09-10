@@ -6,9 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { FilterOutlined } from "wcf-component-lib/node_modules/@ant-design/icons";
-import Button from "wcf-component-lib/node_modules/antd/es/button";
-import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { fetchHospitalList } from "./service";
@@ -19,6 +16,9 @@ import { setHospitalFilter, setHospitalGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { GetHospitalColumns } from "./columns/hospitalGrid";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function Hospital() {
 	const dispatch: AppDispatch = useDispatch();
@@ -32,6 +32,22 @@ export default function Hospital() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					// Header="สถานพยาบาล"
+					SearchButtonFunction={() => {}}
+					FilterTextField={<BaseItemInput className="w-[300px]" />}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
 	useEffect(() => {
 		dispatch(fetchHospitalList(hospital));
 	}, []);
@@ -40,11 +56,7 @@ export default function Hospital() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่มสถานพยาบาล"
-				Header="สถานพยาบาล"
-				SearchButtonFunction={() => {}}
 				TotalItems={hospital.grid.page.totalData}
-				FilterTextField={<Input className="w-[300px]" />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={hospital.grid.data}

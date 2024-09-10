@@ -1,14 +1,14 @@
 "use client";
 
-import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/StatusIndicator";
+import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(

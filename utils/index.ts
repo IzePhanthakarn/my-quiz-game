@@ -4,7 +4,7 @@ import _ from "lodash";
 import { ScopesPermissions } from "./model";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
 
@@ -98,7 +98,7 @@ export const getValue = (obj: any, key: string, def = null): any => {
 
 export const findHospitalDisplay = (value: string) => {
 	const hospital = JSON.parse(
-		sessionStorage.getItem(DROPDOWN_TYPE.HOSPITAL) ?? "[]"
+		sessionStorage.getItem(SESSION_NAME.HOSPITAL) ?? "[]"
 	);
 	const hospitalResult = hospital.find(
 		(e: DoctorHospital) => e.hospitalWcfCode === value
@@ -108,7 +108,7 @@ export const findHospitalDisplay = (value: string) => {
 
 export const findDiplomaDisplay = (value: string) => {
 	const diploma = JSON.parse(
-		sessionStorage.getItem(DROPDOWN_TYPE.DIPLOMA) ?? "[]"
+		sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
 	);
 	const diplomaResult = diploma.find(
 		(e: DiplomaForm) => e.diplomaType === value

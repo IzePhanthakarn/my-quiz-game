@@ -10,7 +10,7 @@ import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { SliceModel } from "@/redux/slices/model";
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -47,7 +47,7 @@ export default function DiplomaDialog(props: Props) {
 			<div className="w-full">
 				<MedDropDown
 					notForm={true}
-					type={DROPDOWN_TYPE.DIPLOMA}
+					type={SESSION_NAME.DIPLOMA}
 					className="h-full w-full"
 					label="วุฒิบัตรเฉพาะทาง"
 					getValue={(e) => setDiplomaType(e)}

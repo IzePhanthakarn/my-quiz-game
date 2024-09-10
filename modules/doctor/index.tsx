@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
-import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -18,7 +17,9 @@ import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { handleSession } from "@/components/MedDropDown/service";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -34,10 +35,35 @@ export default function Doctor() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
 	useEffect(() => {
-		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
-		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
-		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					// Header="ข้อมูลแพทย์"
+					FilterTextField={
+						<div className="flex space-x-2">
+							<div className="w-[280px]">
+								<BaseItemInput label="เลขทะเบียน สปส" />
+							</div>
+							<div className="w-[280px]">
+								<BaseItemInput label="ชื่อ - นามสกุล" />
+							</div>
+						</div>
+					}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+					SearchButtonFunction={() => {}}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
+	useEffect(() => {
+		dispatch(handleSession(SESSION_NAME.ADDRESS));
+		dispatch(handleSession(SESSION_NAME.DIPLOMA));
+		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },
@@ -76,22 +102,9 @@ export default function Doctor() {
 						clearFilter={() => dispatch(setDoctorFilter(modelDoctorFilter))}
 					/>
 				}
-				FilterTextField={
-					<div className="flex space-x-2">
-						<div className="w-[280px]">
-							<BaseItemInput label="เลขทะเบียน สปส" />
-						</div>
-						<div className="w-[280px]">
-							<BaseItemInput label="ชื่อ - นามสกุล" />
-						</div>
-					</div>
-				}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
 				AddLabel="สร้างแพทย์"
-				Header="ข้อมูลแพทย์"
 				TotalItems={page.totalData}
-				SearchButtonFunction={() => {}}
 			/>
 		</div>
 	);

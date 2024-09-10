@@ -1,9 +1,6 @@
 "use client";
 
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import CustomHeaderSort from "@/components/CustomGrid/Header/CustomHeaderSort";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
-import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
@@ -15,6 +12,7 @@ import {
 import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
 import { useMemo } from "react";
 import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -42,7 +40,9 @@ export const GetColumns = (props: Props) => {
 				dataIndex: "diplomaType",
 				key: "diplomaType",
 				render: (_: any, { diplomaType }: any) => {
-					const diploma = JSON.parse(sessionStorage.getItem("DIPLOMA") ?? "[]");
+					const diploma = JSON.parse(
+						sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
+					);
 					const data: Diploma[] = diploma.filter(
 						(item: Diploma) => item.diplomaType === diplomaType
 					);
