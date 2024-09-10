@@ -1,18 +1,23 @@
 "use client";
 
-import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import { DoctorBankList } from "@/modules/doctor/redux/form/model";
+import {
+	DoctorBankList,
+	DoctorPostalList,
+} from "@/modules/doctor/redux/form/model";
 import { useMemo } from "react";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppDispatch } from "@/redux/config/configStore";
+import { setDialog } from "@/redux/slices/dialog";
+import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
+import { handleBankRows } from "@/modules/doctor/DialogContent/service";
 
-interface Props {
+interface BankProps {
 	doctorBankGrid: DoctorBankList[];
 	dispatch: AppDispatch;
 }
 
-export const GetColumns = (props: Props) => {
+export const GetColumnBank = (props: BankProps) => {
 	const { doctorBankGrid, dispatch } = props;
 	const columns = useMemo(
 		() => [
@@ -43,8 +48,23 @@ export const GetColumns = (props: Props) => {
 				render: (_: any, { id }: any) => {
 					return (
 						<CustomCellButton
-							editFunction={() => {}}
-							deleteFunction={() => {}}
+							editFunction={() => {
+								dispatch(
+									setDialog({
+										isOpen: true,
+										uniqueContent: <BankDialog {...props} editId={id} />,
+									})
+								);
+							}}
+							deleteFunction={() => {
+								dispatch(
+									handleBankRows({
+										doctorBankGrid,
+										editId: id,
+										isDelete: true,
+									})
+								);
+							}}
 							mode={BUTTON_MODE.EDIT_DELETE_ICON}
 						/>
 					);

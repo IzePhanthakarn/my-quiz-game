@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -10,7 +9,6 @@ import _ from "lodash";
 import { setDoctorData } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { DoctorData } from "../../redux/form/model";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
@@ -23,35 +21,17 @@ import { findNameDisplay } from "@/components/MedDropDown/service";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
-	const { doctorData, dialog } = useSelector(
+	const { doctorData } = useSelector(
 		(state: SliceModel) => ({
 			doctorData: state.doctor.doctorForm.doctorData,
-			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
-
-	const onFinish: FormProps<DoctorData>["onFinish"] = async (
-		values: DoctorData
-	) => {
-		console.log("value Finish", values);
-		// dispatch(
-		// 	setDialog({
-		// 		...dialog,
-		// 		isOpen: true,
-		// 		content: <>asd</>,
-		// 	})
-		// );
-	};
-
-	const onFinishFailed: FormProps<DoctorData>["onFinishFailed"] = (_) => {};
 
 	return (
 		<BaseForm
 			initialValues={{ ...doctorData }}
 			name={"doctorForm"}
-			onFinish={onFinish}
-			onFinishFailed={onFinishFailed}
 			onValuesChange={(e: DoctorData) => {
 				dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
 			}}
@@ -108,15 +88,14 @@ export default function DoctorDetailForm() {
 					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
 				</div>
 				<BaseItemInput label="ที่อยู่" itemName="houseNum" rules={[]} />
-				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
 				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
+				<div></div>
 				<MedDropDown
+					label="ตำบล"
+					itemName="tambol"
 					type={DROPDOWN_TYPE.ADDRESS}
-					label="จังหวัด"
-					itemName="province"
-					className="h-full w-full"
-					getValue={(e: Address) =>
+					getValue={(e: Address) => {
 						dispatch(
 							setDoctorData({
 								...doctorData,
@@ -125,10 +104,10 @@ export default function DoctorDetailForm() {
 								tambol: e.tambolCode,
 								postcode: e.postalCode,
 							})
-						)
-					}
+						);
+					}}
 					labelRender={() => (
-						<p>{findLabelAddress(doctorData.province, ADDRESS.PROVINCE)}</p>
+						<p>{findLabelAddress(doctorData.tambol, ADDRESS.TAMBOL)}</p>
 					)}
 				/>
 				<MedDropDown
@@ -151,10 +130,11 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<MedDropDown
-					label="ตำบล"
-					itemName="tambol"
 					type={DROPDOWN_TYPE.ADDRESS}
-					getValue={(e: Address) => {
+					label="จังหวัด"
+					itemName="province"
+					className="h-full w-full"
+					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
 								...doctorData,
@@ -163,12 +143,13 @@ export default function DoctorDetailForm() {
 								tambol: e.tambolCode,
 								postcode: e.postalCode,
 							})
-						);
-					}}
+						)
+					}
 					labelRender={() => (
-						<p>{findLabelAddress(doctorData.tambol, ADDRESS.TAMBOL)}</p>
+						<p>{findLabelAddress(doctorData.province, ADDRESS.PROVINCE)}</p>
 					)}
 				/>
+				<div></div>
 				<MedDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
@@ -188,8 +169,7 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.postcode, ADDRESS.POSTCODE)}</p>
 					)}
 				/>
-				<div className="col-span-3"></div>
-				<BaseButton className="my-2" label="บันทึก" htmlType="submit" />
+				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 			</div>
 		</BaseForm>
 	);

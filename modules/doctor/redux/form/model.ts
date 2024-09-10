@@ -1,24 +1,24 @@
 import { BaseEntity } from "@/interfaces/baseEntity";
 
 export interface DoctorData {
-	amphur: string;
+	amphur: string | null;
 	houseNum: string;
 	moo: string;
-	province: string;
+	province: string | null;
 	road: string;
 	soi: string;
-	tambol: string;
+	tambol: string | null;
 	citizenId: string;
 	doctorCode: string;
-	doctorType: string;
+	doctorType: string | null;
 	firstName: string;
 	lastName: string;
 	position: string;
 	postalName: string;
-	postcode: string;
+	postcode: string | null;
 	professionalCode: string;
 	revenueNo: string;
-	title: string;
+	title: string | null;
 	isActive: string;
 	uuid: string;
 }
@@ -39,20 +39,24 @@ export interface DoctorBankList extends DoctorBank {
 	id: number;
 }
 
+export interface DoctorPostalList extends DoctorPostal {
+	id: number;
+}
+
+interface DoctorPostal extends BaseEntity {
+	postalId: string;
+}
 interface Training extends BaseEntity {
-	doctorCode: string;
 	trainingNo: string;
 	trainingTime: string;
 	trainingYear: string;
 	trainingDate: string;
 }
 interface DoctorDetail extends BaseEntity {
-	doctorCode: string;
 	diplomaType: string;
 }
 
 interface DoctorBank extends BaseEntity {
-	doctorCode: string;
 	bankAccountName: string;
 	bankDigitCode: string;
 	bankSortingCode: string;
@@ -60,7 +64,6 @@ interface DoctorBank extends BaseEntity {
 }
 
 interface DoctorHospital extends BaseEntity {
-	doctorCode: string;
 	hospitalWcfCode: string;
 	jobType: string;
 	clinicCode: string | null;
@@ -73,34 +76,36 @@ export interface DoctorForm {
 	doctorDetail: DoctorDetailList[];
 	doctorHospital: DoctorHospitalList[];
 	doctorBank: DoctorBankList[];
-	training: TrainingList[];
+	doctorTraining: TrainingList[];
+	doctorPostal: DoctorPostalList[];
 	[key: string]:
 		| DoctorData
 		| DoctorDetailList[]
 		| DoctorHospitalList[]
 		| DoctorBankList[]
-		| TrainingList[];
+		| TrainingList[]
+		| DoctorPostalList[];
 }
 
 const modelDoctorData: DoctorData = {
-	amphur: "",
+	amphur: null,
 	houseNum: "",
 	moo: "",
-	province: "",
+	province: null,
 	road: "",
 	soi: "",
-	tambol: "",
+	tambol: null,
 	citizenId: "",
 	doctorCode: "",
-	doctorType: "",
+	doctorType: null,
 	firstName: "",
 	lastName: "",
 	position: "",
 	postalName: "",
-	postcode: "",
+	postcode: null,
 	professionalCode: "",
 	revenueNo: "",
-	title: "",
+	title: null,
 	isActive: "",
 	uuid: "",
 };
@@ -110,5 +115,6 @@ export const modelDoctorForm: DoctorForm = {
 	doctorDetail: [],
 	doctorHospital: [],
 	doctorBank: [],
-	training: [],
+	doctorTraining: [],
+	doctorPostal: [],
 };

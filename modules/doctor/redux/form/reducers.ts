@@ -1,10 +1,12 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Doctor } from "../model";
 import {
+	DoctorBankList,
 	DoctorData,
 	DoctorDetailList,
 	DoctorForm,
 	DoctorHospitalList,
+	DoctorPostalList,
 	TrainingList,
 } from "./model";
 
@@ -29,6 +31,20 @@ export const doctorFormReducers = {
 	},
 
 	setTrainingList: (state: Doctor, action: PayloadAction<TrainingList[]>) => {
-		state.doctorForm.training = action.payload;
+		state.doctorForm.doctorTraining = action.payload;
+	},
+
+	setDoctorBankList: (
+		state: Doctor,
+		action: PayloadAction<DoctorBankList[]>
+	) => {
+		state.doctorForm.doctorBank = action.payload;
+	},
+
+	setDoctorPostalList: (
+		state: Doctor,
+		action: PayloadAction<DoctorPostalList[]>
+	) => {
+		state.doctorForm.doctorPostal = action.payload;
 	},
 };

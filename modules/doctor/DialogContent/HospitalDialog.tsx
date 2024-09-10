@@ -1,7 +1,7 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorHospitalList } from "../redux/form/model";
@@ -15,20 +15,28 @@ import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-
 import { handleHospital, handleHospitalRows } from "./service";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SliceModel } from "@/redux/slices/model";
 interface Props {
-	doctorCode: string;
 	doctorHospitalGrid: DoctorHospitalList[];
 	editId?: number;
 }
 
 export default function HospitalDialog(props: Props) {
-	const { doctorHospitalGrid, doctorCode, editId } = props;
+	const { doctorHospitalGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
+
+	const { isOpen } = useSelector(
+		(state: SliceModel) => ({
+			isOpen: state.dialog.isOpen,
+		}),
+		shallowEqual
+	);
 
 	const [hospital, setHospital] =
 		React.useState<DoctorHospital>(modelDoctorHospital);
 
 	useEffect(() => {
+		setHospital(modelDoctorHospital);
 		if (editId) {
 			const data = _.find(doctorHospitalGrid, ["id", editId]);
 			if (!_.isEmpty(data)) {
@@ -39,10 +47,8 @@ export default function HospitalDialog(props: Props) {
 					position: data.position ?? "",
 				});
 			}
-		} else {
-			setHospital(modelDoctorHospital);
 		}
-	}, [doctorHospitalGrid, editId]);
+	}, [doctorHospitalGrid, isOpen, editId]);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
@@ -100,7 +106,6 @@ export default function HospitalDialog(props: Props) {
 					dispatch(
 						handleHospitalRows({
 							hospital,
-							doctorCode,
 							doctorHospitalGrid,
 							editId,
 						})

@@ -1,7 +1,7 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { TrainingList } from "../redux/form/model";
@@ -10,9 +10,9 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import { handleTrainingRows } from "./service";
+import { SliceModel } from "@/redux/slices/model";
 interface Props {
 	trainingGrid: TrainingList[];
-	doctorCode: string;
 	editId?: number;
 }
 
@@ -27,12 +27,20 @@ const defaultTraining: TraningState = {
 };
 
 export default function TraningDialog(props: Props) {
-	const { trainingGrid, doctorCode, editId } = props;
+	const { trainingGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
+
+	const { isOpen } = useSelector(
+		(state: SliceModel) => ({
+			isOpen: state.dialog.isOpen,
+		}),
+		shallowEqual
+	);
 
 	const [training, setTraining] = React.useState<TraningState>(defaultTraining);
 
 	useEffect(() => {
+		setTraining(defaultTraining);
 		if (editId) {
 			const data = _.find(trainingGrid, ["id", editId]);
 			if (!_.isEmpty(data)) {
@@ -41,14 +49,8 @@ export default function TraningDialog(props: Props) {
 					trainingDate: data.trainingDate,
 				});
 			}
-		} else {
-			setTraining(defaultTraining);
 		}
-	}, [trainingGrid, editId]);
-
-	useEffect(() => {
-		setTraining(defaultTraining);
-	}, []);
+	}, [trainingGrid, isOpen, editId]);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
@@ -82,7 +84,6 @@ export default function TraningDialog(props: Props) {
 					dispatch(
 						handleTrainingRows({
 							training,
-							doctorCode,
 							trainingGrid,
 							editId,
 						})

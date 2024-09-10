@@ -8,8 +8,19 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
 import { DoctorList } from "../redux/master/model";
-import { getDoctorForm, getDoctorList } from "./api";
+import {
+	createDoctorForm,
+	getDoctorForm,
+	getDoctorList,
+	updateDoctorForm,
+} from "./api";
 import _ from "lodash";
+import { DoctorForm } from "../redux/form/model";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "@/constants/links";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -37,13 +48,14 @@ export const initGetDoctorForm =
 		const response = await dispatch(getDoctorForm(uuid));
 		const data = response.payload;
 		const result = {
-			...data,
+			doctorData: data.doctorData,
 			doctorBank: mapIdByIndex(data.doctorBank),
 			doctorDetail: mapIdByIndex(data.doctorDetail),
 			doctorHospital: mapIdByIndex(data.doctorHospital),
-			training: mapIdByIndex(data.training),
+			doctorTraining: mapIdByIndex(data.training),
+			doctorPostal: mapIdByIndex(data.doctorPostal),
 		};
-		dispatch(setDoctorForm(await result));
+		dispatch(setDoctorForm(result));
 	};
 
 // List
@@ -79,4 +91,41 @@ export const initDoctorGrid =
 		const totalData = data.payload.totalElements;
 		dispatch(setTotalData(totalData));
 		dispatch(setDoctorGrid(grid));
+	};
+
+export const handleDoctorFormSubmit =
+	(doctorForm: DoctorForm, uuid: string, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		let result;
+		dispatch(setIsLoading(true));
+		if (!_.isEmpty(uuid)) {
+			result = await dispatch(updateDoctorForm({ params: doctorForm, uuid }));
+		} else {
+			result = await dispatch(createDoctorForm(doctorForm));
+		}
+		dispatch(setIsLoading(false));
+		let message = "";
+		let description = "";
+		if (_.get(result, "error.message") === "Rejected") {
+			if (!_.isEmpty(uuid)) message = BaseToastNotificationMessage.PATCH_ERROR;
+			else message = BaseToastNotificationMessage.INSERT_ERROR;
+			baseToastNotification({
+				message: message,
+				description: `${_.get(result, "error.message")}`,
+			});
+		} else {
+			if (!_.isEmpty(uuid)) {
+				description = "แก้ไขสำเร็จ";
+				message = BaseToastNotificationMessage.PATCH_SUCCESS;
+			} else {
+				description = "เพิ่มสำเร็จ";
+				message = BaseToastNotificationMessage.INSERT_SUCCESS;
+			}
+			router.push(LINKS.DOCTOR.link);
+			baseToastNotification({
+				message: message,
+				description: description,
+			});
+		}
 	};

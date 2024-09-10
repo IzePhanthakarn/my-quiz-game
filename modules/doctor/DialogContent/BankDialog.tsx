@@ -4,21 +4,21 @@ import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
 import _ from "lodash";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { handleDoctorDetailRows } from "./service";
+import { handleBankRows, handleDoctorDetailRows } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import { SliceModel } from "@/redux/slices/model";
 
 interface Props {
-	doctorBankList: DoctorBankList[];
-	doctorCode: string;
+	doctorBankGrid: DoctorBankList[];
 	editId?: number;
 }
 
-interface Bank {
+export interface Bank {
 	bankAccountName: string;
 	bankDigitCode: string;
 	bankSortingCode: string;
@@ -33,13 +33,24 @@ const modelBank: Bank = {
 };
 
 export default function BankDialog(props: Props) {
-	// const { doctorBankList, doctorCode, editId } = props;
+	const { doctorBankGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 	const [bank, setBank] = React.useState(modelBank);
 
+	const { isOpen } = useSelector(
+		(state: SliceModel) => ({
+			isOpen: state.dialog.isOpen,
+		}),
+		shallowEqual
+	);
+
 	useEffect(() => {
 		setBank(modelBank);
-	}, []);
+		if (editId) {
+			const data = _.find(doctorBankGrid, ["id", editId]);
+			setBank({ ...bank, ...data });
+		}
+	}, [doctorBankGrid, editId, isOpen]);
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
@@ -88,7 +99,7 @@ export default function BankDialog(props: Props) {
 				iconPosition="end"
 				disabled={_.some(_.values(bank), (value) => value === "")}
 				onClick={() => {
-					console.log("bank", bank);
+					dispatch(handleBankRows({ bank, doctorBankGrid, editId }));
 				}}
 				label="บันทึก"
 			/>

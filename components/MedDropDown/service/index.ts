@@ -55,6 +55,7 @@ export const handleSession =
 export const handleGetValue = (type: DROPDOWN_TYPE, value: any) => {
 	switch (type) {
 		case DROPDOWN_TYPE.ADDRESS:
+		case DROPDOWN_TYPE.POSTAL_ID:
 			const data = findAddress(value);
 			return data;
 		default:
@@ -89,14 +90,28 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 					e.postalCode,
 			}));
 			return option_address;
+		case DROPDOWN_TYPE.POSTAL_ID:
+			const postalIdLabel = result.map((e: Address) => ({
+				value: `${e.tambolCode}/${e.postalCode}`,
+				label: e.postalId + "-" + e.postalName,
+			}));
+			return postalIdLabel;
 		case DROPDOWN_TYPE.HOSPITAL_TYPE:
+		case DROPDOWN_TYPE.HOSPITAL_CATEGORY:
+			const ltProperties: Option[] = result.content.map(
+				(e: LtPropertiesList) => ({
+					value: e.propertyCode,
+					label: e.propertyText,
+				})
+			);
+			return ltProperties;
 		case DROPDOWN_TYPE.JOB_TYPE:
 		case DROPDOWN_TYPE.DOCTOR_TYPE:
-			const data: Option[] = result.content.map((e: LtPropertiesList) => ({
+			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
 			}));
-			return data;
+			return medLtProperties;
 		case DROPDOWN_TYPE.TITLE:
 			const title: Option[] = result.map((e: Title) => ({
 				label: e.titleName,
@@ -123,7 +138,7 @@ export const fetchDropDownList = createAsyncThunk(
 			}
 			return response.data;
 		} catch (err) {
-			return thunkAPI.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -135,11 +150,11 @@ export const findNameDisplay = (type: DROPDOWN_TYPE, value: any) => {
 			const doctorTypeResult = doctorType.find(
 				(e: LtPropertiesList) => e.propertyCode === value
 			);
-			return doctorTypeResult?.propertyText ?? "";
+			return doctorTypeResult?.propertyText ?? null;
 		case DROPDOWN_TYPE.TITLE:
 			const title = JSON.parse(sessionStorage.getItem(type) ?? "[]");
 			const titleResult = title.find((e: Title) => e.titleCode === value);
-			return titleResult?.titleName ?? "";
+			return titleResult?.titleName ?? null;
 		default:
 			return value;
 	}

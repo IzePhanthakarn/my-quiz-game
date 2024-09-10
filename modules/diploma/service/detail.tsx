@@ -15,13 +15,13 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 export const getDiplomaDetail = createAsyncThunk(
 	"Medical/getDiplomaDetail",
-	async (id: string, thunkAPi) => {
+	async (id: string, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.GET_DIPLOMA_DETAIL}/${id}`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -43,14 +43,14 @@ export const createDiplomaApi = createAsyncThunk(
 			diplomaName: DiplomaForm["diplomaName"];
 			isActive: DiplomaForm["isActive"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.CREATE_DIPLOMA}`;
 			const response = await axios.post(apiPath, body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
@@ -65,14 +65,14 @@ export const updateDiplomaApi = createAsyncThunk(
 			};
 			uuid: DiplomaForm["uuid"];
 		},
-		thunkAPi
+		thunkAPI
 	) => {
 		try {
 			const apiPath = `${API_PATH.UPDATE_DIPLOMA}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
 			return response.data;
 		} catch (err) {
-			return thunkAPi.rejectWithValue("");
+			return thunkAPI.rejectWithValue(err);
 		}
 	}
 );
