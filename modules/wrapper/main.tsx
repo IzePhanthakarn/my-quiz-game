@@ -68,9 +68,9 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	const configPage: DataStructureURL = {
 		med: {
-			root: {
-				url: "/med",
-				breadcrumb: ["root"],
+			doctor: {
+				url: "/med/doctor",
+				breadcrumb: ["doctor"],
 				text: "",
 				pageLevel: { form: [0] },
 			},
@@ -87,20 +87,11 @@ const MainWrapper: React.FC<Props> = (props) => {
 			>
 				<HeaderNavbarLayout>
 					<BaseRow className="h-full">
-						<main
-							className={cn(
-								`p-4 h-fit bg-[#E7ECF2]`,
-								sidebarWidth && `w-full relative`
-							)}
-						>
-							{/* Bread Crumb */}
-							{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}
+						<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
 							{props.children}
 						</main>
 					</BaseRow>
-					{/* Loading */}
 					{isLoading && <BaseLoading />}
-					{/* Dialog */}
 					<BaseDialog
 						isOpen={dialog.isOpen}
 						setIsOpen={() => dispatch(setIsOpenDialog(false))}
