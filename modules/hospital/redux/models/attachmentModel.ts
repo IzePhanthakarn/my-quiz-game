@@ -7,10 +7,12 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
+import { UploadFile } from "wcf-component-lib/node_modules/antd";
 
 export interface HospitalAttachment {
 	grid: HospitalAttachmentGrid;
 	filter: HospitalAttachmentGridFilter;
+	toPreview: UploadFile[];
 }
 
 export interface HospitalAttachmentGrid extends PaginationModel {
@@ -20,6 +22,8 @@ export interface HospitalAttachmentGrid extends PaginationModel {
 export interface HospitalAttachmentGridData extends BaseMasterDataInterface {
 	fileName: string;
 	uuid: string;
+	attachmentName: string;
+	extension: string;
 }
 
 export interface HospitalAttachmentGridFilter {
@@ -49,4 +53,5 @@ export const modelHospitalAttachment: HospitalAttachment = {
 		isActive: undefined,
 		checkIsActive: false,
 	},
+	toPreview: [],
 };
