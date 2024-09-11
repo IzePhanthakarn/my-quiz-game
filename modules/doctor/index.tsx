@@ -7,7 +7,12 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { setDoctorFilter, setOrder, setPagination } from "./redux";
+import {
+	setDoctorFilter,
+	setDoctorForm,
+	setOrder,
+	setPagination,
+} from "./redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
@@ -19,7 +24,9 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { handleSession } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+// import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import { modelDoctorForm } from "./redux/form/model";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -41,9 +48,8 @@ export default function Doctor() {
 		dispatchLayout({
 			type: "setChildrenHeader",
 			payload: (
-				<HeaderLayout
-					// Header="ข้อมูลแพทย์"
-					FilterTextField={
+				<FilterLayout
+					FilterForm={
 						<div className="flex space-x-2">
 							<div className="w-[280px]">
 								<BaseItemInput label="เลขทะเบียน สปส" />
@@ -53,12 +59,31 @@ export default function Doctor() {
 							</div>
 						</div>
 					}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-					SearchButtonFunction={() => {}}
+					handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+					handleSubmitSearch={() => {}}
 				/>
+				// <HeaderLayout
+				// 	// Header="ข้อมูลแพทย์"
+				// 	FilterTextField={
+				// 		<div className="flex space-x-2">
+				// 			<div className="w-[280px]">
+				// 				<BaseItemInput label="เลขทะเบียน สปส" />
+				// 			</div>
+				// 			<div className="w-[280px]">
+				// 				<BaseItemInput label="ชื่อ - นามสกุล" />
+				// 			</div>
+				// 		</div>
+				// 	}
+				// 	FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				// 	SearchButtonFunction={() => {}}
+				// />
 			),
 		});
 	}, [dispatchLayout]);
+
+	useEffect(() => {
+		dispatch(setDoctorForm(modelDoctorForm));
+	}, []);
 
 	useEffect(() => {
 		dispatch(handleSession(SESSION_NAME.ADDRESS));

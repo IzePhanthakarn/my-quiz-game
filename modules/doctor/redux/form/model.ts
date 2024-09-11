@@ -11,16 +11,16 @@ export interface DoctorData {
 	citizenId: string;
 	doctorCode: string;
 	doctorType: string | null;
-	firstName: string;
-	lastName: string;
-	position: string;
-	postalName: string;
+	firstname: string;
+	lastname: string;
+	// position: string;
+	// postalName: string;
 	postcode: string | null;
 	professionalCode: string;
 	revenueNo: string;
 	title: string | null;
-	isActive: string;
-	uuid: string;
+	// isActive: string;
+	// uuid: string;
 }
 
 export interface TrainingList extends Training {
@@ -98,16 +98,16 @@ const modelDoctorData: DoctorData = {
 	citizenId: "",
 	doctorCode: "",
 	doctorType: null,
-	firstName: "",
-	lastName: "",
-	position: "",
-	postalName: "",
+	firstname: "",
+	lastname: "",
+	// position: "",
+	// postalName: "",
 	postcode: null,
 	professionalCode: "",
 	revenueNo: "",
 	title: null,
-	isActive: "",
-	uuid: "",
+	// isActive: "",
+	// uuid: "",
 };
 
 export const modelDoctorForm: DoctorForm = {
