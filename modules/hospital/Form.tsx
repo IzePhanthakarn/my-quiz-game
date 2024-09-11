@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BasePreview from "wcf-component-lib/src/components/BasePreview";
+import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -56,6 +56,7 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeaderNameAndSwitch/BaseHeaderNameAndSwitch";
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 // import { setMultipleFiles } from "../minio/redux";
+import { FILE_TYPES } from "wcf-component-lib/src/constants/file-types";
 
 import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
@@ -326,6 +327,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 					<BaseHorizontalHeader
+						className="mb-7"
 						title={"ข้อมูลพื้นฐานสถานพยาบาล"}
 						icons={<HomeFilled />}
 					/>
@@ -852,7 +854,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					) : (
-						<BasePreview
+						<BasePreviewPicture
 							items={hospitalAttachmentFile1.toPreview}
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
@@ -869,7 +871,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							hospitalAttachmentFile1.toPreview.length === 0 && "hidden"
 						}`}
 					>
-						<BasePreview
+						<BasePreviewPicture
 							items={hospitalAttachmentFile1.toPreview}
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
@@ -882,6 +884,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}`}
 					>
 						<BaseUploadDraggerHospital
+							allowFileTypesToUpload={[FILE_TYPES.PDF]}
 							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
 							showUploadList={false}
 							className={`style1`}
@@ -1026,6 +1029,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							<div>
 								<BaseUploadDraggerHospital
 									className="style2"
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
 									// backgroundColor="BBC8CB"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp7"
@@ -1109,6 +1113,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							<div>
 								<BaseUploadDraggerHospital
 									className="style2"
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp19"
 									bearer={`${Cookies.get("accessToken")}`}
@@ -1137,7 +1142,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								0 && "hidden"
 						}`}
 					>
-						<BasePreview
+						<BasePreviewPicture
 							isHidden={
 								hospitalCertificateOfIncorporationAttachment.toPreview
 									.length === 0 && true
@@ -1161,6 +1166,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalCertificateOfIncorporationAttachment.toPreview
 									.length === 0 && true
 							}
+							allowFileTypesToUpload={[FILE_TYPES.PDF]}
 							showUploadList={false}
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
@@ -1277,6 +1283,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							/>
 							<div>
 								<BaseUploadDraggerHospital
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/etcFiles"
