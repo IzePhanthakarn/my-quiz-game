@@ -153,13 +153,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		if (files?.sp7?.length) {
 			const errorArray = [];
 			errorArray.push({
-				name: "sp7StartDated",
+				name: "sp7StartDated" as const, // ใช้ `as const` เพื่อกำหนดให้เป็น literal type ที่ตรงกับ `HospitalForm`
 				errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
 					? [`กรุณาใส่ ${names.sp7StartDated}`]
 					: undefined,
 			});
+
 			errorArray.push({
-				name: "sp7EndDate",
+				name: "sp7EndDate" as const, // ใช้ `as const` เช่นเดียวกัน
 				errors: _.isEmpty(form.getFieldsValue().sp7EndDate)
 					? [`กรุณาใส่ ${names.sp7EndDate}`]
 					: undefined,
@@ -212,7 +213,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					? [`กรุณาใส่ ${names.sp19EndDate}`]
 					: undefined,
 			});
-			form.setFields(errorArray);
+			// form.setFields(errorArray);
 
 			/**
 			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
