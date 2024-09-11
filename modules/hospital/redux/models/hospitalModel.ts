@@ -159,7 +159,6 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	ssoProject: string;
 	latitude: string;
 	longitude: string;
-	errorArray: { name: string; errors: string[] | undefined }[];
 }
 
 export const modelHospital: Hospital = {
@@ -253,6 +252,5 @@ export const modelHospital: Hospital = {
 		tambolCode: "",
 		remarkChangeName: "",
 		ssoProject: "",
-		errorArray: [],
 	},
 };

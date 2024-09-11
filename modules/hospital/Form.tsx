@@ -151,19 +151,25 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		}
 
 		if (files?.sp7?.length) {
-			const errorArray: { name: string; errors: string[] | undefined }[] = [];
+			const errorArray: {
+				name: (keyof HospitalForm)[];
+				errors: string[] | undefined;
+			}[] = [];
+
 			errorArray.push({
-				name: "sp7StartDated",
+				name: ["sp7StartDated"], // แก้ไขจาก string ธรรมดาเป็น array ตามโครงสร้าง
 				errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
 					? [`กรุณาใส่ ${names.sp7StartDated}`]
 					: undefined,
 			});
+
 			errorArray.push({
-				name: "sp7EndDate",
+				name: ["sp7EndDate"], // แก้ไขจาก string ธรรมดาเป็น array ตามโครงสร้าง
 				errors: _.isEmpty(form.getFieldsValue().sp7EndDate)
 					? [`กรุณาใส่ ${names.sp7EndDate}`]
 					: undefined,
 			});
+
 			form.setFields(errorArray);
 
 			/**
