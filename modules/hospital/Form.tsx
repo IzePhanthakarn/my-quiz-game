@@ -73,7 +73,7 @@ import { HospitalAttachmentGrid } from "./columns/hospitalAttachmentGrid";
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const [form] = Form.useForm();
+	const [form] = Form.useForm<HospitalForm>();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const {
