@@ -6,9 +6,9 @@ import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import { setDoctorData } from "../../redux";
+import { setDoctorData, setDoctorForm } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
-import { DoctorData } from "../../redux/form/model";
+import { DoctorData, modelDoctorForm } from "../../redux/form/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
@@ -16,7 +16,7 @@ import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserO
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/HomeFilled";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
 
 export default function DoctorDetailForm() {
@@ -28,10 +28,14 @@ export default function DoctorDetailForm() {
 		shallowEqual
 	);
 
+	useEffect(() => {
+		dispatch(setDoctorForm(modelDoctorForm));
+	}, []);
+
 	return (
 		<BaseForm
-			initialValues={{ ...doctorData }}
-			name={"doctorForm"}
+			initialValues={doctorData}
+			name="doctorForm"
 			onValuesChange={(e: DoctorData) => {
 				dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
 			}}
@@ -57,28 +61,25 @@ export default function DoctorDetailForm() {
 				/>
 				<div></div>
 				<MedDropDown
-					type={DROPDOWN_TYPE.TITLE}
+					type={SESSION_NAME.TITLE}
 					label="คำนำหน้า"
 					itemName="title"
 					className="h-full w-full"
 					labelRender={() => (
-						<p>{findNameDisplay(DROPDOWN_TYPE.TITLE, doctorData.title)}</p>
+						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
 					)}
 				/>
 				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
 				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
 				<div></div>
 				<MedDropDown
-					type={DROPDOWN_TYPE.DOCTOR_TYPE}
+					type={SESSION_NAME.DOCTOR_TYPE}
 					label="ประเภทแพทย์"
 					itemName="doctorType"
 					className="h-full w-full"
 					labelRender={() => (
 						<p>
-							{findNameDisplay(
-								DROPDOWN_TYPE.DOCTOR_TYPE,
-								doctorData.doctorType
-							)}
+							{findNameDisplay(SESSION_NAME.DOCTOR_TYPE, doctorData.doctorType)}
 						</p>
 					)}
 				/>
@@ -94,8 +95,9 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="ตำบล"
 					itemName="tambol"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) => {
+						console.log("e", e);
 						dispatch(
 							setDoctorData({
 								...doctorData,
@@ -113,7 +115,7 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="อำเภอ"
 					itemName="amphur"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -130,7 +132,7 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<MedDropDown
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					label="จังหวัด"
 					itemName="province"
 					className="h-full w-full"
@@ -153,7 +155,7 @@ export default function DoctorDetailForm() {
 				<MedDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
-					type={DROPDOWN_TYPE.ADDRESS}
+					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({

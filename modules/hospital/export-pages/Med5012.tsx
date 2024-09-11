@@ -25,50 +25,49 @@ const HospitalReportMed5012 = () => {
 		<BaseForm
 			name={""}
 			initialValues={med5012}
-			children={
-				<div className="grid grid-cols-4 gap-x-4 gap-y-4">
-					<p className="col-span-4 text-2xl">
-						MED5012 รายงานการตรวจสถานพยาบาลในความตกลงของกองทุนเงินทดแทน
-					</p>
-					<div></div>
-					<BaseDatePicker label="วันที่ตรวจสถานพยาบาล" itemName={"fromDate"} />
-					<BaseDatePicker label="ถึงวันที่" itemName={"toDate"} />
-					<div></div>
-					<div className="col-span-4">
-						<div className="flex justify-center space-x-2">
-							<BaseButton
-								className="w-1/6"
-								label="Excel"
-								onClick={() => {
-									dispatch(handleOnExportExcel(med5012, REPORT_TYPES.MED5012));
-								}}
-							/>
-							<BaseButton
-								className="w-1/6"
-								label="Pdf"
-								onClick={() => {
-									dispatch(handleOnExportPdf(med5012, REPORT_TYPES.MED5012));
-								}}
-							/>
-							<BaseButton
-								className="w-1/6"
-								label="Preview"
-								onClick={() => {
-									dispatch(
-										handleOnExportPdf(med5012, REPORT_TYPES.MED5012, true)
-									);
-								}}
-							/>
-						</div>
-					</div>
-				</div>
-			}
 			onValuesChange={(e) =>
 				dispatch(
 					setExportPages({ key: "med5012", value: { ...med5012, ...e } })
 				)
 			}
-		/>
+		>
+			<div className="grid grid-cols-4 gap-x-4 gap-y-4">
+				<p className="col-span-4 text-2xl">
+					MED5012 รายงานการตรวจสถานพยาบาลในความตกลงของกองทุนเงินทดแทน
+				</p>
+				<div></div>
+				<BaseDatePicker label="วันที่ตรวจสถานพยาบาล" itemName={"fromDate"} />
+				<BaseDatePicker label="ถึงวันที่" itemName={"toDate"} />
+				<div></div>
+				<div className="col-span-4">
+					<div className="flex justify-center space-x-2">
+						<BaseButton
+							className="w-1/6"
+							label="Excel"
+							onClick={() => {
+								dispatch(handleOnExportExcel(med5012, REPORT_TYPES.MED5012));
+							}}
+						/>
+						<BaseButton
+							className="w-1/6"
+							label="Pdf"
+							onClick={() => {
+								dispatch(handleOnExportPdf(med5012, REPORT_TYPES.MED5012));
+							}}
+						/>
+						<BaseButton
+							className="w-1/6"
+							label="Preview"
+							onClick={() => {
+								dispatch(
+									handleOnExportPdf(med5012, REPORT_TYPES.MED5012, true)
+								);
+							}}
+						/>
+					</div>
+				</div>
+			</div>
+		</BaseForm>
 	);
 };
 export default dynamic(() => Promise.resolve(HospitalReportMed5012), {

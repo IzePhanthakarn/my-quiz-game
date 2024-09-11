@@ -3,6 +3,8 @@ import "../styles/globals.css";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { AntdProvider } from "wcf-component-lib/src/provider/AntdProvider";
 import MainWrapper from "@/modules/wrapper/main";
+import { Suspense } from "react";
+import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
 
 export const metadata: Metadata = {
 	title: "WCF-Digital",
@@ -22,7 +24,9 @@ export default function RootLayout({
 			<AntdProvider>
 				<StoreProvider>
 					<body>
-						<MainWrapper>{children}</MainWrapper>
+						<Suspense fallback={<BaseLoading />}>
+							<MainWrapper>{children}</MainWrapper>
+						</Suspense>
 					</body>
 				</StoreProvider>
 			</AntdProvider>

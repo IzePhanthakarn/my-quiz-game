@@ -23,33 +23,23 @@ const HospitalReportMed5012 = () => {
 		<BaseForm
 			name={""}
 			initialValues={med5012}
-			children={
-				<div className="grid grid-cols-2 gap-x-4">
-					<BaseDatePicker label="วันที่ตรวจสถานพยาบาล" itemName={"fromDate"} />
-					<BaseDatePicker label="ถึงวันที่" itemName={"toDate"} />
-					<div className="col-span-2 space-x-2">
-						<BaseButton
-							className="w-1/4"
-							label="Excel"
-							onClick={() => {}}
-						/>
-						<BaseButton
-							className="w-1/4"
-							label="Pdf"
-							onClick={() => {}}
-						/>
-						<BaseButton
-							className="w-1/4"
-							label="Preview"
-							onClick={() => {}}
-						/>
-					</div>
-				</div>
-			}
 			onValuesChange={(e) =>
-				dispatch(setExportPages({ key:'med5012', value : { ...med5012, ...e }}))
+				dispatch(
+					setExportPages({ key: "med5012", value: { ...med5012, ...e } })
+				)
 			}
-		/>
+		>
+			{" "}
+			<div className="grid grid-cols-2 gap-x-4">
+				<BaseDatePicker label="วันที่ตรวจสถานพยาบาล" itemName={"fromDate"} />
+				<BaseDatePicker label="ถึงวันที่" itemName={"toDate"} />
+				<div className="col-span-2 space-x-2">
+					<BaseButton className="w-1/4" label="Excel" onClick={() => {}} />
+					<BaseButton className="w-1/4" label="Pdf" onClick={() => {}} />
+					<BaseButton className="w-1/4" label="Preview" onClick={() => {}} />
+				</div>
+			</div>
+		</BaseForm>
 	);
 };
 export default dynamic(() => Promise.resolve(HospitalReportMed5012), {

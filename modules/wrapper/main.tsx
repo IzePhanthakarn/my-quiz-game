@@ -1,13 +1,9 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
-import NavBar from "@/components/NavBar";
-import SideBar from "@/components/SideBar";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { sidebarWidth } from "@/constants/global";
-import { cn } from "@/utils/libs/client";
 import { SliceModel } from "../../redux/slices/model";
 import { setIsLoading } from "../../redux/slices/container";
 import BaseLoading from "wcf-component-lib/src/components/BaseLoading";
@@ -18,6 +14,10 @@ import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
+import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
+import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
+import { configPage } from "@/constants/config-page";
+
 type Props = {
 	children: ReactNode;
 };
@@ -37,7 +37,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	axios.interceptors.request.use(
 		(config) => {
 			dispatch(setIsLoading(true));
-			config.headers.Authorization = `Bearer ${Cookies.get("Bearer")}`;
+			config.headers.Authorization = `Bearer ${Cookies.get("accessToken")}`;
 			return config;
 		},
 		(error) => {
@@ -66,32 +66,30 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	return (
 		<div className="h-screen">
-			<NavBar />
-			<BaseRow className="h-full">
-				<SideBar />
-				<main
-					className={cn(
-						`p-4 h-fit bg-[#E7ECF2]`,
-						sidebarWidth && `w-full relative`
-					)}
-				>
-					{/* Bread Crumb */}
-					{/* <BaseBreadCrumb pathName={pathname} pathMapping={pathMapping} /> */}
-					{props.children}
-				</main>
-			</BaseRow>
-			{/* Loading */}
-			{isLoading && <BaseLoading />}
-			{/* Dialog */}
-			<BaseDialog
-				isOpen={dialog.isOpen}
-				setIsOpen={() => dispatch(setIsOpenDialog(false))}
-				content={dialog.content}
-				headerText={dialog.headerText}
-				uniqueContent={dialog.uniqueContent}
-				onConfirm={dialog.onConfirm}
-				onCancel={dialog.onCancel}
-			/>
+			<LayoutProvider
+				configPage={configPage}
+				urlApi={
+					"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
+				}
+			>
+				<HeaderNavbarLayout>
+					<BaseRow className="h-full">
+						<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
+							{props.children}
+						</main>
+					</BaseRow>
+					{isLoading && <BaseLoading />}
+					<BaseDialog
+						isOpen={dialog.isOpen}
+						setIsOpen={() => dispatch(setIsOpenDialog(false))}
+						content={dialog.content}
+						headerText={dialog.headerText}
+						uniqueContent={dialog.uniqueContent}
+						onConfirm={dialog.onConfirm}
+						onCancel={dialog.onCancel}
+					/>
+				</HeaderNavbarLayout>
+			</LayoutProvider>
 		</div>
 	);
 };

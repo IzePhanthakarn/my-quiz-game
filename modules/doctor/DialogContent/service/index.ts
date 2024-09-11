@@ -20,6 +20,7 @@ import {
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { TraningState } from "../TrainingDialog";
 import { Bank } from "../BankDialog";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 export const handleDoctorDetailRows =
 	(params: {
@@ -128,7 +129,9 @@ export const handleHospital = (
 	setHospital: (hospital: DoctorHospital) => void
 ) => {
 	if (_.isEmpty(hospital.hospitalName)) {
-		const raw_hospital = JSON.parse(sessionStorage.getItem("HOSPITAL") ?? "[]");
+		const raw_hospital = JSON.parse(
+			sessionStorage.getItem(SESSION_NAME.HOSPITAL) ?? "[]"
+		);
 		const name = raw_hospital.find(
 			(e: DoctorHospital) => e.hospitalWcfCode === hospital.hospitalWcfCode
 		);

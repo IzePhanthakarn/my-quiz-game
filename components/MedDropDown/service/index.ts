@@ -10,7 +10,7 @@ import {
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
-import { API_METHOD, DROPDOWN_TYPE, DROPDOWN } from "../model";
+import { API_METHOD, SESSION_NAME, DROPDOWN } from "../model";
 import { Title } from "./model";
 
 interface DropDownParams {
@@ -22,7 +22,7 @@ interface DropDownParams {
 
 export const handleSession =
 	(
-		type: DROPDOWN_TYPE,
+		type: SESSION_NAME,
 		setDropdown?: (value: Option[]) => void,
 		queryString?: string,
 		bodyRequest?: any
@@ -52,10 +52,10 @@ export const handleSession =
 		}
 	};
 
-export const handleGetValue = (type: DROPDOWN_TYPE, value: any) => {
+export const handleGetValue = (type: SESSION_NAME, value: any) => {
 	switch (type) {
-		case DROPDOWN_TYPE.ADDRESS:
-		case DROPDOWN_TYPE.POSTAL_ID:
+		case SESSION_NAME.ADDRESS:
+		case SESSION_NAME.POSTAL_ID:
 			const data = findAddress(value);
 			return data;
 		default:
@@ -63,21 +63,21 @@ export const handleGetValue = (type: DROPDOWN_TYPE, value: any) => {
 	}
 };
 
-const handleOption = (type: DROPDOWN_TYPE, result: any) => {
+const handleOption = (type: SESSION_NAME, result: any) => {
 	switch (type) {
-		case DROPDOWN_TYPE.DIPLOMA:
+		case SESSION_NAME.DIPLOMA:
 			const diploma: Option[] = result.map((e: Diploma) => ({
 				label: `${e.diplomaType.trim()}-${e.diplomaName}`,
 				value: e.diplomaType,
 			}));
 			return diploma;
-		case DROPDOWN_TYPE.HOSPITAL:
+		case SESSION_NAME.HOSPITAL:
 			const hospital: Option[] = result.map((e: DoctorHospital) => ({
 				label: `${e.hospitalWcfCode}-${e.hospitalName}`,
 				value: `${e.hospitalWcfCode}-${e.hospitalName}`,
 			}));
 			return hospital;
-		case DROPDOWN_TYPE.ADDRESS:
+		case SESSION_NAME.ADDRESS:
 			const option_address = result.map((e: Address) => ({
 				value: `${e.tambolCode}/${e.postalCode}`,
 				label:
@@ -90,14 +90,14 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 					e.postalCode,
 			}));
 			return option_address;
-		case DROPDOWN_TYPE.POSTAL_ID:
+		case SESSION_NAME.POSTAL_ID:
 			const postalIdLabel = result.map((e: Address) => ({
 				value: `${e.tambolCode}/${e.postalCode}`,
 				label: e.postalId + "-" + e.postalName,
 			}));
 			return postalIdLabel;
-		case DROPDOWN_TYPE.HOSPITAL_TYPE:
-		case DROPDOWN_TYPE.HOSPITAL_CATEGORY:
+		case SESSION_NAME.HOSPITAL_TYPE:
+		case SESSION_NAME.HOSPITAL_CATEGORY:
 			const ltProperties: Option[] = result.content.map(
 				(e: LtPropertiesList) => ({
 					value: e.propertyCode,
@@ -105,14 +105,14 @@ const handleOption = (type: DROPDOWN_TYPE, result: any) => {
 				})
 			);
 			return ltProperties;
-		case DROPDOWN_TYPE.JOB_TYPE:
-		case DROPDOWN_TYPE.DOCTOR_TYPE:
+		case SESSION_NAME.JOB_TYPE:
+		case SESSION_NAME.DOCTOR_TYPE:
 			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
 			}));
 			return medLtProperties;
-		case DROPDOWN_TYPE.TITLE:
+		case SESSION_NAME.TITLE:
 			const title: Option[] = result.map((e: Title) => ({
 				label: e.titleName,
 				value: e.titleCode,
@@ -143,15 +143,15 @@ export const fetchDropDownList = createAsyncThunk(
 	}
 );
 
-export const findNameDisplay = (type: DROPDOWN_TYPE, value: any) => {
+export const findNameDisplay = (type: SESSION_NAME, value: any) => {
 	switch (type) {
-		case DROPDOWN_TYPE.DOCTOR_TYPE:
+		case SESSION_NAME.DOCTOR_TYPE:
 			const doctorType = JSON.parse(sessionStorage.getItem(type) ?? "[]");
 			const doctorTypeResult = doctorType.find(
 				(e: LtPropertiesList) => e.propertyCode === value
 			);
 			return doctorTypeResult?.propertyText ?? null;
-		case DROPDOWN_TYPE.TITLE:
+		case SESSION_NAME.TITLE:
 			const title = JSON.parse(sessionStorage.getItem(type) ?? "[]");
 			const titleResult = title.find((e: Title) => e.titleCode === value);
 			return titleResult?.titleName ?? null;

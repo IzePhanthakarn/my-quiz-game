@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { DoctorBankList, DoctorData } from "../redux/form/model";
 import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import _ from "lodash";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { handleBankRows, handleDoctorDetailRows } from "./service";
@@ -59,7 +59,7 @@ export default function BankDialog(props: Props) {
 			<div className="w-full">
 				<MedDropDown
 					notForm={true}
-					type={DROPDOWN_TYPE.DIPLOMA}
+					type={SESSION_NAME.DIPLOMA}
 					className="h-full w-full"
 					label="ธนาคาร"
 					getValue={(e) => setBank({ ...bank, bankDigitCode: e })}
@@ -67,7 +67,7 @@ export default function BankDialog(props: Props) {
 				/>
 				<MedDropDown
 					notForm={true}
-					type={DROPDOWN_TYPE.DIPLOMA}
+					type={SESSION_NAME.DIPLOMA}
 					className="h-full w-full"
 					disabled={_.isEmpty(bank.bankDigitCode)}
 					label="สาขาธนาคาร"

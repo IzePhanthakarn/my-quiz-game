@@ -47,7 +47,7 @@ export const getAccessToken =
 		const result = await dispatch(getToken(params));
 		if (!result) return;
 		if (result.payload.access_token) {
-			setCookie("Bearer", await result.payload.access_token);
+			setCookie("accessToken", await result.payload.access_token);
 			await dispatch(getPageAccess(params.username));
 		}
 		window.location.href = "/med/clinic";
