@@ -73,7 +73,7 @@ import { HospitalAttachmentGrid } from "./columns/hospitalAttachmentGrid";
 const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const [form] = Form.useForm<HospitalForm>();
+	const [form] = Form.useForm();
 
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const {
@@ -164,7 +164,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					? [`กรุณาใส่ ${names.sp7EndDate}`]
 					: undefined,
 			});
-			// form.setFields(errorArray);
+			form.setFields(errorArray);
 
 			/**
 			 * เงื่อนไข checkCondition คือตรวจสอบว่าทุก errors key ใน errorArray เป็น Undefined หรือไม่
