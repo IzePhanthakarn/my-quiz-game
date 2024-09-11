@@ -7,7 +7,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
-import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/grid";
@@ -16,6 +15,9 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
 import { modelMedicalAmount } from "./redux/model";
 import { setMedicalAmountFilter } from "./redux";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function MedicalAmount() {
 	const dispatch: AppDispatch = useDispatch();
@@ -29,6 +31,22 @@ export default function MedicalAmount() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					// Header="Medical Amount"
+					SearchButtonFunction={() => {}}
+					FilterTextField={<BaseItemInput className="w-[300px]" />}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
 	useEffect(() => {
 		dispatch(fetchMedicalAmountList(medicalAmount));
 	}, []);
@@ -37,11 +55,7 @@ export default function MedicalAmount() {
 		<div>
 			<MasterDataLayout
 				AddLabel="เพิ่ม Medical Amount"
-				Header="Medical Amount"
 				TotalItems={medicalAmount.grid.page.totalData}
-				SearchButtonFunction={() => {}}
-				FilterTextField={<Input className="w-[300px]" />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={medicalAmount.grid.data}

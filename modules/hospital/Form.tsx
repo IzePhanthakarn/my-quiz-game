@@ -9,6 +9,7 @@ import { LINKS } from "@/constants/links";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import BasePreview from "wcf-component-lib/src/components/BasePreview";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -16,7 +17,9 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	setHospitalAttachmentFile1Grid,
+	setHospitalAttachmentFile1ToPreview,
 	setHospitalCertificateOfIncorporationAttachmentGrid,
+	setHospitalCertificateOfIncorporationAttachmentToPreview,
 	// setHospitalAttachmentGrid,
 	setHospitalEtcFilesGrid,
 	setHospitalForm,
@@ -26,6 +29,7 @@ import {
 import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
 import {
 	addHospital,
+	convertAttachmentFileToPreview,
 	fetchHospitalAttachmentList,
 	fetchHospitalEtcFilesList,
 	fetchHospitalSp19List,
@@ -60,7 +64,7 @@ import { Sp7Grid } from "./columns/sp7Grid";
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
 import { Sp19Grid } from "./columns/sp19Grid";
 import { EtcFilesGrid } from "./columns/etcFilesGrid";
@@ -531,7 +535,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						{/* <MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
-							type={DROPDOWN_TYPE.HOSPITAL_TYPE}
+							type={SESSION_NAME.HOSPITAL_TYPE}
 							rules={rules.hospitalTypeSchema}
 							getValue={(e) => {
 								dispatch(
@@ -561,7 +565,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
-							type={DROPDOWN_TYPE.HOSPITAL_CATEGORY}
+							type={SESSION_NAME.HOSPITAL_CATEGORY}
 							getValue={(e) => {
 								dispatch(
 									setHospitalForm({
@@ -810,6 +814,10 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 		},
 	];
+	// console.log(
+	// 	"🚀 ~ HospitalFormPage ~ hospitalAttachmentFile1.toPreview:",
+	// 	hospitalAttachmentFile1.toPreview
+	// );
 
 	const uploadFilesSection: CollapseProps["items"] = [
 		{
@@ -822,13 +830,79 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 			children: (
 				<>
+					{/* {hospitalAttachmentFile1.toPreview.length === 0 ? (
+						<BaseUploadDraggerHospital
+							className="style1"
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/attachmentFile1"
+							bearer={`${Cookies.get("Bearer")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											attachmentFile1: e,
+										},
+									})
+								);
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+								// console.log(e);
+							}}
+						/>
+					) : (
+						<BasePreview
+							items={hospitalAttachmentFile1.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					)} */}
 					<BaseHorizontalHeader
 						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
 						icons={<HomeFilled />}
-						className="mb-7"
+						className="mb-4"
 					/>
+					<div
+						className={`mb-5 ${
+							hospitalAttachmentFile1.toPreview.length === 0 && "hidden"
+						}`}
+					>
+						<BasePreview
+							items={hospitalAttachmentFile1.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					</div>
+					<div
+						className={`mb-5 ${
+							hospitalAttachmentFile1.toPreview.length !== 0 && "hidden"
+						}`}
+					>
+						<BaseUploadDraggerHospital
+							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
+							showUploadList={false}
+							className={`style1`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/attachmentFile1"
+							bearer={`${Cookies.get("Bearer")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											attachmentFile1: e,
+										},
+									})
+								);
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					</div>
 
-					<div className="grid grid-cols-12 gap-4">
+					{/* <div className="grid grid-cols-12 gap-4">
 						<div className="col-span-8 ">
 							<BaseGrid
 								rows={hospitalAttachmentFile1.grid.data}
@@ -868,7 +942,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/attachmentFile1"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -883,7 +957,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								/>
 							</div>
 						</div>
-					</div>
+					</div> */}
 
 					<BaseHorizontalHeader
 						title={"สพ7"}
@@ -954,7 +1028,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									// backgroundColor="BBC8CB"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp7"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1036,7 +1110,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp19"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1053,10 +1127,62 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					<BaseHorizontalHeader
 						title={"หนังสือรับรองนิติบุคคล"}
 						icons={<HomeFilled />}
-						className="mb-7"
+						className="mb-4"
 					/>
 
-					<div className="grid grid-cols-12 gap-4">
+					<div
+						className={`mb-5 ${
+							hospitalCertificateOfIncorporationAttachment.toPreview.length ===
+								0 && "hidden"
+						}`}
+					>
+						<BasePreview
+							isHidden={
+								hospitalCertificateOfIncorporationAttachment.toPreview
+									.length === 0 && true
+							}
+							items={hospitalCertificateOfIncorporationAttachment.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
+								);
+							}}
+						/>
+					</div>
+					<div
+						className={`mb-5 ${
+							hospitalCertificateOfIncorporationAttachment.toPreview.length !==
+								0 && "hidden"
+						}`}
+					>
+						<BaseUploadDraggerHospital
+							reset={
+								hospitalCertificateOfIncorporationAttachment.toPreview
+									.length === 0 && true
+							}
+							showUploadList={false}
+							className={`style1`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/certificateOfIncorporation"
+							bearer={`${Cookies.get("Bearer")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											certificateOfIncorporation: e,
+										},
+									})
+								);
+								dispatch(
+									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
+								);
+							}}
+						/>
+					</div>
+
+					{/* <div className="grid grid-cols-12 gap-4">
 						<div className="col-span-8 ">
 							<BaseGrid
 								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
@@ -1097,7 +1223,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/certificateOfIncorporation"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({
@@ -1112,7 +1238,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								/>
 							</div>
 						</div>
-					</div>
+					</div> */}
 
 					<BaseHorizontalHeader
 						title={"ภาคผนวกและอื่น ๆ"}
@@ -1153,7 +1279,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/etcFiles"
-									bearer={`${Cookies.get("Bearer")}`}
+									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
 										dispatch(
 											setHospitalForm({

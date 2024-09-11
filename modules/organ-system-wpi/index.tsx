@@ -5,16 +5,17 @@ import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
-
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
-import Input from "wcf-component-lib/node_modules/antd/es/input";
 import { useRouter } from "next/navigation";
 import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
 import FilterDrawer from "./FilterDrawer";
+import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
@@ -28,6 +29,22 @@ export default function OrganSystemWpi() {
 		shallowEqual
 	);
 
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({
+			type: "setChildrenHeader",
+			payload: (
+				<HeaderLayout
+					// Header="Organ"
+					SearchButtonFunction={() => {}}
+					FilterTextField={<BaseItemInput className="w-[300px]" />}
+					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
+				/>
+			),
+		});
+	}, [dispatchLayout]);
+
 	useEffect(() => {
 		dispatch(fetchOrganList(organ));
 	}, []);
@@ -36,11 +53,7 @@ export default function OrganSystemWpi() {
 		<div className="w-full h-full">
 			<MasterDataLayout
 				AddLabel="เพิ่มออร์แกน"
-				Header="Organ"
 				TotalItems={organ.grid.page.totalData}
-				SearchButtonFunction={() => {}}
-				FilterTextField={<Input className="w-[300px]" />}
-				FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
 				Grid={
 					<BaseGrid
 						rows={organ.grid.data}

@@ -14,7 +14,7 @@ import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { SliceModel } from "@/redux/slices/model";
-import { DROPDOWN_TYPE } from "@/components/MedDropDown/model";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 
 const DoctorFormTabs = () => {
@@ -34,9 +34,8 @@ const DoctorFormTabs = () => {
 	}, [uuid]);
 
 	useEffect(() => {
-		dispatch(handleSession(DROPDOWN_TYPE.DIPLOMA));
-		dispatch(handleSession(DROPDOWN_TYPE.ADDRESS));
-		dispatch(handleSession(DROPDOWN_TYPE.HOSPITAL));
+		dispatch(handleSession(SESSION_NAME.ADDRESS));
+		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 	}, []);
 
 	return (
