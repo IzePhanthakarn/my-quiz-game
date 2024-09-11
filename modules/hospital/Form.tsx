@@ -151,7 +151,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		}
 
 		if (files?.sp7?.length) {
-			const errorArray = [];
+			const errorArray: { name: string; errors: string[] | undefined }[] = [];
 			errorArray.push({
 				name: "sp7StartDated",
 				errors: _.isEmpty(form.getFieldsValue().sp7StartDated)
