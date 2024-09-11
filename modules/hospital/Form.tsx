@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import BasePreview from "wcf-component-lib/src/components/BasePreview";
+import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -325,6 +325,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 					<BaseHorizontalHeader
+						className="mb-7"
 						title={"ข้อมูลพื้นฐานสถานพยาบาล"}
 						icons={<HomeFilled />}
 					/>
@@ -851,7 +852,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					) : (
-						<BasePreview
+						<BasePreviewPicture
 							items={hospitalAttachmentFile1.toPreview}
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
@@ -868,7 +869,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							hospitalAttachmentFile1.toPreview.length === 0 && "hidden"
 						}`}
 					>
-						<BasePreview
+						<BasePreviewPicture
 							items={hospitalAttachmentFile1.toPreview}
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
@@ -1136,7 +1137,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								0 && "hidden"
 						}`}
 					>
-						<BasePreview
+						<BasePreviewPicture
 							isHidden={
 								hospitalCertificateOfIncorporationAttachment.toPreview
 									.length === 0 && true
