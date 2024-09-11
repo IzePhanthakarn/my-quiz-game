@@ -6,9 +6,9 @@ import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import { setDoctorData } from "../../redux";
+import { setDoctorData, setDoctorForm } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
-import { DoctorData } from "../../redux/form/model";
+import { DoctorData, modelDoctorForm } from "../../redux/form/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
@@ -18,7 +18,6 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
-import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -29,19 +28,14 @@ export default function DoctorDetailForm() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
 	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: <p className="font-bold text-4xl leading-[48px]"></p>,
-		});
-	}, [dispatchLayout]);
+		dispatch(setDoctorForm(modelDoctorForm));
+	}, []);
 
 	return (
 		<BaseForm
-			initialValues={{ ...doctorData }}
-			name={"doctorForm"}
+			initialValues={doctorData}
+			name="doctorForm"
 			onValuesChange={(e: DoctorData) => {
 				dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
 			}}
@@ -103,6 +97,7 @@ export default function DoctorDetailForm() {
 					itemName="tambol"
 					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) => {
+						console.log("e", e);
 						dispatch(
 							setDoctorData({
 								...doctorData,
