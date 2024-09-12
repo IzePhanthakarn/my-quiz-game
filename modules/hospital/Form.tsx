@@ -838,7 +838,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							className="style1"
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/attachmentFile1"
-							bearer={`${Cookies.get("Bearer")}`}
+							bearer={`${Cookies.get("accessToken")}`}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
@@ -890,7 +890,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/attachmentFile1"
-							bearer={`${Cookies.get("Bearer")}`}
+							bearer={`${Cookies.get("accessToken")}`}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
@@ -1171,7 +1171,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							className={`style1`}
 							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/certificateOfIncorporation"
-							bearer={`${Cookies.get("Bearer")}`}
+							bearer={`${Cookies.get("accessToken")}`}
 							onChangeFunction={(e) => {
 								dispatch(
 									setHospitalForm({
