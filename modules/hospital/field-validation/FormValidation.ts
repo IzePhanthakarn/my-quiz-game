@@ -74,4 +74,9 @@ export const rules = {
 	],
 	latitudeSchema: [onlyDecimalRule(names.latitude)],
 	longitudeSchema: [onlyDecimalRule(names.longitude)],
+
+	announcedPriceYearSchema: [
+		// requiredRule(names.announcedPriceYear),
+		maxRule(names.announcedPriceYear, 4),
+	],
 };

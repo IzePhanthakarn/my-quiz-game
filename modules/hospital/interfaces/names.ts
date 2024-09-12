@@ -46,4 +46,6 @@ export const names = {
 
 	latitude: "ละติจูด",
 	longitude: "ลองจิจูด",
+
+	announcedPriceYear: "ราคาประกาศประจำปี",
 };

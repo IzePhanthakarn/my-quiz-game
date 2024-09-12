@@ -5,11 +5,13 @@ import {
 	HospitalForm,
 	GetHospitalList,
 	ExportPages,
+	OutsideHospitalForm,
 } from "@/modules/hospital/redux/models/hospitalModel";
 import { GetHospitalSp7List } from "@/modules/hospital/redux/models/sp7Model";
 import { GetHospitalSp19List } from "@/modules/hospital/redux/models/sp19Model";
 import { GetHospitalEtcFilesList } from "../redux/models/etcFilesModel";
 import { GetHospitalAttachmentList } from "../redux/models/attachmentModel";
+import { GetHospitalAnnouncedPriceFilesList } from "../redux/models/announcedPriceFilesModel";
 
 export const getHospitalDetail = createAsyncThunk(
 	"Hospital/getHospitalDetail",
@@ -80,6 +82,21 @@ export const getHospitalEtcFilesListByHospitalUuid = createAsyncThunk(
 	}
 );
 
+export const getHospitalAnnouncedPriceFilesListByHospitalUuid =
+	createAsyncThunk(
+		"Hospital/AnnouncedPriceFiles/List",
+
+		async (body: GetHospitalAnnouncedPriceFilesList, thunkAPi) => {
+			try {
+				const apiPath = `${API_PATH.HOSPITAL.ANNOUNCED_PRICE.GET_LIST_BY_HOSPITAL_UUID}`;
+				const response = await axios.post(apiPath, body);
+				return response.data;
+			} catch (err) {
+				return thunkAPi.rejectWithValue("");
+			}
+		}
+	);
+
 export const getHospitalAttachmentListByHospitalWcfCodeAndFieldName =
 	createAsyncThunk(
 		"Hospital/Attachment/List",
@@ -106,6 +123,8 @@ export const updateHospitalApi = createAsyncThunk(
 				etcFiles: HospitalForm["files"]["etcFiles"];
 				certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
 				attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
+				announcedPriceFiles: HospitalForm["files"]["announcedPriceFiles"];
+				outsideHospitalForm: OutsideHospitalForm;
 			};
 			uuid: HospitalForm["uuid"];
 		},
@@ -184,6 +203,27 @@ export const updateHospitalEtcFilesApi = createAsyncThunk(
 	}
 );
 
+export const updateHospitalAnnouncedPriceFilesApi = createAsyncThunk(
+	"Hospital/updateHospitalAnnouncedPriceFilesApi",
+	async (
+		body: {
+			body: {
+				isActive: string;
+			};
+			uuid: HospitalForm["uuid"];
+		},
+		thunkAPi
+	) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPDATE_BY_UUID}/${body.uuid}`;
+			const response = await axios.patch(apiPath, body.body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
 export const getHospitalList = createAsyncThunk(
 	"Hospital/getHospitalList",
 	async (body: GetHospitalList, thunkAPI) => {
@@ -207,6 +247,7 @@ export const addHospitalAPI = createAsyncThunk(
 			etcFiles: HospitalForm["files"]["etcFiles"];
 			certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
 			attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
+			outsideHospitalForm: OutsideHospitalForm;
 		},
 		thunkAPI
 	) => {

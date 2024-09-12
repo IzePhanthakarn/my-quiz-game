@@ -18,7 +18,15 @@ import {
 } from "@/modules/hospital/redux/models/sp19Model";
 import { HospitalEtcFiles, modelHospitalEtcFiles } from "./etcFilesModel";
 import { HospitalAttachment, modelHospitalAttachment } from "./attachmentModel";
+import {
+	HospitalAnnouncedPriceFiles,
+	modelHospitalAnnouncedPriceFiles,
+} from "./announcedPriceFilesModel";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+dayjs.extend(localeData);
 export interface Hospital {
 	grid: HospitalGrid;
 	filter: HospitalFilter;
@@ -29,6 +37,9 @@ export interface Hospital {
 	hospitalEtcFiles: HospitalEtcFiles;
 	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
 	hospitalAttachmentFile1: HospitalAttachment;
+	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
+
+	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -112,11 +123,16 @@ export interface ExportPages {
 	};
 }
 
+export interface OutsideHospitalForm {
+	announcedPriceYear: string;
+}
+
 export interface HospitalForm extends BaseMasterDataInterface {
 	files: {
 		sp7: UploadFile<any>[];
 		sp19: UploadFile<any>[];
 		etcFiles: UploadFile<any>[];
+		announcedPriceFiles: UploadFile<any>[];
 		certificateOfIncorporation: UploadFile<any>[];
 		attachmentFile1: UploadFile<any>[];
 	};
@@ -167,6 +183,10 @@ export const modelHospital: Hospital = {
 	hospitalEtcFiles: { ...modelHospitalEtcFiles },
 	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
 	hospitalAttachmentFile1: { ...modelHospitalAttachment },
+	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
+	outsideHospitalForm: {
+		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
+	},
 	grid: {
 		data: [],
 		page: {
@@ -212,6 +232,7 @@ export const modelHospital: Hospital = {
 			etcFiles: [],
 			certificateOfIncorporation: [],
 			attachmentFile1: [],
+			announcedPriceFiles: [],
 		},
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
