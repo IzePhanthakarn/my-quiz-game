@@ -10,6 +10,8 @@ import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { setDoctorFilter } from "./redux";
+import MedDropDown from "@/components/MedDropDown";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
@@ -24,29 +26,29 @@ export default function FilterDrawer() {
 		<BaseColumn className="space-y-4">
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
-					itemName="checkDoctorType"
-					label="ประเภทแพทย์"
-					checked={filter.checkDoctorType}
+					itemName="checkProfessionalCode"
+					label="เลขทะเบียนวิชาชีพ"
+					checked={filter.checkProfessionalCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDoctorFilter({
 								...filter,
-								checkDoctorType: !filter.checkDoctorType,
-								doctorTypeLike: "",
+								checkProfessionalCode: !filter.checkProfessionalCode,
+								professionalCodeLike: "",
 							})
 						)
 					}
 				/>
-				{filter.checkDoctorType && (
+				{filter.checkProfessionalCode && (
 					<BaseItemInput
-						itemName="doctorTypeLike"
-						value={filter.doctorTypeLike}
+						itemName="professionalCodeLike"
+						value={filter.professionalCodeLike}
 						onChangeFunction={(e) => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									doctorTypeLike: e.target.value,
+									professionalCodeLike: e.target.value,
 								})
 							);
 						}}
@@ -55,29 +57,29 @@ export default function FilterDrawer() {
 			</BaseColumn>
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
-					itemName="checkDoctorCode"
-					label="รหัสแพทย์"
-					checked={filter.checkDoctorCode}
+					itemName="checkProviceHospital"
+					label="โรงพยาบาลประจำจังหวัด"
+					checked={filter.checkProviceHospital}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDoctorFilter({
 								...filter,
-								checkDoctorCode: !filter.checkDoctorCode,
-								doctorCodeLike: "",
+								checkProviceHospital: !filter.checkProviceHospital,
+								proviceHospitalLike: "",
 							})
 						)
 					}
 				/>
-				{filter.checkDoctorCode && (
+				{filter.checkProviceHospital && (
 					<BaseItemInput
-						itemName="doctorCodeLike"
-						value={filter.doctorCodeLike}
+						itemName="proviceHospitalLike"
+						value={filter.proviceHospitalLike}
 						onChangeFunction={(e) => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									doctorCodeLike: e.target.value,
+									proviceHospitalLike: e.target.value,
 								})
 							);
 						}}
@@ -86,29 +88,29 @@ export default function FilterDrawer() {
 			</BaseColumn>
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
-					itemName="checkFirstName"
-					label="ชื่อแพทย์"
-					checked={filter.checkFirstName}
+					itemName="checkHospitalName"
+					label="ชื่อโรงพยาบาล"
+					checked={filter.checkHospitalName}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDoctorFilter({
 								...filter,
-								checkFirstName: !filter.checkFirstName,
-								firstnameLike: "",
+								checkHospitalName: !filter.checkHospitalName,
+								hospitalNameLike: "",
 							})
 						)
 					}
 				/>
-				{filter.checkFirstName && (
+				{filter.checkHospitalName && (
 					<BaseItemInput
-						itemName="firstnameLike"
-						value={filter.firstnameLike}
+						itemName="hospitalNameLike"
+						value={filter.hospitalNameLike}
 						onChangeFunction={(e) => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									firstnameLike: e.target.value,
+									hospitalNameLike: e.target.value,
 								})
 							);
 						}}
@@ -118,32 +120,28 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkLastName"
-					label="นามสกุลแพทย์"
-					checked={filter.checkLastName}
+					label="วุฒิบัตรเฉพาะทาง"
+					checked={filter.checkDiplomaType}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
 							setDoctorFilter({
 								...filter,
-								checkLastName: !filter.checkLastName,
-								lastnameLike: "",
+								checkDiplomaType: !filter.checkDiplomaType,
+								diplomaTypeLike: "",
 							})
 						)
 					}
 				/>
-				{filter.checkLastName && (
-					<BaseItemInput
-						itemName="lastnameLike"
-						value={filter.lastnameLike}
-						onChangeFunction={(e) => {
-							dispatch(
-								setDoctorFilter({
-									...filter,
-									lastnameLike: e.target.value,
-								})
-							);
-						}}
-					/>
+				{filter.checkDiplomaType && (
+					<>
+						<MedDropDown
+							type={SESSION_NAME.DIPLOMA}
+							getValue={(e) => {
+								dispatch(setDoctorFilter({ ...filter, diplomaTypeLike: e }));
+							}}
+						/>
+					</>
 				)}
 			</BaseColumn>
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">

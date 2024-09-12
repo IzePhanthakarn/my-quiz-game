@@ -42,7 +42,7 @@ export const handleSession =
 		const response = await dispatch(
 			fetchDropDownList({ apiPath, method, queryString, bodyRequest })
 		);
-
+		if (_.get(response, "error.message") === "Rejected") return;
 		if (!_.isEmpty(response)) {
 			sessionStorage.setItem(sessionName, JSON.stringify(response.payload));
 			if (setDropdown) {
@@ -107,6 +107,7 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 			return ltProperties;
 		case SESSION_NAME.JOB_TYPE:
 		case SESSION_NAME.DOCTOR_TYPE:
+			console.log("resultresult", result);
 			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,

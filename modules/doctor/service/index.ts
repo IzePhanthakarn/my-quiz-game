@@ -27,6 +27,10 @@ export interface DoctorPagination {
 	doctorCodeLike: string | null;
 	firstnameLike: string | null;
 	lastnameLike: string | null;
+	diplomaTypeLike: string | null;
+	hospitalNameLike: string | null;
+	proviceHospitalLike: string | null;
+	professionalCodeLike: string | null;
 	pagination: PaginationOptions;
 	isActive: IsActive | undefined;
 }
@@ -38,6 +42,10 @@ export const doctorPagination: DoctorPagination = {
 	isActive: undefined,
 	firstnameLike: "",
 	lastnameLike: "",
+	diplomaTypeLike: "",
+	hospitalNameLike: "",
+	proviceHospitalLike: "",
+	professionalCodeLike: "",
 };
 
 // Form
@@ -68,6 +76,12 @@ export const initDoctorGrid =
 			doctorCodeLike: handleEmptyStringToNull(params.doctorCodeLike),
 			firstnameLike: handleEmptyStringToNull(params.firstnameLike),
 			lastnameLike: handleEmptyStringToNull(params.lastnameLike),
+			diplomaTypeLike: handleEmptyStringToNull(params.diplomaTypeLike),
+			hospitalNameLike: handleEmptyStringToNull(params.hospitalNameLike),
+			proviceHospitalLike: handleEmptyStringToNull(params.proviceHospitalLike),
+			professionalCodeLike: handleEmptyStringToNull(
+				params.professionalCodeLike
+			),
 		};
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorList(newParams));
