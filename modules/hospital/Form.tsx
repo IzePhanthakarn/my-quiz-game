@@ -182,7 +182,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		) {
 			form.setFields([
 				{
-					name: "remarkChangeName",
+					name: "remarkChangeName" as const,
 					errors: [`กรุณาใส่ ${names.remarkChangeName}`],
 				},
 			]);
@@ -241,13 +241,13 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		if (files?.sp19?.length) {
 			const errorArray = [];
 			errorArray.push({
-				name: "sp19StartDate",
+				name: "sp19StartDate" as const,
 				errors: _.isEmpty(form.getFieldsValue().sp19StartDate)
 					? [`กรุณาใส่ ${names.sp19StartDate}`]
 					: undefined,
 			});
 			errorArray.push({
-				name: "sp19EndDate",
+				name: "sp19EndDate" as const,
 				errors: _.isEmpty(form.getFieldsValue().sp19EndDate)
 					? [`กรุณาใส่ ${names.sp19EndDate}`]
 					: undefined,
