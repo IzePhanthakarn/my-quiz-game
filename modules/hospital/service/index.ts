@@ -4,6 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAPI,
 	exportMed5008Api,
+	getHospitalAnnouncedPriceFilesListByHospitalUuid,
 	getHospitalAttachmentListByHospitalWcfCodeAndFieldName,
 	getHospitalDetail,
 	getHospitalEtcFilesListByHospitalUuid,
@@ -12,6 +13,7 @@ import {
 	getHospitalSp7List,
 	getHospitalSp7ListByHospitalUuid,
 	handleUploadSp7HospitalApi,
+	updateHospitalAnnouncedPriceFilesApi,
 	updateHospitalApi,
 	updateHospitalEtcFilesApi,
 	updateHospitalSp19Api,
@@ -27,12 +29,14 @@ import {
 	setHospitalSp7Grid,
 	setHospitalAttachmentFile1ToPreview,
 	setHospitalCertificateOfIncorporationAttachmentToPreview,
+	setHospitalAnnouncedPriceFilesGrid,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
 	HospitalForm,
 	GetHospitalList,
 	ExportPages,
+	OutsideHospitalForm,
 } from "@/modules/hospital/redux/models/hospitalModel";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
@@ -40,7 +44,10 @@ import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/i
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
-import { handleUploadFiles } from "wcf-component-lib/src/utils/";
+import {
+	handleFormatDate,
+	handleUploadFiles,
+} from "wcf-component-lib/src/utils/";
 import {
 	GetHospitalSp7List,
 	HospitalSp7,
@@ -62,6 +69,10 @@ import {
 	HospitalAttachmentGridData,
 	modelHospitalAttachment,
 } from "../redux/models/attachmentModel";
+import {
+	GetHospitalAnnouncedPriceFilesList,
+	HospitalAnnouncedPriceFiles,
+} from "../redux/models/announcedPriceFilesModel";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -99,7 +110,11 @@ export const fetchHospitalList =
 	};
 
 export const addHospital =
-	(form: HospitalForm, router: AppRouterInstance) =>
+	(
+		form: HospitalForm,
+		outsideHospitalForm: OutsideHospitalForm,
+		router: AppRouterInstance
+	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			addHospitalAPI({
@@ -109,6 +124,7 @@ export const addHospital =
 				etcFiles: form?.files?.etcFiles,
 				certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 				attachmentFile1: form?.files?.attachmentFile1,
+				outsideHospitalForm: outsideHospitalForm,
 			})
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
@@ -235,6 +251,48 @@ export const fetchHospitalEtcFilesList =
 		}
 	};
 
+export const fetchHospitalAnnouncedPriceFilesList =
+	(
+		params: HospitalFormPageProps,
+		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles
+	) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const body: GetHospitalAnnouncedPriceFilesList = {
+				pagination: { ...hospitalAnnouncedPriceFiles.grid.page },
+				...hospitalAnnouncedPriceFiles.filter,
+				hospitalUuid: uuid,
+				isActive: IsActive.Y,
+			};
+			const result = await dispatch(
+				getHospitalAnnouncedPriceFilesListByHospitalUuid(body)
+			);
+			if (_.get(result, "error.message") === "Rejected") {
+				return;
+			}
+			const newData = [];
+			for (let index = 0; index < result.payload.content.length; index++) {
+				const item = result.payload.content[index];
+				newData.push({
+					...item,
+					createdDate: handleFormatDate(item.createdDate),
+					updatedDate: handleFormatDate(item.updatedDate),
+				});
+			}
+			dispatch(
+				setHospitalAnnouncedPriceFilesGrid({
+					// data: result.payload.content,
+					data: newData,
+					page: {
+						...hospitalAnnouncedPriceFiles.grid.page,
+						totalData: result.payload.totalElements,
+					},
+				})
+			);
+		}
+	};
+
 export const fetchHospitalAttachmentList =
 	(
 		form: HospitalForm,
@@ -314,7 +372,12 @@ export const convertAttachmentFileToPreview = (
 };
 
 export const updateHospital =
-	(form: HospitalForm, router: AppRouterInstance, uuid: string) =>
+	(
+		form: HospitalForm,
+		outsideHospitalForm: OutsideHospitalForm,
+		router: AppRouterInstance,
+		uuid: string
+	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalApi({
@@ -326,6 +389,8 @@ export const updateHospital =
 					etcFiles: form?.files?.etcFiles,
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 					attachmentFile1: form?.files?.attachmentFile1,
+					announcedPriceFiles: form?.files?.announcedPriceFiles,
+					outsideHospitalForm: outsideHospitalForm,
 				},
 			})
 		);
@@ -392,6 +457,29 @@ export const updateInActiveHospitalEtcFiles =
 	(uuid: string) => async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalEtcFilesApi({
+				uuid: uuid,
+				body: {
+					isActive: "N",
+				},
+			})
+		);
+		// dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			baseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
+			// dispatch(setIsLoading(true));
+			// router.push(LINKS.HOSPITAL.link);
+		}
+	};
+
+export const updateInActiveHospitalAnnouncedPriceFiles =
+	(uuid: string) => async (dispatch: AppDispatch) => {
+		const data = await dispatch(
+			updateHospitalAnnouncedPriceFilesApi({
 				uuid: uuid,
 				body: {
 					isActive: "N",

@@ -8,10 +8,6 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
 
-export function getCurrentDateString() {
-	return dayjs().format(DateFormat.DDMMYYYY).toString();
-}
-
 export const mapIdByIndex = (items: any[]) =>
 	items.map((item, index) => ({ ...item, id: index + 1 }));
 

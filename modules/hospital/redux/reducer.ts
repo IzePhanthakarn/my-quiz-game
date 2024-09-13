@@ -14,6 +14,7 @@ import {
 	HospitalAttachment,
 	HospitalAttachmentGrid,
 } from "./models/attachmentModel";
+import { HospitalAnnouncedPriceFilesGrid } from "./models/announcedPriceFilesModel";
 export const hospitalReducers = {
 	setHospitalGrid: (state: Hospital, action: PayloadAction<HospitalGrid>) => {
 		state.grid = action.payload;
@@ -89,5 +90,17 @@ export const hospitalReducers = {
 		action: PayloadAction<HospitalAttachment["toPreview"]>
 	) => {
 		state.hospitalAttachmentFile1.toPreview = action.payload;
+	},
+	setHospitalAnnouncedPriceFilesGrid: (
+		state: Hospital,
+		action: PayloadAction<HospitalAnnouncedPriceFilesGrid>
+	) => {
+		state.hospitalAnnouncedPriceFiles.grid = action.payload;
+	},
+	setOutsideHospitalForm: (
+		state: Hospital,
+		action: PayloadAction<Hospital["outsideHospitalForm"]>
+	) => {
+		state.outsideHospitalForm = action.payload;
 	},
 };
