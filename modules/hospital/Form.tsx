@@ -81,7 +81,10 @@ import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant
 import { getCurrentYearString } from "wcf-component-lib/src/utils";
 dayjs.extend(localeData);
 
-const yearOption = [];
+const yearOption: {
+	label: string;
+	value: string;
+}[] = [];
 for (
 	let start = parseInt(getCurrentYearString()) - 10;
 	start <= parseInt(getCurrentYearString()) + 2;
