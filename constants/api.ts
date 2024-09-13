@@ -112,6 +112,12 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_WCF_CODE_AND_FIELD_NAME:
 				"/hospital-attachment/list-by-hospital-wcf-code-and-field-name",
 		},
+		ANNOUNCED_PRICE: {
+			GET_LIST: "/hospital-announced-price-files/list",
+			UPDATE_BY_UUID: "/hospital-announced-price-files",
+			GET_LIST_BY_HOSPITAL_UUID:
+				"/hospital-announced-price-files/list-by-hospital-uuid",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",
