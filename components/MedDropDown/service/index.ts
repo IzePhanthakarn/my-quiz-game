@@ -96,6 +96,15 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 				label: e.postalId + "-" + e.postalName,
 			}));
 			return postalIdLabel;
+
+		case SESSION_NAME.PROVINCE_NAME:
+			const uniqueProvinces = _.uniqBy(result, "provinceCode"); // กรองซ้ำตาม provinceCode
+			const provinceName = _.map(uniqueProvinces, (e: Address) => ({
+				value: e.provinceCode,
+				label: e.provinceName,
+			}));
+			return provinceName;
+
 		case SESSION_NAME.HOSPITAL_TYPE:
 		case SESSION_NAME.HOSPITAL_CATEGORY:
 			const ltProperties: Option[] = result.content.map(

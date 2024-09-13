@@ -72,14 +72,16 @@ export default function FilterDrawer() {
 					}
 				/>
 				{filter.checkProviceHospital && (
-					<BaseItemInput
-						itemName="proviceHospitalLike"
+					<MedDropDown
+						notForm={true}
+						className="h-full w-full"
 						value={filter.proviceHospitalLike}
-						onChangeFunction={(e) => {
+						type={SESSION_NAME.PROVINCE_NAME}
+						getValue={(e) => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									proviceHospitalLike: e.target.value,
+									proviceHospitalLike: e,
 								})
 							);
 						}}
