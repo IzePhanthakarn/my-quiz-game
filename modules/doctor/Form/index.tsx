@@ -16,6 +16,8 @@ import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialo
 import { SliceModel } from "@/redux/slices/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
+import { setDoctorForm } from "../redux";
+import { modelDoctorForm } from "../redux/form/model";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -31,6 +33,7 @@ const DoctorFormTabs = () => {
 
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
+		else dispatch(setDoctorForm(modelDoctorForm));
 	}, [uuid]);
 
 	useEffect(() => {

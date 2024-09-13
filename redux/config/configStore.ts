@@ -17,6 +17,7 @@ import ltPropertiesSlice from "@/modules/lt-properties/redux";
 import hospitalSlice from "@/modules/hospital/redux";
 import documentSlice from "@/modules/document/redux";
 import requestFormSlice from "@/modules/request-form/redux";
+import medReportSlice from "@/modules/report/redux";
 
 export const store = configureStore({
 	reducer: {
@@ -38,6 +39,7 @@ export const store = configureStore({
 		doctor: doctorSlice,
 		document: documentSlice,
 		requestForm: requestFormSlice,
+		medReport: medReportSlice,
 	},
 });
 

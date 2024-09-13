@@ -18,7 +18,6 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
-import DoctorHospital from "./tables/DoctorHospital";
 
 export default function DoctorDetailForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -29,10 +28,6 @@ export default function DoctorDetailForm() {
 		shallowEqual
 	);
 
-	useEffect(() => {
-		dispatch(setDoctorForm(modelDoctorForm));
-	}, []);
-
 	return (
 		<BaseForm
 			initialValues={doctorData}
@@ -42,7 +37,6 @@ export default function DoctorDetailForm() {
 			}}
 		>
 			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
-				<DoctorHospital />
 				<div className="col-span-4">
 					<BaseHorizontalHeader title={"รายละเอียด"} icons={<UserOutlined />} />
 				</div>

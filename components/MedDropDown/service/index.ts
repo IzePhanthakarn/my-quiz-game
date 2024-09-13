@@ -113,10 +113,10 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 					label: e.propertyText,
 				})
 			);
+			console.log("ltProperties", ltProperties);
 			return ltProperties;
 		case SESSION_NAME.JOB_TYPE:
 		case SESSION_NAME.DOCTOR_TYPE:
-			console.log("resultresult", result);
 			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
