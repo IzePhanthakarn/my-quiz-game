@@ -55,6 +55,16 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 						sort={columns?.sortColumns}
 					/>
 				),
+				render: (_, { fileName }) => {
+					return (
+						<a
+							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/announcedPriceFiles/${fileName}`}
+							target="_blank"
+						>
+							{fileName}
+						</a>
+					);
+				},
 			},
 			{
 				sorter: true,

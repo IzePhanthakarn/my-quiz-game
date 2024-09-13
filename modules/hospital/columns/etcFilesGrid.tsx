@@ -42,6 +42,16 @@ export const EtcFilesGrid = (props: Props) => {
 						sort={columns?.sortColumns}
 					/>
 				),
+				render: (_, { fileName }) => {
+					return (
+						<a
+							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/etcFiles/${fileName}`}
+							target="_blank"
+						>
+							{fileName}
+						</a>
+					);
+				},
 			},
 			{
 				key: "uuid",
