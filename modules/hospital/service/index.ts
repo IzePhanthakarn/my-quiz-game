@@ -364,7 +364,7 @@ export const convertAttachmentFileToPreview = (
 			uid: item.uuid,
 			name: `${item.attachmentName}.${item.extension}`,
 			// status: "done",
-			url: `http://128.199.197.112:9000/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
+			url: `https://minio-wcf.soilfish.co/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
 			type: item.extension,
 		});
 	}

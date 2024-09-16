@@ -936,6 +936,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}`}
 					>
 						<BasePreviewPicture
+							subFolderPath="hospital/attachmentFile1"
 							items={hospitalAttachmentFile1.toPreview}
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
@@ -1207,6 +1208,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}`}
 					>
 						<BasePreviewPicture
+							subFolderPath="hospital/certificateOfIncorporation"
 							isHidden={
 								hospitalCertificateOfIncorporationAttachment.toPreview
 									.length === 0 && true
@@ -1668,8 +1670,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						extraForm={form}
 					>
-						{/* <BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-						<BaseCollapse items={secondSection} defaultActiveKey={"2"} /> */}
+						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
+						<BaseCollapse items={secondSection} defaultActiveKey={"2"} />
 						<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
 
 						{/* {uploadAnnouncedPriceFilesSection()} */}
