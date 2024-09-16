@@ -10,26 +10,43 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5009Form } from "../redux";
+import { setMed5009Form, setMed5009List } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { Med5009Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { REPORT_TYPES } from "@/constants/reports";
+import {
+	handleOnExportExcel,
+	handleOnExportPdf,
+	handlePreviewDisplay,
+} from "@/utils/report/common";
+import _ from "lodash";
+import { columns } from "./model";
 
 export default function Med5009() {
 	const dispatch: AppDispatch = useDispatch();
-	const { form } = useSelector(
+	const { med5009, list } = useSelector(
 		(state: SliceModel) => ({
-			form: state.medReport.med5009.form,
+			med5009: state.medReport.med5009.form,
+			list: state.medReport.med5009.list,
 		}),
 		shallowEqual
 	);
 
 	const { dispatchLayout } = useLayout();
 
-	const onFinish: FormProps<Med5009Form>["onFinish"] = (value: Med5009Form) => {
-		console.log("value", value);
+	const onFinish: FormProps<Med5009Form>["onFinish"] = async (
+		value: Med5009Form
+	) => {
+		const data = await dispatch(
+			handlePreviewDisplay(value, REPORT_TYPES.MED5009)
+		);
+		const list = data?.payload.content;
+		if (!_.isEmpty(list)) {
+			dispatch(setMed5009List(list));
+		}
 	};
 
 	useEffect(() => {
@@ -46,13 +63,19 @@ export default function Med5009() {
 						reportType: "5",
 					}}
 				>
-					<BaseColumn className="space-y-4 h-full">
-						<BaseForm initialValues={form} onFinish={onFinish}>
+					<BaseColumn className="space-y-4  h-full">
+						<BaseForm
+							initialValues={med5009}
+							onFinish={onFinish}
+							onValuesChange={(e) => {
+								dispatch(setMed5009Form({ ...med5009, ...e }));
+							}}
+						>
 							<MedDropDown
 								itemName="propertyCode"
 								label="ระดับของสถานพยาบาล"
 								getValue={(e) => {
-									dispatch(setMed5009Form({ ...form, propertyCode: e }));
+									dispatch(setMed5009Form({ ...med5009, propertyCode: e }));
 								}}
 								type={SESSION_NAME.HOSPITAL_TYPE}
 							/>
@@ -71,24 +94,27 @@ export default function Med5009() {
 	}, [dispatchLayout]);
 	return (
 		<>
-			{/* <MedDropDown
-				notForm
-				value={form.propertyCode}
-				label="ระดับของสถานพยาบาล"
-				getValue={(e) => {
-					console.log("eee", e);
-					dispatch(setMed5009Form({ ...form, propertyCode: e }));
-				}}
-				type={SESSION_NAME.HOSPITAL_TYPE}
-			/>
-			<BaseButton
-				label="เรียกรายงาน"
-				className="w-[176px] py-2 px-8"
-				onClick={() => {
-					console.log("form", form);
-				}}
-			/> */}
-			<BaseGrid rows={[]} columns={[]} />
+			{!_.isEmpty(list) && (
+				<>
+					<div className="flex justify-end py-2 space-x-2">
+						<BaseButton
+							className="w-1/6"
+							label="Excel"
+							onClick={() => {
+								dispatch(handleOnExportExcel(med5009, REPORT_TYPES.MED5009));
+							}}
+						/>
+						<BaseButton
+							className="w-1/6"
+							label="Pdf"
+							onClick={() => {
+								dispatch(handleOnExportPdf(med5009, REPORT_TYPES.MED5009));
+							}}
+						/>
+					</div>
+					<BaseGrid rows={list} columns={columns} />
+				</>
+			)}
 		</>
 	);
 }

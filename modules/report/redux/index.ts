@@ -12,6 +12,6 @@ export const medReportSlice = createSlice({
 
 export const actionsMedReport = medReportSlice.actions;
 
-export const { setMed5009Form } = medReportSlice.actions;
+export const { setMed5009Form, setMed5009List } = medReportSlice.actions;
 
 export default medReportSlice.reducer;

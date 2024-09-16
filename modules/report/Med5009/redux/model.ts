@@ -1,5 +1,5 @@
 export interface Med5009Form {
-	propertyCode: string;
+	propertyCode: string | null;
 }
 
 export interface Med5009List {
@@ -13,7 +13,7 @@ export interface Med5009 {
 
 export const modelMed5009: Med5009 = {
 	form: {
-		propertyCode: "",
+		propertyCode: null,
 	},
 	list: [],
 };

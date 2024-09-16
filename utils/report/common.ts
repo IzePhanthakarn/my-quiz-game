@@ -3,7 +3,13 @@ import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import { REPORT_PAGES, REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
-import { exportExcelMed, exportPdfMed, ExportReportsParams } from "./api";
+import {
+	exportExcelMed,
+	exportPdfMed,
+	ExportReportsParams,
+	previewMed,
+	PreviewReportsParams,
+} from "./api";
 
 export const handleOnExportExcel =
 	(body: any, reportType: REPORT_TYPES) => async (dispatch: AppDispatch) => {
@@ -53,4 +59,17 @@ export const handleOnExportPdf =
 			a.click();
 		}
 		URL.revokeObjectURL(url);
+	};
+
+export const handlePreviewDisplay =
+	(body: any, reportType: REPORT_TYPES) => async (dispatch: AppDispatch) => {
+		const params: PreviewReportsParams = {
+			body,
+			apiPath: REPORT_PAGES[reportType].apiPath,
+		};
+		dispatch(setIsLoading(true));
+		const result = await dispatch(previewMed(params));
+		dispatch(setIsLoading(false));
+		return result;
+		if (_.get(result, "error.message") === "Rejected") return;
 	};
