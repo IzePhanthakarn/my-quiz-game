@@ -42,7 +42,7 @@ export const handleSession =
 		const response = await dispatch(
 			fetchDropDownList({ apiPath, method, queryString, bodyRequest })
 		);
-
+		if (_.get(response, "error.message") === "Rejected") return;
 		if (!_.isEmpty(response)) {
 			sessionStorage.setItem(sessionName, JSON.stringify(response.payload));
 			if (setDropdown) {
@@ -96,6 +96,15 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 				label: e.postalId + "-" + e.postalName,
 			}));
 			return postalIdLabel;
+
+		case SESSION_NAME.PROVINCE_NAME:
+			const uniqueProvinces = _.uniqBy(result, "provinceCode"); // กรองซ้ำตาม provinceCode
+			const provinceName = _.map(uniqueProvinces, (e: Address) => ({
+				value: e.provinceCode,
+				label: e.provinceName,
+			}));
+			return provinceName;
+
 		case SESSION_NAME.HOSPITAL_TYPE:
 		case SESSION_NAME.HOSPITAL_CATEGORY:
 			const ltProperties: Option[] = result.content.map(
@@ -104,6 +113,7 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 					label: e.propertyText,
 				})
 			);
+			console.log("ltProperties", ltProperties);
 			return ltProperties;
 		case SESSION_NAME.JOB_TYPE:
 		case SESSION_NAME.DOCTOR_TYPE:

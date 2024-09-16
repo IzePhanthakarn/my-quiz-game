@@ -8,14 +8,18 @@ export enum REPORT_TYPES {
 export const REPORT_PAGES = {
 	[REPORT_TYPES.MED01001]: {
 		reportName: "med01001",
+		apiPath: "",
 	},
 	[REPORT_TYPES.MED5008]: {
 		reportName: "med5008",
+		apiPath: "",
 	},
 	[REPORT_TYPES.MED5009]: {
 		reportName: "med5009",
+		apiPath: "http://localhost:8090/report/list?page=0&size=1000",
 	},
 	[REPORT_TYPES.MED5012]: {
 		reportName: "med5012",
+		apiPath: "",
 	},
 };

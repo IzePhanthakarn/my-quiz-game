@@ -26,7 +26,9 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 // import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
-import { modelDoctorForm } from "./redux/form/model";
+import { DoctorForm, modelDoctorForm } from "./redux/form/model";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -42,6 +44,12 @@ export default function Doctor() {
 		shallowEqual
 	);
 
+	const [init, setInit] = React.useState(false);
+
+	const onFinish: FormProps<DoctorForm>["onFinish"] = (value: DoctorForm) => {
+		console.log("value", value);
+	};
+
 	const { dispatchLayout } = useLayout();
 
 	useEffect(() => {
@@ -50,45 +58,69 @@ export default function Doctor() {
 			payload: (
 				<FilterLayout
 					FilterForm={
-						<div className="flex space-x-2">
-							<div className="w-[280px]">
-								<BaseItemInput label="เลขทะเบียน สปส" />
+						<BaseForm initialValues={filter} onFinish={onFinish}>
+							<div className="flex space-x-2">
+								<BaseItemInput
+									// notForm
+									itemName="doctorCodeLike"
+									label="รหัสแพทย์ / เลขที่ สปส"
+									value={filter.doctorCodeLike}
+								/>
+								<BaseItemInput
+									notForm
+									label="ชื่อ"
+									value={filter.firstnameLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setDoctorFilter({
+												...filter,
+												firstnameLike: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									label="นามสกุล"
+									itemName="lastnameLike"
+									value={filter.lastnameLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setDoctorFilter({
+												...filter,
+												lastnameLike: e.target.value,
+											})
+										);
+									}}
+								/>
 							</div>
-							<div className="w-[280px]">
-								<BaseItemInput label="ชื่อ - นามสกุล" />
-							</div>
-						</div>
+						</BaseForm>
 					}
 					handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-					handleSubmitSearch={() => {}}
+					handleSubmitSearch={() => {
+						dispatch(
+							initDoctorGrid({
+								pagination: { ...page },
+								...filter,
+							})
+						);
+					}}
 				/>
-				// <HeaderLayout
-				// 	// Header="ข้อมูลแพทย์"
-				// 	FilterTextField={
-				// 		<div className="flex space-x-2">
-				// 			<div className="w-[280px]">
-				// 				<BaseItemInput label="เลขทะเบียน สปส" />
-				// 			</div>
-				// 			<div className="w-[280px]">
-				// 				<BaseItemInput label="ชื่อ - นามสกุล" />
-				// 			</div>
-				// 		</div>
-				// 	}
-				// 	FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				// 	SearchButtonFunction={() => {}}
-				// />
 			),
 		});
-	}, [dispatchLayout]);
-
-	useEffect(() => {
-		dispatch(setDoctorForm(modelDoctorForm));
 	}, []);
 
 	useEffect(() => {
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.DIPLOMA));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
+		dispatch(setDoctorForm(modelDoctorForm));
+	}, []);
+
+	useEffect(() => {
+		if (!init) {
+			dispatch(setDoctorFilter(modelDoctorFilter));
+			setInit(true);
+		}
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },
@@ -96,6 +128,7 @@ export default function Doctor() {
 			})
 		);
 	}, [page.pageNumber, page.pageSize, page.orders]);
+
 	return (
 		<div>
 			<MasterDataLayout

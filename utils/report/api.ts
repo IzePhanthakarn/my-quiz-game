@@ -7,6 +7,11 @@ export interface ExportReportsParams {
 	reportName: string;
 }
 
+export interface PreviewReportsParams {
+	body: any;
+	apiPath: string;
+}
+
 export const exportExcelMed = createAsyncThunk(
 	"Medical/exportExcel",
 	async (params: any, thunkAPi) => {
@@ -30,6 +35,19 @@ export const exportPdfMed = createAsyncThunk(
 			const response = await axiosReport.post(apiPath, params.body, {
 				responseType: "arraybuffer",
 			});
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
+
+export const previewMed = createAsyncThunk(
+	"Medical/previewMed",
+	async (params: PreviewReportsParams, thunkAPi) => {
+		try {
+			const apiPath = params.apiPath;
+			const response = await axiosReport.post(apiPath, params.body);
 			return response.data;
 		} catch (err) {
 			return thunkAPi.rejectWithValue("");

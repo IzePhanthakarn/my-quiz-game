@@ -28,10 +28,6 @@ export default function DoctorDetailForm() {
 		shallowEqual
 	);
 
-	useEffect(() => {
-		dispatch(setDoctorForm(modelDoctorForm));
-	}, []);
-
 	return (
 		<BaseForm
 			initialValues={doctorData}
@@ -97,7 +93,6 @@ export default function DoctorDetailForm() {
 					itemName="tambol"
 					type={SESSION_NAME.ADDRESS}
 					getValue={(e: Address) => {
-						console.log("e", e);
 						dispatch(
 							setDoctorData({
 								...doctorData,

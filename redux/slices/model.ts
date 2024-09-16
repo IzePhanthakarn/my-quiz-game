@@ -16,6 +16,7 @@ import { Doctor } from "@/modules/doctor/redux/model";
 import { RequestForm } from "@/modules/request-form/redux/model";
 import { Container } from "./container/model";
 import { Document } from "@/modules/document/redux/model";
+import { MedReport } from "@/modules/report/redux/model";
 
 export interface SliceModel {
 	crud: Crud;
@@ -37,4 +38,5 @@ export interface SliceModel {
 	hospital: Hospital;
 	document: Document;
 	requestForm: RequestForm;
+	medReport: MedReport;
 }

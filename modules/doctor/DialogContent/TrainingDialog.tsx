@@ -67,7 +67,7 @@ export default function TraningDialog(props: Props) {
 					}
 				/>
 				<BaseDatePicker
-					itemName="contractStartDate"
+					itemName="trainingDate"
 					label="วันที่อบรม"
 					value={training.trainingDate}
 					onChangeDateFunction={(e) => {

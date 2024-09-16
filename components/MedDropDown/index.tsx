@@ -36,10 +36,15 @@ export default function MedDropDown(props: MedDropDownProps) {
 		}
 	}, [dropdown]);
 
+	useEffect(() => {
+		if (!_.isEmpty(option)) setDropdown(option);
+	}, [option]);
+
 	return (
 		<>
 			<BaseDropDown
 				{...props}
+				className="w-full"
 				placeholder={placeholder}
 				option={dropdown}
 				getValue={(e) => getValue(handleGetValue(type, e))}
