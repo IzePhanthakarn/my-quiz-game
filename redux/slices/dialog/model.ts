@@ -3,7 +3,7 @@ export interface BaseDialog {
 	isOpenBaseConfirmDialog?: boolean | undefined;
 	content?: JSX.Element;
 	headerText?: string;
-	uniqueContent?: React.ReactNode;
+	uniqueContent?: JSX.Element;
 	onConfirm?: () => void;
 	onCancel?: () => void;
 }
