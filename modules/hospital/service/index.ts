@@ -239,9 +239,18 @@ export const fetchHospitalEtcFilesList =
 			if (_.get(result, "error.message") === "Rejected") {
 				return;
 			}
+			const newData = [];
+			for (let index = 0; index < result.payload.content.length; index++) {
+				const item = result.payload.content[index];
+				newData.push({
+					...item,
+					createdDate: handleFormatDate(item.createdDate),
+					updatedDate: handleFormatDate(item.updatedDate),
+				});
+			}
 			dispatch(
 				setHospitalEtcFilesGrid({
-					data: result.payload.content,
+					data: newData,
 					page: {
 						...hospitalEtcFiles.grid.page,
 						totalData: result.payload.totalElements,
@@ -364,7 +373,7 @@ export const convertAttachmentFileToPreview = (
 			uid: item.uuid,
 			name: `${item.attachmentName}.${item.extension}`,
 			// status: "done",
-			url: `http://128.199.197.112:9000/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
+			url: `https://minio-wcf.soilfish.co/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
 			type: item.extension,
 		});
 	}
