@@ -54,6 +54,48 @@ export const EtcFilesGrid = (props: Props) => {
 				},
 			},
 			{
+				sorter: true,
+				key: "createdDate",
+				dataIndex: "createdDate",
+				// width: 150,
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"createdDate"}
+						label="วันที่อับโหลด"
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "updatedDate",
+				dataIndex: "updatedDate",
+				// width: 150,
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"updatedDate"}
+						label="วันที่อัพเดทล่าสุด"
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "createdBy",
+				dataIndex: "createdBy",
+				// width: 150,
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"createdBy"}
+						label="ผู้อัปโหลด"
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
 				key: "uuid",
 				title: "คำสั่ง",
 				dataIndex: "uuid",

@@ -239,9 +239,18 @@ export const fetchHospitalEtcFilesList =
 			if (_.get(result, "error.message") === "Rejected") {
 				return;
 			}
+			const newData = [];
+			for (let index = 0; index < result.payload.content.length; index++) {
+				const item = result.payload.content[index];
+				newData.push({
+					...item,
+					createdDate: handleFormatDate(item.createdDate),
+					updatedDate: handleFormatDate(item.updatedDate),
+				});
+			}
 			dispatch(
 				setHospitalEtcFilesGrid({
-					data: result.payload.content,
+					data: newData,
 					page: {
 						...hospitalEtcFiles.grid.page,
 						totalData: result.payload.totalElements,
