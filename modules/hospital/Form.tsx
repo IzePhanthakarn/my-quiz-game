@@ -331,6 +331,491 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const resourceScopes = findScope(scopes, "resource:");
 	const { write } = getScopesPermissions(resourceScopes);
 
+	const uploadFilesSection: CollapseProps["items"] = [
+		{
+			key: "5",
+			label: (
+				<BaseCollapseLabelHeader
+					title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
+					description="ข้อมูลภาพรวมและรายละเอียดกองทุนเงินทดแทนสำหรับสถานพยาบาล"
+				/>
+			),
+			children: (
+				<>
+					{/* {hospitalAttachmentFile1.toPreview.length === 0 ? (
+						<BaseUploadDraggerHospital
+							className="style1"
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/attachmentFile1"
+							bearer={`${Cookies.get("accessToken")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											attachmentFile1: e,
+										},
+									})
+								);
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+								// console.log(e);
+							}}
+						/>
+					) : (
+						<BasePreviewPicture
+							items={hospitalAttachmentFile1.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					)} */}
+					<BaseHorizontalHeader
+						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
+						icons={<HomeFilled />}
+						className="mb-4"
+					/>
+					<div
+						className={`mb-5 ${
+							hospitalAttachmentFile1.toPreview.length === 0 && "hidden"
+						}`}
+					>
+						<BasePreviewPicture
+							subFolderPath="hospital/attachmentFile1"
+							items={hospitalAttachmentFile1.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					</div>
+					<div
+						className={`mb-5 ${
+							hospitalAttachmentFile1.toPreview.length !== 0 && "hidden"
+						}`}
+					>
+						<BaseUploadDraggerHospital
+							allowFileTypesToUpload={[FILE_TYPES.PDF]}
+							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
+							showUploadList={false}
+							className={`style1`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/attachmentFile1"
+							bearer={`${Cookies.get("accessToken")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											attachmentFile1: e,
+										},
+									})
+								);
+								dispatch(setHospitalAttachmentFile1ToPreview(e));
+							}}
+						/>
+					</div>
+
+					{/* <div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalAttachmentFile1.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment: hospitalAttachmentFile1,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalAttachmentFile1.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalAttachmentFile1,
+												grid: {
+													...hospitalAttachmentFile1.grid,
+													page,
+												},
+											},
+											"AttachmentFile1"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/attachmentFile1"
+									bearer={`${Cookies.get("accessToken")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													attachmentFile1: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div> */}
+
+					<BaseHorizontalHeader
+						title={"สพ7"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalSp7.grid.data}
+								columns={Sp7Grid({
+									hospitalSp7: hospitalSp7,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalSp7.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalSp7List(params, {
+											...hospitalSp7,
+											grid: { ...hospitalSp7.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร สพ7"
+								description="เอกสาร สพ7"
+								className="mb-7"
+							/>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
+								<BaseDatePicker
+									label={names.sp7StartDated}
+									itemName="sp7StartDated"
+									rules={rules.sp7StartDatedSchema}
+									value={hospitalForm.sp7StartDated}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp7StartDated: e,
+											})
+										);
+									}}
+								/>
+								<BaseDatePicker
+									label={names.sp7EndDate}
+									itemName="sp7EndDate"
+									rules={rules.sp7EndDateSchema}
+									value={hospitalForm.sp7EndDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp7EndDate: e,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
+									// backgroundColor="BBC8CB"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/sp7"
+									bearer={`${Cookies.get("accessToken")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, sp7: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+					<BaseHorizontalHeader
+						title={"สพ19"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalSp19.grid.data}
+								columns={Sp19Grid({
+									hospitalSp19: hospitalSp19,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalSp19.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalSp19List(params, {
+											...hospitalSp19,
+											grid: { ...hospitalSp19.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร สพ19"
+								description="เอกสาร สพ19"
+								className="mb-7"
+							/>
+							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
+								<BaseDatePicker
+									label={names.sp19StartDate}
+									itemName="sp19StartDate"
+									rules={rules.sp19StartDateSchema}
+									value={hospitalForm.sp19StartDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp19StartDate: e,
+											})
+										);
+									}}
+								/>
+								<BaseDatePicker
+									label={names.sp19EndDate}
+									itemName="sp19EndDate"
+									rules={rules.sp19EndDateSchema}
+									value={hospitalForm.sp19EndDate}
+									onChangeDateFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												sp19EndDate: e,
+											})
+										);
+									}}
+								/>
+							</div>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/sp19"
+									bearer={`${Cookies.get("accessToken")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, sp19: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<BaseHorizontalHeader
+						title={"หนังสือรับรองนิติบุคคล"}
+						icons={<HomeFilled />}
+						className="mb-4"
+					/>
+
+					<div
+						className={`mb-5 ${
+							hospitalCertificateOfIncorporationAttachment.toPreview.length ===
+								0 && "hidden"
+						}`}
+					>
+						<BasePreviewPicture
+							subFolderPath="hospital/certificateOfIncorporation"
+							isHidden={
+								hospitalCertificateOfIncorporationAttachment.toPreview
+									.length === 0 && true
+							}
+							items={hospitalCertificateOfIncorporationAttachment.toPreview}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
+								);
+							}}
+						/>
+					</div>
+					<div
+						className={`mb-5 ${
+							hospitalCertificateOfIncorporationAttachment.toPreview.length !==
+								0 && "hidden"
+						}`}
+					>
+						<BaseUploadDraggerHospital
+							reset={
+								hospitalCertificateOfIncorporationAttachment.toPreview
+									.length === 0 && true
+							}
+							allowFileTypesToUpload={[FILE_TYPES.PDF]}
+							showUploadList={false}
+							className={`style1`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/certificateOfIncorporation"
+							bearer={`${Cookies.get("accessToken")}`}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										files: {
+											...hospitalForm.files,
+											certificateOfIncorporation: e,
+										},
+									})
+								);
+								dispatch(
+									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
+								);
+							}}
+						/>
+					</div>
+
+					{/* <div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
+								columns={HospitalAttachmentGrid({
+									hospitalAttachment:
+										hospitalCertificateOfIncorporationAttachment,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalCertificateOfIncorporationAttachment.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAttachmentList(
+											hospitalForm,
+											{
+												...hospitalCertificateOfIncorporationAttachment,
+												grid: {
+													...hospitalCertificateOfIncorporationAttachment.grid,
+													page,
+												},
+											},
+											"CertificateOfIncorporation"
+										)
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร หนังสือรับรองนิติบุคคล"
+								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/certificateOfIncorporation"
+									bearer={`${Cookies.get("accessToken")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: {
+													...hospitalForm.files,
+													certificateOfIncorporation: e,
+												},
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div> */}
+
+					<BaseHorizontalHeader
+						title={"ภาคผนวกและอื่น ๆ"}
+						icons={<HomeFilled />}
+						className="mb-7"
+					/>
+
+					<div className="grid grid-cols-12 gap-4">
+						<div className="col-span-8 ">
+							<BaseGrid
+								rows={hospitalEtcFiles.grid.data}
+								columns={EtcFilesGrid({
+									hospitalEtcFiles: hospitalEtcFiles,
+									dispatch: dispatch,
+									params: params,
+								})}
+								page={hospitalEtcFiles.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalEtcFilesList(params, {
+											...hospitalEtcFiles,
+											grid: { ...hospitalEtcFiles.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+						<div className="col-span-4 ">
+							<BaseGreenHeader
+								title="อัพโหลดเอกสาร ภาคผนวกและอื่น ๆ"
+								description="เอกสาร ภาคผนวกและอื่น ๆ"
+								className=""
+							/>
+							<div>
+								<BaseUploadDraggerHospital
+									allowFileTypesToUpload={[FILE_TYPES.PDF]}
+									className="style2"
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									subFolderPath="hospital/etcFiles"
+									bearer={`${Cookies.get("accessToken")}`}
+									onChangeFunction={(e) => {
+										dispatch(
+											setHospitalForm({
+												...hospitalForm,
+												files: { ...hospitalForm.files, etcFiles: e },
+											})
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+				</>
+			),
+		},
+	];
+
 	const firstSection: CollapseProps["items"] = [
 		{
 			key: "1",
@@ -877,6 +1362,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					</div>
+
+					<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
 				</>
 			),
 		},
@@ -885,578 +1372,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	// 	"🚀 ~ HospitalFormPage ~ hospitalAttachmentFile1.toPreview:",
 	// 	hospitalAttachmentFile1.toPreview
 	// );
-
-	const uploadFilesSection: CollapseProps["items"] = [
-		{
-			key: "5",
-			label: (
-				<BaseCollapseLabelHeader
-					title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
-					description="ข้อมูลภาพรวมและรายละเอียดกองทุนเงินทดแทนสำหรับสถานพยาบาล"
-				/>
-			),
-			children: (
-				<>
-					{/* {hospitalAttachmentFile1.toPreview.length === 0 ? (
-						<BaseUploadDraggerHospital
-							className="style1"
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/attachmentFile1"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											attachmentFile1: e,
-										},
-									})
-								);
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-								// console.log(e);
-							}}
-						/>
-					) : (
-						<BasePreviewPicture
-							items={hospitalAttachmentFile1.toPreview}
-							onChangeFunction={(e) => {
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-							}}
-						/>
-					)} */}
-					<BaseHorizontalHeader
-						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
-						icons={<HomeFilled />}
-						className="mb-4"
-					/>
-					<div
-						className={`mb-5 ${
-							hospitalAttachmentFile1.toPreview.length === 0 && "hidden"
-						}`}
-					>
-						<BasePreviewPicture
-							items={hospitalAttachmentFile1.toPreview}
-							onChangeFunction={(e) => {
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-							}}
-						/>
-					</div>
-					<div
-						className={`mb-5 ${
-							hospitalAttachmentFile1.toPreview.length !== 0 && "hidden"
-						}`}
-					>
-						<BaseUploadDraggerHospital
-							allowFileTypesToUpload={[FILE_TYPES.PDF]}
-							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
-							showUploadList={false}
-							className={`style1`}
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/attachmentFile1"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											attachmentFile1: e,
-										},
-									})
-								);
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-							}}
-						/>
-					</div>
-
-					{/* <div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalAttachmentFile1.grid.data}
-								columns={HospitalAttachmentGrid({
-									hospitalAttachment: hospitalAttachmentFile1,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalAttachmentFile1.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalAttachmentList(
-											hospitalForm,
-											{
-												...hospitalAttachmentFile1,
-												grid: {
-													...hospitalAttachmentFile1.grid,
-													page,
-												},
-											},
-											"AttachmentFile1"
-										)
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className=""
-							/>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/attachmentFile1"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: {
-													...hospitalForm.files,
-													attachmentFile1: e,
-												},
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div> */}
-
-					<BaseHorizontalHeader
-						title={"สพ7"}
-						icons={<HomeFilled />}
-						className="mb-7"
-					/>
-					<div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalSp7.grid.data}
-								columns={Sp7Grid({
-									hospitalSp7: hospitalSp7,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalSp7.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalSp7List(params, {
-											...hospitalSp7,
-											grid: { ...hospitalSp7.grid, page },
-										})
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสาร สพ7"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className="mb-7"
-							/>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
-								<BaseDatePicker
-									label={names.sp7StartDated}
-									itemName="sp7StartDated"
-									rules={rules.sp7StartDatedSchema}
-									value={hospitalForm.sp7StartDated}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												sp7StartDated: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp7EndDate}
-									itemName="sp7EndDate"
-									rules={rules.sp7EndDateSchema}
-									value={hospitalForm.sp7EndDate}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												sp7EndDate: e,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									allowFileTypesToUpload={[FILE_TYPES.PDF]}
-									// backgroundColor="BBC8CB"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/sp7"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: { ...hospitalForm.files, sp7: e },
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div>
-					<BaseHorizontalHeader
-						title={"สพ19"}
-						icons={<HomeFilled />}
-						className="mb-7"
-					/>
-
-					<div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalSp19.grid.data}
-								columns={Sp19Grid({
-									hospitalSp19: hospitalSp19,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalSp19.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalSp19List(params, {
-											...hospitalSp19,
-											grid: { ...hospitalSp19.grid, page },
-										})
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสาร สพ19"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className="mb-7"
-							/>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
-								<BaseDatePicker
-									label={names.sp19StartDate}
-									itemName="sp19StartDate"
-									rules={rules.sp19StartDateSchema}
-									value={hospitalForm.sp19StartDate}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												sp19StartDate: e,
-											})
-										);
-									}}
-								/>
-								<BaseDatePicker
-									label={names.sp19EndDate}
-									itemName="sp19EndDate"
-									rules={rules.sp19EndDateSchema}
-									value={hospitalForm.sp19EndDate}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												sp19EndDate: e,
-											})
-										);
-									}}
-								/>
-							</div>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									allowFileTypesToUpload={[FILE_TYPES.PDF]}
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/sp19"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: { ...hospitalForm.files, sp19: e },
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div>
-
-					<BaseHorizontalHeader
-						title={"หนังสือรับรองนิติบุคคล"}
-						icons={<HomeFilled />}
-						className="mb-4"
-					/>
-
-					<div
-						className={`mb-5 ${
-							hospitalCertificateOfIncorporationAttachment.toPreview.length ===
-								0 && "hidden"
-						}`}
-					>
-						<BasePreviewPicture
-							isHidden={
-								hospitalCertificateOfIncorporationAttachment.toPreview
-									.length === 0 && true
-							}
-							items={hospitalCertificateOfIncorporationAttachment.toPreview}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
-								);
-							}}
-						/>
-					</div>
-					<div
-						className={`mb-5 ${
-							hospitalCertificateOfIncorporationAttachment.toPreview.length !==
-								0 && "hidden"
-						}`}
-					>
-						<BaseUploadDraggerHospital
-							reset={
-								hospitalCertificateOfIncorporationAttachment.toPreview
-									.length === 0 && true
-							}
-							allowFileTypesToUpload={[FILE_TYPES.PDF]}
-							showUploadList={false}
-							className={`style1`}
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/certificateOfIncorporation"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											certificateOfIncorporation: e,
-										},
-									})
-								);
-								dispatch(
-									setHospitalCertificateOfIncorporationAttachmentToPreview(e)
-								);
-							}}
-						/>
-					</div>
-
-					{/* <div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
-								columns={HospitalAttachmentGrid({
-									hospitalAttachment:
-										hospitalCertificateOfIncorporationAttachment,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalCertificateOfIncorporationAttachment.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalAttachmentList(
-											hospitalForm,
-											{
-												...hospitalCertificateOfIncorporationAttachment,
-												grid: {
-													...hospitalCertificateOfIncorporationAttachment.grid,
-													page,
-												},
-											},
-											"CertificateOfIncorporation"
-										)
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสาร หนังสือรับรองนิติบุคคล"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className=""
-							/>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/certificateOfIncorporation"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: {
-													...hospitalForm.files,
-													certificateOfIncorporation: e,
-												},
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div> */}
-
-					<BaseHorizontalHeader
-						title={"ภาคผนวกและอื่น ๆ"}
-						icons={<HomeFilled />}
-						className="mb-7"
-					/>
-
-					<div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalEtcFiles.grid.data}
-								columns={EtcFilesGrid({
-									hospitalEtcFiles: hospitalEtcFiles,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalEtcFiles.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalEtcFilesList(params, {
-											...hospitalEtcFiles,
-											grid: { ...hospitalEtcFiles.grid, page },
-										})
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสาร ภาคผนวกและอื่น ๆ"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className=""
-							/>
-							<div>
-								<BaseUploadDraggerHospital
-									allowFileTypesToUpload={[FILE_TYPES.PDF]}
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/etcFiles"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: { ...hospitalForm.files, etcFiles: e },
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div>
-
-					<BaseHorizontalHeader
-						title={"เอกสารข้อมูลราคาประกาศ"}
-						icons={<HomeFilled />}
-						className="mb-7"
-					/>
-
-					<div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalAnnouncedPriceFiles.grid.data}
-								columns={AnnouncedPriceFilesGrid({
-									hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalAnnouncedPriceFiles.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalAnnouncedPriceFilesList(params, {
-											...hospitalAnnouncedPriceFiles,
-											grid: { ...hospitalAnnouncedPriceFiles.grid, page },
-										})
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className="mb-7"
-							/>
-							<div className="grid gap-x-4 gap-y-2 grid-cols-1 mb-6 px-6">
-								<BaseDropDown
-									itemName={"announcedPriceYear"}
-									option={yearOption}
-									value={outsideHospitalForm.announcedPriceYear}
-									label={names.announcedPriceYear}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOutsideHospitalForm({
-												...outsideHospitalForm,
-												announcedPriceYear: e.target.value,
-											})
-										);
-									}}
-								/>
-
-								{/* <BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.announcedPriceYear}
-									itemName="announcedPriceYear"
-									rules={rules.announcedPriceYearSchema}
-									value={outsideHospitalForm.announcedPriceYear}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOutsideHospitalForm({
-												...outsideHospitalForm,
-												announcedPriceYear: e.target.value,
-											})
-										);
-									}}
-								/> */}
-							</div>
-							<div>
-								<BaseUploadDraggerHospital
-									allowFileTypesToUpload={[FILE_TYPES.PDF]}
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/announcedPriceFiles"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: {
-													...hospitalForm.files,
-													announcedPriceFiles: e,
-												},
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div>
-				</>
-			),
-		},
-	];
 
 	const uploadAnnouncedPriceFilesSection = () => {
 		return (
@@ -1485,7 +1400,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<div className="col-span-4 ">
 					<BaseGreenHeader
 						title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
-						description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
+						description="เอกสารข้อมูลราคาประกาศ"
 						className=""
 					/>
 					<div>
@@ -1644,7 +1559,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				}}
 			/>
 
-			{isInit && (
+			{true && (
 				<>
 					<BaseHeaderNameAndSwitch
 						textHeader={"แก้ไขข้อมูลสถานพยาบาล"}
@@ -1668,10 +1583,102 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						extraForm={form}
 					>
-						{/* <BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-						<BaseCollapse items={secondSection} defaultActiveKey={"2"} /> */}
-						<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
+						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
+						<BaseCollapse
+							className="padding-2"
+							items={secondSection}
+							defaultActiveKey={"2"}
+						/>
+						{/* <BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} /> */}
 
+						<div className="grid grid-cols-12 gap-4 mb-5">
+							<div
+								className="col-span-8 bg-white h-fit"
+								style={{
+									borderStartEndRadius: "16px",
+									borderStartStartRadius: "16px",
+								}}
+							>
+								<BaseGrid
+									rows={hospitalAnnouncedPriceFiles.grid.data}
+									columns={AnnouncedPriceFilesGrid({
+										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
+										dispatch: dispatch,
+										params: params,
+									})}
+									page={hospitalAnnouncedPriceFiles.grid.page}
+									loading={isLoading}
+									twoToneColor={true}
+									setPagination={(page) => {
+										dispatch(
+											fetchHospitalAnnouncedPriceFilesList(params, {
+												...hospitalAnnouncedPriceFiles,
+												grid: { ...hospitalAnnouncedPriceFiles.grid, page },
+											})
+										);
+									}}
+								/>
+							</div>
+							<div className="col-span-4 ">
+								<BaseGreenHeader
+									title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
+									description="เอกสารข้อมูลราคาประกาศ"
+									className=""
+								/>
+								<div className="grid gap-x-4 gap-y-2 grid-cols-1 pb-6 px-6 pt-7 bg-white">
+									<BaseDropDown
+										itemName={"announcedPriceYear"}
+										option={yearOption}
+										value={outsideHospitalForm.announcedPriceYear}
+										label={names.announcedPriceYear}
+										onChangeFunction={(e) => {
+											dispatch(
+												setOutsideHospitalForm({
+													...outsideHospitalForm,
+													announcedPriceYear: e.target.value,
+												})
+											);
+										}}
+									/>
+
+									{/* <BaseItemInput
+									disabled={_.isEmpty(write)}
+									label={names.announcedPriceYear}
+									itemName="announcedPriceYear"
+									rules={rules.announcedPriceYearSchema}
+									value={outsideHospitalForm.announcedPriceYear}
+									onChangeFunction={(e) => {
+										dispatch(
+											setOutsideHospitalForm({
+												...outsideHospitalForm,
+												announcedPriceYear: e.target.value,
+											})
+										);
+									}}
+								/> */}
+								</div>
+								<div>
+									<BaseUploadDraggerHospital
+										allowFileTypesToUpload={[FILE_TYPES.PDF]}
+										className="style2"
+										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+										subFolderPath="hospital/announcedPriceFiles"
+										bearer={`${Cookies.get("accessToken")}`}
+										onChangeFunction={(e) => {
+											dispatch(
+												setHospitalForm({
+													...hospitalForm,
+													files: {
+														...hospitalForm.files,
+														announcedPriceFiles: e,
+													},
+												})
+											);
+										}}
+									/>
+								</div>
+							</div>
+						</div>
 						{/* {uploadAnnouncedPriceFilesSection()} */}
 
 						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
