@@ -70,6 +70,6 @@ export const handlePreviewDisplay =
 		dispatch(setIsLoading(true));
 		const result = await dispatch(previewMed(params));
 		dispatch(setIsLoading(false));
-		return result;
 		if (_.get(result, "error.message") === "Rejected") return;
+		return result;
 	};
