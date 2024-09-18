@@ -16,7 +16,8 @@ export const REPORT_PAGES = {
 	},
 	[REPORT_TYPES.MED5009]: {
 		reportName: "med5009",
-		apiPath: "http://localhost:8090/report/list?page=0&size=1000",
+		apiPath:
+			"https://api-dev-wcf.soilfish.co/report/report/list?page=0&size=1000",
 	},
 	[REPORT_TYPES.MED5012]: {
 		reportName: "med5012",

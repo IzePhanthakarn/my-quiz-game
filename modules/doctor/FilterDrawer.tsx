@@ -15,22 +15,17 @@ import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { DoctorForm } from "./redux/form/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { DoctorFilter } from "./redux/filter/model";
 
 interface Props {
 	form: FormInstance<any>;
 	onFinish: FormProps<DoctorForm>["onFinish"];
+	filter: DoctorFilter;
 }
 
 export default function FilterDrawer(prop: Props) {
-	const { form, onFinish } = prop;
+	const { form, onFinish, filter } = prop;
 	const dispatch: AppDispatch = useDispatch();
-	const { filter, page } = useSelector(
-		(state: SliceModel) => ({
-			filter: state.doctor.doctorFilter,
-			page: state.doctor.grid.page,
-		}),
-		shallowEqual
-	);
 
 	return (
 		<BaseForm extraForm={form} initialValues={filter} onFinish={onFinish}>
@@ -46,24 +41,12 @@ export default function FilterDrawer(prop: Props) {
 								setDoctorFilter({
 									...filter,
 									checkProfessionalCode: !filter.checkProfessionalCode,
-									professionalCodeLike: "",
 								})
 							)
 						}
 					/>
 					{filter.checkProfessionalCode && (
-						<BaseItemInput
-							itemName="professionalCodeLike"
-							// value={filter.professionalCodeLike}
-							// onChangeFunction={(e) => {
-							// 	dispatch(
-							// 		setDoctorFilter({
-							// 			...filter,
-							// 			professionalCodeLike: e.target.value,
-							// 		})
-							// 	);
-							// }}
-						/>
+						<BaseItemInput itemName="professionalCodeLike" />
 					)}
 				</BaseColumn>
 				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
@@ -77,7 +60,6 @@ export default function FilterDrawer(prop: Props) {
 								setDoctorFilter({
 									...filter,
 									checkProviceHospital: !filter.checkProviceHospital,
-									proviceHospitalLike: "",
 								})
 							)
 						}
@@ -116,18 +98,7 @@ export default function FilterDrawer(prop: Props) {
 						}
 					/>
 					{filter.checkHospitalName && (
-						<BaseItemInput
-							itemName="hospitalNameLike"
-							// value={filter.hospitalNameLike}
-							// onChangeFunction={(e) => {
-							// 	dispatch(
-							// 		setDoctorFilter({
-							// 			...filter,
-							// 			hospitalNameLike: e.target.value,
-							// 		})
-							// 	);
-							// }}
-						/>
+						<BaseItemInput itemName="hospitalNameLike" />
 					)}
 				</BaseColumn>
 				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
@@ -136,22 +107,27 @@ export default function FilterDrawer(prop: Props) {
 						label="วุฒิบัตรเฉพาะทาง"
 						checked={filter.checkDiplomaType}
 						labelPosition={BaseFormItemPosition.RIGHT}
-						onClickFunction={() =>
+						onClickFunction={() => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
 									checkDiplomaType: !filter.checkDiplomaType,
-									diplomaTypeLike: "",
 								})
-							)
-						}
+							);
+							form.setFieldValue("diplomaTypeLike", null);
+						}}
 					/>
 					{filter.checkDiplomaType && (
 						<>
 							<MedDropDown
+								itemName="diplomaTypeLike"
+								// notForm={true}
+								// className="h-full w-full"
+								// value={filter.diplomaTypeLike}
 								type={SESSION_NAME.DIPLOMA}
 								getValue={(e) => {
-									dispatch(setDoctorFilter({ ...filter, diplomaTypeLike: e }));
+									form.setFieldValue("diplomaTypeLike", e);
+									// dispatch(setDoctorFilter({ ...filter, diplomaTypeLike: e }));
 								}}
 							/>
 						</>

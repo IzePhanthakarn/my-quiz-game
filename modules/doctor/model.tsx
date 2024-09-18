@@ -13,7 +13,14 @@ import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import { findDiplomaDisplay, findHospitalDisplay } from "@/utils";
 
-export const GetColumns = (router: AppRouterInstance) => {
+interface Props {
+	mounted: string;
+	router: AppRouterInstance;
+}
+
+export const GetColumns = (prop: Props) => {
+	const { router, mounted } = prop;
+
 	const columns: TableProps["columns"] = useMemo(
 		() => [
 			{
@@ -126,7 +133,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 				),
 			},
 		],
-		[]
+		[mounted]
 	);
 	return columns;
 };
