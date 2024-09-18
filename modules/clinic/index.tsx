@@ -71,8 +71,9 @@ export default function Clinic() {
 						page={page}
 						loading={isLoading}
 						twoToneColor={true}
-						setOrder={(e) => console.log("eeee", e)}
-						setPagination={(page) => dispatch(setPagination(page))}
+						setPagination={(page) => {
+							dispatch(setPagination(page));
+						}}
 					/>
 				}
 				Drawer={

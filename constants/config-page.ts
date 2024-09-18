@@ -21,6 +21,26 @@ export const configPage: DataStructureURL = {
 			pageLevel: { form: [0] },
 		},
 	},
+	hospital: {
+		root: {
+			url: "/hospital",
+			breadcrumb: ["root"],
+			text: "สถานพยาบาล",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/doctor/edit/[uuid]",
+			text: "ข้อมูลสถานพยาบาล",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { form: [0] },
+		},
+		formAdd: {
+			url: "/doctor/form",
+			text: "เพิ่มข้อมูลสถานพยาบาล",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { form: [0] },
+		},
+	},
 	clinic: {
 		root: {
 			url: "/clinic",
