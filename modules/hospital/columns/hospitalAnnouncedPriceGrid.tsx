@@ -14,12 +14,10 @@ interface Props {
 	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
-	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const AnnouncedPriceFilesGrid = (props: Props) => {
-	const { hospitalAnnouncedPriceFiles, dispatch, params, outsideHospitalForm } =
-		props;
+	const { hospitalAnnouncedPriceFiles, dispatch, params } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -116,8 +114,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 									setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList(
 										hospitalAnnouncedPriceFiles,
 										uuid,
-										params,
-										outsideHospitalForm
+										params
 									)
 								);
 							}}
@@ -126,7 +123,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalAnnouncedPriceFiles, outsideHospitalForm, params]
+		[hospitalAnnouncedPriceFiles, params]
 	);
 	return columns;
 };

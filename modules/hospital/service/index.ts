@@ -390,7 +390,11 @@ export const updateHospital =
 		form: HospitalForm,
 		outsideHospitalForm: OutsideHospitalForm,
 		router: AppRouterInstance,
-		uuid: string
+		uuid: string,
+		hospitalSp7: HospitalSp7,
+		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
+		hospitalSp19: HospitalSp19,
+		hospitalEtcFiles: HospitalEtcFiles
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
@@ -404,7 +408,14 @@ export const updateHospital =
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 					attachmentFile1: form?.files?.attachmentFile1,
 					announcedPriceFiles: form?.files?.announcedPriceFiles,
-					outsideHospitalForm: outsideHospitalForm,
+					outsideHospitalForm: {
+						...outsideHospitalForm,
+						sp7DeleteFileList: hospitalSp7.filter.uuidExclusionList,
+						sp19DeleteFileList: hospitalSp19.filter.uuidExclusionList,
+						etcFilesDeleteFileList: hospitalEtcFiles.filter.uuidExclusionList,
+						announcedPriceFilesDeleteFileList:
+							hospitalAnnouncedPriceFiles.filter.uuidExclusionList,
+					},
 				},
 			})
 		);
@@ -422,12 +433,7 @@ export const updateHospital =
 	};
 
 export const setHospitalSp7GridFilterUuidExclusionList =
-	(
-		hospitalSp7: HospitalSp7,
-		uuid: string,
-		params: HospitalFormPageProps,
-		outsideHospitalForm: OutsideHospitalForm
-	) =>
+	(hospitalSp7: HospitalSp7, uuid: string, params: HospitalFormPageProps) =>
 	async (dispatch: AppDispatch) => {
 		const newHospitalSp7: HospitalSp7 = {
 			...hospitalSp7,
@@ -437,12 +443,6 @@ export const setHospitalSp7GridFilterUuidExclusionList =
 			},
 		};
 		dispatch(setHospitalSp7(newHospitalSp7));
-		dispatch(
-			setOutsideHospitalForm({
-				...outsideHospitalForm,
-				sp7DeleteFileList: newHospitalSp7.filter.uuidExclusionList,
-			})
-		);
 
 		dispatch(
 			fetchHospitalSp7List(params, {
@@ -455,8 +455,7 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 	(
 		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
 		uuid: string,
-		params: HospitalFormPageProps,
-		outsideHospitalForm: OutsideHospitalForm
+		params: HospitalFormPageProps
 	) =>
 	async (dispatch: AppDispatch) => {
 		const newHospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles = {
@@ -470,13 +469,6 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 			},
 		};
 		dispatch(setHospitalAnnouncedPriceFiles(newHospitalAnnouncedPriceFiles));
-		dispatch(
-			setOutsideHospitalForm({
-				...outsideHospitalForm,
-				announcedPriceFilesDeleteFileList:
-					newHospitalAnnouncedPriceFiles.filter.uuidExclusionList,
-			})
-		);
 
 		dispatch(
 			fetchHospitalAnnouncedPriceFilesList(params, {
@@ -486,12 +478,7 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 	};
 
 export const setHospitalSp19GridFilterUuidExclusionList =
-	(
-		hospitalSp19: HospitalSp19,
-		uuid: string,
-		params: HospitalFormPageProps,
-		outsideHospitalForm: OutsideHospitalForm
-	) =>
+	(hospitalSp19: HospitalSp19, uuid: string, params: HospitalFormPageProps) =>
 	async (dispatch: AppDispatch) => {
 		const newHospitalSp19: HospitalSp19 = {
 			...hospitalSp19,
@@ -501,12 +488,12 @@ export const setHospitalSp19GridFilterUuidExclusionList =
 			},
 		};
 		dispatch(setHospitalSp19(newHospitalSp19));
-		dispatch(
-			setOutsideHospitalForm({
-				...outsideHospitalForm,
-				sp19DeleteFileList: newHospitalSp19.filter.uuidExclusionList,
-			})
-		);
+		// dispatch(
+		// 	setOutsideHospitalForm({
+		// 		...outsideHospitalForm,
+		// 		sp19DeleteFileList: newHospitalSp19.filter.uuidExclusionList,
+		// 	})
+		// );
 
 		dispatch(
 			fetchHospitalSp19List(params, {
@@ -519,8 +506,7 @@ export const setHospitalEtcFilesGridFilterUuidExclusionList =
 	(
 		hospitalEtcFiles: HospitalEtcFiles,
 		uuid: string,
-		params: HospitalFormPageProps,
-		outsideHospitalForm: OutsideHospitalForm
+		params: HospitalFormPageProps
 	) =>
 	async (dispatch: AppDispatch) => {
 		const newHospitalEtcFiles: HospitalEtcFiles = {
@@ -531,12 +517,7 @@ export const setHospitalEtcFilesGridFilterUuidExclusionList =
 			},
 		};
 		dispatch(setHospitalEtcFiles(newHospitalEtcFiles));
-		dispatch(
-			setOutsideHospitalForm({
-				...outsideHospitalForm,
-				etcFilesDeleteFileList: newHospitalEtcFiles.filter.uuidExclusionList,
-			})
-		);
+
 		dispatch(
 			fetchHospitalEtcFilesList(params, {
 				...newHospitalEtcFiles,
