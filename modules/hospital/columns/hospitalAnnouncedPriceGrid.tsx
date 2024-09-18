@@ -1,30 +1,25 @@
 "use client";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
-import {
-	fetchHospitalAnnouncedPriceFilesList,
-	updateInActiveHospitalAnnouncedPriceFiles,
-} from "../service";
-import {
-	HospitalAnnouncedPriceFiles,
-	HospitalAnnouncedPriceFilesGridData,
-} from "@/modules/hospital/redux/models/announcedPriceFilesModel";
+import { setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList } from "../service";
+import { HospitalAnnouncedPriceFiles } from "@/modules/hospital/redux/models/announcedPriceFilesModel";
+import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const AnnouncedPriceFilesGrid = (props: Props) => {
-	const { hospitalAnnouncedPriceFiles, dispatch, params } = props;
+	const { hospitalAnnouncedPriceFiles, dispatch, params, outsideHospitalForm } =
+		props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -117,11 +112,12 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(updateInActiveHospitalAnnouncedPriceFiles(uuid));
 								await dispatch(
-									fetchHospitalAnnouncedPriceFilesList(
+									setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList(
+										hospitalAnnouncedPriceFiles,
+										uuid,
 										params,
-										hospitalAnnouncedPriceFiles
+										outsideHospitalForm
 									)
 								);
 							}}
@@ -130,7 +126,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalAnnouncedPriceFiles, params]
+		[hospitalAnnouncedPriceFiles, outsideHospitalForm, params]
 	);
 	return columns;
 };

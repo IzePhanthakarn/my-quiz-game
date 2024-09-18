@@ -38,6 +38,7 @@ export interface HospitalSp7GridFilter {
 	hospitalId: number;
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
+	uuidExclusionList: Array<String>;
 }
 
 export interface GetHospitalSp7List extends HospitalSp7GridFilter {
@@ -57,8 +58,9 @@ export const modelHospitalSp7: HospitalSp7 = {
 	filter: {
 		// uuid: "",
 		hospitalId: 0,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
+		uuidExclusionList: [],
 	},
 	// form: {
 	// 	...baseMasterDataModel,

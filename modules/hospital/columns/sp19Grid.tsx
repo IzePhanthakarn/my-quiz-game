@@ -1,27 +1,24 @@
 "use client";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
-import { fetchHospitalSp19List, updateInActiveHospitalSp19 } from "../service";
-import {
-	HospitalSp19,
-	HospitalSp19GridData,
-} from "@/modules/hospital/redux/models/sp19Model";
+import { setHospitalSp19GridFilterUuidExclusionList } from "../service";
+import { HospitalSp19 } from "@/modules/hospital/redux/models/sp19Model";
+import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalSp19: HospitalSp19;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const Sp19Grid = (props: Props) => {
-	const { hospitalSp19, dispatch, params } = props;
+	const { hospitalSp19, dispatch, params, outsideHospitalForm } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -91,15 +88,21 @@ export const Sp19Grid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(updateInActiveHospitalSp19(uuid));
-								await dispatch(fetchHospitalSp19List(params, hospitalSp19));
+								await dispatch(
+									setHospitalSp19GridFilterUuidExclusionList(
+										hospitalSp19,
+										uuid,
+										params,
+										outsideHospitalForm
+									)
+								);
 							}}
 						/>
 					);
 				},
 			},
 		],
-		[hospitalSp19, params]
+		[hospitalSp19, outsideHospitalForm, params]
 	);
 	return columns;
 };

@@ -26,6 +26,7 @@ export interface HospitalEtcFilesGridFilter {
 	hospitalId: number;
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
+	uuidExclusionList: Array<String>;
 }
 
 export interface GetHospitalEtcFilesList extends HospitalEtcFilesGridFilter {
@@ -44,7 +45,8 @@ export const modelHospitalEtcFiles: HospitalEtcFiles = {
 	},
 	filter: {
 		hospitalId: 0,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
+		uuidExclusionList: [],
 	},
 };

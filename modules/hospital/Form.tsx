@@ -169,7 +169,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						)
 					);
 				}
-				// dispatch(setOutsideHospitalForm(outsideHospitalForm));
 				setIsInit(true);
 			}
 		})();
@@ -486,6 +485,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp7: hospitalSp7,
 									dispatch: dispatch,
 									params: params,
+									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalSp7.grid.page}
 								loading={isLoading}
@@ -570,6 +570,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp19: hospitalSp19,
 									dispatch: dispatch,
 									params: params,
+									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalSp19.grid.page}
 								loading={isLoading}
@@ -772,6 +773,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalEtcFiles: hospitalEtcFiles,
 									dispatch: dispatch,
 									params: params,
+									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalEtcFiles.grid.page}
 								loading={isLoading}
@@ -1605,6 +1607,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
 										dispatch: dispatch,
 										params: params,
+										outsideHospitalForm: outsideHospitalForm,
 									})}
 									page={hospitalAnnouncedPriceFiles.grid.page}
 									loading={isLoading}
@@ -1640,22 +1643,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 											);
 										}}
 									/>
-
-									{/* <BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.announcedPriceYear}
-									itemName="announcedPriceYear"
-									rules={rules.announcedPriceYearSchema}
-									value={outsideHospitalForm.announcedPriceYear}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOutsideHospitalForm({
-												...outsideHospitalForm,
-												announcedPriceYear: e.target.value,
-											})
-										);
-									}}
-								/> */}
 								</div>
 								<div>
 									<BaseUploadDraggerHospital
