@@ -485,7 +485,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp7: hospitalSp7,
 									dispatch: dispatch,
 									params: params,
-									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalSp7.grid.page}
 								loading={isLoading}
@@ -570,7 +569,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp19: hospitalSp19,
 									dispatch: dispatch,
 									params: params,
-									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalSp19.grid.page}
 								loading={isLoading}
@@ -773,7 +771,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalEtcFiles: hospitalEtcFiles,
 									dispatch: dispatch,
 									params: params,
-									outsideHospitalForm: outsideHospitalForm,
 								})}
 								page={hospitalEtcFiles.grid.page}
 								loading={isLoading}
@@ -1370,65 +1367,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 		},
 	];
-	// console.log(
-	// 	"🚀 ~ HospitalFormPage ~ hospitalAttachmentFile1.toPreview:",
-	// 	hospitalAttachmentFile1.toPreview
-	// );
-
-	const uploadAnnouncedPriceFilesSection = () => {
-		return (
-			<div className="grid grid-cols-12 gap-4">
-				<div className="col-span-8 ">
-					<BaseGrid
-						rows={hospitalAnnouncedPriceFiles.grid.data}
-						columns={AnnouncedPriceFilesGrid({
-							hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
-							dispatch: dispatch,
-							params: params,
-						})}
-						page={hospitalAnnouncedPriceFiles.grid.page}
-						loading={isLoading}
-						twoToneColor={true}
-						setPagination={(page) => {
-							dispatch(
-								fetchHospitalAnnouncedPriceFilesList(params, {
-									...hospitalAnnouncedPriceFiles,
-									grid: { ...hospitalAnnouncedPriceFiles.grid, page },
-								})
-							);
-						}}
-					/>
-				</div>
-				<div className="col-span-4 ">
-					<BaseGreenHeader
-						title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
-						description="เอกสารข้อมูลราคาประกาศ"
-						className=""
-					/>
-					<div>
-						<BaseUploadDraggerHospital
-							allowFileTypesToUpload={[FILE_TYPES.PDF]}
-							className="style2"
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/announcedPriceFiles"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											announcedPriceFiles: e,
-										},
-									})
-								);
-							}}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-	};
 
 	const thSection: CollapseProps["items"] = [
 		{
@@ -1546,7 +1484,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalForm,
 								outsideHospitalForm,
 								router,
-								`${params.params.uuid}`
+								`${params.params.uuid}`,
+								hospitalSp7,
+								hospitalAnnouncedPriceFiles,
+								hospitalSp19,
+								hospitalEtcFiles
 							)
 						);
 					} else {
@@ -1575,6 +1517,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
 					/>
+					<div className="mb-4"></div>
 					<BaseForm
 						name={"hospitalForm"}
 						onFinish={onFinish}
@@ -1607,7 +1550,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
 										dispatch: dispatch,
 										params: params,
-										outsideHospitalForm: outsideHospitalForm,
 									})}
 									page={hospitalAnnouncedPriceFiles.grid.page}
 									loading={isLoading}

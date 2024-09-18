@@ -8,17 +8,15 @@ import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { setHospitalSp7GridFilterUuidExclusionList } from "../service";
 import { HospitalSp7 } from "@/modules/hospital/redux/models/sp7Model";
-import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalSp7: HospitalSp7;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
-	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const Sp7Grid = (props: Props) => {
-	const { hospitalSp7, dispatch, params, outsideHospitalForm } = props;
+	const { hospitalSp7, dispatch, params } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -90,8 +88,7 @@ export const Sp7Grid = (props: Props) => {
 									setHospitalSp7GridFilterUuidExclusionList(
 										hospitalSp7,
 										uuid,
-										params,
-										outsideHospitalForm
+										params
 									)
 								);
 							}}
@@ -100,7 +97,7 @@ export const Sp7Grid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalSp7, outsideHospitalForm, params]
+		[hospitalSp7, params]
 	);
 	return columns;
 };

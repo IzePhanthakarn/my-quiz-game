@@ -123,6 +123,8 @@ export interface ExportPages {
 	};
 }
 
+export interface DeleteFileList extends Array<string> {}
+
 export interface OutsideHospitalForm {
 	announcedPriceYear: string;
 	sp7DeleteFileList: HospitalSp7["filter"]["uuidExclusionList"];

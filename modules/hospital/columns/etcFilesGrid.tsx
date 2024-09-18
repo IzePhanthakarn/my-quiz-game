@@ -8,17 +8,15 @@ import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { setHospitalEtcFilesGridFilterUuidExclusionList } from "../service";
 import { HospitalEtcFiles } from "@/modules/hospital/redux/models/etcFilesModel";
-import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalEtcFiles: HospitalEtcFiles;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
-	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const EtcFilesGrid = (props: Props) => {
-	const { hospitalEtcFiles, dispatch, params, outsideHospitalForm } = props;
+	const { hospitalEtcFiles, dispatch, params } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -101,8 +99,7 @@ export const EtcFilesGrid = (props: Props) => {
 									setHospitalEtcFilesGridFilterUuidExclusionList(
 										hospitalEtcFiles,
 										uuid,
-										params,
-										outsideHospitalForm
+										params
 									)
 								);
 							}}
@@ -111,7 +108,7 @@ export const EtcFilesGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalEtcFiles, outsideHospitalForm, params]
+		[hospitalEtcFiles, params]
 	);
 	return columns;
 };
