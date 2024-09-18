@@ -25,6 +25,10 @@ export const {
 	setHospitalCertificateOfIncorporationAttachmentToPreview,
 	setHospitalAnnouncedPriceFilesGrid,
 	setOutsideHospitalForm,
+	setHospitalSp7,
+	setHospitalSp19,
+	setHospitalEtcFiles,
+	setHospitalAnnouncedPriceFiles,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

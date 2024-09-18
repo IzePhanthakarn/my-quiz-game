@@ -1,27 +1,24 @@
 "use client";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
-import { fetchHospitalSp7List, updateInActiveHospitalSp7 } from "../service";
-import {
-	HospitalSp7,
-	HospitalSp7GridData,
-} from "@/modules/hospital/redux/models/sp7Model";
+import { setHospitalSp7GridFilterUuidExclusionList } from "../service";
+import { HospitalSp7 } from "@/modules/hospital/redux/models/sp7Model";
+import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalSp7: HospitalSp7;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	outsideHospitalForm: OutsideHospitalForm;
 }
 
 export const Sp7Grid = (props: Props) => {
-	const { hospitalSp7, dispatch, params } = props;
+	const { hospitalSp7, dispatch, params, outsideHospitalForm } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -89,15 +86,21 @@ export const Sp7Grid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(updateInActiveHospitalSp7(uuid));
-								await dispatch(fetchHospitalSp7List(params, hospitalSp7));
+								await dispatch(
+									setHospitalSp7GridFilterUuidExclusionList(
+										hospitalSp7,
+										uuid,
+										params,
+										outsideHospitalForm
+									)
+								);
 							}}
 						/>
 					);
 				},
 			},
 		],
-		[hospitalSp7, params]
+		[hospitalSp7, outsideHospitalForm, params]
 	);
 	return columns;
 };
