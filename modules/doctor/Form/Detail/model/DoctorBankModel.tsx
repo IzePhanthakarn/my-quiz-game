@@ -1,9 +1,6 @@
 "use client";
 
-import {
-	DoctorBankList,
-	DoctorPostalList,
-} from "@/modules/doctor/redux/form/model";
+import { DoctorBankList } from "@/modules/doctor/redux/form/model";
 import { useMemo } from "react";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustonCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";

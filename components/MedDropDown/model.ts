@@ -30,13 +30,13 @@ export const DROPDOWN = {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
 		sessionName: SESSION_NAME.HOSPITAL_TYPE,
 		method: API_METHOD.POST,
-		baseBody: { groupName: "HOSPITAL_TYPE" },
+		baseBody: { groupNameLike: "HOSPITAL_TYPE" },
 	},
 	[SESSION_NAME.HOSPITAL_CATEGORY]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/hospital-category",
+		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
 		sessionName: SESSION_NAME.HOSPITAL_CATEGORY,
 		method: API_METHOD.POST,
-		baseBody: { groupName: "HOSPITAL_CATEGORY" },
+		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
 	},
 	[SESSION_NAME.DOCTOR_BANK]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/doctor-bank",

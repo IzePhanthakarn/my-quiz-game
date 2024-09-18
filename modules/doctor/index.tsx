@@ -29,6 +29,7 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { DoctorForm, modelDoctorForm } from "./redux/form/model";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -46,8 +47,29 @@ export default function Doctor() {
 
 	const [init, setInit] = React.useState(false);
 
+	const [form] = Form.useForm();
+	const [formDrawer] = Form.useForm();
+
+	const onFinishDrawer: FormProps<DoctorForm>["onFinish"] = (
+		value: DoctorForm
+	) => {
+		const newFilter = { ...filter, ...value };
+		dispatch(
+			initDoctorGrid({
+				pagination: { ...page },
+				...newFilter,
+			})
+		);
+	};
+
 	const onFinish: FormProps<DoctorForm>["onFinish"] = (value: DoctorForm) => {
-		console.log("value", value);
+		const newFilter = { ...filter, ...value };
+		dispatch(
+			initDoctorGrid({
+				pagination: { ...page },
+				...newFilter,
+			})
+		);
 	};
 
 	const { dispatchLayout } = useLayout();
@@ -58,51 +80,24 @@ export default function Doctor() {
 			payload: (
 				<FilterLayout
 					FilterForm={
-						<BaseForm initialValues={filter} onFinish={onFinish}>
+						<BaseForm
+							initialValues={filter}
+							extraForm={form}
+							onFinish={onFinish}
+						>
 							<div className="flex space-x-2">
 								<BaseItemInput
-									// notForm
 									itemName="doctorCodeLike"
 									label="รหัสแพทย์ / เลขที่ สปส"
-									value={filter.doctorCodeLike}
 								/>
-								<BaseItemInput
-									notForm
-									label="ชื่อ"
-									value={filter.firstnameLike}
-									onChangeFunction={(e) => {
-										dispatch(
-											setDoctorFilter({
-												...filter,
-												firstnameLike: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									label="นามสกุล"
-									itemName="lastnameLike"
-									value={filter.lastnameLike}
-									onChangeFunction={(e) => {
-										dispatch(
-											setDoctorFilter({
-												...filter,
-												lastnameLike: e.target.value,
-											})
-										);
-									}}
-								/>
+								<BaseItemInput label="ชื่อ" itemName="firstnameLike" />
+								<BaseItemInput label="นามสกุล" itemName="lastnameLike" />
 							</div>
 						</BaseForm>
 					}
 					handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 					handleSubmitSearch={() => {
-						dispatch(
-							initDoctorGrid({
-								pagination: { ...page },
-								...filter,
-							})
-						);
+						form.submit();
 					}}
 				/>
 			),
@@ -147,16 +142,11 @@ export default function Doctor() {
 					<BaseDrawer
 						isOpen={isOpen}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						content={<FilterDrawer />}
-						isFilter
-						confirmFuntion={() =>
-							dispatch(
-								initDoctorGrid({
-									pagination: { ...page },
-									...filter,
-								})
-							)
+						content={
+							<FilterDrawer form={formDrawer} onFinish={onFinishDrawer} />
 						}
+						isFilter
+						confirmFuntion={() => formDrawer.submit()}
 						clearFilter={() => dispatch(setDoctorFilter(modelDoctorFilter))}
 					/>
 				}

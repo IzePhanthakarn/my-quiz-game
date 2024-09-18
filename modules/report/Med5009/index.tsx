@@ -40,6 +40,7 @@ export default function Med5009() {
 	const onFinish: FormProps<Med5009Form>["onFinish"] = async (
 		value: Med5009Form
 	) => {
+		dispatch(setMed5009Form({ ...med5009, propertyCode: value.propertyCode }));
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5009)
 		);
@@ -64,19 +65,10 @@ export default function Med5009() {
 					}}
 				>
 					<BaseColumn className="space-y-4  h-full">
-						<BaseForm
-							initialValues={med5009}
-							onFinish={onFinish}
-							onValuesChange={(e) => {
-								dispatch(setMed5009Form({ ...med5009, ...e }));
-							}}
-						>
+						<BaseForm initialValues={med5009} onFinish={onFinish}>
 							<MedDropDown
 								itemName="propertyCode"
 								label="ระดับของสถานพยาบาล"
-								getValue={(e) => {
-									dispatch(setMed5009Form({ ...med5009, propertyCode: e }));
-								}}
 								type={SESSION_NAME.HOSPITAL_TYPE}
 							/>
 							<div className="flex justify-end items-end h-full">
