@@ -1,7 +1,7 @@
 const API_PATH = {
 	// REPORT
-	REPORT_PDF: "pdf",
-	REPORT_EXCEL: "excel",
+	REPORT_PDF: "report/pdf",
+	REPORT_EXCEL: "report/excel",
 
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
