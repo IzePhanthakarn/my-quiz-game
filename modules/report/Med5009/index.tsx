@@ -24,6 +24,8 @@ import {
 } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
+import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
+import { handlePdfButton } from "./service";
 
 export default function Med5009() {
 	const dispatch: AppDispatch = useDispatch();
@@ -100,7 +102,7 @@ export default function Med5009() {
 							className="w-1/6"
 							label="Pdf"
 							onClick={() => {
-								dispatch(handleOnExportPdf(med5009, REPORT_TYPES.MED5009));
+								dispatch(handlePdfButton(med5009));
 							}}
 						/>
 					</div>

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { DoctorBankList, DoctorData } from "../redux/form/model";
+import { DoctorBankList } from "../redux/form/model";
 import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import _ from "lodash";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { handleBankRows, handleDoctorDetailRows } from "./service";
+import { handleBankRows } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";

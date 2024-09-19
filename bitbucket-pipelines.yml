@@ -36,7 +36,7 @@ definitions:
             - build
     - step: &Deploy
         name: Deploy
-        trigger: manual
+        # trigger: manual
         image:
           name: alpine/helm:latest
         script:
