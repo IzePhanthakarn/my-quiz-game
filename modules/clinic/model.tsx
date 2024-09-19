@@ -35,7 +35,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={_columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"clinicCode"}
-						label={"รหัสคลินิค"}
+						label={"รหัสคลินิก"}
 						sort={_columns?.sortColumns}
 					/>
 				),
@@ -48,7 +48,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={_columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"clinicName"}
-						label={"ชื่อคลินิค"}
+						label={"ชื่อคลินิก"}
 						sort={_columns?.sortColumns}
 					/>
 				),

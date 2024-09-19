@@ -6,6 +6,7 @@ export const containerSlice = createSlice({
 	initialState: modelContainer,
 	reducers: {
 		setIsLoading: (state: Container, action: PayloadAction<boolean>) => {
+			if (state.isLoading === action.payload) return;
 			state.isLoading = action.payload;
 		},
 		setUuid: (state: Container, action: PayloadAction<string>) => {

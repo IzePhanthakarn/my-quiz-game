@@ -41,7 +41,7 @@ export default function Clinic() {
 			type: "setChildrenHeader",
 			payload: (
 				<HeaderLayout
-					// Header="ข้อมูลคลินิค"
+					// Header="ข้อมูลคลินิก"
 					SearchButtonFunction={() => console.log("🚀 search")}
 					FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
 					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
@@ -96,7 +96,7 @@ export default function Clinic() {
 					/>
 				}
 				AddFunction={() => router.push(LINKS.CLINIC.add)}
-				AddLabel="เพิ่มคลินิค"
+				AddLabel="เพิ่มคลินิก"
 				TotalItems={page.totalData}
 			/>
 		</div>
