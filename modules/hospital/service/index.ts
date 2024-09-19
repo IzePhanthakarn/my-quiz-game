@@ -77,6 +77,7 @@ import {
 	GetHospitalAnnouncedPriceFilesList,
 	HospitalAnnouncedPriceFiles,
 } from "../redux/models/announcedPriceFilesModel";
+import { LINKS } from "@/constants/links";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -140,7 +141,7 @@ export const addHospital =
 				description: "Description",
 			});
 			// dispatch(setIsLoading(true));
-			// router.push(LINKS.HOSPITAL.link);
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};
 
@@ -427,7 +428,7 @@ export const updateHospital =
 				description: "Description",
 			});
 			// dispatch(setIsLoading(true));
-			// router.push(LINKS.HOSPITAL.link);
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};
 
