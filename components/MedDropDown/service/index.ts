@@ -116,6 +116,7 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 			console.log("ltProperties", ltProperties);
 			return ltProperties;
 		case SESSION_NAME.JOB_TYPE:
+		case SESSION_NAME.SSO_PROJECT:
 		case SESSION_NAME.DOCTOR_TYPE:
 			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
