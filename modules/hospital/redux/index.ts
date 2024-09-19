@@ -11,6 +11,7 @@ export const hospitalSlice = createSlice({
 });
 
 export const {
+	setHospital,
 	setHospitalForm,
 	setHospitalGrid,
 	setHospitalFilter,
