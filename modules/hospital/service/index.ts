@@ -30,6 +30,10 @@ import {
 	setHospitalAttachmentFile1ToPreview,
 	setHospitalCertificateOfIncorporationAttachmentToPreview,
 	setHospitalAnnouncedPriceFilesGrid,
+	setHospitalSp7,
+	setHospitalSp19,
+	setHospitalEtcFiles,
+	setHospitalAnnouncedPriceFiles,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
@@ -177,7 +181,7 @@ export const fetchHospitalSp7List =
 				pagination: { ...hospitalSp7.grid.page },
 				...hospitalSp7.filter,
 				hospitalUuid: uuid,
-				isActive: IsActive.Y,
+				// isActive: IsActive.Y,
 			};
 			const result = await dispatch(getHospitalSp7ListByHospitalUuid(body));
 			if (_.get(result, "error.message") === "Rejected") {
@@ -204,7 +208,7 @@ export const fetchHospitalSp19List =
 				pagination: { ...hospitalSp19.grid.page },
 				...hospitalSp19.filter,
 				hospitalUuid: uuid,
-				isActive: IsActive.Y,
+				// isActive: IsActive.Y,
 			};
 			const result = await dispatch(getHospitalSp19ListByHospitalUuid(body));
 			if (_.get(result, "error.message") === "Rejected") {
@@ -231,7 +235,7 @@ export const fetchHospitalEtcFilesList =
 				pagination: { ...hospitalEtcFiles.grid.page },
 				...hospitalEtcFiles.filter,
 				hospitalUuid: uuid,
-				isActive: IsActive.Y,
+				// isActive: IsActive.Y,
 			};
 			const result = await dispatch(
 				getHospitalEtcFilesListByHospitalUuid(body)
@@ -385,7 +389,11 @@ export const updateHospital =
 		form: HospitalForm,
 		outsideHospitalForm: OutsideHospitalForm,
 		router: AppRouterInstance,
-		uuid: string
+		uuid: string,
+		hospitalSp7: HospitalSp7,
+		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
+		hospitalSp19: HospitalSp19,
+		hospitalEtcFiles: HospitalEtcFiles
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
@@ -399,7 +407,14 @@ export const updateHospital =
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 					attachmentFile1: form?.files?.attachmentFile1,
 					announcedPriceFiles: form?.files?.announcedPriceFiles,
-					outsideHospitalForm: outsideHospitalForm,
+					outsideHospitalForm: {
+						...outsideHospitalForm,
+						sp7DeleteFileList: hospitalSp7.filter.uuidExclusionList,
+						sp19DeleteFileList: hospitalSp19.filter.uuidExclusionList,
+						etcFilesDeleteFileList: hospitalEtcFiles.filter.uuidExclusionList,
+						announcedPriceFilesDeleteFileList:
+							hospitalAnnouncedPriceFiles.filter.uuidExclusionList,
+					},
 				},
 			})
 		);
@@ -414,6 +429,93 @@ export const updateHospital =
 			// dispatch(setIsLoading(true));
 			// router.push(LINKS.HOSPITAL.link);
 		}
+	};
+
+export const setHospitalSp7GridFilterUuidExclusionList =
+	(hospitalSp7: HospitalSp7, uuid: string, params: HospitalFormPageProps) =>
+	async (dispatch: AppDispatch) => {
+		const newHospitalSp7: HospitalSp7 = {
+			...hospitalSp7,
+			filter: {
+				...hospitalSp7.filter,
+				uuidExclusionList: [...hospitalSp7.filter.uuidExclusionList, uuid],
+			},
+		};
+		dispatch(setHospitalSp7(newHospitalSp7));
+
+		dispatch(
+			fetchHospitalSp7List(params, {
+				...newHospitalSp7,
+			})
+		);
+	};
+
+export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
+	(
+		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
+		uuid: string,
+		params: HospitalFormPageProps
+	) =>
+	async (dispatch: AppDispatch) => {
+		const newHospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles = {
+			...hospitalAnnouncedPriceFiles,
+			filter: {
+				...hospitalAnnouncedPriceFiles.filter,
+				uuidExclusionList: [
+					...hospitalAnnouncedPriceFiles.filter.uuidExclusionList,
+					uuid,
+				],
+			},
+		};
+		dispatch(setHospitalAnnouncedPriceFiles(newHospitalAnnouncedPriceFiles));
+
+		dispatch(
+			fetchHospitalAnnouncedPriceFilesList(params, {
+				...newHospitalAnnouncedPriceFiles,
+			})
+		);
+	};
+
+export const setHospitalSp19GridFilterUuidExclusionList =
+	(hospitalSp19: HospitalSp19, uuid: string, params: HospitalFormPageProps) =>
+	async (dispatch: AppDispatch) => {
+		const newHospitalSp19: HospitalSp19 = {
+			...hospitalSp19,
+			filter: {
+				...hospitalSp19.filter,
+				uuidExclusionList: [...hospitalSp19.filter.uuidExclusionList, uuid],
+			},
+		};
+		dispatch(setHospitalSp19(newHospitalSp19));
+
+		dispatch(
+			fetchHospitalSp19List(params, {
+				...newHospitalSp19,
+			})
+		);
+	};
+
+export const setHospitalEtcFilesGridFilterUuidExclusionList =
+	(
+		hospitalEtcFiles: HospitalEtcFiles,
+		uuid: string,
+		params: HospitalFormPageProps
+	) =>
+	async (dispatch: AppDispatch) => {
+		const newHospitalEtcFiles: HospitalEtcFiles = {
+			...hospitalEtcFiles,
+			filter: {
+				...hospitalEtcFiles.filter,
+				uuidExclusionList: [...hospitalEtcFiles.filter.uuidExclusionList, uuid],
+			},
+		};
+		dispatch(setHospitalEtcFiles(newHospitalEtcFiles));
+
+		dispatch(
+			fetchHospitalEtcFilesList(params, {
+				...newHospitalEtcFiles,
+			})
+		);
 	};
 
 export const updateInActiveHospitalSp7 =

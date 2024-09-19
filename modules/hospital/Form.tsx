@@ -14,8 +14,9 @@ import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPict
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
-import { IsActive } from "wcf-component-lib/src/constants/constants";
+import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
+	setHospital,
 	setHospitalAnnouncedPriceFilesGrid,
 	setHospitalAttachmentFile1Grid,
 	setHospitalAttachmentFile1ToPreview,
@@ -79,6 +80,8 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import { getCurrentYearString } from "wcf-component-lib/src/utils";
+import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -132,6 +135,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
+				// console.log("🚀 ~ modelHospital", modelHospital);
+				// await dispatch(setHospital(modelHospital));
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
 					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
@@ -169,7 +174,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						)
 					);
 				}
-				// dispatch(setOutsideHospitalForm(outsideHospitalForm));
+				// await dispatch(setHospital(modelHospital));
+
 				setIsInit(true);
 			}
 		})();
@@ -700,64 +706,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 
-					{/* <div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalCertificateOfIncorporationAttachment.grid.data}
-								columns={HospitalAttachmentGrid({
-									hospitalAttachment:
-										hospitalCertificateOfIncorporationAttachment,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalCertificateOfIncorporationAttachment.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalAttachmentList(
-											hospitalForm,
-											{
-												...hospitalCertificateOfIncorporationAttachment,
-												grid: {
-													...hospitalCertificateOfIncorporationAttachment.grid,
-													page,
-												},
-											},
-											"CertificateOfIncorporation"
-										)
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="อัพโหลดเอกสาร หนังสือรับรองนิติบุคคล"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className=""
-							/>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/certificateOfIncorporation"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: {
-													...hospitalForm.files,
-													certificateOfIncorporation: e,
-												},
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div> */}
-
 					<BaseHorizontalHeader
 						title={"ภาคผนวกและอื่น ๆ"}
 						icons={<HomeFilled />}
@@ -943,67 +891,100 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
+
+						<MedDropDown
 							label={names.tambolCode}
 							itemName="tambolCode"
 							rules={rules.tambolCodeSchema}
-							value={hospitalForm.tambolCode}
-							onChangeFunction={(e) => {
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										tambolCode: e.target.value,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
 									})
 								);
 							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.tambolCode, ADDRESS.TAMBOL)}
+								</p>
+							)}
 						/>
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
+						<MedDropDown
 							label={names.amphurCode}
 							itemName="amphurCode"
 							rules={rules.amphurCodeSchema}
-							value={hospitalForm.amphurCode}
-							onChangeFunction={(e) => {
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										amphurCode: e.target.value,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
 									})
 								);
 							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.amphurCode, ADDRESS.AMPHUR)}
+								</p>
+							)}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
+						<MedDropDown
 							label={names.provinceCode}
 							itemName="provinceCode"
 							rules={rules.provinceCodeSchema}
-							value={hospitalForm.provinceCode}
-							onChangeFunction={(e) => {
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										provinceCode: e.target.value,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
 									})
 								);
 							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(
+										hospitalForm.provinceCode,
+										ADDRESS.PROVINCE
+									)}
+								</p>
+							)}
 						/>
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
+
+						<MedDropDown
 							label={names.postalCode}
 							itemName="postalCode"
 							rules={rules.postalCodeSchema}
-							value={hospitalForm.postalCode}
-							onChangeFunction={(e) => {
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										postalCode: e.target.value,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
 									})
 								);
 							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.postalCode, ADDRESS.POSTCODE)}
+								</p>
+							)}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -1069,22 +1050,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-						{/* <BaseItemInput
-							disabled={_.isEmpty(write)}
-							label={names.hospitalType}
-							itemName="hospitalType"
-							rules={rules.hospitalTypeSchema}
-							value={hospitalForm.hospitalType}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalType: e.target.value,
-									})
-								);
-							}}
-						/> */}
-						{/* <MedDropDown
+						<MedDropDown
 							itemName={"hospitalType"}
 							label={names.hospitalType}
 							type={SESSION_NAME.HOSPITAL_TYPE}
@@ -1097,23 +1063,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/> */}
-						{/* <BaseItemInput
-							disabled={_.isEmpty(write)}
-							label={names.hospitalCategory}
-							itemName="hospitalCategory"
-							rules={rules.hospitalCategorySchema}
-							value={hospitalForm.hospitalCategory}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalCategory: e.target.value,
-									})
-								);
-							}}
-						/> */}
-						{/* <MedDropDown
+						/>
+						<MedDropDown
 							itemName={"hospitalCategory"}
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
@@ -1126,20 +1077,19 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									})
 								);
 							}}
-						/> */}
+						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							disabled={_.isEmpty(write)}
+						<MedDropDown
 							label={names.ssoProject}
 							itemName="ssoProject"
 							rules={rules.ssoProjectSchema}
-							value={hospitalForm.ssoProject}
-							onChangeFunction={(e) => {
+							type={SESSION_NAME.SSO_PROJECT}
+							getValue={(e) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										ssoProject: e.target.value,
+										ssoProject: e,
 									})
 								);
 							}}
@@ -1193,7 +1143,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+					{/* <div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
 							label={names.levelChangeDate}
 							itemName="levelChangeDate"
@@ -1284,8 +1234,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.hospitalListBoi}
@@ -1329,7 +1277,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-
+					</div> */}
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.latitude}
@@ -1368,65 +1317,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 		},
 	];
-	// console.log(
-	// 	"🚀 ~ HospitalFormPage ~ hospitalAttachmentFile1.toPreview:",
-	// 	hospitalAttachmentFile1.toPreview
-	// );
-
-	const uploadAnnouncedPriceFilesSection = () => {
-		return (
-			<div className="grid grid-cols-12 gap-4">
-				<div className="col-span-8 ">
-					<BaseGrid
-						rows={hospitalAnnouncedPriceFiles.grid.data}
-						columns={AnnouncedPriceFilesGrid({
-							hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
-							dispatch: dispatch,
-							params: params,
-						})}
-						page={hospitalAnnouncedPriceFiles.grid.page}
-						loading={isLoading}
-						twoToneColor={true}
-						setPagination={(page) => {
-							dispatch(
-								fetchHospitalAnnouncedPriceFilesList(params, {
-									...hospitalAnnouncedPriceFiles,
-									grid: { ...hospitalAnnouncedPriceFiles.grid, page },
-								})
-							);
-						}}
-					/>
-				</div>
-				<div className="col-span-4 ">
-					<BaseGreenHeader
-						title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
-						description="เอกสารข้อมูลราคาประกาศ"
-						className=""
-					/>
-					<div>
-						<BaseUploadDraggerHospital
-							allowFileTypesToUpload={[FILE_TYPES.PDF]}
-							className="style2"
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/announcedPriceFiles"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											announcedPriceFiles: e,
-										},
-									})
-								);
-							}}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-	};
 
 	const thSection: CollapseProps["items"] = [
 		{
@@ -1544,7 +1434,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalForm,
 								outsideHospitalForm,
 								router,
-								`${params.params.uuid}`
+								`${params.params.uuid}`,
+								hospitalSp7,
+								hospitalAnnouncedPriceFiles,
+								hospitalSp19,
+								hospitalEtcFiles
 							)
 						);
 					} else {
@@ -1573,6 +1467,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
 					/>
+					<div className="mb-4"></div>
 					<BaseForm
 						name={"hospitalForm"}
 						onFinish={onFinish}
@@ -1640,22 +1535,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 											);
 										}}
 									/>
-
-									{/* <BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={names.announcedPriceYear}
-									itemName="announcedPriceYear"
-									rules={rules.announcedPriceYearSchema}
-									value={outsideHospitalForm.announcedPriceYear}
-									onChangeFunction={(e) => {
-										dispatch(
-											setOutsideHospitalForm({
-												...outsideHospitalForm,
-												announcedPriceYear: e.target.value,
-											})
-										);
-									}}
-								/> */}
 								</div>
 								<div>
 									<BaseUploadDraggerHospital

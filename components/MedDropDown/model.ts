@@ -12,6 +12,7 @@ export enum SESSION_NAME {
 	DOCTOR_TYPE = "doctorType",
 	POSTAL_ID = "postalId",
 	PROVINCE_NAME = "provinceName",
+	SSO_PROJECT = "ssoProject",
 }
 
 export enum API_METHOD {
@@ -38,6 +39,13 @@ export const DROPDOWN = {
 		method: API_METHOD.POST,
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
 	},
+	[SESSION_NAME.SSO_PROJECT]: {
+		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=SSO_PROJECT`,
+		sessionName: SESSION_NAME.SSO_PROJECT,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+
 	[SESSION_NAME.DOCTOR_BANK]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/doctor-bank",
 		sessionName: SESSION_NAME.DOCTOR_BANK,

@@ -123,8 +123,14 @@ export interface ExportPages {
 	};
 }
 
+export interface DeleteFileList extends Array<string> {}
+
 export interface OutsideHospitalForm {
 	announcedPriceYear: string;
+	sp7DeleteFileList: HospitalSp7["filter"]["uuidExclusionList"];
+	sp19DeleteFileList: HospitalSp19["filter"]["uuidExclusionList"];
+	etcFilesDeleteFileList: HospitalEtcFiles["filter"]["uuidExclusionList"];
+	announcedPriceFilesDeleteFileList: HospitalAnnouncedPriceFiles["filter"]["uuidExclusionList"];
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
@@ -186,6 +192,10 @@ export const modelHospital: Hospital = {
 	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
 	outsideHospitalForm: {
 		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
+		sp7DeleteFileList: [],
+		sp19DeleteFileList: [],
+		etcFilesDeleteFileList: [],
+		announcedPriceFilesDeleteFileList: [],
 	},
 	grid: {
 		data: [],
