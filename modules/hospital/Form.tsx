@@ -1095,7 +1095,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+					{/* <div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.belongTo}
@@ -1141,7 +1141,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
-					</div>
+					</div> */}
 
 					{/* <div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker

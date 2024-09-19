@@ -150,8 +150,8 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	belongTo: string;
 	numberOfBed: number;
 	bps: number;
-	hospitalType: string;
-	hospitalCategory: string;
+	hospitalType: string | null;
+	hospitalCategory: string | null;
 	companyName: string;
 	revenueRegistrationCode: string;
 	contractStartDate: null | string | undefined;
@@ -178,7 +178,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	hospitalListBoiExpireDate: null | string | undefined;
 	tambolCode: string | null;
 	remarkChangeName: string;
-	ssoProject: string;
+	ssoProject: string | null;
 	latitude: string;
 	longitude: string;
 }
@@ -254,8 +254,8 @@ export const modelHospital: Hospital = {
 		bps: 0,
 		latitude: "",
 		longitude: "",
-		hospitalType: "",
-		hospitalCategory: "",
+		hospitalType: null,
+		hospitalCategory: null,
 		companyName: "",
 		revenueRegistrationCode: "",
 		contractStartDate: undefined,
@@ -282,6 +282,6 @@ export const modelHospital: Hospital = {
 		hospitalListBoiExpireDate: undefined,
 		tambolCode: null,
 		remarkChangeName: "",
-		ssoProject: "",
+		ssoProject: null,
 	},
 };
