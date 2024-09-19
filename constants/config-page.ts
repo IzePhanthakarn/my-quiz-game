@@ -45,7 +45,7 @@ export const configPage: DataStructureURL = {
 		root: {
 			url: "/clinic",
 			breadcrumb: ["root"],
-			text: "คลีนิค",
+			text: "คลินิก",
 			pageLevel: { form: [0] },
 		},
 	},

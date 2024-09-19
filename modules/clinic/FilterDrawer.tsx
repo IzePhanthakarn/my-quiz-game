@@ -24,7 +24,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkClinicCode"
-					label="รหัสคลินิค"
+					label="รหัสคลินิก"
 					checked={filter.checkClinicCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
@@ -57,7 +57,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkClinicName"
-					label="ชื่อคลินิค"
+					label="ชื่อคลินิก"
 					checked={filter.checkClinicName}
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
