@@ -33,7 +33,6 @@ import {
 	setHospitalSp7,
 	setHospitalSp19,
 	setHospitalEtcFiles,
-	setOutsideHospitalForm,
 	setHospitalAnnouncedPriceFiles,
 } from "@/modules/hospital/redux";
 import {
@@ -488,12 +487,6 @@ export const setHospitalSp19GridFilterUuidExclusionList =
 			},
 		};
 		dispatch(setHospitalSp19(newHospitalSp19));
-		// dispatch(
-		// 	setOutsideHospitalForm({
-		// 		...outsideHospitalForm,
-		// 		sp19DeleteFileList: newHospitalSp19.filter.uuidExclusionList,
-		// 	})
-		// );
 
 		dispatch(
 			fetchHospitalSp19List(params, {

@@ -16,6 +16,7 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
+	setHospital,
 	setHospitalAnnouncedPriceFilesGrid,
 	setHospitalAttachmentFile1Grid,
 	setHospitalAttachmentFile1ToPreview,
@@ -132,6 +133,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
+				// console.log("🚀 ~ modelHospital", modelHospital);
+				// await dispatch(setHospital(modelHospital));
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
 					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
@@ -169,6 +172,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						)
 					);
 				}
+				// await dispatch(setHospital(modelHospital));
+
 				setIsInit(true);
 			}
 		})();
