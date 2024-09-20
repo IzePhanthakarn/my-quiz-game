@@ -30,17 +30,20 @@ import { DoctorForm, modelDoctorForm } from "./redux/form/model";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
+import uuid4 from "uuid4";
+import { setMounted } from "@/redux/slices/container";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { rows, isOpen, page, filter, isLoading } = useSelector(
+	const { rows, isOpen, page, filter, isLoading, mounted } = useSelector(
 		(state: SliceModel) => ({
 			rows: state.doctor.grid.list,
 			isOpen: state.drawer.isOpen,
 			page: state.doctor.grid.page,
 			filter: state.doctor.doctorFilter,
 			isLoading: state.container.isLoading,
+			mounted: state.container.mounted,
 		}),
 		shallowEqual
 	);
@@ -54,12 +57,19 @@ export default function Doctor() {
 		value: DoctorForm
 	) => {
 		const newFilter = { ...filter, ...value };
+		const handleFilter = {
+			...newFilter,
+			doctorCodeLike: "",
+			firstnameLike: "",
+			lastnameLike: "",
+		};
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },
-				...newFilter,
+				...handleFilter,
 			})
 		);
+		dispatch(setDoctorFilter(newFilter));
 	};
 
 	const onFinish: FormProps<DoctorForm>["onFinish"] = (value: DoctorForm) => {
@@ -70,6 +80,8 @@ export default function Doctor() {
 				...newFilter,
 			})
 		);
+		dispatch(setMounted(uuid4()));
+		dispatch(setDoctorFilter(newFilter));
 	};
 
 	const { dispatchLayout } = useLayout();
@@ -88,7 +100,7 @@ export default function Doctor() {
 							<div className="flex space-x-2">
 								<BaseItemInput
 									itemName="doctorCodeLike"
-									label="รหัสแพทย์ / เลขที่ สปส"
+									label="เลขทะเบียน สปส"
 								/>
 								<BaseItemInput label="ชื่อ" itemName="firstnameLike" />
 								<BaseItemInput label="นามสกุล" itemName="lastnameLike" />
@@ -131,7 +143,7 @@ export default function Doctor() {
 					<BaseGrid
 						rows={rows}
 						loading={isLoading}
-						columns={GetColumns(router)}
+						columns={GetColumns({ mounted, router })}
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
@@ -143,7 +155,11 @@ export default function Doctor() {
 						isOpen={isOpen}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						content={
-							<FilterDrawer form={formDrawer} onFinish={onFinishDrawer} />
+							<FilterDrawer
+								form={formDrawer}
+								onFinish={onFinishDrawer}
+								filter={filter}
+							/>
 						}
 						isFilter
 						confirmFuntion={() => formDrawer.submit()}

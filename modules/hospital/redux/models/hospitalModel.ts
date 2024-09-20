@@ -123,8 +123,14 @@ export interface ExportPages {
 	};
 }
 
+export interface DeleteFileList extends Array<string> {}
+
 export interface OutsideHospitalForm {
 	announcedPriceYear: string;
+	sp7DeleteFileList: HospitalSp7["filter"]["uuidExclusionList"];
+	sp19DeleteFileList: HospitalSp19["filter"]["uuidExclusionList"];
+	etcFilesDeleteFileList: HospitalEtcFiles["filter"]["uuidExclusionList"];
+	announcedPriceFilesDeleteFileList: HospitalAnnouncedPriceFiles["filter"]["uuidExclusionList"];
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
@@ -144,8 +150,8 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	belongTo: string;
 	numberOfBed: number;
 	bps: number;
-	hospitalType: string;
-	hospitalCategory: string;
+	hospitalType: string | null;
+	hospitalCategory: string | null;
 	companyName: string;
 	revenueRegistrationCode: string;
 	contractStartDate: null | string | undefined;
@@ -156,9 +162,9 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	sp19EndDate: null | string | undefined;
 	levelChangeDate: null | string | undefined;
 	address: string;
-	amphurCode: string;
-	provinceCode: string;
-	postalCode: string;
+	amphurCode: string | null;
+	provinceCode: string | null;
+	postalCode: string | null;
 	telephoneNumber: string;
 	faxNumber: string;
 	ssoPartner: string;
@@ -170,9 +176,9 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	hospitalListBoi: string;
 	hospitalListBoiStartDate: null | string | undefined;
 	hospitalListBoiExpireDate: null | string | undefined;
-	tambolCode: string;
+	tambolCode: string | null;
 	remarkChangeName: string;
-	ssoProject: string;
+	ssoProject: string | null;
 	latitude: string;
 	longitude: string;
 }
@@ -186,6 +192,10 @@ export const modelHospital: Hospital = {
 	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
 	outsideHospitalForm: {
 		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
+		sp7DeleteFileList: [],
+		sp19DeleteFileList: [],
+		etcFilesDeleteFileList: [],
+		announcedPriceFilesDeleteFileList: [],
 	},
 	grid: {
 		data: [],
@@ -244,8 +254,8 @@ export const modelHospital: Hospital = {
 		bps: 0,
 		latitude: "",
 		longitude: "",
-		hospitalType: "",
-		hospitalCategory: "",
+		hospitalType: null,
+		hospitalCategory: null,
 		companyName: "",
 		revenueRegistrationCode: "",
 		contractStartDate: undefined,
@@ -256,9 +266,9 @@ export const modelHospital: Hospital = {
 		sp19EndDate: undefined,
 		levelChangeDate: undefined,
 		address: "",
-		amphurCode: "",
-		provinceCode: "",
-		postalCode: "",
+		amphurCode: null,
+		provinceCode: null,
+		postalCode: null,
 		telephoneNumber: "",
 		faxNumber: "",
 		ssoPartner: "",
@@ -270,8 +280,8 @@ export const modelHospital: Hospital = {
 		hospitalListBoi: "",
 		hospitalListBoiStartDate: undefined,
 		hospitalListBoiExpireDate: undefined,
-		tambolCode: "",
+		tambolCode: null,
 		remarkChangeName: "",
-		ssoProject: "",
+		ssoProject: null,
 	},
 };

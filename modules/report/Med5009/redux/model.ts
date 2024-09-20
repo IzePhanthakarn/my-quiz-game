@@ -1,5 +1,6 @@
 export interface Med5009Form {
 	propertyCode: string | null;
+	propertyText: string;
 }
 
 export interface Med5009List {
@@ -14,6 +15,7 @@ export interface Med5009 {
 export const modelMed5009: Med5009 = {
 	form: {
 		propertyCode: null,
+		propertyText: "ทั้งหมด",
 	},
 	list: [],
 };

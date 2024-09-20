@@ -8,11 +8,11 @@ export interface DoctorFilter extends NameFilter {
 	checkProviceHospital: boolean;
 	checkHospitalName: boolean;
 	doctorTypeLike: string;
-	diplomaTypeLike: string;
+	diplomaTypeLike: string | null;
 	professionalCodeLike: string;
 	doctorCodeLike: string;
 	proviceHospitalLike: string | null;
-	hospitalNameLike: string;
+	hospitalNameLike: string | null;
 	isActive: IsActive | undefined;
 }
 
@@ -27,10 +27,10 @@ export const modelDoctorFilter: DoctorFilter = {
 	firstnameLike: "",
 	lastnameLike: "",
 	isActive: undefined,
-	diplomaTypeLike: "",
+	diplomaTypeLike: null,
 	professionalCodeLike: "",
 	checkProviceHospital: false,
 	checkHospitalName: false,
-	proviceHospitalLike: "",
-	hospitalNameLike: "",
+	proviceHospitalLike: null,
+	hospitalNameLike: null,
 };
