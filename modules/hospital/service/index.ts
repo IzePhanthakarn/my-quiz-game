@@ -10,7 +10,6 @@ import {
 	getHospitalEtcFilesListByHospitalUuid,
 	getHospitalList,
 	getHospitalSp19ListByHospitalUuid,
-	getHospitalSp7List,
 	getHospitalSp7ListByHospitalUuid,
 	handleUploadSp7HospitalApi,
 	updateHospitalAnnouncedPriceFilesApi,
@@ -20,20 +19,16 @@ import {
 	updateHospitalSp7Api,
 } from "./api";
 import {
-	setHospitalCertificateOfIncorporationAttachmentGrid,
-	setHospitalAttachmentFile1Grid,
-	setHospitalEtcFilesGrid,
 	setHospitalForm,
 	setHospitalGrid,
-	setHospitalSp19Grid,
-	setHospitalSp7Grid,
 	setHospitalAttachmentFile1ToPreview,
 	setHospitalCertificateOfIncorporationAttachmentToPreview,
-	setHospitalAnnouncedPriceFilesGrid,
 	setHospitalSp7,
 	setHospitalSp19,
 	setHospitalEtcFiles,
 	setHospitalAnnouncedPriceFiles,
+	setHospitalCertificateOfIncorporationAttachment,
+	setHospitalAttachmentFile1,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
@@ -41,6 +36,7 @@ import {
 	GetHospitalList,
 	ExportPages,
 	OutsideHospitalForm,
+	modelHospital,
 } from "@/modules/hospital/redux/models/hospitalModel";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
@@ -189,11 +185,14 @@ export const fetchHospitalSp7List =
 				return;
 			}
 			dispatch(
-				setHospitalSp7Grid({
-					data: result.payload.content,
-					page: {
-						...hospitalSp7.grid.page,
-						totalData: result.payload.totalElements,
+				setHospitalSp7({
+					...hospitalSp7,
+					grid: {
+						data: result.payload.content,
+						page: {
+							...hospitalSp7.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
@@ -215,12 +214,16 @@ export const fetchHospitalSp19List =
 			if (_.get(result, "error.message") === "Rejected") {
 				return;
 			}
+
 			dispatch(
-				setHospitalSp19Grid({
-					data: result.payload.content,
-					page: {
-						...hospitalSp19.grid.page,
-						totalData: result.payload.totalElements,
+				setHospitalSp19({
+					...hospitalSp19,
+					grid: {
+						data: result.payload.content,
+						page: {
+							...hospitalSp19.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
@@ -254,11 +257,14 @@ export const fetchHospitalEtcFilesList =
 				});
 			}
 			dispatch(
-				setHospitalEtcFilesGrid({
-					data: newData,
-					page: {
-						...hospitalEtcFiles.grid.page,
-						totalData: result.payload.totalElements,
+				setHospitalEtcFiles({
+					...hospitalEtcFiles,
+					grid: {
+						data: newData,
+						page: {
+							...hospitalEtcFiles.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
@@ -294,13 +300,16 @@ export const fetchHospitalAnnouncedPriceFilesList =
 					updatedDate: handleFormatDate(item.updatedDate),
 				});
 			}
+
 			dispatch(
-				setHospitalAnnouncedPriceFilesGrid({
-					// data: result.payload.content,
-					data: newData,
-					page: {
-						...hospitalAnnouncedPriceFiles.grid.page,
-						totalData: result.payload.totalElements,
+				setHospitalAnnouncedPriceFiles({
+					...hospitalAnnouncedPriceFiles,
+					grid: {
+						data: newData,
+						page: {
+							...hospitalAnnouncedPriceFiles.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
@@ -329,14 +338,18 @@ export const fetchHospitalAttachmentList =
 		}
 		if (fieldName === "CertificateOfIncorporation") {
 			await dispatch(
-				setHospitalCertificateOfIncorporationAttachmentGrid({
-					data: result.payload.content,
-					page: {
-						...hospitalAttachment.grid.page,
-						totalData: result.payload.totalElements,
+				setHospitalCertificateOfIncorporationAttachment({
+					...modelHospital.hospitalCertificateOfIncorporationAttachment,
+					grid: {
+						data: result.payload.content,
+						page: {
+							...hospitalAttachment.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
+
 			await dispatch(
 				setHospitalCertificateOfIncorporationAttachmentToPreview(
 					convertAttachmentFileToPreview(
@@ -346,12 +359,15 @@ export const fetchHospitalAttachmentList =
 				)
 			);
 		} else if (fieldName === "AttachmentFile1") {
-			await dispatch(
-				setHospitalAttachmentFile1Grid({
-					data: result.payload.content,
-					page: {
-						...hospitalAttachment.grid.page,
-						totalData: result.payload.totalElements,
+			dispatch(
+				setHospitalAttachmentFile1({
+					...modelHospital.hospitalAttachmentFile1,
+					grid: {
+						data: result.payload.content,
+						page: {
+							...hospitalAttachment.grid.page,
+							totalData: result.payload.totalElements,
+						},
 					},
 				})
 			);
@@ -449,6 +465,7 @@ export const setHospitalSp7GridFilterUuidExclusionList =
 				...newHospitalSp7,
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
@@ -475,6 +492,8 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 				...newHospitalAnnouncedPriceFiles,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalSp19GridFilterUuidExclusionList =
@@ -494,6 +513,8 @@ export const setHospitalSp19GridFilterUuidExclusionList =
 				...newHospitalSp19,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalEtcFilesGridFilterUuidExclusionList =
@@ -517,6 +538,8 @@ export const setHospitalEtcFilesGridFilterUuidExclusionList =
 				...newHospitalEtcFiles,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const updateInActiveHospitalSp7 =

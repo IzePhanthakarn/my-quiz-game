@@ -8,15 +8,18 @@ import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { setHospitalSp7GridFilterUuidExclusionList } from "../service";
 import { HospitalSp7 } from "@/modules/hospital/redux/models/sp7Model";
+import { setDialog } from "@/redux/slices/dialog";
+import { BaseDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	hospitalSp7: HospitalSp7;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	dialog: BaseDialog;
 }
 
 export const Sp7Grid = (props: Props) => {
-	const { hospitalSp7, dispatch, params } = props;
+	const { hospitalSp7, dispatch, params, dialog } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -84,12 +87,22 @@ export const Sp7Grid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(
-									setHospitalSp7GridFilterUuidExclusionList(
-										hospitalSp7,
-										uuid,
-										params
-									)
+								dispatch(
+									setDialog({
+										...dialog,
+										async onConfirm() {
+											await dispatch(
+												setHospitalSp7GridFilterUuidExclusionList(
+													hospitalSp7,
+													uuid,
+													params
+												)
+											);
+										},
+										isOpenBaseConfirmDialog: true,
+										content: "",
+										headerText: "ต้องการลบใช่หรือไม่",
+									})
 								);
 							}}
 						/>
@@ -97,7 +110,7 @@ export const Sp7Grid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalSp7, params]
+		[hospitalSp7, dialog, params]
 	);
 	return columns;
 };

@@ -8,15 +8,18 @@ import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { setHospitalEtcFilesGridFilterUuidExclusionList } from "../service";
 import { HospitalEtcFiles } from "@/modules/hospital/redux/models/etcFilesModel";
+import { setDialog } from "@/redux/slices/dialog";
+import { BaseDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	hospitalEtcFiles: HospitalEtcFiles;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	dialog: BaseDialog;
 }
 
 export const EtcFilesGrid = (props: Props) => {
-	const { hospitalEtcFiles, dispatch, params } = props;
+	const { hospitalEtcFiles, dispatch, params, dialog } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -95,12 +98,22 @@ export const EtcFilesGrid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(
-									setHospitalEtcFilesGridFilterUuidExclusionList(
-										hospitalEtcFiles,
-										uuid,
-										params
-									)
+								dispatch(
+									setDialog({
+										...dialog,
+										async onConfirm() {
+											await dispatch(
+												setHospitalEtcFilesGridFilterUuidExclusionList(
+													hospitalEtcFiles,
+													uuid,
+													params
+												)
+											);
+										},
+										isOpenBaseConfirmDialog: true,
+										content: "",
+										headerText: "ต้องการลบใช่หรือไม่",
+									})
 								);
 							}}
 						/>
@@ -108,7 +121,7 @@ export const EtcFilesGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalEtcFiles, params]
+		[hospitalEtcFiles, dialog, params]
 	);
 	return columns;
 };
