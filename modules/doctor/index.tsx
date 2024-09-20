@@ -100,7 +100,7 @@ export default function Doctor() {
 							<div className="flex space-x-2">
 								<BaseItemInput
 									itemName="doctorCodeLike"
-									label="รหัสแพทย์ / เลขที่ สปส"
+									label="เลขทะเบียน สปส"
 								/>
 								<BaseItemInput label="ชื่อ" itemName="firstnameLike" />
 								<BaseItemInput label="นามสกุล" itemName="lastnameLike" />

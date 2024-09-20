@@ -86,13 +86,10 @@ export const GetColumns = (prop: Props) => {
 				width: 400,
 				render: (_, { hospitalWcfCode }) => (
 					<>
-						{hospitalWcfCode.map((item: string) => (
-							<p key={item}>
-								{findHospitalDisplay(item)
-									? `- ${findHospitalDisplay(item).hospitalName}`
-									: ""}
-							</p>
-						))}
+						{hospitalWcfCode.map((item: string) => {
+							const hospital = findHospitalDisplay(item);
+							return hospital ? <p>- {hospital.hospitalName}</p> : null;
+						})}
 					</>
 				),
 			},
