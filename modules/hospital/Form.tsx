@@ -16,29 +16,24 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
-	setHospital,
-	setHospitalAnnouncedPriceFilesGrid,
-	setHospitalAttachmentFile1Grid,
+	setHospitalAnnouncedPriceFiles,
+	setHospitalAttachmentFile1,
 	setHospitalAttachmentFile1ToPreview,
-	setHospitalCertificateOfIncorporationAttachmentGrid,
+	setHospitalCertificateOfIncorporationAttachment,
 	setHospitalCertificateOfIncorporationAttachmentToPreview,
-	// setHospitalAttachmentGrid,
-	setHospitalEtcFilesGrid,
+	setHospitalEtcFiles,
 	setHospitalForm,
-	setHospitalSp19Grid,
-	setHospitalSp7Grid,
+	setHospitalSp19,
+	setHospitalSp7,
 	setOutsideHospitalForm,
 } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
 import {
 	addHospital,
-	convertAttachmentFileToPreview,
 	fetchHospitalAnnouncedPriceFilesList,
-	fetchHospitalAttachmentList,
 	fetchHospitalEtcFilesList,
 	fetchHospitalSp19List,
 	fetchHospitalSp7List,
-	// handleUploadHospital,
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
@@ -73,12 +68,10 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import MedDropDown from "@/components/MedDropDown";
 import { Sp19Grid } from "./columns/sp19Grid";
 import { EtcFilesGrid } from "./columns/etcFilesGrid";
-import { HospitalAttachmentGrid } from "./columns/hospitalAttachmentGrid";
 import { AnnouncedPriceFilesGrid } from "./columns/hospitalAnnouncedPriceGrid";
 import BaseDropDown from "wcf-component-lib/src/components/BaseDropDown";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import { getCurrentYearString } from "wcf-component-lib/src/utils";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
@@ -135,13 +128,17 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!isInit) {
-				// console.log("🚀 ~ modelHospital", modelHospital);
-				// await dispatch(setHospital(modelHospital));
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(initGetHospitalDetail(params));
-					await dispatch(fetchHospitalSp7List(params, hospitalSp7));
-					await dispatch(fetchHospitalSp19List(params, hospitalSp19));
-					await dispatch(fetchHospitalEtcFilesList(params, hospitalEtcFiles));
+					await dispatch(
+						fetchHospitalSp7List(params, modelHospital.hospitalSp7)
+					);
+					await dispatch(
+						fetchHospitalSp19List(params, modelHospital.hospitalSp19)
+					);
+					await dispatch(
+						fetchHospitalEtcFilesList(params, modelHospital.hospitalEtcFiles)
+					);
 					await dispatch(
 						fetchHospitalAnnouncedPriceFilesList(
 							params,
@@ -150,31 +147,23 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					);
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
-					dispatch(setHospitalSp7Grid(modelHospital.hospitalSp7.grid));
-					dispatch(setHospitalSp19Grid(modelHospital.hospitalSp19.grid));
+					dispatch(setHospitalSp7(modelHospital.hospitalSp7));
+					dispatch(setHospitalSp19(modelHospital.hospitalSp19));
+					dispatch(setHospitalEtcFiles(modelHospital.hospitalEtcFiles));
 					dispatch(
-						setHospitalEtcFilesGrid(modelHospital.hospitalEtcFiles.grid)
-					);
-					dispatch(
-						setHospitalAnnouncedPriceFilesGrid(
-							modelHospital.hospitalAnnouncedPriceFiles.grid
-						)
-					);
-					// dispatch(
-					// 	setHospitalAttachmentGrid(modelHospital.hospitalAttachment.grid)
-					// );
-					dispatch(
-						setHospitalCertificateOfIncorporationAttachmentGrid(
-							modelHospital.hospitalCertificateOfIncorporationAttachment.grid
+						setHospitalAnnouncedPriceFiles(
+							modelHospital.hospitalAnnouncedPriceFiles
 						)
 					);
 					dispatch(
-						setHospitalAttachmentFile1Grid(
-							modelHospital.hospitalAttachmentFile1.grid
+						setHospitalCertificateOfIncorporationAttachment(
+							modelHospital.hospitalCertificateOfIncorporationAttachment
 						)
+					);
+					dispatch(
+						setHospitalAttachmentFile1(modelHospital.hospitalAttachmentFile1)
 					);
 				}
-				// await dispatch(setHospital(modelHospital));
 
 				setIsInit(true);
 			}
