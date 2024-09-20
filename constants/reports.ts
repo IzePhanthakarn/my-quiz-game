@@ -3,6 +3,7 @@ export enum REPORT_TYPES {
 	MED5008 = "med5008",
 	MED5009 = "med5009",
 	MED5012 = "med5012",
+	MED5011 = "med5011",
 }
 
 export const REPORT_PAGES = {
@@ -21,5 +22,8 @@ export const REPORT_PAGES = {
 	[REPORT_TYPES.MED5012]: {
 		reportName: "med5012",
 		apiPath: "",
-	},
+	},[REPORT_TYPES.MED5011]: {
+		reportName: "med5011",
+		apiPath: "",
+	}
 };
