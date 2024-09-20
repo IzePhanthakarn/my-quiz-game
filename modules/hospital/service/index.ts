@@ -465,6 +465,7 @@ export const setHospitalSp7GridFilterUuidExclusionList =
 				...newHospitalSp7,
 			})
 		);
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
@@ -491,6 +492,8 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 				...newHospitalAnnouncedPriceFiles,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalSp19GridFilterUuidExclusionList =
@@ -510,6 +513,8 @@ export const setHospitalSp19GridFilterUuidExclusionList =
 				...newHospitalSp19,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const setHospitalEtcFilesGridFilterUuidExclusionList =
@@ -533,6 +538,8 @@ export const setHospitalEtcFilesGridFilterUuidExclusionList =
 				...newHospitalEtcFiles,
 			})
 		);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
 	};
 
 export const updateInActiveHospitalSp7 =

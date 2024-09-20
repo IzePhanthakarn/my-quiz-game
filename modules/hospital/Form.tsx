@@ -13,7 +13,11 @@ import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPict
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
-import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import {
+	setDialog,
+	setIsOpenBaseConfirmDialog,
+	setOnConfirmDialog,
+} from "@/redux/slices/dialog";
 import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	setHospitalAnnouncedPriceFiles,
@@ -97,6 +101,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const {
 		hospitalForm,
+		onConfirm,
 		isOpenBaseConfirmDialog,
 		files,
 		hospitalSp7,
@@ -107,8 +112,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		hospitalAnnouncedPriceFiles,
 		isLoading,
 		outsideHospitalForm,
+		dialog,
 	} = useSelector(
 		(state: SliceModel) => ({
+			dialog: state.dialog,
+			onConfirm: state.dialog.onConfirm,
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
 			hospitalForm: state.hospital.form,
 			hospitalSp7: state.hospital.hospitalSp7,
@@ -307,7 +315,32 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		// 	}
 		// }
 
-		dispatch(setIsOpenBaseConfirmDialog(true));
+		dispatch(
+			setDialog({
+				...dialog,
+				async onConfirm() {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(
+							updateHospital(
+								hospitalForm,
+								outsideHospitalForm,
+								router,
+								`${params.params.uuid}`,
+								hospitalSp7,
+								hospitalAnnouncedPriceFiles,
+								hospitalSp19,
+								hospitalEtcFiles
+							)
+						);
+					} else {
+						dispatch(addHospital(hospitalForm, outsideHospitalForm, router));
+					}
+				},
+				isOpenBaseConfirmDialog: true,
+				content: "หลังจากบันทึก ระบบจะสร้างเลขที่ประสบอันตราย",
+				headerText: "คุณต้องการบันทึกใช่หรือไม่",
+			})
+		);
 	};
 
 	const onFinishFailed: FormProps<HospitalForm>["onFinishFailed"] = (_) => {};
@@ -481,6 +514,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp7: hospitalSp7,
 									dispatch: dispatch,
 									params: params,
+									dialog: dialog,
 								})}
 								page={hospitalSp7.grid.page}
 								loading={isLoading}
@@ -565,6 +599,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalSp19: hospitalSp19,
 									dispatch: dispatch,
 									params: params,
+									dialog: dialog,
 								})}
 								page={hospitalSp19.grid.page}
 								loading={isLoading}
@@ -709,6 +744,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									hospitalEtcFiles: hospitalEtcFiles,
 									dispatch: dispatch,
 									params: params,
+									dialog: dialog,
 								})}
 								page={hospitalEtcFiles.grid.page}
 								loading={isLoading}
@@ -1416,24 +1452,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		<>
 			<BaseConfirmDialog
 				isOpen={isOpenBaseConfirmDialog}
-				confirmFunction={() => {
-					if (!_.isEmpty(params.params.uuid)) {
-						dispatch(
-							updateHospital(
-								hospitalForm,
-								outsideHospitalForm,
-								router,
-								`${params.params.uuid}`,
-								hospitalSp7,
-								hospitalAnnouncedPriceFiles,
-								hospitalSp19,
-								hospitalEtcFiles
-							)
-						);
-					} else {
-						dispatch(addHospital(hospitalForm, outsideHospitalForm, router));
-					}
-				}}
+				bodyHeaderText={dialog.headerText}
+				bodyDescriptionText={`${dialog.content}`}
+				confirmFunction={onConfirm}
 				cancelFunction={() => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
@@ -1489,6 +1510,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
 										dispatch: dispatch,
 										params: params,
+										dialog: dialog,
 									})}
 									page={hospitalAnnouncedPriceFiles.grid.page}
 									loading={isLoading}
