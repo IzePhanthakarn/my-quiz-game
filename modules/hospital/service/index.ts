@@ -74,6 +74,7 @@ import {
 	HospitalAnnouncedPriceFiles,
 } from "../redux/models/announcedPriceFilesModel";
 import { LINKS } from "@/constants/links";
+import { baseMasterDataModel } from "wcf-component-lib/src/interfaces/base-master-data-interface";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -424,6 +425,15 @@ export const updateHospital =
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 					attachmentFile1: form?.files?.attachmentFile1,
 					announcedPriceFiles: form?.files?.announcedPriceFiles,
+					hospitalStaffContactAddList: [
+						{
+							...baseMasterDataModel,
+							firstName: "string;",
+							lastName: "string;",
+							position: "string;",
+							contact: "string;",
+						},
+					],
 					outsideHospitalForm: {
 						...outsideHospitalForm,
 						sp7DeleteFileList: hospitalSp7.filter.uuidExclusionList,

@@ -23,6 +23,11 @@ import {
 	modelHospitalAnnouncedPriceFiles,
 } from "./announcedPriceFilesModel";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import {
+	HospitalStaffContact,
+	HospitalStaffContactGridData,
+	modelHospitalStaffContact,
+} from "@/modules/hospital/redux/models/hospitalStaffContactModel";
 
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
@@ -38,6 +43,7 @@ export interface Hospital {
 	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
 	hospitalAttachmentFile1: HospitalAttachment;
 	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
+	hospitalStaffContact: HospitalStaffContact;
 
 	outsideHospitalForm: OutsideHospitalForm;
 }
@@ -142,6 +148,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 		certificateOfIncorporation: UploadFile<any>[];
 		attachmentFile1: UploadFile<any>[];
 	};
+	hospitalStaffContactAddList: HospitalStaffContactGridData[];
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -190,6 +197,7 @@ export const modelHospital: Hospital = {
 	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
 	hospitalAttachmentFile1: { ...modelHospitalAttachment },
 	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
+	hospitalStaffContact: { ...modelHospitalStaffContact },
 	outsideHospitalForm: {
 		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
 		sp7DeleteFileList: [],
@@ -244,6 +252,7 @@ export const modelHospital: Hospital = {
 			attachmentFile1: [],
 			announcedPriceFiles: [],
 		},
+		hospitalStaffContactAddList: [],
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
 		hospitalMinistryCode: "",

@@ -1361,14 +1361,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							itemName="oldHospitalName"
 							rules={rules.oldHospitalNameSchema}
 							// value={hospitalForm.oldHospitalName}
-							// onChangeFunction={(e) => {
-							// 	dispatch(
-							// 		setHospitalForm({
-							// 			...hospitalForm,
-							// 			oldHospitalName: e.target.value,
-							// 		})
-							// 	);
-							// }}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										oldHospitalName: e.target.value,
+									})
+								);
+							}}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -1415,19 +1415,18 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									? true
 									: false
 							}
-							// onChangeDateFunction={(e) => {
-							// 	dispatch(
-							// 		setHospitalForm({
-							// 			...hospitalForm,
-							// 			contractEndDate: e,
-							// 		})
-							// 	);
-							// }}
+							onChangeDateFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										contractEndDate: e,
+									})
+								);
+							}}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
 						<BaseItemTextArea
-							// <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.remarkChangeName}
 							itemName="remarkChangeName"
