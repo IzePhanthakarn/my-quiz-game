@@ -65,7 +65,7 @@ export default function Med5009() {
 						extraForm={form}
 						onFinish={onFinish}
 					>
-						<div className="grid grid-cols-4 gap-x-6 gap-x-5">
+						<div className="grid grid-cols-4 gap-x-6 gap-y-5">
 							<MedDropDown
 								itemName="propertyCode"
 								label="ระดับของสถานพยาบาล"
