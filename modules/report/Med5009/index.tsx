@@ -2,17 +2,12 @@
 
 import React from "react";
 import FormReportLayout from "wcf-component-lib/src/layout/FormReportLayout";
-import PreviewReport from "wcf-component-lib/src/layout/FormReportLayout/PreviewReport";
 import { MED_REPORT_SYSTEM } from "../model";
-import MedDropDown from "@/components/MedDropDown";
-import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import { setMed5009Form, setMed5009List } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { Med5009Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
@@ -20,6 +15,7 @@ import { REPORT_TYPES } from "@/constants/reports";
 import { handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
+import DownloadContent from "./DownloadContent";
 
 export default function Med5009() {
 	const dispatch: AppDispatch = useDispatch();
@@ -60,19 +56,7 @@ export default function Med5009() {
 					reportType: "5",
 				}}
 				downloadContent={
-					<BaseForm
-						initialValues={med5009}
-						extraForm={form}
-						onFinish={onFinish}
-					>
-						<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-							<MedDropDown
-								itemName="propertyCode"
-								label="ระดับของสถานพยาบาล"
-								type={SESSION_NAME.HOSPITAL_TYPE}
-							/>
-						</div>
-					</BaseForm>
+					<DownloadContent med5009={med5009} form={form} onFinish={onFinish} />
 				}
 			>
 				{!_.isEmpty(list) ? (
