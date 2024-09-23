@@ -25,6 +25,8 @@ import _ from "lodash";
 import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { handlePdfButton } from "./service";
+
 
 export default function Med5011() {
 	const dispatch: AppDispatch = useDispatch();
@@ -41,18 +43,19 @@ export default function Med5011() {
 	const onFinish: FormProps<Med5011Form>["onFinish"] = async (
 		value: Med5011Form
 	) => {
-		//dispatch(setMed5011Form({ ...med5011, fromDate: value.fromDate,toDate:value.toDate }));
-		const pdfParam={...med5011};
-		pdfParam.fromDate=dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
-		pdfParam.toDate=dayjs(value.toDate).format(DateFormat.YYYYMMDD);;
-	    await dispatch(
-			//handlePreviewDisplay(value, REPORT_TYPES.MED5011)
-			handleOnExportPdf(pdfParam, REPORT_TYPES.MED5011)
+		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
+		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
+        dispatch(setMed5011Form({ ...med5011, fromDate: fromDateParam,toDate: toDateParam }));
+        value.fromDate= fromDateParam;
+        value.toDate= toDateParam;
+		const data = await dispatch(
+			handlePreviewDisplay(value, REPORT_TYPES.MED5011)
 		);
-		//const list = data?.payload.content;
-		// if (!_.isEmpty(list)) {
-		// 	dispatch(setMed5011List(list));
-		// }
+		const list = data?.payload.content;
+		if (!_.isEmpty(list)) {
+			dispatch(setMed5011List(list));
+		}
+
 	};
 
 	useEffect(() => {
@@ -73,13 +76,14 @@ export default function Med5011() {
 						<BaseForm initialValues={med5011} onFinish={onFinish}>
 						<BaseDatePicker label="วันที่ยกเลิกสถานพยาบาล" itemName={"fromDate"}/>
 						<BaseDatePicker label="ถึงวันที่" itemName={"toDate"}/>
-							<div className="flex justify-end items-end h-full">
+						<br/>
+							 <div className="flex justify-end items-end h-1\/2"> 
 								<BaseButton
 									label="เรียกรายงาน"
 									className="w-[176px]"
 									htmlType="submit"
 								/>
-							</div>
+							 </div>
 						</BaseForm>
 					</BaseColumn>
 				</FormReportLayout>
@@ -90,23 +94,23 @@ export default function Med5011() {
 		<>
 			{!_.isEmpty(list) && (
 				<>
-					{/* <div className="flex justify-end py-2 space-x-2">
-						<BaseButton
-							className="w-1/6"
-							label="Excel"
-							onClick={() => {
-								dispatch(handleOnExportExcel(med5011, REPORT_TYPES.MED5011));
-							}}
-						/>
-						<BaseButton
-							className="w-1/6"
-							label="Pdf"
-							onClick={() => {
-								dispatch(handleOnExportPdf(med5011, REPORT_TYPES.MED5011));
-							}}
-						/>
-					</div> */}
-					{/* <BaseGrid rows={list} columns={columns} /> */}
+				<div className="flex justify-end py-2 space-x-2">
+				<BaseButton
+					className="w-1/6"
+					label="Excel"
+					onClick={() => {
+						dispatch(handleOnExportExcel(med5011, REPORT_TYPES.MED5011));
+					}}
+				/>
+				<BaseButton
+					className="w-1/6"
+					label="Pdf"
+					onClick={() => {
+						dispatch(handlePdfButton(med5011));
+					}}
+				/>
+			  </div>
+			     <BaseGrid rows={list} columns={columns} />
 				</>
 			)}
 		</>

@@ -4,28 +4,33 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 
 export const columns: TableProps["columns"] = [
 	{
-		title: "สถานพยาบาล",
-		key: "propertyText",
-		dataIndex: "propertyText",
+		title: "ลำดับที่",
+		key: "noSeq",
+		dataIndex: "noSeq",
 	},
 	{
-		title: "รัฐบาล",
-		key: "goverment",
-		dataIndex: "goverment",
+		title: "รหัสสถานพยาบาล",
+		key: "hospitalCode",
+		dataIndex: "hospitalCode",
 	},
 	{
-		title: "เอกชน",
-		key: "company",
-		dataIndex: "company",
+		title: "ชื่อสภานพยาบาล",
+		key: "hospitalName",
+		dataIndex: "hospitalName",
 	},
 	{
-		title: "มูลนิธิ",
-		key: "foundation",
-		dataIndex: "foundation",
+		title: "จังหวัด",
+		key: "provinceName",
+		dataIndex: "provinceName",
 	},
 	{
-		title: "รวม",
-		key: "summary",
-		dataIndex: "summary",
+		title: "วันที่ยกเลิกสถานพยาบาล",
+		key: "contractEndDate",
+		dataIndex: "contractEndDate",
+	},
+	{
+		title: "สาเหตุการยกเลิก",
+		key: "remarkChangeName",
+		dataIndex: "remarkChangeName",
 	},
 ];

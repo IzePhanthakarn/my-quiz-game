@@ -25,6 +25,6 @@ export const REPORT_PAGES = {
 		apiPath: "",
 	},[REPORT_TYPES.MED5011]: {
 		reportName: "med5011",
-		apiPath: "",
+		apiPath: "http://localhost:8090/report/list/med5011?page=0&size=1000",
 	}
 };
