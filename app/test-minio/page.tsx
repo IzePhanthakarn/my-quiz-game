@@ -1,6 +1,6 @@
 import Minio from "@/modules/minio";
 import React from "react";
 
-export default function page() {
+export default function Page() {
 	return <Minio />;
 }

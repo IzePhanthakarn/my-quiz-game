@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { safelistConfig } from "wcf-component-lib/styles/tailwind-safelist";
+import { colors } from "wcf-component-lib/src/utils/themes/colors";
 
 const config: Config = {
 	important: true,
@@ -16,6 +17,9 @@ const config: Config = {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic":
 					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+			},
+			colors: {
+				...colors,
 			},
 		},
 		fontFamily: {
