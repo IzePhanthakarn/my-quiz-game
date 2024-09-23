@@ -2,7 +2,7 @@
 
 import { DoctorBankList } from "@/modules/doctor/redux/form/model";
 import { useMemo } from "react";
-import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustonCellButton";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustomCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
