@@ -1,6 +1,6 @@
 import ToDoList from "@/modules/todo-list";
 import React from "react";
 
-export default function page() {
+export default function Page() {
 	return <ToDoList />;
 }
