@@ -8,15 +8,22 @@ import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { setHospitalSp19GridFilterUuidExclusionList } from "../service";
 import { HospitalSp19 } from "@/modules/hospital/redux/models/sp19Model";
+import {
+	setDialog,
+	setIsOpenBaseConfirmDialog,
+	setOnConfirmDialog,
+} from "@/redux/slices/dialog";
+import { BaseDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	hospitalSp19: HospitalSp19;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	dialog: BaseDialog;
 }
 
 export const Sp19Grid = (props: Props) => {
-	const { hospitalSp19, dispatch, params } = props;
+	const { hospitalSp19, dispatch, params, dialog } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -86,20 +93,42 @@ export const Sp19Grid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(
-									setHospitalSp19GridFilterUuidExclusionList(
-										hospitalSp19,
-										uuid,
-										params
-									)
+								dispatch(
+									setDialog({
+										...dialog,
+										async onConfirm() {
+											await dispatch(
+												setHospitalSp19GridFilterUuidExclusionList(
+													hospitalSp19,
+													uuid,
+													params
+												)
+											);
+										},
+										isOpenBaseConfirmDialog: true,
+										content: "",
+										headerText: "ต้องการลบใช่หรือไม่",
+									})
 								);
+								// dispatch(
+								// 	setOnConfirmDialog(async () => {
+								// 		await dispatch(
+								// 			setHospitalSp19GridFilterUuidExclusionList(
+								// 				hospitalSp19,
+								// 				uuid,
+								// 				params
+								// 			)
+								// 		);
+								// 	})
+								// );
+								// dispatch(setIsOpenBaseConfirmDialog(true));
 							}}
 						/>
 					);
 				},
 			},
 		],
-		[hospitalSp19, params]
+		[hospitalSp19, dialog, params]
 	);
 	return columns;
 };

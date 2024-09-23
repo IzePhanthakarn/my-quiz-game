@@ -9,15 +9,18 @@ import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/i
 import { setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList } from "../service";
 import { HospitalAnnouncedPriceFiles } from "@/modules/hospital/redux/models/announcedPriceFilesModel";
 import { OutsideHospitalForm } from "../redux/models/hospitalModel";
+import { BaseDialog } from "@/redux/slices/dialog/model";
+import { setDialog } from "@/redux/slices/dialog";
 
 interface Props {
 	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
+	dialog: BaseDialog;
 }
 
 export const AnnouncedPriceFilesGrid = (props: Props) => {
-	const { hospitalAnnouncedPriceFiles, dispatch, params } = props;
+	const { hospitalAnnouncedPriceFiles, dispatch, params, dialog } = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -110,12 +113,22 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
-								await dispatch(
-									setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList(
-										hospitalAnnouncedPriceFiles,
-										uuid,
-										params
-									)
+								dispatch(
+									setDialog({
+										...dialog,
+										async onConfirm() {
+											await dispatch(
+												setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList(
+													hospitalAnnouncedPriceFiles,
+													uuid,
+													params
+												)
+											);
+										},
+										isOpenBaseConfirmDialog: true,
+										content: "",
+										headerText: "ต้องการลบใช่หรือไม่",
+									})
 								);
 							}}
 						/>
@@ -123,7 +136,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalAnnouncedPriceFiles, params]
+		[hospitalAnnouncedPriceFiles, dialog, params]
 	);
 	return columns;
 };

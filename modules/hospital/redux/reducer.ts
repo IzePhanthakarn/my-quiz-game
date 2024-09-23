@@ -10,7 +10,6 @@ import { PaginationOptions } from "wcf-component-lib/src/components/BasePaginati
 import {
 	HospitalSp7,
 	HospitalSp7Grid,
-	HospitalSp7GridFilter,
 } from "@/modules/hospital/redux/models/sp7Model";
 import {
 	HospitalSp19,
@@ -89,6 +88,12 @@ export const hospitalReducers = {
 	) => {
 		state.hospitalEtcFiles = action.payload;
 	},
+	setHospitalCertificateOfIncorporationAttachment: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachment>
+	) => {
+		state.hospitalCertificateOfIncorporationAttachment = action.payload;
+	},
 	setHospitalCertificateOfIncorporationAttachmentGrid: (
 		state: Hospital,
 		action: PayloadAction<HospitalAttachmentGrid>
@@ -102,7 +107,12 @@ export const hospitalReducers = {
 		state.hospitalCertificateOfIncorporationAttachment.toPreview =
 			action.payload;
 	},
-
+	setHospitalAttachmentFile1: (
+		state: Hospital,
+		action: PayloadAction<HospitalAttachment>
+	) => {
+		state.hospitalAttachmentFile1 = action.payload;
+	},
 	setHospitalAttachmentFile1Grid: (
 		state: Hospital,
 		action: PayloadAction<HospitalAttachmentGrid>
