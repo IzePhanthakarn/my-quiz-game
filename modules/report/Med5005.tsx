@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import FormReportLayout from "wcf-component-lib/src/layout/FormRequestLayout";
+import FormReportLayout from "wcf-component-lib/src/layout/FormReportLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 import { MED_REPORT_SYSTEM } from "./model";
 
