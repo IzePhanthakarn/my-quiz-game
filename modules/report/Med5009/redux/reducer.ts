@@ -7,6 +7,9 @@ export const med5009Reducers = {
 		state.med5009.form = { ...action.payload };
 	},
 	setMed5009List: (state: MedReport, action: PayloadAction<Med5009List[]>) => {
-		state.med5009.list = action.payload;
+		state.med5009.grid.list = action.payload;
+	},
+	setMed5009TotalData: (state: MedReport, action: PayloadAction<number>) => {
+		state.med5009.grid.page.totalData = action.payload;
 	},
 };
