@@ -6,7 +6,7 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5009Form, setMed5009List } from "../redux";
+import { setMed5009Form, setMed5009List, setMed5009TotalData } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Med5009Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -19,10 +19,11 @@ import DownloadContent from "./DownloadContent";
 
 export default function Med5009() {
 	const dispatch: AppDispatch = useDispatch();
-	const { med5009, list } = useSelector(
+	const { med5009, list, totalData } = useSelector(
 		(state: SliceModel) => ({
 			med5009: state.medReport.med5009.form,
-			list: state.medReport.med5009.list,
+			list: state.medReport.med5009.grid.list,
+			totalData: state.medReport.med5009.grid.page.totalData,
 		}),
 		shallowEqual
 	);
@@ -37,7 +38,9 @@ export default function Med5009() {
 			handlePreviewDisplay(value, REPORT_TYPES.MED5009)
 		);
 		const list = data?.payload.content;
+		const totalData = data?.payload.totalElements;
 		if (!_.isEmpty(list)) {
+			dispatch(setMed5009TotalData(totalData));
 			dispatch(setMed5009List(list));
 		}
 	};
@@ -46,7 +49,7 @@ export default function Med5009() {
 		<>
 			<FormReportLayout
 				handleSubmitButton={() => form.submit()}
-				TotalItems={1}
+				TotalItems={totalData}
 				reportData={{
 					systemName: `${MED_REPORT_SYSTEM}`,
 					reportCode: "MED5009",
