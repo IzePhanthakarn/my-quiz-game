@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
-import FormReportLayout from "wcf-component-lib/src/layout/FormRequestLayout";
+import FormReportLayout from "wcf-component-lib/src/layout/FormReportLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";

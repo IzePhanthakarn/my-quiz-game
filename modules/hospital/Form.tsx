@@ -1454,7 +1454,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				isOpen={isOpenBaseConfirmDialog}
 				bodyHeaderText={dialog.headerText}
 				bodyDescriptionText={`${dialog.content}`}
-				confirmFunction={onConfirm}
+				confirmFunction={() => {
+					if (onConfirm) onConfirm();
+				}}
 				cancelFunction={() => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}

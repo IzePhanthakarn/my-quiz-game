@@ -1,6 +1,6 @@
 import React from "react";
 import Hospital from "@/modules/hospital";
 
-export default function page() {
+export default function Page() {
 	return <Hospital />;
 }

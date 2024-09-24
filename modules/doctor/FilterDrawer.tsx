@@ -13,13 +13,12 @@ import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
-import { DoctorForm } from "./redux/form/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { DoctorFilter } from "./redux/filter/model";
 
 interface Props {
 	form: FormInstance<any>;
-	onFinish: FormProps<DoctorForm>["onFinish"];
+	onFinish: FormProps<DoctorFilter>["onFinish"];
 	filter: DoctorFilter;
 }
 
@@ -55,28 +54,22 @@ export default function FilterDrawer(prop: Props) {
 						label="โรงพยาบาลประจำจังหวัด"
 						checked={filter.checkProviceHospital}
 						labelPosition={BaseFormItemPosition.RIGHT}
-						onClickFunction={() =>
+						onClickFunction={() => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
 									checkProviceHospital: !filter.checkProviceHospital,
 								})
-							)
-						}
+							);
+							form.setFieldValue("proviceHospitalLike", null);
+						}}
 					/>
 					{filter.checkProviceHospital && (
 						<MedDropDown
-							notForm={true}
-							className="h-full w-full"
-							value={filter.proviceHospitalLike}
+							itemName="proviceHospitalLike"
 							type={SESSION_NAME.PROVINCE_NAME}
 							getValue={(e) => {
-								dispatch(
-									setDoctorFilter({
-										...filter,
-										proviceHospitalLike: e,
-									})
-								);
+								form.setFieldValue("proviceHospitalLike", e);
 							}}
 						/>
 					)}
@@ -98,7 +91,15 @@ export default function FilterDrawer(prop: Props) {
 						}
 					/>
 					{filter.checkHospitalName && (
-						<BaseItemInput itemName="hospitalNameLike" />
+						<>
+							<MedDropDown
+								itemName="hospitalNameLike"
+								type={SESSION_NAME.HOSPITAL}
+								getValue={(e) => {
+									form.setFieldValue("hospitalNameLike", e);
+								}}
+							/>
+						</>
 					)}
 				</BaseColumn>
 				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
@@ -121,13 +122,9 @@ export default function FilterDrawer(prop: Props) {
 						<>
 							<MedDropDown
 								itemName="diplomaTypeLike"
-								// notForm={true}
-								// className="h-full w-full"
-								// value={filter.diplomaTypeLike}
 								type={SESSION_NAME.DIPLOMA}
 								getValue={(e) => {
 									form.setFieldValue("diplomaTypeLike", e);
-									// dispatch(setDoctorFilter({ ...filter, diplomaTypeLike: e }));
 								}}
 							/>
 						</>

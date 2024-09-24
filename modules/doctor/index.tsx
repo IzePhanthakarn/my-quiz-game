@@ -17,7 +17,7 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import { initDoctorGrid } from "./service";
-import { modelDoctorFilter } from "./redux/filter/model";
+import { DoctorFilter, modelDoctorFilter } from "./redux/filter/model";
 import { GetColumns } from "./model";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -32,6 +32,7 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import uuid4 from "uuid4";
 import { setMounted } from "@/redux/slices/container";
+import _ from "lodash";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,16 +54,30 @@ export default function Doctor() {
 	const [form] = Form.useForm();
 	const [formDrawer] = Form.useForm();
 
-	const onFinishDrawer: FormProps<DoctorForm>["onFinish"] = (
-		value: DoctorForm
+	const onFinishDrawer: FormProps<DoctorFilter>["onFinish"] = (
+		value: DoctorFilter
 	) => {
-		const newFilter = { ...filter, ...value };
-		const handleFilter = {
+		let handleHospital;
+		let newFilter = { ...filter, ...value };
+		let handleFilter = {
 			...newFilter,
 			doctorCodeLike: "",
 			firstnameLike: "",
 			lastnameLike: "",
 		};
+		if (
+			!_.isEmpty(value.hospitalNameLike) &&
+			!_.isNil(value.hospitalNameLike)
+		) {
+			handleHospital = value.hospitalNameLike.split("-")[0];
+			handleFilter = {
+				...newFilter,
+				doctorCodeLike: "",
+				firstnameLike: "",
+				lastnameLike: "",
+				hospitalNameLike: handleHospital,
+			};
+		}
 		dispatch(
 			initDoctorGrid({
 				pagination: { ...page },
@@ -72,7 +87,9 @@ export default function Doctor() {
 		dispatch(setDoctorFilter(newFilter));
 	};
 
-	const onFinish: FormProps<DoctorForm>["onFinish"] = (value: DoctorForm) => {
+	const onFinish: FormProps<DoctorFilter>["onFinish"] = (
+		value: DoctorFilter
+	) => {
 		const newFilter = { ...filter, ...value };
 		dispatch(
 			initDoctorGrid({
