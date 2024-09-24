@@ -7,11 +7,12 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
-import { DeleteFileList } from "./hospitalModel";
+import { UuidDeleteList } from "./hospitalModel";
 
 export interface HospitalStaffContact {
 	grid: HospitalStaffContactGrid;
 	filter: HospitalStaffContactGridFilter;
+	uuidDeleteList: UuidDeleteList;
 }
 
 export interface HospitalStaffContactGrid extends PaginationModel {
@@ -29,7 +30,6 @@ export interface HospitalStaffContactGridFilter {
 	hospitalId: number;
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
-	uuidExclusionList: DeleteFileList;
 }
 
 export interface GetHospitalStaffContactList
@@ -51,6 +51,6 @@ export const modelHospitalStaffContact: HospitalStaffContact = {
 		hospitalId: 0,
 		isActive: IsActive.Y,
 		checkIsActive: false,
-		uuidExclusionList: [],
 	},
+	uuidDeleteList: [],
 };

@@ -118,6 +118,12 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
 		},
+		HOSPITAL_STAFF_CONTACT: {
+			GET_LIST: "/hospital-staff-contact/list",
+			UPDATE_BY_UUID: "/hospital-staff-contact",
+			GET_LIST_BY_HOSPITAL_UUID:
+				"/hospital-staff-contact/list-by-hospital-uuid",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

@@ -11,6 +11,7 @@ import {
 	getHospitalList,
 	getHospitalSp19ListByHospitalUuid,
 	getHospitalSp7ListByHospitalUuid,
+	getHospitalStaffContactListByHospitalUuid,
 	handleUploadSp7HospitalApi,
 	updateHospitalAnnouncedPriceFilesApi,
 	updateHospitalApi,
@@ -29,6 +30,7 @@ import {
 	setHospitalAnnouncedPriceFiles,
 	setHospitalCertificateOfIncorporationAttachment,
 	setHospitalAttachmentFile1,
+	setHospitalStaffContact,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
@@ -75,6 +77,10 @@ import {
 } from "../redux/models/announcedPriceFilesModel";
 import { LINKS } from "@/constants/links";
 import { baseMasterDataModel } from "wcf-component-lib/src/interfaces/base-master-data-interface";
+import {
+	GetHospitalStaffContactList,
+	HospitalStaffContact,
+} from "../redux/models/hospitalStaffContactModel";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -168,6 +174,32 @@ export const initGetHospitalDetail =
 				)
 			);
 		}
+	};
+
+export const setHospitalStaffContactGridFilterUuidExclusionList =
+	(hospitalStaffContact: HospitalStaffContact, uuid: string) =>
+	async (dispatch: AppDispatch) => {
+		const dataArray = hospitalStaffContact.grid.data;
+		const updatedArray = _.filter(dataArray, (item) => item.uuid !== uuid);
+		const uuidDeleteList = [...hospitalStaffContact.uuidDeleteList];
+
+		const foundObject = dataArray.find((item) => item.uuid === uuid);
+		if (foundObject && foundObject?.createdDate !== "") {
+			uuidDeleteList.push(uuid);
+		}
+
+		const newHospitalStaffContact: HospitalStaffContact = {
+			...hospitalStaffContact,
+			grid: { ...hospitalStaffContact.grid, data: updatedArray },
+			filter: {
+				...hospitalStaffContact.filter,
+			},
+			uuidDeleteList: uuidDeleteList,
+		};
+		dispatch(setHospitalStaffContact(newHospitalStaffContact));
+		dispatch(setIsOpenBaseConfirmDialog(false));
+
+		// console.log("🚀 ~ hospitalStaffContact:", hospitalStaffContact);
 	};
 
 export const fetchHospitalSp7List =
@@ -317,6 +349,49 @@ export const fetchHospitalAnnouncedPriceFilesList =
 		}
 	};
 
+export const fetchHospitalStaffContactList =
+	(params: HospitalFormPageProps, hospitalStaffContact: HospitalStaffContact) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const body: GetHospitalStaffContactList = {
+				pagination: { ...hospitalStaffContact.grid.page },
+				...hospitalStaffContact.filter,
+				hospitalUuid: uuid,
+				isActive: IsActive.Y,
+			};
+			const result = await dispatch(
+				getHospitalStaffContactListByHospitalUuid(body)
+			);
+			if (_.get(result, "error.message") === "Rejected") {
+				return;
+			}
+			const newData = [];
+			for (let index = 0; index < result.payload.content.length; index++) {
+				const item = result.payload.content[index];
+				newData.push({
+					...item,
+					order: index + 1,
+					createdDate: handleFormatDate(item.createdDate),
+					updatedDate: handleFormatDate(item.updatedDate),
+				});
+			}
+
+			dispatch(
+				setHospitalStaffContact({
+					...hospitalStaffContact,
+					grid: {
+						data: newData,
+						page: {
+							...hospitalStaffContact.grid.page,
+							totalData: result.payload.totalElements,
+						},
+					},
+				})
+			);
+		}
+	};
+
 export const fetchHospitalAttachmentList =
 	(
 		form: HospitalForm,
@@ -411,7 +486,8 @@ export const updateHospital =
 		hospitalSp7: HospitalSp7,
 		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
 		hospitalSp19: HospitalSp19,
-		hospitalEtcFiles: HospitalEtcFiles
+		hospitalEtcFiles: HospitalEtcFiles,
+		hospitalStaffContact: HospitalStaffContact
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
@@ -441,6 +517,7 @@ export const updateHospital =
 						etcFilesDeleteFileList: hospitalEtcFiles.filter.uuidExclusionList,
 						announcedPriceFilesDeleteFileList:
 							hospitalAnnouncedPriceFiles.filter.uuidExclusionList,
+						hospitalStaffContactDeleteList: hospitalStaffContact.uuidDeleteList,
 					},
 				},
 			})
@@ -454,7 +531,7 @@ export const updateHospital =
 				description: "Description",
 			});
 			// dispatch(setIsLoading(true));
-			router.push(LINKS.HOSPITAL.link);
+			// router.push(LINKS.HOSPITAL.link);
 		}
 	};
 

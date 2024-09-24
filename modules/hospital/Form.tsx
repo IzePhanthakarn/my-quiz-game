@@ -29,6 +29,7 @@ import {
 	setHospitalForm,
 	setHospitalSp19,
 	setHospitalSp7,
+	setHospitalStaffContact,
 	setOutsideHospitalForm,
 } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
@@ -38,6 +39,7 @@ import {
 	fetchHospitalEtcFilesList,
 	fetchHospitalSp19List,
 	fetchHospitalSp7List,
+	fetchHospitalStaffContactList,
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
@@ -65,6 +67,8 @@ import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Sp7Grid } from "./columns/sp7Grid";
+import { HospitalStaffContactGrid } from "./columns/hospitalStaffContactGrid";
+
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
@@ -113,6 +117,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		isLoading,
 		outsideHospitalForm,
 		dialog,
+		hospitalStaffContact,
 	} = useSelector(
 		(state: SliceModel) => ({
 			dialog: state.dialog,
@@ -123,6 +128,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			hospitalSp19: state.hospital.hospitalSp19,
 			hospitalEtcFiles: state.hospital.hospitalEtcFiles,
 			hospitalAnnouncedPriceFiles: state.hospital.hospitalAnnouncedPriceFiles,
+			hospitalStaffContact: state.hospital.hospitalStaffContact,
 			hospitalCertificateOfIncorporationAttachment:
 				state.hospital.hospitalCertificateOfIncorporationAttachment,
 			hospitalAttachmentFile1: state.hospital.hospitalAttachmentFile1,
@@ -153,6 +159,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							hospitalAnnouncedPriceFiles
 						)
 					);
+					await dispatch(
+						fetchHospitalStaffContactList(params, hospitalStaffContact)
+					);
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
 					dispatch(setHospitalSp7(modelHospital.hospitalSp7));
@@ -171,6 +180,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					dispatch(
 						setHospitalAttachmentFile1(modelHospital.hospitalAttachmentFile1)
 					);
+					dispatch(setHospitalStaffContact(modelHospital.hospitalStaffContact));
 				}
 
 				setIsInit(true);
@@ -329,7 +339,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalSp7,
 								hospitalAnnouncedPriceFiles,
 								hospitalSp19,
-								hospitalEtcFiles
+								hospitalEtcFiles,
+								hospitalStaffContact
 							)
 						);
 					} else {
@@ -1039,6 +1050,34 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									setHospitalForm({
 										...hospitalForm,
 										faxNumber: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+
+					<BaseHorizontalHeader
+						className="mb-7"
+						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
+						icons={<HomeFilled />}
+					/>
+					<div>
+						<BaseGrid
+							rows={hospitalStaffContact.grid.data}
+							columns={HospitalStaffContactGrid({
+								hospitalStaffContact: hospitalStaffContact,
+								dispatch: dispatch,
+								params: params,
+								dialog: dialog,
+							})}
+							page={hospitalStaffContact.grid.page}
+							loading={isLoading}
+							twoToneColor={true}
+							setPagination={(page) => {
+								dispatch(
+									fetchHospitalStaffContactList(params, {
+										...hospitalStaffContact,
+										grid: { ...hospitalStaffContact.grid, page },
 									})
 								);
 							}}
