@@ -17,7 +17,6 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
 import { configPage } from "@/constants/config-page";
-import ScrollableLayout from "wcf-component-lib/src/components/ScrollableLayout";
 
 type Props = {
 	children: ReactNode;
@@ -66,34 +65,30 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		// <div className="h-screen">
-		<ScrollableLayout>
-			<LayoutProvider
-				configPage={configPage}
-				urlApi={
-					"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
-				}
-			>
-				<HeaderNavbarLayout>
-					<BaseRow className="h-full">
-						<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
-							{props.children}
-						</main>
-					</BaseRow>
-					{isLoading && <BaseLoading />}
-					<BaseDialog
-						isOpen={dialog.isOpen}
-						setIsOpen={() => dispatch(setIsOpenDialog(false))}
-						content={dialog.content}
-						headerText={dialog.headerText}
-						uniqueContent={dialog.uniqueContent}
-						onConfirm={dialog.onConfirm}
-						onCancel={dialog.onCancel}
-					/>
-				</HeaderNavbarLayout>
-			</LayoutProvider>
-		</ScrollableLayout>
-		// </div>
+		<LayoutProvider
+			configPage={configPage}
+			urlApi={
+				"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
+			}
+		>
+			<HeaderNavbarLayout>
+				<BaseRow className="h-full">
+					<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
+						{props.children}
+					</main>
+				</BaseRow>
+				{isLoading && <BaseLoading />}
+				<BaseDialog
+					isOpen={dialog.isOpen}
+					setIsOpen={() => dispatch(setIsOpenDialog(false))}
+					content={dialog.content}
+					headerText={dialog.headerText}
+					uniqueContent={dialog.uniqueContent}
+					onConfirm={dialog.onConfirm}
+					onCancel={dialog.onCancel}
+				/>
+			</HeaderNavbarLayout>
+		</LayoutProvider>
 	);
 };
 export default MainWrapper;
