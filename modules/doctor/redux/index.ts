@@ -3,6 +3,7 @@ import { doctorReducers } from "./master/reducers";
 import { modelDoctor } from "./model";
 import { doctorFilterReducers } from "./filter/reducers";
 import { doctorFormReducers } from "./form/reducers";
+import { doctorCompareHistoryReducers } from "./history/reducer";
 
 export const doctorSlice = createSlice({
 	name: "Doctor",
@@ -11,12 +12,15 @@ export const doctorSlice = createSlice({
 		...doctorReducers,
 		...doctorFormReducers,
 		...doctorFilterReducers,
+		...doctorCompareHistoryReducers,
 	},
 });
 
 export const actionsDoctor = doctorSlice.actions;
 
 export const {
+	setDoctorCompareList,
+	setDoctorFilterList,
 	setDoctorPostalList,
 	setDoctorBankList,
 	setTrainingList,

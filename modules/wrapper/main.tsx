@@ -17,6 +17,7 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
 import { configPage } from "@/constants/config-page";
+import ScrollableLayout from "wcf-component-lib/src/components/ScrollableLayout";
 
 type Props = {
 	children: ReactNode;
@@ -65,7 +66,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<div className="h-screen">
+		// <div className="h-screen">
+		<ScrollableLayout>
 			<LayoutProvider
 				configPage={configPage}
 				urlApi={
@@ -90,7 +92,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 					/>
 				</HeaderNavbarLayout>
 			</LayoutProvider>
-		</div>
+		</ScrollableLayout>
+		// </div>
 	);
 };
 export default MainWrapper;

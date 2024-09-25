@@ -25,6 +25,7 @@ const API_PATH = {
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
 	GET_DOCTOR_FORM: "doctor/getForm",
+	GET_DOCTOR_HISOTRY_COMPARE: "doctor-history/compare",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {
