@@ -31,6 +31,7 @@ import {
 	setHospitalCertificateOfIncorporationAttachment,
 	setHospitalAttachmentFile1,
 	setHospitalStaffContact,
+	setOutsideHospitalForm,
 } from "@/modules/hospital/redux";
 import {
 	Hospital,
@@ -40,13 +41,14 @@ import {
 	OutsideHospitalForm,
 	modelHospital,
 } from "@/modules/hospital/redux/models/hospitalModel";
-import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
 // import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import {
+	generateUuid,
 	handleFormatDate,
 	handleUploadFiles,
 } from "wcf-component-lib/src/utils/";
@@ -80,7 +82,10 @@ import { baseMasterDataModel } from "wcf-component-lib/src/interfaces/base-maste
 import {
 	GetHospitalStaffContactList,
 	HospitalStaffContact,
+	HospitalStaffContactForm,
+	HospitalStaffContactGridData,
 } from "../redux/models/hospitalStaffContactModel";
+import { modelDialog } from "../../../redux/slices/dialog/model";
 
 export const fetchHospitalList =
 	(course: Hospital) => async (dispatch: AppDispatch) => {
@@ -392,6 +397,63 @@ export const fetchHospitalStaffContactList =
 		}
 	};
 
+export const addHospitalStaffContact =
+	(
+		outsideHospitalForm: OutsideHospitalForm,
+		values: HospitalStaffContactForm,
+		hospitalStaffContact: HospitalStaffContact
+	) =>
+	async (dispatch: AppDispatch) => {
+		const newHospitalStaffContactAddList = _.cloneDeep(
+			outsideHospitalForm.hospitalStaffContact.hospitalStaffContactAddList
+		);
+
+		const newAddData = {
+			...baseMasterDataModel,
+			firstName: _.trim(values.firstName),
+			lastName: _.trim(values.lastName),
+			position: _.trim(values.position),
+			contact: _.trim(values.contact),
+			uuid: generateUuid(),
+		};
+
+		newHospitalStaffContactAddList.push(newAddData);
+
+		const newData = _.cloneDeep(hospitalStaffContact.grid.data);
+
+		const arrangeNewData: HospitalStaffContactGridData = {
+			...newAddData,
+			order: "ข้อมูลเพิ่มใหม่",
+		};
+		newData.push(arrangeNewData);
+		dispatch(
+			setHospitalStaffContact({
+				...hospitalStaffContact,
+				grid: { ...hospitalStaffContact.grid, data: newData },
+			})
+		);
+
+		dispatch(
+			setOutsideHospitalForm({
+				...outsideHospitalForm,
+				hospitalStaffContact: {
+					hospitalStaffContactDeleteList:
+						outsideHospitalForm.hospitalStaffContact
+							.hospitalStaffContactDeleteList,
+					hospitalStaffContactAddList: newHospitalStaffContactAddList,
+				},
+			})
+		);
+
+		dispatch(
+			setDialog({
+				...modelDialog,
+				isOpenBaseConfirmDialog: false,
+				isOpen: false,
+			})
+		);
+	};
+
 export const fetchHospitalAttachmentList =
 	(
 		form: HospitalForm,
@@ -501,15 +563,6 @@ export const updateHospital =
 					certificateOfIncorporation: form?.files?.certificateOfIncorporation,
 					attachmentFile1: form?.files?.attachmentFile1,
 					announcedPriceFiles: form?.files?.announcedPriceFiles,
-					hospitalStaffContactAddList: [
-						{
-							...baseMasterDataModel,
-							firstName: "string;",
-							lastName: "string;",
-							position: "string;",
-							contact: "string;",
-						},
-					],
 					outsideHospitalForm: {
 						...outsideHospitalForm,
 						sp7DeleteFileList: hospitalSp7.filter.uuidExclusionList,

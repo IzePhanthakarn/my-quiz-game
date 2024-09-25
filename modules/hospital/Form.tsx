@@ -10,6 +10,7 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
+import UserAddOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserAddOutlined";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -43,7 +44,7 @@ import {
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
-import { rules } from "./field-validation/FormValidation";
+import { rules } from "@/modules/hospital/field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
@@ -83,6 +84,10 @@ import localeData from "dayjs/plugin/localeData";
 import { getCurrentYearString } from "wcf-component-lib/src/utils";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { modelDialog } from "@/redux/slices/dialog/model";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import AddHospitalStaffContactForm from "./Form/SubForm/addHospitalStaffContactForm";
+import { modelHospitalStaffContact } from "./redux/models/hospitalStaffContactModel";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -1057,12 +1062,37 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 
 					<BaseHorizontalHeader
-						className="mb-7"
+						className="mb-4"
 						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
 						icons={<HomeFilled />}
 					/>
+					<div className="flex justify-end">
+						<BaseButton
+							type="default"
+							className="text-base font-regular mb-4"
+							label="เพิ่มผู้ติดต่อ"
+							onClick={() => {
+								dispatch(
+									setDialog({
+										...modelDialog,
+										isOpenBaseConfirmDialog: false,
+										isOpen: true,
+										uniqueContent: <AddHospitalStaffContactForm />,
+									})
+								);
+							}}
+							icon={<UserAddOutlined />}
+							customStyle={{
+								width: "134px",
+								height: "48px",
+								borderRadius: "99px",
+							}}
+						/>
+					</div>
+
 					<div>
 						<BaseGrid
+							isShowPagination={false}
 							rows={hospitalStaffContact.grid.data}
 							columns={HospitalStaffContactGrid({
 								hospitalStaffContact: hospitalStaffContact,
@@ -1621,7 +1651,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									router.push(LINKS.HOSPITAL.link);
 								}}
 							/>
-							<BaseButtonDraft className="mr-3" />
 							<BaseButtonSave className="" htmlType="submit" />
 						</div>
 					</BaseForm>

@@ -139,7 +139,6 @@ export const updateHospitalApi = createAsyncThunk(
 				certificateOfIncorporation: HospitalForm["files"]["certificateOfIncorporation"];
 				attachmentFile1: HospitalForm["files"]["certificateOfIncorporation"];
 				announcedPriceFiles: HospitalForm["files"]["announcedPriceFiles"];
-				hospitalStaffContactAddList: HospitalForm["hospitalStaffContactAddList"];
 				outsideHospitalForm: OutsideHospitalForm;
 			};
 			uuid: HospitalForm["uuid"];

@@ -26,6 +26,7 @@ export const HospitalStaffContactGrid = (props: Props) => {
 				key: "order",
 				dataIndex: "order",
 				title: "ลำดับ",
+				width: "150px",
 			},
 			{
 				sorter: false,

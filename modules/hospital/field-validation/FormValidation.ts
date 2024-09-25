@@ -4,7 +4,20 @@ import {
 	requiredRule,
 	onlyDecimalRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
-import { names } from "../interfaces/names";
+import { hospitalStaffContactNames, names } from "../interfaces/names";
+
+export const addHospitalStaffContactRules = {
+	firstNameSchema: [
+		requiredRule(hospitalStaffContactNames.firstName),
+		maxRule(hospitalStaffContactNames.firstName, 100),
+	],
+	lastNameSchema: [
+		requiredRule(hospitalStaffContactNames.lastName),
+		maxRule(hospitalStaffContactNames.lastName, 100),
+	],
+	positionSchema: [maxRule(hospitalStaffContactNames.position, 100)],
+	contactSchema: [maxRule(hospitalStaffContactNames.contact, 30)],
+};
 
 export const rules = {
 	hospitalWcfCodeSchema: [

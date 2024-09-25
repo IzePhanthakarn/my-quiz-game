@@ -25,6 +25,7 @@ import {
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import {
 	HospitalStaffContact,
+	HospitalStaffContactForm,
 	HospitalStaffContactGridData,
 	modelHospitalStaffContact,
 } from "@/modules/hospital/redux/models/hospitalStaffContactModel";
@@ -138,6 +139,10 @@ export interface OutsideHospitalForm {
 	etcFilesDeleteFileList: HospitalEtcFiles["filter"]["uuidExclusionList"];
 	announcedPriceFilesDeleteFileList: HospitalAnnouncedPriceFiles["filter"]["uuidExclusionList"];
 	hospitalStaffContactDeleteList: HospitalStaffContact["uuidDeleteList"];
+	hospitalStaffContact: {
+		hospitalStaffContactDeleteList: HospitalStaffContact["uuidDeleteList"];
+		hospitalStaffContactAddList: HospitalStaffContactForm[];
+	};
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
@@ -149,7 +154,6 @@ export interface HospitalForm extends BaseMasterDataInterface {
 		certificateOfIncorporation: UploadFile<any>[];
 		attachmentFile1: UploadFile<any>[];
 	};
-	hospitalStaffContactAddList: HospitalStaffContactGridData[];
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -206,6 +210,10 @@ export const modelHospital: Hospital = {
 		etcFilesDeleteFileList: [],
 		announcedPriceFilesDeleteFileList: [],
 		hospitalStaffContactDeleteList: [],
+		hospitalStaffContact: {
+			hospitalStaffContactDeleteList: [],
+			hospitalStaffContactAddList: [],
+		},
 	},
 	grid: {
 		data: [],
@@ -254,7 +262,6 @@ export const modelHospital: Hospital = {
 			attachmentFile1: [],
 			announcedPriceFiles: [],
 		},
-		hospitalStaffContactAddList: [],
 		hospitalWcfCode: "",
 		hospitalDbmsCode: "",
 		hospitalMinistryCode: "",

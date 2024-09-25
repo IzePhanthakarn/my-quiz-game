@@ -13,13 +13,20 @@ export interface HospitalStaffContact {
 	grid: HospitalStaffContactGrid;
 	filter: HospitalStaffContactGridFilter;
 	uuidDeleteList: UuidDeleteList;
+	form: HospitalStaffContactForm;
 }
 
 export interface HospitalStaffContactGrid extends PaginationModel {
 	data: HospitalStaffContactGridData[];
 }
 
-export interface HospitalStaffContactGridData extends BaseMasterDataInterface {
+export interface HospitalStaffContactGridData
+	extends HospitalStaffContactForm,
+		BaseMasterDataInterface {
+	order: number | string;
+}
+
+export interface HospitalStaffContactForm {
 	firstName: string;
 	lastName: string;
 	position: string;
@@ -44,7 +51,7 @@ export const modelHospitalStaffContact: HospitalStaffContact = {
 		page: {
 			totalData: 0,
 			pageNumber: 0,
-			pageSize: 10,
+			pageSize: 99,
 		},
 	},
 	filter: {
@@ -53,4 +60,11 @@ export const modelHospitalStaffContact: HospitalStaffContact = {
 		checkIsActive: false,
 	},
 	uuidDeleteList: [],
+	form: {
+		...baseMasterDataModel,
+		firstName: "",
+		lastName: "",
+		position: "",
+		contact: "",
+	},
 };
