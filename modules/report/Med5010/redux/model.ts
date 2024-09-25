@@ -8,18 +8,25 @@ export interface Med5010Form {
 }
 
 export interface Med5010List {
-	propertyCode: string;
+	fromDate: string | null;
+	toDate: string | null;
+}
+export interface Med5010Grid extends PaginationModel {
+	list: Med5010List[];
 }
 
 export interface Med5010 {
 	form: Med5010Form;
-	list: Med5010List[];
+	grid: Med5010Grid;
 }
 
 export const modelMed5010: Med5010 = {
 	form: {
-		fromDate: null,
-		toDate: null,
+		fromDate: "",
+		toDate: "",
 	},
-	list: [],
+	grid: {
+		list: [],
+		page: { ...modelPaginationOptions },
+	},
 };

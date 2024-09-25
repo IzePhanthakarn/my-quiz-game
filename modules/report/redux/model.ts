@@ -3,12 +3,14 @@ import { Med5009, modelMed5009 } from "../Med5009/redux/model";
 import { Med5011, modelMed5011 } from "../Med5011/redux/model";
 import { Med5005, modelMed5005 } from "../Med5005/redux/model";
 import { Med5010, modelMed5010 } from "../Med5010/redux/model";
+import { Med5001, modelMed5001 } from "../Med5001/redux/model";
 
 export interface MedReport {
 	med5009: Med5009;
 	med5011: Med5011;
 	med5005: Med5005;
 	med5010: Med5010;
+	med5001: Med5001;
 }
 
 export const modelMedReport: MedReport = {
@@ -16,4 +18,5 @@ export const modelMedReport: MedReport = {
 	med5011: modelMed5011,
 	med5005: modelMed5005,
 	med5010: modelMed5010,
+	med5001: modelMed5001,
 };

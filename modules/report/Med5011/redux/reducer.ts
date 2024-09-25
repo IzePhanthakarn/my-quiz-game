@@ -7,6 +7,9 @@ export const med5011Reducers = {
 		state.med5011.form = { ...action.payload };
 	},
 	setMed5011List: (state: MedReport, action: PayloadAction<Med5011List[]>) => {
-		state.med5011.list = action.payload;
+		state.med5011.grid.list = action.payload;
+	},
+	setMed5011TotalData: (state: MedReport, action: PayloadAction<number>) => {
+		state.med5011.grid.page.totalData = action.payload;
 	},
 };

@@ -1,8 +1,6 @@
-//import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { REPORT_TYPES } from "@/constants/reports";
 import { handleOnExportPdf } from "@/utils/report/common";
 import _ from "lodash";
-//import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { Med5011Form } from "../redux/model";
 import { AppDispatch } from "@/redux/config/configStore";
 
