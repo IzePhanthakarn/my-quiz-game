@@ -24,6 +24,7 @@ import {
 	HospitalAnnouncedPriceFiles,
 	HospitalAnnouncedPriceFilesGrid,
 } from "./models/announcedPriceFilesModel";
+import { HospitalStaffContact } from "./models/hospitalStaffContactModel";
 export const hospitalReducers = {
 	setHospital: (state: Hospital, action: PayloadAction<Hospital>) => {
 		state = action.payload;
@@ -136,6 +137,12 @@ export const hospitalReducers = {
 		action: PayloadAction<HospitalAnnouncedPriceFiles>
 	) => {
 		state.hospitalAnnouncedPriceFiles = action.payload;
+	},
+	setHospitalStaffContact: (
+		state: Hospital,
+		action: PayloadAction<HospitalStaffContact>
+	) => {
+		state.hospitalStaffContact = action.payload;
 	},
 	setOutsideHospitalForm: (
 		state: Hospital,
