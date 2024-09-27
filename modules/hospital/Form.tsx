@@ -10,6 +10,7 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
+import UserAddOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserAddOutlined";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -29,6 +30,7 @@ import {
 	setHospitalForm,
 	setHospitalSp19,
 	setHospitalSp7,
+	setHospitalStaffContact,
 	setOutsideHospitalForm,
 } from "./redux";
 import { HospitalForm, modelHospital } from "./redux/models/hospitalModel";
@@ -38,10 +40,11 @@ import {
 	fetchHospitalEtcFilesList,
 	fetchHospitalSp19List,
 	fetchHospitalSp7List,
+	fetchHospitalStaffContactList,
 	initGetHospitalDetail,
 	updateHospital,
 } from "./service";
-import { rules } from "./field-validation/FormValidation";
+import { rules } from "@/modules/hospital/field-validation/FormValidation";
 import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
@@ -65,6 +68,8 @@ import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Sp7Grid } from "./columns/sp7Grid";
+import { HospitalStaffContactGrid } from "./columns/hospitalStaffContactGrid";
+
 import API_PATH from "@/constants/api";
 // import Cookies from "wcf-component-lib/node_modules/@types/js-cookie/index";
 import Cookies from "js-cookie";
@@ -79,6 +84,10 @@ import localeData from "dayjs/plugin/localeData";
 import { getCurrentYearString } from "wcf-component-lib/src/utils";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { modelDialog } from "@/redux/slices/dialog/model";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import AddHospitalStaffContactForm from "./Form/SubForm/addHospitalStaffContactForm";
+import { modelHospitalStaffContact } from "./redux/models/hospitalStaffContactModel";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -113,6 +122,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		isLoading,
 		outsideHospitalForm,
 		dialog,
+		hospitalStaffContact,
 	} = useSelector(
 		(state: SliceModel) => ({
 			dialog: state.dialog,
@@ -123,6 +133,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			hospitalSp19: state.hospital.hospitalSp19,
 			hospitalEtcFiles: state.hospital.hospitalEtcFiles,
 			hospitalAnnouncedPriceFiles: state.hospital.hospitalAnnouncedPriceFiles,
+			hospitalStaffContact: state.hospital.hospitalStaffContact,
 			hospitalCertificateOfIncorporationAttachment:
 				state.hospital.hospitalCertificateOfIncorporationAttachment,
 			hospitalAttachmentFile1: state.hospital.hospitalAttachmentFile1,
@@ -153,6 +164,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							hospitalAnnouncedPriceFiles
 						)
 					);
+					await dispatch(
+						fetchHospitalStaffContactList(params, hospitalStaffContact)
+					);
 				} else {
 					dispatch(setHospitalForm(modelHospital.form));
 					dispatch(setHospitalSp7(modelHospital.hospitalSp7));
@@ -171,6 +185,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					dispatch(
 						setHospitalAttachmentFile1(modelHospital.hospitalAttachmentFile1)
 					);
+					dispatch(setHospitalStaffContact(modelHospital.hospitalStaffContact));
 				}
 
 				setIsInit(true);
@@ -329,7 +344,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalSp7,
 								hospitalAnnouncedPriceFiles,
 								hospitalSp19,
-								hospitalEtcFiles
+								hospitalEtcFiles,
+								hospitalStaffContact
 							)
 						);
 					} else {
@@ -1044,6 +1060,59 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					</div>
+
+					<BaseHorizontalHeader
+						className="mb-4"
+						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
+						icons={<HomeFilled />}
+					/>
+					<div className="flex justify-end">
+						<BaseButton
+							type="default"
+							className="text-base font-regular mb-4"
+							label="เพิ่มผู้ติดต่อ"
+							onClick={() => {
+								dispatch(
+									setDialog({
+										...modelDialog,
+										isOpenBaseConfirmDialog: false,
+										isOpen: true,
+										uniqueContent: <AddHospitalStaffContactForm />,
+									})
+								);
+							}}
+							icon={<UserAddOutlined />}
+							customStyle={{
+								width: "134px",
+								height: "48px",
+								borderRadius: "99px",
+							}}
+						/>
+					</div>
+
+					<div>
+						<BaseGrid
+							isShowPagination={false}
+							rows={hospitalStaffContact.grid.data}
+							columns={HospitalStaffContactGrid({
+								hospitalStaffContact: hospitalStaffContact,
+								dispatch: dispatch,
+								params: params,
+								dialog: dialog,
+							})}
+							page={hospitalStaffContact.grid.page}
+							loading={isLoading}
+							twoToneColor={true}
+							setPagination={(page) => {
+								dispatch(
+									fetchHospitalStaffContactList(params, {
+										...hospitalStaffContact,
+										grid: { ...hospitalStaffContact.grid, page },
+									})
+								);
+							}}
+						/>
+					</div>
 				</>
 			),
 		},
@@ -1361,14 +1430,14 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							itemName="oldHospitalName"
 							rules={rules.oldHospitalNameSchema}
 							// value={hospitalForm.oldHospitalName}
-							// onChangeFunction={(e) => {
-							// 	dispatch(
-							// 		setHospitalForm({
-							// 			...hospitalForm,
-							// 			oldHospitalName: e.target.value,
-							// 		})
-							// 	);
-							// }}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										oldHospitalName: e.target.value,
+									})
+								);
+							}}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -1415,19 +1484,18 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									? true
 									: false
 							}
-							// onChangeDateFunction={(e) => {
-							// 	dispatch(
-							// 		setHospitalForm({
-							// 			...hospitalForm,
-							// 			contractEndDate: e,
-							// 		})
-							// 	);
-							// }}
+							onChangeDateFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										contractEndDate: e,
+									})
+								);
+							}}
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
 						<BaseItemTextArea
-							// <BaseItemInput
 							disabled={_.isEmpty(write)}
 							label={names.remarkChangeName}
 							itemName="remarkChangeName"
@@ -1583,7 +1651,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									router.push(LINKS.HOSPITAL.link);
 								}}
 							/>
-							<BaseButtonDraft className="mr-3" />
 							<BaseButtonSave className="" htmlType="submit" />
 						</div>
 					</BaseForm>

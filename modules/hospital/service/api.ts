@@ -12,6 +12,7 @@ import { GetHospitalSp19List } from "@/modules/hospital/redux/models/sp19Model";
 import { GetHospitalEtcFilesList } from "../redux/models/etcFilesModel";
 import { GetHospitalAttachmentList } from "../redux/models/attachmentModel";
 import { GetHospitalAnnouncedPriceFilesList } from "../redux/models/announcedPriceFilesModel";
+import { GetHospitalStaffContactList } from "../redux/models/hospitalStaffContactModel";
 
 export const getHospitalDetail = createAsyncThunk(
 	"Hospital/getHospitalDetail",
@@ -96,6 +97,20 @@ export const getHospitalAnnouncedPriceFilesListByHospitalUuid =
 			}
 		}
 	);
+
+export const getHospitalStaffContactListByHospitalUuid = createAsyncThunk(
+	"Hospital/HospitalStaffContactList/List",
+
+	async (body: GetHospitalStaffContactList, thunkAPi) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.HOSPITAL_STAFF_CONTACT.GET_LIST_BY_HOSPITAL_UUID}`;
+			const response = await axios.post(apiPath, body);
+			return response.data;
+		} catch (err) {
+			return thunkAPi.rejectWithValue("");
+		}
+	}
+);
 
 export const getHospitalAttachmentListByHospitalWcfCodeAndFieldName =
 	createAsyncThunk(

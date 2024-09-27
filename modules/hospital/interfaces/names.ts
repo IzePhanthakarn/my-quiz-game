@@ -1,3 +1,10 @@
+export const hospitalStaffContactNames = {
+	firstName: "ชื่อ",
+	lastName: "นามสกุล",
+	position: "ตำแหน่งของผู้ติดต่อ",
+	contact: "เบอร์ติดต่อ",
+};
+
 export const names = {
 	hospitalWcfCode: "รหัสสถานพยาบาล",
 	hospitalDbmsCode: "รหัสสถานพยาบาล(ประกันสังคม)",
