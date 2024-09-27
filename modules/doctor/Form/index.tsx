@@ -18,7 +18,7 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import HistoryDialog from "../History/HistoryDialog";
+import HistoryDialog from "./History/HistoryDialog";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -61,7 +61,11 @@ const DoctorFormTabs = () => {
 				label="History Test"
 				onClick={() => {
 					dispatch(
-						setDialog({ isOpen: true, uniqueContent: <HistoryDialog /> })
+						setDialog({
+							isOpen: true,
+							uniqueContent: <HistoryDialog />,
+							width: "80%",
+						})
 					);
 				}}
 			/>

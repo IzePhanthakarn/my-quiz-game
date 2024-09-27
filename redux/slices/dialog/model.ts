@@ -6,6 +6,7 @@ export interface BaseDialog {
 	uniqueContent?: JSX.Element;
 	onConfirm?: () => void;
 	onCancel?: () => void;
+	width?: string | number;
 }
 
 export const modelDialog: BaseDialog = {

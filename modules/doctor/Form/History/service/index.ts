@@ -2,7 +2,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { setIsLoading } from "@/redux/slices/container";
 import { doctorCompareParams, getDoctorCompareHistory } from "./api";
 import _ from "lodash";
-import { setDoctorCompareList, setDoctorFilterList } from "../../redux";
+import { setDoctorCompareList, setDoctorFilterList } from "../../../redux";
 
 export const initDoctorCompareHistory =
 	(params: doctorCompareParams) => async (dispatch: AppDispatch) => {

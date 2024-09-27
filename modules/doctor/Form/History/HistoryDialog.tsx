@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CompareList } from "../redux/history/model";
+import { CompareList } from "../../redux/history/model";
 import { ColumnsType } from "wcf-component-lib/node_modules/antd/lib/table";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -32,7 +32,7 @@ export default function HistoryDialog() {
 		);
 	}, []);
 	return (
-		<div className="w-full space-y-4 h-screen flex flex-col overflow-y-scroll">
+		<div className="w-full space-y-4 flex flex-col">
 			<BaseGrid
 				rows={compareList.doctor}
 				columns={columns}
