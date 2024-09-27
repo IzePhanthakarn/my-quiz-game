@@ -19,6 +19,7 @@ export const doctorSlice = createSlice({
 export const actionsDoctor = doctorSlice.actions;
 
 export const {
+	setcompareParams,
 	setDoctorCompareList,
 	setDoctorFilterList,
 	setDoctorPostalList,

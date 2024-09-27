@@ -16,9 +16,14 @@ import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialo
 import { SliceModel } from "@/redux/slices/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
-import { setDoctorForm } from "../redux";
+import {
+	setcompareParams,
+	setDoctorCompareList,
+	setDoctorForm,
+} from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
 import HistoryDialog from "./History/HistoryDialog";
+import { handleOpenHistory } from "./service";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -57,18 +62,14 @@ const DoctorFormTabs = () => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
-			<BaseButton
-				label="History Test"
-				onClick={() => {
-					dispatch(
-						setDialog({
-							isOpen: true,
-							uniqueContent: <HistoryDialog />,
-							width: "80%",
-						})
-					);
-				}}
-			/>
+			{doctorForm.editTimes > 1 && (
+				<BaseButton
+					label="History Test"
+					onClick={() => {
+						dispatch(handleOpenHistory(doctorForm));
+					}}
+				/>
+			)}
 			{itemsTables?.map((item, index: number) => (
 				<BaseCollapse
 					key={item.key}

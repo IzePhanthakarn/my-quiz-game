@@ -1,6 +1,13 @@
 export interface CompareHistory {
 	filterList: FilterList[];
 	compareList: DoctorCompareList;
+	compareParams: compareParams;
+}
+
+export interface compareParams {
+	doctorCode: string;
+	edit1: string | number | null;
+	edit2: string | number | null;
 }
 
 export interface DoctorCompareList {
@@ -27,5 +34,10 @@ export const modelCompareHistory: CompareHistory = {
 	compareList: {
 		doctor: [],
 		doctorAddress: [],
+	},
+	compareParams: {
+		doctorCode: "",
+		edit1: null,
+		edit2: null,
 	},
 };

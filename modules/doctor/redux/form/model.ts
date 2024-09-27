@@ -78,13 +78,14 @@ export interface DoctorForm {
 	doctorBank: DoctorBankList[];
 	doctorTraining: TrainingList[];
 	doctorPostal: DoctorPostalList[];
-	[key: string]:
-		| DoctorData
-		| DoctorDetailList[]
-		| DoctorHospitalList[]
-		| DoctorBankList[]
-		| TrainingList[]
-		| DoctorPostalList[];
+	editTimes: number;
+	// [key: string]:
+	// 	| DoctorData
+	// 	| DoctorDetailList[]
+	// 	| DoctorHospitalList[]
+	// 	| DoctorBankList[]
+	// 	| TrainingList[]
+	// 	| DoctorPostalList[];
 }
 
 const modelDoctorData: DoctorData = {
@@ -117,4 +118,5 @@ export const modelDoctorForm: DoctorForm = {
 	doctorBank: [],
 	doctorTraining: [],
 	doctorPostal: [],
+	editTimes: 0,
 };

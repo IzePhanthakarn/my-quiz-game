@@ -13,7 +13,7 @@ import { SESSION_NAME } from "./model";
 import "wcf-component-lib/src/scss/variable.scss";
 
 interface MedDropDownProps extends BaseDropDownProps {
-	type: SESSION_NAME;
+	type?: SESSION_NAME;
 	queryString?: string;
 	bodyRequest?: any;
 	helperTextLeft?: string;
@@ -55,7 +55,11 @@ export default function MedDropDown(props: MedDropDownProps) {
 				getValue={(e) => getValue(handleGetValue(type, e))}
 			/>
 			{(helperTextRight || helperTextLeft) && (
-				<div className="-mt-4 w-full flex justify-between bg-red-200">
+				<div
+					className={`${
+						props.notForm ? "" : "-mt-6"
+					} w-full flex justify-between`}
+				>
 					<p className="text-help">{helperTextLeft}</p>
 					<p className="text-help">{helperTextRight}</p>
 				</div>

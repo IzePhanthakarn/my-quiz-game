@@ -1,6 +1,9 @@
 "use client";
 
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
+import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
+import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
+import { DoctorCompareList } from "../../redux/history/model";
 
 export const columns: TableProps["columns"] = [
 	{
@@ -36,3 +39,33 @@ export const columns: TableProps["columns"] = [
 		},
 	},
 ];
+
+export const getItems = (compareList: DoctorCompareList) => {
+	const items: CollapseProps["items"] = [
+		{
+			key: "1",
+			label: "ข้อมูลแพทย์",
+			children: (
+				<BaseGrid
+					rows={compareList.doctor}
+					columns={columns}
+					twoToneColor
+					hideHeader
+				/>
+			),
+		},
+		{
+			key: "2",
+			label: "ข้อมูลที่อยู่แพทย์",
+			children: (
+				<BaseGrid
+					rows={compareList.doctor}
+					columns={columns}
+					twoToneColor
+					hideHeader
+				/>
+			),
+		},
+	];
+	return items;
+};
