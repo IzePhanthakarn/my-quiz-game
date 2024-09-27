@@ -31,6 +31,7 @@ export interface HospitalStaffContactForm {
 	lastName: string;
 	position: string;
 	contact: string;
+	uuid: string;
 }
 
 export interface HospitalStaffContactGridFilter {

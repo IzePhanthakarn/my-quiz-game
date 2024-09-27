@@ -182,7 +182,11 @@ export const initGetHospitalDetail =
 	};
 
 export const setHospitalStaffContactGridFilterUuidExclusionList =
-	(hospitalStaffContact: HospitalStaffContact, uuid: string) =>
+	(
+		hospitalStaffContact: HospitalStaffContact,
+		outsideHospitalForm: OutsideHospitalForm,
+		uuid: string
+	) =>
 	async (dispatch: AppDispatch) => {
 		const dataArray = hospitalStaffContact.grid.data;
 		const updatedArray = _.filter(dataArray, (item) => item.uuid !== uuid);
@@ -191,6 +195,22 @@ export const setHospitalStaffContactGridFilterUuidExclusionList =
 		const foundObject = dataArray.find((item) => item.uuid === uuid);
 		if (foundObject && foundObject?.createdDate !== "") {
 			uuidDeleteList.push(uuid);
+		} else {
+			const newHospitalStaffContactAddList = _.filter(
+				outsideHospitalForm.hospitalStaffContact.hospitalStaffContactAddList,
+				(item) => item.uuid !== uuid
+			);
+			dispatch(
+				setOutsideHospitalForm({
+					...outsideHospitalForm,
+					hospitalStaffContact: {
+						hospitalStaffContactDeleteList:
+							outsideHospitalForm.hospitalStaffContact
+								.hospitalStaffContactDeleteList,
+						hospitalStaffContactAddList: newHospitalStaffContactAddList,
+					},
+				})
+			);
 		}
 
 		const newHospitalStaffContact: HospitalStaffContact = {

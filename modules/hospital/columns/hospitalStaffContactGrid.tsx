@@ -8,16 +8,24 @@ import { HospitalStaffContact } from "@/modules/hospital/redux/models/hospitalSt
 import { setDialog } from "@/redux/slices/dialog";
 import { BaseDialog } from "@/redux/slices/dialog/model";
 import { setHospitalStaffContactGridFilterUuidExclusionList } from "../service";
+import { OutsideHospitalForm } from "../redux/models/hospitalModel";
 
 interface Props {
 	hospitalStaffContact: HospitalStaffContact;
+	outsideHospitalForm: OutsideHospitalForm;
 	dispatch: AppDispatch;
 	params: HospitalFormPageProps;
 	dialog: BaseDialog;
 }
 
 export const HospitalStaffContactGrid = (props: Props) => {
-	const { hospitalStaffContact, dispatch, params, dialog } = props;
+	const {
+		hospitalStaffContact,
+		dispatch,
+		outsideHospitalForm,
+		params,
+		dialog,
+	} = props;
 
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -68,6 +76,7 @@ export const HospitalStaffContactGrid = (props: Props) => {
 											await dispatch(
 												setHospitalStaffContactGridFilterUuidExclusionList(
 													hospitalStaffContact,
+													outsideHospitalForm,
 													uuid
 												)
 											);
@@ -83,7 +92,7 @@ export const HospitalStaffContactGrid = (props: Props) => {
 				},
 			},
 		],
-		[hospitalStaffContact, dialog, params]
+		[hospitalStaffContact, outsideHospitalForm, dialog, params]
 	);
 	return columns;
 };

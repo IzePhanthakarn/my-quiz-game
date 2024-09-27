@@ -179,6 +179,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	postalCode: string | null;
 	telephoneNumber: string;
 	faxNumber: string;
+	email: string;
 	ssoPartner: string;
 	tempColumn2: string;
 	tempColumn3: string;
@@ -289,6 +290,7 @@ export const modelHospital: Hospital = {
 		postalCode: null,
 		telephoneNumber: "",
 		faxNumber: "",
+		email: "",
 		ssoPartner: "",
 		tempColumn2: "",
 		tempColumn3: "",

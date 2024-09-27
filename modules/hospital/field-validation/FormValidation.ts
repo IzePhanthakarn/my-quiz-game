@@ -70,6 +70,8 @@ export const rules = {
 	postalCodeSchema: [maxRule(names.postalCode, 5)],
 	telephoneNumberSchema: [maxRule(names.telephoneNumber, 50)],
 	faxNumberSchema: [maxRule(names.faxNumber, 50)],
+	emailSchema: [maxRule(names.email, 100)],
+
 	ssoPartnerSchema: [maxRule(names.ssoPartner, 1)],
 	tempColumn2Schema: [maxRule(names.tempColumn2, 1)],
 	tempColumn3Schema: [maxRule(names.tempColumn3, 1)],
