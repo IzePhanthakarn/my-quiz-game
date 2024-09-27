@@ -8,18 +8,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 
 export const handlePdfButton =
 	(med5007: Med5007Form) => (dispatch: AppDispatch) => {
-		const sessionHospitalType = JSON.parse(
-			sessionStorage.getItem(SESSION_NAME.HOSPITAL_TYPE) ?? "[]"
-		);
-		const findPropertyText = sessionHospitalType.content.find(
-			(e: LtPropertiesList) => e.propertyCode === med5007.hospitalCategory
-		);
-		let propertyText = "";
-		if (!_.isEmpty(findPropertyText)) {
-			propertyText = findPropertyText.propertyText;
-		} else {
-			propertyText = "ทั้งหมด";
-		}
-		const newBody = { ...med5007, propertyText };
+		const newBody = { ...med5007 };
 		dispatch(handleOnExportPdf(newBody, REPORT_TYPES.MED5007));
 	};
+

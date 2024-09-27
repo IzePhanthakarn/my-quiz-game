@@ -5,12 +5,19 @@ import {
 
 export interface Med5007Form {
 	hospitalCategory: string | null;
-	propertyText: string;
+	hospitalType: string | null;
 }
 
 export interface Med5007List {
-	hospitalCategory: string;
+	hospitalCategory: string | null;
+	hospitalType: string | null;
 }
+
+export interface Med5007 {
+	form: Med5007Form;
+	grid: Med5007Grid;
+}
+
 export interface Med5007Grid extends PaginationModel {
 	list: Med5007List[];
 }
@@ -23,10 +30,11 @@ export interface Med5007 {
 export const modelMed5007: Med5007 = {
 	form: {
 		hospitalCategory: null,
-		propertyText: "",
+		hospitalType: null,
 	},
 	grid: {
 		list: [],
 		page: { ...modelPaginationOptions },
 	},
 };
+

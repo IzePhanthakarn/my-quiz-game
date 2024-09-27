@@ -35,7 +35,7 @@ export default function Med5007() {
 	const onFinish: FormProps<Med5007Form>["onFinish"] = async (
 		value: Med5007Form
 	) => {
-		dispatch(setMed5007Form({ ...med5007, hospitalCategory: value.hospitalCategory }));
+		dispatch(setMed5007Form({ ...med5007, hospitalCategory: value.hospitalCategory, hospitalType: value.hospitalType }));
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5007)
 		);
