@@ -1059,6 +1059,22 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
+
+						<BaseItemInput
+							disabled={_.isEmpty(write)}
+							label={names.email}
+							itemName="email"
+							rules={rules.emailSchema}
+							value={hospitalForm.email}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										email: e.target.value,
+									})
+								);
+							}}
+						/>
 					</div>
 
 					<BaseHorizontalHeader
@@ -1096,6 +1112,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							rows={hospitalStaffContact.grid.data}
 							columns={HospitalStaffContactGrid({
 								hospitalStaffContact: hospitalStaffContact,
+								outsideHospitalForm: outsideHospitalForm,
 								dispatch: dispatch,
 								params: params,
 								dialog: dialog,

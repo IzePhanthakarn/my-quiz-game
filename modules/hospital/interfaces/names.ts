@@ -20,6 +20,7 @@ export const names = {
 	postalCode: "รหัสไปรษณีย์",
 	telephoneNumber: "โทรศัพท์",
 	faxNumber: "แฟกซ์",
+	email: "อีเมลล์",
 
 	contractStartDate: "วัน/เดือน/ปี ที่เริ่มข้อตกลง",
 	hospitalType: "ระดับของสถานพยาบาล",
