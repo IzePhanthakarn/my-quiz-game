@@ -13,7 +13,7 @@ import {
 
 export const initDoctorCompareHistory =
 	(params: compareParams) => async (dispatch: AppDispatch) => {
-		// if (_.isEmpty(params.edit1) || _.isEmpty(params.edit2)) return;
+		// if (_.isEmpty(params.olderVersion) || _.isEmpty(params.newerVersion)) return;
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorCompareHistoryList(params));
 		dispatch(setIsLoading(false));
@@ -32,22 +32,39 @@ export const handleFilterCompare =
 		}
 	};
 
-export const getDropdownOptions = (list: FilterList[]) => {
-	return list.map((e) => ({
-		label: e.label,
-		value: e.editTimes,
-	}));
+export const getDropdownOptions = (params: {
+	list: FilterList[];
+	olderVersion?: number;
+	newerVersion?: number;
+}) => {
+	const { list, olderVersion, newerVersion } = params;
+	if (!_.isNil(olderVersion)) {
+		return list
+			.filter((e) => e.editTimes > olderVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
+	}
+	if (!_.isNil(newerVersion)) {
+		return list
+			.filter((e) => e.editTimes < newerVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
+	}
 };
 
 export const getFilterUpdatedByEditTimes = (
-	editTimes: string | number | null,
+	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
 	return filterList.find((e) => e.editTimes === editTimes)?.updatedBy || "";
 };
 
 export const getFilterUpdatedDateEditTimes = (
-	editTimes: string | number | null,
+	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
 	return filterList.find((e) => e.editTimes === editTimes)?.updatedDate || "";

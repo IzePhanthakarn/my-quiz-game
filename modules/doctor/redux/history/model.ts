@@ -6,8 +6,8 @@ export interface CompareHistory {
 
 export interface compareParams {
 	doctorCode: string;
-	edit1: string | number | null;
-	edit2: string | number | null;
+	olderVersion: number | null;
+	newerVersion: number | null;
 }
 
 export interface DoctorCompareList {
@@ -37,7 +37,7 @@ export const modelCompareHistory: CompareHistory = {
 	},
 	compareParams: {
 		doctorCode: "",
-		edit1: null,
-		edit2: null,
+		olderVersion: null,
+		newerVersion: null,
 	},
 };

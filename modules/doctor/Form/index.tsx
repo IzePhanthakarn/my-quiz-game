@@ -17,7 +17,7 @@ import { SliceModel } from "@/redux/slices/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import {
-	setcompareParams,
+	setCompareParams,
 	setDoctorCompareList,
 	setDoctorForm,
 } from "../redux";
@@ -62,7 +62,7 @@ const DoctorFormTabs = () => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
-			{doctorForm.editTimes > 1 && (
+			{doctorForm.editTimes.length > 1 && (
 				<BaseButton
 					label="History Test"
 					onClick={() => {

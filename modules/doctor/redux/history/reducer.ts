@@ -14,7 +14,7 @@ export const doctorCompareHistoryReducers = {
 		state.doctorCompareHistory.filterList = action.payload;
 	},
 
-	setcompareParams: (state: Doctor, action: PayloadAction<compareParams>) => {
+	setCompareParams: (state: Doctor, action: PayloadAction<compareParams>) => {
 		state.doctorCompareHistory.compareParams = action.payload;
 	},
 };

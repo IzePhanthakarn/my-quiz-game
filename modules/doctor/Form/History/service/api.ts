@@ -6,8 +6,8 @@ import axios from "axios";
 export const getDoctorCompareHistoryList = createAsyncThunk(
 	"Medical/getDoctorCompareHistoryList",
 	async (params: compareParams, thunkAPI) => {
-		const { doctorCode, edit1, edit2 } = params;
-		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_LIST}?doctorCode=${doctorCode}&edit1=${edit1}&edit2=${edit2}`;
+		const { doctorCode, olderVersion, newerVersion } = params;
+		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_LIST}?doctorCode=${doctorCode}&olderVersion=${olderVersion}&newerVersion=${newerVersion}`;
 		try {
 			const response = await axios.get(apiPath);
 			return response.data;

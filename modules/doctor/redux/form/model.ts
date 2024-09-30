@@ -78,7 +78,7 @@ export interface DoctorForm {
 	doctorBank: DoctorBankList[];
 	doctorTraining: TrainingList[];
 	doctorPostal: DoctorPostalList[];
-	editTimes: number;
+	editTimes: number[];
 	// [key: string]:
 	// 	| DoctorData
 	// 	| DoctorDetailList[]
@@ -118,5 +118,5 @@ export const modelDoctorForm: DoctorForm = {
 	doctorBank: [],
 	doctorTraining: [],
 	doctorPostal: [],
-	editTimes: 0,
+	editTimes: [],
 };

@@ -15,25 +15,25 @@ export const columns: TableProps["columns"] = [
 	{
 		title: "ลำดับ",
 		width: "33.33%",
-		dataIndex: "value1",
-		key: "value1",
+		dataIndex: "olderValue",
+		key: "olderValue",
 	},
 	{
 		title: "ลำดับ",
-		dataIndex: "value2",
+		dataIndex: "newerValue",
 		width: "33.34%",
-		key: "value2",
-		render: (_, { value2, isChanged }) => {
+		key: "newerValue",
+		render: (_, { newerValue, isChanged }) => {
 			if (isChanged) {
 				return {
 					props: {
 						style: { backgroundColor: isChanged ? "#FDE69C" : undefined },
 					},
-					children: value2,
+					children: newerValue,
 				};
 			} else {
 				return {
-					children: value2,
+					children: newerValue,
 				};
 			}
 		},

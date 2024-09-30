@@ -1,15 +1,15 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
-import { setcompareParams, setDoctorCompareList } from "../../redux";
+import { setCompareParams, setDoctorCompareList } from "../../redux";
 import HistoryDialog from "../History/HistoryDialog";
 import { DoctorForm } from "../../redux/form/model";
 
 export const handleOpenHistory =
 	(doctorForm: DoctorForm) => async (dispatch: AppDispatch) => {
 		dispatch(
-			setcompareParams({
-				edit1: null,
-				edit2: doctorForm.editTimes - 1,
+			setCompareParams({
+				olderVersion: doctorForm.editTimes[doctorForm.editTimes.length - 2],
+				newerVersion: doctorForm.editTimes[doctorForm.editTimes.length - 1],
 				doctorCode: doctorForm.doctorData.doctorCode,
 			})
 		);

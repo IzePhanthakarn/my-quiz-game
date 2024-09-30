@@ -12,7 +12,7 @@ import {
 } from "./service";
 import { SliceModel } from "@/redux/slices/model";
 import { columns, getItems } from "./model";
-import { setcompareParams } from "../../redux";
+import { setCompareParams } from "../../redux";
 import _ from "lodash";
 import { BaseCollapse } from "wcf-component-lib/src/components";
 
@@ -34,11 +34,14 @@ export default function HistoryDialog() {
 	}, []);
 
 	useEffect(() => {
-		if (!_.isNull(compareParams.edit1) && !_.isNull(compareParams.edit2)) {
+		if (
+			!_.isNil(compareParams.olderVersion) &&
+			!_.isNil(compareParams.newerVersion)
+		) {
 			dispatch(
 				initDoctorCompareHistory({
-					edit1: compareParams.edit1,
-					edit2: compareParams.edit2,
+					olderVersion: compareParams.olderVersion,
+					newerVersion: compareParams.newerVersion,
 					doctorCode: doctorCode,
 				})
 			);
@@ -54,17 +57,29 @@ export default function HistoryDialog() {
 					<MedDropDown
 						notForm
 						label="เวอร์ชั่นหลักที่ใช้เทียบ"
-						value={compareParams.edit1}
-						option={getDropdownOptions(filterList)}
-						getValue={(e) =>
-							dispatch(setcompareParams({ ...compareParams, edit1: e }))
-						}
+						value={compareParams.olderVersion}
+						option={getDropdownOptions({
+							list: filterList,
+							newerVersion: compareParams.newerVersion || 0,
+						})}
+						getValue={(e) => {
+							dispatch(setCompareParams({ ...compareParams, olderVersion: e }));
+							if (_.isNil(e)) {
+								dispatch(
+									setCompareParams({
+										...compareParams,
+										olderVersion: null,
+										newerVersion: null,
+									})
+								);
+							}
+						}}
 						helperTextLeft={getFilterUpdatedByEditTimes(
-							compareParams.edit1,
+							compareParams.olderVersion,
 							filterList
 						)}
 						helperTextRight={getFilterUpdatedDateEditTimes(
-							compareParams.edit1,
+							compareParams.olderVersion,
 							filterList
 						)}
 					/>
@@ -73,17 +88,21 @@ export default function HistoryDialog() {
 					<MedDropDown
 						notForm
 						label="เวอร์ชั่นที่ต้องการเทียบ"
-						value={compareParams.edit2}
-						option={getDropdownOptions(filterList)}
+						value={compareParams.newerVersion}
+						option={getDropdownOptions({
+							list: filterList,
+							olderVersion: compareParams.olderVersion || 0,
+						})}
+						disabled={_.isNil(compareParams.olderVersion)}
 						getValue={(e) =>
-							dispatch(setcompareParams({ ...compareParams, edit2: e }))
+							dispatch(setCompareParams({ ...compareParams, newerVersion: e }))
 						}
 						helperTextLeft={getFilterUpdatedByEditTimes(
-							compareParams.edit2,
+							compareParams.newerVersion,
 							filterList
 						)}
 						helperTextRight={getFilterUpdatedDateEditTimes(
-							compareParams.edit2,
+							compareParams.newerVersion,
 							filterList
 						)}
 					/>
