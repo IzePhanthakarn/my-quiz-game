@@ -59,13 +59,42 @@ export const getItems = (compareList: DoctorCompareList) => {
 			label: "ข้อมูลที่อยู่แพทย์",
 			children: (
 				<BaseGrid
-					rows={compareList.doctor}
+					rows={compareList.doctorAddress}
 					columns={columns}
 					twoToneColor
 					hideHeader
 				/>
 			),
 		},
+		{
+			key: "3",
+			label: "ข้อมูลวุฒิบัตรเฉพาะทาง",
+			children: (
+				<div className="w-full justify-between flex space-x-12 py-2 px-6">
+					<BaseGrid rows={[]} columns={columnsDoctorDetail} />
+					<BaseGrid rows={[]} columns={columnsDoctorDetail} />
+				</div>
+			),
+		},
 	];
 	return items;
 };
+
+export const columnsDoctorDetail: TableProps["columns"] = [
+	{
+		title: "ลำดับ",
+		dataIndex: "id",
+		key: "id",
+	},
+	{
+		title: "เลขทะเบียน สปส",
+	},
+	{
+		title: "วุฒิบัตรเฉพาะทาง",
+		dataIndex: "diplomaType",
+		key: "diplomaType",
+	},
+	{
+		title: "เลขทะเบียนวิชาชีพ",
+	},
+];

@@ -11,31 +11,34 @@ import { useParams, useRouter } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import {
+	setDialog,
+	setIsOpenBaseConfirmDialog,
+	setIsOpenOverFlowDialog,
+} from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import BaseOverFlowDialog from "wcf-component-lib/src/components/BaseOverFlowDialog";
 import { SliceModel } from "@/redux/slices/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
-import {
-	setCompareParams,
-	setDoctorCompareList,
-	setDoctorForm,
-} from "../redux";
+import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import HistoryDialog from "./History/HistoryDialog";
 import { handleOpenHistory } from "./service";
+import HistoryDialog from "./History/HistoryDialog";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
-		(state: SliceModel) => ({
-			doctorForm: state.doctor.doctorForm,
-			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
-		}),
-		shallowEqual
-	);
+	const { doctorForm, isOpenBaseConfirmDialog, isOpenBaseOverFlowDialog } =
+		useSelector(
+			(state: SliceModel) => ({
+				doctorForm: state.doctor.doctorForm,
+				isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
+				isOpenBaseOverFlowDialog: state.dialog.isOpenBaseOverFlowDialog,
+			}),
+			shallowEqual
+		);
 
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
@@ -62,6 +65,13 @@ const DoctorFormTabs = () => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
+			<BaseOverFlowDialog
+				isOpen={isOpenBaseOverFlowDialog}
+				setIsOpen={(e: boolean) => {
+					dispatch(setIsOpenOverFlowDialog(e));
+				}}
+				content={<HistoryDialog />}
+			/>
 			{doctorForm.editTimes.length > 1 && (
 				<BaseButton
 					label="History Test"
@@ -77,7 +87,7 @@ const DoctorFormTabs = () => {
 					items={[item]}
 				/>
 			))}
-			<div className="py-2 w-full flex justify-end sticky bottom-0">
+			<div className="py-2 w-full flex justify-end">
 				<BaseButton
 					size="large"
 					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"

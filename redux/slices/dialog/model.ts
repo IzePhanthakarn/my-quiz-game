@@ -1,6 +1,6 @@
 export interface BaseDialog {
 	isOpen: boolean;
-	isOpenBaseHistoryDialog?: boolean;
+	isOpenBaseOverFlowDialog?: boolean;
 	isOpenBaseConfirmDialog?: boolean | undefined;
 	content?: JSX.Element | string;
 	headerText?: string;
@@ -12,7 +12,7 @@ export interface BaseDialog {
 
 export const modelDialog: BaseDialog = {
 	isOpen: false,
-	isOpenBaseHistoryDialog: false,
+	isOpenBaseOverFlowDialog: false,
 	isOpenBaseConfirmDialog: false,
 	onConfirm: () => {},
 	onCancel: () => {},

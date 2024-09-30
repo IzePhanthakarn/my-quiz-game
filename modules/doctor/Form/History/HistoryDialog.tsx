@@ -11,7 +11,7 @@ import {
 	initDoctorCompareHistory,
 } from "./service";
 import { SliceModel } from "@/redux/slices/model";
-import { columns, getItems } from "./model";
+import { columns, columnsDoctorDetail, getItems } from "./model";
 import { setCompareParams } from "../../redux";
 import _ from "lodash";
 import { BaseCollapse } from "wcf-component-lib/src/components";
@@ -108,7 +108,7 @@ export default function HistoryDialog() {
 					/>
 				</div>
 			</div>
-			<>
+			<div className="flex flex-col">
 				{getItems(compareList).map((item) => (
 					<BaseCollapse
 						noPadding
@@ -117,7 +117,7 @@ export default function HistoryDialog() {
 						items={[item]}
 					/>
 				))}
-			</>
+			</div>
 		</div>
 	);
 }

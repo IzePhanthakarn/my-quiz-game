@@ -1,5 +1,5 @@
 import { AppDispatch } from "@/redux/config/configStore";
-import { setDialog } from "@/redux/slices/dialog";
+import { setDialog, setIsOpenOverFlowDialog } from "@/redux/slices/dialog";
 import { setCompareParams, setDoctorCompareList } from "../../redux";
 import HistoryDialog from "../History/HistoryDialog";
 import { DoctorForm } from "../../redux/form/model";
@@ -14,10 +14,5 @@ export const handleOpenHistory =
 			})
 		);
 		dispatch(setDoctorCompareList({ doctor: [], doctorAddress: [] }));
-		dispatch(
-			setDialog({
-				isOpen: true,
-				uniqueContent: <HistoryDialog />,
-			})
-		);
+		dispatch(setIsOpenOverFlowDialog(true));
 	};

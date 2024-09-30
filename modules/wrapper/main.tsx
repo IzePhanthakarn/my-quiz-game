@@ -79,7 +79,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 				</BaseRow>
 				{isLoading && <BaseLoading />}
 				<BaseDialog
-					// width={dialog.width}
 					isOpen={dialog.isOpen}
 					setIsOpen={() => dispatch(setIsOpenDialog(false))}
 					content={dialog.content}

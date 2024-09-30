@@ -8,11 +8,11 @@ export const dialogSlice = createSlice({
 		setIsOpenDialog: (state: BaseDialog, actions: PayloadAction<boolean>) => {
 			state.isOpen = actions.payload;
 		},
-		setIsOpenHisotryDialog: (
+		setIsOpenOverFlowDialog: (
 			state: BaseDialog,
 			actions: PayloadAction<boolean>
 		) => {
-			state.isOpenBaseHistoryDialog = actions.payload;
+			state.isOpenBaseOverFlowDialog = actions.payload;
 		},
 		setOnConfirmDialog: (
 			state: BaseDialog,
@@ -57,7 +57,7 @@ export const dialogSlice = createSlice({
 });
 
 export const {
-	setIsOpenHisotryDialog,
+	setIsOpenOverFlowDialog,
 	setDialogWidth,
 	setOnConfirmDialog,
 	setOnCancelDialog,
