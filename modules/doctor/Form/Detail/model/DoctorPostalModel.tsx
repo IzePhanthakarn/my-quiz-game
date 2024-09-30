@@ -3,6 +3,7 @@ import { handlePostalRows } from "@/modules/doctor/DialogContent/service";
 import { DoctorPostalList } from "@/modules/doctor/redux/form/model";
 import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
+import { modelDialog } from "@/redux/slices/dialog/model";
 import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustomCellButton";
@@ -46,6 +47,7 @@ export const GetColumnPostal = (props: PostalProps) => {
 							editFunction={() => {
 								dispatch(
 									setDialog({
+										...modelDialog,
 										isOpen: true,
 										uniqueContent: <PostalIdDialog {...props} editId={id} />,
 									})

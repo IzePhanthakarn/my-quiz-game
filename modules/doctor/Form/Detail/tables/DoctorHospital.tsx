@@ -7,6 +7,7 @@ import { GetColumns } from "../model/DoctorHospitalModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorHospital() {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function DoctorHospital() {
 				onClick={() =>
 					dispatch(
 						setDialog({
-							...dialog,
+							...modelDialog,
 							isOpen: true,
 							uniqueContent: (
 								<HospitalDialog doctorHospitalGrid={doctorHospitalGrid} />
