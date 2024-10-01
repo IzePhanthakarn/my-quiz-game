@@ -62,6 +62,7 @@ export const initGetDoctorForm =
 			doctorHospital: mapIdByIndex(data.doctorHospital),
 			doctorTraining: mapIdByIndex(data.training),
 			doctorPostal: mapIdByIndex(data.doctorPostal),
+			editTimes: data.editTimes,
 		};
 		dispatch(setDoctorForm(result));
 	};

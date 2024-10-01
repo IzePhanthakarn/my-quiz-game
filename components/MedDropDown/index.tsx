@@ -10,11 +10,14 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import { SESSION_NAME } from "./model";
+import "wcf-component-lib/src/scss/variable.scss";
 
 interface MedDropDownProps extends BaseDropDownProps {
-	type: SESSION_NAME;
+	type?: SESSION_NAME;
 	queryString?: string;
 	bodyRequest?: any;
+	helperTextLeft?: string;
+	helperTextRight?: string;
 }
 
 export default function MedDropDown(props: MedDropDownProps) {
@@ -25,6 +28,8 @@ export default function MedDropDown(props: MedDropDownProps) {
 		queryString = "",
 		bodyRequest,
 		getValue = () => {},
+		helperTextLeft,
+		helperTextRight,
 	} = props;
 
 	const dispatch: AppDispatch = useDispatch();
@@ -41,7 +46,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 	}, [option]);
 
 	return (
-		<>
+		<div className="flex flex-col">
 			<BaseDropDown
 				{...props}
 				className="w-full"
@@ -49,6 +54,19 @@ export default function MedDropDown(props: MedDropDownProps) {
 				option={dropdown}
 				getValue={(e) => getValue(handleGetValue(type, e))}
 			/>
-		</>
+
+			<div
+				className={`${
+					props.notForm ? "" : "-mt-6"
+				} w-full flex justify-between h-4`}
+			>
+				{(helperTextRight || helperTextLeft) && (
+					<>
+						<p className="text-help">{helperTextLeft}</p>
+						<p className="text-help">{helperTextRight}</p>
+					</>
+				)}
+			</div>
+		</div>
 	);
 }

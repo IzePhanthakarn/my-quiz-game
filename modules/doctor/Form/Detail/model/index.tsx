@@ -1,11 +1,11 @@
-import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
+import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import DoctorHospital from "../tables/DoctorHospital";
 import DoctorDetail from "../tables/DoctorDetail";
 import DoctorBank from "../tables/DoctorBank";
 import Training from "../tables/Training";
 import DoctorDetailForm from "..";
 
-export const itemsTables: TabsProps["items"] = [
+export const itemsTables: CollapseProps["items"] = [
 	{
 		key: "1",
 		label: "รายละเอียดแพทย์",

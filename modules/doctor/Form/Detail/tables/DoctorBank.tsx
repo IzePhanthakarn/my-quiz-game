@@ -9,6 +9,7 @@ import { setDialog } from "@/redux/slices/dialog";
 import PostalCodeDialog from "@/modules/doctor/DialogContent/PostalIdDialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
 import { GetColumnPostal } from "../model/DoctorPostalModel";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function DoctorBank() {
 					onClick={() =>
 						dispatch(
 							setDialog({
-								...dialog,
+								...modelDialog,
 								isOpen: true,
 								uniqueContent: <BankDialog doctorBankGrid={doctorBankGrid} />,
 							})
@@ -41,7 +42,7 @@ export default function DoctorBank() {
 					onClick={() =>
 						dispatch(
 							setDialog({
-								...dialog,
+								...modelDialog,
 								isOpen: true,
 								uniqueContent: (
 									<PostalCodeDialog doctorPostalGrid={doctorPostalGrid} />

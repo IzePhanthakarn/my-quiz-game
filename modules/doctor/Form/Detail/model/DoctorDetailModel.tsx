@@ -13,6 +13,7 @@ import { handleDoctorDetailRows } from "@/modules/doctor/DialogContent/service";
 import { useMemo } from "react";
 import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -65,6 +66,7 @@ export const GetColumns = (props: Props) => {
 							editFunction={() => {
 								dispatch(
 									setDialog({
+										...modelDialog,
 										isOpen: true,
 										uniqueContent: <DiplomaDialog {...props} editId={id} />,
 									})
