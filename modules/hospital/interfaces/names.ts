@@ -32,7 +32,7 @@ export const names = {
 	ssoProject: "โครงการประกันสังคม",
 
 	belongTo: "Belong To",
-	numberOfBed: "Number Of Bed",
+	numberOfBed: "จำนวนเตียง",
 	bps: "Bps",
 
 	levelChangeDate: "Level Change Date",
