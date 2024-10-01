@@ -85,9 +85,10 @@ export default function DoctorDetailForm() {
 					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
 				</div>
 				<BaseItemInput label="ที่อยู่" itemName="houseNum" rules={[]} />
+				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
-				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
 				<div></div>
+				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
 				<MedDropDown
 					label="ตำบล"
 					itemName="tambol"
@@ -126,6 +127,7 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.amphur, ADDRESS.AMPHUR)}</p>
 					)}
 				/>
+				<div></div>
 				<MedDropDown
 					type={SESSION_NAME.ADDRESS}
 					label="จังหวัด"
@@ -146,7 +148,6 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.province, ADDRESS.PROVINCE)}</p>
 					)}
 				/>
-				<div></div>
 				<MedDropDown
 					label="รหัสไปรษณีย์"
 					itemName="postcode"
@@ -166,7 +167,6 @@ export default function DoctorDetailForm() {
 						<p>{findLabelAddress(doctorData.postcode, ADDRESS.POSTCODE)}</p>
 					)}
 				/>
-				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
 			</div>
 		</BaseForm>
 	);
