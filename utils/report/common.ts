@@ -65,7 +65,7 @@ export const handlePreviewDisplay =
 	(body: any, reportType: REPORT_TYPES) => async (dispatch: AppDispatch) => {
 		const params: PreviewReportsParams = {
 			body,
-			apiPath: REPORT_PAGES[reportType].apiPath,
+			reportName: REPORT_PAGES[reportType].reportName,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(previewMed(params));
