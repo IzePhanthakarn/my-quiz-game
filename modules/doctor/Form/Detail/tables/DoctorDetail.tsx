@@ -12,6 +12,7 @@ import DiplomaDialog from "@/modules/doctor/DialogContent/DiplomaDialog";
 import _ from "lodash";
 import { handleSession } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
@@ -34,8 +35,9 @@ export default function DoctorDetails() {
 				onClick={() => {
 					dispatch(
 						setDialog({
-							...dialog,
+							...modelDialog,
 							isOpen: true,
+							width: 1000,
 							uniqueContent: (
 								<DiplomaDialog doctorDetailGrid={doctorDetailGrid} />
 							),
