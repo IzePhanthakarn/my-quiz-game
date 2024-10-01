@@ -45,7 +45,7 @@ export const GetColumns = (props: Props) => {
 						sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
 					);
 					const data: Diploma[] = diploma.filter(
-						(item: Diploma) => item.diplomaType === diplomaType
+						(item: Diploma) => item.diplomaType === diplomaType.diplomaType
 					);
 					return <p>{data[0].diplomaName}</p>;
 				},
