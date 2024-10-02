@@ -1,13 +1,15 @@
 import _ from "lodash";
-import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import { fetchHospitalHistoryApi, getEditTimesListApi } from "./api";
 import { setHospitalHistory } from "../../../redux";
 import {
+	EditTimesList,
 	FetchHospitalHistory,
 	HospitalHistory,
 } from "../../../redux/models/historyModel";
 import { Option } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { handleFormatDate } from "wcf-component-lib/src/utils";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 export const initGetHistoryHospital =
 	(history: HospitalHistory, uuid: string) => async (dispatch: AppDispatch) => {
 		if (!_.isEmpty(uuid)) {
@@ -15,22 +17,20 @@ export const initGetHistoryHospital =
 			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
+			const payload: EditTimesList[] = response.payload;
 			const newHistory: HospitalHistory = {
 				...history,
-				editTimesList: response.payload,
+				editTimesList: payload,
 				compareParams: {
-					olderVersion: _.first(response.payload) ?? 0,
-					newerVersion: _.last(response.payload) ?? 0,
+					olderVersion: !_.isEmpty(payload)
+						? _.first(payload)?.editTimes ?? 0
+						: 0,
+					newerVersion: !_.isEmpty(payload)
+						? _.last(payload)?.editTimes ?? 0
+						: 0,
 				},
 			};
 			dispatch(setHospitalHistory(newHistory));
-
-			// dispatch(
-			// 	fetchHistoryHospital(newHistory, uuid, {
-			// 		olderVersion: newHistory.compareParams.olderVersion,
-			// 		newerVersion: newHistory.compareParams.newerVersion,
-			// 	})
-			// );
 		}
 	};
 
@@ -70,22 +70,15 @@ export const getEditTimesListOption = (
 	fetchHospitalHistory: FetchHospitalHistory,
 	track: keyof FetchHospitalHistory
 ) => {
-	// console.log(
-	// 	"🚀 ~ fetchHospitalHistory:",
-	// 	fetchHospitalHistory,
-	// 	editTimesList,
-	// 	track
-	// );
 	const newerVersion = fetchHospitalHistory.newerVersion;
 	const olderVersion = fetchHospitalHistory.olderVersion;
-	const indexOfNewerVersion = editTimesList.indexOf(
-		parseInt(`${newerVersion}`)
-	);
-	const indexOfOlderVersion = editTimesList.indexOf(
-		parseInt(`${olderVersion}`)
-	);
-	// console.log("🚀 ~ indexOfOlderVersion:", indexOfOlderVersion);
-	// console.log("🚀 ~ indexOfNewerVersion:", indexOfNewerVersion);
+
+	const indexOfNewerVersion =
+		editTimesList.find((item) => item.editTimes === parseInt(`${newerVersion}`))
+			?.editTimes ?? -1;
+	const indexOfOlderVersion =
+		editTimesList.find((item) => item.editTimes === parseInt(`${olderVersion}`))
+			?.editTimes ?? -1;
 
 	const firstIndexValue = _.first(editTimesList);
 	const lastIndexValue = _.last(editTimesList);
@@ -93,36 +86,48 @@ export const getEditTimesListOption = (
 	for (let index = 0; index < editTimesList.length; index++) {
 		editTimesListOption.push({
 			label:
-				editTimesList[index] === firstIndexValue
+				editTimesList[index].editTimes === firstIndexValue?.editTimes
 					? `บันทึกครั้งแรก`
-					: editTimesList[index] === lastIndexValue
+					: editTimesList[index].editTimes === lastIndexValue?.editTimes
 					? `เวอร์ชั่นปัจจุบัน`
-					: `การแก้ไขครั้งที่ ${editTimesList[index]}`,
-			value: editTimesList[index],
+					: `การแก้ไขครั้งที่ ${editTimesList[index].editTimes}`,
+			value: editTimesList[index].editTimes,
 			disabled:
 				track === "olderVersion" && indexOfNewerVersion !== -1
-					? index < indexOfNewerVersion
+					? editTimesList[index].editTimes < indexOfNewerVersion
 						? false
 						: true
 					: track === "newerVersion" && indexOfOlderVersion !== -1
-					? index > indexOfOlderVersion
+					? editTimesList[index].editTimes > indexOfOlderVersion
 						? false
 						: true
 					: false,
-			// disabled:
-			// 	_.isUndefined(olderVersion) && _.isUndefined(newerVersion)
-			// 		? false
-			// 		: track === "olderVersion"
-			// 		? index < indexOfNewerVersion
-			// 			? false
-			// 			: true
-			// 		: track === "newerVersion"
-			// 		? index <= indexOfOlderVersion
-			// 			? true
-			// 			: false
-			// 		: false,
-			// disabled: false,
 		});
 	}
 	return editTimesListOption;
+};
+
+export const getVersionHelperTextLeft = (
+	editTimesList: HospitalHistory["editTimesList"],
+	version:
+		| FetchHospitalHistory["olderVersion"]
+		| FetchHospitalHistory["newerVersion"]
+) => {
+	const findObject = editTimesList.find((item) => item.editTimes === version);
+	return !_.isEmpty(findObject) ? `แก้ไขโดย : ${findObject?.createdBy}` : ``;
+};
+
+export const getVersionHelperTextRight = (
+	editTimesList: HospitalHistory["editTimesList"],
+	version:
+		| FetchHospitalHistory["olderVersion"]
+		| FetchHospitalHistory["newerVersion"]
+) => {
+	const findObject = editTimesList.find((item) => item.editTimes === version);
+	return !_.isEmpty(findObject)
+		? `${handleFormatDate(
+				`${findObject?.createdDate}`,
+				DateFormat.DDMMYYYYHHmmss
+		  )}`
+		: "";
 };

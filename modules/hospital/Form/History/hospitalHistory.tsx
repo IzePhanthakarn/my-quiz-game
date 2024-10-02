@@ -11,11 +11,14 @@ import { BaseCollapse } from "wcf-component-lib/src/components";
 import {
 	fetchHistoryHospital,
 	getEditTimesListOption,
+	getVersionHelperTextLeft,
+	getVersionHelperTextRight,
 	initGetHistoryHospital,
 } from "./service";
 import MedDropDown from "../../../../components/MedDropDown";
 import { setHospitalHistory } from "../../redux";
 import { modelHospitalHistory } from "../../redux/models/historyModel";
+import BaseUniqueContentModalHeaderWithIcon from "wcf-component-lib/src/components/BaseUniqueContentModalHeaderWithIcon";
 
 export default function HospitalHistory() {
 	const dispatch: AppDispatch = useDispatch();
@@ -50,6 +53,11 @@ export default function HospitalHistory() {
 	return (
 		<>
 			<div className="w-full space-y-4 flex flex-col  h-full overflow-y-scroll">
+				<BaseUniqueContentModalHeaderWithIcon
+					headerText="ประวัติการแก้ไข ข้อมูลบันทึกปรับปรุงสถานพยาบาล"
+					subHeaderText="กรุณาเลือกเวอร์ชั่นเพื่อเปรียบเทียบประวัติ"
+				/>
+
 				<div className="flex w-full justify-end px-4 space-x-4">
 					<div className="w-48">
 						<MedDropDown
@@ -65,27 +73,6 @@ export default function HospitalHistory() {
 								"olderVersion"
 							)}
 							getValue={(e) => {
-								// if (_.isUndefined(e)) {
-								// 	dispatch(
-								// 		setHospitalHistory({
-								// 			...history,
-								// 			compareParams: {
-								// 				newerVersion: undefined,
-								// 				olderVersion: undefined,
-								// 			},
-								// 		})
-								// 	);
-								// } else {
-								// 	dispatch(
-								// 		setHospitalHistory({
-								// 			...history,
-								// 			compareParams: {
-								// 				...history.compareParams,
-								// 				olderVersion: e,
-								// 			},
-								// 		})
-								// 	);
-								// }
 								dispatch(
 									setHospitalHistory({
 										...history,
@@ -96,8 +83,14 @@ export default function HospitalHistory() {
 									})
 								);
 							}}
-							helperTextLeft={"test1"}
-							helperTextRight={"test2"}
+							helperTextLeft={getVersionHelperTextLeft(
+								history.editTimesList,
+								history.compareParams.olderVersion
+							)}
+							helperTextRight={getVersionHelperTextRight(
+								history.editTimesList,
+								history.compareParams.olderVersion
+							)}
 						/>
 					</div>
 					<div className="w-48">
@@ -114,27 +107,6 @@ export default function HospitalHistory() {
 								"newerVersion"
 							)}
 							getValue={(e) => {
-								// if (_.isUndefined(e)) {
-								// 	dispatch(
-								// 		setHospitalHistory({
-								// 			...history,
-								// 			compareParams: {
-								// 				newerVersion: undefined,
-								// 				olderVersion: undefined,
-								// 			},
-								// 		})
-								// 	);
-								// } else {
-								// 	dispatch(
-								// 		setHospitalHistory({
-								// 			...history,
-								// 			compareParams: {
-								// 				...history.compareParams,
-								// 				newerVersion: e,
-								// 			},
-								// 		})
-								// 	);
-								// }
 								dispatch(
 									setHospitalHistory({
 										...history,
@@ -145,8 +117,14 @@ export default function HospitalHistory() {
 									})
 								);
 							}}
-							helperTextLeft={"test1"}
-							helperTextRight={"test2"}
+							helperTextLeft={getVersionHelperTextLeft(
+								history.editTimesList,
+								history.compareParams.newerVersion
+							)}
+							helperTextRight={getVersionHelperTextRight(
+								history.editTimesList,
+								history.compareParams.newerVersion
+							)}
 						/>
 					</div>
 				</div>

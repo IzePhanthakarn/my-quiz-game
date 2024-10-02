@@ -2,8 +2,14 @@ import { CompareList } from "../../../doctor/redux/history/model";
 
 export interface HospitalHistory {
 	compareList: HospitalCompareList;
-	editTimesList: Array<number>;
+	editTimesList: EditTimesList[];
 	compareParams: FetchHospitalHistory;
+}
+
+export interface EditTimesList {
+	editTimes: number;
+	createdDate: string;
+	createdBy: string;
 }
 
 export interface HospitalCompareList {
