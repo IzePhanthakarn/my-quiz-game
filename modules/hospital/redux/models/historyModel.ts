@@ -13,7 +13,10 @@ export interface EditTimesList {
 }
 
 export interface HospitalCompareList {
-	hospital: CompareList[];
+	baseData: CompareList[];
+	codeData: CompareList[];
+	compensationFundInformationData: CompareList[];
+	hospitalChangedNameData: CompareList[];
 }
 
 export interface FetchHospitalHistory {
@@ -23,7 +26,10 @@ export interface FetchHospitalHistory {
 
 export const modelHospitalHistory: HospitalHistory = {
 	compareList: {
-		hospital: [],
+		baseData: [],
+		codeData: [],
+		compensationFundInformationData: [],
+		hospitalChangedNameData: [],
 	},
 	editTimesList: [],
 	compareParams: {

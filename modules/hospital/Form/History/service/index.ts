@@ -58,7 +58,11 @@ export const fetchHistoryHospital =
 				setHospitalHistory({
 					...history,
 					compareList: {
-						hospital: response.payload.hospitalHistory,
+						baseData: response.payload.baseData,
+						codeData: response.payload.codeData,
+						compensationFundInformationData:
+							response.payload.compensationFundInformationData,
+						hospitalChangedNameData: response.payload.hospitalChangedNameData,
 					},
 				})
 			);

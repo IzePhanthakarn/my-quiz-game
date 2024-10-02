@@ -47,7 +47,43 @@ export const getItems = (compareList: HospitalCompareList) => {
 			label: "รหัสสถานพยาบาล",
 			children: (
 				<BaseGrid
-					rows={compareList.hospital}
+					rows={compareList.codeData}
+					columns={columns}
+					twoToneColor
+					hideHeader
+				/>
+			),
+		},
+		{
+			key: "2",
+			label: "ข้อมูลพื้นฐาน",
+			children: (
+				<BaseGrid
+					rows={compareList.baseData}
+					columns={columns}
+					twoToneColor
+					hideHeader
+				/>
+			),
+		},
+		{
+			key: "3",
+			label: "ข้อมูลกองทุนเงินทดแทน",
+			children: (
+				<BaseGrid
+					rows={compareList.compensationFundInformationData}
+					columns={columns}
+					twoToneColor
+					hideHeader
+				/>
+			),
+		},
+		{
+			key: "4",
+			label: "การเปลี่ยนชื่อสถานพยาบาล",
+			children: (
+				<BaseGrid
+					rows={compareList.hospitalChangedNameData}
 					columns={columns}
 					twoToneColor
 					hideHeader
