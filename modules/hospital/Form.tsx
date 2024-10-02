@@ -1567,6 +1567,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							dispatch(
 								setDialog({
 									...modelDialog,
+									isOverFlow: true,
 									isOpenBaseConfirmDialog: false,
 									isOpen: true,
 									uniqueContent: <HospitalHistory />,

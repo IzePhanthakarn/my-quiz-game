@@ -44,7 +44,7 @@ export const getItems = (compareList: HospitalCompareList) => {
 	const items: CollapseProps["items"] = [
 		{
 			key: "1",
-			label: "ข้อมูลแพทย์",
+			label: "รหัสสถานพยาบาล",
 			children: (
 				<BaseGrid
 					rows={compareList.hospital}
