@@ -9,7 +9,7 @@ export interface ExportReportsParams {
 
 export interface PreviewReportsParams {
 	body: any;
-	apiPath: string;
+	reportName: string;
 }
 
 export const exportExcelMed = createAsyncThunk(
@@ -46,7 +46,7 @@ export const previewMed = createAsyncThunk(
 	"Medical/previewMed",
 	async (params: PreviewReportsParams, thunkAPi) => {
 		try {
-			const apiPath = params.apiPath;
+			const apiPath = `${API_PATH.REPORT_LIST}/${params.reportName}`;
 			const response = await axiosReport.post(apiPath, params.body);
 			return response.data;
 		} catch (err) {

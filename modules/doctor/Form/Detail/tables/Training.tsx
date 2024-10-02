@@ -7,6 +7,7 @@ import { GetColumns } from "../model/TraningModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
 import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function Training() {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Training() {
 				onClick={() =>
 					dispatch(
 						setDialog({
-							...dialog,
+							...modelDialog,
 							isOpen: true,
 							uniqueContent: <TraningDialog trainingGrid={trainingGrid} />,
 						})

@@ -10,6 +10,7 @@ import HospitalDialog from "@/modules/doctor/DialogContent/HospitalDialog";
 import { handleHospitalRows } from "@/modules/doctor/DialogContent/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { LtPropertiesForm } from "@/modules/lt-properties/redux/model";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
@@ -71,6 +72,7 @@ export const GetColumns = (props: Props) => {
 							editFunction={() => {
 								dispatch(
 									setDialog({
+										...modelDialog,
 										isOpen: true,
 										uniqueContent: <HospitalDialog {...props} editId={id} />,
 									})

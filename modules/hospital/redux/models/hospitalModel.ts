@@ -23,6 +23,12 @@ import {
 	modelHospitalAnnouncedPriceFiles,
 } from "./announcedPriceFilesModel";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import {
+	HospitalStaffContact,
+	HospitalStaffContactForm,
+	HospitalStaffContactGridData,
+	modelHospitalStaffContact,
+} from "@/modules/hospital/redux/models/hospitalStaffContactModel";
 
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
@@ -38,6 +44,7 @@ export interface Hospital {
 	hospitalCertificateOfIncorporationAttachment: HospitalAttachment;
 	hospitalAttachmentFile1: HospitalAttachment;
 	hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles;
+	hospitalStaffContact: HospitalStaffContact;
 
 	outsideHospitalForm: OutsideHospitalForm;
 }
@@ -127,7 +134,7 @@ export interface ExportPages {
 	};
 }
 
-export interface DeleteFileList extends Array<string> {}
+export interface UuidDeleteList extends Array<string> {}
 
 export interface OutsideHospitalForm {
 	announcedPriceYear: string;
@@ -135,6 +142,11 @@ export interface OutsideHospitalForm {
 	sp19DeleteFileList: HospitalSp19["filter"]["uuidExclusionList"];
 	etcFilesDeleteFileList: HospitalEtcFiles["filter"]["uuidExclusionList"];
 	announcedPriceFilesDeleteFileList: HospitalAnnouncedPriceFiles["filter"]["uuidExclusionList"];
+	hospitalStaffContactDeleteList: HospitalStaffContact["uuidDeleteList"];
+	hospitalStaffContact: {
+		hospitalStaffContactDeleteList: HospitalStaffContact["uuidDeleteList"];
+		hospitalStaffContactAddList: HospitalStaffContactForm[];
+	};
 }
 
 export interface HospitalForm extends BaseMasterDataInterface {
@@ -171,6 +183,7 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	postalCode: string | null;
 	telephoneNumber: string;
 	faxNumber: string;
+	email: string;
 	ssoPartner: string;
 	tempColumn2: string;
 	tempColumn3: string;
@@ -194,12 +207,18 @@ export const modelHospital: Hospital = {
 	hospitalCertificateOfIncorporationAttachment: { ...modelHospitalAttachment },
 	hospitalAttachmentFile1: { ...modelHospitalAttachment },
 	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
+	hospitalStaffContact: { ...modelHospitalStaffContact },
 	outsideHospitalForm: {
 		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
 		sp7DeleteFileList: [],
 		sp19DeleteFileList: [],
 		etcFilesDeleteFileList: [],
 		announcedPriceFilesDeleteFileList: [],
+		hospitalStaffContactDeleteList: [],
+		hospitalStaffContact: {
+			hospitalStaffContactDeleteList: [],
+			hospitalStaffContactAddList: [],
+		},
 	},
 	grid: {
 		data: [],
@@ -279,6 +298,7 @@ export const modelHospital: Hospital = {
 		postalCode: null,
 		telephoneNumber: "",
 		faxNumber: "",
+		email: "",
 		ssoPartner: "",
 		tempColumn2: "",
 		tempColumn3: "",

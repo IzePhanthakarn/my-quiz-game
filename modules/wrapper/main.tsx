@@ -65,32 +65,32 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<div className="h-screen">
-			<LayoutProvider
-				configPage={configPage}
-				urlApi={
-					"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
-				}
-			>
-				<HeaderNavbarLayout>
-					<BaseRow className="h-full">
-						<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
-							{props.children}
-						</main>
-					</BaseRow>
-					{isLoading && <BaseLoading />}
-					<BaseDialog
-						isOpen={dialog.isOpen}
-						setIsOpen={() => dispatch(setIsOpenDialog(false))}
-						content={dialog.content}
-						headerText={dialog.headerText}
-						uniqueContent={dialog.uniqueContent}
-						onConfirm={dialog.onConfirm}
-						onCancel={dialog.onCancel}
-					/>
-				</HeaderNavbarLayout>
-			</LayoutProvider>
-		</div>
+		<LayoutProvider
+			configPage={configPage}
+			urlApi={
+				"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
+			}
+		>
+			<HeaderNavbarLayout>
+				<BaseRow className="h-full">
+					<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
+						{props.children}
+					</main>
+				</BaseRow>
+				{isLoading && <BaseLoading />}
+				<BaseDialog
+					isOverFlow={dialog.isOverFlow}
+					width={dialog.width}
+					isOpen={dialog.isOpen}
+					setIsOpen={() => dispatch(setIsOpenDialog(false))}
+					content={dialog.content}
+					headerText={dialog.headerText}
+					uniqueContent={dialog.uniqueContent}
+					onConfirm={dialog.onConfirm}
+					onCancel={dialog.onCancel}
+				/>
+			</HeaderNavbarLayout>
+		</LayoutProvider>
 	);
 };
 export default MainWrapper;
