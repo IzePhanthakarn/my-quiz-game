@@ -42,18 +42,24 @@ export const getDropdownOptions = (params: {
 	if (!_.isNil(olderVersion)) {
 		return list
 			.filter((e) => e.editTimes > olderVersion)
-			.map((e) => ({
-				label: e.label,
-				value: e.editTimes,
-			})) as Option[];
+			.map(
+				(e) =>
+					({
+						label: e.label,
+						value: e.editTimes, // Ensure value is number or string as per Option
+					} as Option)
+			);
 	}
 	if (!_.isNil(newerVersion)) {
 		return list
 			.filter((e) => e.editTimes < newerVersion)
-			.map((e) => ({
-				label: e.label,
-				value: e.editTimes,
-			})) as Option[];
+			.map(
+				(e) =>
+					({
+						label: e.label,
+						value: e.editTimes, // Ensure value is number or string as per Option
+					} as Option)
+			);
 	}
 };
 
