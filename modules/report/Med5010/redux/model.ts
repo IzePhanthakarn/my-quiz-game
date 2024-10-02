@@ -9,8 +9,9 @@ export interface Med5010Form {
 }
 
 export interface Med5010List {
-	fromDate: string | null;
-	toDate: string | null;
+	hospitalType: string | null;
+	hospitalCategory: string | null;
+	ssoProject: string | null;
 }
 export interface Med5010Grid extends PaginationModel {
 	list: Med5010List[];
@@ -23,8 +24,9 @@ export interface Med5010 {
 
 export const modelMed5010: Med5010 = {
 	form: {
-		fromDate: "",
-		toDate: "",
+		hospitalType: "",
+		hospitalCategory: "",
+		ssoProject:"",
 	},
 	grid: {
 		list: [],

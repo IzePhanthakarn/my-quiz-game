@@ -32,7 +32,7 @@ export default function Med5001() {
 	const { med5001, list } = useSelector(
 		(state: SliceModel) => ({
 			med5001: state.medReport.med5001.form,
-			list: state.medReport.med5001.list,
+			list: state.medReport.med5001.grid.list,
 		}),
 		shallowEqual
 	);
