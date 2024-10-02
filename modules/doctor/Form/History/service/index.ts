@@ -40,7 +40,7 @@ export const getDropdownOptions = (params: {
 	const { list, olderVersion, newerVersion } = params;
 	if (!_.isNil(olderVersion)) {
 		return list
-			.filter((e) => e.editTimes > olderVersion)
+			.filter((e) => +e.editTimes > olderVersion)
 			.map((e) => ({
 				label: e.label,
 				value: e.editTimes,
@@ -48,7 +48,7 @@ export const getDropdownOptions = (params: {
 	}
 	if (!_.isNil(newerVersion)) {
 		return list
-			.filter((e) => e.editTimes < newerVersion)
+			.filter((e) => +e.editTimes < newerVersion)
 			.map((e) => ({
 				label: e.label,
 				value: e.editTimes,
@@ -60,12 +60,12 @@ export const getFilterUpdatedByEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedBy || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedBy || "";
 };
 
 export const getFilterUpdatedDateEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedDate || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedDate || "";
 };

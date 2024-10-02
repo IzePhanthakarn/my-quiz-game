@@ -1,7 +1,8 @@
 const API_PATH = {
 	// REPORT
-	REPORT_PDF: "report/pdf",
-	REPORT_EXCEL: "report/excel",
+	REPORT_PDF: "/pdf",
+	REPORT_EXCEL: "/excel",
+	REPORT_LIST: "/list",
 
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
@@ -25,8 +26,8 @@ const API_PATH = {
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
 	GET_DOCTOR_FORM: "doctor/getForm",
-	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor-history/compare/list",
-	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor-history/compare/filter",
+	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor/history/compare/list",
+	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor/history/compare/filter",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {

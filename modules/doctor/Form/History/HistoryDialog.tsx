@@ -11,7 +11,7 @@ import {
 	initDoctorCompareHistory,
 } from "./service";
 import { SliceModel } from "@/redux/slices/model";
-import { columns, columnsDoctorDetail, getItems } from "./model";
+import { getItems } from "./model";
 import { setCompareParams } from "../../redux";
 import _ from "lodash";
 import { BaseCollapse } from "wcf-component-lib/src/components";
@@ -63,7 +63,12 @@ export default function HistoryDialog() {
 							newerVersion: compareParams.newerVersion || 0,
 						})}
 						getValue={(e) => {
-							dispatch(setCompareParams({ ...compareParams, olderVersion: e }));
+							dispatch(
+								setCompareParams({
+									...compareParams,
+									olderVersion: parseInt(e),
+								})
+							);
 							if (_.isNil(e)) {
 								dispatch(
 									setCompareParams({
@@ -95,7 +100,12 @@ export default function HistoryDialog() {
 						})}
 						disabled={_.isNil(compareParams.olderVersion)}
 						getValue={(e) =>
-							dispatch(setCompareParams({ ...compareParams, newerVersion: e }))
+							dispatch(
+								setCompareParams({
+									...compareParams,
+									newerVersion: parseInt(e),
+								})
+							)
 						}
 						helperTextLeft={getFilterUpdatedByEditTimes(
 							compareParams.newerVersion,
