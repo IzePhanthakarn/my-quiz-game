@@ -1,6 +1,6 @@
 export interface BaseDialog {
 	isOpen: boolean;
-	isOverFlow?: boolean;
+	isOverFlow?: boolean | undefined;
 	isOpenBaseConfirmDialog?: boolean | undefined;
 	content?: JSX.Element | string;
 	headerText?: string;
