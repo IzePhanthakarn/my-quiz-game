@@ -25,7 +25,7 @@ export interface CompareList {
 export interface FilterList {
 	label: string;
 	updatedBy: string;
-	editTimes: number;
+	editTimes: string;
 	updatedDate: string;
 }
 
