@@ -10,6 +10,7 @@ import {
 	compareParams,
 	FilterList,
 } from "@/modules/doctor/redux/history/model";
+import { Option } from "wcf-component-lib/src/components/BaseDropDown/model";
 
 export const initDoctorCompareHistory =
 	(params: compareParams) => async (dispatch: AppDispatch) => {
@@ -44,7 +45,7 @@ export const getDropdownOptions = (params: {
 			.map((e) => ({
 				label: e.label,
 				value: e.editTimes,
-			}));
+			})) as Option[];
 	}
 	if (!_.isNil(newerVersion)) {
 		return list
@@ -52,7 +53,7 @@ export const getDropdownOptions = (params: {
 			.map((e) => ({
 				label: e.label,
 				value: e.editTimes,
-			}));
+			})) as Option[];
 	}
 };
 
