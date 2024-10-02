@@ -150,4 +150,11 @@ export const hospitalReducers = {
 	) => {
 		state.outsideHospitalForm = action.payload;
 	},
+
+	setHospitalHistory: (
+		state: Hospital,
+		action: PayloadAction<Hospital["history"]>
+	) => {
+		state.history = action.payload;
+	},
 };

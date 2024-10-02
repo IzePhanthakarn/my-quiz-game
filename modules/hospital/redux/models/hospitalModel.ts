@@ -32,6 +32,7 @@ import {
 
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
+import { HospitalHistory, modelHospitalHistory } from "./historyModel";
 dayjs.extend(localeData);
 export interface Hospital {
 	grid: HospitalGrid;
@@ -47,6 +48,7 @@ export interface Hospital {
 	hospitalStaffContact: HospitalStaffContact;
 
 	outsideHospitalForm: OutsideHospitalForm;
+	history: HospitalHistory;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -145,15 +147,7 @@ export interface OutsideHospitalForm {
 	};
 }
 
-export interface HospitalForm extends BaseMasterDataInterface {
-	files: {
-		sp7: UploadFile<any>[];
-		sp19: UploadFile<any>[];
-		etcFiles: UploadFile<any>[];
-		announcedPriceFiles: UploadFile<any>[];
-		certificateOfIncorporation: UploadFile<any>[];
-		attachmentFile1: UploadFile<any>[];
-	};
+export interface BaseHospitalForm {
 	hospitalWcfCode: string;
 	hospitalDbmsCode: string;
 	hospitalMinistryCode: string;
@@ -196,7 +190,21 @@ export interface HospitalForm extends BaseMasterDataInterface {
 	longitude: string;
 }
 
+export interface HospitalForm
+	extends BaseMasterDataInterface,
+		BaseHospitalForm {
+	files: {
+		sp7: UploadFile<any>[];
+		sp19: UploadFile<any>[];
+		etcFiles: UploadFile<any>[];
+		announcedPriceFiles: UploadFile<any>[];
+		certificateOfIncorporation: UploadFile<any>[];
+		attachmentFile1: UploadFile<any>[];
+	};
+}
+
 export const modelHospital: Hospital = {
+	history: { ...modelHospitalHistory },
 	hospitalSp7: { ...modelHospitalSp7 },
 	hospitalSp19: { ...modelHospitalSp19 },
 	hospitalEtcFiles: { ...modelHospitalEtcFiles },

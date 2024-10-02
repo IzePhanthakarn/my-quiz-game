@@ -1,0 +1,11 @@
+import { REPORT_TYPES } from "@/constants/reports";
+import { handleOnExportPdf } from "@/utils/report/common";
+import _ from "lodash";
+import { Med5001Form } from "../redux/model";
+import { AppDispatch } from "@/redux/config/configStore";
+
+export const handlePdfButton =
+	(med5001: Med5001Form) => (dispatch: AppDispatch) => {
+		const newBody = { ...med5001};
+		dispatch(handleOnExportPdf(newBody, REPORT_TYPES.MED5001));
+	};
