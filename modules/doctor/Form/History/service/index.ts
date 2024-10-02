@@ -10,7 +10,6 @@ import {
 	compareParams,
 	FilterList,
 } from "@/modules/doctor/redux/history/model";
-import { Option } from "wcf-component-lib/src/components/BaseDropDown/model";
 
 export const initDoctorCompareHistory =
 	(params: compareParams) => async (dispatch: AppDispatch) => {
@@ -41,25 +40,19 @@ export const getDropdownOptions = (params: {
 	const { list, olderVersion, newerVersion } = params;
 	if (!_.isNil(olderVersion)) {
 		return list
-			.filter((e) => e.editTimes > olderVersion)
-			.map(
-				(e) =>
-					({
-						label: e.label,
-						value: e.editTimes, // Ensure value is number or string as per Option
-					} as Option)
-			);
+			.filter((e) => +e.editTimes > olderVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
 	}
 	if (!_.isNil(newerVersion)) {
 		return list
-			.filter((e) => e.editTimes < newerVersion)
-			.map(
-				(e) =>
-					({
-						label: e.label,
-						value: e.editTimes, // Ensure value is number or string as per Option
-					} as Option)
-			);
+			.filter((e) => +e.editTimes < newerVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
 	}
 };
 
@@ -67,12 +60,12 @@ export const getFilterUpdatedByEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedBy || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedBy || "";
 };
 
 export const getFilterUpdatedDateEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedDate || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedDate || "";
 };
