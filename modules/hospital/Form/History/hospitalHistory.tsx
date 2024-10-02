@@ -15,7 +15,7 @@ import {
 	getVersionHelperTextRight,
 	initGetHistoryHospital,
 } from "./service";
-import MedDropDown from "../../../../components/MedDropDown";
+import MedDropDown from "@/components/MedDropDown";
 import { setHospitalHistory } from "../../redux";
 import { modelHospitalHistory } from "../../redux/models/historyModel";
 import BaseUniqueContentModalHeaderWithIcon from "wcf-component-lib/src/components/BaseUniqueContentModalHeaderWithIcon";
