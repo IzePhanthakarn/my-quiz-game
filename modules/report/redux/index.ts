@@ -6,6 +6,7 @@ import { med5008Reducers } from "../Med5008/redux/reducer";
 import { med5009Reducers } from "../Med5009/redux/reducer";
 import { med5010Reducers } from "../Med5010/redux/reducer";
 import { med5011Reducers } from "../Med5011/redux/reducer";
+import { med5012Reducers } from "../Med5012/redux/reducer";
 
 export const medReportSlice = createSlice({
 	name: "MedReport",
@@ -17,6 +18,7 @@ export const medReportSlice = createSlice({
 		...med5009Reducers,
 		...med5010Reducers,
 		...med5011Reducers,
+		...med5012Reducers,
 	},
 });
 
@@ -28,5 +30,7 @@ export const {  setMed5001Form, setMed5001List, setMed5001TotalData
 	           ,setMed5009Form, setMed5009List, setMed5009TotalData 
 			   ,setMed5010Form, setMed5010List, setMed5010TotalData  
 	           ,setMed5011Form, setMed5011List, setMed5011TotalData
-             } = medReportSlice.actions;
+			   ,setMed5012Form,setMed5012Grid
+             } = medReportSlice.actions
+			 
 export default medReportSlice.reducer;

@@ -8,6 +8,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { setDialog } from "@/redux/slices/dialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
 import { handleBankRows } from "@/modules/doctor/DialogContent/service";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 interface BankProps {
 	doctorBankGrid: DoctorBankList[];
@@ -48,6 +49,7 @@ export const GetColumnBank = (props: BankProps) => {
 							editFunction={() => {
 								dispatch(
 									setDialog({
+										...modelDialog,
 										isOpen: true,
 										uniqueContent: <BankDialog {...props} editId={id} />,
 									})

@@ -41,10 +41,17 @@ export const dialogSlice = createSlice({
 		setDialog: (_, actions: PayloadAction<BaseDialog>) => {
 			return { ...actions.payload };
 		},
+		setDialogWidth: (
+			state: BaseDialog,
+			actions: PayloadAction<string | number>
+		) => {
+			state.width = actions.payload;
+		},
 	},
 });
 
 export const {
+	setDialogWidth,
 	setOnConfirmDialog,
 	setOnCancelDialog,
 	setIsOpenDialog,

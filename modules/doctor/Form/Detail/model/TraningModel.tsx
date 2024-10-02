@@ -10,6 +10,7 @@ import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
 import { handleTrainingRows } from "@/modules/doctor/DialogContent/service";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { modelDialog } from "@/redux/slices/dialog/model";
 
 interface Props {
 	trainingGrid: TrainingList[];
@@ -54,6 +55,7 @@ export const GetColumns = (props: Props) => {
 							editFunction={() => {
 								dispatch(
 									setDialog({
+										...modelDialog,
 										isOpen: true,
 										uniqueContent: <TraningDialog {...props} editId={id} />,
 									})

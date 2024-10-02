@@ -7,7 +7,7 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
-import { DeleteFileList } from "./hospitalModel";
+import { UuidDeleteList } from "./hospitalModel";
 
 export interface HospitalSp7 {
 	grid: HospitalSp7Grid;
@@ -39,7 +39,7 @@ export interface HospitalSp7GridFilter {
 	hospitalId: number;
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
-	uuidExclusionList: DeleteFileList;
+	uuidExclusionList: UuidDeleteList;
 }
 
 export interface GetHospitalSp7List extends HospitalSp7GridFilter {

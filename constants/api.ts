@@ -1,7 +1,8 @@
 const API_PATH = {
 	// REPORT
-	REPORT_PDF: "report/pdf",
-	REPORT_EXCEL: "report/excel",
+	REPORT_PDF: "/pdf",
+	REPORT_EXCEL: "/excel",
+	REPORT_LIST: "/list",
 
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
@@ -25,6 +26,8 @@ const API_PATH = {
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
 	GET_DOCTOR_FORM: "doctor/getForm",
+	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor/history/compare/list",
+	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor/history/compare/filter",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {
@@ -117,6 +120,12 @@ const API_PATH = {
 			UPDATE_BY_UUID: "/hospital-announced-price-files",
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
+		},
+		HOSPITAL_STAFF_CONTACT: {
+			GET_LIST: "/hospital-staff-contact/list",
+			UPDATE_BY_UUID: "/hospital-staff-contact",
+			GET_LIST_BY_HOSPITAL_UUID:
+				"/hospital-staff-contact/list-by-hospital-uuid",
 		},
 	},
 	DOCUMENT: {
