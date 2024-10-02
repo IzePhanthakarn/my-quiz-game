@@ -126,6 +126,10 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-staff-contact/list-by-hospital-uuid",
 		},
+		HISTORY: {
+			COMPARE_VERSION: "/hospital-history/compare-version",
+			EDIT_TIMES_LIST: "/hospital-history/edit-times-list",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

@@ -88,6 +88,7 @@ import { modelDialog } from "@/redux/slices/dialog/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import AddHospitalStaffContactForm from "./Form/SubForm/addHospitalStaffContactForm";
 import { modelHospitalStaffContact } from "./redux/models/hospitalStaffContactModel";
+import HospitalHistory from "./Form/History/hospitalHistory";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -1559,6 +1560,16 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								setHospitalForm({
 									...hospitalForm,
 									isActive: e ? IsActive.Y : IsActive.N,
+								})
+							);
+						}}
+						onClickHistoryButtonFunction={() => {
+							dispatch(
+								setDialog({
+									...modelDialog,
+									isOpenBaseConfirmDialog: false,
+									isOpen: true,
+									uniqueContent: <HospitalHistory />,
 								})
 							);
 						}}

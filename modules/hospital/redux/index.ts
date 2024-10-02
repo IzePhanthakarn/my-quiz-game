@@ -33,6 +33,7 @@ export const {
 	setHospitalCertificateOfIncorporationAttachment,
 	setHospitalAttachmentFile1,
 	setHospitalStaffContact,
+	setHospitalHistory,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;
