@@ -19,7 +19,7 @@ import BaseUniqueContentModalHeader from "wcf-component-lib/src/components/BaseU
 import BaseButtonSave from "wcf-component-lib/src/components/BaseButtonSave";
 import { addHospitalStaffContactRules } from "@/modules/hospital/field-validation/FormValidation";
 import { hospitalStaffContactNames } from "@/modules/hospital/interfaces/names";
-import { addHospitalStaffContact } from "../../service";
+import { addHospitalStaffContact } from "@/modules/hospital/service/";
 
 export default function AddHospitalStaffContactForm() {
 	const dispatch: AppDispatch = useDispatch();
