@@ -8,7 +8,7 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5011Form, setMed5005List } from "../redux";
+import { setMed5005Form, setMed5005List } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
@@ -25,6 +25,7 @@ import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import { handlePdfButton } from "./service";
+import { BaseItemInput } from "wcf-component-lib/src/components";
 
 
 export default function Med5005() {
@@ -42,13 +43,14 @@ export default function Med5005() {
 	const onFinish: FormProps<Med5005Form>["onFinish"] = async (
 		value: Med5005Form
 	) => {
+		
 		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
 		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
-        dispatch(setMed5011Form({ ...med5005, fromDate: fromDateParam,toDate: toDateParam }));
+        dispatch(setMed5005Form({ ...med5005, fromDate: fromDateParam,toDate: toDateParam ,provinceCode: value.provinceCode}));
         value.fromDate= fromDateParam;
         value.toDate= toDateParam;
 		const data = await dispatch(
-			handlePreviewDisplay(value, REPORT_TYPES.MED5011)
+			handlePreviewDisplay(value, REPORT_TYPES.MED5005)
 		);
 		const list = data?.payload.content;
 		if (!_.isEmpty(list)) {
@@ -73,7 +75,8 @@ export default function Med5005() {
 				>
 					<BaseColumn className="space-y-4  h-full">
 						<BaseForm initialValues={med5005} onFinish={onFinish}>
-						<BaseDatePicker label="วันที่ยกเลิกสถานพยาบาล" itemName={"fromDate"}/>
+                        <BaseItemInput label="รหัสหน่วยงาน"  itemName={"ssoCode"}></BaseItemInput> <BaseItemInput label="จังหวัดปลายทาง"  itemName={"provinceCode"}></BaseItemInput>
+						<BaseDatePicker label="ตั้งวันที่ฝึกอบรม" itemName={"fromDate"}/>
 						<BaseDatePicker label="ถึงวันที่" itemName={"toDate"}/>
 						<br/>
 							 <div className="flex justify-end items-end h-1\/2"> 

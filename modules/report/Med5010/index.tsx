@@ -12,12 +12,14 @@ import { Med5010Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { REPORT_TYPES } from "@/constants/reports";
-import { handlePreviewDisplay } from "@/utils/report/common";
+import { handleOnExportExcel, handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import DownloadContent from "./DownloadContent";
+import { handlePdfButton } from "./service";
+import { BaseButton } from "wcf-component-lib/src/components";
 
 export default function Med5010() {
 	const dispatch: AppDispatch = useDispatch();
@@ -35,9 +37,7 @@ export default function Med5010() {
 	const onFinish: FormProps<Med5010Form>["onFinish"] = async (
 		value: Med5010Form
 	) => {
-		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
-		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
-		dispatch(setMed5010Form({...med5010, fromDate: fromDateParam,toDate: toDateParam }));
+		dispatch(setMed5010Form({...med5010, hospitalType: value.hospitalType,hospitalCategory: value.hospitalCategory,ssoProject:value.ssoProject }));
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5010)
 		);
@@ -64,7 +64,20 @@ export default function Med5010() {
 				}
 			>
 				{!_.isEmpty(list) ? (
-					<BaseGrid rows={list} columns={columns} />
+					<><div className="col-span-4 flex justify-end">
+					<BaseButton
+						className="w-full;"
+						label="Excel"
+						onClick={() => {
+							dispatch(handleOnExportExcel(med5010, REPORT_TYPES.MED5011));
+						} } />
+					<BaseButton
+						className="w-1/6"
+						label="Pdf"
+						onClick={() => {
+							dispatch(handlePdfButton(med5010));
+						} } /> 
+				</div><BaseGrid rows={list} columns={columns} /></>
 				) : null}
 			</FormReportLayout>
 	);

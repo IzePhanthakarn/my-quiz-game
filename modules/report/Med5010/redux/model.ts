@@ -3,8 +3,9 @@ import {
 	PaginationModel,
 } from "wcf-component-lib/src/components/BasePagination/model";
 export interface Med5010Form {
-	fromDate: string | null;
-	toDate: string | null;
+	hospitalType: string | null;
+	hospitalCategory: string | null;
+	ssoProject: string | null;
 }
 
 export interface Med5010List {

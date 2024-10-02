@@ -14,7 +14,7 @@ export default function DownloadContent(props: Props) {
 	return (
 		<BaseForm initialValues={med5011} extraForm={form} onFinish={onFinish}>
 			<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-			   <div><BaseDatePicker label="วันที่ยกเลิกสถานพยาบาล" itemName={"fromDate"}/></div>
+			   <div><BaseDatePicker label="วันที่ยกเลิกสถานพยาบาล" itemName={"fromDate"} /></div>
 			   <div >
 			   <BaseDatePicker label="ถึงวันที่" itemName={"toDate"}/>
 			   </div>

@@ -23,14 +23,4 @@ export const columns: TableProps["columns"] = [
 		key: "provinceName",
 		dataIndex: "provinceName",
 	},
-	{
-		title: "วันที่ยกเลิกสถานพยาบาล",
-		key: "contractEndDate",
-		dataIndex: "contractEndDate",
-	},
-	{
-		title: "สาเหตุการยกเลิก",
-		key: "remarkChangeName",
-		dataIndex: "remarkChangeName",
-	},
 ];

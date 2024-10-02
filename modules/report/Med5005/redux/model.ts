@@ -1,12 +1,15 @@
 import { modelPaginationOptions, PaginationModel } from "wcf-component-lib/src/components/BasePagination/model";
 
 export interface Med5005Form {
+	provinceCode:string|null;
 	fromDate: string | null;
 	toDate: string | null;
 }
 
 export interface Med5005List {
-	propertyCode: string;
+	provinceCode:string|null;
+	fromDate: string | null;
+	toDate: string | null;
 }
 
 export interface Med5005 {
@@ -20,6 +23,7 @@ export const modelMed5005: Med5005 = {
 	form: {
 		fromDate: null,
 		toDate: null,
+		provinceCode:null,
 	},grid: {
 		list: [],
 		page: { ...modelPaginationOptions },
