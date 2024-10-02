@@ -1,10 +1,10 @@
 export interface CompareHistory {
 	filterList: FilterList[];
 	compareList: DoctorCompareList;
-	compareParams: compareParams;
+	compareParams: CompareParams;
 }
 
-export interface compareParams {
+export interface CompareParams {
 	doctorCode: string;
 	olderVersion: number | null;
 	newerVersion: number | null;
@@ -17,8 +17,8 @@ export interface DoctorCompareList {
 
 export interface CompareList {
 	name: string;
-	value1: any;
-	value2: any;
+	olderValue: any;
+	newerValue: any;
 	isChanged: boolean;
 }
 

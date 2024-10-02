@@ -10,6 +10,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import React from "react";
 
 interface Props {
 	mounted: string;
@@ -95,7 +96,7 @@ export const GetColumns = (prop: Props) => {
 					<>
 						{provinceCodeList.map((item: string, index: number) => (
 							<p key={index}>
-								{item ? `${findLabelAddress(item, ADDRESS.PROVINCE)}` : null}
+								{item ? `- ${findLabelAddress(item, ADDRESS.PROVINCE)}` : null}
 							</p>
 						))}
 					</>

@@ -7,6 +7,7 @@ import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { Title } from "@/components/MedDropDown/service/model";
 
 export const mapIdByIndex = (items: any[]) =>
 	items.map((item, index) => ({ ...item, id: index + 1 }));
@@ -78,7 +79,6 @@ export function handleMultiForm(values: any) {
 			groupedValues[index][fieldName] = values[key];
 		}
 	});
-	console.log("Grouped values", groupedValues);
 }
 
 export const getValue = (obj: any, key: string, def = null): any => {
