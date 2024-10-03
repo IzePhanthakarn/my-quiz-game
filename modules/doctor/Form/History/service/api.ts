@@ -1,11 +1,11 @@
 import API_PATH from "@/constants/api";
-import { compareParams } from "@/modules/doctor/redux/history/model";
+import { CompareParams } from "@/modules/doctor/redux/history/model";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getDoctorCompareHistoryList = createAsyncThunk(
 	"Medical/getDoctorCompareHistoryList",
-	async (params: compareParams, thunkAPI) => {
+	async (params: CompareParams, thunkAPI) => {
 		const { doctorCode, olderVersion, newerVersion } = params;
 		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_LIST}?doctorCode=${doctorCode}&olderVersion=${olderVersion}&newerVersion=${newerVersion}`;
 		try {

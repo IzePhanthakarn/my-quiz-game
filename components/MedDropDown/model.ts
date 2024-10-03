@@ -20,6 +20,11 @@ export enum API_METHOD {
 	POST = "POST",
 }
 
+export enum REPORT {
+	PDF = "PDF",
+	EXCEL = "EXCEL",
+}
+
 export const DROPDOWN = {
 	[SESSION_NAME.DIPLOMA]: {
 		apiPath: "https://api-dev-wcf.soilfish.co/med/master/diploma",
@@ -107,3 +112,14 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 };
+
+export const DROPDOWN_REPOT = [
+	{
+		label: REPORT.PDF,
+		value: REPORT.PDF,
+	},
+	{
+		label: REPORT.EXCEL,
+		value: REPORT.EXCEL,
+	},
+];
