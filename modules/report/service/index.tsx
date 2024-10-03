@@ -1,3 +1,4 @@
+import ReportList from "../List";
 import Med5001 from "../Med5001";
 import Med5005 from "../Med5005";
 import Med5008 from "../Med5008";
@@ -10,12 +11,14 @@ export const handleReportRender = (
 	reportCode: string | string[] | undefined
 ) => {
 	switch (reportCode) {
+		case "list":
+			return <ReportList />;
 		case "med5001":
 			return <Med5001 />;
 		case "med5005":
 			return <Med5005 />;
 		case "med5008":
-				return <Med5008 />;	
+			return <Med5008 />;
 		case "med5009":
 			return <Med5009 />;
 		case "med5010":
