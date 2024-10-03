@@ -39,7 +39,7 @@ export const dialogSlice = createSlice({
 			state.uniqueContent = actions.payload;
 		},
 		setDialog: (_, actions: PayloadAction<BaseDialog>) => {
-			return { ...actions.payload };
+			return { ...modelDialog, ...actions.payload };
 		},
 		setDialogWidth: (
 			state: BaseDialog,
