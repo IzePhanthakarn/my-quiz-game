@@ -126,8 +126,8 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "",
-										headerText: "ต้องการลบใช่หรือไม่",
+										content: "คุณต้องการลบไฟล์ ราคาประะกาศ ใช่หรือไม่?",
+										headerText: "ยืนยันการลบไฟล์",
 									})
 								);
 							}}
