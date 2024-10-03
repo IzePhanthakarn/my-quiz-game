@@ -8,6 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Login {
 	username: string;
@@ -17,6 +18,7 @@ interface Login {
 
 export default function Login() {
 	const dispatch: AppDispatch = useDispatch();
+	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const { login } = useSelector(
 		(state: SliceModel) => ({
@@ -54,6 +56,16 @@ export default function Login() {
 					iconPosition={"end"}
 				>
 					เข้าสู่ระบบ
+				</Button>
+				<Button
+					type="primary"
+					onClick={() => {
+						router.push("/report/list");
+					}}
+					loading={loading}
+					iconPosition={"end"}
+				>
+					ไปหน้ารวมรายงาน
 				</Button>
 			</div>
 		</div>
