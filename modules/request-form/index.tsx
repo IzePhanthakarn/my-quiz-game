@@ -9,10 +9,9 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
 import { GetColumns } from "./columns";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { handleOnGetRequestFormList } from "./service";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import Filters from "./Filters";
 
 export default function RequestForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -26,19 +25,8 @@ export default function RequestForm() {
 	);
 
 	const { dispatchLayout } = useLayout();
-
 	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="Request Form"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<></>}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
+		dispatchLayout({ type: "setChildrenHeader", payload: <Filters /> });
 	}, [dispatchLayout]);
 
 	useEffect(() => {

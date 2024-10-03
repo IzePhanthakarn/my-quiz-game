@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import "wcf-component-lib/src/scss/variable.scss";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { AntdProvider } from "wcf-component-lib/src/provider/AntdProvider";
 import MainWrapper from "@/modules/wrapper/main";
