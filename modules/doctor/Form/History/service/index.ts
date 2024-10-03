@@ -7,19 +7,59 @@ import {
 import _ from "lodash";
 import { setDoctorCompareList, setDoctorFilterList } from "../../../redux";
 import {
-	compareParams,
+	CompareList,
+	CompareParams,
 	FilterList,
 } from "@/modules/doctor/redux/history/model";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import { findNameDisplay } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 export const initDoctorCompareHistory =
-	(params: compareParams) => async (dispatch: AppDispatch) => {
+	(params: CompareParams) => async (dispatch: AppDispatch) => {
 		// if (_.isEmpty(params.olderVersion) || _.isEmpty(params.newerVersion)) return;
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorCompareHistoryList(params));
 		dispatch(setIsLoading(false));
-		if (!_.isEmpty(data.payload)) {
-			dispatch(setDoctorCompareList(data.payload));
+		const compareData = data.payload;
+		const addressList = [
+			{ index: 3, type: ADDRESS.PROVINCE },
+			{ index: 4, type: ADDRESS.AMPHUR },
+			{ index: 5, type: ADDRESS.TAMBOL },
+		];
+		const checkAddress = [3, 4, 5];
+
+		if (!_.isEmpty(compareData)) {
+			compareData.doctor.map((e: CompareList, index: number) => {
+				if (index === 3) {
+					console.log("e.olderValue", e.olderValue);
+					e.olderValue = findNameDisplay(SESSION_NAME.TITLE, e.olderValue);
+					e.newerValue = findNameDisplay(SESSION_NAME.TITLE, e.newerValue);
+				} else if (index === 6) {
+					e.olderValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.olderValue
+					);
+					e.newerValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.newerValue
+					);
+				}
+				return { ...e };
+			});
+			compareData.doctorAddress.map((e: CompareList, index: number) => {
+				if (checkAddress.includes(index)) {
+					const address = addressList.find((items) => items.index === index);
+					if (address) {
+						e.olderValue = findLabelAddress(e.olderValue, address.type);
+						e.newerValue = findLabelAddress(e.newerValue, address.type);
+					}
+				}
+				return { ...e };
+			});
 		}
+		dispatch(setDoctorCompareList(compareData));
 	};
 
 export const handleFilterCompare =
