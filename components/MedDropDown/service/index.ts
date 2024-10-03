@@ -11,7 +11,7 @@ import {
 import { findAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { API_METHOD, SESSION_NAME, DROPDOWN } from "../model";
-import { Title } from "./model";
+import { CourseCategory, Title } from "./model";
 
 interface DropDownParams {
 	apiPath: string;
@@ -71,6 +71,12 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 				value: e.diplomaType,
 			}));
 			return diploma;
+		case SESSION_NAME.COURSE_CATEGORY:
+			const courseCategory: Option[] = result.map((e: CourseCategory) => ({
+				label: e.categoryDescription,
+				value: e.categoryDescription,
+			}));
+			return courseCategory;
 		case SESSION_NAME.HOSPITAL:
 			const hospital: Option[] = result.map((e: DoctorHospital) => ({
 				label: `${e.hospitalWcfCode}-${e.hospitalName}`,

@@ -13,6 +13,7 @@ export enum SESSION_NAME {
 	POSTAL_ID = "postalId",
 	PROVINCE_NAME = "provinceName",
 	SSO_PROJECT = "ssoProject",
+	COURSE_CATEGORY = "courseCategory",
 }
 
 export enum API_METHOD {
@@ -43,6 +44,12 @@ export const DROPDOWN = {
 		sessionName: SESSION_NAME.HOSPITAL_CATEGORY,
 		method: API_METHOD.POST,
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
+	},
+	[SESSION_NAME.COURSE_CATEGORY]: {
+		apiPath: "http://localhost:8111/med/master/course-category/dropdown",
+		sessionName: SESSION_NAME.COURSE_CATEGORY,
+		method: API_METHOD.GET,
+		baseBody: undefined,
 	},
 	[SESSION_NAME.SSO_PROJECT]: {
 		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=SSO_PROJECT`,
