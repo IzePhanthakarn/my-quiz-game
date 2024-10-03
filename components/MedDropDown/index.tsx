@@ -62,8 +62,8 @@ export default function MedDropDown(props: MedDropDownProps) {
 			>
 				{(helperTextRight || helperTextLeft) && (
 					<>
-						<p className="text-help">{helperTextLeft}</p>
-						<p className="text-help">{helperTextRight}</p>
+						<p className="text-help mt-1">{helperTextLeft}</p>
+						<p className="text-help mt-1">{helperTextRight}</p>
 					</>
 				)}
 			</div>
