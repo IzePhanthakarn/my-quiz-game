@@ -93,14 +93,12 @@ export const initDoctorGrid =
 				professionalCode: data.professionalCode,
 				doctorCode: data.doctorCode,
 				uuid: data.uuid,
-				isActive: data.isActive,
 				firstname: data.firstname,
 				lastname: data.lastname,
 				doctorFullName: `${data.firstname} ${data.lastname}`,
-				diplomaType: data.doctorDetails.map((item: any) => item.diplomaType),
-				hospitalWcfCode: data.doctorHospital.map(
-					(item: any) => item.hospitalWcfCode
-				),
+				diplomaTypeList: data.diplomaTypeList,
+				provinceCodeList: data.provinceCodeList,
+				hospitalNameList: data.hospitalNameList,
 			};
 		});
 		const totalData = data.payload.totalElements;

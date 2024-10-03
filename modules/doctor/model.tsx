@@ -2,7 +2,6 @@
 
 import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustomCellButton";
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
-import StatusIndicator from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/StatusIndicator";
 import { LINKS } from "../../constants/links";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
@@ -11,7 +10,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
-import { findDiplomaDisplay, findHospitalDisplay } from "@/utils";
+import React from "react";
 
 interface Props {
 	mounted: string;
@@ -65,58 +64,43 @@ export const GetColumns = (prop: Props) => {
 			},
 			{
 				title: "วุฒิเฉพาะทาง",
-				dataIndex: "diplomaType",
-				key: "diplomaType",
-				render: (_, { diplomaType }) => (
+				dataIndex: "diplomaTypeList",
+				key: "diplomaTypeList",
+				render: (_, { diplomaTypeList }) => (
 					<>
-						{diplomaType.map((item: string) => (
-							<p key={item}>
-								{findDiplomaDisplay(item)
-									? `- ${findDiplomaDisplay(item)}`
-									: ""}
-							</p>
+						{diplomaTypeList.map((item: string, index: number) => (
+							<p key={index}>{item ? `- ${item}` : null}</p>
 						))}
 					</>
 				),
 			},
 			{
 				title: "ชื่อโรงพยาบาล",
-				dataIndex: "hospitalWcfCode",
-				key: "hospitalWcfCode",
+				dataIndex: "hospitalNameList",
+				key: "hospitalNameList",
 				width: 400,
-				render: (_, { hospitalWcfCode }) => (
+				render: (_, { hospitalNameList }) => (
 					<>
-						{hospitalWcfCode.map((item: string) => {
-							const hospital = findHospitalDisplay(item);
-							return hospital ? <p>- {hospital.hospitalName}</p> : null;
-						})}
+						{hospitalNameList.map((item: string, index: number) => (
+							<p key={index}>{item ? `- ${item}` : null}</p>
+						))}
 					</>
 				),
 			},
 			{
 				title: "จังหวัด",
-				dataIndex: "hospitalWcfCode",
-				key: "hospitalWcfCode",
+				dataIndex: "provinceCodeList",
+				key: "provinceCodeList",
 				width: 200,
-				render: (_, { hospitalWcfCode }) => (
+				render: (_, { provinceCodeList }) => (
 					<>
-						{hospitalWcfCode.map((item: string) => {
-							const hospital = findHospitalDisplay(item);
-							return hospital ? (
-								<p key={item}>
-									- {findLabelAddress(hospital.provinceCode, ADDRESS.PROVINCE)}
-								</p>
-							) : null;
-						})}
+						{provinceCodeList.map((item: string, index: number) => (
+							<p key={index}>
+								{item ? `- ${findLabelAddress(item, ADDRESS.PROVINCE)}` : null}
+							</p>
+						))}
 					</>
 				),
-			},
-			{
-				title: "สถานะ",
-				dataIndex: "isActive",
-				key: "isActive",
-				width: 150,
-				render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 			},
 			{
 				title: "คำสั่ง",

@@ -26,8 +26,8 @@ const API_PATH = {
 	CREATE_DOCTOR: "doctor",
 	UPDATE_DOCTOR: "doctor",
 	GET_DOCTOR_FORM: "doctor/getForm",
-	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor-history/compare/list",
-	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor-history/compare/filter",
+	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor/history/compare/list",
+	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor/history/compare/filter",
 
 	// ORGAN
 	ORGAN_SYSTEM_WPI: {
@@ -126,6 +126,10 @@ const API_PATH = {
 			UPDATE_BY_UUID: "/hospital-staff-contact",
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-staff-contact/list-by-hospital-uuid",
+		},
+		HISTORY: {
+			COMPARE_VERSION: "/hospital-history/compare-version",
+			EDIT_TIMES_LIST: "/hospital-history/edit-times-list",
 		},
 	},
 	DOCUMENT: {

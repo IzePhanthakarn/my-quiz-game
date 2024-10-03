@@ -13,8 +13,9 @@ export interface DoctorList {
 	firstname: string;
 	lastname: string;
 	isActive: string;
-	doctorDetails: any;
-	doctorHospital: any;
+	diplomaTypeList: string[];
+	provinceCodeList: string[];
+	hospitalNameList: string[];
 }
 export interface DoctorGrid extends PaginationModel {
 	list: DoctorList[];
