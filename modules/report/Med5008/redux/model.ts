@@ -3,13 +3,17 @@ import {
 	PaginationModel,
 } from "wcf-component-lib/src/components/BasePagination/model";
 export interface Med5008Form {
-	fromDate: string | null;
-	toDate: string | null;
+	sp7expiredFrom: string | null;
+	sp7expiredTo: string | null;
+	sp19expiredFrom: string | null;
+	sp19expiredTo: string | null;
 }
 
 export interface Med5008List {
-	fromDate: string | null;
-	toDate: string | null;
+	sp7expiredFrom: string | null;
+	sp7expiredTo: string | null;
+	sp19expiredFrom: string | null;
+	sp19expiredTo: string | null;
 }
 export interface Med5008Grid extends PaginationModel {
 	list: Med5008List[];
@@ -22,8 +26,10 @@ export interface Med5008 {
 
 export const modelMed5008: Med5008 = {
 	form: {
-		fromDate: "",
-		toDate: "",
+		sp7expiredFrom: "",
+		sp7expiredTo: "",
+		sp19expiredFrom: "",
+		sp19expiredTo: "",
 	},
 	grid: {
 		list: [],

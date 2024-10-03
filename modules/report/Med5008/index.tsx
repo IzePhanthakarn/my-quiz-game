@@ -12,12 +12,14 @@ import { Med5008Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { REPORT_TYPES } from "@/constants/reports";
-import { handlePreviewDisplay } from "@/utils/report/common";
+import { handleOnExportExcel, handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import DownloadContent from "./DownloadContent";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import { handlePdfButton } from "./service";
 
 export default function Med5008() {
 	const dispatch: AppDispatch = useDispatch();
@@ -35,9 +37,16 @@ export default function Med5008() {
 	const onFinish: FormProps<Med5008Form>["onFinish"] = async (
 		value: Med5008Form
 	) => {
-		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
-		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
-		dispatch(setMed5008Form({...med5008, fromDate: fromDateParam,toDate: toDateParam }));
+		let sp7fromDateParam: string =dayjs(value.sp7expiredFrom).format(DateFormat.YYYYMMDD);
+		let sp7toDateParam: string   =dayjs(value.sp7expiredTo).format(DateFormat.YYYYMMDD);
+		let sp19fromDateParam: string =dayjs(value.sp19expiredFrom).format(DateFormat.YYYYMMDD);
+		let sp19toDateParam: string   =dayjs(value.sp19expiredTo).format(DateFormat.YYYYMMDD);
+		value.sp7expiredFrom=sp7fromDateParam;
+		value.sp7expiredTo=sp7toDateParam;
+		value.sp19expiredFrom=sp19fromDateParam;
+		value.sp19expiredTo=sp19toDateParam;
+
+		dispatch(setMed5008Form({...med5008, sp7expiredFrom: sp7fromDateParam, sp7expiredTo: sp7toDateParam, sp19expiredFrom: sp19fromDateParam, sp19expiredTo: sp19toDateParam}));
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5008)
 		);
@@ -64,7 +73,20 @@ export default function Med5008() {
 				}
 			>
 				{!_.isEmpty(list) ? (
-					<BaseGrid rows={list} columns={columns} />
+					<><div className="col-span-4 flex justify-end">
+					<BaseButton
+						className="w-full;"
+						label="Excel"
+						onClick={() => {
+							dispatch(handleOnExportExcel(med5008, REPORT_TYPES.MED5008));
+						} } />
+					<BaseButton
+						className="w-1/6"
+						label="Pdf"
+						onClick={() => {
+							dispatch(handlePdfButton(med5008));
+						} } /> 
+				</div><BaseGrid rows={list} columns={columns} /></>
 				) : null}
 			</FormReportLayout>
 	);

@@ -14,12 +14,17 @@ export default function DownloadContent(props: Props) {
 	return (
 		<BaseForm initialValues={med5008} extraForm={form} onFinish={onFinish}>
 			<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-			<BaseDatePicker label="วันที่ยกเลิกสถานพยาบาล" itemName={"fromDate"}/>
-			
-			</div>
+			   <div><BaseDatePicker label="วันที่สิ้นสุดใบอนุญาต(สพ.7)" itemName={"sp7expiredFrom"} /></div>
+			   <div >
+			   <BaseDatePicker label="ถึงวันที่" itemName={"sp7expiredTo"}/>
+			   </div>
+			</div>	
 			<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-			<BaseDatePicker label="ถึงวันที่" itemName={"toDate"}/>
-			</div>
+			   <div><BaseDatePicker label="วันที่สิ้นสุดใบอนุญาต(สพ.19)" itemName={"sp19expiredFrom"} /></div>
+			   <div >
+			   <BaseDatePicker label="ถึงวันที่" itemName={"sp19expiredTo"}/>
+			   </div>
+			</div>		 	 
 		</BaseForm>
 	);
 }
