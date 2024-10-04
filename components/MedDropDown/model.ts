@@ -14,6 +14,7 @@ export enum SESSION_NAME {
 	PROVINCE_NAME = "provinceName",
 	SSO_PROJECT = "ssoProject",
 	COURSE_CATEGORY = "courseCategory",
+	SSO_BRANCH = "ssoBranch",
 }
 
 export enum API_METHOD {
@@ -28,86 +29,92 @@ export enum REPORT {
 
 export const DROPDOWN = {
 	[SESSION_NAME.DIPLOMA]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/diploma",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/diploma`,
 		sessionName: SESSION_NAME.DIPLOMA,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
+	[SESSION_NAME.SSO_BRANCH]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/sso-branch/dropdown`,
+		sessionName: SESSION_NAME.SSO_BRANCH,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
 	[SESSION_NAME.HOSPITAL_TYPE]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/lt-properties/list`,
 		sessionName: SESSION_NAME.HOSPITAL_TYPE,
 		method: API_METHOD.POST,
 		baseBody: { groupNameLike: "HOSPITAL_TYPE" },
 	},
 	[SESSION_NAME.HOSPITAL_CATEGORY]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/lt-properties/list",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/lt-properties/list`,
 		sessionName: SESSION_NAME.HOSPITAL_CATEGORY,
 		method: API_METHOD.POST,
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
 	},
 	[SESSION_NAME.COURSE_CATEGORY]: {
-		apiPath: "http://localhost:8111/med/master/course-category/dropdown",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/course-category/dropdown`,
 		sessionName: SESSION_NAME.COURSE_CATEGORY,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.SSO_PROJECT]: {
-		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=SSO_PROJECT`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/med-lt-properties/?groupName=SSO_PROJECT`,
 		sessionName: SESSION_NAME.SSO_PROJECT,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 
 	[SESSION_NAME.DOCTOR_BANK]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/doctor-bank",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/doctor-bank/dropdown`,
 		sessionName: SESSION_NAME.DOCTOR_BANK,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.TRAINING]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/training",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/training`,
 		sessionName: SESSION_NAME.TRAINING,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.HOSPITAL]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/hospital",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/hospital/dropdown`,
 		sessionName: SESSION_NAME.HOSPITAL,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.JOB_TYPE]: {
-		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=JOB_TYPE`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/med-lt-properties/?groupName=JOB_TYPE`,
 		sessionName: SESSION_NAME.JOB_TYPE,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.ADDRESS]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/address/list`,
 		sessionName: SESSION_NAME.ADDRESS,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.POSTAL_ID]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/address/list`,
 		sessionName: SESSION_NAME.ADDRESS,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.PROVINCE_NAME]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/address/list",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/address/list`,
 		sessionName: SESSION_NAME.ADDRESS,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.TITLE]: {
-		apiPath: "https://api-dev-wcf.soilfish.co/med/master/title",
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/title`,
 		sessionName: SESSION_NAME.TITLE,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
 	[SESSION_NAME.DOCTOR_TYPE]: {
-		apiPath: `https://api-dev-wcf.soilfish.co/med/master/med-lt-properties/?groupName=DOCTOR_TYPE`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/med-lt-properties/?groupName=DOCTOR_TYPE`,
 		sessionName: SESSION_NAME.DOCTOR_TYPE,
 		method: API_METHOD.GET,
 		baseBody: undefined,

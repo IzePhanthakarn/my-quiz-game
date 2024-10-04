@@ -7,3 +7,8 @@ export interface CourseCategory {
 	courseCategoryId: number;
 	categoryDescription: string;
 }
+
+export interface SsoBranch {
+	ssoBranchCode: string;
+	provinceName: string;
+}
