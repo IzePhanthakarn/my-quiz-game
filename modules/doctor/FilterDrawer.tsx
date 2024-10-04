@@ -1,7 +1,6 @@
 import { AppDispatch } from "@/redux/config/configStore";
-import { SliceModel } from "@/redux/slices/model";
 import React from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
 import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
@@ -28,40 +27,42 @@ export default function FilterDrawer(prop: Props) {
 
 	return (
 		<BaseForm extraForm={form} initialValues={filter} onFinish={onFinish}>
-			<BaseColumn className="space-y-4">
-				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+			<BaseColumn>
+				<div className="filter-box space-y-2">
 					<BaseItemCheckbox
 						itemName="checkProfessionalCode"
 						label="เลขทะเบียนวิชาชีพ"
-						checked={filter.checkProfessionalCode}
+						// checked={filter.checkProfessionalCode}
 						labelPosition={BaseFormItemPosition.RIGHT}
-						onClickFunction={() =>
+						onClickFunction={() => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
 									checkProfessionalCode: !filter.checkProfessionalCode,
+									professionalCodeLike: "",
 								})
-							)
-						}
+							);
+						}}
 					/>
 					{filter.checkProfessionalCode && (
 						<BaseItemInput itemName="professionalCodeLike" />
 					)}
-				</BaseColumn>
-				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				</div>
+				<div className="filter-box space-y-2">
 					<BaseItemCheckbox
 						itemName="checkProviceHospital"
 						label="โรงพยาบาลประจำจังหวัด"
-						checked={filter.checkProviceHospital}
+						// checked={filter.checkProviceHospital}
 						labelPosition={BaseFormItemPosition.RIGHT}
 						onClickFunction={() => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
 									checkProviceHospital: !filter.checkProviceHospital,
+									proviceHospitalLike: null,
 								})
 							);
-							form.setFieldValue("proviceHospitalLike", null);
+							// form.setFieldValue("proviceHospitalLike", null);
 						}}
 					/>
 					{filter.checkProviceHospital && (
@@ -73,22 +74,23 @@ export default function FilterDrawer(prop: Props) {
 							}}
 						/>
 					)}
-				</BaseColumn>
-				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				</div>
+				<div className="filter-box space-y-2">
 					<BaseItemCheckbox
 						itemName="checkHospitalName"
 						label="ชื่อโรงพยาบาล"
 						checked={filter.checkHospitalName}
 						labelPosition={BaseFormItemPosition.RIGHT}
-						onClickFunction={() =>
+						onClickFunction={() => {
 							dispatch(
 								setDoctorFilter({
 									...filter,
 									checkHospitalName: !filter.checkHospitalName,
-									hospitalNameLike: "",
+									hospitalNameLike: null,
 								})
-							)
-						}
+							);
+							// form.setFieldValue("hospitalNameLike", null);
+						}}
 					/>
 					{filter.checkHospitalName && (
 						<>
@@ -101,8 +103,8 @@ export default function FilterDrawer(prop: Props) {
 							/>
 						</>
 					)}
-				</BaseColumn>
-				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				</div>
+				<div className="filter-box space-y-2">
 					<BaseItemCheckbox
 						itemName="checkDiplomaType"
 						label="วุฒิบัตรเฉพาะทาง"
@@ -112,9 +114,10 @@ export default function FilterDrawer(prop: Props) {
 								setDoctorFilter({
 									...filter,
 									checkDiplomaType: !filter.checkDiplomaType,
+									diplomaTypeLike: null,
 								})
 							);
-							form.setFieldValue("diplomaTypeLike", null);
+							// form.setFieldValue("diplomaTypeLike", null);
 						}}
 					/>
 					{filter.checkDiplomaType && (
@@ -128,10 +131,11 @@ export default function FilterDrawer(prop: Props) {
 							/>
 						</>
 					)}
-				</BaseColumn>
-				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				</div>
+				<div className="filter-box space-y-2">
 					<BaseItemCheckboxFilterGroup
 						isMainInputChecked={filter.checkIsActive}
+						notForm
 						onClickMainInputFunction={() => {
 							dispatch(
 								setDoctorFilter({
@@ -146,7 +150,8 @@ export default function FilterDrawer(prop: Props) {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									isActive: IsActive.Y,
+									isActive:
+										filter.isActive === IsActive.Y ? undefined : IsActive.Y,
 								})
 							);
 						}}
@@ -154,12 +159,13 @@ export default function FilterDrawer(prop: Props) {
 							dispatch(
 								setDoctorFilter({
 									...filter,
-									isActive: IsActive.N,
+									isActive:
+										filter.isActive === IsActive.N ? undefined : IsActive.N,
 								})
 							);
 						}}
 					/>
-				</BaseColumn>
+				</div>
 			</BaseColumn>
 		</BaseForm>
 	);
