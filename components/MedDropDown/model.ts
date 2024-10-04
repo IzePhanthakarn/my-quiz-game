@@ -35,7 +35,7 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 	[SESSION_NAME.SSO_BRANCH]: {
-		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/sso_branch`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/sso-branch/dropdown`,
 		sessionName: SESSION_NAME.SSO_BRANCH,
 		method: API_METHOD.GET,
 		baseBody: undefined,
