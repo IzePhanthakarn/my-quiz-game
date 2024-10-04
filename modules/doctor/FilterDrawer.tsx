@@ -29,7 +29,7 @@ export default function FilterDrawer(prop: Props) {
 	return (
 		<BaseForm extraForm={form} initialValues={filter} onFinish={onFinish}>
 			<BaseColumn className="space-y-4">
-				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckbox
 						itemName="checkProfessionalCode"
 						label="เลขทะเบียนวิชาชีพ"
@@ -48,7 +48,7 @@ export default function FilterDrawer(prop: Props) {
 						<BaseItemInput itemName="professionalCodeLike" />
 					)}
 				</BaseColumn>
-				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckbox
 						itemName="checkProviceHospital"
 						label="โรงพยาบาลประจำจังหวัด"
@@ -74,7 +74,7 @@ export default function FilterDrawer(prop: Props) {
 						/>
 					)}
 				</BaseColumn>
-				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckbox
 						itemName="checkHospitalName"
 						label="ชื่อโรงพยาบาล"
@@ -102,11 +102,10 @@ export default function FilterDrawer(prop: Props) {
 						</>
 					)}
 				</BaseColumn>
-				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckbox
-						itemName="checkLastName"
+						itemName="checkDiplomaType"
 						label="วุฒิบัตรเฉพาะทาง"
-						checked={filter.checkDiplomaType}
 						labelPosition={BaseFormItemPosition.RIGHT}
 						onClickFunction={() => {
 							dispatch(
@@ -130,7 +129,7 @@ export default function FilterDrawer(prop: Props) {
 						</>
 					)}
 				</BaseColumn>
-				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+				<BaseColumn className="space-y-2 py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckboxFilterGroup
 						isMainInputChecked={filter.checkIsActive}
 						onClickMainInputFunction={() => {
