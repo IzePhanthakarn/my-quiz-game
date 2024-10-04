@@ -7,6 +7,7 @@ export interface Med5008Form {
 	sp7expiredTo: string | null;
 	sp19expiredFrom: string | null;
 	sp19expiredTo: string | null;
+	showDownload: string | null;
 }
 
 export interface Med5008List {
@@ -30,6 +31,7 @@ export const modelMed5008: Med5008 = {
 		sp7expiredTo: "",
 		sp19expiredFrom: "",
 		sp19expiredTo: "",
+		showDownload: null,
 	},
 	grid: {
 		list: [],

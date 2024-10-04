@@ -4,9 +4,13 @@ import { Med5010Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import MedDropDown from "@/components/MedDropDown";
-import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleOnExportExcel } from "@/utils/report/common";
 import { REPORT_TYPES } from "@/constants/reports";
+import _ from "lodash";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/config/configStore";
+import { handlePdfButton } from "./service";
 
 interface Props {
 	med5010: Med5010Form;
@@ -15,8 +19,14 @@ interface Props {
 }
 export default function DownloadContent(props: Props) {
 	const { med5010, form, onFinish } = props;
-	function dispatch(arg0: (dispatch: import("../../../redux/config/configStore").AppDispatch) => Promise<void>) {
-		throw new Error("Function not implemented.");
+	const dispatch: AppDispatch = useDispatch();
+	function DownloadChange(e: string): any {
+		if ("EXCEL" == e) {
+			dispatch(handleOnExportExcel(med5010, REPORT_TYPES.MED5010));
+		} else if ("PDF" == e) {
+			dispatch(handlePdfButton(med5010));
+		}
+		return e;
 	}
 
 	return (
@@ -41,7 +51,19 @@ export default function DownloadContent(props: Props) {
 					label="โครงการประกันสังคม"
 					type={SESSION_NAME.SSO_PROJECT}
 				/>
-			</div> 
+				{!_.isEmpty(med5010.showDownload) ? (
+				<div>
+					<MedDropDown
+						label="ดาวน์โหลด"
+						option={DROPDOWN_REPOT}
+						getValue={(e: string) => {
+							DownloadChange(e);
+						}}
+					/>
+				</div>
+			) : null}
+			</div>
+			
 		</BaseForm>
 	);
 }
