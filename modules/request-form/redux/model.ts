@@ -61,6 +61,9 @@ export interface RequestFormGridData extends BaseMasterDataInterface {
 }
 
 export interface RequestFormFilter {
+	requestFormCode: string;
+	accidentIssueCode: string;
+	doctorCode: string;
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
 }
@@ -72,6 +75,9 @@ export const modelRequestFormGrid: RequestFormGrid = {
 	page: { ...modelPaginationOptions },
 };
 export const modelRequestFormFilter: RequestFormFilter = {
+	doctorCode: "",
+	requestFormCode: "",
+	accidentIssueCode: "",
 	isActive: undefined,
 	checkIsActive: false,
 };

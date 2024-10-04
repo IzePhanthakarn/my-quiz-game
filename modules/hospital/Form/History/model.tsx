@@ -47,6 +47,8 @@ export const getItems = (compareList: HospitalCompareList) => {
 			label: "รหัสสถานพยาบาล",
 			children: (
 				<BaseGrid
+					isHaveBorderBottomLeftRight={true}
+					bordered={true}
 					rows={compareList.codeData}
 					columns={columns}
 					twoToneColor
@@ -59,6 +61,8 @@ export const getItems = (compareList: HospitalCompareList) => {
 			label: "ข้อมูลพื้นฐาน",
 			children: (
 				<BaseGrid
+					isHaveBorderBottomLeftRight={true}
+					bordered={true}
 					rows={compareList.baseData}
 					columns={columns}
 					twoToneColor
@@ -71,6 +75,8 @@ export const getItems = (compareList: HospitalCompareList) => {
 			label: "ข้อมูลกองทุนเงินทดแทน",
 			children: (
 				<BaseGrid
+					isHaveBorderBottomLeftRight={true}
+					bordered={true}
 					rows={compareList.compensationFundInformationData}
 					columns={columns}
 					twoToneColor
@@ -83,6 +89,8 @@ export const getItems = (compareList: HospitalCompareList) => {
 			label: "การเปลี่ยนชื่อสถานพยาบาล",
 			children: (
 				<BaseGrid
+					isHaveBorderBottomLeftRight={true}
+					bordered={true}
 					rows={compareList.hospitalChangedNameData}
 					columns={columns}
 					twoToneColor

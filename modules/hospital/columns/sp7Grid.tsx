@@ -100,8 +100,8 @@ export const Sp7Grid = (props: Props) => {
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "",
-										headerText: "ต้องการลบใช่หรือไม่",
+										content: "คุณต้องการลบไฟล์ ใบ สพ.7 ใช่หรือไม่?",
+										headerText: "ยืนยันการลบไฟล์",
 									})
 								);
 							}}
