@@ -6,6 +6,7 @@ export interface Med5010Form {
 	hospitalType: string | null;
 	hospitalCategory: string | null;
 	ssoProject: string | null;
+	showDownload: string |null;
 }
 
 export interface Med5010List {
@@ -27,6 +28,7 @@ export const modelMed5010: Med5010 = {
 		hospitalType: "",
 		hospitalCategory: "",
 		ssoProject:"",
+		showDownload:"",
 	},
 	grid: {
 		list: [],

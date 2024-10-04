@@ -37,12 +37,20 @@ export default function Med5011() {
 	const onFinish: FormProps<Med5011Form>["onFinish"] = async (
 		value: Med5011Form
 	) => {
-		console.info("On Fin");
+		if  ( _.isEmpty(value.fromDate) ) {
+			alert("กรุณาใส่ข้อมูล วันที่ยกเลิกสถานพยาบาล" );
+			return;
+		}
+		if  ( _.isEmpty(value.toDate) ) {
+			alert("กรุณาใส่ข้อมูล ถึงวันที่" );
+			return;
+		}
+		 
 		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
 		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
 		value.fromDate=fromDateParam;
 		value.toDate=toDateParam;
-		dispatch(setMed5011Form({...med5011,fromDate:fromDateParam,toDate:toDateParam}));
+		dispatch(setMed5011Form({...med5011,fromDate:fromDateParam,toDate:toDateParam,showDownload:'Y'}));
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5011)
 		);
@@ -67,22 +75,9 @@ export default function Med5011() {
 				downloadContent={
 					<DownloadContent med5011={med5011} form={form} onFinish={onFinish} />
 				}
-			>
+		>
 				{!_.isEmpty(list) ? (
-						<><div className="col-span-4 flex justify-end">
-					<BaseButton
-						className="w-full;"
-						label="Excel"
-						onClick={() => {
-							dispatch(handleOnExportExcel(med5011, REPORT_TYPES.MED5011));
-						} } />
-					<BaseButton
-						className="w-1/6"
-						label="Pdf"
-						onClick={() => {
-							dispatch(handlePdfButton(med5011));
-						} } /> 
-				</div><BaseGrid rows={list} columns={columns} /></>
+						<BaseGrid rows={list} columns={columns} />
 				) : null}
 			</FormReportLayout>
 	);
