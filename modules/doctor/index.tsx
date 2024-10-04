@@ -114,9 +114,18 @@ export default function Doctor() {
 								<BaseItemInput
 									itemName="doctorCodeLike"
 									label="เลขทะเบียน สปส"
+									onPressEnter={() => form.submit()}
 								/>
-								<BaseItemInput label="ชื่อ" itemName="firstnameLike" />
-								<BaseItemInput label="นามสกุล" itemName="lastnameLike" />
+								<BaseItemInput
+									label="ชื่อ"
+									itemName="firstnameLike"
+									onPressEnter={() => form.submit()}
+								/>
+								<BaseItemInput
+									label="นามสกุล"
+									itemName="lastnameLike"
+									onPressEnter={() => form.submit()}
+								/>
 							</div>
 						</BaseForm>
 					}
