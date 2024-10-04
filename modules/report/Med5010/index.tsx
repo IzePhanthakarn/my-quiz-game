@@ -12,14 +12,11 @@ import { Med5010Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { REPORT_TYPES } from "@/constants/reports";
-import { handleOnExportExcel, handlePreviewDisplay } from "@/utils/report/common";
+import { handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
-import dayjs from "dayjs";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+
 import DownloadContent from "./DownloadContent";
-import { handlePdfButton } from "./service";
-import { BaseButton } from "wcf-component-lib/src/components";
 
 export default function Med5010() {
 	const dispatch: AppDispatch = useDispatch();
@@ -37,7 +34,29 @@ export default function Med5010() {
 	const onFinish: FormProps<Med5010Form>["onFinish"] = async (
 		value: Med5010Form
 	) => {
-		dispatch(setMed5010Form({...med5010, hospitalType: value.hospitalType,hospitalCategory: value.hospitalCategory,ssoProject:value.ssoProject }));
+
+		if  ( _.isEmpty(value.hospitalType) ) {
+			alert("กรุณาใส่ข้อมูล ระดับของสถานพยาบาล" );
+			return;
+		}
+		if  ( _.isEmpty(value.hospitalCategory) ) {
+			alert("กรุณาใส่ข้อมูล ประเภทของสถานพยาบาล" );
+			return;
+		}
+		if  ( _.isEmpty(value.ssoProject) ) {
+			alert("กรุณาใส่ข้อมูล โครงการประกันสังคม" );
+			return;
+		}
+		 
+		dispatch(
+			setMed5010Form({
+				...med5010,
+				hospitalType: value.hospitalType,
+				hospitalCategory: value.hospitalCategory,
+				ssoProject: value.ssoProject,
+				showDownload:'Y'
+			})
+		);
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5010)
 		);
@@ -50,35 +69,21 @@ export default function Med5010() {
 	};
 	return (
 		<FormReportLayout
-				handleSubmitButton={() => form.submit()}
-				TotalItems={totalData}
-				reportData={{
-					systemName: `${MED_REPORT_SYSTEM}`,
-					reportCode: "MED5010",
-					reportName: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
-					reportDescription: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
-					reportType: "5",
-				}}
-				downloadContent={
-					<DownloadContent med5010={med5010} form={form} onFinish={onFinish} />
-				}
-			>
-				{!_.isEmpty(list) ? (
-					<><div className="col-span-4 flex justify-end">
-					<BaseButton
-						className="w-full;"
-						label="Excel"
-						onClick={() => {
-							dispatch(handleOnExportExcel(med5010, REPORT_TYPES.MED5011));
-						} } />
-					<BaseButton
-						className="w-1/6"
-						label="Pdf"
-						onClick={() => {
-							dispatch(handlePdfButton(med5010));
-						} } /> 
-				</div><BaseGrid rows={list} columns={columns} /></>
-				) : null}
-			</FormReportLayout>
+			handleSubmitButton={() => form.submit()}
+			TotalItems={totalData}
+			reportData={{
+				systemName: `${MED_REPORT_SYSTEM}`,
+				reportCode: "MED5010",
+				reportName: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+				reportDescription:
+					"รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+				reportType: "5",
+			}}
+			downloadContent={
+				<DownloadContent med5010={med5010} form={form} onFinish={onFinish} />
+			}
+		>
+			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
+		</FormReportLayout>
 	);
 }
