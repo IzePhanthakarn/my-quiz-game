@@ -87,6 +87,7 @@ export const initDoctorGrid =
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorList(newParams));
 		dispatch(setIsLoading(false));
+		if (_.isNil(data.payload.content)) return;
 		const grid = data.payload.content.map((data: DoctorList, index: number) => {
 			return {
 				id: index,

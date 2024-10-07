@@ -49,4 +49,12 @@ export const configPage: DataStructureURL = {
 			pageLevel: { form: [0] },
 		},
 	},
+	list: {
+		root: {
+			url: "/report/list",
+			breadcrumb: ["root"],
+			text: "รายการรายงาน",
+			pageLevel: { form: [0] },
+		},
+	},
 };

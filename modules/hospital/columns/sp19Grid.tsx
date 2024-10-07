@@ -106,8 +106,8 @@ export const Sp19Grid = (props: Props) => {
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "",
-										headerText: "ต้องการลบใช่หรือไม่",
+										content: "คุณต้องการลบไฟล์ ใบ สพ.19 ใช่หรือไม่?",
+										headerText: "ยืนยันการลบไฟล์",
 									})
 								);
 								// dispatch(

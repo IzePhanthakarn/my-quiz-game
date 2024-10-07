@@ -111,8 +111,8 @@ export const EtcFilesGrid = (props: Props) => {
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "",
-										headerText: "ต้องการลบใช่หรือไม่",
+										content: "ภาคผนวกและอื่น ๆ",
+										headerText: "ยืนยันการลบไฟล์",
 									})
 								);
 							}}

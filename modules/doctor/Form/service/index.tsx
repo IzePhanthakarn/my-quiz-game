@@ -17,7 +17,6 @@ export const handleOpenHistory =
 		dispatch(setDoctorCompareList({ doctor: [], doctorAddress: [] }));
 		dispatch(
 			setDialog({
-				...modelDialog,
 				isOpen: true,
 				isOverFlow: true,
 				uniqueContent: <HistoryDialog />,

@@ -88,6 +88,9 @@ import { modelDialog } from "@/redux/slices/dialog/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import AddHospitalStaffContactForm from "./Form/SubForm/addHospitalStaffContactForm";
 import { modelHospitalStaffContact } from "./redux/models/hospitalStaffContactModel";
+import HospitalHistory from "./Form/History/hospitalHistory";
+import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
+import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -863,6 +866,16 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
+
+						<BaseItemCheckbox
+							itemName="checkClinicCode"
+							label="เข้าร่วมโครงการประกันสังคม"
+							checked={false}
+							labelPosition={BaseFormItemPosition.LEFT}
+							onClickFunction={() => {
+								console.log("🚀 ~ HospitalFormPage ~ labelPosition:");
+							}}
+						/>
 					</div>
 					<BaseHorizontalHeader
 						className="mb-7"
@@ -1559,6 +1572,17 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								setHospitalForm({
 									...hospitalForm,
 									isActive: e ? IsActive.Y : IsActive.N,
+								})
+							);
+						}}
+						onClickHistoryButtonFunction={() => {
+							dispatch(
+								setDialog({
+									...modelDialog,
+									isOverFlow: true,
+									isOpenBaseConfirmDialog: false,
+									isOpen: true,
+									uniqueContent: <HospitalHistory />,
 								})
 							);
 						}}

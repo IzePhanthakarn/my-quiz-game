@@ -21,6 +21,7 @@ export interface DoctorData {
 	title: string | null;
 	// isActive: string;
 	// uuid: string;
+	categoryDescription: string | null;
 }
 
 export interface TrainingList extends Training {
@@ -79,13 +80,6 @@ export interface DoctorForm {
 	doctorTraining: TrainingList[];
 	doctorPostal: DoctorPostalList[];
 	editTimes: number[];
-	// [key: string]:
-	// 	| DoctorData
-	// 	| DoctorDetailList[]
-	// 	| DoctorHospitalList[]
-	// 	| DoctorBankList[]
-	// 	| TrainingList[]
-	// 	| DoctorPostalList[];
 }
 
 const modelDoctorData: DoctorData = {
@@ -109,6 +103,7 @@ const modelDoctorData: DoctorData = {
 	title: null,
 	// isActive: "",
 	// uuid: "",
+	categoryDescription: null,
 };
 
 export const modelDoctorForm: DoctorForm = {

@@ -7,20 +7,59 @@ import {
 import _ from "lodash";
 import { setDoctorCompareList, setDoctorFilterList } from "../../../redux";
 import {
-	compareParams,
+	CompareList,
+	CompareParams,
 	FilterList,
 } from "@/modules/doctor/redux/history/model";
-import { Option } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import { findNameDisplay } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 export const initDoctorCompareHistory =
-	(params: compareParams) => async (dispatch: AppDispatch) => {
+	(params: CompareParams) => async (dispatch: AppDispatch) => {
 		// if (_.isEmpty(params.olderVersion) || _.isEmpty(params.newerVersion)) return;
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorCompareHistoryList(params));
 		dispatch(setIsLoading(false));
-		if (!_.isEmpty(data.payload)) {
-			dispatch(setDoctorCompareList(data.payload));
+		const compareData = data.payload;
+		const addressList = [
+			{ index: 3, type: ADDRESS.PROVINCE },
+			{ index: 4, type: ADDRESS.AMPHUR },
+			{ index: 5, type: ADDRESS.TAMBOL },
+		];
+		const checkAddress = [3, 4, 5];
+
+		if (!_.isEmpty(compareData)) {
+			compareData.doctor.map((e: CompareList, index: number) => {
+				if (index === 3) {
+					console.log("e.olderValue", e.olderValue);
+					e.olderValue = findNameDisplay(SESSION_NAME.TITLE, e.olderValue);
+					e.newerValue = findNameDisplay(SESSION_NAME.TITLE, e.newerValue);
+				} else if (index === 6) {
+					e.olderValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.olderValue
+					);
+					e.newerValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.newerValue
+					);
+				}
+				return { ...e };
+			});
+			compareData.doctorAddress.map((e: CompareList, index: number) => {
+				if (checkAddress.includes(index)) {
+					const address = addressList.find((items) => items.index === index);
+					if (address) {
+						e.olderValue = findLabelAddress(e.olderValue, address.type);
+						e.newerValue = findLabelAddress(e.newerValue, address.type);
+					}
+				}
+				return { ...e };
+			});
 		}
+		dispatch(setDoctorCompareList(compareData));
 	};
 
 export const handleFilterCompare =
@@ -41,25 +80,19 @@ export const getDropdownOptions = (params: {
 	const { list, olderVersion, newerVersion } = params;
 	if (!_.isNil(olderVersion)) {
 		return list
-			.filter((e) => e.editTimes > olderVersion)
-			.map(
-				(e) =>
-					({
-						label: e.label,
-						value: e.editTimes, // Ensure value is number or string as per Option
-					} as Option)
-			);
+			.filter((e) => +e.editTimes > olderVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
 	}
 	if (!_.isNil(newerVersion)) {
 		return list
-			.filter((e) => e.editTimes < newerVersion)
-			.map(
-				(e) =>
-					({
-						label: e.label,
-						value: e.editTimes, // Ensure value is number or string as per Option
-					} as Option)
-			);
+			.filter((e) => +e.editTimes < newerVersion)
+			.map((e) => ({
+				label: e.label,
+				value: e.editTimes,
+			}));
 	}
 };
 
@@ -67,12 +100,12 @@ export const getFilterUpdatedByEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedBy || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedBy || "";
 };
 
 export const getFilterUpdatedDateEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => e.editTimes === editTimes)?.updatedDate || "";
+	return filterList.find((e) => +e.editTimes === editTimes)?.updatedDate || "";
 };

@@ -82,8 +82,9 @@ export const HospitalStaffContactGrid = (props: Props) => {
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "",
-										headerText: "ต้องการลบใช่หรือไม่",
+										content:
+											"คุณต้องการลบ ผู้ติดต่อสำหรับโรงพยาบาล ใช่หรือไม่?",
+										headerText: "ยืนยันการลบ",
 									})
 								);
 							}}
