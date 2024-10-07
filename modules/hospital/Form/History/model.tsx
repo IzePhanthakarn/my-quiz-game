@@ -4,6 +4,8 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { HospitalCompareList } from "../../redux/models/historyModel";
+import { IsActive } from "wcf-component-lib/src/constants/constants";
+import { Colors } from "wcf-component-lib/src/constants/Colors";
 
 export const columns: TableProps["columns"] = [
 	{
@@ -36,6 +38,47 @@ export const columns: TableProps["columns"] = [
 					children: newerValue,
 				};
 			}
+		},
+	},
+];
+
+export const columnsFiles = (
+	position: "older" | "newer",
+	link: string
+): TableProps["columns"] => [
+	{
+		title: "ชื่อเอกสาร",
+		dataIndex: "fileName",
+		width: "100%",
+		key: "fileName",
+		render: (_, { fileName, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							position === "newer"
+								? isNew
+									? Colors.history.files.new
+									: isActive === IsActive.N
+									? Colors.history.files.deleted
+									: undefined
+								: undefined,
+					},
+				},
+				children: (
+					<>
+						<a href={`${link}${fileName}`} target="_blank">
+							{fileName}
+						</a>
+						{/* <a
+							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/${fileName}`}
+							target="_blank"
+						>
+							{fileName}
+						</a> */}
+					</>
+				),
+			};
 		},
 	},
 ];
@@ -96,6 +139,32 @@ export const getItems = (compareList: HospitalCompareList) => {
 					twoToneColor
 					hideHeader
 				/>
+			),
+		},
+		{
+			key: "5",
+			label: "ไฟล์ สพ7",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalSp7.older}
+						columns={columnsFiles(
+							"older",
+							`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/`
+						)}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalSp7.newer}
+						columns={columnsFiles(
+							"newer",
+							`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/`
+						)}
+						twoToneColor
+					/>
+				</div>
 			),
 		},
 	];
