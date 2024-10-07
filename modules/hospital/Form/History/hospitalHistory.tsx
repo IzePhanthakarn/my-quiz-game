@@ -6,7 +6,7 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 
-import { getItems } from "./model";
+import { columns, columnsFiles, getItems } from "./model";
 import { BaseCollapse } from "wcf-component-lib/src/components";
 import {
 	fetchHistoryHospital,
@@ -19,6 +19,7 @@ import MedDropDown from "@/components/MedDropDown";
 import { setHospitalHistory } from "../../redux";
 import { modelHospitalHistory } from "../../redux/models/historyModel";
 import BaseUniqueContentModalHeaderWithIcon from "wcf-component-lib/src/components/BaseUniqueContentModalHeaderWithIcon";
+import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 
 export default function HospitalHistory() {
 	const dispatch: AppDispatch = useDispatch();
@@ -133,7 +134,7 @@ export default function HospitalHistory() {
 						<BaseCollapse
 							noPaddingAll
 							key={item.key}
-							defaultActiveKey={["1"]}
+							defaultActiveKey={["5"]}
 							items={[item]}
 						/>
 					))}
