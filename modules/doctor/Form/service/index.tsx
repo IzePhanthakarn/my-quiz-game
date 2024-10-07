@@ -3,7 +3,6 @@ import { setDialog } from "@/redux/slices/dialog";
 import { setCompareParams, setDoctorCompareList } from "../../redux";
 import HistoryDialog from "../History/HistoryDialog";
 import { DoctorForm } from "../../redux/form/model";
-import { modelDialog } from "@/redux/slices/dialog/model";
 
 export const handleOpenHistory =
 	(doctorForm: DoctorForm) => async (dispatch: AppDispatch) => {

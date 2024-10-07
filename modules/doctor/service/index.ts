@@ -21,6 +21,8 @@ import { baseToastNotification } from "wcf-component-lib/src/components/BaseToas
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { CourseCategory } from "@/components/MedDropDown/service/model";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -107,16 +109,40 @@ export const initDoctorGrid =
 		dispatch(setDoctorGrid(grid));
 	};
 
+const handleCourseCategoryId = (courseCategory: string | null) => {
+	const courseCategorySession = JSON.parse(
+		sessionStorage.getItem(SESSION_NAME.COURSE_CATEGORY) ?? "[]"
+	);
+	return (
+		courseCategorySession.find(
+			(e: CourseCategory) => e.courseCategory === courseCategory
+		).courseCategoryId ?? null
+	);
+};
+
 export const handleDoctorFormSubmit =
 	(doctorForm: DoctorForm, uuid: string, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		dispatch(setIsOpenBaseConfirmDialog(false));
+
+		const newDoctorData = {
+			...doctorForm.doctorData,
+			courseCategoryId: handleCourseCategoryId(
+				doctorForm.doctorData.courseCategory
+			),
+		};
+		const newDoctorForm = {
+			...doctorForm,
+			...newDoctorData,
+		};
 		let result;
 		dispatch(setIsLoading(true));
 		if (!_.isEmpty(uuid)) {
-			result = await dispatch(updateDoctorForm({ params: doctorForm, uuid }));
+			result = await dispatch(
+				updateDoctorForm({ params: newDoctorForm, uuid })
+			);
 		} else {
-			result = await dispatch(createDoctorForm(doctorForm));
+			result = await dispatch(createDoctorForm(newDoctorForm));
 		}
 		dispatch(setIsLoading(false));
 		let message = "";
