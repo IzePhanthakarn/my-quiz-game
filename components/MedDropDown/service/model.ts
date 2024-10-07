@@ -11,4 +11,5 @@ export interface CourseCategory {
 export interface SsoBranch {
 	ssoBranchCode: string;
 	provinceName: string;
+	provinceCode: string;
 }
