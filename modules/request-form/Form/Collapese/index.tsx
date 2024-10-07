@@ -1,9 +1,6 @@
 import React from "react";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
-import Section1 from "./Section1";
-import Section2 from "./Section2";
-import Section3 from "./Section3";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { handleOnSubmitRequestForm } from "../../service";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -12,6 +9,9 @@ import { SliceModel } from "@/redux/slices/model";
 import { handleOnExportPdf } from "@/utils/report/common";
 import { REPORT_TYPES } from "@/constants/reports";
 import { useRouter } from "next/navigation";
+import Assessment from "./Assessment";
+import Information from "./Information";
+import { BaseColumn } from "wcf-component-lib/src/components";
 
 export default function Collapse(props: { uuid: boolean }) {
 	const dispatch: AppDispatch = useDispatch();
@@ -19,33 +19,28 @@ export default function Collapse(props: { uuid: boolean }) {
 	const { uuid } = props;
 
 	const { detail } = useSelector(
-		(state: SliceModel) => ({
-			detail: state.requestForm.detail,
-		}),
+		(state: SliceModel) => ({ detail: state.requestForm.detail }),
 		shallowEqual
 	);
 
-	const items: CollapseProps["items"] = [
+	const collapseList: CollapseProps["items"] = [
 		{
 			key: "1",
-			label: "ข้อมูลบันทึกใบคำขอค่าตรวจประเมิน",
-			children: <Section1 {...props} />,
+			label: "เลขที่ใบคำขอค่าตรวจประเมิน : 110065/00025",
+			children: <Assessment {...props} />,
 		},
 		{
 			key: "2",
-			label: "ข้อมูลแพทย์ผู้ประเมิน",
-			children: <Section2 {...props} />,
-		},
-		{
-			key: "3",
-			label: "เลขที่ใบคำขอค่าตรวจประเมิน",
-			children: <Section3 {...props} />,
+			label: "ข้อมูลบันทึกใบคำขอค่าตรวจประเมิน ",
+			children: <Information {...props} />,
 		},
 	];
+
 	return (
-		<div className="flex flex-col mt-2 space-y-2">
-			<p className="text-2xl">สืบค้นใบคำขอรับค่าตรวจประเมิน MED01001</p>
-			<BaseCollapse items={items} defaultActiveKey={["1", "2", "3"]} />
+		<BaseColumn>
+			{collapseList.map((e, i: number) => (
+				<BaseCollapse items={[e]} key={e.key} defaultActiveKey={i + 1} />
+			))}
 			<div className="flex justify-center space-x-4">
 				<BaseButton
 					htmlType="submit"
@@ -65,6 +60,6 @@ export default function Collapse(props: { uuid: boolean }) {
 					}}
 				/>
 			</div>
-		</div>
+		</BaseColumn>
 	);
 }

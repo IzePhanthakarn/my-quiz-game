@@ -57,13 +57,12 @@ export default function Doctor() {
 	const onFinishDrawer: FormProps<DoctorFilter>["onFinish"] = (
 		value: DoctorFilter
 	) => {
+		const quickFilter = form.getFieldsValue();
 		let handleHospital;
 		let newFilter = { ...filter, ...value };
 		let handleFilter = {
 			...newFilter,
-			doctorCodeLike: "",
-			firstnameLike: "",
-			lastnameLike: "",
+			...quickFilter,
 		};
 		if (
 			!_.isEmpty(value.hospitalNameLike) &&
@@ -72,9 +71,6 @@ export default function Doctor() {
 			handleHospital = value.hospitalNameLike.split("-")[0];
 			handleFilter = {
 				...newFilter,
-				doctorCodeLike: "",
-				firstnameLike: "",
-				lastnameLike: "",
 				hospitalNameLike: handleHospital,
 			};
 		}
@@ -98,7 +94,7 @@ export default function Doctor() {
 			})
 		);
 		dispatch(setMounted(uuid4()));
-		dispatch(setDoctorFilter(newFilter));
+		// dispatch(setDoctorFilter(newFilter));
 	};
 
 	const { dispatchLayout } = useLayout();
@@ -118,9 +114,18 @@ export default function Doctor() {
 								<BaseItemInput
 									itemName="doctorCodeLike"
 									label="เลขทะเบียน สปส"
+									onPressEnter={() => form.submit()}
 								/>
-								<BaseItemInput label="ชื่อ" itemName="firstnameLike" />
-								<BaseItemInput label="นามสกุล" itemName="lastnameLike" />
+								<BaseItemInput
+									label="ชื่อ"
+									itemName="firstnameLike"
+									onPressEnter={() => form.submit()}
+								/>
+								<BaseItemInput
+									label="นามสกุล"
+									itemName="lastnameLike"
+									onPressEnter={() => form.submit()}
+								/>
 							</div>
 						</BaseForm>
 					}

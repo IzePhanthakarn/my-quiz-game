@@ -11,7 +11,7 @@ import { useParams, useRouter } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
 import { itemsTables } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { SliceModel } from "@/redux/slices/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
@@ -19,6 +19,8 @@ import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
 import { handleOpenHistory } from "./service";
+import { BaseSubmitButton } from "wcf-component-lib/src/components";
+import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -38,6 +40,7 @@ const DoctorFormTabs = () => {
 	}, [uuid]);
 
 	useEffect(() => {
+		dispatch(handleSession(SESSION_NAME.JOB_TYPE));
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 	}, []);
@@ -57,13 +60,24 @@ const DoctorFormTabs = () => {
 					dispatch(setIsOpenBaseConfirmDialog(false));
 				}}
 			/>
+
 			{doctorForm.editTimes.length > 1 && (
-				<BaseButton
-					label="History Test"
-					onClick={() => {
-						dispatch(handleOpenHistory(doctorForm));
-					}}
-				/>
+				<div className="flex justify-end py-2">
+					<BaseSubmitButton
+						type="default"
+						className="text-base font-semibold mr-3"
+						label="ประวัติการแก้ไข"
+						onClickFunction={() => {
+							dispatch(handleOpenHistory(doctorForm));
+						}}
+						icon={<ClockCircleOutlined />}
+						customStyle={{
+							width: "175px",
+							height: "48px",
+							borderRadius: "99px",
+						}}
+					/>
+				</div>
 			)}
 			{itemsTables?.map((item, index: number) => (
 				<BaseCollapse

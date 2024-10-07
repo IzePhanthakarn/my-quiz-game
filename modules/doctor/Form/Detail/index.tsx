@@ -45,29 +45,26 @@ export default function DoctorDetailForm() {
 					itemName="professionalCode"
 					rules={[]}
 				/>
+				<div className="col-span-2">
+					<MedDropDown
+						type={SESSION_NAME.COURSE_CATEGORY}
+						label="หลักสูตรอบรม"
+						itemName="categoryDescription"
+					/>
+				</div>
+				<div></div>
 				<BaseItemInput
 					label="เลขทะเบียน สปส"
 					itemName="doctorCode"
 					rules={[]}
 				/>
+
 				<BaseItemInput
 					label="เลขที่บัตรประชาชน"
 					itemName="citizenId"
 					rules={[]}
 				/>
-				<div></div>
-				<MedDropDown
-					type={SESSION_NAME.TITLE}
-					label="คำนำหน้า"
-					itemName="title"
-					className="h-full w-full"
-					labelRender={() => (
-						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
-					)}
-				/>
-				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
-				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
-				<div></div>
+
 				<MedDropDown
 					type={SESSION_NAME.DOCTOR_TYPE}
 					label="ประเภทแพทย์"
@@ -80,6 +77,17 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<BaseItemInput label="เลขที่ภาษี" itemName="revenueNo" rules={[]} />
+				<MedDropDown
+					type={SESSION_NAME.TITLE}
+					label="คำนำหน้า"
+					itemName="title"
+					className="h-full w-full"
+					labelRender={() => (
+						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
+					)}
+				/>
+				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
+				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
 				<div className="col-span-2"></div>
 				<div className="col-span-4 ">
 					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
