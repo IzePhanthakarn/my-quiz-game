@@ -78,7 +78,7 @@ export default function Med5010() {
 				reportType: "5",
 			}}
 			downloadContent={
-				<DownloadContent med5010={med5010} form={form} onFinish={onFinish} />
+				<div className="grid grid-cols-4 gap-x-6 gap-y-5"></div>
 			}
 		>
 			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
