@@ -66,11 +66,19 @@ export const columnsFiles = (
 				props: {
 					style: {
 						backgroundColor:
+							// position === "newer"
+							// 	? isNew
+							// 		? Colors.history.files.new
+							// 		: isActive === IsActive.N
+							// 		? Colors.history.files.deleted
+							// 		: undefined
+							// 	: undefined,
+
 							position === "newer"
-								? isNew
-									? Colors.history.files.new
-									: isActive === IsActive.N
+								? isActive === IsActive.N
 									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
 									: undefined
 								: undefined,
 					},
