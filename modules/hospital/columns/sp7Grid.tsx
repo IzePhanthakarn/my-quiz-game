@@ -71,7 +71,7 @@ export const Sp7Grid = (props: Props) => {
 				render: (_, { fileName }) => {
 					return (
 						<a
-							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/${fileName}`}
+							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/${fileName}`}
 							target="_blank"
 						>
 							{fileName}
