@@ -6,6 +6,7 @@ export interface Title {
 export interface CourseCategory {
 	courseCategoryId: number;
 	categoryDescription: string;
+	courseCategory: string;
 }
 
 export interface SsoBranch {

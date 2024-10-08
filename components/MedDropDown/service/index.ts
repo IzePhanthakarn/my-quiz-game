@@ -86,7 +86,7 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 		case SESSION_NAME.COURSE_CATEGORY:
 			const courseCategory: Option[] = result.map((e: CourseCategory) => ({
 				label: e.categoryDescription,
-				value: e.categoryDescription,
+				value: e.courseCategory,
 			}));
 			return courseCategory;
 		case SESSION_NAME.HOSPITAL:

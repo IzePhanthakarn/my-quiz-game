@@ -21,7 +21,8 @@ export interface DoctorData {
 	title: string | null;
 	// isActive: string;
 	// uuid: string;
-	categoryDescription: string | null;
+	courseCategory: string | null;
+	courseCategoryId: number | null;
 }
 
 export interface TrainingList extends Training {
@@ -103,7 +104,8 @@ const modelDoctorData: DoctorData = {
 	title: null,
 	// isActive: "",
 	// uuid: "",
-	categoryDescription: null,
+	courseCategory: null,
+	courseCategoryId: null,
 };
 
 export const modelDoctorForm: DoctorForm = {
