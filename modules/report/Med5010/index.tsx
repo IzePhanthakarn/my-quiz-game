@@ -6,7 +6,7 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5010Form, setMed5010List, setMed5010TotalData } from "../redux";
+import { setMed5010Form, setMed5010Grid } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Med5010Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -15,8 +15,6 @@ import { REPORT_TYPES } from "@/constants/reports";
 import { handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
-
-import DownloadContent from "./DownloadContent";
 
 export default function Med5010() {
 	const dispatch: AppDispatch = useDispatch();
@@ -63,8 +61,8 @@ export default function Med5010() {
 		const list = data?.payload.content;
 		const totalData = data?.payload.totalElements;
 		if (!_.isEmpty(list)) {
-			dispatch(setMed5010TotalData(totalData));
-			dispatch(setMed5010List(list));
+			//dispatch(setMed5010TotalData(totalData));
+			//dispatch(setMed5010List(list));
 		}
 	};
 	return (

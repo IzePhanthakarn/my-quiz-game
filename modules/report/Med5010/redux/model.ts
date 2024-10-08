@@ -10,9 +10,6 @@ export interface Med5010Form {
 }
 
 export interface Med5010List {
-	hospitalType: string | null;
-	hospitalCategory: string | null;
-	ssoProject: string | null;
 }
 export interface Med5010Grid extends PaginationModel {
 	list: Med5010List[];

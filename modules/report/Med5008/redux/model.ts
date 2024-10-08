@@ -11,10 +11,6 @@ export interface Med5008Form {
 }
 
 export interface Med5008List {
-	sp7expiredFrom: string | null;
-	sp7expiredTo: string | null;
-	sp19expiredFrom: string | null;
-	sp19expiredTo: string | null;
 }
 export interface Med5008Grid extends PaginationModel {
 	list: Med5008List[];

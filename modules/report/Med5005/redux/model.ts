@@ -3,12 +3,7 @@ import {
 	PaginationModel,
 } from "wcf-component-lib/src/components/BasePagination/model";
 
-export interface Med5005Form {
-	provinceCode: string | null;
-	fromDate: string | null;
-	toDate: string | null;
-	showDownload: string | null;
-}
+export interface Med5005Form {}
 
 export interface Med5005List {
 	provinceCode: string | null;

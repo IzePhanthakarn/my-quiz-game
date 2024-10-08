@@ -6,7 +6,7 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5008Form, setMed5008List, setMed5008TotalData } from "../redux";
+import { setMed5008Form, setMed5008Grid } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Med5008Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -19,7 +19,7 @@ import _ from "lodash";
 import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-import DownloadContent from "./DownloadContent";
+
 
 export default function Med5008() {
 	const dispatch: AppDispatch = useDispatch();
@@ -86,8 +86,8 @@ export default function Med5008() {
 		const list = data?.payload.content;
 		const totalData = data?.payload.totalElements;
 		if (!_.isEmpty(list)) {
-			dispatch(setMed5008TotalData(totalData));
-			dispatch(setMed5008List(list));
+			//dispatch(setMed5008TotalData(totalData));
+			//dispatch(setMed5008List(list));
 		}
 	};
 	return (
@@ -103,7 +103,7 @@ export default function Med5008() {
 				reportType: "5",
 			}}
 			downloadContent={
-				<DownloadContent med5008={med5008} form={form} onFinish={onFinish} />
+				<div className="grid grid-cols-4 gap-x-6 gap-y-5"></div>
 			}
 		>
 			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}

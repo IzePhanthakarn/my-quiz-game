@@ -7,8 +7,6 @@ export interface Med5011Form {
 }
 
 export interface Med5011List {
-	fromDate: string | null;
-	toDate: string | null;
 }
 
 export interface Med5011 {

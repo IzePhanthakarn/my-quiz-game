@@ -6,7 +6,7 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5001Form, setMed5001List, setMed5001TotalData } from "../redux";
+import { setMed5001Form, setMed5001Grid } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { Med5001Form } from "./redux/model";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -17,7 +17,7 @@ import _ from "lodash";
 import { columns } from "./model";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-import DownloadContent from "./DownloadContent";
+
 
 export default function Med5001() {
 	const dispatch: AppDispatch = useDispatch();
@@ -39,12 +39,14 @@ export default function Med5001() {
 			DateFormat.YYYYMMDD
 		);
 		let toDateParam: string = dayjs(value.toDate).format(DateFormat.YYYYMMDD);
+		value.fromDate=fromDateParam;
+		value.toDate=toDateParam;
 		dispatch(
 			setMed5001Form({
 				...med5001,
 				fromDate: fromDateParam,
 				toDate: toDateParam,
-				provinceCode: value.provinceCode,
+				ssoCode: value.ssoCode,
 				showDownload: "Y"
 			})
 		);
@@ -54,8 +56,8 @@ export default function Med5001() {
 		const list = data?.payload.content;
 		const totalData = data?.payload.totalElements;
 		if (!_.isEmpty(list)) {
-			dispatch(setMed5001TotalData(totalData));
-			dispatch(setMed5001List(list));
+			//dispatch(setMed5001TotalData(totalData));
+			//dispatch(setMed5001List(list));
 		}
 	};
 	return (
@@ -71,7 +73,7 @@ export default function Med5001() {
 				reportType: "5",
 			}}
 			downloadContent={
-				<DownloadContent med5001={med5001} form={form} onFinish={onFinish} />
+				<div className="grid grid-cols-4 gap-x-6 gap-y-5"></div>
 			}
 		>
 			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
