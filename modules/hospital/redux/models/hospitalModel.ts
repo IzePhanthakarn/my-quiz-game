@@ -231,6 +231,7 @@ export const modelHospital: Hospital = {
 	grid: {
 		data: [],
 		page: {
+			orders: [{ direction: "DESC", property: "updatedDate" }],
 			totalData: 0,
 			pageNumber: 0,
 			pageSize: 10,
