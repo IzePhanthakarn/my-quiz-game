@@ -81,7 +81,7 @@ export const columnsFiles = (
 							{fileName}
 						</a>
 						{/* <a
-							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/${fileName}`}
+							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/${fileName}`}
 							target="_blank"
 						>
 							{fileName}
@@ -161,7 +161,7 @@ export const getItems = (compareList: HospitalCompareList) => {
 						rows={compareList.hospitalSp7.older}
 						columns={columnsFiles(
 							"older",
-							`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/`
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/`
 						)}
 						twoToneColor
 					/>
@@ -170,7 +170,7 @@ export const getItems = (compareList: HospitalCompareList) => {
 						rows={compareList.hospitalSp7.newer}
 						columns={columnsFiles(
 							"newer",
-							`https://minio-wcf.soilfish.co/wcf2-public/hospital/sp7/`
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/`
 						)}
 						twoToneColor
 					/>

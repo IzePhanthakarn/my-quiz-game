@@ -54,7 +54,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 				render: (_, { fileName }) => {
 					return (
 						<a
-							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/announcedPriceFiles/${fileName}`}
+							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/announcedPriceFiles/${fileName}`}
 							target="_blank"
 						>
 							{fileName}

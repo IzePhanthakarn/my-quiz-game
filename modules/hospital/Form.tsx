@@ -190,6 +190,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					);
 					dispatch(setHospitalStaffContact(modelHospital.hospitalStaffContact));
 				}
+				console.log("🚀 ~ params:", process.env.NEXT_PUBLIC_MINIO_PATH);
+				console.log("🚀 ~ params:", process.env.NEXT_PUBLIC_API_URL);
 
 				setIsInit(true);
 			}

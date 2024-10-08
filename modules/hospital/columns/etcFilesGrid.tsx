@@ -40,7 +40,7 @@ export const EtcFilesGrid = (props: Props) => {
 				render: (_, { fileName }) => {
 					return (
 						<a
-							href={`https://minio-wcf.soilfish.co/wcf2-public/hospital/etcFiles/${fileName}`}
+							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/etcFiles/${fileName}`}
 							target="_blank"
 						>
 							{fileName}
