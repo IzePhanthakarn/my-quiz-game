@@ -5,8 +5,17 @@ import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { HospitalCompareList } from "../../redux/models/historyModel";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
-import { Colors } from "wcf-component-lib/src/constants/Colors";
+// import { Colors } from "wcf-component-lib/src/constants/Colors";
 import React from "react";
+
+const Colors = {
+	history: {
+		files: {
+			new: "#FDE69C",
+			deleted: "#f9eaea",
+		},
+	},
+};
 
 export const columns: TableProps["columns"] = [
 	{
