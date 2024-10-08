@@ -134,7 +134,7 @@ export const handleDoctorFormSubmit =
 			...doctorForm,
 			doctorData: { ...newDoctorData },
 		};
-		console.log("newDoctorForm", newDoctorForm);
+
 		let result;
 		dispatch(setIsLoading(true));
 		if (!_.isEmpty(uuid)) {
