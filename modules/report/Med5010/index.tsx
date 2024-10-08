@@ -6,69 +6,39 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5010Form, setMed5010Grid } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { Med5010Form } from "./redux/model";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { REPORT_TYPES } from "@/constants/reports";
-import { handlePreviewDisplay } from "@/utils/report/common";
+import { handleOnExportExcel } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
+import { handleOnPreview, handlePdfButton } from "./service";
+import dynamic from "next/dynamic";
 
-export default function Med5010() {
+const Med5010 = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const { med5010, list, totalData } = useSelector(
+	const { med5010, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			med5010: state.medReport.med5010.form,
-			list: state.medReport.med5010.grid.list,
-			totalData: state.medReport.med5010.grid.page.totalData,
+			med5010: state.medReport.med5010,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
-
-	const [form] = Form.useForm<Med5010Form>();
-
-	const onFinish: FormProps<Med5010Form>["onFinish"] = async (
-		value: Med5010Form
-	) => {
-
-		if  ( _.isEmpty(value.hospitalType) ) {
-			alert("กรุณาใส่ข้อมูล ระดับของสถานพยาบาล" );
-			return;
+	function DownloadChange(e: string): any {
+		if ("EXCEL" == e) {
+			dispatch(handleOnExportExcel(med5010, REPORT_TYPES.MED5010));
+		} else if ("PDF" == e) {
+			dispatch(handlePdfButton(med5010.form));
 		}
-		if  ( _.isEmpty(value.hospitalCategory) ) {
-			alert("กรุณาใส่ข้อมูล ประเภทของสถานพยาบาล" );
-			return;
-		}
-		if  ( _.isEmpty(value.ssoProject) ) {
-			alert("กรุณาใส่ข้อมูล โครงการประกันสังคม" );
-			return;
-		}
-		 
-		dispatch(
-			setMed5010Form({
-				...med5010,
-				hospitalType: value.hospitalType,
-				hospitalCategory: value.hospitalCategory,
-				ssoProject: value.ssoProject,
-				showDownload:'Y'
-			})
-		);
-		const data = await dispatch(
-			handlePreviewDisplay(value, REPORT_TYPES.MED5010)
-		);
-		const list = data?.payload.content;
-		const totalData = data?.payload.totalElements;
-		if (!_.isEmpty(list)) {
-			//dispatch(setMed5010TotalData(totalData));
-			//dispatch(setMed5010List(list));
-		}
-	};
+		return e;
+	}
 	return (
 		<FormReportLayout
-			handleSubmitButton={() => form.submit()}
-			TotalItems={totalData}
+			handleSubmitButton={() => {
+				dispatch(handleOnPreview(med5010));
+			}}
+			TotalItems={med5010.grid.page.totalData}
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
 				reportCode: "MED5010",
@@ -78,10 +48,59 @@ export default function Med5010() {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5"></div>
+				<div>
+					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+						<MedDropDown
+							itemName="hospitalType"
+							label="ระดับของสถานพยาบาล"
+							type={SESSION_NAME.HOSPITAL_TYPE}
+						/>
+					</div>
+					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+						<MedDropDown
+							itemName="hospitalCategory"
+							label="ประเภทของสถานพยาบาล"
+							type={SESSION_NAME.HOSPITAL_CATEGORY}
+						/>
+					</div>
+					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+						<MedDropDown
+							itemName="ssoProject"
+							label="โครงการประกันสังคม"
+							type={SESSION_NAME.SSO_PROJECT}
+						/>
+						{!_.isEmpty(med5010.form.showDownload) ? (
+							<div>
+								<MedDropDown
+									label="ดาวน์โหลด"
+									option={DROPDOWN_REPOT}
+									getValue={(e: string) => {
+										DownloadChange(e);
+									}}
+								/>
+							</div>
+						) : null}
+					</div>
+				</div>
 			}
 		>
-			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
+			{!_.isEmpty(med5010.grid.list) ? (
+				<BaseGrid
+					rows={med5010.grid.list}
+					columns={columns}
+					page={med5010.grid.page}
+					loading={isLoading}
+					twoToneColor={true}
+					setPagination={(page) => {
+						dispatch(
+							handleOnPreview({ ...med5010, grid: { ...med5010.grid, page } })
+						);
+					}}
+				/>
+			) : null}
 		</FormReportLayout>
 	);
-}
+};
+export default dynamic(() => Promise.resolve(Med5010), {
+	ssr: false,
+});

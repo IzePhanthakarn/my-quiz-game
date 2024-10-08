@@ -6,94 +6,41 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5008Form, setMed5008Grid } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { Med5008Form } from "./redux/model";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
-import { REPORT_TYPES } from "@/constants/reports";
-import {
-	handlePreviewDisplay,
-} from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
-import dayjs from "dayjs";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { handleOnPreview, handlePdfButton } from "./service";
+import { BaseDatePicker } from "wcf-component-lib/src/components/BaseDatePicker";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_REPOT } from "@/components/MedDropDown/model";
+import { handleOnExportExcel } from "@/utils/report/common";
+import { REPORT_TYPES } from "@/constants/reports";
+import dynamic from "next/dynamic";
+import { setMed5008Form } from "../redux";
 
-
-export default function Med5008() {
+const Med5008 = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const { med5008, list, totalData } = useSelector(
+	const { med5008, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			med5008: state.medReport.med5008.form,
-			list: state.medReport.med5008.grid.list,
-			totalData: state.medReport.med5008.grid.page.totalData,
+			med5008: state.medReport.med5008,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
-
-	const [form] = Form.useForm<Med5008Form>();
-
-	const onFinish: FormProps<Med5008Form>["onFinish"] = async (
-		value: Med5008Form
-	) => {
-		if  ( _.isEmpty(value.sp7expiredFrom) ) {
-			alert("กรุณาใส่ข้อมูล วันที่สิ้นสุดใบอนุญาต(สพ.7)" );
-			return;
+	function DownloadChange(e: string): any {
+		if ("EXCEL" == e) {
+			dispatch(handleOnExportExcel(med5008, REPORT_TYPES.MED5008));
+		} else if ("PDF" == e) {
+			dispatch(handlePdfButton(med5008.form));
 		}
-		if  ( _.isEmpty(value.sp7expiredTo) ) {
-			alert("กรุณาใส่ข้อมูล วันที่สิ้นสุดใบอนุญาต(สพ.7) ถึงวันที่" );
-			return;
-		}
-		if  ( _.isEmpty(value.sp19expiredFrom) ) {
-			alert("กรุณาใส่ข้อมูล วันที่สิ้นสุดใบอนุญาต(สพ.19)");
-			return;
-		}
-		if  ( _.isEmpty(value.sp19expiredTo) ) {
-			alert("กรุณาใส่ข้อมูล วันที่สิ้นสุดใบอนุญาต(สพ.19) ถึงวันที่" );
-			return;
-		}
-		let sp7fromDateParam: string = dayjs(value.sp7expiredFrom).format(
-			DateFormat.YYYYMMDD
-		);
-		let sp7toDateParam: string = dayjs(value.sp7expiredTo).format(
-			DateFormat.YYYYMMDD
-		);
-		let sp19fromDateParam: string = dayjs(value.sp19expiredFrom).format(
-			DateFormat.YYYYMMDD
-		);
-		let sp19toDateParam: string = dayjs(value.sp19expiredTo).format(
-			DateFormat.YYYYMMDD
-		);
-		value.sp7expiredFrom = sp7fromDateParam;
-		value.sp7expiredTo = sp7toDateParam;
-		value.sp19expiredFrom = sp19fromDateParam;
-		value.sp19expiredTo = sp19toDateParam;
-
-		dispatch(
-			setMed5008Form({
-				...med5008,
-				sp7expiredFrom: sp7fromDateParam,
-				sp7expiredTo: sp7toDateParam,
-				sp19expiredFrom: sp19fromDateParam,
-				sp19expiredTo: sp19toDateParam,
-				showDownload:'Y'
-			})
-		);
-		const data = await dispatch(
-			handlePreviewDisplay(value, REPORT_TYPES.MED5008)
-		);
-		const list = data?.payload.content;
-		const totalData = data?.payload.totalElements;
-		if (!_.isEmpty(list)) {
-			//dispatch(setMed5008TotalData(totalData));
-			//dispatch(setMed5008List(list));
-		}
-	};
+		return e;
+	}
 	return (
 		<FormReportLayout
-			handleSubmitButton={() => form.submit()}
-			TotalItems={totalData}
+			handleSubmitButton={() => {
+				dispatch(handleOnPreview(med5008));
+			}}
+			TotalItems={med5008.grid.page.totalData}
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
 				reportCode: "MED5008",
@@ -103,10 +50,102 @@ export default function Med5008() {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5"></div>
+				<div>
+					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+						<div>
+							<BaseDatePicker
+								notForm={true}
+								label="วันที่สิ้นสุดใบอนุญาต(สพ.7)"
+								value={med5008.form.sp7expiredFrom}
+								onChangeDateFunction={(date) => {
+									dispatch(
+										setMed5008Form({
+											...med5008.form,
+											sp7expiredFrom: date,
+										})
+									);
+								}}
+							/>
+						</div>
+						<div>
+							<BaseDatePicker
+								notForm={true}
+								label="ถึงวันที่"
+								value={med5008.form.sp7expiredTo}
+								onChangeDateFunction={(date) => {
+									dispatch(
+										setMed5008Form({
+											...med5008.form,
+											sp7expiredTo: date,
+										})
+									);
+								}}
+							/>
+						</div>
+					</div>
+					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+						<div>
+							<BaseDatePicker
+								notForm={true}
+								label="วันที่สิ้นสุดใบอนุญาต(สพ.19)"
+								value={med5008.form.sp19expiredFrom}
+								onChangeDateFunction={(date) => {
+									dispatch(
+										setMed5008Form({
+											...med5008.form,
+											sp19expiredFrom: date,
+										})
+									);
+								}}
+							/>
+						</div>
+						<div>
+							<BaseDatePicker
+								notForm={true}
+								label="ถึงวันที่"
+								value={med5008.form.sp19expiredTo}
+								onChangeDateFunction={(date) => {
+									dispatch(
+										setMed5008Form({
+											...med5008.form,
+											sp19expiredTo: date,
+										})
+									);
+								}}
+							/>
+						</div>
+						{!_.isEmpty(med5008.form.showDownload) ? (
+							<div>
+								<MedDropDown
+									label="ดาวน์โหลด"
+									option={DROPDOWN_REPOT}
+									getValue={(e: string) => {
+										DownloadChange(e);
+									}}
+								/>
+							</div>
+						) : null}
+					</div>
+				</div>
 			}
 		>
-			{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
+			{!_.isEmpty(med5008.grid.list) ? (
+				<BaseGrid
+					rows={med5008.grid.list}
+					columns={columns}
+					page={med5008.grid.page}
+					loading={isLoading}
+					twoToneColor={true}
+					setPagination={(page) => {
+						dispatch(
+							handleOnPreview({ ...med5008, grid: { ...med5008.grid, page } })
+						);
+					}}
+				/>
+			) : null}
 		</FormReportLayout>
 	);
-}
+};
+export default dynamic(() => Promise.resolve(Med5008), {
+	ssr: false,
+});
