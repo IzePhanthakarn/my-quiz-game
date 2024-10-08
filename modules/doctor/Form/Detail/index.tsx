@@ -49,7 +49,7 @@ export default function DoctorDetailForm() {
 					<MedDropDown
 						type={SESSION_NAME.COURSE_CATEGORY}
 						label="หลักสูตรอบรม"
-						itemName="categoryDescription"
+						itemName="courseCategory"
 					/>
 				</div>
 				<div></div>
