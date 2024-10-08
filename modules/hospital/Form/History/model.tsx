@@ -6,6 +6,7 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { HospitalCompareList } from "../../redux/models/historyModel";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { Colors } from "wcf-component-lib/src/constants/Colors";
+import React from "react";
 
 export const columns: TableProps["columns"] = [
 	{
