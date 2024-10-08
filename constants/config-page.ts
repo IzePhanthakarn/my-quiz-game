@@ -57,4 +57,12 @@ export const configPage: DataStructureURL = {
 			pageLevel: { form: [0] },
 		},
 	},
+	med5007: {
+		root: {
+			url: "/report/med5007",
+			breadcrumb: ["root"],
+			text: "รายงานชื่อที่อยู่สถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+			pageLevel: { form: [0] },
+		},
+	},
 };
