@@ -35,7 +35,14 @@ export default function Med5007() {
 	const onFinish: FormProps<Med5007Form>["onFinish"] = async (
 		value: Med5007Form
 	) => {
-		dispatch(setMed5007Form({ ...med5007, hospitalCategory: value.hospitalCategory, hospitalType: value.hospitalType }));
+		dispatch(
+			setMed5007Form({
+				...med5007,
+				hospitalCategory: value.hospitalCategory,
+				hospitalType: value.hospitalType,
+				showDownload: "Y"
+			})
+		);
 		const data = await dispatch(
 			handlePreviewDisplay(value, REPORT_TYPES.MED5007)
 		);
@@ -64,22 +71,7 @@ export default function Med5007() {
 					<DownloadContent med5007={med5007} form={form} onFinish={onFinish} />
 				}
 			>
-				{!_.isEmpty(list) ? (
-						<><div className="col-span-4 flex justify-end">
-					<BaseButton
-						className="w-full;"
-						label="Excel"
-						onClick={() => {
-							dispatch(handleOnExportExcel(med5007, REPORT_TYPES.MED5007));
-						} } />
-					<BaseButton
-						className="w-1/6"
-						label="Pdf"
-						onClick={() => {
-							dispatch(handlePdfButton(med5007));
-						} } /> 
-				</div><BaseGrid rows={list} columns={columns} /></>
-				) : null}
+				{!_.isEmpty(list) ? <BaseGrid rows={list} columns={columns} /> : null}
 			</FormReportLayout>
 		</>
 	);

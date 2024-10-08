@@ -6,11 +6,13 @@ import {
 export interface Med5007Form {
 	hospitalCategory: string | null;
 	hospitalType: string | null;
+	showDownload: string | null;
 }
 
 export interface Med5007List {
 	hospitalCategory: string | null;
 	hospitalType: string | null;
+	showDownload: string | null;
 }
 
 export interface Med5007 {
@@ -31,6 +33,7 @@ export const modelMed5007: Med5007 = {
 	form: {
 		hospitalCategory: null,
 		hospitalType: null,
+		showDownload: null,
 	},
 	grid: {
 		list: [],
