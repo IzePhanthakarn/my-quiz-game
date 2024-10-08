@@ -109,14 +109,12 @@ export const initDoctorGrid =
 		dispatch(setDoctorGrid(grid));
 	};
 
-const handleCourseCategoryId = (courseCategory: string | null) => {
+const handleCourseCategory = (courseCategory: string | null) => {
 	const courseCategorySession = JSON.parse(
 		sessionStorage.getItem(SESSION_NAME.COURSE_CATEGORY) ?? "[]"
 	);
-	return (
-		courseCategorySession.find(
-			(e: CourseCategory) => e.courseCategory === courseCategory
-		).courseCategoryId ?? null
+	return courseCategorySession.find(
+		(e: CourseCategory) => e.courseCategory === courseCategory
 	);
 };
 
@@ -127,9 +125,9 @@ export const handleDoctorFormSubmit =
 
 		const newDoctorData = {
 			...doctorForm.doctorData,
-			courseCategoryId: handleCourseCategoryId(
+			courseCategoryId: handleCourseCategory(
 				doctorForm.doctorData.courseCategory
-			),
+			).courseCategoryId,
 		};
 		const newDoctorForm = {
 			...doctorForm,
