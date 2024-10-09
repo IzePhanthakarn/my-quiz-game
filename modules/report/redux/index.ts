@@ -35,8 +35,7 @@ export const {
 	setMed5005Grid,
 	// MED5007
  	setMed5007Form,
- 	setMed5007List,
- 	setMed5007TotalData,
+ 	setMed5007Grid,
     // MED5008
 	setMed5008Form,
 	setMed5008Grid,
