@@ -9,16 +9,14 @@ import { AppDispatch } from "@/redux/config/configStore";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import _ from "lodash";
 import { columns } from "./model";
-import dynamic from "next/dynamic";
-import { handleOnPreview, handlePdfButton } from "./service";
-import MedDropDown from "@/components/MedDropDown";
-import { BaseDatePicker } from "wcf-component-lib/src/components/BaseDatePicker";
-import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
-import { REPORT_TYPES } from "@/constants/reports";
-import { handleOnExportExcel } from "@/utils/report/common";
-import { setMed5005Form } from "../redux";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import DownloadContent from "./DownloadContent";
+import { handleOnPreview } from "./service";
 
-const Med5005 = () => {
+import { Med5005Form } from "./redux/model";
+
+export default function Med5005() {
 	const dispatch: AppDispatch = useDispatch();
 	const { med5005, isLoading } = useSelector(
 		(state: SliceModel) => ({
@@ -27,19 +25,15 @@ const Med5005 = () => {
 		}),
 		shallowEqual
 	);
-	function DownloadChange(e: string): any {
-		if ("EXCEL" == e) {
-			dispatch(handleOnExportExcel(med5005, REPORT_TYPES.MED5005));
-		} else if ("PDF" == e) {
-			dispatch(handlePdfButton(med5005.form));
-		}
-		return e;
-	}
+	const [form] = Form.useForm<Med5005Form>();
+	const onFinish: FormProps<Med5005Form>["onFinish"] = async (
+		value: Med5005Form
+	) => {
+		const data = await dispatch(handleOnPreview(med5005));
+	};
 	return (
 		<FormReportLayout
-			handleSubmitButton={() => {
-				dispatch(handleOnPreview(med5005));
-			}}
+			handleSubmitButton={() => form.submit()}
 			TotalItems={med5005.grid.page.totalData}
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
@@ -51,71 +45,11 @@ const Med5005 = () => {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						{/* <MedDropDown
-							type={SESSION_NAME.SSO_BRANCH_PROVINCE}
-							label="รหัสหน่วยงาน"
-
-							value={med5005.form.provinceCode}
-							onChangeFunction={(e) => {
-								console.log(e.target.value);
-								dispatch(
-									setMed5005Form({
-										...med5005.form,
-										provinceCode: e.target.value,
-									})
-								);
-							}}
-						/> */}
-						<MedDropDown
-							itemName="provinceCode"
-							label="ระดับของสถานพยาบาล"
-							type={SESSION_NAME.SSO_BRANCH_PROVINCE}
-						/>
-					</div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<BaseDatePicker
-							notForm={true}
-							label="ตั้งวันที่ฝึกอบรม"
-							value={med5005.form.fromDate}
-							onChangeDateFunction={(date) => {
-								dispatch(
-									setMed5005Form({
-										...med5005.form,
-										fromDate: date,
-									})
-								);
-							}}
-						/>
-					</div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<BaseDatePicker
-							notForm={true}
-							label="ถึงวันที่"
-							value={med5005.form.toDate}
-							onChangeDateFunction={(date) => {
-								dispatch(
-									setMed5005Form({
-										...med5005.form,
-										toDate: date,
-									})
-								);
-							}}
-						/>
-						{!_.isEmpty(med5005.form.showDownload) ? (
-							<div>
-								<MedDropDown
-									label="ดาวน์โหลด"
-									option={DROPDOWN_REPOT}
-									getValue={(e: string) => {
-										DownloadChange(e);
-									}}
-								/>
-							</div>
-						) : null}
-					</div>
-				</div>
+				<DownloadContent
+					med5005={med5005.form}
+					form={form}
+					onFinish={onFinish}
+				/>
 			}
 		>
 			{!_.isEmpty(med5005.grid.list) ? (
@@ -134,7 +68,4 @@ const Med5005 = () => {
 			) : null}
 		</FormReportLayout>
 	);
-};
-export default dynamic(() => Promise.resolve(Med5005), {
-	ssr: false,
-});
+}

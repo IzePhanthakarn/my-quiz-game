@@ -6,18 +6,16 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5001Form } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import _ from "lodash";
 import { columns } from "./model";
 
 import dynamic from "next/dynamic";
-import { handleOnPreview, handlePdfButton } from "./service";
-import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
-import { BaseDatePicker } from "wcf-component-lib/src/components/BaseDatePicker";
-import { handleOnExportExcel } from "@/utils/report/common";
-import { REPORT_TYPES } from "@/constants/reports";
+import { handleOnPreview } from "./service";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { Med5001Form } from "./redux/model";
+import DownloadContent from "./DownloadContent";
 
 const Med5001 = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -28,19 +26,15 @@ const Med5001 = () => {
 		}),
 		shallowEqual
 	);
-	function DownloadChange(e: string): any {
-		if ("EXCEL" == e) {
-			dispatch(handleOnExportExcel(med5001, REPORT_TYPES.MED5001));
-		} else if ("PDF" == e) {
-			dispatch(handlePdfButton(med5001.form));
-		}
-		return e;
-	}
+	const [form] = Form.useForm<Med5001Form>();
+	const onFinish: FormProps<Med5001Form>["onFinish"] = async (
+		value: Med5001Form
+	) => {
+		const data = await dispatch(handleOnPreview(med5001));
+	};
 	return (
 		<FormReportLayout
-			handleSubmitButton={() => {
-				dispatch(handleOnPreview(med5001));
-			}}
+			handleSubmitButton={() => form.submit()}
 			TotalItems={med5001.grid.page.totalData}
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
@@ -52,55 +46,11 @@ const Med5001 = () => {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<MedDropDown
-							type={SESSION_NAME.SSO_BRANCH_PROVINCE_CODENAME}
-							label="รหัสหน่วยงาน"
-							itemName="ssoCode"
-						/>
-					</div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<BaseDatePicker
-							notForm={true}
-							label="ตั้งแต่วันที่จ่ายเงิน"
-							itemName={"fromDate"}
-							value={med5001.form.fromDate}
-							onChangeDateFunction={(date) => {
-								dispatch(
-									setMed5001Form({
-										...med5001.form,
-										fromDate: date,
-									})
-								);
-							}}
-						/>
-						<BaseDatePicker
-							notForm={true}
-							label="ถึงวันที่"
-							value={med5001.form.toDate}
-							onChangeDateFunction={(date) => {
-								dispatch(
-									setMed5001Form({
-										...med5001.form,
-										toDate: date,
-									})
-								);
-							}}
-						/>
-						{!_.isEmpty(med5001.form.showDownload) ? (
-							<div>
-								<MedDropDown
-									label="ดาวน์โหลด"
-									option={DROPDOWN_REPOT}
-									getValue={(e: string) => {
-										DownloadChange(e);
-									}}
-								/>
-							</div>
-						) : null}
-					</div>
-				</div>
+				<DownloadContent
+					med5001={med5001.form}
+					form={form}
+					onFinish={onFinish}
+				/>
 			}
 		>
 			{!_.isEmpty(med5001.grid.list) ? (

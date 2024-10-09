@@ -7,16 +7,15 @@ import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { REPORT_TYPES } from "@/constants/reports";
-import { handleOnExportExcel } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
-import MedDropDown from "@/components/MedDropDown";
-import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
-import { handleOnPreview, handlePdfButton } from "./service";
-import dynamic from "next/dynamic";
+import { handleOnPreview } from "./service";
+import { Med5010Form } from "./redux/model";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import DownloadContent from "./DownloadContent";
 
-const Med5010 = () => {
+export default function Med5010() {
 	const dispatch: AppDispatch = useDispatch();
 	const { med5010, isLoading } = useSelector(
 		(state: SliceModel) => ({
@@ -25,19 +24,16 @@ const Med5010 = () => {
 		}),
 		shallowEqual
 	);
-	function DownloadChange(e: string): any {
-		if ("EXCEL" == e) {
-			dispatch(handleOnExportExcel(med5010, REPORT_TYPES.MED5010));
-		} else if ("PDF" == e) {
-			dispatch(handlePdfButton(med5010.form));
-		}
-		return e;
-	}
+	const [form] = Form.useForm<Med5010Form>();
+	const onFinish: FormProps<Med5010Form>["onFinish"] = async (
+		value: Med5010Form
+	) => {
+		const data = await dispatch(handleOnPreview(med5010));
+	};
+
 	return (
 		<FormReportLayout
-			handleSubmitButton={() => {
-				dispatch(handleOnPreview(med5010));
-			}}
+			handleSubmitButton={() => form.submit()}
 			TotalItems={med5010.grid.page.totalData}
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
@@ -48,40 +44,11 @@ const Med5010 = () => {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<MedDropDown
-							itemName="hospitalType"
-							label="ระดับของสถานพยาบาล"
-							type={SESSION_NAME.HOSPITAL_TYPE}
-						/>
-					</div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<MedDropDown
-							itemName="hospitalCategory"
-							label="ประเภทของสถานพยาบาล"
-							type={SESSION_NAME.HOSPITAL_CATEGORY}
-						/>
-					</div>
-					<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-						<MedDropDown
-							itemName="ssoProject"
-							label="โครงการประกันสังคม"
-							type={SESSION_NAME.SSO_PROJECT}
-						/>
-						{!_.isEmpty(med5010.form.showDownload) ? (
-							<div>
-								<MedDropDown
-									label="ดาวน์โหลด"
-									option={DROPDOWN_REPOT}
-									getValue={(e: string) => {
-										DownloadChange(e);
-									}}
-								/>
-							</div>
-						) : null}
-					</div>
-				</div>
+				<DownloadContent
+					med5010={med5010.form}
+					form={form}
+					onFinish={onFinish}
+				/>
 			}
 		>
 			{!_.isEmpty(med5010.grid.list) ? (
@@ -100,7 +67,4 @@ const Med5010 = () => {
 			) : null}
 		</FormReportLayout>
 	);
-};
-export default dynamic(() => Promise.resolve(Med5010), {
-	ssr: false,
-});
+}

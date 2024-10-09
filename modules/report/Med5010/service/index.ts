@@ -3,7 +3,7 @@ import { handleOnExportPdf, handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { Med5010, Med5010Form, Med5010List } from "../redux/model";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5010Grid } from "../../redux";
+import { setMed5010Form, setMed5010Grid } from "../../redux";
 
 export const handlePdfButton =
 	(med5010: Med5010Form) => (dispatch: AppDispatch) => {
