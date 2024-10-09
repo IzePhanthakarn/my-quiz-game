@@ -27,13 +27,12 @@ const Med5011 = () => {
 		}),
 		shallowEqual
 	);
-	function DownloadChange(e: string): any {
-		if ("EXCEL" == e) {
+	function DownloadChange( downloadType: string) { 
+		if ("EXCEL" == downloadType) {
 			dispatch(handleOnExportExcel(med5011.form, REPORT_TYPES.MED5011));
-		} else if ("PDF" == e) {
+		} else if ("PDF" ==downloadType) {
 			dispatch(handlePdfButton(med5011.form));
 		}
-		return e;
 	}
 	 
 	return (
@@ -87,8 +86,15 @@ const Med5011 = () => {
 							<MedDropDown
 								label="ดาวน์โหลด"
 								option={DROPDOWN_REPOT}
-								getValue={(e: string) => {
-									DownloadChange(e);
+								value={med5011.form.downloadType}
+								getValue={(value: string) => {
+									DownloadChange(value);
+									dispatch(
+										setMed5011Form({
+											...med5011.form,
+											downloadType:value,
+										})
+									)
 								}}
 							/>
 						</div>

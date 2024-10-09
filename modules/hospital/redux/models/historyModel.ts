@@ -12,11 +12,23 @@ export interface EditTimesList {
 	createdBy: string;
 }
 
+export interface CompareFilesListObject {
+	older: CompareFilesList[];
+	newer: CompareFilesList[];
+}
+
+export interface CompareFilesList {
+	fileName: string;
+	isActive: string;
+	isNew: boolean;
+}
+
 export interface HospitalCompareList {
 	baseData: CompareList[];
 	codeData: CompareList[];
 	compensationFundInformationData: CompareList[];
 	hospitalChangedNameData: CompareList[];
+	hospitalSp7: CompareFilesListObject;
 }
 
 export interface FetchHospitalHistory {
@@ -30,6 +42,10 @@ export const modelHospitalHistory: HospitalHistory = {
 		codeData: [],
 		compensationFundInformationData: [],
 		hospitalChangedNameData: [],
+		hospitalSp7: {
+			older: [],
+			newer: [],
+		},
 	},
 	editTimesList: [],
 	compareParams: {

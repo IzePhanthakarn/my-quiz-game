@@ -126,6 +126,10 @@ export interface ExportPages {
 	med5009: {
 		propertyCode: string;
 	};
+	med5007: {
+		hospitalCategory: string;
+		hospitalType: string;
+	};
 	med5012: {
 		fromDate: string;
 		toDate: string;
@@ -227,6 +231,7 @@ export const modelHospital: Hospital = {
 	grid: {
 		data: [],
 		page: {
+			orders: [{ direction: "DESC", property: "updatedDate" }],
 			totalData: 0,
 			pageNumber: 0,
 			pageSize: 10,
@@ -255,6 +260,10 @@ export const modelHospital: Hospital = {
 		},
 		med5009: {
 			propertyCode: "",
+		},
+		med5007: {
+			hospitalCategory: "",
+			hospitalType: "",
 		},
 		med5012: {
 			fromDate: "",

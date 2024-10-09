@@ -552,7 +552,7 @@ export const convertAttachmentFileToPreview = (
 			uid: item.uuid,
 			name: `${item.attachmentName}.${item.extension}`,
 			// status: "done",
-			url: `https://minio-wcf.soilfish.co/wcf2-public/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
+			url: `${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/${subFolder}/${item.attachmentName}.${item.extension}`,
 			type: item.extension,
 		});
 	}

@@ -26,7 +26,7 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 // import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
-import { DoctorForm, modelDoctorForm } from "./redux/form/model";
+import { modelDoctorForm } from "./redux/form/model";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
