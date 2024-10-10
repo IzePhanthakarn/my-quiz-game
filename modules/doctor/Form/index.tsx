@@ -9,7 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { handleDoctorFormSubmit, initGetDoctorForm } from "../service";
 import { useParams, useRouter } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
-import { itemsTables } from "./Detail/model";
+import { getItemsForm } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
@@ -21,6 +21,8 @@ import { modelDoctorForm } from "../redux/form/model";
 import { handleOpenHistory } from "./service";
 import { BaseSubmitButton } from "wcf-component-lib/src/components";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -44,6 +46,11 @@ const DoctorFormTabs = () => {
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 	}, []);
+
+	const [form] = Form.useForm();
+	const onFinish: FormProps["onFinish"] = () => {
+		dispatch(setIsOpenBaseConfirmDialog(true));
+	};
 
 	return (
 		<BaseColumn className="bg-white p-2 h-full">
@@ -79,7 +86,7 @@ const DoctorFormTabs = () => {
 					/>
 				</div>
 			)}
-			{itemsTables?.map((item, index: number) => (
+			{getItemsForm({ form, onFinish })?.map((item, index: number) => (
 				<BaseCollapse
 					key={item.key}
 					defaultActiveKey={index + 1}
@@ -89,9 +96,10 @@ const DoctorFormTabs = () => {
 			<div className="py-2 w-full flex justify-end">
 				<BaseButton
 					size="large"
+					htmlType="submit"
 					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
 					label="บันทึก"
-					onClick={() => dispatch(setIsOpenBaseConfirmDialog(true))}
+					onClick={() => form.submit()}
 				/>
 			</div>
 		</BaseColumn>
