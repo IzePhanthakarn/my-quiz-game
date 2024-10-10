@@ -11,11 +11,9 @@ import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function Training() {
 	const dispatch: AppDispatch = useDispatch();
-	const { trainingGrid, doctor, dialog } = useSelector(
+	const { trainingGrid } = useSelector(
 		(state: SliceModel) => ({
 			trainingGrid: state.doctor.doctorForm.doctorTraining,
-			doctor: state.doctor.doctorForm.doctorData,
-			dialog: state.dialog,
 		}),
 		shallowEqual
 	);

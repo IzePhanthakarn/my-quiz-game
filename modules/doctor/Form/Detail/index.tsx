@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import _ from "lodash";
+import _, { set } from "lodash";
 import { setDoctorData, setDoctorForm } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import { DoctorData, modelDoctorForm } from "../../redux/form/model";
@@ -27,6 +27,13 @@ export default function DoctorDetailForm() {
 		}),
 		shallowEqual
 	);
+	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
+
+	useEffect(() => {
+		if (_.isEmpty(tmpDoctorData)) {
+			setTmpDoctorData(doctorData.doctorCode);
+		}
+	}, [doctorData.doctorCode]);
 
 	return (
 		<BaseForm
@@ -50,6 +57,13 @@ export default function DoctorDetailForm() {
 						type={SESSION_NAME.COURSE_CATEGORY}
 						label="หลักสูตรอบรม"
 						itemName="courseCategory"
+						getValue={(e: string) => {
+							let doctorCode = `${e}${tmpDoctorData}`;
+							if (e === "F") doctorCode = `${tmpDoctorData}`;
+							dispatch(
+								setDoctorData({ ...doctorData, doctorCode, courseCategory: e })
+							);
+						}}
 					/>
 				</div>
 				<div></div>
