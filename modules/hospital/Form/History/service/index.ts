@@ -64,6 +64,7 @@ export const fetchHistoryHospital =
 							response.payload.compensationFundInformationData,
 						hospitalChangedNameData: response.payload.hospitalChangedNameData,
 						hospitalSp7: response.payload.hospitalSp7,
+						hospitalSp19: response.payload.hospitalSp19,
 					},
 				})
 			);
