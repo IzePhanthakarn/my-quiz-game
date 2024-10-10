@@ -21,10 +21,11 @@ import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/mo
 import { TraningState } from "../TrainingDialog";
 import { Bank } from "../BankDialog";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { DiplomaForm } from "@/modules/diploma/redux/model";
 
 export const handleDoctorDetailRows =
 	(params: {
-		diplomaType?: string;
+		diplomaType?: string | null;
 		doctorDetailGrid: DoctorDetailList[];
 		editId?: number;
 		isDelete?: boolean;
@@ -32,9 +33,15 @@ export const handleDoctorDetailRows =
 	}) =>
 	async (dispatch: AppDispatch) => {
 		const { diplomaType = "", doctorDetailGrid, editId, isDelete } = params;
+		const sessionDiploma = JSON.parse(
+			sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
+		);
+		const diploma = sessionDiploma.find(
+			(e: DiplomaForm) => e.diplomaType === diplomaType
+		);
 		const newDoctorDetail: DoctorDetailList = {
 			id: 0,
-			diplomaType: diplomaType,
+			diplomaType: diploma,
 			uuid: null,
 			isActive: IsActive.Y,
 			createdDate: "",
@@ -42,7 +49,6 @@ export const handleDoctorDetailRows =
 			updatedDate: "",
 			updatedBy: "",
 		};
-
 		const newGrid = _.cloneDeep(doctorDetailGrid);
 		if (!_.isUndefined(editId)) {
 			const index = newGrid.findIndex((item) => item.id === editId);
@@ -62,10 +68,15 @@ export const handleHospitalRows =
 	}) =>
 	async (dispatch: AppDispatch) => {
 		const { doctorHospitalGrid, editId, isDelete, hospital } = params;
-
+		const raw_hospital = JSON.parse(
+			sessionStorage.getItem(SESSION_NAME.HOSPITAL) ?? "[]"
+		);
+		const name = raw_hospital.find(
+			(e: DoctorHospital) => e.hospitalWcfCode === hospital?.hospitalWcfCode
+		);
 		const newDoctorHospital: DoctorHospitalList = {
 			id: 0,
-			hospitalWcfCode: hospital?.hospitalWcfCode ?? "",
+			hospital: name,
 			jobType: hospital?.jobType ?? "",
 			clinicCode: null,
 			position: hospital?.position ?? "",
@@ -161,6 +172,7 @@ export const handleBankRows =
 			bankDigitCode: bank?.bankDigitCode ?? "",
 			bankSortingCode: bank?.bankSortingCode ?? "",
 			bankAccount: bank?.bankAccount ?? "",
+			promptpay: bank?.promptpay ?? "",
 		};
 
 		const newGrid = _.cloneDeep(doctorBankGrid);

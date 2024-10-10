@@ -14,6 +14,7 @@ import { useMemo } from "react";
 import { Diploma } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { modelDialog } from "@/redux/slices/dialog/model";
+import lodash from "lodash";
 
 interface Props {
 	doctorDetailGrid: DoctorDetailList[];
@@ -44,10 +45,14 @@ export const GetColumns = (props: Props) => {
 					const diploma = JSON.parse(
 						sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
 					);
+					let handleData = diplomaType;
+					if (typeof handleData === "object") {
+						handleData = lodash.get(handleData, "diplomaType");
+					}
 					const data: Diploma[] = diploma.filter(
-						(item: Diploma) => item.diplomaType === diplomaType.diplomaType
+						(item: Diploma) => item.diplomaType === handleData
 					);
-					return <p>{data[0].diplomaName}</p>;
+					return <p>{data[0]?.diplomaName ?? ""}</p>;
 				},
 			},
 			{

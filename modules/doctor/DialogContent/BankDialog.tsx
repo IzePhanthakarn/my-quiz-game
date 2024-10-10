@@ -23,6 +23,7 @@ export interface Bank {
 	bankDigitCode: string;
 	bankSortingCode: string;
 	bankAccount: string;
+	promptpay: string;
 }
 
 const modelBank: Bank = {
@@ -30,6 +31,7 @@ const modelBank: Bank = {
 	bankDigitCode: "",
 	bankSortingCode: "",
 	bankAccount: "",
+	promptpay: "",
 };
 
 export default function BankDialog(props: Props) {
@@ -85,6 +87,15 @@ export default function BankDialog(props: Props) {
 				/>
 				<BaseItemInput
 					notForm
+					label="พร้อมเพย์"
+					labelPosition={BaseFormItemPosition.TOP}
+					value={bank.promptpay}
+					onChangeFunction={(e) =>
+						setBank({ ...bank, promptpay: e.target.value })
+					}
+				/>
+				<BaseItemInput
+					notForm
 					label="ชื่อบัญชี"
 					labelPosition={BaseFormItemPosition.TOP}
 					value={bank.bankAccountName}
@@ -97,7 +108,7 @@ export default function BankDialog(props: Props) {
 				className="mt-2"
 				icon={<ArrowRightOutlined />}
 				iconPosition="end"
-				disabled={_.some(_.values(bank), (value) => value === "")}
+				// disabled={_.some(_.values(bank), (value) => value === "")}
 				onClick={() => {
 					dispatch(handleBankRows({ bank, doctorBankGrid, editId }));
 				}}

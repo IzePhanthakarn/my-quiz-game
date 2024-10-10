@@ -37,7 +37,6 @@ export default function DoctorDetails() {
 						setDialog({
 							...modelDialog,
 							isOpen: true,
-							width: 1000,
 							uniqueContent: (
 								<DiplomaDialog doctorDetailGrid={doctorDetailGrid} />
 							),

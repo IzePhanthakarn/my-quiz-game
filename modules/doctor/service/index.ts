@@ -122,17 +122,20 @@ export const handleDoctorFormSubmit =
 	(doctorForm: DoctorForm, uuid: string, router: AppRouterInstance) =>
 	async (dispatch: AppDispatch) => {
 		dispatch(setIsOpenBaseConfirmDialog(false));
-
+		const categoryData = handleCourseCategory(
+			doctorForm.doctorData.courseCategory
+		);
 		const newDoctorData = {
 			...doctorForm.doctorData,
-			courseCategoryId: handleCourseCategory(
-				doctorForm.doctorData.courseCategory
-			).courseCategoryId,
+			courseCategoryId: categoryData.courseCategoryId,
+			categoryDescription: categoryData.categoryDescription,
 		};
 		const newDoctorForm = {
 			...doctorForm,
-			...newDoctorData,
+			doctorData: { ...newDoctorData },
 		};
+
+		console.log("newDoctorForm", newDoctorForm);
 		let result;
 		dispatch(setIsLoading(true));
 		if (!_.isEmpty(uuid)) {
