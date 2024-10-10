@@ -6,79 +6,69 @@ import { MED_REPORT_SYSTEM } from "../model";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import { setMed5011Form, setMed5011List, setMed5011TotalData } from "../redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { Med5011Form } from "./redux/model";
-import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
-import Form from "wcf-component-lib/node_modules/antd/es/form";
-import { REPORT_TYPES } from "@/constants/reports";
-import { handleOnExportExcel, handlePreviewDisplay } from "@/utils/report/common";
 import _ from "lodash";
 import { columns } from "./model";
+import { handleOnPreview } from "./service";
+import { Med5011Form } from "./redux/model";
 import DownloadContent from "./DownloadContent";
-import dayjs from "dayjs";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { handlePdfButton } from "./service";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 
 export default function Med5011() {
 	const dispatch: AppDispatch = useDispatch();
-	const { med5011, list, totalData } = useSelector(
+	const { med5011, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			med5011: state.medReport.med5011.form,
-			list: state.medReport.med5011.grid.list,
-			totalData: state.medReport.med5011.grid.page.totalData,
+			med5011: state.medReport.med5011,
+			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
 
 	const [form] = Form.useForm<Med5011Form>();
-
 	const onFinish: FormProps<Med5011Form>["onFinish"] = async (
 		value: Med5011Form
 	) => {
-		if  ( _.isEmpty(value.fromDate) ) {
-			alert("กรุณาใส่ข้อมูล วันที่ยกเลิกสถานพยาบาล" );
-			return;
-		}
-		if  ( _.isEmpty(value.toDate) ) {
-			alert("กรุณาใส่ข้อมูล ถึงวันที่" );
-			return;
-		}
-		 
-		let fromDateParam: string =dayjs(value.fromDate).format(DateFormat.YYYYMMDD);
-		let toDateParam: string   =dayjs(value.toDate).format(DateFormat.YYYYMMDD);
-		value.fromDate=fromDateParam;
-		value.toDate=toDateParam;
-		dispatch(setMed5011Form({...med5011,fromDate:fromDateParam,toDate:toDateParam,showDownload:'Y'}));
-		const data = await dispatch(
-			handlePreviewDisplay(value, REPORT_TYPES.MED5011)
-		);
-		const list = data?.payload.content;
-		const totalData = data?.payload.totalElements;
-		if (!_.isEmpty(list)) {
-			dispatch(setMed5011TotalData(totalData));
-			dispatch(setMed5011List(list));
-		}
+		const data = await dispatch(handleOnPreview(med5011));
 	};
+
 	return (
-		<FormReportLayout
+		<>
+			<FormReportLayout
 				handleSubmitButton={() => form.submit()}
-				TotalItems={totalData}
+				TotalItems={med5011.grid.page.totalData}
 				reportData={{
 					systemName: `${MED_REPORT_SYSTEM}`,
 					reportCode: "MED5011",
-					reportName: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
-					reportDescription: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+					reportName:
+						"รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+					reportDescription:
+						"รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 					reportType: "5",
 				}}
 				downloadContent={
-					<DownloadContent med5011={med5011} form={form} onFinish={onFinish} />
+					<DownloadContent
+						med5011={med5011.form}
+						form={form}
+						onFinish={onFinish}
+					/>
 				}
-		>
-				{!_.isEmpty(list) ? (
-						<BaseGrid rows={list} columns={columns} />
+			>
+				{!_.isEmpty(med5011.grid.list) ? (
+					<BaseGrid
+						rows={med5011.grid.list}
+						columns={columns}
+						page={med5011.grid.page}
+						loading={isLoading}
+						twoToneColor={true}
+						setPagination={(page) => {
+							dispatch(
+								handleOnPreview({ ...med5011, grid: { ...med5011.grid, page } })
+							);
+						}}
+					/>
 				) : null}
 			</FormReportLayout>
+		</>
 	);
 }

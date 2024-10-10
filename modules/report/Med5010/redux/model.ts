@@ -7,12 +7,10 @@ export interface Med5010Form {
 	hospitalCategory: string | null;
 	ssoProject: string | null;
 	showDownload: string |null;
+	downloadType: string | null;
 }
 
 export interface Med5010List {
-	hospitalType: string | null;
-	hospitalCategory: string | null;
-	ssoProject: string | null;
 }
 export interface Med5010Grid extends PaginationModel {
 	list: Med5010List[];
@@ -29,6 +27,7 @@ export const modelMed5010: Med5010 = {
 		hospitalCategory: "",
 		ssoProject:"",
 		showDownload:"",
+		downloadType:null,
 	},
 	grid: {
 		list: [],
