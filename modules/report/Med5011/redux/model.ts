@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
 	modelPaginationOptions,
 	PaginationModel,
@@ -23,8 +24,8 @@ export interface Med5011Grid extends PaginationModel {
 
 export const modelMed5011: Med5011 = {
 	form: {
-		fromDate: null,
-		toDate: null,
+		fromDate: dayjs().format('YYYY-MM-DD'),
+		toDate:   dayjs().format('YYYY-MM-DD'),
 		showDownload: null,
 		downloadType: null,
 	},

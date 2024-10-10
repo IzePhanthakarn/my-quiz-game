@@ -50,12 +50,12 @@ export default function DownloadContent(props: Props) {
 					<BaseDatePicker
 						notForm={true}
 						label="ตั้งวันที่ฝึกอบรม"
-						value={med5005.fromDate}
+						value={med5005.trainFromDate}
 						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5005Form({
 									...med5005,
-									fromDate: date,
+									trainFromDate: date,
 								})
 							);
 						}}
@@ -65,12 +65,12 @@ export default function DownloadContent(props: Props) {
 					<BaseDatePicker
 						notForm={true}
 						label="ถึงวันที่"
-						value={med5005.toDate}
+						value={med5005.trainToDate}
 						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5005Form({
 									...med5005,
-									toDate: date,
+									trainToDate: date,
 								})
 							);
 						}}
