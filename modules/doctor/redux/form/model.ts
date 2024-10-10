@@ -54,8 +54,8 @@ interface Training extends BaseEntity {
 	trainingYear: string;
 	trainingDate: string;
 }
-interface DoctorDetail extends BaseEntity {
-	diplomaType: string;
+export interface DoctorDetail extends BaseEntity {
+	diplomaType: string | null;
 }
 
 interface DoctorBank extends BaseEntity {
@@ -66,7 +66,7 @@ interface DoctorBank extends BaseEntity {
 }
 
 interface DoctorHospital extends BaseEntity {
-	hospitalWcfCode: string;
+	hospital: string;
 	jobType: string;
 	clinicCode: string | null;
 	position: string | null;

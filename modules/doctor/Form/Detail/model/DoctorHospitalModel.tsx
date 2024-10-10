@@ -11,6 +11,7 @@ import { handleHospitalRows } from "@/modules/doctor/DialogContent/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { LtPropertiesForm } from "@/modules/lt-properties/redux/model";
 import { modelDialog } from "@/redux/slices/dialog/model";
+import lodash from "lodash";
 
 interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
@@ -35,8 +36,11 @@ export const GetColumns = (props: Props) => {
 			},
 			{
 				title: "รหัสโรงพยาบาล",
-				dataIndex: "hospitalWcfCode",
-				key: "hospitalWcfCode",
+				dataIndex: "hospital",
+				key: "hospital",
+				render: (_: any, { hospital }: any) => {
+					return <p>{lodash.get(hospital, "hospitalWcfCode") ?? ""}</p>;
+				},
 			},
 			{
 				title: "ชื่อโรงพยาบาล",

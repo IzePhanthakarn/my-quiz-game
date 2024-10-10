@@ -41,7 +41,7 @@ export default function HospitalDialog(props: Props) {
 			const data = _.find(doctorHospitalGrid, ["id", editId]);
 			if (!_.isEmpty(data)) {
 				setHospital({
-					hospitalWcfCode: data.hospitalWcfCode ?? "",
+					hospitalWcfCode: _.get(data, "hospital.hospitalWcfCode") ?? "",
 					hospitalName: data.hospitalWcfName ?? "",
 					jobType: data.jobType ?? "",
 					position: data.position ?? "",

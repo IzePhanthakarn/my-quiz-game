@@ -21,7 +21,7 @@ export default function DiplomaDialog(props: Props) {
 	const { doctorDetailGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 
-	const [diplomaType, setDiplomaType] = React.useState("");
+	const [diplomaType, setDiplomaType] = React.useState<string | null>(null);
 	const [uuid, setUuid] = React.useState<string | null>(null);
 
 	const { isOpen } = useSelector(
@@ -32,10 +32,15 @@ export default function DiplomaDialog(props: Props) {
 	);
 
 	useEffect(() => {
-		setDiplomaType("");
+		setDiplomaType(null);
 		if (editId) {
 			const data = _.find(doctorDetailGrid, ["id", editId]);
-			setDiplomaType(data?.diplomaType ?? "");
+			const handle = _.get(data, "diplomaType");
+			if (typeof handle === "object")
+				setDiplomaType(_.get(handle, "diplomaType") ?? null);
+			else setDiplomaType(handle ?? null);
+			// console.log("data", data);
+			// setDiplomaType(_.get(data, "diplomaType.diplomaType") ?? null);
 			setUuid(data?.uuid ?? null);
 		}
 	}, [doctorDetailGrid, isOpen, editId]);
