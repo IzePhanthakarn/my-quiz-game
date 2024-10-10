@@ -35,7 +35,7 @@ export default function HospitalHistory() {
 	useEffect(() => {
 		dispatch(setHospitalHistory(modelHospitalHistory));
 		dispatch(initGetHistoryHospital(history, form.uuid));
-	}, []);
+	}, [form.uuid]);
 
 	useEffect(() => {
 		if (
