@@ -66,14 +66,6 @@ export const columnsFiles = (
 				props: {
 					style: {
 						backgroundColor:
-							// position === "newer"
-							// 	? isNew
-							// 		? Colors.history.files.new
-							// 		: isActive === IsActive.N
-							// 		? Colors.history.files.deleted
-							// 		: undefined
-							// 	: undefined,
-
 							position === "newer"
 								? isActive === IsActive.N
 									? Colors.history.files.deleted
@@ -88,12 +80,6 @@ export const columnsFiles = (
 						<a href={`${link}${fileName}`} target="_blank">
 							{fileName}
 						</a>
-						{/* <a
-							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/${fileName}`}
-							target="_blank"
-						>
-							{fileName}
-						</a> */}
 					</>
 				),
 			};
@@ -179,6 +165,32 @@ export const getItems = (compareList: HospitalCompareList) => {
 						columns={columnsFiles(
 							"newer",
 							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/`
+						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
+		{
+			key: "6",
+			label: "ไฟล์ สพ19",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalSp19.older}
+						columns={columnsFiles(
+							"older",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp19/`
+						)}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalSp19.newer}
+						columns={columnsFiles(
+							"newer",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp19/`
 						)}
 						twoToneColor
 					/>
