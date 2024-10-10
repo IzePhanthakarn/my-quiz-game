@@ -36,8 +36,8 @@ export const GetColumns = (props: Props) => {
 			},
 			{
 				title: "รหัสโรงพยาบาล",
-				dataIndex: "hospital",
-				key: "hospital",
+				dataIndex: "hospitalWcfCode",
+				key: "hospitalWcfCode",
 				render: (_: any, { hospital }: any) => {
 					return <p>{lodash.get(hospital, "hospitalWcfCode") ?? ""}</p>;
 				},
@@ -46,6 +46,9 @@ export const GetColumns = (props: Props) => {
 				title: "ชื่อโรงพยาบาล",
 				dataIndex: "hospitalWcfName",
 				key: "hospitalWcfName",
+				render: (_: any, { hospital }: any) => {
+					return <p>{lodash.get(hospital, "hospitalName") ?? ""}</p>;
+				},
 			},
 			{
 				title: "ลักษณะงานที่รับผิดชอบ",

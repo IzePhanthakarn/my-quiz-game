@@ -21,7 +21,7 @@ export const rules = {
 	citizenIdSchema: [
 		requiredRule(doctorDataName.citizenId),
 		onlyNumberRule(doctorDataName.citizenId),
-		equalLengthRule(doctorDataName.doctorCode, 13),
+		equalLengthRule(doctorDataName.citizenId, 13),
 	],
 	titleSchema: [requiredRule(doctorDataName.title)],
 	firstNameSchema: [
@@ -35,15 +35,15 @@ export const rules = {
 	doctorTypeSchema: [requiredRule(doctorDataName.doctorType)],
 	revenueNoSchema: [maxRule(doctorDataName.revenueNo, 10)],
 	phoneNumberSchema: [
-		maxRule(doctorDataName.phoneNumber, 10),
+		equalLengthRule(doctorDataName.phoneNumber, 10),
 		onlyNumberRule(doctorDataName.phoneNumber),
 	],
 	houseNumSchema: [maxRule(doctorDataName.houseNum, 10)],
-	mooSchema: [maxRule(doctorDataName.moo, 10)],
-	roadSchema: [maxRule(doctorDataName.road, 10)],
-	soiSchema: [maxRule(doctorDataName.soi, 10)],
-	tambolSchema: [maxRule(doctorDataName.tambol, 4)],
-	amphurSchema: [maxRule(doctorDataName.amphur, 4)],
-	provinceSchema: [maxRule(doctorDataName.province, 2)],
-	postcodeSchema: [maxRule(doctorDataName.postcode, 5)],
+	mooSchema: [],
+	roadSchema: [],
+	soiSchema: [],
+	tambolSchema: [],
+	amphurSchema: [],
+	provinceSchema: [],
+	postcodeSchema: [],
 };

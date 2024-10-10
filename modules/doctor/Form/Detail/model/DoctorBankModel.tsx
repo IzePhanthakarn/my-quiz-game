@@ -40,6 +40,11 @@ export const GetColumnBank = (props: BankProps) => {
 				key: "bankSortingCode",
 			},
 			{
+				title: "พร้อมเพย์",
+				dataIndex: "promptpay",
+				key: "promptpay",
+			},
+			{
 				title: "คำสั่ง",
 				dataIndex: "uuid",
 				key: "uuid",

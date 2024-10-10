@@ -172,6 +172,7 @@ export const handleBankRows =
 			bankDigitCode: bank?.bankDigitCode ?? "",
 			bankSortingCode: bank?.bankSortingCode ?? "",
 			bankAccount: bank?.bankAccount ?? "",
+			promptpay: bank?.promptpay ?? "",
 		};
 
 		const newGrid = _.cloneDeep(doctorBankGrid);

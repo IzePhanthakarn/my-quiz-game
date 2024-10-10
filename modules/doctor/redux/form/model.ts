@@ -13,6 +13,7 @@ export interface DoctorData {
 	doctorType: string | null;
 	firstname: string;
 	lastname: string;
+	phoneNumber: string;
 	// position: string;
 	// postalName: string;
 	postcode: string | null;
@@ -63,6 +64,7 @@ interface DoctorBank extends BaseEntity {
 	bankDigitCode: string;
 	bankSortingCode: string;
 	bankAccount: string;
+	promptpay: string;
 }
 
 interface DoctorHospital extends BaseEntity {
@@ -87,6 +89,7 @@ const modelDoctorData: DoctorData = {
 	amphur: null,
 	houseNum: "",
 	moo: "",
+	phoneNumber: "",
 	province: null,
 	road: "",
 	soi: "",
