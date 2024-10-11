@@ -9,7 +9,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { setIsLoading } from "@/redux/slices/container";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { DiplomaForm } from "../redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
@@ -93,7 +93,7 @@ export const updateDiploma =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
@@ -116,7 +116,7 @@ export const addDiploma =
 		if (_.get(data.payload, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.INSERT_SUCCESS,
 				description: "Description",
 			});

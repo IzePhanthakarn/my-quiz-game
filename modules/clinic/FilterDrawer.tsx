@@ -24,6 +24,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkClinicCode"
+					notForm
 					label="รหัสคลินิก"
 					checked={filter.checkClinicCode}
 					labelPosition={BaseFormItemPosition.RIGHT}
@@ -41,6 +42,7 @@ export default function FilterDrawer() {
 					<div className=" pt-1">
 						<BaseItemInput
 							itemName="clinicCode"
+							notForm
 							value={filter.clinicCodeLike}
 							onChangeFunction={(e) => {
 								dispatch(
@@ -57,6 +59,7 @@ export default function FilterDrawer() {
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckbox
 					itemName="checkClinicName"
+					notForm
 					label="ชื่อคลินิก"
 					checked={filter.checkClinicName}
 					labelPosition={BaseFormItemPosition.RIGHT}
@@ -87,6 +90,7 @@ export default function FilterDrawer() {
 			</BaseColumn>
 			<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 				<BaseItemCheckboxFilterGroup
+					notForm
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(

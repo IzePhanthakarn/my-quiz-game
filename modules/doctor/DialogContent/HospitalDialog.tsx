@@ -42,7 +42,7 @@ export default function HospitalDialog(props: Props) {
 			if (!_.isEmpty(data)) {
 				setHospital({
 					hospitalWcfCode: _.get(data, "hospital.hospitalWcfCode") ?? "",
-					hospitalName: data.hospitalWcfName ?? "",
+					hospitalName: _.get(data, "hospital.hospitalName") ?? "",
 					jobType: data.jobType ?? "",
 					position: data.position ?? "",
 				});

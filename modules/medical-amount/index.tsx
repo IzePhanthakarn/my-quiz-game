@@ -18,6 +18,7 @@ import { setMedicalAmountFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function MedicalAmount() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,22 +32,6 @@ export default function MedicalAmount() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="Medical Amount"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(fetchMedicalAmountList(medicalAmount));
 	}, []);
@@ -54,6 +39,15 @@ export default function MedicalAmount() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				AddLabel="เพิ่ม Medical Amount"
 				TotalItems={medicalAmount.grid.page.totalData}
 				Grid={

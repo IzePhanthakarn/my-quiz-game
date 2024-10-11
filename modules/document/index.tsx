@@ -18,6 +18,7 @@ import { setDocumentFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function Document() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,22 +32,6 @@ export default function Document() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="Document"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(fetchDocumentList(document));
 	}, []);
@@ -54,6 +39,15 @@ export default function Document() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				AddLabel="เพิ่ม Document"
 				TotalItems={document.grid.page.totalData}
 				Grid={

@@ -17,7 +17,7 @@ import {
 import _ from "lodash";
 import { DoctorForm } from "../redux/form/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -135,7 +135,6 @@ export const handleDoctorFormSubmit =
 			doctorData: { ...newDoctorData },
 		};
 
-		console.log("newDoctorForm", newDoctorForm);
 		let result;
 		dispatch(setIsLoading(true));
 		if (!_.isEmpty(uuid)) {
@@ -151,7 +150,7 @@ export const handleDoctorFormSubmit =
 		if (_.get(result, "error.message") === "Rejected") {
 			if (!_.isEmpty(uuid)) message = BaseToastNotificationMessage.PATCH_ERROR;
 			else message = BaseToastNotificationMessage.INSERT_ERROR;
-			baseToastNotification({
+			BaseToastNotification({
 				message: message,
 				description: `${_.get(result, "error.message")}`,
 			});
@@ -164,7 +163,7 @@ export const handleDoctorFormSubmit =
 				message = BaseToastNotificationMessage.INSERT_SUCCESS;
 			}
 			router.push(LINKS.DOCTOR.link);
-			baseToastNotification({
+			BaseToastNotification({
 				message: message,
 				description: description,
 			});
