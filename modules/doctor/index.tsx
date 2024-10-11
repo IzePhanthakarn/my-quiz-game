@@ -99,44 +99,44 @@ export default function Doctor() {
 
 	const { dispatchLayout } = useLayout();
 
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<FilterLayout
-					FilterForm={
-						<BaseForm
-							initialValues={filter}
-							extraForm={form}
-							onFinish={onFinish}
-						>
-							<div className="flex space-x-2">
-								<BaseItemInput
-									itemName="doctorCodeLike"
-									label="เลขทะเบียน สปส"
-									onPressEnter={() => form.submit()}
-								/>
-								<BaseItemInput
-									label="ชื่อ"
-									itemName="firstnameLike"
-									onPressEnter={() => form.submit()}
-								/>
-								<BaseItemInput
-									label="นามสกุล"
-									itemName="lastnameLike"
-									onPressEnter={() => form.submit()}
-								/>
-							</div>
-						</BaseForm>
-					}
-					handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-					handleSubmitSearch={() => {
-						form.submit();
-					}}
-				/>
-			),
-		});
-	}, []);
+	// useEffect(() => {
+	// 	dispatchLayout({
+	// 		type: "setChildrenHeader",
+	// 		payload: (
+	// 			<FilterLayout
+	// 				FilterForm={
+	// 					<BaseForm
+	// 						initialValues={filter}
+	// 						extraForm={form}
+	// 						onFinish={onFinish}
+	// 					>
+	// 						<div className="flex space-x-2">
+	// 							<BaseItemInput
+	// 								itemName="doctorCodeLike"
+	// 								label="เลขทะเบียน สปส"
+	// 								onPressEnter={() => form.submit()}
+	// 							/>
+	// 							<BaseItemInput
+	// 								label="ชื่อ"
+	// 								itemName="firstnameLike"
+	// 								onPressEnter={() => form.submit()}
+	// 							/>
+	// 							<BaseItemInput
+	// 								label="นามสกุล"
+	// 								itemName="lastnameLike"
+	// 								onPressEnter={() => form.submit()}
+	// 							/>
+	// 						</div>
+	// 					</BaseForm>
+	// 				}
+	// 				handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+	// 				handleSubmitSearch={() => {
+	// 					form.submit();
+	// 				}}
+	// 			/>
+	// 		),
+	// 	});
+	// }, []);
 
 	useEffect(() => {
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
@@ -170,6 +170,39 @@ export default function Doctor() {
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
 						setPagination={(page) => dispatch(setPagination(page))}
+					/>
+				}
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseForm
+								initialValues={filter}
+								extraForm={form}
+								onFinish={onFinish}
+							>
+								<div className="flex space-x-2">
+									<BaseItemInput
+										itemName="doctorCodeLike"
+										label="เลขทะเบียน สปส"
+										onPressEnter={() => form.submit()}
+									/>
+									<BaseItemInput
+										label="ชื่อ"
+										itemName="firstnameLike"
+										onPressEnter={() => form.submit()}
+									/>
+									<BaseItemInput
+										label="นามสกุล"
+										itemName="lastnameLike"
+										onPressEnter={() => form.submit()}
+									/>
+								</div>
+							</BaseForm>
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							form.submit();
+						}}
 					/>
 				}
 				Drawer={
