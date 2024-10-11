@@ -12,6 +12,7 @@ import { GetColumns } from "./columns";
 import { handleOnGetRequestFormList } from "./service";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 import Filters from "./Filters";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function RequestForm() {
 	const dispatch: AppDispatch = useDispatch();
@@ -24,17 +25,15 @@ export default function RequestForm() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-	useEffect(() => {
-		dispatchLayout({ type: "setChildrenHeader", payload: <Filters /> });
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(handleOnGetRequestFormList(requestForm));
 	}, []);
 
 	return (
 		<MasterDataLayout
+			FilterLayout={
+				<FilterLayout FilterForm={<Filters />} handleSubmitSearch={() => {}} />
+			}
 			AddLabel="เพิ่ม Requst Form"
 			TotalItems={requestForm.grid.page.totalData}
 			Drawer={<></>}

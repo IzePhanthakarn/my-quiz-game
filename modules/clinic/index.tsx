@@ -52,20 +52,37 @@ export default function Clinic() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput
-								notForm
-								value={filter.clinicCodeLike}
-								label="รหัสคลินิก"
-								onPressEnter={() => {}}
-								onChangeFunction={(e) => {
-									dispatch(
-										setClinicFilter({
-											...filter,
-											clinicCodeLike: e.target.value,
-										})
-									);
-								}}
-							/>
+							<div className="flex items-center w-full h-full space-x-6">
+								<BaseItemInput
+									value={filter.clinicCodeLike}
+									notForm
+									itemName="clinicCodeLike"
+									label="รหัสคลินิก"
+									onPressEnter={() => {}}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicFilter({
+												...filter,
+												clinicCodeLike: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput
+									value={filter.clinicCodeLike}
+									itemName="clinicCodeLike"
+									label="รหัสคลินิก"
+									onPressEnter={() => {}}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicFilter({
+												...filter,
+												clinicCodeLike: e.target.value,
+											})
+										);
+									}}
+								/>
+							</div>
 						}
 						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {}}
