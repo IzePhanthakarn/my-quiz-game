@@ -19,6 +19,7 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -34,22 +35,6 @@ export default function Clinic() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="ข้อมูลคลินิก"
-					SearchButtonFunction={() => console.log("🚀 search")}
-					FilterTextField={<BaseItemInput label="ค้นหา" itemName={"test"} />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(
 			initClinicGrid({
@@ -64,6 +49,28 @@ export default function Clinic() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput
+								notForm
+								value={filter.clinicCodeLike}
+								label="รหัสคลินิก"
+								onPressEnter={() => {}}
+								onChangeFunction={(e) => {
+									dispatch(
+										setClinicFilter({
+											...filter,
+											clinicCodeLike: e.target.value,
+										})
+									);
+								}}
+							/>
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				Grid={
 					<BaseGrid
 						rows={rows}
