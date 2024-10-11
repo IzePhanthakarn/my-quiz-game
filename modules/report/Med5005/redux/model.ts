@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
 	modelPaginationOptions,
 	PaginationModel,
@@ -5,15 +6,12 @@ import {
 
 export interface Med5005Form {
 	provinceCode: string | null;
-	fromDate: string | null;
-	toDate: string | null;
-	showDownload: string | null;
+	trainFromDate: string | null;
+	trainToDate: string | null;
+	showDownload: string |null;
 }
 
 export interface Med5005List {
-	provinceCode: string | null;
-	fromDate: string | null;
-	toDate: string | null;
 }
 
 export interface Med5005 {
@@ -25,8 +23,8 @@ export interface Med5005Grid extends PaginationModel {
 }
 export const modelMed5005: Med5005 = {
 	form: {
-		fromDate: null,
-		toDate: null,
+		trainFromDate: dayjs().format('YYYY-MM-DD'),
+		trainToDate: dayjs().format('YYYY-MM-DD'),
 		provinceCode: null,
 		showDownload: null,
 	},

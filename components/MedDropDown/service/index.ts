@@ -80,9 +80,17 @@ const handleOption = (type: SESSION_NAME, result: any) => {
 		case SESSION_NAME.SSO_BRANCH_PROVINCE:
 			const sso_branch_province: Option[] = result.map((e: SsoBranch) => ({
 				label: `${e.ssoBranchCode} ${e.provinceName}`,
-				value: e.provinceCode,
+				value: `${e.provinceCode}-${e.provinceName}`,
 			}));
 			return sso_branch_province;
+		case SESSION_NAME.SSO_BRANCH_PROVINCE_CODENAME:
+			const sso_branch_province_codename: Option[] = result.map(
+				(e: SsoBranch) => ({
+					label: `${e.ssoBranchCode} ${e.provinceName}`,
+					value: `${e.ssoBranchCode}-${e.provinceName}`,
+				})
+			);
+			return sso_branch_province_codename;
 		case SESSION_NAME.COURSE_CATEGORY:
 			const courseCategory: Option[] = result.map((e: CourseCategory) => ({
 				label: e.categoryDescription,

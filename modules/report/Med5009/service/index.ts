@@ -23,3 +23,5 @@ export const handlePdfButton =
 		const newBody = { ...med5009, propertyText };
 		dispatch(handleOnExportPdf(newBody, REPORT_TYPES.MED5009));
 	};
+
+	
