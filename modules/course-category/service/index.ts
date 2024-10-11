@@ -24,7 +24,7 @@ import {
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
-import { BaseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 
 export const fetchCourseList =
 	(course: CourseCategory) => async (dispatch: AppDispatch) => {

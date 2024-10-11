@@ -12,7 +12,7 @@ import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
-import { BaseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";

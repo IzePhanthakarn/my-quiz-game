@@ -9,7 +9,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { setIsLoading } from "@/redux/slices/container";
-import { BaseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { DiplomaForm } from "../redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
