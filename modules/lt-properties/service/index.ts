@@ -21,7 +21,7 @@ import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { BaseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 
 export const fetchLtPropertiesList =
 	(course: LtProperties) => async (dispatch: AppDispatch) => {
@@ -62,7 +62,7 @@ export const addLtProperties =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.INSERT_SUCCESS,
 				description: "Description",
 			});
@@ -96,7 +96,7 @@ export const updateLtProperties =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});

@@ -139,7 +139,7 @@ export const addClinic =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.INSERT_SUCCESS,
 				description: "Description",
 			});
@@ -185,7 +185,7 @@ export const updateClinic =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});

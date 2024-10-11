@@ -45,7 +45,7 @@ import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/interface";
 // import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import { BaseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import {
 	generateUuid,
@@ -144,7 +144,7 @@ export const addHospital =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.INSERT_SUCCESS,
 				description: "Description",
 			});
@@ -599,7 +599,7 @@ export const updateHospital =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
@@ -716,7 +716,7 @@ export const updateInActiveHospitalSp7 =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
@@ -739,7 +739,7 @@ export const updateInActiveHospitalSp19 =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
@@ -762,7 +762,7 @@ export const updateInActiveHospitalEtcFiles =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
@@ -785,7 +785,7 @@ export const updateInActiveHospitalAnnouncedPriceFiles =
 		if (_.get(data, "error.message") === "Rejected") {
 			return;
 		} else {
-			baseToastNotification({
+			BaseToastNotification({
 				message: BaseToastNotificationMessage.PATCH_SUCCESS,
 				description: "Description",
 			});
