@@ -96,7 +96,9 @@ export const GetColumns = (prop: Props) => {
 					<>
 						{provinceCodeList.map((item: string, index: number) => (
 							<p key={index}>
-								{item ? `- ${findLabelAddress(item, ADDRESS.PROVINCE)}` : null}
+								{item
+									? `- ${findLabelAddress(item, ADDRESS.PROVINCE) ?? "อื่นๆ"}`
+									: null}
 							</p>
 						))}
 					</>

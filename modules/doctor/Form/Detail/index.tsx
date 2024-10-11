@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { SliceModel } from "@/redux/slices/model";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import _ from "lodash";
-import { setDoctorData, setDoctorForm } from "../../redux";
+import _, { set } from "lodash";
+import { setDoctorData } from "../../redux";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
-import { DoctorData, modelDoctorForm } from "../../redux/form/model";
+import { DoctorData } from "../../redux/form/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { Address } from "wcf-component-lib/src/components/BaseDropDown/model";
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
@@ -18,8 +18,20 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
+import { doctorDataName } from "./interfaces/names";
+import { rules } from "./field-validation/FormValidation";
+import {
+	FormProps,
+	FormInstance,
+} from "wcf-component-lib/node_modules/antd/es/form/Form";
 
-export default function DoctorDetailForm() {
+interface Props {
+	form: FormInstance<any>;
+	onFinish: (values: any) => void;
+}
+
+export default function DoctorDetailForm(props: Props) {
+	const { form, onFinish } = props;
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData } = useSelector(
 		(state: SliceModel) => ({
@@ -27,80 +39,128 @@ export default function DoctorDetailForm() {
 		}),
 		shallowEqual
 	);
+	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
+
+	useEffect(() => {
+		if (_.isEmpty(tmpDoctorData)) {
+			setTmpDoctorData(doctorData.doctorCode);
+		}
+	}, [doctorData.doctorCode]);
+
+	// const onFinish: FormProps<DoctorData>["onFinish"] = () => {
+	// 	dispatch(setIsOpenBaseConfirmDialog(true));
+	// };
 
 	return (
 		<BaseForm
 			initialValues={doctorData}
 			name="doctorForm"
+			extraForm={form}
 			onValuesChange={(e: DoctorData) => {
 				dispatch(setDoctorData({ ...doctorData, ...(e as DoctorData) }));
 			}}
+			onFinish={onFinish}
 		>
 			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
 				<div className="col-span-4">
 					<BaseHorizontalHeader title={"รายละเอียด"} icons={<UserOutlined />} />
 				</div>
 				<BaseItemInput
-					label="เลขทะเบียนวิชาชีพ"
+					label={doctorDataName.professionalCode}
 					itemName="professionalCode"
-					rules={[]}
+					rules={rules.professionalCodeSchema}
 				/>
 				<div className="col-span-2">
 					<MedDropDown
 						type={SESSION_NAME.COURSE_CATEGORY}
-						label="หลักสูตรอบรม"
+						label={doctorDataName.courseCategory}
 						itemName="courseCategory"
+						rules={rules.courseCategorySchema}
 					/>
 				</div>
 				<div></div>
 				<BaseItemInput
-					label="เลขทะเบียน สปส"
+					label={doctorDataName.doctorCode}
 					itemName="doctorCode"
-					rules={[]}
+					rules={rules.doctorCodeSchema}
 				/>
-
 				<BaseItemInput
-					label="เลขที่บัตรประชาชน"
+					label={doctorDataName.citizenId}
 					itemName="citizenId"
-					rules={[]}
+					rules={rules.citizenIdSchema}
 				/>
-
 				<MedDropDown
 					type={SESSION_NAME.DOCTOR_TYPE}
-					label="ประเภทแพทย์"
+					label={doctorDataName.doctorType}
 					itemName="doctorType"
 					className="h-full w-full"
+					rules={rules.doctorTypeSchema}
 					labelRender={() => (
 						<p>
 							{findNameDisplay(SESSION_NAME.DOCTOR_TYPE, doctorData.doctorType)}
 						</p>
 					)}
 				/>
-				<BaseItemInput label="เลขที่ภาษี" itemName="revenueNo" rules={[]} />
+				<BaseItemInput
+					label={doctorDataName.revenueNo}
+					itemName="revenueNo"
+					rules={rules.revenueNoSchema}
+				/>
 				<MedDropDown
 					type={SESSION_NAME.TITLE}
-					label="คำนำหน้า"
+					label={doctorDataName.title}
 					itemName="title"
 					className="h-full w-full"
+					rules={rules.titleSchema}
 					labelRender={() => (
 						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
 					)}
 				/>
-				<BaseItemInput label="ชื่อ" itemName="firstname" rules={[]} />
-				<BaseItemInput label="นามสกุล" itemName="lastname" rules={[]} />
-				<div className="col-span-2"></div>
-				<div className="col-span-4 ">
+				<BaseItemInput
+					label={doctorDataName.firstname}
+					itemName="firstname"
+					rules={rules.firstNameSchema}
+				/>
+				<BaseItemInput
+					label={doctorDataName.lastname}
+					itemName="lastname"
+					rules={rules.lastNameSchema}
+				/>
+				<BaseItemInput
+					label={doctorDataName.phoneNumber}
+					itemName="phoneNumber"
+					rules={rules.phoneNumberSchema}
+				/>
+				<div></div>
+				<div className="col-span-4">
 					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
 				</div>
-				<BaseItemInput label="ที่อยู่" itemName="houseNum" rules={[]} />
-				<BaseItemInput label="หมู่ที่" itemName="moo" rules={[]} />
-				<BaseItemInput label="ถนน" itemName="road" rules={[]} />
+				<BaseItemInput
+					label={doctorDataName.houseNum}
+					itemName="houseNum"
+					rules={rules.houseNumSchema}
+				/>
+				<BaseItemInput
+					label={doctorDataName.moo}
+					itemName="moo"
+					rules={rules.mooSchema}
+				/>
+				<BaseItemInput
+					label={doctorDataName.road}
+					itemName="road"
+					rules={rules.roadSchema}
+				/>
 				<div></div>
-				<BaseItemInput label="ซอย" itemName="soi" rules={[]} />
+				<BaseItemInput
+					label={doctorDataName.soi}
+					itemName="soi"
+					rules={rules.soiSchema}
+				/>
 				<MedDropDown
-					label="ตำบล"
+					label={doctorDataName.tambol}
 					itemName="tambol"
 					type={SESSION_NAME.ADDRESS}
+					rules={rules.tambolSchema}
 					getValue={(e: Address) => {
 						dispatch(
 							setDoctorData({
@@ -117,9 +177,10 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<MedDropDown
-					label="อำเภอ"
+					label={doctorDataName.amphur}
 					itemName="amphur"
 					type={SESSION_NAME.ADDRESS}
+					rules={rules.amphurSchema}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -138,9 +199,10 @@ export default function DoctorDetailForm() {
 				<div></div>
 				<MedDropDown
 					type={SESSION_NAME.ADDRESS}
-					label="จังหวัด"
+					label={doctorDataName.province}
 					itemName="province"
 					className="h-full w-full"
+					rules={rules.provinceSchema}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({
@@ -157,9 +219,10 @@ export default function DoctorDetailForm() {
 					)}
 				/>
 				<MedDropDown
-					label="รหัสไปรษณีย์"
+					label={doctorDataName.postcode}
 					itemName="postcode"
 					type={SESSION_NAME.ADDRESS}
+					rules={rules.postcodeSchema}
 					getValue={(e: Address) =>
 						dispatch(
 							setDoctorData({

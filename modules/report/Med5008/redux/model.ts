@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
 	modelPaginationOptions,
 	PaginationModel,
@@ -23,10 +24,10 @@ export interface Med5008 {
 
 export const modelMed5008: Med5008 = {
 	form: {
-		sp7expiredFrom: "",
-		sp7expiredTo: "",
-		sp19expiredFrom: "",
-		sp19expiredTo: "",
+		sp7expiredFrom: dayjs().format('YYYY-MM-DD'),
+		sp7expiredTo: dayjs().format('YYYY-MM-DD'),
+		sp19expiredFrom: dayjs().format('YYYY-MM-DD'),
+		sp19expiredTo: dayjs().format('YYYY-MM-DD'),
 		showDownload: null,
 	},
 	grid: {
