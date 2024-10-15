@@ -19,7 +19,6 @@ import MedDropDown from "@/components/MedDropDown";
 import { setHospitalHistory } from "../../redux";
 import { modelHospitalHistory } from "../../redux/models/historyModel";
 import BaseUniqueContentModalHeaderWithIcon from "wcf-component-lib/src/components/BaseUniqueContentModalHeaderWithIcon";
-import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 
 export default function HospitalHistory() {
 	const dispatch: AppDispatch = useDispatch();
