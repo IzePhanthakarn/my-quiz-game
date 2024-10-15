@@ -197,6 +197,32 @@ export const getItems = (compareList: HospitalCompareList) => {
 				</div>
 			),
 		},
+		{
+			key: "7",
+			label: "ไฟล์ ภาคผนวกและอื่น ๆ",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalEtcFiles.older}
+						columns={columnsFiles(
+							"older",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/etcFiles/`
+						)}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalEtcFiles.newer}
+						columns={columnsFiles(
+							"newer",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/etcFiles/`
+						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
 	];
 	return items;
 };
