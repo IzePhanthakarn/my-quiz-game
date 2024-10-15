@@ -30,6 +30,7 @@ export interface HospitalCompareList {
 	hospitalChangedNameData: CompareList[];
 	hospitalSp7: CompareFilesListObject;
 	hospitalSp19: CompareFilesListObject;
+	hospitalEtcFiles: CompareFilesListObject;
 }
 
 export interface FetchHospitalHistory {
@@ -48,6 +49,10 @@ export const modelHospitalHistory: HospitalHistory = {
 			newer: [],
 		},
 		hospitalSp19: {
+			older: [],
+			newer: [],
+		},
+		hospitalEtcFiles: {
 			older: [],
 			newer: [],
 		},

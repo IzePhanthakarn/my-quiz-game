@@ -65,6 +65,7 @@ export const fetchHistoryHospital =
 						hospitalChangedNameData: response.payload.hospitalChangedNameData,
 						hospitalSp7: response.payload.hospitalSp7,
 						hospitalSp19: response.payload.hospitalSp19,
+						hospitalEtcFiles: response.payload.hospitalEtcFiles,
 					},
 				})
 			);
