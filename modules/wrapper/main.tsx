@@ -12,7 +12,7 @@ import _ from "lodash";
 import Cookies from "js-cookie";
 import BaseRow from "wcf-component-lib/src/components/BaseRow";
 import { BaseToastNotificationType } from "wcf-component-lib/src/constants/base-toast-notification";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
@@ -54,7 +54,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		(error) => {
 			dispatch(setIsLoading(false));
 			return Promise.reject(error).then(null, (err) => {
-				baseToastNotification({
+				BaseToastNotification({
 					message: err.response.data.title,
 					type: BaseToastNotificationType.ERROR,
 					description: err.response.data.detail,

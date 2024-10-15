@@ -16,6 +16,7 @@ import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
@@ -29,22 +30,6 @@ export default function OrganSystemWpi() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="Organ"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(fetchOrganList(organ));
 	}, []);
@@ -52,6 +37,15 @@ export default function OrganSystemWpi() {
 	return (
 		<div className="w-full h-full">
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				AddLabel="เพิ่มออร์แกน"
 				TotalItems={organ.grid.page.totalData}
 				Grid={

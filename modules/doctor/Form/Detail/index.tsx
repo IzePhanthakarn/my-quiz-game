@@ -24,6 +24,7 @@ import {
 	FormProps,
 	FormInstance,
 } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { useParams } from "next/navigation";
 
 interface Props {
 	form: FormInstance<any>;
@@ -32,6 +33,7 @@ interface Props {
 
 export default function DoctorDetailForm(props: Props) {
 	const { form, onFinish } = props;
+	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData } = useSelector(
 		(state: SliceModel) => ({
@@ -42,7 +44,7 @@ export default function DoctorDetailForm(props: Props) {
 	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
 
 	useEffect(() => {
-		if (_.isEmpty(tmpDoctorData)) {
+		if (_.isEmpty(tmpDoctorData) && uuid) {
 			setTmpDoctorData(doctorData.doctorCode);
 		}
 	}, [doctorData.doctorCode]);
@@ -76,6 +78,25 @@ export default function DoctorDetailForm(props: Props) {
 						label={doctorDataName.courseCategory}
 						itemName="courseCategory"
 						rules={rules.courseCategorySchema}
+						getValue={(e) => {
+							if (e === "F") {
+								dispatch(
+									setDoctorData({
+										...doctorData,
+										courseCategory: e,
+										doctorCode: tmpDoctorData,
+									})
+								);
+							} else {
+								dispatch(
+									setDoctorData({
+										...doctorData,
+										courseCategory: e,
+										doctorCode: `${e}${tmpDoctorData}`,
+									})
+								);
+							}
+						}}
 					/>
 				</div>
 				<div></div>

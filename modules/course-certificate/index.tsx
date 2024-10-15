@@ -18,6 +18,7 @@ import { setCourseCertificateFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,22 +32,6 @@ export default function CourseCertificate() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="Course Certificate"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(fetchCourseList(courseCertificate));
 	}, []);
@@ -54,6 +39,15 @@ export default function CourseCertificate() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				AddLabel="เพิ่ม Course Certificate"
 				TotalItems={courseCertificate.grid.page.totalData}
 				Grid={

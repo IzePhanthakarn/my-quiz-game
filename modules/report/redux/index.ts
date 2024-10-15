@@ -17,12 +17,13 @@ export const medReportSlice = createSlice({
 		...med5001Reducers,
 		...med5004Reducers,
 		...med5005Reducers,
+		...med5007Reducers,
 		...med5008Reducers,
 		...med5009Reducers,
 		...med5010Reducers,
 		...med5011Reducers,
 		...med5012Reducers,
-		...med5007Reducers,
+		
 	},
 });
 
@@ -40,8 +41,7 @@ export const {
 	setMed5005Grid,
 	// MED5007
 	setMed5007Form,
-	setMed5007List,
-	setMed5007TotalData,
+	setMed5007Grid,
 	// MED5008
 	setMed5008Form,
 	setMed5008Grid,

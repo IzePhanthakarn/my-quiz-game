@@ -96,11 +96,13 @@ const API_PATH = {
 			GET_LIST: "/hospital-sp7/list",
 			UPDATE_BY_UUID: "/hospital-sp7",
 			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp7/list-by-hospital-uuid",
+			TODO_LIST: "/hospital/sp7-end",
 		},
 		SP19: {
 			GET_LIST: "/hospital-sp19/list",
 			UPDATE_BY_UUID: "/hospital-sp19",
 			GET_LIST_BY_HOSPITAL_UUID: "/hospital-sp19/list-by-hospital-uuid",
+			TODO_LIST: "/hospital/sp19-end",
 		},
 		ETC_FILES: {
 			GET_LIST: "/hospital-etc-files/list",

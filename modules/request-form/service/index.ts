@@ -9,7 +9,7 @@ import {
 } from "./api";
 import { setRequestFormDetail, setRequestFormGrid } from "../redux";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { baseToastNotification } from "wcf-component-lib/src/components/BaseToastNotification";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import { LINKS } from "@/constants/links";
 import { setIsLoading } from "@/redux/slices/container";
@@ -47,7 +47,7 @@ export const handleOnCreateRequestForm =
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(createRequestForm(requestFormDetail));
 		if (_.get(data, "error.message") === "Rejected") return;
-		baseToastNotification({
+		BaseToastNotification({
 			message: BaseToastNotificationMessage.INSERT_SUCCESS,
 			description: "Description",
 		});
@@ -63,7 +63,7 @@ export const handleOnUpdateRequestForm =
 		};
 		const data = await dispatch(updateRequestForm(body));
 		if (_.get(data, "error.message") === "Rejected") return;
-		baseToastNotification({
+		BaseToastNotification({
 			message: BaseToastNotificationMessage.PATCH_SUCCESS,
 			description: "Description",
 		});

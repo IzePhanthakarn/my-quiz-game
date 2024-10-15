@@ -19,6 +19,7 @@ import { GetHospitalColumns } from "./columns/hospitalGrid";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function Hospital() {
 	const dispatch: AppDispatch = useDispatch();
@@ -32,22 +33,6 @@ export default function Hospital() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					// Header="สถานพยาบาล"
-					SearchButtonFunction={() => {}}
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(fetchHospitalList(hospital));
 	}, []);
@@ -55,6 +40,15 @@ export default function Hospital() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				AddLabel="เพิ่มสถานพยาบาล"
 				TotalItems={hospital.grid.page.totalData}
 				Grid={

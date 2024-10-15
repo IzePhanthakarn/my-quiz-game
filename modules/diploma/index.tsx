@@ -16,8 +16,7 @@ import { LINKS } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
-import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -34,22 +33,6 @@ export default function Diploma() {
 		shallowEqual
 	);
 
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({
-			type: "setChildrenHeader",
-			payload: (
-				<HeaderLayout
-					FilterTextField={<BaseItemInput className="w-[300px]" />}
-					FilterButtonFunction={() => dispatch(setIsOpenDrawer(true))}
-					// Header="Diploma"
-					SearchButtonFunction={() => {}}
-				/>
-			),
-		});
-	}, [dispatchLayout]);
-
 	useEffect(() => {
 		dispatch(
 			initDiplomaGrid({
@@ -63,6 +46,15 @@ export default function Diploma() {
 	return (
 		<div>
 			<MasterDataLayout
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+						}
+						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {}}
+					/>
+				}
 				Grid={
 					<BaseGrid
 						rows={rows}
