@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { modelMedReport } from "./model";
 import { med5001Reducers } from "../Med5001/redux/reducer";
+import { med5004Reducers } from "../Med5004/redux/reducer";
 import { med5005Reducers } from "../Med5005/redux/reducer";
 import { med5008Reducers } from "../Med5008/redux/reducer";
 import { med5009Reducers } from "../Med5009/redux/reducer";
@@ -14,6 +15,7 @@ export const medReportSlice = createSlice({
 	initialState: modelMedReport,
 	reducers: {
 		...med5001Reducers,
+		...med5004Reducers,
 		...med5005Reducers,
 		...med5008Reducers,
 		...med5009Reducers,
@@ -30,17 +32,20 @@ export const {
 	// MED5001
 	setMed5001Form,
 	setMed5001Grid,
+	// MED5004
+	setMed5004Form,
+	setMed5004Grid,
 	// MED5005
 	setMed5005Form,
 	setMed5005Grid,
 	// MED5007
- 	setMed5007Form,
- 	setMed5007List,
- 	setMed5007TotalData,
-    // MED5008
+	setMed5007Form,
+	setMed5007List,
+	setMed5007TotalData,
+	// MED5008
 	setMed5008Form,
 	setMed5008Grid,
-    // MED5009
+	// MED5009
 	setMed5009Form,
 	setMed5009List,
 	setMed5009TotalData,
