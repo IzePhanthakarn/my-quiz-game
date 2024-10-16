@@ -6,6 +6,8 @@ import {
 export interface Med5009Form {
 	propertyCode: string | null;
 	propertyText: string;
+	showDownload: string | null;
+	downloadType: string | null;
 }
 
 export interface Med5009List {
@@ -24,6 +26,8 @@ export const modelMed5009: Med5009 = {
 	form: {
 		propertyCode: null,
 		propertyText: "",
+		showDownload:null,
+		downloadType:null,
 	},
 	grid: {
 		list: [],
