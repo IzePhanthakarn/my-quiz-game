@@ -11,6 +11,8 @@ export interface Med5012 {
 export interface Med5012Form {
 	toDate: string;
 	fromDate: string;
+	showDownload: string | null;
+	downloadType: string | null;
 }
 
 export interface Med5012List {
@@ -34,6 +36,8 @@ export const modelMed5012: Med5012 = {
 	form: {
 		toDate: "",
 		fromDate: "",
+		showDownload:null,
+		downloadType:null
 	},
 	grid: {
 		list: [],
