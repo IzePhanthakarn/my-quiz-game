@@ -8,6 +8,7 @@ export const med5012Reducers = {
 	},
 	setMed5012Grid: (state: MedReport, action: PayloadAction<Med5012Grid>) => {
 		state.med5012.grid = action.payload;
+		state.med5012.form.showDownload='Y';
 	},
 
 };

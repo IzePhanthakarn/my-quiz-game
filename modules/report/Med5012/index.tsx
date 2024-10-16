@@ -11,10 +11,12 @@ import { MED_REPORT_SYSTEM } from "../model";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns } from "./constants/columns";
 import { BaseDatePicker } from "wcf-component-lib/src/components/BaseDatePicker";
-import { handleOnExportPdf, handlePreviewDisplay } from "@/utils/report/common";
+import { handleOnExportExcel, handleOnExportPdf, handlePreviewDisplay } from "@/utils/report/common";
 import { REPORT_TYPES } from "@/constants/reports";
 import { setMed5012Form } from "../redux";
-import { handleOnPreview } from "./service";
+import { handleOnPreview, handlePdfButton } from "./service";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_REPOT } from "@/components/MedDropDown/model";
 
 const Med5012 = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,6 +27,13 @@ const Med5012 = () => {
 		}),
 		shallowEqual
 	);
+	function DownloadChange( downloadType: string) { 
+		if ("EXCEL" == downloadType) {
+			dispatch(handleOnExportExcel(med5012, REPORT_TYPES.MED5012));
+		} else if ("PDF" ==downloadType) {
+			dispatch(handlePdfButton(med5012.form));
+		}
+	}
 	return (
 		<FormReportLayout
 			handleSubmitButton={() => {
@@ -43,7 +52,7 @@ const Med5012 = () => {
 			}}
 			downloadContent={
 				<div className="grid grid-cols-4 gap-x-4 gap-y-4">
-					<div></div>
+					{/* <div></div> */}
 					<BaseDatePicker
 						notForm={true}
 						label="วันที่ตรวจสถานพยาบาล"
@@ -71,6 +80,25 @@ const Med5012 = () => {
 							);
 						}}
 					/>
+					{!_.isEmpty(med5012.form.showDownload) ? (
+				 		<div>
+				 			<MedDropDown
+				 				label="ดาวน์โหลด"
+				 				option={DROPDOWN_REPOT}
+				 				value={med5012.form.downloadType}
+								getValue={(value: string) => {
+				 					dispatch(
+				 						setMed5012Form({
+				 							...med5012.form,
+				 							downloadType: value,
+										})
+				 					 );
+				 					DownloadChange(value);
+									
+				 				}}
+				 			/>
+						</div>
+				 	) : null}
 					<div></div>
 				</div>
 			}
