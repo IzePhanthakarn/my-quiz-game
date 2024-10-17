@@ -17,6 +17,19 @@ export interface CompareFilesListObject {
 	newer: CompareFilesList[];
 }
 
+export interface CompareStaffContactListObject {
+	older: CompareStaffContactList[];
+	newer: CompareStaffContactList[];
+}
+
+export interface CompareStaffContactList {
+	contact: string;
+	firstName: string;
+	lastName: string;
+	position: string;
+	isActive: string;
+	isNew: boolean;
+}
 export interface CompareFilesList {
 	fileName: string;
 	isActive: string;
@@ -31,6 +44,7 @@ export interface HospitalCompareList {
 	hospitalSp7: CompareFilesListObject;
 	hospitalSp19: CompareFilesListObject;
 	hospitalEtcFiles: CompareFilesListObject;
+	hospitalStaffContact: CompareStaffContactListObject;
 }
 
 export interface FetchHospitalHistory {
@@ -53,6 +67,10 @@ export const modelHospitalHistory: HospitalHistory = {
 			newer: [],
 		},
 		hospitalEtcFiles: {
+			older: [],
+			newer: [],
+		},
+		hospitalStaffContact: {
 			older: [],
 			newer: [],
 		},
