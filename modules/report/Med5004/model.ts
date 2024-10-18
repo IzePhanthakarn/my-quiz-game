@@ -26,7 +26,7 @@ export const columns: TableProps["columns"] = [
 	{
 		title: "เรียกเงินคืนจาก",
 		key: "RETURN_DETAIL_DESC",
-		dataIndex: "RETURN_DETAIL_DESC",
+		dataIndex: "RETURN_DETAIL _DESC",
 	},
 	{
 		title: "จ่ายโดย",

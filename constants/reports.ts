@@ -5,13 +5,13 @@ export enum REPORT_TYPES {
 	MED5003 = "med5003",
 	MED5004 = "med5004",
 	MED5005 = "med5005",
-	MED5006 = "med5006",
 	MED5007 = "med5007",
 	MED5008 = "med5008",
 	MED5009 = "med5009",
 	MED5010 = "med5010",
 	MED5011 = "med5011",
 	MED5012 = "med5012",
+	MED5013 = "med5013",
 }
 
 export const REPORT_PAGES = {
@@ -39,10 +39,6 @@ export const REPORT_PAGES = {
 		reportName: "med5005",
 		apiPath: "",
 	},
-	[REPORT_TYPES.MED5006]: {
-		reportName: "med5006",
-		apiPath: "",
-	},
 	[REPORT_TYPES.MED5007]: {
 		reportName: "med5007",
 		apiPath:
@@ -67,6 +63,10 @@ export const REPORT_PAGES = {
 	},
 	[REPORT_TYPES.MED5012]: {
 		reportName: "med5012",
+		apiPath: "",
+	},
+	[REPORT_TYPES.MED5013]: {
+		reportName: "med5013",
 		apiPath: "",
 	},
 };
