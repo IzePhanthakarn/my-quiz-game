@@ -53,7 +53,7 @@ export const columns: TableProps["columns"] = [
 ];
 
 export const columnsFiles = (
-	position: "older" | "newer",
+	columnPosition: "older" | "newer",
 	link: string
 ): TableProps["columns"] => [
 	{
@@ -66,7 +66,7 @@ export const columnsFiles = (
 				props: {
 					style: {
 						backgroundColor:
-							position === "newer"
+							columnPosition === "newer"
 								? isActive === IsActive.N
 									? Colors.history.files.deleted
 									: isNew
@@ -82,6 +82,84 @@ export const columnsFiles = (
 						</a>
 					</>
 				),
+			};
+		},
+	},
+];
+
+export const columnsStaffContact = (
+	columnPosition: "older" | "newer"
+): TableProps["columns"] => [
+	{
+		title: "ชื่อ - นามสกุล ผู้ติดต่อ",
+		dataIndex: "firstName",
+		width: "100%",
+		key: "firstName",
+		render: (_, { firstName, lastName, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							columnPosition === "newer"
+								? isActive === IsActive.N
+									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
+									: undefined
+								: undefined,
+					},
+				},
+				children: (
+					<>
+						{firstName} {lastName}
+					</>
+				),
+			};
+		},
+	},
+	{
+		title: "ตำแหน่งของผู้ติดต่อ",
+		dataIndex: "position",
+		width: "100%",
+		key: "position",
+		render: (_, { position, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							columnPosition === "newer"
+								? isActive === IsActive.N
+									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
+									: undefined
+								: undefined,
+					},
+				},
+				children: <>{position}</>,
+			};
+		},
+	},
+	{
+		title: "เบอร์ติดต่อ",
+		dataIndex: "contact",
+		width: "100%",
+		key: "contact",
+		render: (_, { contact, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							columnPosition === "newer"
+								? isActive === IsActive.N
+									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
+									: undefined
+								: undefined,
+					},
+				},
+				children: <>{contact}</>,
 			};
 		},
 	},
@@ -218,6 +296,26 @@ export const getItems = (compareList: HospitalCompareList) => {
 							"newer",
 							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/etcFiles/`
 						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
+		{
+			key: "8",
+			label: "ผู้ติดต่อสำหรับโรงพยาบาล",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalStaffContact.older}
+						columns={columnsStaffContact("older")}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalStaffContact.newer}
+						columns={columnsStaffContact("newer")}
 						twoToneColor
 					/>
 				</div>
