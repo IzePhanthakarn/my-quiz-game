@@ -165,6 +165,57 @@ export const columnsStaffContact = (
 	},
 ];
 
+export const columnsAnnouncedPriceFiles = (
+	columnPosition: "older" | "newer"
+): TableProps["columns"] => [
+	{
+		title: "ราคาประกาศประจำปี",
+		dataIndex: "announcedYear",
+		width: "100%",
+		key: "announcedYear",
+		render: (_, { announcedYear, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							columnPosition === "newer"
+								? isActive === IsActive.N
+									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
+									: undefined
+								: undefined,
+					},
+				},
+				children: <>{announcedYear}</>,
+			};
+		},
+	},
+	{
+		title: "ชื่อเอกสาร",
+		dataIndex: "fileName",
+		width: "100%",
+		key: "fileName",
+		render: (_, { fileName, isNew, isActive }) => {
+			return {
+				props: {
+					style: {
+						backgroundColor:
+							columnPosition === "newer"
+								? isActive === IsActive.N
+									? Colors.history.files.deleted
+									: isNew
+									? Colors.history.files.new
+									: undefined
+								: undefined,
+					},
+				},
+				children: <>{fileName}</>,
+			};
+		},
+	},
+];
+
 export const getItems = (compareList: HospitalCompareList) => {
 	const items: CollapseProps["items"] = [
 		{
@@ -316,6 +367,26 @@ export const getItems = (compareList: HospitalCompareList) => {
 						isHaveBorderBottomLeftRight={true}
 						rows={compareList.hospitalStaffContact.newer}
 						columns={columnsStaffContact("newer")}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
+		{
+			key: "9",
+			label: "เอกสารข้อมูลราคาประกาศ",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalAnnouncedPriceFiles.older}
+						columns={columnsAnnouncedPriceFiles("older")}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.hospitalAnnouncedPriceFiles.newer}
+						columns={columnsAnnouncedPriceFiles("newer")}
 						twoToneColor
 					/>
 				</div>
