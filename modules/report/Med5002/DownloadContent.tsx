@@ -1,7 +1,7 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm } from "wcf-component-lib/src/components";
+import { BaseDatePicker, BaseForm, BaseItemInput } from "wcf-component-lib/src/components";
 import { Med5002Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -75,7 +75,11 @@ export default function DownloadContent(props: Props) {
 							);
 						}}
 					/>
-				{!_.isEmpty(med5002.showDownload) ? (
+				
+			</div>
+            <div className="grid grid-cols-4 gap-x-6 gap-y-5">
+			    <BaseItemInput label="รหัสแพทย์" itemName={"doctorCode"} />
+					{!_.isEmpty(med5002.showDownload) ? (
 					<div>
 						<MedDropDown
 							label="ดาวน์โหลด"
@@ -86,7 +90,8 @@ export default function DownloadContent(props: Props) {
 						/>
 					</div>
 				) : null}
-			</div>
+				</div>
+
 		</BaseForm>
 	);
 }

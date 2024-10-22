@@ -7,6 +7,7 @@ export interface Med5002Form {
 	ssoCode: string | null;
 	fromDate: string | null;
 	toDate: string | null;
+	doctorCode: string | null;
 	showDownload: string | null;
 }
 
@@ -26,6 +27,7 @@ export const modelMed5002: Med5002 = {
 		ssoCode: null,
 		fromDate: dayjs().format('YYYY-MM-DD'),
 		toDate: dayjs().format('YYYY-MM-DD'),
+		doctorCode: null,
 		showDownload: null,
 	},
 	grid: {

@@ -5,62 +5,38 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 export const columns: TableProps["columns"] = [
 	{
 		title: "ลำดับที่",
-		key: "itemNo",
-		dataIndex: "itemNo",
+		key: "noSeq",
+		dataIndex: "noSeq",
 	},
 	{
-		title: "รหัสแพทย์",
-		key: "doctorCode",
-		dataIndex: "doctorCode",
+		title: "รหัสสถานพยาบาล",
+		key: "hospitalCode",
+		dataIndex: "hospitalCode",
 	},
 	{
-		title: "รุ่น",
-		key: "trainingNo",
-		dataIndex: "trainingNo",
-	},
-	{
-		title: "ปี",
-		key: "TRAINING_YEAR",
-		dataIndex: "TRAINING_YEAR",
-	},
-	{
-		title: "เลขที่ใบประกอบโรคศิลป์",
-		key: "PROFESSIONAL_CODE",
-		dataIndex: "PROFESSIONAL_CODE",
-	},
-	{
-		title: "ชื่อ-นามสกุล",
-		key: "doctorName",
-		dataIndex: "doctorName",
-	},
-	{
-		title: "วุฆิบัตร",
-		key: "diplomaName",
-		dataIndex: "diplomaName",
-	},
-	{
-		title: "สถานพยาบาลปัจจุบัน",
+		title: "ชื่อสถานพยาบาล",
 		key: "hospitalName",
 		dataIndex: "hospitalName",
 	},
 	{
-		title: "ที่อยู่ที่ติดต่อได้",
-		key: "contactAddress",
-		dataIndex: "contactAddress",
-	},
-	{
 		title: "จังหวัด",
-		key: "doctorProvinceName",
-		dataIndex: "doctorProvinceName",
-	}, 
-	{
-		title: "โทรศัพท์",
-		key: "telephone",
-		dataIndex: "telephone",
+		key: "provinceName",
+		dataIndex: "provinceName",
 	},
 	{
-		title: "หมายเหตุ",
-		key: "remark",
-		dataIndex: "remark",
+		title: "ประเภท",
+		key: "HOSPITAL_CATEGORY_TEXT",
+		dataIndex: "HOSPITAL_CATEGORY_TEXT",
 	},
+	{
+		title: "ระดับ",
+		key: "HOSPITAL_TYPE_TEXT",
+		dataIndex: "HOSPITAL_TYPE_TEXT",
+	},
+	{
+		title: "วันที่ยกเลิก",
+		key: "CONTRACT_END_DATE",
+		dataIndex: "CONTRACT_END_DATE",
+	},
+	 
 ];

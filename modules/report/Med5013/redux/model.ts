@@ -5,9 +5,10 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 
 export interface Med5013Form {
-	provinceCode: string | null;
-	trainFromDate: string | null;
-	trainToDate: string | null;
+	fromDate: string | null;
+	toDate: string | null;
+	ssoProject: string|null;
+    checkSSO:boolean;
 	showDownload: string |null;
 }
 
@@ -23,9 +24,10 @@ export interface Med5013Grid extends PaginationModel {
 }
 export const modelMed5013: Med5013 = {
 	form: {
-		trainFromDate: dayjs().format('YYYY-MM-DD'),
-		trainToDate: dayjs().format('YYYY-MM-DD'),
-		provinceCode: null,
+		fromDate: dayjs().format('YYYY-MM-DD'),
+		toDate: dayjs().format('YYYY-MM-DD'),
+		ssoProject: 'Y',
+		checkSSO:true,
 		showDownload: null,
 	},
 	grid: {

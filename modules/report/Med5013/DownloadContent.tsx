@@ -1,7 +1,7 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm } from "wcf-component-lib/src/components";
+import { BaseDatePicker, BaseForm, BaseItemCheckbox } from "wcf-component-lib/src/components";
 import { Med5013Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -31,50 +31,44 @@ export default function DownloadContent(props: Props) {
 	}
 	return (
 		<BaseForm initialValues={med5013} extraForm={form} onFinish={onFinish}>
-			<div>
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<MedDropDown
-						itemName="provinceCode"
-						label="ระดับของสถานพยาบาล"
-						type={SESSION_NAME.SSO_BRANCH_PROVINCE}
-						
-						getValue={(e: string) => {
-							dispatch(setMed5013Form({
-								...med5013,
-								provinceCode: e,
-							}))
-						}}
-					/>
-				</div>
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
+			<div><div className="grid grid-cols-4 gap-x-6 gap-y-5">
 					<BaseDatePicker
 						notForm={true}
-						label="ตั้งวันที่ฝึกอบรม"
-						value={med5013.trainFromDate}
+						label="ช่วงวันที่"
+						value={med5013.fromDate}
 						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5013Form({
 									...med5013,
-									trainFromDate: date,
+									fromDate: date,
 								})
 							);
 						}}
 					/>
-				</div>
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
 					<BaseDatePicker
 						notForm={true}
 						label="ถึงวันที่"
-						value={med5013.trainToDate}
+						value={med5013.toDate}
 						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5013Form({
 									...med5013,
-									trainToDate: date,
+									toDate: date,
 								})
 							);
 						}}
 					/>
+					<BaseItemCheckbox itemName="ssoFlag" label="เป็นโรงพยาบาลที่อยู่ในระบบประกันสังคม" 
+					value={med5013.ssoProject} 
+					onClickFunction={() =>
+						dispatch(
+							setMed5013Form({
+								...med5013,
+								checkSSO: !med5013.checkSSO,
+							})
+						)
+					}
+					/> 
 					{!_.isEmpty(med5013.showDownload) ? (
 						<div>
 							<MedDropDown
@@ -86,7 +80,7 @@ export default function DownloadContent(props: Props) {
 							/>
 						</div>
 					) : null}
-				</div>
+                </div>				
 			</div>
 		</BaseForm>
 	);

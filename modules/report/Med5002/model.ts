@@ -9,48 +9,43 @@ export const columns: TableProps["columns"] = [
 		dataIndex: "noSeq",
 	},
 	{
-		title: "เลขที่ใบเรียกเก็บเงิน",
-		key: "RETURN_MONEY_CODE",
-		dataIndex: "RETURN_MONEY_CODE",
+		title: "วันเดือนปีที่จ่ายเงิน",
+		key: "PAY_DATE1",
+		dataIndex: "PAY_DATE1",
 	},
 	{
-		title: "เลขที่ใบคำขอ",
-		key: "REQUEST_FORM_CODE",
-		dataIndex: "REQUEST_FORM_CODE",
+		title: "เลขที่ใบสำคัญรับเงิน",
+		key: "SIGNIFICANT_NO",
+		dataIndex: "SIGNIFICANT_NO",
 	},
 	{
-		title: "วันที่ออกใบเรียกคืนเงิน",
-		key: "RETURN_DATE",
-		dataIndex: "RETURN_DATE",
-	},
-	{
-		title: "เรียกเงินคืนจาก",
-		key: "RETURN_DETAIL_DESC",
-		dataIndex: "RETURN_DETAIL_DESC",
-	},
-	{
-		title: "จ่ายโดย",
-		key: "PAY_BY",
-		dataIndex: "PAY_BY",
-	},
-	{
-		title: "ค่าตรวจร่างกาย",
-		key: "RETURN_MONEY",
-		dataIndex: "RETURN_MONEY",
-	},
-	{
-		title: "สถานะรับคืน",
-		key: "RETURN_MONEY_STATUS",
-		dataIndex: "RETURN_MONEY_STATUS",
+		title: "ชื่อแพทย์",
+		key: "DOCTOR_NAME",
+		dataIndex: "DOCTOR_NAME",
 	},
 	{
 		title: "เลขที่ประสบอันตราย",
-		key: "ACCIDENT_ISSUE_CODE_FORMAT",
-		dataIndex: "ACCIDENT_ISSUE_CODE_FORMAT",
+		key: "ACCIDENT_ISSUE_CODE",
+		dataIndex: "ACCIDENT_ISSUE_CODE",
 	},
 	{
 		title: "ชื่อลูกจ้าง",
-		key: "EMPLOYEE_NAME",
-		dataIndex: "EMPLOYEE_NAME",
-	}
+		key: "EMPLOYEE_FIRSTNAME",
+		dataIndex: "EMPLOYEE_FIRSTNAME",
+	},
+	{
+		title: "วันที่ประเมิน",
+		key: "ASSESS_DATE",
+		dataIndex: "ASSESS_DATE",
+	},
+	{
+		title: "เลขที่ใบสั่งจ่าย",
+		key: "PAYMENT_NO",
+		dataIndex: "PAYMENT_NO",
+	},
+	{
+		title: "จำนวนเงิน",
+		key: "AMOUNT",
+		dataIndex: "AMOUNT",
+	},
 ];
