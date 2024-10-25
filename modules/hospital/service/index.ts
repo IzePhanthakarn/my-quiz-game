@@ -575,7 +575,9 @@ export const updateHospital =
 		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
 		hospitalSp19: HospitalSp19,
 		hospitalEtcFiles: HospitalEtcFiles,
-		hospitalStaffContact: HospitalStaffContact
+		hospitalStaffContact: HospitalStaffContact,
+		hospitalAttachmentFile1: HospitalAttachment,
+		hospitalCertificateOfIncorporationAttachment: HospitalAttachment
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
@@ -597,6 +599,12 @@ export const updateHospital =
 						announcedPriceFilesDeleteFileList:
 							hospitalAnnouncedPriceFiles.filter.uuidExclusionList,
 						hospitalStaffContactDeleteList: hospitalStaffContact.uuidDeleteList,
+						hospitalAttachmentFile1: {
+							toPreview: hospitalAttachmentFile1.toPreview,
+						},
+						certificateOfIncorporation: {
+							toPreview: hospitalCertificateOfIncorporationAttachment.toPreview,
+						},
 					},
 				},
 			})

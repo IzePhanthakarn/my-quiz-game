@@ -153,6 +153,12 @@ export interface OutsideHospitalForm {
 		hospitalStaffContactDeleteList: HospitalStaffContact["uuidDeleteList"];
 		hospitalStaffContactAddList: HospitalStaffContactForm[];
 	};
+	hospitalAttachmentFile1: {
+		toPreview: HospitalAttachment["toPreview"];
+	};
+	certificateOfIncorporation: {
+		toPreview: HospitalAttachment["toPreview"];
+	};
 }
 
 export interface BaseHospitalForm {
@@ -249,6 +255,12 @@ export const modelHospital: Hospital = {
 		hospitalStaffContact: {
 			hospitalStaffContactDeleteList: [],
 			hospitalStaffContactAddList: [],
+		},
+		hospitalAttachmentFile1: {
+			toPreview: [],
+		},
+		certificateOfIncorporation: {
+			toPreview: [],
 		},
 	},
 	grid: {
