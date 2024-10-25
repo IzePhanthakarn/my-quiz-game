@@ -69,6 +69,9 @@ export const fetchHistoryHospital =
 						hospitalStaffContact: response.payload.hospitalStaffContact,
 						hospitalAnnouncedPriceFiles:
 							response.payload.hospitalAnnouncedPriceFiles,
+						attachmentFile1: response.payload.attachmentFile1,
+						certificateOfIncorporation:
+							response.payload.certificateOfIncorporation,
 					},
 				})
 			);

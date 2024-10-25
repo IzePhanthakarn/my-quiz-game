@@ -392,6 +392,58 @@ export const getItems = (compareList: HospitalCompareList) => {
 				</div>
 			),
 		},
+		{
+			key: "10",
+			label: "ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.attachmentFile1.older}
+						columns={columnsFiles(
+							"older",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/attachmentFile1/`
+						)}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.attachmentFile1.newer}
+						columns={columnsFiles(
+							"newer",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/attachmentFile1/`
+						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
+		{
+			key: "11",
+			label: "หนังสือรับรองนิติบุคคล",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.certificateOfIncorporation.older}
+						columns={columnsFiles(
+							"older",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/certificateOfIncorporation/`
+						)}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={compareList.certificateOfIncorporation.newer}
+						columns={columnsFiles(
+							"newer",
+							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/certificateOfIncorporation/`
+						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
 	];
 	return items;
 };

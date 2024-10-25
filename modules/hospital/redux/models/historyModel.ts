@@ -54,6 +54,8 @@ export interface HospitalCompareList {
 	hospitalEtcFiles: CompareFilesListObject;
 	hospitalStaffContact: CompareStaffContactListObject;
 	hospitalAnnouncedPriceFiles: CompareAnnouncedPriceFilesListObject;
+	attachmentFile1: CompareFilesListObject;
+	certificateOfIncorporation: CompareFilesListObject;
 }
 
 export interface FetchHospitalHistory {
@@ -84,6 +86,15 @@ export const modelHospitalHistory: HospitalHistory = {
 			newer: [],
 		},
 		hospitalAnnouncedPriceFiles: {
+			older: [],
+			newer: [],
+		},
+
+		attachmentFile1: {
+			older: [],
+			newer: [],
+		},
+		certificateOfIncorporation: {
 			older: [],
 			newer: [],
 		},
