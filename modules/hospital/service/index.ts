@@ -106,6 +106,12 @@ export const fetchHospitalList =
 			hospitalNameLike: _.isEmpty(course.filter.hospitalNameLike)
 				? null
 				: course.filter.hospitalNameLike,
+			sp7EndDateBetween: _.isEmpty(course.filter.sp7EndDateBetween)
+				? null
+				: course.filter.sp7EndDateBetween,
+			sp19EndDateBetween: _.isEmpty(course.filter.sp19EndDateBetween)
+				? null
+				: course.filter.sp19EndDateBetween,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getHospitalList(body));

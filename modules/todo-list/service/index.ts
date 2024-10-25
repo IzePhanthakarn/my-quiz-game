@@ -2,6 +2,12 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { setIsLoading } from "@/redux/slices/container";
 import { getSP19TodoList, getSP7TodoList } from "./api";
 import _ from "lodash";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { setHospitalFilter } from "@/modules/hospital/redux";
+import { HospitalFilter } from "@/modules/hospital/redux/models/hospitalModel";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { LINKS } from "@/constants/links";
 
 export interface Count {
 	sp7end30: number;
@@ -33,4 +39,36 @@ export const initHospitalTodoList =
 		setCount(data);
 
 		return data;
+	};
+
+export const handleClick =
+	(
+		daysToAdd: number,
+		filter: HospitalFilter,
+		router: AppRouterInstance,
+		isSp7: boolean
+	) =>
+	(dispatch: AppDispatch) => {
+		const today = dayjs().format(DateFormat.YYYYMMDD);
+		const futureDate = dayjs()
+			.add(daysToAdd, "day")
+			.format(DateFormat.YYYYMMDD);
+		if (isSp7) {
+			dispatch(
+				setHospitalFilter({
+					...filter,
+					CheckSp7EndDate: true,
+					sp7EndDateBetween: [today, futureDate],
+				})
+			);
+		} else {
+			dispatch(
+				setHospitalFilter({
+					...filter,
+					CheckSp19EndDate: true,
+					sp19EndDateBetween: [today, futureDate],
+				})
+			);
+		}
+		router.push(LINKS.HOSPITAL.link);
 	};

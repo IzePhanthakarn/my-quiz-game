@@ -12,6 +12,8 @@ import { setHospitalFilter } from "./redux";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { names } from "./interfaces/names";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDateRangePicker";
+import dayjs from "dayjs";
 // import { HospitalFilter } from "./redux/models/hospitalModel";
 // import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 
@@ -151,6 +153,87 @@ export default function FilterDrawer() {
 										setHospitalFilter({
 											...filter,
 											hospitalNameLike: e.target.value,
+										})
+									);
+								}}
+							/>
+						</div>
+					)}
+				</BaseColumn>
+
+				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<BaseItemCheckbox
+						itemName="CheckSp7EndDate"
+						label={names.sp7EndDate}
+						checked={filter.CheckSp7EndDate}
+						labelPosition={BaseFormItemPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setHospitalFilter({
+									...filter,
+									CheckSp7EndDate: !filter.CheckSp7EndDate,
+								})
+							)
+						}
+					/>
+					{filter.CheckSp7EndDate && (
+						<div className="pt-1">
+							<BaseItemDateRangePicker
+								itemName="sp7EndDateBetween"
+								notForm
+								value={
+									filter.sp7EndDateBetween
+										? [
+												dayjs(filter.sp7EndDateBetween[0]),
+												dayjs(filter.sp7EndDateBetween[1]),
+										  ]
+										: null
+								}
+								onChangeRangePicker={(e) => {
+									dispatch(
+										setHospitalFilter({
+											...filter,
+											sp7EndDateBetween: e,
+										})
+									);
+								}}
+							/>
+						</div>
+					)}
+				</BaseColumn>
+
+				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
+					<BaseItemCheckbox
+						itemName="CheckSp19EndDate"
+						label={names.sp19EndDate}
+						checked={filter.CheckSp19EndDate}
+						labelPosition={BaseFormItemPosition.RIGHT}
+						onClickFunction={() =>
+							dispatch(
+								setHospitalFilter({
+									...filter,
+									CheckSp19EndDate: !filter.CheckSp19EndDate,
+								})
+							)
+						}
+					/>
+					{filter.CheckSp19EndDate && (
+						<div className="pt-1">
+							<BaseItemDateRangePicker
+								itemName="hospitalWcfCodeLike"
+								value={[
+									filter.sp19EndDateBetween
+										? dayjs(filter.sp19EndDateBetween[0])
+										: null,
+									filter.sp19EndDateBetween
+										? dayjs(filter.sp19EndDateBetween[1])
+										: null,
+								]}
+								onChangeRangePicker={(e) => {
+									dispatch(
+										setHospitalFilter({
+											...filter,
+											sp19EndDateBetween: e,
 										})
 									);
 								}}
