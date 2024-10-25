@@ -348,7 +348,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								hospitalAnnouncedPriceFiles,
 								hospitalSp19,
 								hospitalEtcFiles,
-								hospitalStaffContact
+								hospitalStaffContact,
+								hospitalAttachmentFile1,
+								hospitalCertificateOfIncorporationAttachment
 							)
 						);
 					} else {
