@@ -7,6 +7,7 @@ import { ToDoProps } from "wcf-component-lib/src/components/BaseToDoCard";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import { Count, initHospitalTodoList } from "./service";
+import MedStatus from "@/components/MedStatus";
 
 export default function ToDoList() {
 	const dispatch: AppDispatch = useDispatch();
@@ -80,6 +81,8 @@ export default function ToDoList() {
 
 	return (
 		<div>
+			<MedStatus type="แพทย์" />
+			<MedStatus type="N" />
 			<ToDoListLayout items={todoList} />
 		</div>
 	);
