@@ -102,11 +102,15 @@ export interface HospitalFilter {
 	hospitalDbmsCodeLike: string | null;
 	hospitalMinistryCodeLike: string | null;
 	hospitalNameLike: string | null;
+	sp7EndDateBetween: string[] | null;
+	sp19EndDateBetween: string[] | null;
 
 	CheckHospitalWcfCode: boolean;
 	CheckHospitalDbmsCode: boolean;
 	CheckHospitalMinistryCode: boolean;
 	CheckHospitalName: boolean;
+	CheckSp7EndDate: boolean;
+	CheckSp19EndDate: boolean;
 
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
@@ -207,6 +211,25 @@ export interface HospitalForm
 	};
 }
 
+export const modelHospitalFilter: HospitalFilter = {
+	hospitalWcfCodeLike: "",
+	hospitalDbmsCodeLike: "",
+	hospitalMinistryCodeLike: "",
+	hospitalNameLike: "",
+	sp7EndDateBetween: null,
+	sp19EndDateBetween: null,
+
+	CheckHospitalWcfCode: false,
+	CheckHospitalDbmsCode: false,
+	CheckHospitalMinistryCode: false,
+	CheckHospitalName: false,
+
+	isActive: undefined,
+	checkIsActive: false,
+	CheckSp7EndDate: false,
+	CheckSp19EndDate: false,
+};
+
 export const modelHospital: Hospital = {
 	history: { ...modelHospitalHistory },
 	hospitalSp7: { ...modelHospitalSp7 },
@@ -237,20 +260,7 @@ export const modelHospital: Hospital = {
 			pageSize: 10,
 		},
 	},
-	filter: {
-		hospitalWcfCodeLike: "",
-		hospitalDbmsCodeLike: "",
-		hospitalMinistryCodeLike: "",
-		hospitalNameLike: "",
-
-		CheckHospitalWcfCode: false,
-		CheckHospitalDbmsCode: false,
-		CheckHospitalMinistryCode: false,
-		CheckHospitalName: false,
-
-		isActive: undefined,
-		checkIsActive: false,
-	},
+	filter: modelHospitalFilter,
 	exportPages: {
 		med5008: {
 			sp7StartDated: "",

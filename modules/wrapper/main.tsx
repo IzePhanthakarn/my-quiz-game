@@ -73,7 +73,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		>
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">
-					<main className={`p-2 h-fit bg-[#E7ECF2] w-full relative`}>
+					<main className={`py-2 px-4 h-fit bg-[#E7ECF2] w-full relative`}>
 						{props.children}
 					</main>
 				</BaseRow>
