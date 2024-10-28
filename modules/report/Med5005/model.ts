@@ -14,19 +14,14 @@ export const columns: TableProps["columns"] = [
 		dataIndex: "doctorCode",
 	},
 	{
-		title: "รุ่น",
-		key: "trainingNo",
-		dataIndex: "trainingNo",
-	},
-	{
-		title: "ปี",
-		key: "TRAINING_YEAR",
-		dataIndex: "TRAINING_YEAR",
+		title: "รุ่น/ปี",
+		key: "training",
+		dataIndex: "training",
 	},
 	{
 		title: "เลขที่ใบประกอบโรคศิลป์",
-		key: "PROFESSIONAL_CODE",
-		dataIndex: "PROFESSIONAL_CODE",
+		key: "professionalCode",
+		dataIndex: "professionalCode",
 	},
 	{
 		title: "ชื่อ-นามสกุล",
@@ -44,9 +39,14 @@ export const columns: TableProps["columns"] = [
 		dataIndex: "hospitalName",
 	},
 	{
+		title: "จังหวัดสถานพยาบาล",
+		key: "hospitalProvinceName",
+		dataIndex: "hospitalProvinceName",
+	},
+	{
 		title: "ที่อยู่ที่ติดต่อได้",
-		key: "contactAddress",
-		dataIndex: "contactAddress",
+		key: "address",
+		dataIndex: "address",
 	},
 	{
 		title: "จังหวัด",
@@ -60,7 +60,7 @@ export const columns: TableProps["columns"] = [
 	},
 	{
 		title: "หมายเหตุ",
-		key: "remark",
-		dataIndex: "remark",
+		key: "remarked",
+		dataIndex: "remarked",
 	},
 ];
