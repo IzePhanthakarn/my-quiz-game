@@ -76,7 +76,7 @@ const DoctorFormTabs = () => {
 				</WhiteBarLayout>
 			)}
 
-			<BaseColumn className="bg-white p-2 h-full">
+			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}
 					bodyDescriptionText="คุณต้องการบันทึก / แก้ไข ข้อมูลแพทย์ใช่หรือไม่"
