@@ -17,8 +17,6 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
-import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function Clinic() {

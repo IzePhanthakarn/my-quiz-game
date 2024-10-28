@@ -3,6 +3,7 @@ import { setDialog } from "@/redux/slices/dialog";
 import { setCompareParams, setDoctorCompareList } from "../../redux";
 import HistoryDialog from "../History/HistoryDialog";
 import { DoctorForm } from "../../redux/form/model";
+import CompareAllDialog from "../History/CompareAllDialog";
 
 export const handleOpenHistory =
 	(doctorForm: DoctorForm) => async (dispatch: AppDispatch) => {
@@ -22,3 +23,13 @@ export const handleOpenHistory =
 			})
 		);
 	};
+
+export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
+	dispatch(
+		setDialog({
+			isOpen: true,
+			isOverFlow: true,
+			uniqueContent: <CompareAllDialog />,
+		})
+	);
+};

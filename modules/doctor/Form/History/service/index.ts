@@ -1,12 +1,18 @@
 import { AppDispatch } from "@/redux/config/configStore";
 import { setIsLoading } from "@/redux/slices/container";
 import {
+	getDoctorCompareAllHistoryList,
 	getDoctorCompareHistoryFilter,
 	getDoctorCompareHistoryList,
 } from "./api";
 import _ from "lodash";
-import { setDoctorCompareList, setDoctorFilterList } from "../../../redux";
 import {
+	setCompareAllParams,
+	setDoctorCompareList,
+	setDoctorFilterList,
+} from "../../../redux";
+import {
+	CompareAllList,
 	CompareList,
 	CompareParams,
 	FilterList,
@@ -33,7 +39,6 @@ export const initDoctorCompareHistory =
 		if (!_.isEmpty(compareData)) {
 			compareData.doctor.map((e: CompareList, index: number) => {
 				if (index === 3) {
-					console.log("e.olderValue", e.olderValue);
 					e.olderValue = findNameDisplay(SESSION_NAME.TITLE, e.olderValue);
 					e.newerValue = findNameDisplay(SESSION_NAME.TITLE, e.newerValue);
 				} else if (index === 6) {
@@ -109,3 +114,42 @@ export const getFilterUpdatedDateEditTimes = (
 ) => {
 	return filterList.find((e) => +e.editTimes === editTimes)?.updatedDate || "";
 };
+
+export const initDoctorCompareAllHistory =
+	(doctorCode: string) => async (dispatch: AppDispatch) => {
+		dispatch(setIsLoading(true));
+		const data = await dispatch(getDoctorCompareAllHistoryList(doctorCode));
+		dispatch(setIsLoading(false));
+		const compareData = data.payload;
+		const addressList = [
+			{ field: "province", type: ADDRESS.PROVINCE },
+			{ field: "amphur", type: ADDRESS.AMPHUR },
+			{ field: "tambol", type: ADDRESS.TAMBOL },
+		];
+		const checkAddress = ["province", "amphur", "tambol"];
+		if (!_.isEmpty(compareData)) {
+			compareData.map((e: CompareAllList) => {
+				if (e.field === "title") {
+					e.olderValue = findNameDisplay(SESSION_NAME.TITLE, e.olderValue);
+					e.newerValue = findNameDisplay(SESSION_NAME.TITLE, e.newerValue);
+				} else if (e.field === "doctorType") {
+					e.olderValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.olderValue
+					);
+					e.newerValue = findNameDisplay(
+						SESSION_NAME.DOCTOR_TYPE,
+						e.newerValue
+					);
+				} else if (checkAddress.includes(e.field)) {
+					const address = addressList.find((items) => items.field === e.field);
+					if (address) {
+						e.olderValue = findLabelAddress(e.olderValue, address.type);
+						e.newerValue = findLabelAddress(e.newerValue, address.type);
+					}
+				}
+				return { ...e };
+			});
+		}
+		dispatch(setCompareAllParams(compareData));
+	};

@@ -23,8 +23,7 @@ import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { handleSession } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
-import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
-// import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
+
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { modelDoctorForm } from "./redux/form/model";
 import BaseForm from "wcf-component-lib/src/components/BaseForm";
@@ -96,8 +95,6 @@ export default function Doctor() {
 		dispatch(setMounted(uuid4()));
 		// dispatch(setDoctorFilter(newFilter));
 	};
-
-	const { dispatchLayout } = useLayout();
 
 	// useEffect(() => {
 	// 	dispatchLayout({
