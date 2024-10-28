@@ -18,7 +18,7 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import { handleOpenHistory } from "./service";
+import { handleOpenHistory, handleOpenHistoryAll } from "./service";
 import { BaseSubmitButton } from "wcf-component-lib/src/components";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -75,7 +75,8 @@ const DoctorFormTabs = () => {
 						className="text-base font-semibold mr-3"
 						label="ประวัติการแก้ไข"
 						onClickFunction={() => {
-							dispatch(handleOpenHistory(doctorForm));
+							// dispatch(handleOpenHistory(doctorForm));
+							dispatch(handleOpenHistoryAll());
 						}}
 						icon={<ClockCircleOutlined />}
 						customStyle={{

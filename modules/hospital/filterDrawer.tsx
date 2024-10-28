@@ -181,22 +181,22 @@ export default function FilterDrawer() {
 							<BaseItemDateRangePicker
 								itemName="sp7EndDateBetween"
 								notForm
-								value={
-									filter.sp7EndDateBetween
-										? [
-												dayjs(filter.sp7EndDateBetween[0]),
-												dayjs(filter.sp7EndDateBetween[1]),
-										  ]
-										: null
-								}
-								onChangeRangePicker={(e) => {
-									dispatch(
-										setHospitalFilter({
-											...filter,
-											sp7EndDateBetween: e,
-										})
-									);
-								}}
+								// value={
+								// 	filter.sp7EndDateBetween
+								// 		? [
+								// 				dayjs(filter.sp7EndDateBetween[0]),
+								// 				dayjs(filter.sp7EndDateBetween[1]),
+								// 		  ]
+								// 		: null
+								// }
+								// onChangeRangePicker={(e) => {
+								// 	dispatch(
+								// 		setHospitalFilter({
+								// 			...filter,
+								// 			sp7EndDateBetween: e,
+								// 		})
+								// 	);
+								// }}
 							/>
 						</div>
 					)}
@@ -204,7 +204,7 @@ export default function FilterDrawer() {
 
 				<BaseColumn className="py-2 px-3 border-2 border-[#DBE4F199] rounded-md">
 					<BaseItemCheckbox
-						itemName="CheckSp19EndDate"
+						itemName="sp19EndDateBetween"
 						label={names.sp19EndDate}
 						checked={filter.CheckSp19EndDate}
 						labelPosition={BaseFormItemPosition.RIGHT}
@@ -221,22 +221,22 @@ export default function FilterDrawer() {
 						<div className="pt-1">
 							<BaseItemDateRangePicker
 								itemName="hospitalWcfCodeLike"
-								value={[
-									filter.sp19EndDateBetween
-										? dayjs(filter.sp19EndDateBetween[0])
-										: null,
-									filter.sp19EndDateBetween
-										? dayjs(filter.sp19EndDateBetween[1])
-										: null,
-								]}
-								onChangeRangePicker={(e) => {
-									dispatch(
-										setHospitalFilter({
-											...filter,
-											sp19EndDateBetween: e,
-										})
-									);
-								}}
+								// value={[
+								// 	filter.sp19EndDateBetween
+								// 		? dayjs(filter.sp19EndDateBetween[0])
+								// 		: null,
+								// 	filter.sp19EndDateBetween
+								// 		? dayjs(filter.sp19EndDateBetween[1])
+								// 		: null,
+								// ]}
+								// onChangeRangePicker={(e) => {
+								// 	dispatch(
+								// 		setHospitalFilter({
+								// 			...filter,
+								// 			sp19EndDateBetween: e,
+								// 		})
+								// 	);
+								// }}
 							/>
 						</div>
 					)}

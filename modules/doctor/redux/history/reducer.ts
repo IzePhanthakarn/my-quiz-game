@@ -1,6 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Doctor } from "../model";
-import { DoctorCompareList, CompareParams, FilterList } from "./model";
+import {
+	DoctorCompareList,
+	CompareParams,
+	FilterList,
+	CompareAllList,
+} from "./model";
 
 export const doctorCompareHistoryReducers = {
 	setDoctorCompareList: (
@@ -16,5 +21,12 @@ export const doctorCompareHistoryReducers = {
 
 	setCompareParams: (state: Doctor, action: PayloadAction<CompareParams>) => {
 		state.doctorCompareHistory.compareParams = action.payload;
+	},
+
+	setCompareAllParams: (
+		state: Doctor,
+		action: PayloadAction<CompareAllList[]>
+	) => {
+		state.doctorCompareHistory.compareListAll = action.payload;
 	},
 };
