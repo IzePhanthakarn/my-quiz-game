@@ -18,11 +18,13 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import { handleOpenHistory, handleOpenHistoryAll } from "./service";
+import { handleOpenHistoryAll } from "./service";
 import { BaseSubmitButton } from "wcf-component-lib/src/components";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -53,23 +55,9 @@ const DoctorFormTabs = () => {
 	};
 
 	return (
-		<BaseColumn className="bg-white p-2 h-full">
-			<BaseConfirmDialog
-				isOpen={isOpenBaseConfirmDialog}
-				bodyDescriptionText="คุณต้องการบันทึก / แก้ไข ข้อมูลแพทย์ใช่หรือไม่"
-				confirmFunction={() => {
-					dispatch(handleDoctorFormSubmit(doctorForm, uuid as string, router));
-				}}
-				cancelFunction={() => {
-					dispatch(setIsOpenBaseConfirmDialog(false));
-				}}
-				closeFunction={() => {
-					dispatch(setIsOpenBaseConfirmDialog(false));
-				}}
-			/>
-
+		<BaseColumn className="p-2 h-full space-y-6">
 			{doctorForm.editTimes.length > 1 && (
-				<div className="flex justify-end py-2">
+				<WhiteBarLayout className="justify-end items-center">
 					<BaseSubmitButton
 						type="default"
 						className="text-base font-semibold mr-3"
@@ -85,24 +73,43 @@ const DoctorFormTabs = () => {
 							borderRadius: "99px",
 						}}
 					/>
-				</div>
+				</WhiteBarLayout>
 			)}
-			{getItemsForm({ form, onFinish })?.map((item, index: number) => (
-				<BaseCollapse
-					key={item.key}
-					defaultActiveKey={index + 1}
-					items={[item]}
+
+			<BaseColumn className="bg-white p-2 h-full">
+				<BaseConfirmDialog
+					isOpen={isOpenBaseConfirmDialog}
+					bodyDescriptionText="คุณต้องการบันทึก / แก้ไข ข้อมูลแพทย์ใช่หรือไม่"
+					confirmFunction={() => {
+						dispatch(
+							handleDoctorFormSubmit(doctorForm, uuid as string, router)
+						);
+					}}
+					cancelFunction={() => {
+						dispatch(setIsOpenBaseConfirmDialog(false));
+					}}
+					closeFunction={() => {
+						dispatch(setIsOpenBaseConfirmDialog(false));
+					}}
 				/>
-			))}
-			<div className="py-2 w-full flex justify-end">
-				<BaseButton
-					size="large"
-					htmlType="submit"
-					className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
-					label="บันทึก"
-					onClick={() => form.submit()}
-				/>
-			</div>
+
+				{getItemsForm({ form, onFinish })?.map((item, index: number) => (
+					<BaseCollapse
+						key={item.key}
+						defaultActiveKey={index + 1}
+						items={[item]}
+					/>
+				))}
+				<div className="py-2 w-full flex justify-end">
+					<BaseButton
+						size="large"
+						htmlType="submit"
+						className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
+						label="บันทึก"
+						onClick={() => form.submit()}
+					/>
+				</div>
+			</BaseColumn>
 		</BaseColumn>
 	);
 };
