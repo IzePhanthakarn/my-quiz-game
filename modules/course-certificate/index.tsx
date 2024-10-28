@@ -16,8 +16,7 @@ import FilterDrawer from "./FilterDrawer";
 import { modelCourseCertificate } from "./redux/model";
 import { setCourseCertificateFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-import HeaderLayout from "wcf-component-lib/src/layout/HeaderLayout";
-import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
+
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 
 export default function CourseCertificate() {
