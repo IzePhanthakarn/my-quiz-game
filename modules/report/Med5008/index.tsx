@@ -37,9 +37,9 @@ export default function Med5008() {
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
 				reportCode: "MED5008",
-				reportName: "รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+				reportName: "รายงานวันสิ้นสุดใบอนุญาตสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 				reportDescription:
-					"รายงานการยกเลิกเป็นสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+					"รายงานวันสิ้นสุดใบอนุญาตสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 				reportType: "5",
 			}}
 			downloadContent={

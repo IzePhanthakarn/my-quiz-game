@@ -46,8 +46,8 @@ const Med5012 = () => {
 			reportData={{
 				systemName: `${MED_REPORT_SYSTEM}`,
 				reportCode: "MED5012",
-				reportName: "รายงานจำนวนสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
-				reportDescription: "รายงานจำนวนสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+				reportName: "รายงานการตรวจสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
+				reportDescription: "รายงานการตรวจสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 				reportType: "5",
 			}}
 			downloadContent={
