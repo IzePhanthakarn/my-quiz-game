@@ -167,7 +167,13 @@ export const initGetHospitalDetail =
 			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
-			dispatch(setHospitalForm(response.payload));
+			dispatch(
+				setHospitalForm({
+					...response.payload,
+					checkIsParticipateSso:
+						response.payload.isParticipateSso === "Y" ? true : false,
+				})
+			);
 
 			dispatch(
 				fetchHospitalAttachmentList(

@@ -202,6 +202,8 @@ export interface BaseHospitalForm {
 	ssoProject: string | null;
 	latitude: string;
 	longitude: string;
+	isParticipateSso: string;
+	checkIsParticipateSso: boolean;
 }
 
 export interface HospitalForm
@@ -342,5 +344,7 @@ export const modelHospital: Hospital = {
 		tambolCode: null,
 		remarkChangeName: "",
 		ssoProject: null,
+		isParticipateSso: "N",
+		checkIsParticipateSso: false,
 	},
 };
