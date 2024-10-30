@@ -2,6 +2,7 @@ export interface CompareHistory {
 	filterList: FilterList[];
 	compareList: DoctorCompareList;
 	compareParams: CompareParams;
+	compareListAll: CompareAllList[];
 }
 
 export interface CompareParams {
@@ -22,6 +23,17 @@ export interface CompareList {
 	isChanged: boolean;
 }
 
+export interface CompareAllList {
+	name: string;
+	olderValue: any;
+	newerValue: any;
+	isChanged: boolean;
+	updatedBy: string;
+	updatedDate: string;
+	editTimes: number;
+	field: string;
+}
+
 export interface FilterList {
 	label: string;
 	updatedBy: string;
@@ -40,4 +52,5 @@ export const modelCompareHistory: CompareHistory = {
 		olderVersion: null,
 		newerVersion: null,
 	},
+	compareListAll: [],
 };
