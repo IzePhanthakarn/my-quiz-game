@@ -25,6 +25,7 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
+import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
@@ -47,12 +48,20 @@ const DoctorFormTabs = () => {
 		dispatch(handleSession(SESSION_NAME.JOB_TYPE));
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
+		dispatch(handleSession(SESSION_NAME.BANK));
+		dispatch(handleSession(SESSION_NAME.BANK_BRANCH));
 	}, []);
 
 	const [form] = Form.useForm();
 	const onFinish: FormProps["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
+
+	const { dispatchLayout } = useLayout();
+
+	useEffect(() => {
+		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
+	}, []);
 
 	return (
 		<BaseColumn className="p-2 h-full space-y-6">
@@ -100,12 +109,19 @@ const DoctorFormTabs = () => {
 						items={[item]}
 					/>
 				))}
-				<div className="py-2 w-full flex justify-end">
+				<div className="py-2 space-x-6 w-full flex justify-center">
 					<BaseButton
-						size="large"
+						size="small"
 						htmlType="submit"
-						className="w-1/6 border-4 border-black text-black bg-[#f3da5f] drop-shadow-2xl"
+						type="cancel"
+						label="ยกเลิก"
+						onClick={() => form.submit()}
+					/>
+					<BaseButton
+						size="small"
+						htmlType="submit"
 						label="บันทึก"
+						iconType="save"
 						onClick={() => form.submit()}
 					/>
 				</div>

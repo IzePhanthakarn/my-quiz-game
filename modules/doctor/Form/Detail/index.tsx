@@ -42,6 +42,7 @@ export default function DoctorDetailForm(props: Props) {
 		shallowEqual
 	);
 	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
+	const [isE] = useState(doctorData.courseCategory === "E");
 
 	useEffect(() => {
 		if (_.isEmpty(tmpDoctorData) && uuid) {
@@ -70,6 +71,7 @@ export default function DoctorDetailForm(props: Props) {
 				<BaseItemInput
 					label={doctorDataName.professionalCode}
 					itemName="professionalCode"
+					disabled={isE}
 					rules={rules.professionalCodeSchema}
 				/>
 				<div className="col-span-2">
@@ -77,6 +79,7 @@ export default function DoctorDetailForm(props: Props) {
 						type={SESSION_NAME.COURSE_CATEGORY}
 						label={doctorDataName.courseCategory}
 						itemName="courseCategory"
+						disabled={isE}
 						rules={rules.courseCategorySchema}
 						getValue={(e) => {
 							if (e === "F") {
@@ -99,15 +102,20 @@ export default function DoctorDetailForm(props: Props) {
 						}}
 					/>
 				</div>
-				<div></div>
+				<BaseItemInput
+					label={doctorDataName.certificateId}
+					itemName="certificateId"
+				/>
 				<BaseItemInput
 					label={doctorDataName.doctorCode}
 					itemName="doctorCode"
+					disabled={isE}
 					rules={rules.doctorCodeSchema}
 				/>
 				<BaseItemInput
 					label={doctorDataName.citizenId}
 					itemName="citizenId"
+					disabled={isE}
 					rules={rules.citizenIdSchema}
 				/>
 				<MedDropDown
@@ -115,6 +123,7 @@ export default function DoctorDetailForm(props: Props) {
 					label={doctorDataName.doctorType}
 					itemName="doctorType"
 					className="h-full w-full"
+					disabled={isE}
 					rules={rules.doctorTypeSchema}
 					labelRender={() => (
 						<p>
@@ -125,6 +134,7 @@ export default function DoctorDetailForm(props: Props) {
 				<BaseItemInput
 					label={doctorDataName.revenueNo}
 					itemName="revenueNo"
+					disabled={isE}
 					rules={rules.revenueNoSchema}
 				/>
 				<MedDropDown
@@ -132,6 +142,7 @@ export default function DoctorDetailForm(props: Props) {
 					label={doctorDataName.title}
 					itemName="title"
 					className="h-full w-full"
+					disabled={isE}
 					rules={rules.titleSchema}
 					labelRender={() => (
 						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
@@ -140,16 +151,19 @@ export default function DoctorDetailForm(props: Props) {
 				<BaseItemInput
 					label={doctorDataName.firstname}
 					itemName="firstname"
+					disabled={isE}
 					rules={rules.firstNameSchema}
 				/>
 				<BaseItemInput
 					label={doctorDataName.lastname}
 					itemName="lastname"
+					disabled={isE}
 					rules={rules.lastNameSchema}
 				/>
 				<BaseItemInput
 					label={doctorDataName.phoneNumber}
 					itemName="phoneNumber"
+					disabled={isE}
 					rules={rules.phoneNumberSchema}
 				/>
 				<div></div>
@@ -159,28 +173,33 @@ export default function DoctorDetailForm(props: Props) {
 				<BaseItemInput
 					label={doctorDataName.houseNum}
 					itemName="houseNum"
+					disabled={isE}
 					rules={rules.houseNumSchema}
 				/>
 				<BaseItemInput
 					label={doctorDataName.moo}
 					itemName="moo"
+					disabled={isE}
 					rules={rules.mooSchema}
 				/>
 				<BaseItemInput
 					label={doctorDataName.road}
 					itemName="road"
+					disabled={isE}
 					rules={rules.roadSchema}
 				/>
 				<div></div>
 				<BaseItemInput
 					label={doctorDataName.soi}
 					itemName="soi"
+					disabled={isE}
 					rules={rules.soiSchema}
 				/>
 				<MedDropDown
 					label={doctorDataName.tambol}
 					itemName="tambol"
 					type={SESSION_NAME.ADDRESS}
+					disabled={isE}
 					rules={rules.tambolSchema}
 					getValue={(e: Address) => {
 						dispatch(
@@ -201,6 +220,7 @@ export default function DoctorDetailForm(props: Props) {
 					label={doctorDataName.amphur}
 					itemName="amphur"
 					type={SESSION_NAME.ADDRESS}
+					disabled={isE}
 					rules={rules.amphurSchema}
 					getValue={(e: Address) =>
 						dispatch(
@@ -223,6 +243,7 @@ export default function DoctorDetailForm(props: Props) {
 					label={doctorDataName.province}
 					itemName="province"
 					className="h-full w-full"
+					disabled={isE}
 					rules={rules.provinceSchema}
 					getValue={(e: Address) =>
 						dispatch(
@@ -243,6 +264,7 @@ export default function DoctorDetailForm(props: Props) {
 					label={doctorDataName.postcode}
 					itemName="postcode"
 					type={SESSION_NAME.ADDRESS}
+					disabled={isE}
 					rules={rules.postcodeSchema}
 					getValue={(e: Address) =>
 						dispatch(

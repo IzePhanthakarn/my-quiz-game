@@ -9,6 +9,8 @@ import { setDialog } from "@/redux/slices/dialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
 import { handleBankRows } from "@/modules/doctor/DialogContent/service";
 import { modelDialog } from "@/redux/slices/dialog/model";
+import { findNameDisplay } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 interface BankProps {
 	doctorBankGrid: DoctorBankList[];
@@ -26,18 +28,29 @@ export const GetColumnBank = (props: BankProps) => {
 			},
 			{
 				title: "ชื่อธนาคาร",
-				dataIndex: "bankAccount",
-				key: "bankAccount",
+				dataIndex: "bankDigitCode",
+				key: "bankDigitCode",
+				render: (_: any, { bankDigitCode }: any) => {
+					const bankDisplay = findNameDisplay(SESSION_NAME.BANK, bankDigitCode);
+					return <p>{bankDisplay}</p>;
+				},
 			},
 			{
 				title: "สาขาธนาคาร",
-				dataIndex: "bankDigitCode",
-				key: "bankDigitCode",
+				dataIndex: "bankSortingCode",
+				key: "bankSortingCode",
+				render: (_: any, { bankSortingCode }: any) => {
+					const bankBranchDisplay = findNameDisplay(
+						SESSION_NAME.BANK_BRANCH,
+						bankSortingCode
+					);
+					return <p>{bankBranchDisplay}</p>;
+				},
 			},
 			{
 				title: "เลขที่บัญชี",
-				dataIndex: "bankSortingCode",
-				key: "bankSortingCode",
+				dataIndex: "bankAccount",
+				key: "bankAccount",
 			},
 			{
 				title: "พร้อมเพย์",

@@ -19,11 +19,13 @@ interface Props {
 export interface TraningState {
 	trainingNo: string;
 	trainingDate: string;
+	uuid: string | null;
 }
 
 const defaultTraining: TraningState = {
 	trainingNo: "",
 	trainingDate: "",
+	uuid: null,
 };
 
 export default function TraningDialog(props: Props) {
@@ -47,6 +49,7 @@ export default function TraningDialog(props: Props) {
 				setTraining({
 					trainingNo: data.trainingNo,
 					trainingDate: data.trainingDate,
+					uuid: data.uuid ?? null,
 				});
 			}
 		}

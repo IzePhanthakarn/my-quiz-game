@@ -20,18 +20,20 @@ interface Props {
 
 export interface Bank {
 	bankAccountName: string;
-	bankDigitCode: string;
-	bankSortingCode: string;
+	bankDigitCode: string | null;
+	bankSortingCode: string | null;
 	bankAccount: string;
 	promptpay: string;
+	uuid: string | null;
 }
 
 const modelBank: Bank = {
 	bankAccountName: "",
-	bankDigitCode: "",
-	bankSortingCode: "",
+	bankDigitCode: null,
+	bankSortingCode: null,
 	bankAccount: "",
 	promptpay: "",
+	uuid: null,
 };
 
 export default function BankDialog(props: Props) {
@@ -61,15 +63,17 @@ export default function BankDialog(props: Props) {
 			<div className="w-full">
 				<MedDropDown
 					notForm={true}
-					type={SESSION_NAME.DIPLOMA}
+					type={SESSION_NAME.BANK}
 					className="h-full w-full"
 					label="ธนาคาร"
-					getValue={(e) => setBank({ ...bank, bankDigitCode: e })}
+					getValue={(e) =>
+						setBank({ ...bank, bankDigitCode: e, bankSortingCode: null })
+					}
 					value={bank.bankDigitCode}
 				/>
 				<MedDropDown
 					notForm={true}
-					type={SESSION_NAME.DIPLOMA}
+					type={SESSION_NAME.BANK_BRANCH}
 					className="h-full w-full"
 					disabled={_.isEmpty(bank.bankDigitCode)}
 					label="สาขาธนาคาร"
