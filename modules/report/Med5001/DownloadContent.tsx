@@ -8,7 +8,7 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import { setMed5001Form } from "../redux";
-import { handleOnExportExcel } from "@/utils/report/common";
+import { handleOnExportExcelCMP } from "@/utils/report/common";
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
@@ -24,7 +24,7 @@ export default function DownloadContent(props: Props) {
 	const { med5001, form, onFinish } = props;
 	function DownloadChange(downloadType: string) {
 		if ("EXCEL" == downloadType) {
-			dispatch(handleOnExportExcel(med5001, REPORT_TYPES.MED5001));
+			dispatch(handleOnExportExcelCMP(med5001, REPORT_TYPES.MED5001));
 		} else if ("PDF" == downloadType) {
 			dispatch(handlePdfButton(med5001));
 		}
