@@ -29,15 +29,21 @@ export const configPage: DataStructureURL = {
 			pageLevel: { form: [0] },
 		},
 		formEdit: {
-			url: "/doctor/edit/[uuid]",
+			url: "/hospital/edit/[uuid]",
 			text: "ข้อมูลสถานพยาบาล",
 			breadcrumb: ["root", "formEdit"],
 			pageLevel: { form: [0] },
 		},
 		formAdd: {
-			url: "/doctor/form",
+			url: "/hospital/form",
 			text: "เพิ่มข้อมูลสถานพยาบาล",
 			breadcrumb: ["root", "formAdd"],
+			pageLevel: { form: [0] },
+		},
+		estimateAdd: {
+			url: "/hospital/estimate-add",
+			text: "แจ้งผลการตรวจประเมิณคุณภาพประจำปี",
+			breadcrumb: ["root", "estimateAdd"],
 			pageLevel: { form: [0] },
 		},
 	},

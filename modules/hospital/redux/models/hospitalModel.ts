@@ -49,6 +49,8 @@ export interface Hospital {
 
 	outsideHospitalForm: OutsideHospitalForm;
 	history: HospitalHistory;
+
+	estimateAdd: EstimateAdd;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -219,6 +221,26 @@ export interface HospitalForm
 	};
 }
 
+export interface EstimateAdd {
+	hospitalName: string;
+	type: string;
+	name: string;
+	lastName: string;
+	email: string;
+	referenceNumber: string;
+	atDate: string;
+	reportDate: string;
+	checkDate: string;
+	result: string;
+	detail: string;
+	files: {
+		noSeq: number;
+		name: string;
+		link: string;
+		detail: string;
+	}[];
+}
+
 export const modelHospitalFilter: HospitalFilter = {
 	hospitalWcfCodeLike: "",
 	hospitalDbmsCodeLike: "",
@@ -239,6 +261,33 @@ export const modelHospitalFilter: HospitalFilter = {
 };
 
 export const modelHospital: Hospital = {
+	estimateAdd: {
+		hospitalName: "",
+		type: "",
+		name: "",
+		lastName: "",
+		email: "",
+		referenceNumber: "",
+		atDate: "",
+		reportDate: "",
+		checkDate: "",
+		result: "",
+		detail: "",
+		files: [
+			{
+				noSeq: 1,
+				name: "Clinic_Evaluate_Jularut.pdf",
+				link: "##",
+				detail: "รายละเอียดการประเมิณและข้อมูลต่างๆ",
+			},
+			{
+				noSeq: 2,
+				name: "Clinic_Evaluate_Jularut2.pdf",
+				link: "##",
+				detail: "รายละเอียดการประเมิณและข้อมูลต่างๆ 2",
+			},
+		],
+	},
 	history: { ...modelHospitalHistory },
 	hospitalSp7: { ...modelHospitalSp7 },
 	hospitalSp19: { ...modelHospitalSp19 },
