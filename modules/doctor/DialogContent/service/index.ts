@@ -22,6 +22,7 @@ import { TraningState } from "../TrainingDialog";
 import { Bank } from "../BankDialog";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
+import { DoctorHospitalModal } from "../HospitalDialog";
 
 export const handleDoctorDetailRows =
 	(params: {
@@ -32,7 +33,13 @@ export const handleDoctorDetailRows =
 		uuid?: string | null;
 	}) =>
 	async (dispatch: AppDispatch) => {
-		const { diplomaType = "", doctorDetailGrid, editId, isDelete } = params;
+		const {
+			diplomaType = "",
+			doctorDetailGrid,
+			editId,
+			isDelete,
+			uuid,
+		} = params;
 		const sessionDiploma = JSON.parse(
 			sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
 		);
@@ -42,7 +49,7 @@ export const handleDoctorDetailRows =
 		const newDoctorDetail: DoctorDetailList = {
 			id: 0,
 			diplomaType: diploma,
-			uuid: null,
+			uuid: uuid,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -61,7 +68,7 @@ export const handleDoctorDetailRows =
 
 export const handleHospitalRows =
 	(params: {
-		hospital?: DoctorHospital;
+		hospital?: DoctorHospitalModal;
 		doctorHospitalGrid: DoctorHospitalList[];
 		editId?: number;
 		isDelete?: boolean;
@@ -81,7 +88,7 @@ export const handleHospitalRows =
 			clinicCode: null,
 			position: hospital?.position ?? "",
 			hospitalWcfName: hospital?.hospitalName ?? "",
-			uuid: null,
+			uuid: hospital?.uuid,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -113,7 +120,7 @@ export const handleTrainingRows =
 
 		const newTraining: TrainingList = {
 			id: 0,
-			uuid: null,
+			uuid: training?.uuid,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",
@@ -136,15 +143,15 @@ export const handleTrainingRows =
 	};
 
 export const handleHospital = (
-	hospital: DoctorHospital,
-	setHospital: (hospital: DoctorHospital) => void
+	hospital: DoctorHospitalModal,
+	setHospital: (hospital: DoctorHospitalModal) => void
 ) => {
 	if (_.isEmpty(hospital.hospitalName)) {
 		const raw_hospital = JSON.parse(
 			sessionStorage.getItem(SESSION_NAME.HOSPITAL) ?? "[]"
 		);
 		const name = raw_hospital.find(
-			(e: DoctorHospital) => e.hospitalWcfCode === hospital.hospitalWcfCode
+			(e: DoctorHospitalModal) => e.hospitalWcfCode === hospital.hospitalWcfCode
 		);
 		setHospital({ ...hospital, hospitalName: name.hospitalName });
 	}
@@ -162,7 +169,7 @@ export const handleBankRows =
 		const { bank, doctorBankGrid, editId, isDelete } = params;
 		const newDoctorDetail: DoctorBankList = {
 			id: 0,
-			uuid: null,
+			uuid: bank?.uuid,
 			isActive: IsActive.Y,
 			createdDate: "",
 			createdBy: "",

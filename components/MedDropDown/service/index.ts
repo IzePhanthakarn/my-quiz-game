@@ -11,7 +11,8 @@ import {
 import { findAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { API_METHOD, SESSION_NAME, DROPDOWN } from "../model";
-import { CourseCategory, SsoBranch, Title } from "./model";
+import { Bank, BankBranch, CourseCategory, SsoBranch, Title } from "./model";
+import { handleOption } from "./handleOption";
 
 interface DropDownParams {
 	apiPath: string;
@@ -52,6 +53,37 @@ export const handleSession =
 		}
 	};
 
+export const findNameDisplay = (type: SESSION_NAME, value: any) => {
+	const session = JSON.parse(sessionStorage.getItem(type) ?? "[]");
+	let nameDisplay = null;
+	let sessionResult = null;
+	switch (type) {
+		case SESSION_NAME.DOCTOR_TYPE:
+			sessionResult = session.find(
+				(e: LtPropertiesList) => e.propertyCode === value
+			);
+			nameDisplay = sessionResult?.propertyText ?? null;
+			break;
+		case SESSION_NAME.TITLE:
+			sessionResult = session.find((e: Title) => e.titleCode === value);
+			nameDisplay = sessionResult?.titleName ?? null;
+			break;
+		case SESSION_NAME.BANK:
+			sessionResult = session.find((e: Bank) => e.bankDigitCode === value);
+			nameDisplay = sessionResult?.bankName ?? null;
+			break;
+		case SESSION_NAME.BANK_BRANCH:
+			sessionResult = session.find(
+				(e: BankBranch) => e.bankSortingCode === value
+			);
+			nameDisplay = sessionResult?.branchName ?? null;
+			break;
+		default:
+			return value;
+	}
+	return nameDisplay;
+};
+
 export const handleGetValue = (type: SESSION_NAME, value: any) => {
 	switch (type) {
 		case SESSION_NAME.ADDRESS:
@@ -60,102 +92,6 @@ export const handleGetValue = (type: SESSION_NAME, value: any) => {
 			return data;
 		default:
 			return value;
-	}
-};
-
-const handleOption = (type: SESSION_NAME, result: any) => {
-	switch (type) {
-		case SESSION_NAME.DIPLOMA:
-			const diploma: Option[] = result.map((e: Diploma) => ({
-				label: `${e.diplomaType.trim()}-${e.diplomaName}`,
-				value: e.diplomaType,
-			}));
-			return diploma;
-		case SESSION_NAME.SSO_BRANCH:
-			const sso_branch: Option[] = result.map((e: SsoBranch) => ({
-				label: `${e.ssoBranchCode} ${e.provinceName}`,
-				value: e.ssoBranchCode,
-			}));
-			return sso_branch;
-		case SESSION_NAME.SSO_BRANCH_PROVINCE:
-			const sso_branch_province: Option[] = result.map((e: SsoBranch) => ({
-				label: `${e.ssoBranchCode} ${e.provinceName}`,
-				value: `${e.provinceCode}-${e.provinceName}`,
-			}));
-			return sso_branch_province;
-		case SESSION_NAME.SSO_BRANCH_PROVINCE_CODENAME:
-			const sso_branch_province_codename: Option[] = result.map(
-				(e: SsoBranch) => ({
-					label: `${e.ssoBranchCode} ${e.provinceName}`,
-					value: `${e.ssoBranchCode}-${e.provinceName}`,
-				})
-			);
-			return sso_branch_province_codename;
-		case SESSION_NAME.COURSE_CATEGORY:
-			const courseCategory: Option[] = result.map((e: CourseCategory) => ({
-				label: e.categoryDescription,
-				value: e.courseCategory,
-			}));
-			return courseCategory;
-		case SESSION_NAME.HOSPITAL:
-			const hospital: Option[] = result.map((e: DoctorHospital) => ({
-				label: `${e.hospitalWcfCode}-${e.hospitalName}`,
-				value: `${e.hospitalWcfCode}-${e.hospitalName}`,
-			}));
-			return hospital;
-		case SESSION_NAME.ADDRESS:
-			const option_address = result.map((e: Address) => ({
-				value: `${e.tambolCode}/${e.postalCode}`,
-				label:
-					e.tambolName +
-					" > " +
-					e.amphurName +
-					" > " +
-					e.provinceName +
-					" > " +
-					e.postalCode,
-			}));
-			return option_address;
-		case SESSION_NAME.POSTAL_ID:
-			const postalIdLabel = result.map((e: Address) => ({
-				value: `${e.tambolCode}/${e.postalCode}`,
-				label: e.postalId + "-" + e.postalName,
-			}));
-			return postalIdLabel;
-
-		case SESSION_NAME.PROVINCE_NAME:
-			const uniqueProvinces = _.uniqBy(result, "provinceCode"); // กรองซ้ำตาม provinceCode
-			const provinceName = _.map(uniqueProvinces, (e: Address) => ({
-				value: e.provinceCode,
-				label: e.provinceName,
-			}));
-			return provinceName;
-
-		case SESSION_NAME.HOSPITAL_TYPE:
-		case SESSION_NAME.HOSPITAL_CATEGORY:
-			const ltProperties: Option[] = result.content.map(
-				(e: LtPropertiesList) => ({
-					value: e.propertyCode,
-					label: e.propertyText,
-				})
-			);
-			return ltProperties;
-		case SESSION_NAME.JOB_TYPE:
-		case SESSION_NAME.SSO_PROJECT:
-		case SESSION_NAME.DOCTOR_TYPE:
-			const medLtProperties: Option[] = result.map((e: LtPropertiesList) => ({
-				value: e.propertyCode,
-				label: e.propertyText,
-			}));
-			return medLtProperties;
-		case SESSION_NAME.TITLE:
-			const title: Option[] = result.map((e: Title) => ({
-				label: e.titleName,
-				value: e.titleCode,
-			}));
-			return title;
-		default:
-			return [];
 	}
 };
 
@@ -178,20 +114,3 @@ export const fetchDropDownList = createAsyncThunk(
 		}
 	}
 );
-
-export const findNameDisplay = (type: SESSION_NAME, value: any) => {
-	switch (type) {
-		case SESSION_NAME.DOCTOR_TYPE:
-			const doctorType = JSON.parse(sessionStorage.getItem(type) ?? "[]");
-			const doctorTypeResult = doctorType.find(
-				(e: LtPropertiesList) => e.propertyCode === value
-			);
-			return doctorTypeResult?.propertyText ?? null;
-		case SESSION_NAME.TITLE:
-			const title = JSON.parse(sessionStorage.getItem(type) ?? "[]");
-			const titleResult = title.find((e: Title) => e.titleCode === value);
-			return titleResult?.titleName ?? null;
-		default:
-			return value;
-	}
-};
