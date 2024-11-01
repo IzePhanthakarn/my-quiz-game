@@ -57,18 +57,7 @@ export default function DownloadContent(props: Props) {
 								})
 							);
 						}}
-					/>
-					<BaseItemCheckbox itemName="ssoFlag" label="เป็นโรงพยาบาลที่อยู่ในระบบประกันสังคม" 
-					value={med5013.ssoProject} 
-					onClickFunction={() =>
-						dispatch(
-							setMed5013Form({
-								...med5013,
-								checkSSO: !med5013.checkSSO,
-							})
-						)
-					}
-					/> 
+					/>					 
 					{!_.isEmpty(med5013.showDownload) ? (
 						<div>
 							<MedDropDown
