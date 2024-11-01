@@ -6,10 +6,6 @@ import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorHospitalList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
-import {
-	DoctorHospital,
-	modelDoctorHospital,
-} from "wcf-component-lib/src/components/BaseDropDown/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { handleHospital, handleHospitalRows } from "./service";
@@ -20,6 +16,22 @@ interface Props {
 	doctorHospitalGrid: DoctorHospitalList[];
 	editId?: number;
 }
+
+export interface DoctorHospitalModal {
+	hospitalWcfCode: string;
+	jobType: string;
+	position: string;
+	hospitalName: string;
+	uuid: string | null;
+}
+
+const modelDoctorHospitalModal: DoctorHospitalModal = {
+	hospitalWcfCode: "",
+	jobType: "",
+	position: "",
+	hospitalName: "",
+	uuid: null,
+};
 
 export default function HospitalDialog(props: Props) {
 	const { doctorHospitalGrid, editId } = props;
@@ -32,11 +44,12 @@ export default function HospitalDialog(props: Props) {
 		shallowEqual
 	);
 
-	const [hospital, setHospital] =
-		React.useState<DoctorHospital>(modelDoctorHospital);
+	const [hospital, setHospital] = React.useState<DoctorHospitalModal>(
+		modelDoctorHospitalModal
+	);
 
 	useEffect(() => {
-		setHospital(modelDoctorHospital);
+		setHospital(modelDoctorHospitalModal);
 		if (editId) {
 			const data = _.find(doctorHospitalGrid, ["id", editId]);
 			if (!_.isEmpty(data)) {
@@ -45,6 +58,7 @@ export default function HospitalDialog(props: Props) {
 					hospitalName: _.get(data, "hospital.hospitalName") ?? "",
 					jobType: data.jobType ?? "",
 					position: data.position ?? "",
+					uuid: data.uuid ?? null,
 				});
 			}
 		}

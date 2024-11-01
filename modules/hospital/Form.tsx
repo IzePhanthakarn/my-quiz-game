@@ -870,12 +870,20 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemCheckbox
-							itemName="checkClinicCode"
+							itemName="checkIsParticipateSso"
 							label="เข้าร่วมโครงการประกันสังคม"
-							checked={false}
+							checked={hospitalForm.checkIsParticipateSso}
 							labelPosition={BaseFormItemPosition.LEFT}
 							onClickFunction={() => {
-								console.log("🚀 ~ HospitalFormPage ~ labelPosition:");
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										checkIsParticipateSso: !hospitalForm.checkIsParticipateSso,
+										isParticipateSso: !hospitalForm.checkIsParticipateSso
+											? "Y"
+											: "N",
+									})
+								);
 							}}
 						/>
 					</div>
@@ -1591,6 +1599,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
 					/>
 					<div className="mb-4"></div>
+
 					<BaseForm
 						name={"hospitalForm"}
 						onFinish={onFinish}

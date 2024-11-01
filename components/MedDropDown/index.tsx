@@ -53,20 +53,21 @@ export default function MedDropDown(props: MedDropDownProps) {
 				placeholder={placeholder}
 				option={dropdown}
 				getValue={(e) => getValue(handleGetValue(type, e))}
+				size="large"
 			/>
 
-			<div
-				className={`${
-					props.notForm ? "" : "-mt-6"
-				} w-full flex justify-between h-4`}
-			>
-				{(helperTextRight || helperTextLeft) && (
+			{(helperTextRight || helperTextLeft) && (
+				<div
+					className={`${
+						props.notForm ? "" : "-mt-6"
+					} w-full flex justify-between h-4`}
+				>
 					<>
 						<p className="text-help mt-1">{helperTextLeft}</p>
 						<p className="text-help mt-1">{helperTextRight}</p>
 					</>
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 }

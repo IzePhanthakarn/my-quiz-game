@@ -17,6 +17,8 @@ export enum SESSION_NAME {
 	SSO_BRANCH = "ssoBranch",
 	SSO_BRANCH_PROVINCE = "ssoBranchProvince",
 	SSO_BRANCH_PROVINCE_CODENAME = "ssoBranchProvinceCodeName",
+	BANK = "bank",
+	BANK_BRANCH = "bankBranch",
 }
 
 export enum API_METHOD {
@@ -88,6 +90,18 @@ export const DROPDOWN = {
 	[SESSION_NAME.TRAINING]: {
 		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/training`,
 		sessionName: SESSION_NAME.TRAINING,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[SESSION_NAME.BANK]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/bank/dropdown`,
+		sessionName: SESSION_NAME.BANK,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[SESSION_NAME.BANK_BRANCH]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/master/bank-branch/dropdown`,
+		sessionName: SESSION_NAME.BANK_BRANCH,
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},

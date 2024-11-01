@@ -38,7 +38,7 @@ export default function DoctorBank() {
 					}
 					label="เพิ่มข้อมูลธนาคาร"
 				/>
-				<BaseButton
+				{/* <BaseButton
 					onClick={() =>
 						dispatch(
 							setDialog({
@@ -51,7 +51,7 @@ export default function DoctorBank() {
 						)
 					}
 					label="เพิ่มไปรษณีย์ปลายทาง"
-				/>
+				/> */}
 			</div>
 			<BaseGrid
 				rows={doctorBankGrid}
@@ -60,13 +60,13 @@ export default function DoctorBank() {
 					dispatch,
 				})}
 			/>
-			<BaseGrid
+			{/* <BaseGrid
 				rows={doctorPostalGrid}
 				columns={GetColumnPostal({
 					doctorPostalGrid,
 					dispatch,
 				})}
-			/>
+			/> */}
 		</div>
 	);
 }

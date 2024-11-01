@@ -14,3 +14,14 @@ export interface SsoBranch {
 	provinceName: string;
 	provinceCode: string;
 }
+
+export interface Bank {
+	bankDigitCode: string;
+	bankName: string;
+}
+
+export interface BankBranch {
+	bankSortingCode: string;
+	bankDigitCode: string;
+	branchName: string;
+}

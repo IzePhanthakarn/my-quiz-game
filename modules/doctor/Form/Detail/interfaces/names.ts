@@ -2,6 +2,7 @@ export const doctorDataName = {
 	professionalCode: "เลขทะเบียนวิชาชีพ",
 	courseCategory: "หลักสูตรอบรม",
 	doctorCode: "เลขทะเบียน สปส",
+	certificateId: "เลขประกาศณียบัตร",
 	citizenId: "เลขที่บัตรประชาชน",
 	doctorType: "ประเภทแพทย์",
 	revenueNo: "เลขที่ภาษี",
