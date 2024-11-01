@@ -53,6 +53,25 @@ export interface Hospital {
 	estimateAdd: EstimateAdd;
 }
 
+export interface EstimateAdd {
+	grid: EstimateAddGrid;
+	filter: EstimateAddFilter;
+	form: EstimateAddForm;
+}
+
+export interface EstimateAddGrid extends PaginationModel {
+	data: EstimateAddGridData[];
+}
+
+export interface EstimateAddGridData {
+	// noSeq: number;
+	name: string;
+	lastName: string;
+	email: string;
+	hospitalName: string;
+	reportDate: string;
+}
+
 export interface HospitalGrid extends PaginationModel {
 	data: HospitalGridData[];
 }
@@ -221,15 +240,10 @@ export interface HospitalForm
 	};
 }
 
-export interface EstimateAdd {
-	hospitalName: string;
+export interface EstimateAddForm extends EstimateAddGridData {
 	type: string;
-	name: string;
-	lastName: string;
-	email: string;
 	referenceNumber: string;
 	atDate: string;
-	reportDate: string;
 	checkDate: string;
 	result: string;
 	detail: string;
@@ -239,6 +253,14 @@ export interface EstimateAdd {
 		link: string;
 		detail: string;
 	}[];
+}
+
+export interface EstimateAddFilter {
+	name: string;
+	lastName: string;
+	hospitalName: string;
+	reportDateFrom: string;
+	reportDateTo: string;
 }
 
 export const modelHospitalFilter: HospitalFilter = {
@@ -260,8 +282,65 @@ export const modelHospitalFilter: HospitalFilter = {
 	CheckSp19EndDate: false,
 };
 
-export const modelHospital: Hospital = {
-	estimateAdd: {
+export const modelEstimateAdd: EstimateAdd = {
+	grid: {
+		data: [
+			{
+				// noSeq: 1,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+			{
+				// noSeq: 1,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+			{
+				// noSeq: 2,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+			{
+				// noSeq: 3,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+			{
+				// noSeq: 4,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+		],
+		page: {
+			orders: [],
+			totalData: 10,
+			pageNumber: 0,
+			pageSize: 10,
+		},
+	},
+	filter: {
+		name: "",
+		lastName: "",
+		hospitalName: "",
+		reportDateFrom: "",
+		reportDateTo: "",
+	},
+	form: {
 		hospitalName: "",
 		type: "",
 		name: "",
@@ -288,6 +367,10 @@ export const modelHospital: Hospital = {
 			},
 		],
 	},
+};
+
+export const modelHospital: Hospital = {
+	estimateAdd: { ...modelEstimateAdd },
 	history: { ...modelHospitalHistory },
 	hospitalSp7: { ...modelHospitalSp7 },
 	hospitalSp19: { ...modelHospitalSp19 },
