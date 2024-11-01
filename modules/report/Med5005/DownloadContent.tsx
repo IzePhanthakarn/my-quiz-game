@@ -37,44 +37,47 @@ export default function DownloadContent(props: Props) {
 						itemName="provinceCode"
 						label="ระดับของสถานพยาบาล"
 						type={SESSION_NAME.SSO_BRANCH_PROVINCE}
-						
 						getValue={(e: string) => {
-							dispatch(setMed5005Form({
-								...med5005,
-								provinceCode: e,
-							}))
-						}}
-					/>
-				</div>
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
-						notForm={true}
-						label="ตั้งวันที่ฝึกอบรม"
-						value={med5005.trainFromDate}
-						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5005Form({
 									...med5005,
-									trainFromDate: date,
+									provinceCode: e,
 								})
 							);
 						}}
 					/>
 				</div>
 				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5005.trainToDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5005Form({
-									...med5005,
-									trainToDate: date,
-								})
-							);
-						}}
-					/>
+					<div>
+						<BaseDatePicker
+							notForm={true}
+							label="ตั้งวันที่ฝึกอบรม"
+							value={med5005.trainFromDate}
+							onChangeDateFunction={(date) => {
+								dispatch(
+									setMed5005Form({
+										...med5005,
+										trainFromDate: date,
+									})
+								);
+							}}
+						/>
+					</div>
+					<div>
+						<BaseDatePicker
+							notForm={true}
+							label="ถึงวันที่"
+							value={med5005.trainToDate}
+							onChangeDateFunction={(date) => {
+								dispatch(
+									setMed5005Form({
+										...med5005,
+										trainToDate: date,
+									})
+								);
+							}}
+						/>
+					</div>
 					{!_.isEmpty(med5005.showDownload) ? (
 						<div>
 							<MedDropDown
