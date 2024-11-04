@@ -17,6 +17,8 @@ import { EstimateAddFilter } from "../../redux/models/hospitalModel";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { estimateAddNames } from "../../interfaces/estimateAddNames";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDateRangePicker";
 
 export default function EstimateAdd() {
 	const dispatch: AppDispatch = useDispatch();
@@ -56,7 +58,7 @@ export default function EstimateAdd() {
 				Grid={
 					<BaseGrid
 						rows={estimateAdd.grid.data}
-						columns={EstimateAddGrid()}
+						columns={EstimateAddGrid(router)}
 						page={estimateAdd.grid.page}
 						loading={isLoading}
 						twoToneColor={true}
@@ -88,20 +90,36 @@ export default function EstimateAdd() {
 										label="เลขทะเบียน สปส"
 										onPressEnter={() => form.submit()}
 									/>
-									<BaseItemInput
+									{/* <BaseItemInput
 										itemName="reportDateFrom"
 										label="วันที่แจ้ง"
 										onPressEnter={() => form.submit()}
-									/>
-									<BaseItemInput
+									/> */}
+									{/* <BaseItemDatePicker
+										itemName="reportDateFrom"
+										label="วันที่แจ้ง"
+										itemForm={form}
+									/> */}
+
+									{/* <BaseItemInput
 										itemName="reportDateTo"
 										label="ถึงวันที่"
 										onPressEnter={() => form.submit()}
+									/> */}
+									{/* <BaseItemDatePicker
+										itemName="reportDateTo"
+										label="ถึงวันที่"
+										itemForm={form}
+									/> */}
+
+									<BaseItemDateRangePicker
+										itemName="reportDateTo"
+										label="ถึงวันที่"
 									/>
 								</div>
 							</BaseForm>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
 							form.submit();
 						}}

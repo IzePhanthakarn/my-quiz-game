@@ -6,8 +6,12 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { useMemo } from "react";
 // import { Download } from "wcf-component-lib/node_modules/iconoir-react";
 import FileTextOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FileTextOutlined";
+import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Cell/CustomCellButton";
+import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { LINKS } from "../../../constants/links";
 
-export const EstimateAddGrid = () => {
+export const EstimateAddGrid = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
 			{
@@ -85,10 +89,34 @@ export const EstimateAddGrid = () => {
 			},
 			{
 				key: "uuid",
-				title: "",
+				title: "คำสั่ง",
 				dataIndex: "uuid",
 				render: (_) => {
-					return <FileTextOutlined />;
+					return (
+						<FileTextOutlined
+							style={{
+								backgroundColor: "#e7f3f5",
+								padding: "10px",
+								borderRadius: "99%",
+								cursor: "pointer",
+								color: "#1c4651",
+							}}
+							onClick={() => {
+								router.push(LINKS.HOSPITAL.estimateAdd.form);
+							}}
+						/>
+					);
+					// return (
+					// 	<>
+					// 		<CustomCellButton
+					// 			editFunction={() => {
+					// 				// router.push(LINKS.CLINIC.edit + uuid);
+					// 			}}
+					// 			mode={BUTTON_MODE.VIEW_ONLY_ICON}
+					// 		/>
+					// 		asd
+					// 	</>
+					// );
 				},
 			},
 		],
