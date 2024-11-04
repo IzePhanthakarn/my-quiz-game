@@ -6,19 +6,19 @@ export const configPage: DataStructureURL = {
 			url: "/doctor",
 			breadcrumb: ["root"],
 			text: "แพทย์",
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], delete: [2] },
 		},
 		formEdit: {
 			url: "/doctor/edit/[uuid]",
 			text: "ข้อมูลแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], delete: [2] },
 		},
 		formAdd: {
 			url: "/doctor/form",
 			text: "เพิ่มข้อมูลแพทย์",
 			breadcrumb: ["root", "formAdd"],
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], delete: [2] },
 		},
 	},
 	hospital: {
@@ -26,7 +26,7 @@ export const configPage: DataStructureURL = {
 			url: "/hospital",
 			breadcrumb: ["root"],
 			text: "สถานพยาบาล",
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], delete: [2] },
 		},
 		formEdit: {
 			url: "/hospital/edit/[uuid]",
@@ -70,7 +70,7 @@ export const configPage: DataStructureURL = {
 			text: "รายการรายงาน",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5001: {
 		root: {
 			url: "/report/med5001",
@@ -78,7 +78,7 @@ export const configPage: DataStructureURL = {
 			text: "ทะเบียนคุมการจ่ายค่าตอบแทนให้แก่แพทย์ผู้ประเมินการสูญเสียสมรรถภาพ",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5002: {
 		root: {
 			url: "/report/med5002",
@@ -86,7 +86,7 @@ export const configPage: DataStructureURL = {
 			text: "ทะเบียนคุมการจ่ายค่าตอบแทนให้แก่แพทย์ผู้ประเมินการสูญเสียสมรรถภาพ(รายบุคคน)",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5003: {
 		root: {
 			url: "/report/med5003",
@@ -94,7 +94,7 @@ export const configPage: DataStructureURL = {
 			text: "รายงานใบสั่งจ่ายค้างจ่าย",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5004: {
 		root: {
 			url: "/report/med5004",
@@ -102,7 +102,7 @@ export const configPage: DataStructureURL = {
 			text: "รายงานใบเรียกเงินคืนที่ยังไม่ได้รับคืน",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5005: {
 		root: {
 			url: "/report/med5005",
@@ -110,7 +110,7 @@ export const configPage: DataStructureURL = {
 			text: "รายงานทะเบียนรายชื่อแพทย์ผู้ประเมินการสูญเสียสมรรถภาพทางกายและจิตใจของสำนักงานประกันสังคม",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5007: {
 		root: {
 			url: "/report/med5007",
@@ -126,7 +126,7 @@ export const configPage: DataStructureURL = {
 			text: "รายงานวันสิ้นสุดใบอนุญาตสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5009: {
 		root: {
 			url: "/report/med5009",
@@ -134,7 +134,7 @@ export const configPage: DataStructureURL = {
 			text: "รายงานจำนวนสถานพยาบาลในความตกลงของกองทุนเงินทดแทน",
 			pageLevel: { form: [0] },
 		},
-	},	
+	},
 	med5010: {
 		root: {
 			url: "/report/med5010",
