@@ -81,9 +81,11 @@ export const GetColumns = (prop: Props) => {
 				width: 400,
 				render: (_, { hospitalNameList }) => (
 					<>
-						{hospitalNameList.map((item: string, index: number) => (
-							<p key={index}>{item ? `- ${item}` : null}</p>
-						))}
+						{hospitalNameList
+							? hospitalNameList.map((item: string, index: number) => (
+									<p key={index}>{item ? `- ${item}` : null}</p>
+							  ))
+							: null}
 					</>
 				),
 			},
@@ -94,13 +96,17 @@ export const GetColumns = (prop: Props) => {
 				width: 200,
 				render: (_, { provinceCodeList }) => (
 					<>
-						{provinceCodeList.map((item: string, index: number) => (
-							<p key={index}>
-								{item
-									? `- ${findLabelAddress(item, ADDRESS.PROVINCE) ?? "อื่นๆ"}`
-									: null}
-							</p>
-						))}
+						{provinceCodeList
+							? provinceCodeList.map((item: string, index: number) => (
+									<p key={index}>
+										{item
+											? `- ${
+													findLabelAddress(item, ADDRESS.PROVINCE) ?? "อื่นๆ"
+											  }`
+											: null}
+									</p>
+							  ))
+							: null}
 					</>
 				),
 			},
