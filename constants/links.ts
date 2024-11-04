@@ -65,6 +65,10 @@ export const LINKS = {
 		link: "/hospital",
 		add: "/hospital/form/",
 		edit: "/hospital/edit/",
+		estimateAdd: {
+			list: "/hospital/estimate-add",
+			form: "/hospital/estimate-add/form",
+		},
 	},
 	DOCUMENT: {
 		name: "document",
