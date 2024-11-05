@@ -91,6 +91,7 @@ import { modelHospitalStaffContact } from "./redux/models/hospitalStaffContactMo
 import HospitalHistory from "./Form/History/hospitalHistory";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
+import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -391,34 +392,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			),
 			children: (
 				<>
-					{/* {hospitalAttachmentFile1.toPreview.length === 0 ? (
-						<BaseUploadDraggerHospital
-							className="style1"
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-							subFolderPath="hospital/attachmentFile1"
-							bearer={`${Cookies.get("accessToken")}`}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										files: {
-											...hospitalForm.files,
-											attachmentFile1: e,
-										},
-									})
-								);
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-								// console.log(e);
-							}}
-						/>
-					) : (
-						<BasePreviewPicture
-							items={hospitalAttachmentFile1.toPreview}
-							onChangeFunction={(e) => {
-								dispatch(setHospitalAttachmentFile1ToPreview(e));
-							}}
-						/>
-					)} */}
 					<BaseHorizontalHeader
 						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
 						icons={<HomeFilled />}
@@ -465,63 +438,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 
-					{/* <div className="grid grid-cols-12 gap-4">
-						<div className="col-span-8 ">
-							<BaseGrid
-								rows={hospitalAttachmentFile1.grid.data}
-								columns={HospitalAttachmentGrid({
-									hospitalAttachment: hospitalAttachmentFile1,
-									dispatch: dispatch,
-									params: params,
-								})}
-								page={hospitalAttachmentFile1.grid.page}
-								loading={isLoading}
-								twoToneColor={true}
-								setPagination={(page) => {
-									dispatch(
-										fetchHospitalAttachmentList(
-											hospitalForm,
-											{
-												...hospitalAttachmentFile1,
-												grid: {
-													...hospitalAttachmentFile1.grid,
-													page,
-												},
-											},
-											"AttachmentFile1"
-										)
-									);
-								}}
-							/>
-						</div>
-						<div className="col-span-4 ">
-							<BaseGreenHeader
-								title="ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"
-								description="ข้อมูลเกี่ยวกับสถาณที่ และสาเหตุการเกิด"
-								className=""
-							/>
-							<div>
-								<BaseUploadDraggerHospital
-									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
-									subFolderPath="hospital/attachmentFile1"
-									bearer={`${Cookies.get("accessToken")}`}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalForm({
-												...hospitalForm,
-												files: {
-													...hospitalForm.files,
-													attachmentFile1: e,
-												},
-											})
-										);
-									}}
-								/>
-							</div>
-						</div>
-					</div> */}
-
 					<BaseHorizontalHeader
 						title={"สพ7"}
 						icons={<HomeFilled />}
@@ -558,6 +474,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							/>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
 								<BaseDatePicker
+									pageLevel="edit"
 									label={names.sp7StartDated}
 									itemName="sp7StartDated"
 									rules={rules.sp7StartDatedSchema}
@@ -572,6 +489,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									}}
 								/>
 								<BaseDatePicker
+									pageLevel="edit"
 									label={names.sp7EndDate}
 									itemName="sp7EndDate"
 									rules={rules.sp7EndDateSchema}
@@ -643,6 +561,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							/>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
 								<BaseDatePicker
+									pageLevel="edit"
 									label={names.sp19StartDate}
 									itemName="sp19StartDate"
 									rules={rules.sp19StartDateSchema}
@@ -658,6 +577,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								/>
 								<BaseDatePicker
 									label={names.sp19EndDate}
+									pageLevel="edit"
 									itemName="sp19EndDate"
 									rules={rules.sp19EndDateSchema}
 									value={hospitalForm.sp19EndDate}
@@ -823,7 +743,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.hospitalDbmsCode}
 							itemName="hospitalDbmsCode"
 							rules={rules.hospitalDbmsCodeSchema}
@@ -837,8 +757,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								);
 							}}
 						/>
+
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.hospitalWcfCode}
 							itemName="hospitalWcfCode"
 							rules={rules.hospitalWcfCodeSchema}
@@ -854,7 +775,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.hospitalMinistryCode}
 							itemName="hospitalMinistryCode"
 							rules={rules.hospitalMinistryCodeSchema}
@@ -870,6 +791,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemCheckbox
+							pageLevel="edit"
 							itemName="checkIsParticipateSso"
 							label="เข้าร่วมโครงการประกันสังคม"
 							checked={hospitalForm.checkIsParticipateSso}
@@ -894,7 +816,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					/>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.hospitalName}
 							itemName="hospitalName"
 							rules={rules.hospitalNameSchema}
@@ -909,7 +831,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.companyName}
 							itemName="companyName"
 							rules={rules.companyNameSchema}
@@ -924,7 +846,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.revenueRegistrationCode}
 							itemName="revenueRegistrationCode"
 							rules={rules.revenueRegistrationCodeSchema}
@@ -941,7 +863,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.address}
 							itemName="address"
 							rules={rules.addressSchema}
@@ -957,6 +879,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<MedDropDown
+							pageLevel="edit"
 							label={names.tambolCode}
 							itemName="tambolCode"
 							rules={rules.tambolCodeSchema}
@@ -979,6 +902,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							)}
 						/>
 						<MedDropDown
+							pageLevel="edit"
 							label={names.amphurCode}
 							itemName="amphurCode"
 							rules={rules.amphurCodeSchema}
@@ -1003,6 +927,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<MedDropDown
+							pageLevel="edit"
 							label={names.provinceCode}
 							itemName="provinceCode"
 							rules={rules.provinceCodeSchema}
@@ -1029,6 +954,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<MedDropDown
+							pageLevel="edit"
 							label={names.postalCode}
 							itemName="postalCode"
 							rules={rules.postalCodeSchema}
@@ -1053,7 +979,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.telephoneNumber}
 							itemName="telephoneNumber"
 							rules={rules.telephoneNumberSchema}
@@ -1068,7 +994,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.faxNumber}
 							itemName="faxNumber"
 							rules={rules.faxNumberSchema}
@@ -1084,7 +1010,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.email}
 							itemName="email"
 							rules={rules.emailSchema}
@@ -1172,6 +1098,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
 							label={names.contractStartDate}
+							pageLevel="edit"
 							itemName="contractStartDate"
 							rules={rules.contractStartDateSchema}
 							value={hospitalForm.contractStartDate}
@@ -1186,6 +1113,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 						<MedDropDown
 							itemName={"hospitalType"}
+							pageLevel="edit"
 							label={names.hospitalType}
 							type={SESSION_NAME.HOSPITAL_TYPE}
 							rules={rules.hospitalTypeSchema}
@@ -1203,6 +1131,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							label={names.hospitalCategory}
 							rules={rules.hospitalCategorySchema}
 							type={SESSION_NAME.HOSPITAL_CATEGORY}
+							pageLevel="edit"
 							getValue={(e) => {
 								dispatch(
 									setHospitalForm({
@@ -1215,6 +1144,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<MedDropDown
+							pageLevel="edit"
 							label={names.ssoProject}
 							itemName="ssoProject"
 							rules={rules.ssoProjectSchema}
@@ -1231,7 +1161,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					{/* <div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.belongTo}
 							itemName="belongTo"
 							rules={rules.belongToSchema}
@@ -1246,7 +1176,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.numberOfBed}
 							itemName="numberOfBed"
 							rules={rules.numberOfBedSchema}
@@ -1261,7 +1191,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.bps}
 							itemName="bps"
 							rules={rules.bpsSchema}
@@ -1294,7 +1224,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.ssoPartner}
 							itemName="ssoPartner"
 							rules={rules.ssoPartnerSchema}
@@ -1309,7 +1239,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.tempColumn2}
 							itemName="tempColumn2"
 							rules={rules.tempColumn2Schema}
@@ -1324,7 +1254,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.tempColumn3}
 							itemName="tempColumn3"
 							rules={rules.tempColumn3Schema}
@@ -1339,7 +1269,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.tempColumn4}
 							itemName="tempColumn4"
 							rules={rules.tempColumn4Schema}
@@ -1354,7 +1284,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.tempColumn5}
 							itemName="tempColumn5"
 							rules={rules.tempColumn5Schema}
@@ -1369,7 +1299,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.hospitalListBoi}
 							itemName="hospitalListBoi"
 							rules={rules.hospitalListBoiSchema}
@@ -1414,7 +1344,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div> */}
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.latitude}
 							itemName="latitude"
 							rules={rules.latitudeSchema}
@@ -1430,7 +1360,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.longitude}
 							itemName="longitude"
 							rules={rules.longitudeSchema}
@@ -1465,7 +1395,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
 						<BaseItemInput
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.oldHospitalName}
 							itemName="oldHospitalName"
 							rules={rules.oldHospitalNameSchema}
@@ -1482,6 +1412,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
+							pageLevel="edit"
 							label={names.hospitalChangeNameDate}
 							itemName="hospitalChangeNameDate"
 							rules={rules.hospitalChangeNameDateSchema}
@@ -1514,6 +1445,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseDatePicker
+							pageLevel="edit"
 							label={names.contractEndDate}
 							itemName="contractEndDate"
 							rules={rules.contractEndDateSchema}
@@ -1536,7 +1468,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-2">
 						<BaseItemTextArea
-							disabled={_.isEmpty(write)}
+							pageLevel="edit"
 							label={names.remarkChangeName}
 							itemName="remarkChangeName"
 							rules={rules.remarkChangeNameSchema}
