@@ -47,6 +47,26 @@ export const configPage: DataStructureURL = {
 			pageLevel: { form: [0] },
 		},
 	},
+	medicalAmount: {
+		root: {
+			url: "/medical-amount",
+			breadcrumb: ["root"],
+			text: "อัตราการจ่ายค่าตอบแทนแพทย์",
+			pageLevel: {},
+		},
+		formEdit: {
+			url: "/medical-amount/edit/[uuid]",
+			text: "ข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2] },
+		},
+		formAdd: {
+			url: "/medical-amount/form",
+			text: "เพิ่มข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2] },
+		},
+	},
 	clinic: {
 		root: {
 			url: "/clinic",
