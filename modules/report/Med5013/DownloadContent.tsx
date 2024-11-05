@@ -1,7 +1,7 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm, BaseItemCheckbox } from "wcf-component-lib/src/components";
+import { BaseDatePicker, BaseForm, BaseItemCheckbox, BaseItemDateRangePicker } from "wcf-component-lib/src/components";
 import { Med5013Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -32,7 +32,7 @@ export default function DownloadContent(props: Props) {
 	return (
 		<BaseForm initialValues={med5013} extraForm={form} onFinish={onFinish}>
 			<div><div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
+					{/* <BaseDatePicker
 						notForm={true}
 						label="ช่วงวันที่"
 						value={med5013.fromDate}
@@ -57,7 +57,23 @@ export default function DownloadContent(props: Props) {
 								})
 							);
 						}}
-					/>					 
+					/>					  */}
+					<BaseItemDateRangePicker
+						itemName="payDate"
+						label="ช่วงวันที่"
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
+								setMed5013Form({
+									...med5013,
+									fromDate: dates[0],
+									toDate: dates[1],
+								})
+							);
+						}}
+					/>
 					{!_.isEmpty(med5013.showDownload) ? (
 						<div>
 							<MedDropDown

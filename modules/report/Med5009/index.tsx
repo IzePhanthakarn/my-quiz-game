@@ -64,22 +64,6 @@ export default function Med5009() {
 			>
 				{!_.isEmpty(list) ? (
 					<>
-						{/* <div className="flex justify-end py-2 space-x-2">
-							<BaseButton
-								className="w-1/6"
-								label="Excel"
-								onClick={() => {
-									dispatch(handleOnExportExcel(med5009, REPORT_TYPES.MED5009));
-								}}
-							/>
-							<BaseButton
-								className="w-1/6"
-								label="Pdf"
-								onClick={() => {
-									dispatch(handlePdfButton(med5009));
-								}}
-							/>
-						</div> */}
 						<BaseGrid rows={list} columns={columns} />
 					</>
 				) : null}
