@@ -3,19 +3,28 @@ import {
 	onlyDecimalRule,
 	requiredRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
+import { medicalAmountName } from "../interfaces/names";
 
 export const medicalAmountRules = {
-	noticeSchema: [maxRule("notice", 200)],
-	// endEffectiveDateSchema: [requiredRule("End Effective Date")],
+	noticeSchema: [maxRule(medicalAmountName.notice, 200)],
+	endEffectiveDateSchema: [requiredRule(medicalAmountName.endEffectiveDate)],
 
-	startEffectiveDateSchema: [requiredRule("Start Effective Date")],
-	amountSchema: [onlyDecimalRule("Amount"), requiredRule("End Effective Date")],
-	fareAmountSchema: [
-		onlyDecimalRule("Fare Amount"),
-		requiredRule("End Effective Date"),
+	startEffectiveDateSchema: [
+		requiredRule(medicalAmountName.startEffectiveDate),
 	],
+
+	amountSchema: [
+		onlyDecimalRule(medicalAmountName.amount),
+		requiredRule(medicalAmountName.amount),
+	],
+
+	fareAmountSchema: [
+		onlyDecimalRule(medicalAmountName.fareAmount),
+		requiredRule(medicalAmountName.fareAmount),
+	],
+
 	amountLimitSchema: [
-		onlyDecimalRule("Amount Limit"),
-		requiredRule("End Effective Date"),
+		onlyDecimalRule(medicalAmountName.amountLimit),
+		requiredRule(medicalAmountName.amountLimit),
 	],
 };

@@ -11,7 +11,6 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
@@ -24,10 +23,12 @@ import {
 	updateMedicalAmount,
 } from "./service";
 import { medicalAmountRules } from "./field-validation/medicalAmountForm";
-import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+import { medicalAmountName } from "./interfaces/names";
 
-const Form = (params: MedicalAmountFormPageProps) => {
+const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 
@@ -40,6 +41,8 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		}),
 		shallowEqual
 	);
+
+	const [extraForm] = Form.useForm();
 
 	useEffect(() => {
 		(async () => {
@@ -62,20 +65,6 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		_
 	) => {};
 
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -97,34 +86,18 @@ const Form = (params: MedicalAmountFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="Medical amount"
-					disabled={_.isEmpty(write)}
+					onValuesChange={(e) => {
+						dispatch(
+							setMedicalAmountForm({
+								...form,
+								...e,
+							})
+						);
+					}}
+					textHeader="ข้อมูลอัตราจ่ายค่าตอบแทนแพทย์"
+					extraForm={extraForm}
 					initialValues={{
 						...form,
-						// endEffectiveDate: !_.isEmpty(form.endEffectiveDate)
-						// 	? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// startEffectiveDate: !_.isEmpty(form.startEffectiveDate)
-						// 	? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.startEffectiveDate, DateFormat.YYYYMMDD)
-						// 		: undefined
-						// 	: undefined,
-						// updatedDate: !_.isEmpty(form.updatedDate)
-						// 	? dayjs(form.updatedDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.updatedDate, DateFormat.YYYYMMDD).format(
-						// 				DateFormat.DDMMYYYY
-						// 		  )
-						// 		: ""
-						// 	: "",
-						// createdDate: !_.isEmpty(form.createdDate)
-						// 	? dayjs(form.createdDate, DateFormat.YYYYMMDD).isValid()
-						// 		? dayjs(form.createdDate, DateFormat.YYYYMMDD).format(
-						// 				DateFormat.DDMMYYYY
-						// 		  )
-						// 		: ""
-						// 	: "",
 					}}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
@@ -141,104 +114,50 @@ const Form = (params: MedicalAmountFormPageProps) => {
 						router.push(LINKS.MEDICAL_AMOUNT.link);
 					}}
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					// updatedDate={form.updatedDate}
-					// createdDate={form.createdDate}
-					// createdBy={form.createdBy}
-					// updatedBy={form.updatedBy}
 					inputs={
 						<>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-3">
-								<BaseDatePicker
-									label="Start Effective Date"
+								<BaseItemDatePicker
+									pageLevel="edit"
+									label={medicalAmountName.startEffectiveDate}
 									itemName="startEffectiveDate"
 									rules={medicalAmountRules.startEffectiveDateSchema}
-									value={form.startEffectiveDate}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												startEffectiveDate: e,
-											})
-										);
-									}}
+									itemForm={extraForm}
 								/>
-								<BaseDatePicker
-									label="End Effective Date"
+								<BaseItemDatePicker
+									pageLevel="edit"
+									label={medicalAmountName.endEffectiveDate}
 									itemName="endEffectiveDate"
-									// rules={medicalAmountRules.endEffectiveDateSchema}
-									value={form.endEffectiveDate}
-									onChangeDateFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												endEffectiveDate: e,
-											})
-										);
-									}}
+									rules={medicalAmountRules.endEffectiveDateSchema}
+									itemForm={extraForm}
 								/>
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-3">
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Amount"
+									pageLevel="edit"
+									label={medicalAmountName.amount}
 									itemName="amount"
 									rules={medicalAmountRules.amountSchema}
-									value={form.amount}
-									onChangeFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												amount: e.target.value,
-											})
-										);
-									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Fare Amount"
+									pageLevel="edit"
+									label={medicalAmountName.fareAmount}
 									itemName="fareAmount"
 									rules={medicalAmountRules.fareAmountSchema}
-									value={form.fareAmount}
-									onChangeFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												fareAmount: e.target.value,
-											})
-										);
-									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Amount Limit"
+									pageLevel="edit"
+									label={medicalAmountName.amountLimit}
 									itemName="amountLimit"
 									rules={medicalAmountRules.amountLimitSchema}
-									value={form.amountLimit}
-									onChangeFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												amountLimit: e.target.value,
-											})
-										);
-									}}
 								/>
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Notice"
+									pageLevel="edit"
+									label={medicalAmountName.notice}
 									itemName="notice"
 									rules={medicalAmountRules.noticeSchema}
-									value={form.notice}
-									onChangeFunction={(e) => {
-										dispatch(
-											setMedicalAmountForm({
-												...form,
-												notice: e.target.value,
-											})
-										);
-									}}
 								/>
 							</div>
 						</>
@@ -248,4 +167,4 @@ const Form = (params: MedicalAmountFormPageProps) => {
 		</>
 	);
 };
-export default dynamic(() => Promise.resolve(Form), { ssr: false });
+export default dynamic(() => Promise.resolve(MedAmountForm), { ssr: false });
