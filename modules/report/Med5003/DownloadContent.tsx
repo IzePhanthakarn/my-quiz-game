@@ -1,14 +1,14 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm } from "wcf-component-lib/src/components";
+import { BaseForm, BaseItemDateRangePicker } from "wcf-component-lib/src/components";
 import { Med5003Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
 import { setMed5003Form } from "../redux";
-import { handleOnExportExcel } from "@/utils/report/common";
+import { handleOnExportExcelCMP } from "@/utils/report/common";
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
@@ -24,7 +24,7 @@ export default function DownloadContent(props: Props) {
 	const { med5003, form, onFinish } = props;
 	function DownloadChange(downloadType: string) {
 		if ("EXCEL" == downloadType) {
-			dispatch(handleOnExportExcel(med5003, REPORT_TYPES.MED5003));
+			dispatch(handleOnExportExcelCMP(med5003, REPORT_TYPES.MED5003));
 		} else if ("PDF" == downloadType) {
 			dispatch(handlePdfButton(med5003));
 		}
@@ -48,33 +48,22 @@ export default function DownloadContent(props: Props) {
 					/>
 				</div>
 				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
-						notForm={true}
-						label="ตั้งแต่วันที่จ่ายเงิน"
-						itemName={"fromDate"}
-						value={med5003.fromDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
+					<BaseItemDateRangePicker
+						itemName="payDate"
+						label="วันที่จ่ายเงิน"
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
 								setMed5003Form({
 									...med5003,
-									fromDate: date,
+									fromDate: dates[0],
+									toDate: dates[1],
 								})
 							);
 						}}
-					/>
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5003.toDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5003Form({
-									...med5003,
-									toDate: date,
-								})
-							);
-						}}
-					/>
+					/>		
 				{!_.isEmpty(med5003.showDownload) ? (
 					<div>
 						<MedDropDown

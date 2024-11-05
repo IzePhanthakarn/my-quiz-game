@@ -1,7 +1,11 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm } from "wcf-component-lib/src/components";
+import {
+	BaseDatePicker,
+	BaseForm,
+	BaseItemDateRangePicker,
+} from "wcf-component-lib/src/components";
 import { Med5008Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -33,30 +37,18 @@ export default function DownloadContent(props: Props) {
 		<BaseForm initialValues={med5008} extraForm={form} onFinish={onFinish}>
 			<div className="grid grid-cols-4 gap-x-6 gap-y-5">
 				<div>
-					<BaseDatePicker
-						notForm={true}
-						label="วันที่สิ้นสุดใบอนุญาต(สพ.7)"
-						value={med5008.sp7expiredFrom}
-						onChangeDateFunction={(date) => {
-							dispatch(
+					<BaseItemDateRangePicker
+						itemName="sp7Date"
+						label="วันที่ยกเลิกสถานพยาบาล (สพ.7)"
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
 								setMed5008Form({
 									...med5008,
-									sp7expiredFrom: date,
-								})
-							);
-						}}
-					/>
-				</div>
-				<div>
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5008.sp7expiredTo}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5008Form({
-									...med5008,
-									sp7expiredTo: date,
+									sp7expiredFrom: dates[0],
+									sp7expiredTo: dates[1],
 								})
 							);
 						}}
@@ -65,30 +57,18 @@ export default function DownloadContent(props: Props) {
 			</div>
 			<div className="grid grid-cols-4 gap-x-6 gap-y-5">
 				<div>
-					<BaseDatePicker
-						notForm={true}
-						label="วันที่สิ้นสุดใบอนุญาต(สพ.19)"
-						value={med5008.sp19expiredFrom}
-						onChangeDateFunction={(date) => {
-							dispatch(
+					<BaseItemDateRangePicker
+						itemName="sp19Date"
+						label="วันที่ยกเลิกสถานพยาบาล (สพ.19)"
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
 								setMed5008Form({
 									...med5008,
-									sp19expiredFrom: date,
-								})
-							);
-						}}
-					/>
-				</div>
-				<div>
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5008.sp19expiredTo}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5008Form({
-									...med5008,
-									sp19expiredTo: date,
+									sp19expiredFrom: dates[0],
+									sp19expiredTo: dates[1],
 								})
 							);
 						}}

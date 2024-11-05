@@ -10,13 +10,13 @@ import dynamic from "next/dynamic";
 import { MED_REPORT_SYSTEM } from "../model";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns } from "./constants/columns";
-import { BaseDatePicker } from "wcf-component-lib/src/components/BaseDatePicker";
-import { handleOnExportExcel, handleOnExportPdf, handlePreviewDisplay } from "@/utils/report/common";
+import { handleOnExportExcel, handleOnExportPdf } from "@/utils/report/common";
 import { REPORT_TYPES } from "@/constants/reports";
 import { setMed5012Form } from "../redux";
 import { handleOnPreview, handlePdfButton } from "./service";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT } from "@/components/MedDropDown/model";
+import { BaseItemDateRangePicker } from "wcf-component-lib/src/components";
 
 const Med5012 = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -51,35 +51,24 @@ const Med5012 = () => {
 				reportType: "5",
 			}}
 			downloadContent={
-				<div className="grid grid-cols-4 gap-x-4 gap-y-4">
-					{/* <div></div> */}
-					<BaseDatePicker
-						notForm={true}
+				<div className="grid grid-cols-4 gap-x-4 gap-y-4"> 
+					<BaseItemDateRangePicker
+					    notForm={true}
+						itemName="investigrationDate"
 						label="วันที่ตรวจสถานพยาบาล"
-						value={med5012.form.fromDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
 								setMed5012Form({
 									...med5012.form,
-									fromDate: date,
-									toDate: date,
+									fromDate: dates[0],
+									toDate: dates[1],
 								})
 							);
 						}}
-					/>
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5012.form.toDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5012Form({
-									...med5012.form,
-									toDate: date,
-								})
-							);
-						}}
-					/>
+					/>		
 					{!_.isEmpty(med5012.form.showDownload) ? (
 				 		<div>
 				 			<MedDropDown
