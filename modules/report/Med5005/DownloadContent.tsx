@@ -1,7 +1,7 @@
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT, SESSION_NAME } from "@/components/MedDropDown/model";
 import React from "react";
-import { BaseDatePicker, BaseForm } from "wcf-component-lib/src/components";
+import { BaseDatePicker, BaseForm, BaseItemDateRangePicker } from "wcf-component-lib/src/components";
 import { Med5005Form } from "./redux/model";
 import { FormInstance } from "wcf-component-lib/node_modules/antd/es/form";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -37,44 +37,35 @@ export default function DownloadContent(props: Props) {
 						itemName="provinceCode"
 						label="ระดับของสถานพยาบาล"
 						type={SESSION_NAME.SSO_BRANCH_PROVINCE}
-						
 						getValue={(e: string) => {
-							dispatch(setMed5005Form({
-								...med5005,
-								provinceCode: e,
-							}))
-						}}
-					/>
-				</div>
-				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
-						notForm={true}
-						label="ตั้งวันที่ฝึกอบรม"
-						value={med5005.trainFromDate}
-						onChangeDateFunction={(date) => {
 							dispatch(
 								setMed5005Form({
 									...med5005,
-									trainFromDate: date,
+									provinceCode: e,
 								})
 							);
 						}}
 					/>
 				</div>
 				<div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5005.trainToDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
+					<div>
+					<BaseItemDateRangePicker
+						itemName="trainDate"
+						label="วันที่ฝึกอบรม"
+						onChangeRangePicker={(dates: any) => {
+							if (dates == null) {
+								return;
+							}
+							return dispatch(
 								setMed5005Form({
 									...med5005,
-									trainToDate: date,
+									trainFromDate: dates[0],
+									trainToDate: dates[1],
 								})
 							);
 						}}
 					/>
+					</div>					 
 					{!_.isEmpty(med5005.showDownload) ? (
 						<div>
 							<MedDropDown
