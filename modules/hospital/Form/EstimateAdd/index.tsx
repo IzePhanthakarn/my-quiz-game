@@ -1,158 +1,135 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { SliceModel } from "@/redux/slices/model";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/config/configStore";
-import _ from "lodash";
-import BaseForm from "wcf-component-lib/src/components/BaseForm";
-import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
-import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
-import { estimateAddNames } from "../../interfaces/estimateAddNames";
-import { estimateAddRules } from "../../field-validation/EstimateAddFormValidation";
-import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
-import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/HomeFilled";
-import FileTextOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FileTextOutlined";
-
-import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import { SliceModel } from "@/redux/slices/model";
+import React, { useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { EstimateAddFilesGrid } from "../../columns/estimateAddFilesGrid";
+import { useRouter } from "next/navigation";
+import { EstimateAddGrid } from "../../columns/estimateAddGrid";
+import { LINKS } from "../../../../constants/links";
+import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
+import { setIsOpenDrawer } from "@/redux/slices/drawer";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import { EstimateAddFilter } from "../../redux/models/hospitalModel";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
+import { estimateAddNames } from "../../interfaces/estimateAddNames";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDateRangePicker";
 
 export default function EstimateAdd() {
 	const dispatch: AppDispatch = useDispatch();
-	const { estimateAdd, isLoading } = useSelector(
+	const router = useRouter();
+	const { estimateAdd, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			estimateAdd: state.hospital.estimateAdd,
+			filter: state.hospital.estimateAdd.filter,
+
 			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
 
-	return (
-		<>
-			<BaseForm
-				name={"estimateAdd"}
-				initialValues={{
-					...estimateAdd,
-				}}
-			>
-				<div className=" ">
-					<BaseGreenHeader
-						title="รายละเอียด"
-						description="ข้อมูลการประเมิณและรายละเอียดของสถานพยาล"
-						className=""
-					/>
-					<div className="py-6 px-10 bg-white">
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.hospitalName}
-								itemName="hospitalName"
-								rules={estimateAddRules.hospitalNameSchema}
-								value={estimateAdd.hospitalName}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.type}
-								itemName="type"
-								rules={estimateAddRules.typeSchema}
-								value={estimateAdd.type}
-							/>
-						</div>
-						<BaseHorizontalHeader
-							className="mb-7"
-							title={"ข้อมูลทั่วไป"}
-							icons={<HomeFilled />}
-						/>
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.name}
-								itemName="name"
-								rules={estimateAddRules.nameSchema}
-								value={estimateAdd.name}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.lastName}
-								itemName="lastName"
-								rules={estimateAddRules.lastNameSchema}
-								value={estimateAdd.lastName}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.email}
-								itemName="email"
-								rules={estimateAddRules.emailSchema}
-								value={estimateAdd.email}
-							/>
-						</div>
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.referenceNumber}
-								itemName="referenceNumber"
-								rules={estimateAddRules.referenceNumberSchema}
-								value={estimateAdd.referenceNumber}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.atDate}
-								itemName="atDate"
-								rules={estimateAddRules.atDateSchema}
-								value={estimateAdd.atDate}
-							/>
-						</div>
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.reportDate}
-								itemName="reportDate"
-								rules={estimateAddRules.reportDateSchema}
-								value={estimateAdd.reportDate}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.checkDate}
-								itemName="checkDate"
-								rules={estimateAddRules.checkDateSchema}
-								value={estimateAdd.checkDate}
-							/>
-							<BaseItemInput
-								disabled={true}
-								label={estimateAddNames.result}
-								itemName="result"
-								rules={estimateAddRules.resultSchema}
-								value={estimateAdd.result}
-							/>
-						</div>
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<div className="col-span-3">
-								<BaseItemTextArea
-									disabled={true}
-									label={estimateAddNames.detail}
-									itemName="detail"
-									rules={estimateAddRules.detailSchema}
-									value={estimateAdd.detail}
-								/>
-							</div>
-						</div>
-						<BaseHorizontalHeader
-							className="mb-7"
-							title={"เอกสารที่เกี่ยวข้อง"}
-							icons={<FileTextOutlined />}
-						/>
+	useEffect(() => {}, []);
 
-						<BaseGrid
-							rows={estimateAdd.files}
-							columns={EstimateAddFilesGrid()}
-							isShowPagination={false}
-							loading={isLoading}
-							twoToneColor={true}
-						/>
-					</div>
-				</div>
-			</BaseForm>
-		</>
+	const [form] = Form.useForm();
+	const [formDrawer] = Form.useForm();
+
+	const onFinish: FormProps<EstimateAddFilter>["onFinish"] = (
+		value: EstimateAddFilter
+	) => {
+		// const newFilter = { ...filter, ...value };
+		// dispatch(
+		// 	initDoctorGrid({
+		// 		pagination: { ...page },
+		// 		...newFilter,
+		// 	})
+		// );
+		// dispatch(setMounted(uuid4()));
+		// dispatch(setDoctorFilter(newFilter));
+	};
+
+	return (
+		<div>
+			<MasterDataLayout
+				Grid={
+					<BaseGrid
+						rows={estimateAdd.grid.data}
+						columns={EstimateAddGrid(router)}
+						page={estimateAdd.grid.page}
+						loading={isLoading}
+						twoToneColor={true}
+						setPagination={(page) => {}}
+					/>
+				}
+				AddButton={<div></div>}
+				FilterLayout={
+					<FilterLayout
+						FilterForm={
+							<BaseForm
+								initialValues={filter}
+								extraForm={form}
+								onFinish={onFinish}
+							>
+								<div className="flex space-x-2">
+									<BaseItemInput
+										itemName={estimateAddNames.name}
+										label="เลขทะเบียน สปส"
+										onPressEnter={() => form.submit()}
+									/>
+									<BaseItemInput
+										itemName={estimateAddNames.lastName}
+										label="เลขทะเบียน สปส"
+										onPressEnter={() => form.submit()}
+									/>
+									<BaseItemInput
+										itemName={estimateAddNames.hospitalName}
+										label="เลขทะเบียน สปส"
+										onPressEnter={() => form.submit()}
+									/>
+									{/* <BaseItemInput
+										itemName="reportDateFrom"
+										label="วันที่แจ้ง"
+										onPressEnter={() => form.submit()}
+									/> */}
+									{/* <BaseItemDatePicker
+										itemName="reportDateFrom"
+										label="วันที่แจ้ง"
+										itemForm={form}
+									/> */}
+
+									{/* <BaseItemInput
+										itemName="reportDateTo"
+										label="ถึงวันที่"
+										onPressEnter={() => form.submit()}
+									/> */}
+									{/* <BaseItemDatePicker
+										itemName="reportDateTo"
+										label="ถึงวันที่"
+										itemForm={form}
+									/> */}
+
+									<BaseItemDateRangePicker
+										itemName="reportDateTo"
+										label="ถึงวันที่"
+									/>
+								</div>
+							</BaseForm>
+						}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							form.submit();
+						}}
+					/>
+				}
+				Drawer={<></>}
+				AddFunction={() => router.push(LINKS.DOCTOR.add)}
+				AddLabel="สร้าง"
+				TotalItems={estimateAdd.grid.page.totalData}
+			/>
+		</div>
 	);
 }
