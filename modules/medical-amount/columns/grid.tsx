@@ -9,6 +9,8 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
+import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -22,13 +24,26 @@ export const GetColumns = (router: AppRouterInstance) => {
 			},
 			{
 				sorter: true,
+				key: "notice",
+				dataIndex: "notice",
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"notice"}
+						label={"ประกาศ"}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
 				key: "amount",
 				dataIndex: "amount",
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"amount"}
-						label={"Amount"}
+						label={"ค่าตรวจในสถานที่"}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -41,7 +56,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"fareAmount"}
-						label={"Fare Amount"}
+						label={"ค่าตรวจนอกสถานที่"}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -54,7 +69,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"amountLimit"}
-						label={"Amount Limit"}
+						label={"รวมค่าตรวจไม่เกิน"}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -67,24 +82,22 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"startEffectiveDate"}
-						label={"Start Effective Date"}
+						label={"วันที่เริ่มต้นมีผล"}
 						sort={columns?.sortColumns}
 					/>
 				),
+				render: (_, { startEffectiveDate }) => {
+					return (
+						<p>
+							{convertDateFormatBuddhist(
+								startEffectiveDate,
+								DateFormatBuddhist.DDMMBBBB
+							)}
+						</p>
+					);
+				},
 			},
-			{
-				sorter: true,
-				key: "notice",
-				dataIndex: "notice",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"notice"}
-						label={"Notice"}
-						sort={columns?.sortColumns}
-					/>
-				),
-			},
+
 			{
 				sorter: true,
 				key: "endEffectiveDate",
@@ -93,10 +106,20 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"endEffectiveDate"}
-						label={"End Effective Date"}
+						label={"วันที่สิ้นสุดมีผล"}
 						sort={columns?.sortColumns}
 					/>
 				),
+				render: (_, { endEffectiveDate }) => {
+					return (
+						<p>
+							{convertDateFormatBuddhist(
+								endEffectiveDate,
+								DateFormatBuddhist.DDMMBBBB
+							)}
+						</p>
+					);
+				},
 			},
 			{
 				key: "uuid",

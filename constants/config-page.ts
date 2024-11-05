@@ -6,19 +6,19 @@ export const configPage: DataStructureURL = {
 			url: "/doctor",
 			breadcrumb: ["root"],
 			text: "แพทย์",
-			pageLevel: { form: [0], delete: [2] },
+			pageLevel: { delete: [1, 2] },
 		},
 		formEdit: {
 			url: "/doctor/edit/[uuid]",
 			text: "ข้อมูลแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { form: [0], delete: [2] },
+			pageLevel: { form: [2], edit: [2], view: [1], delete: [2] },
 		},
 		formAdd: {
 			url: "/doctor/form",
 			text: "เพิ่มข้อมูลแพทย์",
 			breadcrumb: ["root", "formAdd"],
-			pageLevel: { form: [0], delete: [2] },
+			pageLevel: { delete: [2] },
 		},
 	},
 	hospital: {
