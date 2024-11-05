@@ -32,13 +32,13 @@ export const configPage: DataStructureURL = {
 			url: "/hospital/edit/[uuid]",
 			text: "ข้อมูลสถานพยาบาล",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], edit: [1, 2, 3], add: [1, 2, 3] },
 		},
 		formAdd: {
 			url: "/hospital/form",
 			text: "เพิ่มข้อมูลสถานพยาบาล",
 			breadcrumb: ["root", "formAdd"],
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], edit: [1, 2, 3], add: [1, 2, 3] },
 		},
 		estimateAdd: {
 			url: "/hospital/estimate-add",
