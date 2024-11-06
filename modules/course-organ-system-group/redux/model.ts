@@ -60,7 +60,7 @@ export const modelCourseOrganSystemGroup: CourseOrganSystemGroup = {
 		checkOrganSystemGroup: false,
 		checkCourseCategory: false,
 		checkOrganSystemNo: false,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

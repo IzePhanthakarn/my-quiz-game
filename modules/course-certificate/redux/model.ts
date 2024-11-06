@@ -79,7 +79,7 @@ export const modelCourseCertificate: CourseCertificate = {
 		checkSsoCourseCode: false,
 		checkCourseDescription: false,
 		checkCourseYear: false,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

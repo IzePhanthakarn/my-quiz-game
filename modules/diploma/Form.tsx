@@ -27,6 +27,7 @@ import {
 } from "./field-validation/diplomaForm";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { DiplomaForm } from "./redux/model";
+import { diplomaName } from "./interface/name";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -58,22 +59,6 @@ const Form = (params: UuidFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<DiplomaForm>["onFinishFailed"] = (_) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -95,13 +80,12 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="วุฒิบัตร"
+					textHeader="วุฒิบัตรเฉพาะทาง"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={diplomaDetail}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(diplomaDetail.isActive) === IsActive.Y}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setDiplomaDetail({
@@ -116,11 +100,10 @@ const Form = (params: UuidFormPageProps) => {
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={!_.isEmpty(params.params.uuid)}
-								label="Diploma Type"
+								pageLevel={params.params.uuid ? "edit" : "add"}
+								label={diplomaName.diplomaType}
 								itemName="diplomaType"
 								rules={diplomaTypeSchema}
-								value={diplomaDetail.diplomaType}
 								onChangeFunction={(e) => {
 									dispatch(
 										setDiplomaDetail({
@@ -131,11 +114,10 @@ const Form = (params: UuidFormPageProps) => {
 								}}
 							/>
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Diploma Name"
+								pageLevel={params.params.uuid ? "edit" : "add"}
+								label={diplomaName.diplomaName}
 								itemName="diplomaName"
 								rules={diplomaNameSchema}
-								value={diplomaDetail.diplomaName}
 								onChangeFunction={(e) => {
 									dispatch(
 										setDiplomaDetail({

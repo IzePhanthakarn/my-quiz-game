@@ -128,7 +128,7 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 									pageLevel="edit"
 									label={medicalAmountName.endEffectiveDate}
 									itemName="endEffectiveDate"
-									rules={medicalAmountRules.endEffectiveDateSchema}
+									// rules={medicalAmountRules.endEffectiveDateSchema}
 									itemForm={extraForm}
 								/>
 							</div>

@@ -25,6 +25,7 @@ import {
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import { courseCategoryName } from "./interfaces/name";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -56,24 +57,6 @@ const Form = (params: CourseCategoryFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<CourseCategoryForm>["onFinishFailed"] = (
-		_
-	) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -95,12 +78,10 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="กลุ่มหลักสูตร"
+					textHeader="คอร์สอบรม"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
@@ -113,12 +94,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.COURSE_CATEGORY.link);
 					}}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					inputs={
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="CourseCategory Category"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.courseCategory}
 									itemName="courseCategory"
 									rules={courseCategoryRules.courseCategorySchema}
 									value={form.courseCategory}
@@ -133,8 +115,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 								/>
 
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organize Group Code"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.organizeGroupCode}
 									itemName="organizeGroupCode"
 									rules={courseCategoryRules.organizeGroupCodeSchema}
 									value={form.organizeGroupCode}
@@ -148,8 +130,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organize Sub Group Code"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.organizeSubGroupCode}
 									itemName="organizeSubGroupCode"
 									rules={courseCategoryRules.organizeSubGroupCodeSchema}
 									value={form.organizeSubGroupCode}
@@ -163,8 +145,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Situation"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.situation}
 									itemName="situation"
 									rules={courseCategoryRules.situationSchema}
 									value={form.situation}
@@ -180,8 +162,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Category Description"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.categoryDescription}
 									itemName="categoryDescription"
 									rules={courseCategoryRules.categoryDescriptionSchema}
 									value={form.categoryDescription}
@@ -198,8 +180,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Category SubDesc"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.categorySubDesc}
 									itemName="categorySubDesc"
 									rules={courseCategoryRules.categorySubDescSchema}
 									value={form.categorySubDesc}
@@ -215,8 +197,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Format Code"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCategoryName.formatCode}
 									itemName="formatCode"
 									rules={courseCategoryRules.formatCodeSchema}
 									value={form.formatCode}

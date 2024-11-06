@@ -18,15 +18,20 @@ import { modelCourseCategory } from "./redux/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import { courseCategoryName } from "./interfaces/name";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { setOrganSystemWpiFilter } from "../organ-system-wpi/redux";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { course, isOpen, isLoading } = useSelector(
+	const { course, isOpen, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			course: state.courseCategory,
+			filter: state.courseCategory.filter,
 		}),
 		shallowEqual
 	);
@@ -41,13 +46,49 @@ export default function CourseManipulate() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<div className="flex space-x-2">
+								<BaseItemInput
+									notForm
+									label={courseCategoryName.categoryDescription}
+									itemName="categoryDescriptionLike"
+									value={filter.categoryDescriptionLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCategoryFilter({
+												...filter,
+												categoryDescriptionLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(course));
+									}}
+								/>
+								<MedDropDown
+									notForm
+									className="w-[240px]"
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={filter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										dispatch(
+											setCourseCategoryFilter({
+												...filter,
+												isActive: value,
+											})
+										);
+									}}
+								/>
+							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							dispatch(fetchCourseList(course));
+						}}
 					/>
 				}
-				AddLabel="เพิ่ม Course Category"
+				AddLabel="เพิ่มคอร์สอบอบรม"
 				TotalItems={course.grid.page.totalData}
 				Grid={
 					<BaseGrid
@@ -63,20 +104,20 @@ export default function CourseManipulate() {
 						}}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isFilter
-						isOpen={isOpen}
-						content={<FilterDrawer />}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {
-							dispatch(fetchCourseList(course));
-						}}
-						clearFilter={() => {
-							dispatch(setCourseCategoryFilter(modelCourseCategory.filter));
-						}}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isFilter
+				// 		isOpen={isOpen}
+				// 		content={<FilterDrawer />}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		confirmFuntion={() => {
+				// 			dispatch(fetchCourseList(course));
+				// 		}}
+				// 		clearFilter={() => {
+				// 			dispatch(setCourseCategoryFilter(modelCourseCategory.filter));
+				// 		}}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.COURSE_CATEGORY.add)}
 			/>
 		</div>

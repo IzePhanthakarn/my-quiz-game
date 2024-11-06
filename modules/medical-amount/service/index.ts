@@ -21,22 +21,20 @@ import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
 import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const fetchMedicalAmountList =
 	(course: MedicalAmount) => async (dispatch: AppDispatch) => {
 		const body: GetMedicalAmountList = {
 			pagination: { ...course.grid.page },
 			...course.filter,
-			amount: _.isEmpty(course.filter.amount) ? null : course.filter.amount,
-			fareAmount: _.isEmpty(course.filter.fareAmount)
+			startEffectiveDate: _.isEmpty(course.filter.startEffectiveDate)
 				? null
-				: course.filter.fareAmount,
-			amountLimit: _.isEmpty(course.filter.amountLimit)
+				: dayjs(course.filter.startEffectiveDate).format(DateFormat.YYYYMMDD),
+			endEffectiveDate: _.isEmpty(course.filter.endEffectiveDate)
 				? null
-				: course.filter.amountLimit,
-			noticeLike: _.isEmpty(course.filter.noticeLike)
-				? null
-				: course.filter.noticeLike,
+				: dayjs(course.filter.endEffectiveDate).format(DateFormat.YYYYMMDD),
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(getMedicalAmountList(body));

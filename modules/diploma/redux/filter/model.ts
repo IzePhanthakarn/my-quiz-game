@@ -14,6 +14,6 @@ export const modelDiplomaFilter: DiplomaFilter = {
 	diplomaNameLike: "",
 	checkDiplomaType: false,
 	checkDiplomaName: false,
-	isActive: undefined,
+	isActive: IsActive.Y,
 	checkIsActive: false,
 };

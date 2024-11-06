@@ -26,6 +26,7 @@ import {
 	updateCourseOrganSystemGroup,
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import { courseOrganSystemGroupName } from "./interfaces/name";
 
 const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -61,23 +62,6 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<CourseOrganSystemGroupForm>["onFinishFailed"] =
-		(_) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -99,12 +83,10 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="course organ system group"
+					textHeader="หมวดหมู่อวัยวะ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
@@ -117,11 +99,12 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.link);
 					}}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Course Category"
+								pageLevel={params.params.uuid ? "edit" : "add"}
+								label={courseOrganSystemGroupName.courseCategory}
 								itemName="courseCategory"
 								rules={courseOrganSystemGroupRules.courseCategorySchema}
 								value={form.courseCategory}
@@ -135,8 +118,8 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 								}}
 							/>
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organ System Group"
+								pageLevel={params.params.uuid ? "edit" : "add"}
+								label={courseOrganSystemGroupName.organSystemGroup}
 								itemName="organSystemGroup"
 								rules={courseOrganSystemGroupRules.organSystemGroupSchema}
 								value={form.organSystemGroup}
@@ -151,8 +134,8 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 							/>
 
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Organ System No"
+								pageLevel={params.params.uuid ? "edit" : "add"}
+								label={courseOrganSystemGroupName.organSystemNo}
 								itemName="organSystemNo"
 								rules={courseOrganSystemGroupRules.organSystemNoSchema}
 								value={form.organSystemNo}

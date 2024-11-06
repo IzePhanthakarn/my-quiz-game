@@ -5,15 +5,16 @@ import {
 	maxRule,
 	onlyNumberRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
+import { clinicName } from "../interface/name";
 
 export const clinicCodeSchema = [
-	requiredRule("Clinic Code"),
-	equalLengthRule("Clinic Code", 4),
-	onlyNumberRule("Clinic Code"),
+	requiredRule(clinicName.clinicCode),
+	equalLengthRule(clinicName.clinicCode, 4),
+	onlyNumberRule(clinicName.clinicCode),
 ];
 
 export const clinicNameSchema = [
-	requiredRule("Clinic Name"),
-	minRule("Clinic Name", 1),
-	maxRule("Clinic Name", 200),
+	requiredRule(clinicName.clinicName),
+	minRule(clinicName.clinicName, 1),
+	maxRule(clinicName.clinicName, 200),
 ];

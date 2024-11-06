@@ -15,18 +15,21 @@ import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
 import { modelMedicalAmount } from "./redux/model";
 import { setMedicalAmountFilter } from "./redux";
-import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
-
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import { BaseForm, BaseItemDatePicker } from "wcf-component-lib/src/components";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 
 export default function MedicalAmount() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { medicalAmount, isOpen, isLoading } = useSelector(
+	const { medicalAmount, isOpen, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			medicalAmount: state.medicalAmount,
+			filter: state.medicalAmount.filter,
 		}),
 		shallowEqual
 	);
@@ -35,16 +38,45 @@ export default function MedicalAmount() {
 		dispatch(fetchMedicalAmountList(medicalAmount));
 	}, []);
 
+	const [form] = Form.useForm();
+
 	return (
 		<div>
 			<MasterDataLayout
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<BaseForm
+								initialValues={{ ...filter }}
+								extraForm={form}
+								onValuesChange={(e) => {
+									dispatch(setMedicalAmountFilter({ ...filter, ...e }));
+								}}
+							>
+								<div className="flex space-x-2">
+									<BaseItemDatePicker
+										itemForm={form}
+										itemName="startEffectiveDate"
+										label="วันที่เริ่มต้นที่มีผล"
+									/>
+									<BaseItemDatePicker
+										itemForm={form}
+										itemName="endEffectiveDate"
+										label="วันที่สิ้นสุดที่มีผล"
+									/>
+									<MedDropDown
+										className="w-[240px]"
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										itemName="isActive"
+									/>
+								</div>
+							</BaseForm>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							dispatch(fetchMedicalAmountList(medicalAmount));
+						}}
 					/>
 				}
 				AddLabel="เพิ่ม Medical Amount"
@@ -66,20 +98,20 @@ export default function MedicalAmount() {
 						}}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isFilter
-						isOpen={isOpen}
-						content={<FilterDrawer />}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {
-							dispatch(fetchMedicalAmountList(medicalAmount));
-						}}
-						clearFilter={() => {
-							dispatch(setMedicalAmountFilter(modelMedicalAmount.filter));
-						}}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isFilter
+				// 		isOpen={isOpen}
+				// 		content={<FilterDrawer />}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		confirmFuntion={() => {
+				// 			dispatch(fetchMedicalAmountList(medicalAmount));
+				// 		}}
+				// 		clearFilter={() => {
+				// 			dispatch(setMedicalAmountFilter(modelMedicalAmount.filter));
+				// 		}}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.MEDICAL_AMOUNT.add)}
 			/>
 		</div>
