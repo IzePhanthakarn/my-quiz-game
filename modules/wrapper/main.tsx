@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import axios from "axios";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
 import { configPage } from "@/constants/config-page";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 type Props = {
 	children: ReactNode;
@@ -64,9 +65,41 @@ const MainWrapper: React.FC<Props> = (props) => {
 		}
 	);
 
+	// const [userName, setUserName] = useState("");
+	// useEffect(() => {
+	// 	const token = Cookies.get("accessToken"); // Only available client-side
+	// 	console.log("🚀 ~ useEffect ~ token:", token);
+	// 	if (token) {
+	// 		try {
+	// 			const decoded = jwtDecode<JwtPayload>(token);
+	// 			const userInfoLogin = _.get(decoded, "userInfo.login");
+	// 			if (userInfoLogin) {
+	// 				setUserName(userInfoLogin);
+	// 			} else {
+	// 				// window.location.href = "/login";
+	// 			}
+	// 		} catch (error) {
+	// 			console.error("Invalid token", error);
+	// 			// window.location.href = "/login";
+	// 		}
+	// 	} else {
+	// 		// window.location.href = "/login";
+	// 	}
+	// }, []);
+	// console.log("🚀 ~ 1111:");
+
+	// const token = Cookies.get("accessToken"); // Get the token from cookies
+	// console.log("🚀 ~ token:", token);
+	// const decoded = jwtDecode<JwtPayload>(`${token}`);
+	// const userInfoLogin = _.get(decoded, "userInfo.login");
+	// console.log("🚀 ~ decoded:", decoded);
+	// if (_.isUndefined(userInfoLogin)) {
+	// 	window.location.href = "/login";
+	// }
 	return (
 		<LayoutProvider
 			configPage={configPage}
+			// urlApi={`${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/${userName}/page-accesses`}
 			urlApi={
 				"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
 			}

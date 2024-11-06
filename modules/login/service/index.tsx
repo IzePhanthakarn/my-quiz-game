@@ -33,7 +33,7 @@ export const getPage = createAsyncThunk(
 	"Users/getPageAccess",
 	async (username: string, thunkAPI) => {
 		try {
-			const apiPath = `https://api-dev-wcf.soilfish.co/ums/users/${username}/page-accesses`;
+			const apiPath = `${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/${username}/page-accesses`;
 			const response = await axios.get(apiPath);
 			return response.data;
 		} catch (err) {
