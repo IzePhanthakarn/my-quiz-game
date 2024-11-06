@@ -9,6 +9,7 @@ import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
+import { courseCertificateName } from "../interfaces/name";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -24,11 +25,12 @@ export const GetColumns = (router: AppRouterInstance) => {
 				sorter: true,
 				key: "courseCategory",
 				dataIndex: "courseCategory",
+				width: 300,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"courseCategory"}
-						label={"Course Category"}
+						label={courseCertificateName.courseCategory}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -37,11 +39,25 @@ export const GetColumns = (router: AppRouterInstance) => {
 				sorter: true,
 				key: "ssoCourseCode",
 				dataIndex: "ssoCourseCode",
+				width: 300,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"ssoCourseCode"}
-						label={"Sso Course Code"}
+						label={courseCertificateName.ssoCourseCode}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "courseDescription",
+				dataIndex: "courseDescription",
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"courseDescription"}
+						label={courseCertificateName.courseDescription}
 						sort={columns?.sortColumns}
 					/>
 				),

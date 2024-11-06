@@ -34,6 +34,7 @@ export interface MedicalAmountFilter {
 	startEffectiveDate: null | string;
 	endEffectiveDate: null | string;
 	noticeLike: null | string | undefined;
+	effectiveDateBetween: string | null | undefined;
 
 	checkAmount: boolean;
 	checkFareAmount: boolean;
@@ -72,6 +73,7 @@ export const modelMedicalAmount: MedicalAmount = {
 		startEffectiveDate: "",
 		endEffectiveDate: "",
 		noticeLike: undefined,
+		effectiveDateBetween: undefined,
 
 		checkAmount: false,
 		checkFareAmount: false,
@@ -79,7 +81,7 @@ export const modelMedicalAmount: MedicalAmount = {
 		checkStartEffectiveDate: false,
 		checkEndEffectiveDate: false,
 		checkNotice: false,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

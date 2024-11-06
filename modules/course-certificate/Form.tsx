@@ -24,6 +24,7 @@ import {
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import { courseCertificateName } from "./interfaces/name";
 
 const Form = (params: CourseCertificateFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -55,24 +56,6 @@ const Form = (params: CourseCertificateFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<CourseCertificateForm>["onFinishFailed"] = (
-		_
-	) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -94,12 +77,10 @@ const Form = (params: CourseCertificateFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="course certificate"
+					textHeader="ใบรับรองหลักสูตร"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
@@ -112,12 +93,13 @@ const Form = (params: CourseCertificateFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.COURSE_CERTIFICATE.link);
 					}}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					inputs={
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Course Category"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.courseCategory}
 									itemName="courseCategory"
 									rules={courseCertificateRules.courseCategorySchema}
 									value={form.courseCategory}
@@ -131,8 +113,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Sso Course Code"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.ssoCourseCode}
 									itemName="ssoCourseCode"
 									rules={courseCertificateRules.ssoCourseCodeSchema}
 									value={form.ssoCourseCode}
@@ -145,10 +127,9 @@ const Form = (params: CourseCertificateFormPageProps) => {
 										);
 									}}
 								/>
-
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Course Year"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.courseYear}
 									itemName="courseYear"
 									rules={courseCertificateRules.courseYearSchema}
 									value={form.courseYear}
@@ -162,8 +143,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organize Code"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.organizeCode}
 									itemName="organizeCode"
 									rules={courseCertificateRules.organizeCodeSchema}
 									value={form.organizeCode}
@@ -177,8 +158,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Gen No"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.genNo}
 									itemName="genNo"
 									rules={courseCertificateRules.genNoSchema}
 									value={form.genNo}
@@ -192,8 +173,8 @@ const Form = (params: CourseCertificateFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organ System Group"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.organSystemGroup}
 									itemName="organSystemGroup"
 									rules={courseCertificateRules.organSystemGroupSchema}
 									value={form.organSystemGroup}
@@ -206,10 +187,9 @@ const Form = (params: CourseCertificateFormPageProps) => {
 										);
 									}}
 								/>
-
-								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organ System No"
+								{/* <BaseItemInput
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.organSystemNo}
 									itemName="organSystemNo"
 									rules={courseCertificateRules.organSystemNoSchema}
 									value={form.organSystemNo}
@@ -222,10 +202,9 @@ const Form = (params: CourseCertificateFormPageProps) => {
 										);
 									}}
 								/>
-
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Order No"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.orderNo}
 									itemName="orderNo"
 									rules={courseCertificateRules.orderNoSchema}
 									value={form.orderNo}
@@ -238,10 +217,9 @@ const Form = (params: CourseCertificateFormPageProps) => {
 										);
 									}}
 								/>
-
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Receiver Phone Number"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.receiverPhoneNumber}
 									itemName="receiverPhoneNumber"
 									rules={courseCertificateRules.receiverPhoneNumberSchema}
 									value={form.receiverPhoneNumber}
@@ -253,13 +231,13 @@ const Form = (params: CourseCertificateFormPageProps) => {
 											})
 										);
 									}}
-								/>
+								/> */}
 							</div>
 
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Course Description"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.courseDescription}
 									itemName="courseDescription"
 									rules={courseCertificateRules.courseDescriptionSchema}
 									value={form.courseDescription}
@@ -274,10 +252,10 @@ const Form = (params: CourseCertificateFormPageProps) => {
 								/>
 							</div>
 
-							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
+							{/* <div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Receiver Address"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={courseCertificateName.receiverAddress}
 									itemName="receiverAddress"
 									rules={courseCertificateRules.receiverAddressSchema}
 									value={form.receiverAddress}
@@ -290,7 +268,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 										);
 									}}
 								/>
-							</div>
+							</div> */}
 						</>
 					}
 				/>

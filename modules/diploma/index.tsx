@@ -17,6 +17,9 @@ import { useRouter } from "next/navigation";
 import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import { diplomaName } from "./interface/name";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -33,7 +36,7 @@ export default function Diploma() {
 		shallowEqual
 	);
 
-	useEffect(() => {
+	const fetchList = () => {
 		dispatch(
 			initDiplomaGrid({
 				pagination: { ...page },
@@ -42,17 +45,71 @@ export default function Diploma() {
 				isActive: filter.isActive,
 			})
 		);
+	};
+
+	useEffect(() => {
+		fetchList();
 	}, [page.pageNumber, page.pageSize, page.orders]);
+
 	return (
 		<div>
 			<MasterDataLayout
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<div className="flex items-center space-x-2">
+								<BaseItemInput
+									notForm
+									label={diplomaName.diplomaType}
+									itemName="diplomaTypeLike"
+									value={filter.diplomaTypeLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setDiplomaFilter({
+												...filter,
+												diplomaTypeLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => fetchList()}
+								/>
+								<BaseItemInput
+									notForm
+									label={diplomaName.diplomaName}
+									itemName="diplomaNameLike"
+									value={filter.diplomaNameLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setDiplomaFilter({
+												...filter,
+												diplomaNameLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => fetchList()}
+								/>
+								<MedDropDown
+									notForm
+									className="w-[240px]"
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={filter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										dispatch(
+											setDiplomaFilter({
+												...filter,
+												isActive: value,
+											})
+										);
+									}}
+								/>
+							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							fetchList();
+						}}
 					/>
 				}
 				Grid={
@@ -66,25 +123,25 @@ export default function Diploma() {
 						setPagination={(page) => dispatch(setPagination(page))}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isOpen={isOpen}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						content={<FilterDrawer />}
-						isFilter
-						confirmFuntion={() =>
-							dispatch(
-								initDiplomaGrid({
-									pagination: { ...page },
-									diplomaTypeLike: filter.diplomaTypeLike,
-									diplomaNameLike: filter.diplomaNameLike,
-									isActive: filter.isActive,
-								})
-							)
-						}
-						clearFilter={() => dispatch(setDiplomaFilter(modelDiplomaFilter))}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isOpen={isOpen}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		content={<FilterDrawer />}
+				// 		isFilter
+				// 		confirmFuntion={() =>
+				// 			dispatch(
+				// 				initDiplomaGrid({
+				// 					pagination: { ...page },
+				// 					diplomaTypeLike: filter.diplomaTypeLike,
+				// 					diplomaNameLike: filter.diplomaNameLike,
+				// 					isActive: filter.isActive,
+				// 				})
+				// 			)
+				// 		}
+				// 		clearFilter={() => dispatch(setDiplomaFilter(modelDiplomaFilter))}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
 				AddLabel="เพิ่มประกาศนียบัตร"
 				TotalItems={page.totalData}
