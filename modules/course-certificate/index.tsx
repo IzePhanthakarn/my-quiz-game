@@ -8,12 +8,8 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/grid";
 import { fetchCourseList } from "./service";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./FilterDrawer";
-import { modelCourseCertificate } from "./redux/model";
 import { setCourseCertificateFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
@@ -97,22 +93,23 @@ export default function CourseCertificate() {
 										dispatch(fetchCourseList(courseCertificate));
 									}}
 								/>
-								<MedDropDown
-									notForm
-									className="w-[240px]"
-									label="สถานะการใช้งาน"
-									option={DROPDOWN_ISACTIVE}
-									value={filter.isActive}
-									itemName="isActive"
-									getValue={(value) => {
-										dispatch(
-											setCourseCertificateFilter({
-												...filter,
-												isActive: value,
-											})
-										);
-									}}
-								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setCourseCertificateFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}

@@ -8,12 +8,8 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/grid";
 import { fetchMedicalAmountList } from "./service";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./FilterDrawer";
-import { modelMedicalAmount } from "./redux/model";
 import { setMedicalAmountFilter } from "./redux";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { BaseForm, BaseItemDatePicker } from "wcf-component-lib/src/components";
@@ -64,12 +60,13 @@ export default function MedicalAmount() {
 										itemName="endEffectiveDate"
 										label="วันที่สิ้นสุดที่มีผล"
 									/>
-									<MedDropDown
-										className="w-[240px]"
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										itemName="isActive"
-									/>
+									<div className="w-[240px]">
+										<MedDropDown
+											label="สถานะการใช้งาน"
+											option={DROPDOWN_ISACTIVE}
+											itemName="isActive"
+										/>
+									</div>
 								</div>
 							</BaseForm>
 						}
@@ -79,7 +76,7 @@ export default function MedicalAmount() {
 						}}
 					/>
 				}
-				AddLabel="เพิ่ม Medical Amount"
+				AddLabel="เพิ่มอัตราการจ่ายค่าตอบแทนแพทย์"
 				TotalItems={medicalAmount.grid.page.totalData}
 				Grid={
 					<BaseGrid

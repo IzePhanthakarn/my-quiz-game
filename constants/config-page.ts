@@ -111,18 +111,18 @@ export const configPage: DataStructureURL = {
 		root: {
 			url: "/diploma",
 			breadcrumb: ["root"],
-			text: "ประกาศนียบัตร",
+			text: "วุฒิบัตร",
 			pageLevel: { form: [0] },
 		},
 		formEdit: {
 			url: "/diploma/edit/[uuid]",
-			text: "ข้อมูลประกาศนียบัตร",
+			text: "ข้อมูลวุฒิบัตร",
 			breadcrumb: ["root", "formEdit"],
 			pageLevel: { edit: [2], add: [2] },
 		},
 		formAdd: {
 			url: "/diploma/form",
-			text: "เพิ่มข้อมูลประกาศนียบัตร",
+			text: "เพิ่มข้อมูลวุฒิบัตร",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { edit: [2], add: [2] },
 		},
@@ -163,6 +163,26 @@ export const configPage: DataStructureURL = {
 		formAdd: {
 			url: "/course-organ-system-group/form",
 			text: "เพิ่มข้อมูหมวดหมู่อวัยวะ",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	ltProperties: {
+		root: {
+			url: "/lt-properties",
+			breadcrumb: ["root"],
+			text: "Lt-Properties",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/lt-properties/edit/[uuid]",
+			text: "ข้อมูล Lt-Properties",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/lt-properties/form",
+			text: "เพิ่มข้อมูล Lt-Properties",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { edit: [2], add: [2] },
 		},

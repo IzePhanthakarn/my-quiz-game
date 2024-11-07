@@ -24,22 +24,13 @@ import {
 	initGetLtPropertiesDetail,
 	updateLtProperties,
 } from "./service";
-import {
-	descriptionName,
-	groupNameName,
-	ltPropertiesRules,
-	propertyCodeName,
-	propertyTextName,
-	sortingOrderName,
-} from "./field-validation/ltPropertiesForm";
-// import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
-// import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-
+import { ltPropertiesRules } from "./field-validation/ltPropertiesForm";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import { ltPropertiesName } from "./interfaces/name";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -73,24 +64,6 @@ const Form = (params: LtPropertiesFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<LtPropertiesForm>["onFinishFailed"] = (
-		_
-	) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -112,19 +85,12 @@ const Form = (params: LtPropertiesFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					disabled={_.isEmpty(write)}
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					textHeader="Lt Properties"
 					initialValues={{
 						...form,
-						// endEffectiveDate: dayjs(form.endEffectiveDate, DateFormat.YYYYMMDD),
-						// startEffectiveDate: dayjs(
-						// 	form.startEffectiveDate,
-						// 	DateFormat.YYYYMMDD
-						// ),
 					}}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
@@ -134,6 +100,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 							})
 						);
 					}}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					cancelFunction={() => {
 						router.push(LINKS.LT_PROPERTIES.link);
 					}}
@@ -141,8 +108,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={groupNameName}
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={ltPropertiesName.groupName}
 									itemName="groupName"
 									rules={ltPropertiesRules.groupNameSchema}
 									value={form.groupName}
@@ -156,8 +123,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 									}}
 								/>
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={propertyCodeName}
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={ltPropertiesName.propertyCode}
 									itemName="propertyCode"
 									rules={ltPropertiesRules.propertyCodeSchema}
 									value={form.propertyCode}
@@ -172,8 +139,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 								/>
 
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label={sortingOrderName}
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={ltPropertiesName.sortingOrder}
 									itemName="sortingOrder"
 									rules={ltPropertiesRules.sortingOrderSchema}
 									value={form.sortingOrder}
@@ -190,8 +157,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label={propertyTextName}
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={ltPropertiesName.propertyText}
 									itemName="propertyText"
 									rules={ltPropertiesRules.propertyTextSchema}
 									value={form.propertyText}
@@ -207,8 +174,8 @@ const Form = (params: LtPropertiesFormPageProps) => {
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label={descriptionName}
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={ltPropertiesName.description}
 									itemName="description"
 									rules={ltPropertiesRules.descriptionSchema}
 									value={form.description}

@@ -9,6 +9,7 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import { diplomaName } from "./interface/name";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -26,7 +27,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 						<CustomHeaderSort
 							columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 							headerKey={"diplomaType"}
-							label={"รหัสประกาศนียบัตร"}
+							label={diplomaName.diplomaType}
 							sort={columns?.sortColumns}
 						/>
 					</div>
@@ -40,7 +41,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"diplomaName"}
-						label={"ชื่อประกาศนียบัตร"}
+						label={diplomaName.diplomaName}
 						sort={columns?.sortColumns}
 					/>
 				),

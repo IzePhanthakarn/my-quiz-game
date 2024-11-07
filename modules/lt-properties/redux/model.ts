@@ -75,7 +75,7 @@ export const modelLtProperties: LtProperties = {
 		checkSortingOrder: false,
 		checkDescription: false,
 
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

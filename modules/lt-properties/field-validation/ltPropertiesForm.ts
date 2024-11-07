@@ -3,23 +3,21 @@ import {
 	onlyNumberRule,
 	requiredRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
-
-export const propertyCodeName = "Propterty Code";
-export const groupNameName = "Group Name";
-export const propertyTextName = "Propterty Text";
-export const sortingOrderName = "Sorting Order";
-export const descriptionName = "Description";
+import { ltPropertiesName } from "../interfaces/name";
 
 export const ltPropertiesRules = {
 	propertyCodeSchema: [
-		requiredRule(propertyCodeName),
-		maxRule(propertyCodeName, 5),
+		requiredRule(ltPropertiesName.propertyCode),
+		maxRule(ltPropertiesName.propertyCode, 5),
 	],
-	groupNameSchema: [requiredRule(groupNameName), maxRule(groupNameName, 20)],
-	propertyTextSchema: [maxRule(propertyTextName, 100)],
+	groupNameSchema: [
+		requiredRule(ltPropertiesName.groupName),
+		maxRule(ltPropertiesName.groupName, 20),
+	],
+	propertyTextSchema: [maxRule(ltPropertiesName.propertyText, 100)],
 	sortingOrderSchema: [
-		requiredRule(sortingOrderName),
-		onlyNumberRule(sortingOrderName),
+		requiredRule(ltPropertiesName.sortingOrder),
+		onlyNumberRule(ltPropertiesName.sortingOrder),
 	],
-	descriptionSchema: [maxRule(descriptionName, 200)],
+	descriptionSchema: [maxRule(ltPropertiesName.description, 200)],
 };

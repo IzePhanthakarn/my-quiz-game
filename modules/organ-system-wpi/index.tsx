@@ -4,15 +4,12 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/manipulate";
 import { fetchOrganList } from "./service";
-import FilterDrawer from "./FilterDrawer";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
@@ -20,7 +17,6 @@ import { setOrganSystemWpiFilter } from "./redux";
 import { organSystemWpiName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { setDiplomaFilter } from "../diploma/redux";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
@@ -80,22 +76,23 @@ export default function OrganSystemWpi() {
 										dispatch(fetchOrganList(organ));
 									}}
 								/>
-								<MedDropDown
-									notForm
-									className="w-[240px]"
-									label="สถานะการใช้งาน"
-									option={DROPDOWN_ISACTIVE}
-									value={filter.isActive}
-									itemName="isActive"
-									getValue={(value) => {
-										dispatch(
-											setOrganSystemWpiFilter({
-												...filter,
-												isActive: value,
-											})
-										);
-									}}
-								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setOrganSystemWpiFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
