@@ -63,13 +63,16 @@ export interface EstimateAddGrid extends PaginationModel {
 	data: EstimateAddGridData[];
 }
 
-export interface EstimateAddGridData {
-	// noSeq: number;
+export interface BaseEstimateAddData {
 	name: string;
 	lastName: string;
 	email: string;
 	hospitalName: string;
 	reportDate: string;
+}
+
+export interface EstimateAddGridData extends BaseEstimateAddData {
+	noSeq: number;
 }
 
 export interface HospitalGrid extends PaginationModel {
@@ -240,7 +243,7 @@ export interface HospitalForm
 	};
 }
 
-export interface EstimateAddForm extends EstimateAddGridData {
+export interface EstimateAddForm extends BaseEstimateAddData {
 	type: string;
 	referenceNumber: string;
 	atDate: string;
@@ -286,7 +289,16 @@ export const modelEstimateAdd: EstimateAdd = {
 	grid: {
 		data: [
 			{
-				// noSeq: 1,
+				noSeq: 1,
+				name: "อนุชา",
+				lastName: "คีรีวัล",
+				email: "anu12345@gmail.com",
+				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+				reportDate: "21/07/2567",
+			},
+
+			{
+				noSeq: 2,
 				name: "อนุชา",
 				lastName: "คีรีวัล",
 				email: "anu12345@gmail.com",
@@ -294,7 +306,7 @@ export const modelEstimateAdd: EstimateAdd = {
 				reportDate: "21/07/2567",
 			},
 			{
-				// noSeq: 1,
+				noSeq: 3,
 				name: "อนุชา",
 				lastName: "คีรีวัล",
 				email: "anu12345@gmail.com",
@@ -302,23 +314,7 @@ export const modelEstimateAdd: EstimateAdd = {
 				reportDate: "21/07/2567",
 			},
 			{
-				// noSeq: 2,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-			{
-				// noSeq: 3,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-			{
-				// noSeq: 4,
+				noSeq: 4,
 				name: "อนุชา",
 				lastName: "คีรีวัล",
 				email: "anu12345@gmail.com",
@@ -341,17 +337,17 @@ export const modelEstimateAdd: EstimateAdd = {
 		reportDateTo: "",
 	},
 	form: {
-		hospitalName: "",
-		type: "",
-		name: "",
-		lastName: "",
-		email: "",
-		referenceNumber: "",
-		atDate: "",
-		reportDate: "",
-		checkDate: "",
-		result: "",
-		detail: "",
+		hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
+		type: "ตรวจแนะนำ",
+		name: "อนุชา",
+		lastName: "คีรีวัล",
+		email: "anu12345@gmail.com",
+		referenceNumber: "rv/254",
+		atDate: "10/10/2564",
+		reportDate: "10/10/2564",
+		checkDate: "10/10/2564",
+		result: "ผ่านเกณฑ์",
+		detail: "test",
 		files: [
 			{
 				noSeq: 1,
