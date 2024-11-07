@@ -1,6 +1,7 @@
+import { MedKey } from "@/components/MedDivPermission/model";
 import { DataStructureURL } from "wcf-component-lib/src/provider/LayoutProvider/type";
 
-export const configPage: DataStructureURL = {
+export const configPage: DataStructureURL<MedKey> = {
 	doctor: {
 		root: {
 			url: "/doctor",
@@ -72,7 +73,7 @@ export const configPage: DataStructureURL = {
 			url: "/clinic",
 			breadcrumb: ["root"],
 			text: "คลินิก",
-			pageLevel: { form: [0] },
+			pageLevel: { form: [0], clinic: [2] },
 		},
 		formEdit: {
 			url: "/clinic/edit/[uuid]",

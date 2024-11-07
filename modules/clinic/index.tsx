@@ -18,6 +18,7 @@ import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import MedDivPermission from "@/components/MedDivPermission";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
