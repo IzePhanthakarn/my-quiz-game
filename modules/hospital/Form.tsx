@@ -1032,27 +1032,29 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						icons={<HomeFilled />}
 					/>
 					<div className="flex justify-end">
-						<BaseButton
-							type="default"
-							className="text-base font-regular mb-4"
-							label="เพิ่มผู้ติดต่อ"
-							onClick={() => {
-								dispatch(
-									setDialog({
-										...modelDialog,
-										isOpenBaseConfirmDialog: false,
-										isOpen: true,
-										uniqueContent: <AddHospitalStaffContactForm />,
-									})
-								);
-							}}
-							icon={<UserAddOutlined />}
-							customStyle={{
-								width: "134px",
-								height: "48px",
-								borderRadius: "99px",
-							}}
-						/>
+						<DivPermission pageLevel="edit">
+							<BaseButton
+								type="default"
+								className="text-base font-regular mb-4"
+								label="เพิ่มผู้ติดต่อ"
+								onClick={() => {
+									dispatch(
+										setDialog({
+											...modelDialog,
+											isOpenBaseConfirmDialog: false,
+											isOpen: true,
+											uniqueContent: <AddHospitalStaffContactForm />,
+										})
+									);
+								}}
+								icon={<UserAddOutlined />}
+								customStyle={{
+									width: "134px",
+									height: "48px",
+									borderRadius: "99px",
+								}}
+							/>
+						</DivPermission>
 					</div>
 
 					<div>
@@ -1375,8 +1377,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							}}
 						/>
 					</div>
-
-					<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
+					<DivPermission pageLevel="admin">
+						<BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} />
+					</DivPermission>
 				</>
 			),
 		},

@@ -76,20 +76,21 @@ export default function EstimateAdd() {
 							>
 								<div className="flex space-x-2">
 									<BaseItemInput
+										itemName={estimateAddNames.hospitalName}
+										label="สถานพยาบาล"
+										onPressEnter={() => form.submit()}
+									/>
+									<BaseItemInput
 										itemName={estimateAddNames.name}
-										label="เลขทะเบียน สปส"
+										label="ชื่อ"
 										onPressEnter={() => form.submit()}
 									/>
 									<BaseItemInput
 										itemName={estimateAddNames.lastName}
-										label="เลขทะเบียน สปส"
+										label="สกุล"
 										onPressEnter={() => form.submit()}
 									/>
-									<BaseItemInput
-										itemName={estimateAddNames.hospitalName}
-										label="เลขทะเบียน สปส"
-										onPressEnter={() => form.submit()}
-									/>
+
 									{/* <BaseItemInput
 										itemName="reportDateFrom"
 										label="วันที่แจ้ง"
@@ -114,7 +115,7 @@ export default function EstimateAdd() {
 
 									<BaseItemDateRangePicker
 										itemName="reportDateTo"
-										label="ถึงวันที่"
+										label="วันที่แจ้ง"
 									/>
 								</div>
 							</BaseForm>
