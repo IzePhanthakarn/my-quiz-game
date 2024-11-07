@@ -100,9 +100,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		<LayoutProvider
 			configPage={configPage}
 			// urlApi={`${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/${userName}/page-accesses`}
-			urlApi={
-				"https://api-dev-wcf.soilfish.co/ums/users/sjittikhun2/page-accesses"
-			}
+			urlApi={`${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/sjittikhun2/page-accesses`}
 		>
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">
