@@ -13,6 +13,8 @@ export const names = {
 	hospitalName: "ชื่อสถานพยาบาล",
 	companyName: "ชื่อนิติบุคคล",
 	revenueRegistrationCode: "เลขที่ภาษีของสถานพยาบาล",
+	withholdingDateFrom: "ยกเว้นภาษีหัก ณ ที่จ่าย วันที่เริ่มยกเว้น",
+	withholdingDateTo: "ยกเว้นภาษีหัก ณ ที่จ่าย วันที่สิ้นสุดการยกเว้น",
 	address: "ที่อยู่",
 	provinceCode: "จังหวัด",
 	amphurCode: "เขต/อำเภอ",

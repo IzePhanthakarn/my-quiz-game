@@ -862,6 +862,39 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<BaseDatePicker
+							label={names.withholdingDateFrom}
+							pageLevel="edit"
+							itemName="withholdingDateFrom"
+							rules={rules.withholdingDateFromSchema}
+							value={hospitalForm.withholdingDateFrom}
+							onChangeDateFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										withholdingDateFrom: e,
+									})
+								);
+							}}
+						/>
+						<BaseDatePicker
+							label={names.withholdingDateTo}
+							pageLevel="edit"
+							itemName="withholdingDateTo"
+							rules={rules.withholdingDateToSchema}
+							value={hospitalForm.withholdingDateTo}
+							onChangeDateFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										withholdingDateTo: e,
+									})
+								);
+							}}
+						/>
+					</div>
+
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 						<BaseItemInput
 							pageLevel="edit"
 							label={names.address}
