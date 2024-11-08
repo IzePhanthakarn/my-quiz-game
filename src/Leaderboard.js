@@ -33,7 +33,10 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {scores.map((result, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                style={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+              >
                 <td style={styles.cell}>{result.name}</td>
                 <td style={styles.cell}>{result.score}</td>
               </tr>
@@ -43,10 +46,29 @@ const Dashboard = () => {
       ) : (
         <p style={styles.noResults}>No quiz results available.</p>
       )}
-      <button onClick={handleBackToStart} style={styles.button}>
+      <button
+        onClick={handleBackToStart}
+        style={styles.button}
+        onMouseEnter={(e) =>
+          (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)
+        }
+        onMouseLeave={(e) =>
+          (e.target.style.backgroundColor = styles.button.backgroundColor)
+        }
+      >
         กลับไปหน้าเริ่มเกม
       </button>
-      <button onClick={handleClearLocalStorage} style={styles.clearButton}>
+      <button
+        onClick={handleClearLocalStorage}
+        style={styles.clearButton}
+        onMouseEnter={(e) =>
+          (e.target.style.backgroundColor =
+            styles.clearButtonHover.backgroundColor)
+        }
+        onMouseLeave={(e) =>
+          (e.target.style.backgroundColor = styles.clearButton.backgroundColor)
+        }
+      >
         เคลียร์ข้อมูล
       </button>
     </div>
@@ -61,68 +83,83 @@ const styles = {
     justifyContent: "center",
     marginTop: "50px",
     fontFamily: "'Roboto', sans-serif",
-    backgroundColor: "#f5f5f5",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-    width: "80%",
-    maxWidth: "900px",
+    backgroundColor: "#fafafa",
+    padding: "40px",
+    borderRadius: "12px",
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.15)",
+    width: "90%",
+    maxWidth: "600px",
     margin: "0 auto",
   },
   title: {
-    fontSize: "36px",
+    fontSize: "32px",
     color: "#333",
-    marginBottom: "20px",
+    marginBottom: "30px",
     fontWeight: "bold",
+    textAlign: "center",
   },
   table: {
     borderCollapse: "collapse",
     width: "100%",
     marginTop: "20px",
+    overflow: "hidden",
+    borderRadius: "8px",
   },
   header: {
     border: "1px solid #ddd",
-    padding: "12px",
+    padding: "14px",
     backgroundColor: "#007bff",
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: "18px",
   },
   cell: {
     border: "1px solid #ddd",
-    padding: "12px",
+    padding: "14px",
     textAlign: "center",
     fontSize: "16px",
+    color: "#555",
+  },
+  evenRow: {
+    backgroundColor: "#f9f9f9",
+  },
+  oddRow: {
+    backgroundColor: "#fff",
   },
   button: {
-    marginTop: "20px",
-    padding: "12px 20px",
+    marginTop: "25px",
+    padding: "14px 24px",
     fontSize: "18px",
     backgroundColor: "#28a745",
     color: "white",
     border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  },
-  clearButton: {
-    marginTop: "15px",
-    padding: "12px 20px",
-    fontSize: "18px",
-    backgroundColor: "#dc3545",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
+    borderRadius: "8px",
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
   buttonHover: {
     backgroundColor: "#218838",
   },
+  clearButton: {
+    marginTop: "15px",
+    padding: "12px 24px",
+    fontSize: "18px",
+    backgroundColor: "#dc3545",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  },
+  clearButtonHover: {
+    backgroundColor: "#c82333",
+  },
   noResults: {
     fontSize: "18px",
     color: "#888",
     marginTop: "20px",
+    fontStyle: "italic",
   },
 };
 

@@ -90,6 +90,13 @@ const Quiz = () => {
     }
   };
 
+  // ฟังก์ชันสำหรับอ่านโจทย์เป็นภาษาเยอรมัน
+  const speakQuestion = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "de-DE"; // กำหนดภาษาเป็นเยอรมัน
+    window.speechSynthesis.speak(utterance);
+  };
+
   if (showScore) {
     return (
       <div style={styles.container}>
@@ -130,6 +137,13 @@ const Quiz = () => {
           <div style={styles.questionText}>
             {questions[currentQuestion].question}
           </div>
+          {/* ปุ่มสำหรับอ่านโจทย์ */}
+          <button
+            onClick={() => speakQuestion(questions[currentQuestion].question)}
+            style={styles.readButton}
+          >
+            Read Question
+          </button>
         </div>
         <div style={styles.answerSection}>
           {questions[currentQuestion].options.map((option) => (
@@ -197,6 +211,15 @@ const styles = {
     padding: "10px",
     borderRadius: "5px",
     backgroundColor: "#28a745",
+    color: "#fff",
+    cursor: "pointer",
+    border: "none",
+  },
+  readButton: {
+    marginTop: "10px",
+    padding: "8px",
+    borderRadius: "5px",
+    backgroundColor: "#007bff",
     color: "#fff",
     cursor: "pointer",
     border: "none",

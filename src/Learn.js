@@ -86,7 +86,17 @@ const Learn = () => {
         </div>
 
         <div style={styles.buttonContainer}>
-          <button onClick={handleStartGame} style={styles.button}>
+          <button
+            onClick={handleStartGame}
+            style={styles.button}
+            onMouseEnter={(e) =>
+              (e.target.style.backgroundColor =
+                styles.buttonHover.backgroundColor)
+            }
+            onMouseLeave={(e) =>
+              (e.target.style.backgroundColor = styles.button.backgroundColor)
+            }
+          >
             Start Game
           </button>
         </div>
@@ -115,6 +125,9 @@ const styles = {
     fontSize: "36px",
     color: "#333",
     fontWeight: "bold",
+    borderBottom: "3px solid #007bff",
+    paddingBottom: "10px",
+    marginBottom: "15px",
   },
   subtitle: {
     fontSize: "18px",
@@ -122,40 +135,46 @@ const styles = {
     marginTop: "10px",
   },
   content: {
-    backgroundColor: "#fff",
-    borderRadius: "8px",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+    backgroundColor: "#ffffff",
+    borderRadius: "12px",
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.15)",
     padding: "30px",
-    maxWidth: "800px",
+    maxWidth: "700px",
     width: "100%",
     height: "auto",
     overflowY: "auto",
+    borderTop: "5px solid #007bff",
   },
   infoContainer: {
     marginBottom: "30px",
   },
   question: {
-    fontSize: "18px",
+    fontSize: "20px",
     color: "#007bff",
     marginBottom: "5px",
+    fontWeight: "500",
   },
   answer: {
     fontSize: "16px",
-    color: "#333",
+    color: "#555",
     marginBottom: "20px",
     lineHeight: "1.6",
+    backgroundColor: "#f9f9f9",
+    padding: "10px",
+    borderRadius: "5px",
   },
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
+    marginTop: "20px",
   },
   button: {
-    padding: "15px 30px",
+    padding: "12px 24px",
     fontSize: "18px",
     backgroundColor: "#28a745",
     color: "#fff",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "8px",
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
