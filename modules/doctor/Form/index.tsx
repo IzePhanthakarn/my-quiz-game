@@ -67,7 +67,6 @@ const DoctorFormTabs = () => {
 			{doctorForm.editTimes.length > 1 && (
 				<WhiteBarLayout className="justify-end items-center">
 					<BaseSubmitButton
-						type="default"
 						className="text-base font-semibold mr-3"
 						label="ประวัติการแก้ไข"
 						onClickFunction={() => {
