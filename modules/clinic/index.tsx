@@ -19,6 +19,11 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import MedDivPermission from "@/components/MedDivPermission";
+import { MedKey } from "@/components/MedDivPermission/model";
+import MedButton from "@/components/MedButton";
+import { BaseButton } from "wcf-component-lib/src/components";
+import MedItemInput from "@/components/MedItemInput";
+import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -52,7 +57,47 @@ export default function Clinic() {
 					<FilterLayout
 						FilterForm={
 							<div className="flex items-center w-full h-full space-x-6">
-								<BaseItemInput
+								<MedDivPermission pageLevel="clinic">
+									<p>ทดสอบ</p>
+								</MedDivPermission>
+								<DivPermission pageLevel="clinic">
+									<p>ทดสอบ2</p>
+								</DivPermission>
+								<MedButton pageLevel="clinic" label="ทดสอบ" />
+								<BaseButton<MedKey> pageLevel="clinic" label="ทดสอบ2" />
+								<MedItemInput
+									pageLevel="clinic"
+									value={filter.clinicCodeLike}
+									notForm
+									itemName="clinicCodeLike"
+									label="ทดสอบ"
+									onPressEnter={() => {}}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicFilter({
+												...filter,
+												clinicCodeLike: e.target.value,
+											})
+										);
+									}}
+								/>
+								<BaseItemInput<MedKey>
+									pageLevel="clinic"
+									value={filter.clinicCodeLike}
+									notForm
+									itemName="clinicCodeLike"
+									label="ทดสอบ2"
+									onPressEnter={() => {}}
+									onChangeFunction={(e) => {
+										dispatch(
+											setClinicFilter({
+												...filter,
+												clinicCodeLike: e.target.value,
+											})
+										);
+									}}
+								/>
+								{/* <BaseItemInput
 									value={filter.clinicCodeLike}
 									notForm
 									itemName="clinicCodeLike"
@@ -80,11 +125,11 @@ export default function Clinic() {
 											})
 										);
 									}}
-								/>
+								/> */}
 							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						// handleSubmitSearch={() => {}}
 					/>
 				}
 				Grid={
