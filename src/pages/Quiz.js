@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { quizSentences } from "./model/quiz";
-import Navbar from "./components/Navbar";
+import { quizSentences } from "../model/quiz";
 import { Volume2 } from "lucide-react";
-import { supabase } from "./lib/helper/supabaseClient";
-import useAuthStatus from "./hooks/useAuthStatus";
+import { supabase } from "../lib/helper/supabaseClient";
+import useAuthStatus from "../hooks/useAuthStatus";
 
 const Quiz = () => {
   const shuffledQuestions = quizSentences.slice(0, 10);
@@ -14,6 +13,19 @@ const Quiz = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuthStatus();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      console.log("session", session);
+      if (!session) {
+        navigate("/");
+      }
+    };
+    fetchSession();
+  }, [navigate]);
 
   const handleAnswerOptionClick = (option) => {
     if (option === shuffledQuestions[currentQuestion].correctAnswer) {
@@ -34,7 +46,7 @@ const Quiz = () => {
     const name = user.name;
     const scoreToSave = score;
 
-    const { data: gameResultsData, error: gameResultsError } = await supabase
+    const { error: gameResultsError } = await supabase
       .from("game_results")
       .insert([{ user_id: userId, name: name, score: scoreToSave }]);
 
@@ -55,7 +67,7 @@ const Quiz = () => {
 
     if (leaderboardData) {
       if (scoreToSave > leaderboardData.score) {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from("leaderboard")
           .update({ score: scoreToSave })
           .eq("user_id", userId);
@@ -65,7 +77,7 @@ const Quiz = () => {
         }
       }
     } else {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("leaderboard")
         .insert([{ user_id: userId, name: name, score: scoreToSave }]);
 
@@ -97,7 +109,9 @@ const Quiz = () => {
 
   const renderScore = () => (
     <div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">แบบทดสอบเสร็จสิ้น!</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        แบบทดสอบเสร็จสิ้น!
+      </h2>
       <p className="text-xl text-gray-700 mb-4">
         คุณได้คะแนน {score} จาก {shuffledQuestions.length} คะแนน
       </p>
@@ -172,15 +186,10 @@ const Quiz = () => {
   );
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
-      <Navbar />
-      <div className="m-full h-full flex items-center -mt-20">
-        <div className="max-w-4xl mx-auto w-full px-4 py-12">
-          {isLoading && renderLoading()}
-          {!isLoading && showScore && renderScore()}
-          {!isLoading && !showScore && renderQuestion()}
-        </div>
-      </div>
+    <div className="max-w-4xl mx-auto w-full px-4 py-12">
+      {isLoading && renderLoading()}
+      {!isLoading && showScore && renderScore()}
+      {!isLoading && !showScore && renderQuestion()}
     </div>
   );
 };

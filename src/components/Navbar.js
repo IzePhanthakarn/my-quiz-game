@@ -1,17 +1,22 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "./../lib/helper/supabaseClient";
 import useAuthStatus from "./../hooks/useAuthStatus";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { user } = useAuthStatus();
+  const location = useLocation();
+  const { user, setUser } = useAuthStatus();
   const [loading, setLoading] = React.useState(false);
 
   const handleLogout = async () => {
     setLoading(true);
     await supabase.auth.signOut();
+    setUser(null);
     setLoading(false);
+    if (location.pathname === "/quiz") {
+        navigate("/");
+      }
   };
 
   return (
@@ -30,13 +35,19 @@ function Navbar() {
 
           {/* Menu section */}
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate("/leaderboard")}
+              className="h-10 inline-flex items-center px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+            >
+              Leaderboard
+            </button>
             {user ? (
               <>
                 <button
                   onClick={() => navigate("/quiz")}
-                  className="h-10 inline-flex items-center px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                  className="h-10 inline-flex items-center px-4 border-2 border-blue-600 rounded-lg shadow-sm text-sm font-medium text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
                 >
-                  ทำข้อสอบ
+                  ทำแบบทดสอบ
                 </button>
 
                 {/* Profile section */}
@@ -66,7 +77,7 @@ function Navbar() {
                         : ""
                     }`}
                   >
-                    {loading ? "Logging out..." : "Logout"}{" "}
+                    {loading ? "กำลังออกจากระบบ..." : "ออกจากระบบ"}{" "}
                   </button>
                 </div>
               </>
@@ -75,7 +86,7 @@ function Navbar() {
                 onClick={() => navigate("/login")}
                 className="h-10 inline-flex items-center px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
               >
-                Login
+                เข้าสู่ระบบ
               </button>
             )}
           </div>

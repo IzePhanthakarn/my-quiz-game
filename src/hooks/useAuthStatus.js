@@ -4,7 +4,7 @@ import { supabase } from './../lib/helper/supabaseClient';
 
 function useAuthStatus() {
     const [user, setUser] = useState(null); // Store user data (id, email, name)
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const checkUser = async () => {
@@ -34,13 +34,13 @@ function useAuthStatus() {
           }
         }
 
-        setLoading(false);
+        // setLoading(false);
       };
   
       checkUser();
     }, []);
   
-    return { user, loading }; // Return the user data and loading state
+    return { user, setUser }; // Return the user data and loading state
 }
   
 export default useAuthStatus;
