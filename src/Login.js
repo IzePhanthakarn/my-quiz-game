@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { supabase } from './lib/helper/supabaseClient';
 import { useNavigate, Link } from "react-router-dom";
+import useAuthStatus from './hooks/useAuthStatus';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,13 @@ function Login() {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStatus(); 
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -78,13 +86,13 @@ function Login() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end">
+            {/* <div className="flex items-center justify-end">
               <div className="text-sm">
                 <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <button

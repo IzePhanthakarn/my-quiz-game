@@ -1,229 +1,188 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { quizSentences } from "./model/quiz";
+import Navbar from "./components/Navbar";
+import { Volume2 } from "lucide-react";
+import { supabase } from "./lib/helper/supabaseClient";
+import useAuthStatus from "./hooks/useAuthStatus";
 
 const Quiz = () => {
-  const questions = [
-    {
-      question: "What does 'Hallo' mean in German?",
-      options: ["Goodbye", "Hello", "Please", "Excuse me"],
-      answer: "Hello",
-    },
-    {
-      question: "How do you say 'Thank you' in German?",
-      options: ["Bitte", "Danke", "Entschuldigung", "Hallo"],
-      answer: "Danke",
-    },
-    {
-      question: "What is the number 'two' in German?",
-      options: ["Drei", "Zwei", "Eins", "Vier"],
-      answer: "Zwei",
-    },
-    {
-      question: "What does 'Guten Morgen' mean?",
-      options: ["Good morning", "Good night", "Good afternoon", "Goodbye"],
-      answer: "Good morning",
-    },
-    {
-      question: "How do you say 'Goodbye' in German?",
-      options: ["Guten Abend", "Auf Wiedersehen", "Bitte", "Hallo"],
-      answer: "Auf Wiedersehen",
-    },
-    {
-      question: "What is the color 'red' in German?",
-      options: ["Blau", "Grün", "Rot", "Gelb"],
-      answer: "Rot",
-    },
-    {
-      question: "What is the German word for 'bread'?",
-      options: ["Wasser", "Kaffee", "Milch", "Brot"],
-      answer: "Brot",
-    },
-    {
-      question: "How do you say 'Please' in German?",
-      options: ["Danke", "Bitte", "Entschuldigung", "Tschüss"],
-      answer: "Bitte",
-    },
-    {
-      question: "What is 'one' in German?",
-      options: ["Zwei", "Drei", "Eins", "Vier"],
-      answer: "Eins",
-    },
-    {
-      question: "What does 'Entschuldigung' mean in English?",
-      options: ["Hello", "Please", "Excuse me", "Thank you"],
-      answer: "Excuse me",
-    },
-  ];
-
+  const shuffledQuestions = quizSentences.slice(0, 10);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [username, setUsername] = useState("");
-  const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuthStatus();
   const navigate = useNavigate();
 
   const handleAnswerOptionClick = (option) => {
-    if (option === questions[currentQuestion].answer) {
+    if (option === shuffledQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
     }
 
     const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
+    if (nextQuestion < shuffledQuestions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
-      setShowScore(true);
-      saveScoreToLocalStorage();
-      navigate("/leaderboard");
+      setIsLoading(true); // Start loading when reaching the end
+      saveScoreToDatabase();
     }
   };
 
-  const saveScoreToLocalStorage = () => {
-    const quizResults = JSON.parse(localStorage.getItem("quizResults")) || [];
-    const newResult = { name: username, score: score };
-    quizResults.push(newResult);
-    localStorage.setItem("quizResults", JSON.stringify(quizResults));
-  };
+  const saveScoreToDatabase = async () => {
+    const userId = user.id;
+    const name = user.name;
+    const scoreToSave = score;
 
-  const startQuiz = () => {
-    if (username.trim() !== "") {
-      setIsQuizStarted(true);
+    const { data: gameResultsData, error: gameResultsError } = await supabase
+      .from("game_results")
+      .insert([{ user_id: userId, name: name, score: scoreToSave }]);
+
+    if (gameResultsError) {
+      console.error("Error saving score to game_results:", gameResultsError);
     }
+
+    const { data: leaderboardData, error: leaderboardError } = await supabase
+      .from("leaderboard")
+      .select("user_id, score")
+      .eq("user_id", userId)
+      .single();
+
+    if (leaderboardError && leaderboardError.code !== "PGRST116") {
+      console.error("Error fetching leaderboard data:", leaderboardError);
+      return;
+    }
+
+    if (leaderboardData) {
+      if (scoreToSave > leaderboardData.score) {
+        const { data, error } = await supabase
+          .from("leaderboard")
+          .update({ score: scoreToSave })
+          .eq("user_id", userId);
+
+        if (error) {
+          console.error("Error updating leaderboard score:", error);
+        }
+      }
+    } else {
+      const { data, error } = await supabase
+        .from("leaderboard")
+        .insert([{ user_id: userId, name: name, score: scoreToSave }]);
+
+      if (error) {
+        console.error("Error inserting new leaderboard entry:", error);
+      }
+    }
+
+    setIsLoading(false); // Stop loading after the database save is complete
+    setShowScore(true); // Show score after loading completes
   };
 
-  // ฟังก์ชันสำหรับอ่านโจทย์เป็นภาษาเยอรมัน
   const speakQuestion = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "de-DE"; // กำหนดภาษาเป็นเยอรมัน
+    const cleanedText = text.replace(/_/g, "");
+    const utterance = new SpeechSynthesisUtterance(cleanedText);
+    utterance.lang = "de-DE";
     window.speechSynthesis.speak(utterance);
   };
 
-  if (showScore) {
-    return (
-      <div style={styles.container}>
-        <h2>Quiz Completed!</h2>
-        <p>
-          You scored {score} out of {questions.length}
-        </p>
-        <p>Thank you for playing, {username}!</p>
-      </div>
-    );
-  }
+  const resetQuiz = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowScore(false);
+  };
 
-  if (!isQuizStarted) {
-    return (
-      <div style={styles.container}>
-        <h2>Welcome to the Quiz Game!</h2>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={styles.input}
-        />
-        <button onClick={startQuiz} style={styles.button}>
-          Start Quiz
+  const renderLoading = () => (
+    <h2 className="text-3xl font-bold text-gray-900">Loading...</h2>
+  );
+
+  const renderScore = () => (
+    <div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">แบบทดสอบเสร็จสิ้น!</h2>
+      <p className="text-xl text-gray-700 mb-4">
+        คุณได้คะแนน {score} จาก {shuffledQuestions.length} คะแนน
+      </p>
+      <div className="mt-8 space-x-4">
+        <button
+          onClick={() => navigate("/")}
+          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200"
+        >
+          กลับหน้าหลัก
+        </button>
+        <button
+          onClick={() => navigate("/leaderboard")}
+          className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 font-medium rounded-md hover:bg-blue-50 transition-colors duration-200"
+        >
+          ดูคะแนนทั้งหมด
+        </button>
+        <button
+          onClick={resetQuiz}
+          className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition-colors duration-200"
+        >
+          ทำแบบทดสอบใหม่
         </button>
       </div>
-    );
-  }
+    </div>
+  );
+
+  const renderQuestion = () => (
+    <div className="bg-white rounded-xl shadow-lg p-8">
+      <div className="mb-8">
+        <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <span>
+            คำถามที่ {currentQuestion + 1} จาก {shuffledQuestions.length}
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div
+            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+            style={{
+              width: `${
+                ((currentQuestion + 1) / shuffledQuestions.length) * 100
+              }%`,
+            }}
+          ></div>
+        </div>
+      </div>
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          {shuffledQuestions[currentQuestion].sentence}
+        </h2>
+        <button
+          onClick={() =>
+            speakQuestion(shuffledQuestions[currentQuestion].sentence)
+          }
+          className="inline-flex items-center px-4 py-2 text-sm text-blue-600 hover:text-blue-700 transition-colors duration-200"
+        >
+          <Volume2 className="w-5 h-5 mr-2" />
+          ฟังประโยค
+        </button>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        {shuffledQuestions[currentQuestion].options.map((option) => (
+          <button
+            key={option}
+            onClick={() => handleAnswerOptionClick(option)}
+            className="w-full p-4 text-left text-lg bg-gray-50 hover:bg-blue-50 border border-gray-200 rounded-lg transition-colors duration-200 hover:border-blue-300"
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
-    <div style={styles.container}>
-      <div style={styles.quizSection}>
-        <div style={styles.questionSection}>
-          <div style={styles.questionCount}>
-            <span>Question {currentQuestion + 1}</span>/{questions.length}
-          </div>
-          <div style={styles.questionText}>
-            {questions[currentQuestion].question}
-          </div>
-          {/* ปุ่มสำหรับอ่านโจทย์ */}
-          <button
-            onClick={() => speakQuestion(questions[currentQuestion].question)}
-            style={styles.readButton}
-          >
-            Read Question
-          </button>
-        </div>
-        <div style={styles.answerSection}>
-          {questions[currentQuestion].options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleAnswerOptionClick(option)}
-              style={styles.optionButton}
-            >
-              {option}
-            </button>
-          ))}
+    <div className="h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+      <div className="m-full h-full flex items-center -mt-20">
+        <div className="max-w-4xl mx-auto w-full px-4 py-12">
+          {isLoading && renderLoading()}
+          {!isLoading && showScore && renderScore()}
+          {!isLoading && !showScore && renderQuestion()}
         </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    backgroundColor: "#f5f5f5",
-  },
-  quizSection: {
-    width: "300px",
-    textAlign: "center",
-    padding: "20px",
-    backgroundColor: "#fff",
-    borderRadius: "5px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-  },
-  questionSection: {
-    marginBottom: "20px",
-  },
-  questionCount: {
-    fontSize: "16px",
-    marginBottom: "5px",
-  },
-  questionText: {
-    fontSize: "20px",
-    fontWeight: "bold",
-  },
-  answerSection: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-  },
-  optionButton: {
-    padding: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-    backgroundColor: "#f0f0f0",
-    cursor: "pointer",
-  },
-  input: {
-    padding: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-    marginBottom: "10px",
-  },
-  button: {
-    padding: "10px",
-    borderRadius: "5px",
-    backgroundColor: "#28a745",
-    color: "#fff",
-    cursor: "pointer",
-    border: "none",
-  },
-  readButton: {
-    marginTop: "10px",
-    padding: "8px",
-    borderRadius: "5px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    cursor: "pointer",
-    border: "none",
-  },
 };
 
 export default Quiz;
