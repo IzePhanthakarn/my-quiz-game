@@ -42,13 +42,19 @@ export default function DoctorDetailForm(props: Props) {
 		shallowEqual
 	);
 	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
-	const [isE] = useState(doctorData.courseCategory === "E");
+	const [isE, setIsE] = useState(false);
 
 	useEffect(() => {
 		if (_.isEmpty(tmpDoctorData) && uuid) {
 			setTmpDoctorData(doctorData.doctorCode);
 		}
 	}, [doctorData.doctorCode]);
+
+	useEffect(() => {
+		if (doctorData.courseCategory === "E") {
+			setIsE(true);
+		}
+	}, [doctorData.courseCategory]);
 
 	// const onFinish: FormProps<DoctorData>["onFinish"] = () => {
 	// 	dispatch(setIsOpenBaseConfirmDialog(true));
@@ -105,6 +111,7 @@ export default function DoctorDetailForm(props: Props) {
 				<BaseItemInput
 					label={doctorDataName.certificateId}
 					itemName="certificateId"
+					disabled={isE}
 				/>
 				<BaseItemInput
 					label={doctorDataName.doctorCode}
@@ -166,7 +173,20 @@ export default function DoctorDetailForm(props: Props) {
 					disabled={isE}
 					rules={rules.phoneNumberSchema}
 				/>
-				<div></div>
+				{isE && (
+					<>
+						<BaseItemInput
+							label={doctorDataName.eDiploma}
+							itemName="eDiploma"
+							disabled={true}
+						/>
+						<BaseItemInput
+							label={doctorDataName.eHospital}
+							itemName="eHospital"
+							disabled={true}
+						/>
+					</>
+				)}
 				<div className="col-span-4">
 					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
 				</div>

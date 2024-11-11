@@ -11,6 +11,8 @@ import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import React from "react";
+import { findNameDisplay } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
 
 interface Props {
 	mounted: string;
@@ -52,15 +54,14 @@ export const GetColumns = (prop: Props) => {
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey="firstname"
+						headerKey="doctorFullName"
 						label="ชื่อ-นามสกุล"
 						sort={columns?.sortColumns}
 					/>
 				),
-				dataIndex: "firstname",
-				key: "firstname",
+				dataIndex: "doctorFullName",
+				key: "doctorFullName",
 				sorter: true,
-				render: (_, { firstname, lastname }) => `${firstname} ${lastname}`,
 			},
 			{
 				title: "วุฒิเฉพาะทาง",

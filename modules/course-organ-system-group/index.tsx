@@ -59,6 +59,9 @@ export default function CourseOrganSystemGroup() {
 											})
 										);
 									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
+									}}
 								/>
 								<BaseItemInput
 									notForm
@@ -72,6 +75,9 @@ export default function CourseOrganSystemGroup() {
 												organSystemGroupLike: e.target.value,
 											})
 										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
 									}}
 								/>
 								<BaseItemInput
@@ -87,23 +93,27 @@ export default function CourseOrganSystemGroup() {
 											})
 										);
 									}}
-								/>
-								<MedDropDown
-									notForm
-									className="w-[240px]"
-									label="สถานะการใช้งาน"
-									option={DROPDOWN_ISACTIVE}
-									value={filter.isActive}
-									itemName="isActive"
-									getValue={(value) => {
-										dispatch(
-											setCourseOrganSystemGroupFilter({
-												...filter,
-												isActive: value,
-											})
-										);
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
 									}}
 								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setCourseOrganSystemGroupFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}

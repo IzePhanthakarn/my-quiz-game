@@ -18,6 +18,12 @@ import { modelClinicFilter } from "./redux/filter/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { GetColumns } from "./model";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import MedDivPermission from "@/components/MedDivPermission";
+import { MedKey } from "@/components/MedDivPermission/model";
+import MedButton from "@/components/MedButton";
+import { BaseButton } from "wcf-component-lib/src/components";
+import MedItemInput from "@/components/MedItemInput";
+import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 
 export default function Clinic() {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,21 +59,6 @@ export default function Clinic() {
 							<div className="flex items-center w-full h-full space-x-6">
 								<BaseItemInput
 									value={filter.clinicCodeLike}
-									notForm
-									itemName="clinicCodeLike"
-									label="รหัสคลินิก"
-									onPressEnter={() => {}}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicCodeLike: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput
-									value={filter.clinicCodeLike}
 									itemName="clinicCodeLike"
 									label="รหัสคลินิก"
 									onPressEnter={() => {}}
@@ -82,8 +73,8 @@ export default function Clinic() {
 								/>
 							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						// handleSubmitSearch={() => {}}
 					/>
 				}
 				Grid={

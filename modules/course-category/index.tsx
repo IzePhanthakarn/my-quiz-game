@@ -8,20 +8,15 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/manipulate";
 import { fetchCourseList } from "./service";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./FilterDrawer";
 import { setCourseCategoryFilter } from "./redux";
-import { modelCourseCategory } from "./redux/model";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { courseCategoryName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { setOrganSystemWpiFilter } from "../organ-system-wpi/redux";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -64,22 +59,23 @@ export default function CourseManipulate() {
 										dispatch(fetchCourseList(course));
 									}}
 								/>
-								<MedDropDown
-									notForm
-									className="w-[240px]"
-									label="สถานะการใช้งาน"
-									option={DROPDOWN_ISACTIVE}
-									value={filter.isActive}
-									itemName="isActive"
-									getValue={(value) => {
-										dispatch(
-											setCourseCategoryFilter({
-												...filter,
-												isActive: value,
-											})
-										);
-									}}
-								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setCourseCategoryFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}

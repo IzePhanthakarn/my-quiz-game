@@ -9,7 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { handleDoctorFormSubmit, initGetDoctorForm } from "../service";
 import { useParams, useRouter } from "next/navigation";
 import BaseCollapse from "wcf-component-lib/src/components/BaseCollapse";
-import { getItemsForm } from "./Detail/model";
+import { getBaseItemsForm, getExtendedItemsForm } from "./Detail/model";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
@@ -62,12 +62,18 @@ const DoctorFormTabs = () => {
 		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
 	}, []);
 
+	const BaseItemsForm = getBaseItemsForm({ form, onFinish });
+
+	if (doctorForm.doctorData.courseCategory !== "E") {
+		const ExtendedItemsForm = getExtendedItemsForm({ form, onFinish });
+		BaseItemsForm.push(...ExtendedItemsForm);
+	}
+
 	return (
 		<BaseColumn className="p-2 h-full space-y-6">
 			{doctorForm.editTimes.length > 1 && (
 				<WhiteBarLayout className="justify-end items-center">
 					<BaseSubmitButton
-						type="default"
 						className="text-base font-semibold mr-3"
 						label="ประวัติการแก้ไข"
 						onClickFunction={() => {
@@ -101,7 +107,7 @@ const DoctorFormTabs = () => {
 					}}
 				/>
 
-				{getItemsForm({ form, onFinish })?.map((item, index: number) => (
+				{BaseItemsForm?.map((item, index: number) => (
 					<BaseCollapse
 						key={item.key}
 						defaultActiveKey={index + 1}

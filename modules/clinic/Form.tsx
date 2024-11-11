@@ -19,14 +19,12 @@ import {
 	clinicNameSchema,
 } from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { clinicName } from "./interface/name";
-import { BaseForm } from "wcf-component-lib/src/components";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
