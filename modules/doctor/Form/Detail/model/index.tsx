@@ -11,13 +11,19 @@ interface Props {
 	onFinish: (values: any) => void;
 }
 
-export const getItemsForm = (props: Props) => {
+export const getBaseItemsForm = (props: Props) => {
 	const itemsTables: CollapseProps["items"] = [
 		{
 			key: "1",
 			label: "รายละเอียดแพทย์",
 			children: <DoctorDetailForm {...props} />,
 		},
+	];
+	return itemsTables;
+};
+
+export const getExtendedItemsForm = (props: Props) => {
+	const itemsTables: CollapseProps["items"] = [
 		{
 			key: "2",
 			label: "สังกัดโรงพยาบาล",

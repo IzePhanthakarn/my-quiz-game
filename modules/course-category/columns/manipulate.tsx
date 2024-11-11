@@ -9,6 +9,7 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import { courseCategoryName } from "../interfaces/name";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -28,7 +29,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"categoryDescription"}
-						label={"Description"}
+						label={courseCategoryName.categoryDescription}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -41,7 +42,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"categorySubDesc"}
-						label={"Description"}
+						label={courseCategoryName.categorySubDesc}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -54,7 +55,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"courseCategory"}
-						label={"Description"}
+						label={courseCategoryName.courseCategory}
 						sort={columns?.sortColumns}
 					/>
 				),

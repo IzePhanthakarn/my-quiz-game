@@ -53,7 +53,7 @@ export const modelOrganSystemWpi: OrganSystemWpi = {
 		descriptionLike: "",
 		checkOrganSystemNo: false,
 		checkDescription: false,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

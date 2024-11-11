@@ -30,6 +30,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 		getValue = () => {},
 		helperTextLeft,
 		helperTextRight,
+		className,
 	} = props;
 
 	const dispatch: AppDispatch = useDispatch();
@@ -49,7 +50,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 		<div className="flex flex-col">
 			<BaseDropDown
 				{...props}
-				className="w-full"
+				className={`w-full ${className}`}
 				placeholder={placeholder}
 				option={dropdown}
 				getValue={(e) => getValue(handleGetValue(type, e))}

@@ -17,7 +17,6 @@ import { setIsOpenDialog } from "@/redux/slices/dialog";
 import HeaderNavbarLayout from "wcf-component-lib/src/layout/HeaderNavbarLayout/";
 import { LayoutProvider } from "wcf-component-lib/src/provider/LayoutProvider";
 import { configPage } from "@/constants/config-page";
-import { jwtDecode, JwtPayload } from "jwt-decode";
 
 type Props = {
 	children: ReactNode;

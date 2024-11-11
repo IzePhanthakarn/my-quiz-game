@@ -19,12 +19,12 @@ import {
 	clinicNameSchema,
 } from "./field-validation/clinicForm";
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import {
 	setIsOpenBaseConfirmDialog,
 	setIsOpenDialog,
 } from "@/redux/slices/dialog";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import { clinicName } from "./interface/name";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -60,20 +60,6 @@ const Form = (params: UuidFormPageProps) => {
 
 	const onFinishFailed: FormProps<ClinicDetail>["onFinishFailed"] = (_) => {};
 
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -95,13 +81,13 @@ const Form = (params: UuidFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="ข้อมูลแพทย์"
+					textHeader="ข้อมูลคลินิก"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={clinicDetail}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(clinicDetail.isActive) === IsActive.Y}
+					pageLevel="edit"
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setClinicDetail({
@@ -116,11 +102,10 @@ const Form = (params: UuidFormPageProps) => {
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Clinic Code"
+								pageLevel="edit"
+								label={clinicName.clinicCode}
 								itemName="clinicCode"
 								rules={clinicCodeSchema}
-								value={clinicDetail.clinicCode}
 								onChangeFunction={(e) => {
 									dispatch(
 										setClinicDetail({
@@ -131,11 +116,10 @@ const Form = (params: UuidFormPageProps) => {
 								}}
 							/>
 							<BaseItemInput
-								disabled={_.isEmpty(write)}
-								label="Clinic Name"
+								pageLevel="edit"
+								label={clinicName.clinicName}
 								itemName="clinicName"
 								rules={clinicNameSchema}
-								value={clinicDetail.clinicName}
 								onChangeFunction={(e) => {
 									dispatch(
 										setClinicDetail({

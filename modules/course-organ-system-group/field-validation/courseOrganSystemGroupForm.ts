@@ -2,13 +2,17 @@ import {
 	requiredRule,
 	maxRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
+import { courseOrganSystemGroupName } from "../interfaces/name";
 
 export const courseOrganSystemGroupRules = {
 	courseCategorySchema: [
-		requiredRule("Course Category"),
-		maxRule("Course Category", 1),
+		requiredRule(courseOrganSystemGroupName.courseCategory),
+		maxRule(courseOrganSystemGroupName.courseCategory, 1),
 	],
 
-	organSystemGroupSchema: [maxRule("Organ System Group", 2)],
-	organSystemNoSchema: [maxRule("Organ System No", 2)],
+	organSystemGroupSchema: [
+		maxRule(courseOrganSystemGroupName.organSystemGroup, 2),
+	],
+
+	organSystemNoSchema: [maxRule(courseOrganSystemGroupName.organSystemNo, 2)],
 };

@@ -8,25 +8,25 @@ import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
-import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { GetColumns } from "./columns/grid";
 import { fetchCourseList } from "./service";
-import { setIsOpenDrawer } from "@/redux/slices/drawer";
-import FilterDrawer from "./FilterDrawer";
-import { modelCourseCertificate } from "./redux/model";
 import { setCourseCertificateFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import { courseCertificateName } from "./interfaces/name";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { courseCertificate, isOpen, isLoading } = useSelector(
+	const { courseCertificate, isOpen, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			courseCertificate: state.courseCertificate,
+			filter: state.courseCertificate.filter,
 		}),
 		shallowEqual
 	);
@@ -41,13 +41,84 @@ export default function CourseCertificate() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<div className="flex space-x-2">
+								<BaseItemInput
+									notForm
+									label={courseCertificateName.courseCategory}
+									itemName="courseCategoryLike"
+									value={filter.courseCategoryLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCertificateFilter({
+												...filter,
+												courseCategoryLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseCertificate));
+									}}
+								/>
+								<BaseItemInput
+									notForm
+									label={courseCertificateName.ssoCourseCode}
+									itemName="ssoCourseCodeLike"
+									value={filter.ssoCourseCodeLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCertificateFilter({
+												...filter,
+												ssoCourseCodeLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseCertificate));
+									}}
+								/>
+								<BaseItemInput
+									notForm
+									label={courseCertificateName.courseDescription}
+									itemName="courseDescriptionLike"
+									value={filter.courseDescriptionLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseCertificateFilter({
+												...filter,
+												courseDescriptionLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseCertificate));
+									}}
+								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setCourseCertificateFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
+							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							dispatch(fetchCourseList(courseCertificate));
+						}}
 					/>
 				}
-				AddLabel="เพิ่ม Course Certificate"
+				AddLabel="เพิ่มใบรับรองหลักสูตร"
 				TotalItems={courseCertificate.grid.page.totalData}
 				Grid={
 					<BaseGrid
@@ -66,22 +137,22 @@ export default function CourseCertificate() {
 						}}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isFilter
-						isOpen={isOpen}
-						content={<FilterDrawer />}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {
-							dispatch(fetchCourseList(courseCertificate));
-						}}
-						clearFilter={() => {
-							dispatch(
-								setCourseCertificateFilter(modelCourseCertificate.filter)
-							);
-						}}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isFilter
+				// 		isOpen={isOpen}
+				// 		content={<FilterDrawer />}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		confirmFuntion={() => {
+				// 			dispatch(fetchCourseList(courseCertificate));
+				// 		}}
+				// 		clearFilter={() => {
+				// 			dispatch(
+				// 				setCourseCertificateFilter(modelCourseCertificate.filter)
+				// 			);
+				// 		}}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.COURSE_CERTIFICATE.add)}
 			/>
 		</div>

@@ -18,4 +18,6 @@ export const doctorDataName = {
 	amphur: "อำเภอ",
 	province: "จังหวัด",
 	postcode: "รหัสไปรษณีย์",
+	eDiploma: "ผู้เชี่ยวชาญสาขา (E-Learning)",
+	eHospital: "ชื่อโรงพยาบาลประจำ (E-Learning)",
 };

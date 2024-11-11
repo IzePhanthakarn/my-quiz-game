@@ -58,7 +58,7 @@ export const modelCourseCategory: CourseCategory = {
 	filter: {
 		categoryDescriptionLike: "",
 		checkCategoryDescriptionLike: false,
-		isActive: undefined,
+		isActive: IsActive.Y,
 		checkIsActive: false,
 	},
 	form: {

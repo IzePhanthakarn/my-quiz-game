@@ -1,6 +1,7 @@
+import { MedKey } from "@/components/MedDivPermission/model";
 import { DataStructureURL } from "wcf-component-lib/src/provider/LayoutProvider/type";
 
-export const configPage: DataStructureURL = {
+export const configPage: DataStructureURL<MedKey> = {
 	doctor: {
 		root: {
 			url: "/doctor",
@@ -12,7 +13,7 @@ export const configPage: DataStructureURL = {
 			url: "/doctor/edit/[uuid]",
 			text: "ข้อมูลแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { form: [2], edit: [2], view: [1], delete: [2] },
+			pageLevel: { form: [2], edit: [2], add: [2], view: [1], delete: [2] },
 		},
 		formAdd: {
 			url: "/doctor/form",
@@ -69,13 +70,13 @@ export const configPage: DataStructureURL = {
 			url: "/medical-amount/edit/[uuid]",
 			text: "ข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { edit: [2] },
+			pageLevel: { edit: [2], add: [2] },
 		},
 		formAdd: {
 			url: "/medical-amount/form",
 			text: "เพิ่มข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
 			breadcrumb: ["root", "formAdd"],
-			pageLevel: { edit: [2] },
+			pageLevel: { edit: [2], add: [2] },
 		},
 	},
 	clinic: {
@@ -85,13 +86,137 @@ export const configPage: DataStructureURL = {
 			text: "คลินิก",
 			pageLevel: { form: [0] },
 		},
+		formEdit: {
+			url: "/clinic/edit/[uuid]",
+			text: "ข้อมูลคลินิก",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/clinic/form",
+			text: "เพิ่มข้อมูลคลินิก",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	organWpi: {
+		root: {
+			url: "/organ-wpi",
+			breadcrumb: ["root"],
+			text: "อวัยวะ",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/organ-wpi/edit/[uuid]",
+			text: "ข้อมูลอวัยวะ",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/organ-wpi/form",
+			text: "เพิ่มข้อมูลอวัยวะ",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
 	},
 	diploma: {
 		root: {
 			url: "/diploma",
 			breadcrumb: ["root"],
-			text: "ประกาศนียบัตร",
+			text: "วุฒิบัตร",
 			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/diploma/edit/[uuid]",
+			text: "ข้อมูลวุฒิบัตร",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/diploma/form",
+			text: "เพิ่มข้อมูลวุฒิบัตร",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	courseCategory: {
+		root: {
+			url: "/course-category",
+			breadcrumb: ["root"],
+			text: "คอร์สอบรม",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/course-category/edit/[uuid]",
+			text: "ข้อมูลคอร์สอบรม",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/course-category/form",
+			text: "เพิ่มข้อมูลคอร์สอบรม",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	courseOrganSystemGroup: {
+		root: {
+			url: "/course-organ-system-group",
+			breadcrumb: ["root"],
+			text: "หมวดหมู่อวัยวะ",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/course-organ-system-group/edit/[uuid]",
+			text: "ข้อมูลหมวดหมู่อวัยวะ",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/course-organ-system-group/form",
+			text: "เพิ่มข้อมูหมวดหมู่อวัยวะ",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	ltProperties: {
+		root: {
+			url: "/lt-properties",
+			breadcrumb: ["root"],
+			text: "Lt-Properties",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/lt-properties/edit/[uuid]",
+			text: "ข้อมูล Lt-Properties",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/lt-properties/form",
+			text: "เพิ่มข้อมูล Lt-Properties",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+	},
+	courseCertificate: {
+		root: {
+			url: "/course-certificate",
+			breadcrumb: ["root"],
+			text: "ใบรับรองหลักสูตร",
+			pageLevel: { form: [0] },
+		},
+		formEdit: {
+			url: "/course-certificate/edit/[uuid]",
+			text: "ข้อมูลใบรับรองหลักสูตร",
+			breadcrumb: ["root", "formEdit"],
+			pageLevel: { edit: [2], add: [2] },
+		},
+		formAdd: {
+			url: "/course-certificate/form",
+			text: "เพิ่มข้อมูลใบรับรองหลักสูตร",
+			breadcrumb: ["root", "formAdd"],
+			pageLevel: { edit: [2], add: [2] },
 		},
 	},
 	list: {

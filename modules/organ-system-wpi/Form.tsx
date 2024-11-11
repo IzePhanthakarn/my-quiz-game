@@ -25,6 +25,7 @@ import {
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
+import { organSystemWpiName } from "./interfaces/name";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -59,21 +60,6 @@ const Form = (params: CourseCategoryFormPageProps) => {
 	const onFinishFailed: FormProps<OrganSystemWpiForm>["onFinishFailed"] = (
 		_
 	) => {};
-
-	const scopes = [
-		"location:read",
-		"location:write",
-		"resource:read",
-		"resource:write",
-		"netdb:select",
-		"netdb:update",
-		"changs-req:read",
-		"changs-req:write",
-	];
-
-	const resourceScopes = findScope(scopes, "resource:");
-	const { write } = getScopesPermissions(resourceScopes);
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -97,7 +83,6 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				<MasterDataFormLayout
 					textHeader="อวัยวะ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					disabled={_.isEmpty(write)}
 					initialValues={form}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
@@ -113,12 +98,13 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.ORGAN_SYSTEM_WPI.link);
 					}}
+					pageLevel={params.params.uuid ? "edit" : "add"}
 					inputs={
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 								<BaseItemInput
-									disabled={_.isEmpty(write)}
-									label="Organ System No"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={organSystemWpiName.organSystemNo}
 									itemName="organSystemNo"
 									rules={organSystemWpiFormRules.organSystemNo}
 									value={form.organSystemNo}
@@ -134,8 +120,8 @@ const Form = (params: CourseCategoryFormPageProps) => {
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
 								<BaseItemTextArea
-									disabled={_.isEmpty(write)}
-									label="Description"
+									pageLevel={params.params.uuid ? "edit" : "add"}
+									label={organSystemWpiName.description}
 									itemName="description"
 									rules={organSystemWpiFormRules.description}
 									value={form.description}

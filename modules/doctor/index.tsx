@@ -136,6 +136,7 @@ export default function Doctor() {
 	// }, []);
 
 	useEffect(() => {
+		dispatch(handleSession(SESSION_NAME.TITLE));
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.DIPLOMA));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
@@ -177,7 +178,7 @@ export default function Doctor() {
 								extraForm={form}
 								onFinish={onFinish}
 							>
-								<div className="flex space-x-2">
+								<div className="grid grid-cols-4 gap-x-2">
 									<BaseItemInput
 										itemName="doctorCodeLike"
 										label="เลขทะเบียน สปส"

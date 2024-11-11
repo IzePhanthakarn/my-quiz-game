@@ -1,3 +1,5 @@
+import { IsActive } from "wcf-component-lib/src/constants/constants";
+
 export enum SESSION_NAME {
 	DEFAULT = "",
 	DIPLOMA = "diploma",
@@ -163,5 +165,20 @@ export const DROPDOWN_REPOT = [
 	{
 		label: REPORT.EXCEL,
 		value: REPORT.EXCEL,
+	},
+];
+
+export const DROPDOWN_ISACTIVE = [
+	{
+		label: "ทั้งหมด",
+		value: null,
+	},
+	{
+		label: "ใช้งาน",
+		value: IsActive.Y,
+	},
+	{
+		label: "ไม่ใช้งาน",
+		value: IsActive.N,
 	},
 ];

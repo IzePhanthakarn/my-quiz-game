@@ -1,7 +1,7 @@
 import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import { mapIdByIndex, handleEmptyStringToNull } from "@/utils";
-import { IsActive } from "wcf-component-lib/src/constants/constants";
+import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	modelPaginationOptions,
 	PaginationOptions,
@@ -23,6 +23,12 @@ import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { CourseCategory } from "@/components/MedDropDown/service/model";
+import {
+	findNameDisplay,
+	handleSession,
+} from "@/components/MedDropDown/service";
+import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
+import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -57,8 +63,10 @@ export const initGetDoctorForm =
 
 		const response = await dispatch(getDoctorForm(uuid));
 		const data = response.payload;
+		const doctorData = data.doctorData;
+
 		const result = {
-			doctorData: data.doctorData,
+			doctorData: doctorData,
 			doctorBank: mapIdByIndex(data.doctorBank),
 			doctorDetail: mapIdByIndex(data.doctorDetail),
 			doctorHospital: mapIdByIndex(data.doctorHospital),
@@ -66,7 +74,14 @@ export const initGetDoctorForm =
 			doctorPostal: mapIdByIndex(data.doctorPostal),
 			editTimes: data.editTimes,
 		};
-		dispatch(setDoctorForm(result));
+
+		const courseCategory = data.doctorData.courseCategory;
+		dispatch(
+			setDoctorForm({
+				...result,
+				doctorData: { ...doctorData, isELearning: courseCategory === "E" },
+			})
+		);
 	};
 
 // List
@@ -87,6 +102,7 @@ export const initDoctorGrid =
 			),
 		};
 		dispatch(setIsLoading(true));
+		dispatch(handleSession(SESSION_NAME.TITLE));
 		const data = await dispatch(getDoctorList(newParams));
 		dispatch(setIsLoading(false));
 		if (_.isNil(data.payload.content)) return;
@@ -96,9 +112,15 @@ export const initDoctorGrid =
 				professionalCode: data.professionalCode,
 				doctorCode: data.doctorCode,
 				uuid: data.uuid,
+				title: data.title,
+				eDiploma: data.eDiploma,
+				eHospital: data.eHospital,
+				eTitle: data.eTitle,
 				firstname: data.firstname,
 				lastname: data.lastname,
-				doctorFullName: `${data.firstname} ${data.lastname}`,
+				doctorFullName: `${findNameDisplay(SESSION_NAME.TITLE, data.title)}${
+					data.firstname
+				} ${data.lastname}`,
 				diplomaTypeList: data.diplomaTypeList,
 				provinceCodeList: data.provinceCodeList,
 				hospitalNameList: data.hospitalNameList,
@@ -169,3 +191,16 @@ export const handleDoctorFormSubmit =
 			});
 		}
 	};
+
+export const findE_HospitalProvince = (eHospital: string) => {
+	const hospital = JSON.parse(
+		sessionStorage.getItem(SESSION_NAME.HOSPITAL) ?? "[]"
+	);
+	const provinceCode = hospital.find(
+		(e: DoctorHospital) => e.hospitalName === eHospital
+	)?.provinceCode;
+	if (!_.isEmpty(provinceCode)) {
+		return findLabelAddress(provinceCode, ADDRESS.PROVINCE);
+	}
+	return "อื่นๆ";
+};

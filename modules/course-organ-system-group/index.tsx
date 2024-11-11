@@ -18,15 +18,19 @@ import { setCourseOrganSystemGroupFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import MedDropDown from "@/components/MedDropDown";
+import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { courseOrganSystemGroupName } from "./interfaces/name";
 
 export default function CourseOrganSystemGroup() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { courseOrganSystemGroup, isOpen, isLoading } = useSelector(
+	const { courseOrganSystemGroup, isOpen, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			courseOrganSystemGroup: state.courseOrganSystemGroup,
+			filter: state.courseOrganSystemGroup.filter,
 		}),
 		shallowEqual
 	);
@@ -41,13 +45,84 @@ export default function CourseOrganSystemGroup() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<div className="flex space-x-2">
+								<BaseItemInput
+									notForm
+									label={courseOrganSystemGroupName.courseCategory}
+									itemName="courseCategoryLike"
+									value={filter.courseCategoryLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseOrganSystemGroupFilter({
+												...filter,
+												courseCategoryLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
+									}}
+								/>
+								<BaseItemInput
+									notForm
+									label={courseOrganSystemGroupName.organSystemGroup}
+									itemName="organSystemGroupLike"
+									value={filter.organSystemGroupLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseOrganSystemGroupFilter({
+												...filter,
+												organSystemGroupLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
+									}}
+								/>
+								<BaseItemInput
+									notForm
+									label={courseOrganSystemGroupName.organSystemNo}
+									itemName="organSystemNoLike"
+									value={filter.organSystemNoLike}
+									onChangeFunction={(e) => {
+										dispatch(
+											setCourseOrganSystemGroupFilter({
+												...filter,
+												organSystemNoLike: e.target.value,
+											})
+										);
+									}}
+									onPressEnter={() => {
+										dispatch(fetchCourseList(courseOrganSystemGroup));
+									}}
+								/>
+								<div className="w-[240px]">
+									<MedDropDown
+										notForm
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName="isActive"
+										getValue={(value) => {
+											dispatch(
+												setCourseOrganSystemGroupFilter({
+													...filter,
+													isActive: value,
+												})
+											);
+										}}
+									/>
+								</div>
+							</div>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							dispatch(fetchCourseList(courseOrganSystemGroup));
+						}}
 					/>
 				}
-				AddLabel="เพิ่ม Course organ system group"
+				AddLabel="เพิ่มหมวดหมู่อวัยวะ"
 				TotalItems={courseOrganSystemGroup.grid.page.totalData}
 				Grid={
 					<BaseGrid

@@ -11,6 +11,9 @@ import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import React from "react";
+import { findNameDisplay } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { findE_HospitalProvince } from "./service";
 
 interface Props {
 	mounted: string;
@@ -52,63 +55,92 @@ export const GetColumns = (prop: Props) => {
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey="firstname"
+						headerKey="doctorFullName"
 						label="ชื่อ-นามสกุล"
 						sort={columns?.sortColumns}
 					/>
 				),
-				dataIndex: "firstname",
-				key: "firstname",
+				dataIndex: "doctorFullName",
+				key: "doctorFullName",
 				sorter: true,
-				render: (_, { firstname, lastname }) => `${firstname} ${lastname}`,
+				render: (_, { doctorFullName, eTitle, firstname, lastname }) => {
+					if (eTitle) {
+						return (
+							<p>
+								{eTitle}
+								{firstname} {lastname}
+							</p>
+						);
+					}
+					return <p>{doctorFullName}</p>;
+				},
 			},
 			{
 				title: "วุฒิเฉพาะทาง",
 				dataIndex: "diplomaTypeList",
 				key: "diplomaTypeList",
-				render: (_, { diplomaTypeList }) => (
-					<>
-						{diplomaTypeList.map((item: string, index: number) => (
-							<p key={index}>{item ? `- ${item}` : null}</p>
-						))}
-					</>
-				),
+				render: (_, { diplomaTypeList, eDiploma }) => {
+					if (eDiploma) {
+						return <p>- {eDiploma}</p>;
+					} else {
+						return (
+							<>
+								{diplomaTypeList.map((item: string, index: number) => (
+									<p key={index}>{item ? `- ${item}` : null}</p>
+								))}
+							</>
+						);
+					}
+				},
 			},
 			{
 				title: "ชื่อโรงพยาบาล",
 				dataIndex: "hospitalNameList",
 				key: "hospitalNameList",
 				width: 400,
-				render: (_, { hospitalNameList }) => (
-					<>
-						{hospitalNameList
-							? hospitalNameList.map((item: string, index: number) => (
-									<p key={index}>{item ? `- ${item}` : null}</p>
-							  ))
-							: null}
-					</>
-				),
+				render: (_, { hospitalNameList, eHospital }) => {
+					if (eHospital) {
+						return <p>- {eHospital}</p>;
+					} else {
+						return (
+							<>
+								{hospitalNameList
+									? hospitalNameList.map((item: string, index: number) => (
+											<p key={index}>{item ? `- ${item}` : null}</p>
+									  ))
+									: null}
+							</>
+						);
+					}
+				},
 			},
 			{
 				title: "จังหวัด",
 				dataIndex: "provinceCodeList",
 				key: "provinceCodeList",
 				width: 200,
-				render: (_, { provinceCodeList }) => (
-					<>
-						{provinceCodeList
-							? provinceCodeList.map((item: string, index: number) => (
-									<p key={index}>
-										{item
-											? `- ${
-													findLabelAddress(item, ADDRESS.PROVINCE) ?? "อื่นๆ"
-											  }`
-											: null}
-									</p>
-							  ))
-							: null}
-					</>
-				),
+				render: (_, { provinceCodeList, eHospital }) => {
+					if (eHospital) {
+						return <p>- {findE_HospitalProvince(eHospital)}</p>;
+					} else {
+						return (
+							<>
+								{provinceCodeList
+									? provinceCodeList.map((item: string, index: number) => (
+											<p key={index}>
+												{item
+													? `- ${
+															findLabelAddress(item, ADDRESS.PROVINCE) ??
+															"อื่นๆ"
+													  }`
+													: null}
+											</p>
+									  ))
+									: null}
+							</>
+						);
+					}
+				},
 			},
 			{
 				title: "คำสั่ง",

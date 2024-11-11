@@ -61,10 +61,6 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
 
-	const onFinishFailed: FormProps<MedicalAmountForm>["onFinishFailed"] = (
-		_
-	) => {};
-
 	return (
 		<>
 			<BaseConfirmDialog
@@ -100,7 +96,6 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 						...form,
 					}}
 					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
@@ -128,7 +123,7 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 									pageLevel="edit"
 									label={medicalAmountName.endEffectiveDate}
 									itemName="endEffectiveDate"
-									rules={medicalAmountRules.endEffectiveDateSchema}
+									// rules={medicalAmountRules.endEffectiveDateSchema}
 									itemForm={extraForm}
 								/>
 							</div>
