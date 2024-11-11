@@ -10,9 +10,12 @@ export interface DoctorList {
 	doctorCode: string;
 	uuid: string;
 	id: string;
+	title: string;
 	firstname: string;
 	lastname: string;
 	isActive: string;
+	eDiploma: string;
+	eHospital: string;
 	diplomaTypeList: string[];
 	provinceCodeList: string[];
 	hospitalNameList: string[];

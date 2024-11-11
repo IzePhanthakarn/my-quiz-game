@@ -136,6 +136,7 @@ export default function Doctor() {
 	// }, []);
 
 	useEffect(() => {
+		dispatch(handleSession(SESSION_NAME.TITLE));
 		dispatch(handleSession(SESSION_NAME.ADDRESS));
 		dispatch(handleSession(SESSION_NAME.DIPLOMA));
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));

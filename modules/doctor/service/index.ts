@@ -23,6 +23,10 @@ import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { CourseCategory } from "@/components/MedDropDown/service/model";
+import {
+	findNameDisplay,
+	handleSession,
+} from "@/components/MedDropDown/service";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -87,6 +91,7 @@ export const initDoctorGrid =
 			),
 		};
 		dispatch(setIsLoading(true));
+		dispatch(handleSession(SESSION_NAME.TITLE));
 		const data = await dispatch(getDoctorList(newParams));
 		dispatch(setIsLoading(false));
 		if (_.isNil(data.payload.content)) return;
@@ -96,9 +101,14 @@ export const initDoctorGrid =
 				professionalCode: data.professionalCode,
 				doctorCode: data.doctorCode,
 				uuid: data.uuid,
+				title: data.title,
+				eDiploma: data.eDiploma,
+				eHospital: data.eHospital,
 				firstname: data.firstname,
 				lastname: data.lastname,
-				doctorFullName: `${data.firstname} ${data.lastname}`,
+				doctorFullName: `${findNameDisplay(SESSION_NAME.TITLE, data.title)}${
+					data.firstname
+				} ${data.lastname}`,
 				diplomaTypeList: data.diplomaTypeList,
 				provinceCodeList: data.provinceCodeList,
 				hospitalNameList: data.hospitalNameList,

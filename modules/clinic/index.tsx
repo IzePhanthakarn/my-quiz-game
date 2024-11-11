@@ -57,61 +57,6 @@ export default function Clinic() {
 					<FilterLayout
 						FilterForm={
 							<div className="flex items-center w-full h-full space-x-6">
-								<MedDivPermission pageLevel="clinic">
-									<p>ทดสอบ</p>
-								</MedDivPermission>
-								<DivPermission pageLevel="clinic">
-									<p>ทดสอบ2</p>
-								</DivPermission>
-								<MedButton pageLevel="clinic" label="ทดสอบ" />
-								<BaseButton<MedKey> pageLevel="clinic" label="ทดสอบ2" />
-								<MedItemInput
-									pageLevel="clinic"
-									value={filter.clinicCodeLike}
-									notForm
-									itemName="clinicCodeLike"
-									label="ทดสอบ"
-									onPressEnter={() => {}}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicCodeLike: e.target.value,
-											})
-										);
-									}}
-								/>
-								<BaseItemInput<MedKey>
-									pageLevel="clinic"
-									value={filter.clinicCodeLike}
-									notForm
-									itemName="clinicCodeLike"
-									label="ทดสอบ2"
-									onPressEnter={() => {}}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicCodeLike: e.target.value,
-											})
-										);
-									}}
-								/>
-								{/* <BaseItemInput
-									value={filter.clinicCodeLike}
-									notForm
-									itemName="clinicCodeLike"
-									label="รหัสคลินิก"
-									onPressEnter={() => {}}
-									onChangeFunction={(e) => {
-										dispatch(
-											setClinicFilter({
-												...filter,
-												clinicCodeLike: e.target.value,
-											})
-										);
-									}}
-								/>
 								<BaseItemInput
 									value={filter.clinicCodeLike}
 									itemName="clinicCodeLike"
@@ -125,7 +70,7 @@ export default function Clinic() {
 											})
 										);
 									}}
-								/> */}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}

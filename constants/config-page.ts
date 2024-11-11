@@ -84,7 +84,7 @@ export const configPage: DataStructureURL<MedKey> = {
 			url: "/clinic",
 			breadcrumb: ["root"],
 			text: "คลินิก",
-			pageLevel: { form: [0], clinic: [2] },
+			pageLevel: { form: [0] },
 		},
 		formEdit: {
 			url: "/clinic/edit/[uuid]",
