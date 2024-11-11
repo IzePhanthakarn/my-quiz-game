@@ -59,6 +59,8 @@ export const rules = {
 	sp19EndDateSchema: [],
 	levelChangeDateSchema: [],
 	addressSchema: [maxRule(names.address, 300)],
+	withholdingDateFromSchema: [],
+	withholdingDateToSchema: [],
 	amphurCodeSchema: [
 		requiredRule(names.amphurCode),
 		maxRule(names.amphurCode, 4),

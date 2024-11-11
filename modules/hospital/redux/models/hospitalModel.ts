@@ -228,6 +228,8 @@ export interface BaseHospitalForm {
 	longitude: string;
 	isParticipateSso: string;
 	checkIsParticipateSso: boolean;
+	withholdingDateFrom: null | string | undefined;
+	withholdingDateTo: null | string | undefined;
 }
 
 export interface HospitalForm
@@ -474,5 +476,7 @@ export const modelHospital: Hospital = {
 		ssoProject: null,
 		isParticipateSso: "N",
 		checkIsParticipateSso: false,
+		withholdingDateFrom: undefined,
+		withholdingDateTo: undefined,
 	},
 };
