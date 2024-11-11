@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import dynamic from "next/dynamic";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
