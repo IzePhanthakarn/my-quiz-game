@@ -178,7 +178,7 @@ export default function Doctor() {
 								extraForm={form}
 								onFinish={onFinish}
 							>
-								<div className="flex space-x-2">
+								<div className="grid grid-cols-4 gap-x-2">
 									<BaseItemInput
 										itemName="doctorCodeLike"
 										label="เลขทะเบียน สปส"

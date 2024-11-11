@@ -42,24 +42,13 @@ export default function DoctorDetailForm(props: Props) {
 		shallowEqual
 	);
 	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
-	const [isE, setIsE] = useState(false);
 
 	useEffect(() => {
 		if (_.isEmpty(tmpDoctorData) && uuid) {
 			setTmpDoctorData(doctorData.doctorCode);
 		}
 	}, [doctorData.doctorCode]);
-
-	useEffect(() => {
-		if (doctorData.courseCategory === "E") {
-			setIsE(true);
-		}
-	}, [doctorData.courseCategory]);
-
-	// const onFinish: FormProps<DoctorData>["onFinish"] = () => {
-	// 	dispatch(setIsOpenBaseConfirmDialog(true));
-	// };
-
+	const isE = doctorData.isELearning;
 	return (
 		<BaseForm
 			initialValues={doctorData}
@@ -144,17 +133,27 @@ export default function DoctorDetailForm(props: Props) {
 					disabled={isE}
 					rules={rules.revenueNoSchema}
 				/>
-				<MedDropDown
-					type={SESSION_NAME.TITLE}
-					label={doctorDataName.title}
-					itemName="title"
-					className="h-full w-full"
-					disabled={isE}
-					rules={rules.titleSchema}
-					labelRender={() => (
-						<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
-					)}
-				/>
+				{isE ? (
+					<BaseItemInput
+						label={doctorDataName.title}
+						itemName="eTitle"
+						disabled={isE}
+						rules={rules.titleSchema}
+					/>
+				) : (
+					<MedDropDown
+						type={SESSION_NAME.TITLE}
+						label={doctorDataName.title}
+						itemName="title"
+						className="h-full w-full"
+						disabled={isE}
+						rules={rules.titleSchema}
+						labelRender={() => (
+							<p>{findNameDisplay(SESSION_NAME.TITLE, doctorData.title)}</p>
+						)}
+					/>
+				)}
+
 				<BaseItemInput
 					label={doctorDataName.firstname}
 					itemName="firstname"
@@ -173,17 +172,17 @@ export default function DoctorDetailForm(props: Props) {
 					disabled={isE}
 					rules={rules.phoneNumberSchema}
 				/>
-				{isE && (
+				{doctorData.courseCategory === "E" && (
 					<>
 						<BaseItemInput
 							label={doctorDataName.eDiploma}
 							itemName="eDiploma"
-							disabled={true}
+							disabled={isE}
 						/>
 						<BaseItemInput
 							label={doctorDataName.eHospital}
 							itemName="eHospital"
-							disabled={true}
+							disabled={isE}
 						/>
 					</>
 				)}

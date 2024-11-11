@@ -16,6 +16,7 @@ export interface DoctorList {
 	isActive: string;
 	eDiploma: string;
 	eHospital: string;
+	eTitle: string;
 	diplomaTypeList: string[];
 	provinceCodeList: string[];
 	hospitalNameList: string[];
