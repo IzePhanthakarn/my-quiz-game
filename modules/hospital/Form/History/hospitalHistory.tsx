@@ -7,7 +7,10 @@ import { AppDispatch } from "@/redux/config/configStore";
 import _ from "lodash";
 
 import { columns, columnsFiles, getItems } from "./model";
-import { BaseCollapse } from "wcf-component-lib/src/components";
+import {
+	BaseCollapse,
+	BaseSubmitButton,
+} from "wcf-component-lib/src/components";
 import {
 	fetchHistoryHospital,
 	getEditTimesListOption,
@@ -19,6 +22,8 @@ import MedDropDown from "@/components/MedDropDown";
 import { setHospitalHistory } from "../../redux";
 import { modelHospitalHistory } from "../../redux/models/historyModel";
 import BaseUniqueContentModalHeaderWithIcon from "wcf-component-lib/src/components/BaseUniqueContentModalHeaderWithIcon";
+import { setDialog } from "../../../../redux/slices/dialog";
+import { modelDialog } from "../../../../redux/slices/dialog/model";
 
 export default function HospitalHistory() {
 	const dispatch: AppDispatch = useDispatch();
@@ -137,6 +142,24 @@ export default function HospitalHistory() {
 							items={[item]}
 						/>
 					))}
+				</div>
+				<div className="text-center">
+					<BaseSubmitButton
+						type="cancel"
+						className="w-[220px] h-[65px] rounded-[99px] text-base font-semibold mr-3"
+						label="ปิด"
+						onClickFunction={() => {
+							dispatch(
+								setDialog({
+									...modelDialog,
+									isOverFlow: true,
+									isOpenBaseConfirmDialog: false,
+									isOpen: false,
+									uniqueContent: <HospitalHistory />,
+								})
+							);
+						}}
+					/>
 				</div>
 			</div>
 		</>
