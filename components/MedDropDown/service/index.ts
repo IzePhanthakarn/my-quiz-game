@@ -78,6 +78,12 @@ export const findNameDisplay = (type: SESSION_NAME, value: any) => {
 			);
 			nameDisplay = sessionResult?.branchName ?? null;
 			break;
+		case SESSION_NAME.COURSE_CATEGORY:
+			sessionResult = session.find(
+				(e: CourseCategory) => e.courseCategory === value
+			);
+			nameDisplay = sessionResult?.categoryDescription ?? null;
+			break;
 		default:
 			return value;
 	}

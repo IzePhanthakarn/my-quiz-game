@@ -82,6 +82,10 @@ export default function DoctorDetailForm(props: Props) {
 									setDoctorData({
 										...doctorData,
 										courseCategory: e,
+										categoryDescription: findNameDisplay(
+											SESSION_NAME.COURSE_CATEGORY,
+											e
+										),
 										doctorCode: tmpDoctorData,
 									})
 								);
@@ -90,6 +94,10 @@ export default function DoctorDetailForm(props: Props) {
 									setDoctorData({
 										...doctorData,
 										courseCategory: e,
+										categoryDescription: findNameDisplay(
+											SESSION_NAME.COURSE_CATEGORY,
+											e
+										),
 										doctorCode: `${e}${tmpDoctorData}`,
 									})
 								);

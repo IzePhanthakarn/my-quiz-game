@@ -23,6 +23,7 @@ export interface DoctorData {
 	// isActive: string;
 	// uuid: string;
 	courseCategory: string | null;
+	categoryDescription: string | null;
 	courseCategoryId: number | null;
 	eDiploma: string;
 	eHospital: string;
@@ -113,6 +114,7 @@ const modelDoctorData: DoctorData = {
 	// isActive: "",
 	// uuid: "",
 	courseCategory: null,
+	categoryDescription: null,
 	courseCategoryId: null,
 	eDiploma: "",
 	eHospital: "",

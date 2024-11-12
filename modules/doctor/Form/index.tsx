@@ -123,6 +123,8 @@ const DoctorFormTabs = () => {
 						onClick={() => form.submit()}
 					/>
 					<BaseButton
+						pageLevel="edit"
+						disabled={doctorForm.doctorData.isELearning}
 						size="small"
 						htmlType="submit"
 						label="บันทึก"
