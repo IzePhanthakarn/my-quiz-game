@@ -92,6 +92,8 @@ import HospitalHistory from "./Form/History/hospitalHistory";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -473,32 +475,36 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								className="mb-7"
 							/>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
-								<BaseDatePicker
+								<BaseItemDatePicker
+									itemForm={form}
 									pageLevel="edit"
 									label={names.sp7StartDated}
 									itemName="sp7StartDated"
 									rules={rules.sp7StartDatedSchema}
 									value={hospitalForm.sp7StartDated}
-									onChangeDateFunction={(e) => {
+									onChangeDateFunction={(date, _) => {
 										dispatch(
 											setHospitalForm({
 												...hospitalForm,
-												sp7StartDated: e,
+												sp7StartDated: date
+													.format(DateFormat.YYYYMMDD)
+													.toString(),
 											})
 										);
 									}}
 								/>
-								<BaseDatePicker
+								<BaseItemDatePicker
+									itemForm={form}
 									pageLevel="edit"
 									label={names.sp7EndDate}
 									itemName="sp7EndDate"
 									rules={rules.sp7EndDateSchema}
 									value={hospitalForm.sp7EndDate}
-									onChangeDateFunction={(e) => {
+									onChangeDateFunction={(date, _) => {
 										dispatch(
 											setHospitalForm({
 												...hospitalForm,
-												sp7EndDate: e,
+												sp7EndDate: date.format(DateFormat.YYYYMMDD).toString(),
 											})
 										);
 									}}
@@ -560,32 +566,38 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								className="mb-7"
 							/>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-2 mb-6 px-6">
-								<BaseDatePicker
+								<BaseItemDatePicker
+									itemForm={form}
 									pageLevel="edit"
 									label={names.sp19StartDate}
 									itemName="sp19StartDate"
 									rules={rules.sp19StartDateSchema}
 									value={hospitalForm.sp19StartDate}
-									onChangeDateFunction={(e) => {
+									onChangeDateFunction={(date, _) => {
 										dispatch(
 											setHospitalForm({
 												...hospitalForm,
-												sp19StartDate: e,
+												sp19StartDate: date
+													.format(DateFormat.YYYYMMDD)
+													.toString(),
 											})
 										);
 									}}
 								/>
-								<BaseDatePicker
+								<BaseItemDatePicker
+									itemForm={form}
 									label={names.sp19EndDate}
 									pageLevel="edit"
 									itemName="sp19EndDate"
 									rules={rules.sp19EndDateSchema}
 									value={hospitalForm.sp19EndDate}
-									onChangeDateFunction={(e) => {
+									onChangeDateFunction={(date, _) => {
 										dispatch(
 											setHospitalForm({
 												...hospitalForm,
-												sp19EndDate: e,
+												sp19EndDate: date
+													.format(DateFormat.YYYYMMDD)
+													.toString(),
 											})
 										);
 									}}
@@ -862,32 +874,38 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseDatePicker
+						<BaseItemDatePicker
 							label={names.withholdingDateFrom}
 							pageLevel="edit"
 							itemName="withholdingDateFrom"
 							rules={rules.withholdingDateFromSchema}
 							value={hospitalForm.withholdingDateFrom}
-							onChangeDateFunction={(e) => {
+							itemForm={form}
+							onChangeDateFunction={(date, _) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										withholdingDateFrom: e,
+										withholdingDateFrom: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
 									})
 								);
 							}}
 						/>
-						<BaseDatePicker
+						<BaseItemDatePicker
 							label={names.withholdingDateTo}
 							pageLevel="edit"
 							itemName="withholdingDateTo"
 							rules={rules.withholdingDateToSchema}
 							value={hospitalForm.withholdingDateTo}
-							onChangeDateFunction={(e) => {
+							itemForm={form}
+							onChangeDateFunction={(date, _) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										withholdingDateTo: e,
+										withholdingDateTo: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
 									})
 								);
 							}}
@@ -1131,17 +1149,20 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			children: (
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseDatePicker
+						<BaseItemDatePicker
+							itemForm={form}
 							label={names.contractStartDate}
 							pageLevel="edit"
 							itemName="contractStartDate"
 							rules={rules.contractStartDateSchema}
 							value={hospitalForm.contractStartDate}
-							onChangeDateFunction={(e) => {
+							onChangeDateFunction={(date, _) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										contractStartDate: e,
+										contractStartDate: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
 									})
 								);
 							}}
@@ -1447,17 +1468,20 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 					</div>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseDatePicker
+						<BaseItemDatePicker
+							itemForm={form}
 							pageLevel="edit"
 							label={names.hospitalChangeNameDate}
 							itemName="hospitalChangeNameDate"
 							rules={rules.hospitalChangeNameDateSchema}
 							value={hospitalForm.hospitalChangeNameDate}
-							onChangeDateFunction={(e) => {
+							onChangeDateFunction={(date, _) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										hospitalChangeNameDate: e,
+										hospitalChangeNameDate: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
 									})
 								);
 							}}
@@ -1480,7 +1504,8 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 			children: (
 				<>
 					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseDatePicker
+						<BaseItemDatePicker
+							itemForm={form}
 							pageLevel="edit"
 							label={names.contractEndDate}
 							itemName="contractEndDate"
@@ -1492,11 +1517,13 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									? true
 									: false
 							}
-							onChangeDateFunction={(e) => {
+							onChangeDateFunction={(date, _) => {
 								dispatch(
 									setHospitalForm({
 										...hospitalForm,
-										contractEndDate: e,
+										contractEndDate: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
 									})
 								);
 							}}
