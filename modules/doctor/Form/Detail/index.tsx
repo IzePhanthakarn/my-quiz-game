@@ -41,13 +41,37 @@ export default function DoctorDetailForm(props: Props) {
 		}),
 		shallowEqual
 	);
-	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
+
+	const handleDoctorCode = (
+		doctorCode: string,
+		courseCategory: string | null
+	) => {
+		let tmpDoctorCode = doctorCode;
+		console.log("tmpDoctorCode", tmpDoctorCode);
+		console.log("startWith", tmpDoctorCode.startsWith("R"));
+		if (
+			tmpDoctorCode.startsWith("E") ||
+			tmpDoctorCode.startsWith("R") ||
+			tmpDoctorCode.startsWith("S")
+		) {
+			tmpDoctorCode = tmpDoctorCode.slice(1);
+		}
+
+		if (courseCategory === "F") {
+			return tmpDoctorCode;
+		} else {
+			return `${courseCategory}${tmpDoctorCode}`;
+		}
+	};
 
 	useEffect(() => {
-		if (_.isEmpty(tmpDoctorData) && uuid) {
-			setTmpDoctorData(doctorData.doctorCode);
-		}
-	}, [doctorData.doctorCode]);
+		const tmp = handleDoctorCode(
+			doctorData.doctorCode,
+			doctorData.courseCategory
+		);
+		dispatch(setDoctorData({ ...doctorData, doctorCode: tmp }));
+	}, [doctorData.courseCategory]);
+
 	const isE = doctorData.isELearning;
 	return (
 		<BaseForm
@@ -77,23 +101,16 @@ export default function DoctorDetailForm(props: Props) {
 						disabled={isE}
 						rules={rules.courseCategorySchema}
 						getValue={(e) => {
-							if (e === "F") {
-								dispatch(
-									setDoctorData({
-										...doctorData,
-										courseCategory: e,
-										doctorCode: tmpDoctorData,
-									})
-								);
-							} else {
-								dispatch(
-									setDoctorData({
-										...doctorData,
-										courseCategory: e,
-										doctorCode: `${e}${tmpDoctorData}`,
-									})
-								);
-							}
+							dispatch(
+								setDoctorData({
+									...doctorData,
+									courseCategory: e,
+									categoryDescription: findNameDisplay(
+										SESSION_NAME.COURSE_CATEGORY,
+										e
+									),
+								})
+							);
 						}}
 					/>
 				</div>
