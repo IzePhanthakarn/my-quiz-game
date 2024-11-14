@@ -18,12 +18,9 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import { handleOpenHistoryAll } from "./service";
-import { BaseSubmitButton } from "wcf-component-lib/src/components";
-import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
+import { handleWhiteBarLayout } from "./service";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
-import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 const DoctorFormTabs = () => {
@@ -70,26 +67,8 @@ const DoctorFormTabs = () => {
 	}
 
 	return (
-		<BaseColumn className="p-2 h-full space-y-6">
-			{doctorForm.editTimes.length > 1 && (
-				<WhiteBarLayout className="justify-end items-center">
-					<BaseSubmitButton
-						className="text-base font-semibold mr-3"
-						label="ประวัติการแก้ไข"
-						onClickFunction={() => {
-							// dispatch(handleOpenHistory(doctorForm));
-							dispatch(handleOpenHistoryAll());
-						}}
-						icon={<ClockCircleOutlined />}
-						customStyle={{
-							width: "175px",
-							height: "48px",
-							borderRadius: "99px",
-						}}
-					/>
-				</WhiteBarLayout>
-			)}
-
+		<BaseColumn className="p-2 w-full h-full space-y-6">
+			{handleWhiteBarLayout(doctorForm, dispatch)}
 			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}
@@ -106,7 +85,6 @@ const DoctorFormTabs = () => {
 						dispatch(setIsOpenBaseConfirmDialog(false));
 					}}
 				/>
-
 				{BaseItemsForm?.map((item, index: number) => (
 					<BaseCollapse
 						key={item.key}

@@ -25,6 +25,7 @@ import {
 	FormInstance,
 } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useParams } from "next/navigation";
+import { handleDoctorCode } from "./service";
 
 interface Props {
 	form: FormInstance<any>;
@@ -41,28 +42,6 @@ export default function DoctorDetailForm(props: Props) {
 		}),
 		shallowEqual
 	);
-
-	const handleDoctorCode = (
-		doctorCode: string,
-		courseCategory: string | null
-	) => {
-		let tmpDoctorCode = doctorCode;
-		console.log("tmpDoctorCode", tmpDoctorCode);
-		console.log("startWith", tmpDoctorCode.startsWith("R"));
-		if (
-			tmpDoctorCode.startsWith("E") ||
-			tmpDoctorCode.startsWith("R") ||
-			tmpDoctorCode.startsWith("S")
-		) {
-			tmpDoctorCode = tmpDoctorCode.slice(1);
-		}
-
-		if (courseCategory === "F") {
-			return tmpDoctorCode;
-		} else {
-			return `${courseCategory}${tmpDoctorCode}`;
-		}
-	};
 
 	useEffect(() => {
 		const tmp = handleDoctorCode(

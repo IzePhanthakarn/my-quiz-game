@@ -30,6 +30,7 @@ export interface DoctorData {
 	eTitle: string;
 	certificateId: string;
 	isELearning: boolean;
+	organSystemCourseWithWpi: { description: string; organSystemNo: string }[];
 }
 
 export interface TrainingList extends Training {
@@ -121,6 +122,7 @@ const modelDoctorData: DoctorData = {
 	eTitle: "",
 	certificateId: "",
 	isELearning: false,
+	organSystemCourseWithWpi: [],
 };
 
 export const modelDoctorForm: DoctorForm = {

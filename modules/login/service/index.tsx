@@ -60,6 +60,6 @@ export const getPageAccess =
 		if (!_.isEmpty(result.payload)) {
 			const pageAccess = JSON.stringify(await result.payload);
 			localStorage.setItem("page_access", pageAccess);
-			window.location.href = "/med/clinic";
+			window.location.href = "/med/todo-list";
 		}
 	};
