@@ -12,6 +12,7 @@ import { handleOnExportExcelCMP } from "@/utils/report/common";
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
+import { reportRules } from "./field-validation/form";
 
 interface Props {
 	med5001: Med5001Form;
@@ -38,6 +39,7 @@ export default function DownloadContent(props: Props) {
 						label="รหัสหน่วยงาน"
 						itemName="ssoCode"
 						value={med5001.ssoCode}
+						rules={reportRules.ssoCodeSchema}
 						getValue={(value: string) => {
 							dispatch(
 								setMed5001Form({
@@ -52,6 +54,7 @@ export default function DownloadContent(props: Props) {
 				    <BaseItemDateRangePicker
 						itemName="payDate"
 						label="วันที่จ่ายเงิน"
+						rules={reportRules.payDateSchema}
 						onChangeRangePicker={(dates: any) => {
 							if (dates == null) {
 								return;
