@@ -805,7 +805,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						<BaseItemCheckbox
 							pageLevel="edit"
 							itemName="checkIsParticipateSso"
-							label="เข้าร่วมโครงการประกันสังคม"
+							label={names.isParticipateSso}
 							checked={hospitalForm.checkIsParticipateSso}
 							labelPosition={BaseFormItemPosition.LEFT}
 							onClickFunction={() => {
