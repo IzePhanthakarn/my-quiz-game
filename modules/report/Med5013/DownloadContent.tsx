@@ -12,6 +12,7 @@ import { handleOnExportExcel } from "@/utils/report/common";
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
+import { reportRules } from "./field-validation/form";
 
 interface Props {
 	med5013: Med5013Form;
@@ -32,35 +33,10 @@ export default function DownloadContent(props: Props) {
 	return (
 		<BaseForm initialValues={med5013} extraForm={form} onFinish={onFinish}>
 			<div><div className="grid grid-cols-4 gap-x-6 gap-y-5">
-					{/* <BaseDatePicker
-						notForm={true}
-						label="ช่วงวันที่"
-						value={med5013.fromDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5013Form({
-									...med5013,
-									fromDate: date,
-								})
-							);
-						}}
-					/>
-					<BaseDatePicker
-						notForm={true}
-						label="ถึงวันที่"
-						value={med5013.toDate}
-						onChangeDateFunction={(date) => {
-							dispatch(
-								setMed5013Form({
-									...med5013,
-									toDate: date,
-								})
-							);
-						}}
-					/>					  */}
 					<BaseItemDateRangePicker
 						itemName="payDate"
 						label="ช่วงวันที่"
+						rules={reportRules.payDateSchema}
 						onChangeRangePicker={(dates: any) => {
 							if (dates == null) {
 								return;

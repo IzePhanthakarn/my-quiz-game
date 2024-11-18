@@ -12,6 +12,7 @@ import { handleOnExportExcelCMP } from "@/utils/report/common";
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
+import { reportRules } from "./field-validation/form";
 
 interface Props {
 	med5002: Med5002Form;
@@ -36,6 +37,7 @@ export default function DownloadContent(props: Props) {
 						type={SESSION_NAME.SSO_BRANCH_PROVINCE_CODENAME}
 						label="รหัสหน่วยงาน"
 						itemName="ssoCode"
+						rules={reportRules.ssoCodeSchema}
 						value={med5002.ssoCode}
 						getValue={(value: string) => {
 							dispatch(
