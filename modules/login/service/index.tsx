@@ -50,7 +50,7 @@ export const getAccessToken =
 			setCookie("accessToken", await result.payload.access_token);
 			await dispatch(getPageAccess(params.username));
 		}
-		window.location.href = "/med/clinic";
+		window.location.href = "/med/todo-list";
 	};
 
 export const getPageAccess =
@@ -60,6 +60,6 @@ export const getPageAccess =
 		if (!_.isEmpty(result.payload)) {
 			const pageAccess = JSON.stringify(await result.payload);
 			localStorage.setItem("page_access", pageAccess);
-			window.location.href = "/med/clinic";
+			window.location.href = "/med/todo-list";
 		}
 	};

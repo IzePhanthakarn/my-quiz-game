@@ -7,7 +7,6 @@ import { ToDoProps } from "wcf-component-lib/src/components/BaseToDoCard";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Count, handleClick, initHospitalTodoList } from "./service";
-import MedStatus from "@/components/MedStatus";
 import { SliceModel } from "@/redux/slices/model";
 import { useRouter } from "next/navigation";
 import { setHospitalFilter } from "../hospital/redux";
