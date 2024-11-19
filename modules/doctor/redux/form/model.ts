@@ -79,7 +79,7 @@ interface DoctorHospital extends BaseEntity {
 	jobType: string;
 	clinicCode: string | null;
 	position: string | null;
-	hospitalWcfName: string | null;
+	HospitalName: string | null;
 }
 
 export interface DoctorForm {

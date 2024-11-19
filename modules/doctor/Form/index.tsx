@@ -18,7 +18,7 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import { handleWhiteBarLayout } from "./service";
+import { HandleWhiteBarLayout } from "./service";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
@@ -27,6 +27,7 @@ const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
+	const [test, setTest] = useState(false);
 	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorForm: state.doctor.doctorForm,
@@ -68,7 +69,7 @@ const DoctorFormTabs = () => {
 
 	return (
 		<BaseColumn className="p-2 w-full h-full space-y-6">
-			{handleWhiteBarLayout(doctorForm, dispatch)}
+			{HandleWhiteBarLayout(doctorForm, dispatch)}
 			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}

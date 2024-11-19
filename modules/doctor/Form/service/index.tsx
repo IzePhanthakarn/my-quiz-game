@@ -9,6 +9,7 @@ import { BaseSubmitButton } from "wcf-component-lib/src/components";
 import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
 import Tag from "wcf-component-lib/node_modules/antd/es/tag";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
+import { useMemo } from "react";
 
 export const handleOpenHistory =
 	(doctorForm: DoctorForm) => async (dispatch: AppDispatch) => {
@@ -39,7 +40,7 @@ export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
 	);
 };
 
-export const handleWhiteBarLayout = (
+export const HandleWhiteBarLayout = (
 	doctorForm: DoctorForm,
 	dispatch: AppDispatch
 ) => {
@@ -49,79 +50,83 @@ export const handleWhiteBarLayout = (
 		doctorForm.doctorData.organSystemCourseWithWpi;
 	const organSystemNoELearning = doctorForm.doctorData.doctorCode.slice(5, 7);
 
-	let historyButton = null;
-	let oraganTags = null;
+	const historyButton = useMemo(() => {
+		if (editTimes > 1) {
+			return (
+				<BaseSubmitButton
+					className="text-base font-semibold self-end"
+					label="ประวัติการแก้ไข"
+					onClickFunction={() => {
+						// dispatch(handleOpenHistory(doctorForm));
+						dispatch(handleOpenHistoryAll());
+					}}
+					icon={<ClockCircleOutlined />}
+					customStyle={{
+						width: "175px",
+						height: "48px",
+						borderRadius: "99px",
+					}}
+				/>
+			);
+		}
+		return null;
+	}, [editTimes]);
 
-	if (editTimes > 1) {
-		historyButton = (
-			// <div className="w-full flex justify-end">
-			<BaseSubmitButton
-				className="text-base font-semibold self-end"
-				label="ประวัติการแก้ไข"
-				onClickFunction={() => {
-					// dispatch(handleOpenHistory(doctorForm));
-					dispatch(handleOpenHistoryAll());
-				}}
-				icon={<ClockCircleOutlined />}
-				customStyle={{
-					width: "175px",
-					height: "48px",
-					borderRadius: "99px",
-				}}
-			/>
-			// </div>
-		);
-	}
-
-	if (!_.isEmpty(organSystemCourseWithWpi)) {
-		if (courseCategory === "E") {
-			oraganTags = (
-				<div className="divTagDoctor">
-					{organSystemCourseWithWpi
-						.filter((e) => e.organSystemNo === organSystemNoELearning)
-						.map((e, index) => {
-							return (
+	const oraganTags = useMemo(() => {
+		if (!_.isEmpty(organSystemCourseWithWpi)) {
+			if (courseCategory === "E") {
+				return (
+					<div className="divTagDoctor">
+						{organSystemCourseWithWpi
+							.filter((e) => e.organSystemNo === organSystemNoELearning)
+							.map((e, index) => (
 								<Tag key={index} color="green">
+									{e.description}
+								</Tag>
+							))}
+					</div>
+				);
+			} else if (courseCategory === "F") {
+				return (
+					<div className="divTagDoctor">
+						<Tag color="green">สามารถตรวจได้ทุกระบบ</Tag>
+					</div>
+				);
+			} else {
+				return (
+					<div className="divTagDoctor">
+						{organSystemCourseWithWpi.map((e, index) => {
+							const colors = ["green", "cyan", "blue"];
+							const color = colors[index % colors.length];
+
+							return (
+								<Tag key={index} color={color}>
 									{e.description}
 								</Tag>
 							);
 						})}
-				</div>
-			);
-		} else if (courseCategory === "F") {
-			oraganTags = (
-				<div className="divTagDoctor">
-					<Tag color="green">สามารถตรวจได้ทุกระบบ</Tag>
-				</div>
-			);
-		} else {
-			oraganTags = (
-				<div className="divTagDoctor">
-					{organSystemCourseWithWpi.map((e, index) => {
-						const colors = ["green", "cyan", "blue"];
-						const color = colors[index % colors.length];
+					</div>
+				);
+			}
+		}
+		return null;
+	}, []);
 
-						return (
-							<Tag key={index} color={color}>
-								{e.description}
-							</Tag>
-						);
-					})}
-				</div>
+	const layout = useMemo(() => {
+		if (editTimes > 1 || !_.isEmpty(organSystemCourseWithWpi)) {
+			return (
+				<WhiteBarLayout
+					className={`w-full items-center space-x-4 ${
+						_.isNull(oraganTags) ? "justify-end" : "justify-between"
+					}`}
+				>
+					{oraganTags}
+					{historyButton}
+				</WhiteBarLayout>
 			);
 		}
-	}
+		return null;
+	}, [oraganTags, historyButton]);
 
-	if (editTimes > 1 || !_.isEmpty(organSystemCourseWithWpi)) {
-		return (
-			<WhiteBarLayout
-				className={`w-full items-center space-x-4 ${
-					_.isNull(oraganTags) ? "justify-end" : "justify-between"
-				}`}
-			>
-				{oraganTags}
-				{historyButton}
-			</WhiteBarLayout>
-		);
-	}
+	return layout;
 };

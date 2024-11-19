@@ -87,7 +87,7 @@ export const handleHospitalRows =
 			jobType: hospital?.jobType ?? "",
 			clinicCode: null,
 			position: hospital?.position ?? "",
-			hospitalWcfName: hospital?.hospitalName ?? "",
+			HospitalName: hospital?.hospitalName ?? "",
 			uuid: hospital?.uuid,
 			isActive: IsActive.Y,
 			createdDate: "",

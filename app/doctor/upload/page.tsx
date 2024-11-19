@@ -1,5 +1,5 @@
 import React from "react";
-import UploadDoctor from "@/modules/doctor/UploadDoctor";
+import UploadDoctor from "@/modules/doctor/Upload";
 
 const DoctorUploadPage = () => {
 	return <UploadDoctor />;
