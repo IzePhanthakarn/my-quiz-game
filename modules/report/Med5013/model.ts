@@ -10,8 +10,8 @@ export const columns: TableProps["columns"] = [
 	},
 	{
 		title: "รหัสสถานพยาบาล",
-		key: "hospitalCode",
-		dataIndex: "hospitalCode",
+		key: "HospitalWcfCode",
+		dataIndex: "HospitalWcfCode",
 	},
 	{
 		title: "ชื่อสถานพยาบาล",
@@ -38,5 +38,4 @@ export const columns: TableProps["columns"] = [
 		key: "CONTRACT_END_DATE",
 		dataIndex: "CONTRACT_END_DATE",
 	},
-	 
 ];

@@ -470,7 +470,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						</div>
 						<div className="col-span-4 ">
 							<BaseGreenHeader
-								title="อัพโหลดเอกสาร สพ7"
+								title="อัปโหลดเอกสาร สพ7"
 								description="เอกสาร สพ7"
 								className="mb-7"
 							/>
@@ -561,7 +561,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						</div>
 						<div className="col-span-4 ">
 							<BaseGreenHeader
-								title="อัพโหลดเอกสาร สพ19"
+								title="อัปโหลดเอกสาร สพ19"
 								description="เอกสาร สพ19"
 								className="mb-7"
 							/>
@@ -714,7 +714,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						</div>
 						<div className="col-span-4 ">
 							<BaseGreenHeader
-								title="อัพโหลดเอกสาร ภาคผนวกและอื่น ๆ"
+								title="อัปโหลดเอกสาร ภาคผนวกและอื่น ๆ"
 								description="เอกสาร ภาคผนวกและอื่น ๆ"
 								className=""
 							/>
@@ -1644,7 +1644,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							</div>
 							<div className="col-span-4 ">
 								<BaseGreenHeader
-									title="อัพโหลดเอกสารข้อมูลราคาประกาศ"
+									title="อัปโหลดเอกสารข้อมูลราคาประกาศ"
 									description="เอกสารข้อมูลราคาประกาศ"
 									className=""
 								/>
