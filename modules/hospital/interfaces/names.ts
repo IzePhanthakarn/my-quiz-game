@@ -58,4 +58,6 @@ export const names = {
 	longitude: "ลองจิจูด",
 
 	announcedPriceYear: "ราคาประกาศประจำปี",
+
+	isParticipateSso: "เข้าร่วมโครงการประกันสังคม",
 };

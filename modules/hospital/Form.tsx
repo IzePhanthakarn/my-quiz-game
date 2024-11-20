@@ -805,7 +805,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						<BaseItemCheckbox
 							pageLevel="edit"
 							itemName="checkIsParticipateSso"
-							label="เข้าร่วมโครงการประกันสังคม"
+							label={names.isParticipateSso}
 							checked={hospitalForm.checkIsParticipateSso}
 							labelPosition={BaseFormItemPosition.LEFT}
 							onClickFunction={() => {
@@ -1666,9 +1666,9 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								</div>
 								<div>
 									<BaseUploadDraggerHospital
-										allowFileTypesToUpload={[FILE_TYPES.PDF]}
+										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
 										className="style2"
-										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
 										subFolderPath="hospital/announcedPriceFiles"
 										bearer={`${Cookies.get("accessToken")}`}
 										onChangeFunction={(e) => {
