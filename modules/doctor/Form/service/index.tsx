@@ -42,7 +42,9 @@ export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
 
 export const HandleWhiteBarLayout = (
 	doctorForm: DoctorForm,
-	dispatch: AppDispatch
+	dispatch: AppDispatch,
+	tmpEditTimes: number,
+	tmpCourseCategory: string
 ) => {
 	const editTimes = doctorForm.editTimes.length;
 	const courseCategory = doctorForm.doctorData.courseCategory;
@@ -70,8 +72,7 @@ export const HandleWhiteBarLayout = (
 			);
 		}
 		return null;
-	}, [editTimes]);
-
+	}, [tmpEditTimes]);
 	const oraganTags = useMemo(() => {
 		if (!_.isEmpty(organSystemCourseWithWpi)) {
 			if (courseCategory === "E") {
@@ -110,7 +111,7 @@ export const HandleWhiteBarLayout = (
 			}
 		}
 		return null;
-	}, []);
+	}, [tmpCourseCategory]);
 
 	const layout = useMemo(() => {
 		if (editTimes > 1 || !_.isEmpty(organSystemCourseWithWpi)) {

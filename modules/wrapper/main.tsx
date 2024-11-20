@@ -87,6 +87,12 @@ const MainWrapper: React.FC<Props> = (props) => {
 					uniqueContent={dialog.uniqueContent}
 					onConfirm={dialog.onConfirm}
 					onCancel={dialog.onCancel}
+					labelConfirm={dialog.labelConfirm}
+					showCancel={dialog.showCancel}
+					baseDialogType={dialog.baseDialogType}
+					themeIcon={dialog.themeIcon}
+					maxHeight={dialog.maxHeight}
+					maxWidth={dialog.maxWidth}
 				/>
 			</HeaderNavbarLayout>
 		</LayoutProvider>

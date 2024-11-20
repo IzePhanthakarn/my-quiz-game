@@ -1,9 +1,15 @@
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
-import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/interface";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
-import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
+import { PreviewDoctorGrid } from "./service";
+import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+
+export const modelPreviewGrid: PreviewDoctorGrid = {
+	grid: [],
+	page: modelPaginationOptions,
+	errorList: [],
+};
 
 export const columns: TableProps["columns"] = [
 	{
@@ -15,6 +21,11 @@ export const columns: TableProps["columns"] = [
 		title: "เลขทะเบียนวิชาชีพ",
 		dataIndex: "professionalCode",
 		key: "professionalCode",
+	},
+	{
+		title: "เลขบัตรประชาชน",
+		dataIndex: "citizenId",
+		key: "citizenId",
 	},
 	{
 		title: "ชื่อ-สกุล",
@@ -50,12 +61,15 @@ export const columns: TableProps["columns"] = [
 			);
 			const provinceCode = rawHospital.find(
 				(e: any) => e.hospitalWcfCode === hospitalWcfCode
-			).provinceCode;
+			);
 
 			return (
 				<p>
 					{provinceCode
-						? `- ${findLabelAddress(provinceCode, ADDRESS.PROVINCE) ?? "อื่นๆ"}`
+						? `- ${
+								findLabelAddress(provinceCode.provinceCode, ADDRESS.PROVINCE) ??
+								"อื่นๆ"
+						  }`
 						: null}
 				</p>
 			);

@@ -27,7 +27,7 @@ const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const [test, setTest] = useState(false);
+	const { dispatchLayout } = useLayout();
 	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorForm: state.doctor.doctorForm,
@@ -36,6 +36,10 @@ const DoctorFormTabs = () => {
 		shallowEqual
 	);
 
+	const [tmpCourseCategory, setTmpCourseCategory] = useState(
+		doctorForm.doctorData.courseCategory
+	);
+	const [tmpEditTimes, setTmpEditTimes] = useState(doctorForm.editTimes.length);
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
 		else dispatch(setDoctorForm(modelDoctorForm));
@@ -47,18 +51,25 @@ const DoctorFormTabs = () => {
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 		dispatch(handleSession(SESSION_NAME.BANK));
 		dispatch(handleSession(SESSION_NAME.BANK_BRANCH));
+		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
 	}, []);
+
+	useEffect(() => {
+		if (
+			!_.isEmpty(doctorForm.doctorData.courseCategory) &&
+			_.isEmpty(tmpCourseCategory)
+		) {
+			setTmpCourseCategory(doctorForm.doctorData.courseCategory);
+		}
+		if (!_.isEmpty(doctorForm.editTimes.length) && _.isEmpty(tmpEditTimes)) {
+			setTmpEditTimes(doctorForm.editTimes.length);
+		}
+	}, [doctorForm.doctorData.courseCategory, doctorForm.editTimes.length]);
 
 	const [form] = Form.useForm();
 	const onFinish: FormProps["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
-
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
-	}, []);
 
 	const BaseItemsForm = getBaseItemsForm({ form, onFinish });
 
@@ -69,7 +80,12 @@ const DoctorFormTabs = () => {
 
 	return (
 		<BaseColumn className="p-2 w-full h-full space-y-6">
-			{HandleWhiteBarLayout(doctorForm, dispatch)}
+			{HandleWhiteBarLayout(
+				doctorForm,
+				dispatch,
+				tmpEditTimes,
+				tmpCourseCategory ?? ""
+			)}
 			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}
