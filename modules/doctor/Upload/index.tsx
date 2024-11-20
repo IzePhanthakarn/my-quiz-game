@@ -12,17 +12,51 @@ import { useDispatch } from "react-redux";
 import { handleXlsx, PreviewDoctorGrid } from "./service";
 import { BaseColumn } from "wcf-component-lib/src/components";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { columns } from "./model";
-import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { columns, modelPreviewGrid } from "./model";
+import { handleSession } from "@/components/MedDropDown/service";
+import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { setDialog } from "@/redux/slices/dialog";
+import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+import { BaseDialog } from "@/redux/slices/dialog/model";
+import ErrorModal from "./ErrorModal";
 
 export default function UploadDoctor() {
 	const dispatch: AppDispatch = useDispatch();
 	const [file, setFile] = React.useState<UploadFile<any>[]>([]);
-	const [previewGrid, setPreviewGrid] = React.useState<PreviewDoctorGrid>({
-		grid: [],
-		page: modelPaginationOptions,
-		errorList: [],
-	});
+	const [previewGrid, setPreviewGrid] =
+		React.useState<PreviewDoctorGrid>(modelPreviewGrid);
+	const dialogFunction: BaseDialog = {
+		labelConfirm: "ยืนยัน",
+		isOpen: true,
+		showCancel: true,
+		headerText: "นำเข้าแพทย์",
+		content: (
+			<p className="text-label text-[#779097]">
+				ข้อมูลรายชื่อแพทย์ {previewGrid.page.totalData} รายการ จะถูกเพิ่ม
+			</p>
+		),
+		width: 620,
+		baseDialogType: BaseDialogType.SUCCESS,
+		themeIcon: "success",
+		onConfirm: () => {
+			dispatch(
+				handleXlsx(
+					{
+						file,
+						isPreview: false,
+						page: previewGrid.page,
+					},
+					previewGrid,
+					setPreviewGrid
+				)
+			);
+		},
+	};
+
+	useEffect(() => {
+		dispatch(handleSession(SESSION_NAME.HOSPITAL));
+		dispatch(handleSession(SESSION_NAME.ADDRESS));
+	}, []);
 
 	useEffect(() => {
 		if (!_.isEmpty(file)) {
@@ -39,6 +73,22 @@ export default function UploadDoctor() {
 			);
 		}
 	}, [file, previewGrid.page.pageNumber, previewGrid.page.pageSize]);
+
+	useEffect(() => {
+		if (!_.isEmpty(previewGrid.errorList)) {
+			dispatch(
+				setDialog({
+					headerText: "รายการข้อมูลที่ผิดพลาด",
+					content: <ErrorModal errorList={previewGrid.errorList} />,
+					isOpen: true,
+					isOverFlow: true,
+					maxHeight: "60vh",
+					maxWidth: "40vw",
+					baseDialogType: BaseDialogType.DANGER,
+				})
+			);
+		}
+	}, [previewGrid.errorList]);
 
 	return (
 		<BaseColumn className="space-y-4">
@@ -64,6 +114,7 @@ export default function UploadDoctor() {
 					}}
 					uploadUrl={""}
 					bearer={""}
+					originalFileName
 					antUploadDragIcon={<InboxOutlined className="" />}
 					antUploadText="ลากหรือคลิกเพื่ออัปโหลด"
 					antUploadHint={<>อัปโหลดได้เฉพาะไฟล์ .xlsx เท่านั้น</>}
@@ -84,17 +135,7 @@ export default function UploadDoctor() {
 							size="large"
 							iconType="import"
 							onClick={() => {
-								dispatch(
-									handleXlsx(
-										{
-											file,
-											isPreview: false,
-											page: previewGrid.page,
-										},
-										previewGrid,
-										setPreviewGrid
-									)
-								);
+								dispatch(setDialog(dialogFunction));
 							}}
 						/>
 					</div>

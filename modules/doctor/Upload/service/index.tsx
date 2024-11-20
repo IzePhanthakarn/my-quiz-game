@@ -41,7 +41,6 @@ export const handleXlsx =
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(importDoctorXlsx(params));
-		console.log("data", data);
 		if (!_.isEmpty(data.payload)) {
 			if (params.isPreview)
 				setPreviewGrid({
@@ -49,7 +48,7 @@ export const handleXlsx =
 					grid: data.payload.previewList.content,
 					page: {
 						...previewGrid.page,
-						totalData: data.payload.totalElements,
+						totalData: data.payload.previewList.totalElements,
 					},
 					errorList: data.payload.errorList,
 				});
