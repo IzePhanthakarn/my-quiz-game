@@ -69,14 +69,14 @@ export const findNameDisplay = (type: SESSION_NAME, value: any) => {
 			nameDisplay = sessionResult?.titleName ?? null;
 			break;
 		case SESSION_NAME.BANK:
-			sessionResult = session.find((e: Bank) => e.bankDigitCode === value);
+			sessionResult = session.find((e: Bank) => e.bankCode === value);
 			nameDisplay = sessionResult?.bankName ?? null;
 			break;
 		case SESSION_NAME.BANK_BRANCH:
 			sessionResult = session.find(
-				(e: BankBranch) => e.bankSortingCode === value
+				(e: BankBranch) => e.bankBranchCode === value
 			);
-			nameDisplay = sessionResult?.branchName ?? null;
+			nameDisplay = sessionResult?.bankBranchName ?? null;
 			break;
 		case SESSION_NAME.COURSE_CATEGORY:
 			sessionResult = session.find(

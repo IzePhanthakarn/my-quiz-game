@@ -16,12 +16,14 @@ export interface SsoBranch {
 }
 
 export interface Bank {
-	bankDigitCode: string;
+	bankId: number;
 	bankName: string;
+	bankCode: string;
 }
 
 export interface BankBranch {
-	bankSortingCode: string;
-	bankDigitCode: string;
-	branchName: string;
+	bankId: number;
+	bankBranchId: number;
+	bankBranchCode: string;
+	bankBranchName: string;
 }

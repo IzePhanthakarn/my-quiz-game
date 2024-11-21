@@ -32,6 +32,7 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import uuid4 from "uuid4";
 import { setMounted } from "@/redux/slices/container";
 import _ from "lodash";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
 
 export default function Doctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -220,8 +221,17 @@ export default function Doctor() {
 					/>
 				}
 				AddFunction={() => router.push(LINKS.DOCTOR.add)}
-				AddLabel="สร้างแพทย์"
+				AddLabel="เพิ่มแพทย์"
 				TotalItems={page.totalData}
+				customButton={
+					<BaseButton
+						size="large"
+						type="outline"
+						onClick={() => router.push(LINKS.DOCTOR.upload)}
+						label="นำเข้าข้อมูลแพทย์"
+						iconType="import"
+					/>
+				}
 			/>
 		</div>
 	);

@@ -17,7 +17,7 @@ export const handleOpenHistory =
 			setCompareParams({
 				olderVersion: doctorForm.editTimes[doctorForm.editTimes.length - 2],
 				newerVersion: doctorForm.editTimes[doctorForm.editTimes.length - 1],
-				doctorCode: doctorForm.doctorData.doctorCode,
+				doctorId: doctorForm.doctorData.doctorId,
 			})
 		);
 		dispatch(setDoctorCompareList({ doctor: [], doctorAddress: [] }));
@@ -43,7 +43,6 @@ export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
 export const HandleWhiteBarLayout = (
 	doctorForm: DoctorForm,
 	dispatch: AppDispatch,
-	tmpEditTimes: number,
 	tmpCourseCategory: string
 ) => {
 	const editTimes = doctorForm.editTimes.length;
@@ -72,7 +71,7 @@ export const HandleWhiteBarLayout = (
 			);
 		}
 		return null;
-	}, [tmpEditTimes]);
+	}, [editTimes]);
 	const oraganTags = useMemo(() => {
 		if (!_.isEmpty(organSystemCourseWithWpi)) {
 			if (courseCategory === "E") {

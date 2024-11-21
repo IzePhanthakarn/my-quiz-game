@@ -39,7 +39,6 @@ const DoctorFormTabs = () => {
 	const [tmpCourseCategory, setTmpCourseCategory] = useState(
 		doctorForm.doctorData.courseCategory
 	);
-	const [tmpEditTimes, setTmpEditTimes] = useState(doctorForm.editTimes.length);
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
 		else dispatch(setDoctorForm(modelDoctorForm));
@@ -61,10 +60,7 @@ const DoctorFormTabs = () => {
 		) {
 			setTmpCourseCategory(doctorForm.doctorData.courseCategory);
 		}
-		if (!_.isEmpty(doctorForm.editTimes.length) && _.isEmpty(tmpEditTimes)) {
-			setTmpEditTimes(doctorForm.editTimes.length);
-		}
-	}, [doctorForm.doctorData.courseCategory, doctorForm.editTimes.length]);
+	}, [doctorForm.doctorData.courseCategory]);
 
 	const [form] = Form.useForm();
 	const onFinish: FormProps["onFinish"] = () => {
@@ -80,12 +76,7 @@ const DoctorFormTabs = () => {
 
 	return (
 		<BaseColumn className="p-2 w-full h-full space-y-6">
-			{HandleWhiteBarLayout(
-				doctorForm,
-				dispatch,
-				tmpEditTimes,
-				tmpCourseCategory ?? ""
-			)}
+			{HandleWhiteBarLayout(doctorForm, dispatch, tmpCourseCategory ?? "")}
 			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}

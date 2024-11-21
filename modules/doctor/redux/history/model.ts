@@ -6,7 +6,7 @@ export interface CompareHistory {
 }
 
 export interface CompareParams {
-	doctorCode: string;
+	doctorId: number;
 	olderVersion: number | null;
 	newerVersion: number | null;
 }
@@ -48,7 +48,7 @@ export const modelCompareHistory: CompareHistory = {
 		doctorAddress: [],
 	},
 	compareParams: {
-		doctorCode: "",
+		doctorId: 0,
 		olderVersion: null,
 		newerVersion: null,
 	},

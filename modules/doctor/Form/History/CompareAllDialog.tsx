@@ -20,9 +20,9 @@ import { BaseCollapse } from "wcf-component-lib/src/components";
 export default function CompareAllDialog() {
 	const dispatch: AppDispatch = useDispatch();
 
-	const { doctorCode, compareListAll, filterList, compareParams } = useSelector(
+	const { doctorId, compareListAll, filterList, compareParams } = useSelector(
 		(state: SliceModel) => ({
-			doctorCode: state.doctor.doctorForm.doctorData.doctorCode,
+			doctorId: state.doctor.doctorForm.doctorData.doctorId,
 			compareListAll: state.doctor.doctorCompareHistory.compareListAll,
 			filterList: state.doctor.doctorCompareHistory.filterList,
 			compareParams: state.doctor.doctorCompareHistory.compareParams,
@@ -31,7 +31,7 @@ export default function CompareAllDialog() {
 	);
 
 	useEffect(() => {
-		dispatch(initDoctorCompareAllHistory(doctorCode));
+		dispatch(initDoctorCompareAllHistory(doctorId));
 	}, []);
 
 	return (
