@@ -23,6 +23,7 @@ import ErrorModal from "./ErrorModal";
 export default function UploadDoctor() {
 	const dispatch: AppDispatch = useDispatch();
 	const [file, setFile] = React.useState<UploadFile<any>[]>([]);
+	const [handleDialog, setHandleDialog] = React.useState(false);
 	const [previewGrid, setPreviewGrid] =
 		React.useState<PreviewDoctorGrid>(modelPreviewGrid);
 	const dialogFunction: BaseDialog = {
@@ -75,7 +76,13 @@ export default function UploadDoctor() {
 	}, [file, previewGrid.page.pageNumber, previewGrid.page.pageSize]);
 
 	useEffect(() => {
-		if (!_.isEmpty(previewGrid.errorList)) {
+		if (!_.isEmpty(file)) {
+			setHandleDialog(false);
+		}
+	}, [file]);
+
+	useEffect(() => {
+		if (!_.isEmpty(previewGrid.errorList) && !handleDialog) {
 			dispatch(
 				setDialog({
 					headerText: "รายการข้อมูลที่ผิดพลาด",
@@ -87,6 +94,7 @@ export default function UploadDoctor() {
 					baseDialogType: BaseDialogType.DANGER,
 				})
 			);
+			setHandleDialog(true);
 		}
 	}, [previewGrid.errorList]);
 
