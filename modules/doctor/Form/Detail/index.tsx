@@ -34,7 +34,6 @@ interface Props {
 
 export default function DoctorDetailForm(props: Props) {
 	const { form, onFinish } = props;
-	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData } = useSelector(
 		(state: SliceModel) => ({

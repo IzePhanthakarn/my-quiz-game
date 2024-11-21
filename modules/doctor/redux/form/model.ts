@@ -1,6 +1,7 @@
 import { BaseEntity } from "@/interfaces/baseEntity";
 
 export interface DoctorData {
+	doctorId: number;
 	amphur: string | null;
 	houseNum: string;
 	moo: string;
@@ -93,6 +94,7 @@ export interface DoctorForm {
 }
 
 const modelDoctorData: DoctorData = {
+	doctorId: 0,
 	amphur: null,
 	houseNum: "",
 	moo: "",

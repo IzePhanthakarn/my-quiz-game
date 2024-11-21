@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MedDropDown from "@/components/MedDropDown";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
@@ -19,9 +18,9 @@ import { BaseCollapse } from "wcf-component-lib/src/components";
 export default function HistoryDialog() {
 	const dispatch: AppDispatch = useDispatch();
 
-	const { doctorCode, compareList, filterList, compareParams } = useSelector(
+	const { doctorId, compareList, filterList, compareParams } = useSelector(
 		(state: SliceModel) => ({
-			doctorCode: state.doctor.doctorForm.doctorData.doctorCode,
+			doctorId: state.doctor.doctorForm.doctorData.doctorId,
 			compareList: state.doctor.doctorCompareHistory.compareList,
 			filterList: state.doctor.doctorCompareHistory.filterList,
 			compareParams: state.doctor.doctorCompareHistory.compareParams,
@@ -30,7 +29,7 @@ export default function HistoryDialog() {
 	);
 
 	useEffect(() => {
-		dispatch(handleFilterCompare(doctorCode));
+		dispatch(handleFilterCompare(doctorId));
 	}, []);
 
 	useEffect(() => {
@@ -42,13 +41,11 @@ export default function HistoryDialog() {
 				initDoctorCompareHistory({
 					olderVersion: compareParams.olderVersion,
 					newerVersion: compareParams.newerVersion,
-					doctorCode: doctorCode,
+					doctorId: doctorId,
 				})
 			);
 		}
 	}, [compareParams]);
-
-	// Function to map filterList for dropdown options
 
 	return (
 		<div className="w-full space-y-4 flex flex-col  h-full overflow-y-scroll">

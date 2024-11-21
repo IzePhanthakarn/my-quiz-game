@@ -98,13 +98,13 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 		case SESSION_NAME.BANK:
 			option = result.map((e: Bank) => ({
 				label: e.bankName,
-				value: e.bankDigitCode,
+				value: e.bankCode,
 			}));
 			break;
 		case SESSION_NAME.BANK_BRANCH:
 			option = result.map((e: BankBranch) => ({
-				label: e.branchName,
-				value: e.bankSortingCode,
+				label: e.bankBranchName,
+				value: e.bankBranchCode,
 			}));
 			break;
 		default:

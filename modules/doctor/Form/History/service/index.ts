@@ -68,9 +68,9 @@ export const initDoctorCompareHistory =
 	};
 
 export const handleFilterCompare =
-	(doctorCode: string) => async (dispatch: AppDispatch) => {
+	(doctorId: number) => async (dispatch: AppDispatch) => {
 		dispatch(setIsLoading(true));
-		const data = await dispatch(getDoctorCompareHistoryFilter(doctorCode));
+		const data = await dispatch(getDoctorCompareHistoryFilter(doctorId));
 		dispatch(setIsLoading(false));
 		if (!_.isEmpty(data.payload)) {
 			dispatch(setDoctorFilterList(data.payload));
@@ -116,9 +116,9 @@ export const getFilterUpdatedDateEditTimes = (
 };
 
 export const initDoctorCompareAllHistory =
-	(doctorCode: string) => async (dispatch: AppDispatch) => {
+	(doctorId: number) => async (dispatch: AppDispatch) => {
 		dispatch(setIsLoading(true));
-		const data = await dispatch(getDoctorCompareAllHistoryList(doctorCode));
+		const data = await dispatch(getDoctorCompareAllHistoryList(doctorId));
 		dispatch(setIsLoading(false));
 		const compareData = data.payload;
 		const addressList = [

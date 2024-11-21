@@ -16,6 +16,7 @@ export const LINKS = {
 		edit: "/doctor/edit/",
 		view: "/doctor/view/",
 		add: "/doctor/form",
+		upload: "/doctor/upload",
 	},
 	DIPLOMA: {
 		name: "ประกาศนียบัตร",
