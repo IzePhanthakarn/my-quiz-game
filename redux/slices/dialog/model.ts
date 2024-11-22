@@ -1,3 +1,9 @@
+import {
+	ConfirmModalTypes,
+	IconTheme,
+} from "wcf-component-lib/src/components/BaseDialog";
+import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
+
 export interface BaseDialog {
 	isOpen: boolean;
 	isOverFlow?: boolean;
@@ -8,6 +14,13 @@ export interface BaseDialog {
 	onConfirm?: () => void;
 	onCancel?: () => void;
 	width?: string | number;
+	labelConfirm?: string;
+	baseDialogType?: BaseDialogType | ConfirmModalTypes;
+	headerLeftIcon?: JSX.Element;
+	showCancel?: boolean;
+	themeIcon?: IconTheme;
+	maxHeight?: string;
+	maxWidth?: string;
 }
 
 export const modelDialog: BaseDialog = {
@@ -16,7 +29,5 @@ export const modelDialog: BaseDialog = {
 	isOpenBaseConfirmDialog: false,
 	onConfirm: () => {},
 	onCancel: () => {},
-	content: "",
-	headerText: "",
 	width: 522,
 };

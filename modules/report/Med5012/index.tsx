@@ -17,6 +17,7 @@ import { handleOnPreview, handlePdfButton } from "./service";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_REPOT } from "@/components/MedDropDown/model";
 import { BaseItemDateRangePicker } from "wcf-component-lib/src/components";
+import { reportRules } from "./field-validation/form";
 
 const Med5012 = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -56,6 +57,7 @@ const Med5012 = () => {
 					    notForm={true}
 						itemName="investigrationDate"
 						label="วันที่ตรวจสถานพยาบาล"
+						rules={reportRules.investigrationDateSchema}
 						onChangeRangePicker={(dates: any) => {
 							if (dates == null) {
 								return;

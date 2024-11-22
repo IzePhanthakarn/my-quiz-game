@@ -18,18 +18,16 @@ import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { handleSession } from "@/components/MedDropDown/service";
 import { setDoctorForm } from "../redux";
 import { modelDoctorForm } from "../redux/form/model";
-import { handleOpenHistoryAll } from "./service";
-import { BaseSubmitButton } from "wcf-component-lib/src/components";
-import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
+import { HandleWhiteBarLayout } from "./service";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
-import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 const DoctorFormTabs = () => {
 	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
+	const { dispatchLayout } = useLayout();
 	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			doctorForm: state.doctor.doctorForm,
@@ -38,6 +36,9 @@ const DoctorFormTabs = () => {
 		shallowEqual
 	);
 
+	const [tmpCourseCategory, setTmpCourseCategory] = useState(
+		doctorForm.doctorData.courseCategory
+	);
 	useEffect(() => {
 		if (uuid) dispatch(initGetDoctorForm(`${uuid}`));
 		else dispatch(setDoctorForm(modelDoctorForm));
@@ -49,18 +50,22 @@ const DoctorFormTabs = () => {
 		dispatch(handleSession(SESSION_NAME.HOSPITAL));
 		dispatch(handleSession(SESSION_NAME.BANK));
 		dispatch(handleSession(SESSION_NAME.BANK_BRANCH));
+		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
 	}, []);
+
+	useEffect(() => {
+		if (
+			!_.isEmpty(doctorForm.doctorData.courseCategory) &&
+			_.isEmpty(tmpCourseCategory)
+		) {
+			setTmpCourseCategory(doctorForm.doctorData.courseCategory);
+		}
+	}, [doctorForm.doctorData.courseCategory]);
 
 	const [form] = Form.useForm();
 	const onFinish: FormProps["onFinish"] = () => {
 		dispatch(setIsOpenBaseConfirmDialog(true));
 	};
-
-	const { dispatchLayout } = useLayout();
-
-	useEffect(() => {
-		dispatchLayout({ type: "setDisplayScrollButton", payload: true });
-	}, []);
 
 	const BaseItemsForm = getBaseItemsForm({ form, onFinish });
 
@@ -70,26 +75,8 @@ const DoctorFormTabs = () => {
 	}
 
 	return (
-		<BaseColumn className="p-2 h-full space-y-6">
-			{doctorForm.editTimes.length > 1 && (
-				<WhiteBarLayout className="justify-end items-center">
-					<BaseSubmitButton
-						className="text-base font-semibold mr-3"
-						label="ประวัติการแก้ไข"
-						onClickFunction={() => {
-							// dispatch(handleOpenHistory(doctorForm));
-							dispatch(handleOpenHistoryAll());
-						}}
-						icon={<ClockCircleOutlined />}
-						customStyle={{
-							width: "175px",
-							height: "48px",
-							borderRadius: "99px",
-						}}
-					/>
-				</WhiteBarLayout>
-			)}
-
+		<BaseColumn className="p-2 w-full h-full space-y-6">
+			{HandleWhiteBarLayout(doctorForm, dispatch, tmpCourseCategory ?? "")}
 			<BaseColumn className="bg-white p-2 h-full rounded-2xl">
 				<BaseConfirmDialog
 					isOpen={isOpenBaseConfirmDialog}
@@ -106,7 +93,6 @@ const DoctorFormTabs = () => {
 						dispatch(setIsOpenBaseConfirmDialog(false));
 					}}
 				/>
-
 				{BaseItemsForm?.map((item, index: number) => (
 					<BaseCollapse
 						key={item.key}
@@ -123,6 +109,8 @@ const DoctorFormTabs = () => {
 						onClick={() => form.submit()}
 					/>
 					<BaseButton
+						pageLevel="edit"
+						disabled={doctorForm.doctorData.isELearning}
 						size="small"
 						htmlType="submit"
 						label="บันทึก"

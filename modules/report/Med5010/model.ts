@@ -10,8 +10,8 @@ export const columns: TableProps["columns"] = [
 	},
 	{
 		title: "รหัสสถานพยาบาล",
-		key: "hospitalCode",
-		dataIndex: "hospitalCode",
+		key: "HospitalWcfCode",
+		dataIndex: "HospitalWcfCode",
 	},
 	{
 		title: "ชื่อสภานพยาบาล",

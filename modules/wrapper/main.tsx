@@ -64,37 +64,6 @@ const MainWrapper: React.FC<Props> = (props) => {
 		}
 	);
 
-	// const [userName, setUserName] = useState("");
-	// useEffect(() => {
-	// 	const token = Cookies.get("accessToken"); // Only available client-side
-	// 	console.log("🚀 ~ useEffect ~ token:", token);
-	// 	if (token) {
-	// 		try {
-	// 			const decoded = jwtDecode<JwtPayload>(token);
-	// 			const userInfoLogin = _.get(decoded, "userInfo.login");
-	// 			if (userInfoLogin) {
-	// 				setUserName(userInfoLogin);
-	// 			} else {
-	// 				// window.location.href = "/login";
-	// 			}
-	// 		} catch (error) {
-	// 			console.error("Invalid token", error);
-	// 			// window.location.href = "/login";
-	// 		}
-	// 	} else {
-	// 		// window.location.href = "/login";
-	// 	}
-	// }, []);
-	// console.log("🚀 ~ 1111:");
-
-	// const token = Cookies.get("accessToken"); // Get the token from cookies
-	// console.log("🚀 ~ token:", token);
-	// const decoded = jwtDecode<JwtPayload>(`${token}`);
-	// const userInfoLogin = _.get(decoded, "userInfo.login");
-	// console.log("🚀 ~ decoded:", decoded);
-	// if (_.isUndefined(userInfoLogin)) {
-	// 	window.location.href = "/login";
-	// }
 	return (
 		<LayoutProvider
 			configPage={configPage}
@@ -118,6 +87,12 @@ const MainWrapper: React.FC<Props> = (props) => {
 					uniqueContent={dialog.uniqueContent}
 					onConfirm={dialog.onConfirm}
 					onCancel={dialog.onCancel}
+					labelConfirm={dialog.labelConfirm}
+					showCancel={dialog.showCancel}
+					baseDialogType={dialog.baseDialogType}
+					themeIcon={dialog.themeIcon}
+					maxHeight={dialog.maxHeight}
+					maxWidth={dialog.maxWidth}
 				/>
 			</HeaderNavbarLayout>
 		</LayoutProvider>

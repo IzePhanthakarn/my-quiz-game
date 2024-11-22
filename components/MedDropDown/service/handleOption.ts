@@ -68,11 +68,11 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 			}));
 			break;
 		case SESSION_NAME.PROVINCE_NAME:
-			option = _.uniqBy(result, "provinceCode"); // กรองซ้ำตาม provinceCode
 			const provinceName = _.map(option, (e: Address) => ({
 				value: e.provinceCode,
 				label: e.provinceName,
 			}));
+			option = _.uniqBy(provinceName, "provinceCode"); // กรองซ้ำตาม provinceCode
 			break;
 		case SESSION_NAME.HOSPITAL_TYPE:
 		case SESSION_NAME.HOSPITAL_CATEGORY:
@@ -98,13 +98,13 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 		case SESSION_NAME.BANK:
 			option = result.map((e: Bank) => ({
 				label: e.bankName,
-				value: e.bankDigitCode,
+				value: e.bankCode,
 			}));
 			break;
 		case SESSION_NAME.BANK_BRANCH:
 			option = result.map((e: BankBranch) => ({
-				label: e.branchName,
-				value: e.bankSortingCode,
+				label: e.bankBranchName,
+				value: e.bankBranchCode,
 			}));
 			break;
 		default:

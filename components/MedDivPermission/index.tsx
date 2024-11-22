@@ -3,7 +3,7 @@ import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 import { MedKey } from "./model";
 
 interface Props {
-	children: React.ReactNode;
+	children: JSX.Element;
 	pageLevel: MedKey;
 }
 

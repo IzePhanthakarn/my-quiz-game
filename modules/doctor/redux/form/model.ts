@@ -1,6 +1,7 @@
 import { BaseEntity } from "@/interfaces/baseEntity";
 
 export interface DoctorData {
+	doctorId: number;
 	amphur: string | null;
 	houseNum: string;
 	moo: string;
@@ -23,12 +24,14 @@ export interface DoctorData {
 	// isActive: string;
 	// uuid: string;
 	courseCategory: string | null;
+	categoryDescription: string | null;
 	courseCategoryId: number | null;
 	eDiploma: string;
 	eHospital: string;
 	eTitle: string;
 	certificateId: string;
 	isELearning: boolean;
+	organSystemCourseWithWpi: { description: string; organSystemNo: string }[];
 }
 
 export interface TrainingList extends Training {
@@ -77,7 +80,7 @@ interface DoctorHospital extends BaseEntity {
 	jobType: string;
 	clinicCode: string | null;
 	position: string | null;
-	hospitalWcfName: string | null;
+	HospitalName: string | null;
 }
 
 export interface DoctorForm {
@@ -91,6 +94,7 @@ export interface DoctorForm {
 }
 
 const modelDoctorData: DoctorData = {
+	doctorId: 0,
 	amphur: null,
 	houseNum: "",
 	moo: "",
@@ -113,12 +117,14 @@ const modelDoctorData: DoctorData = {
 	// isActive: "",
 	// uuid: "",
 	courseCategory: null,
+	categoryDescription: null,
 	courseCategoryId: null,
 	eDiploma: "",
 	eHospital: "",
 	eTitle: "",
 	certificateId: "",
 	isELearning: false,
+	organSystemCourseWithWpi: [],
 };
 
 export const modelDoctorForm: DoctorForm = {

@@ -16,6 +16,7 @@ import { handleOnExportExcel, handleOnExportExcelCMP } from "@/utils/report/comm
 import { handlePdfButton } from "./service";
 import { REPORT_TYPES } from "@/constants/reports";
 import _ from "lodash";
+import { reportRules } from "./field-validation/form";
 
 interface Props {
 	med5011: Med5011Form;
@@ -40,6 +41,7 @@ export default function DownloadContent(props: Props) {
 					<BaseItemDateRangePicker
 						itemName="cancelDate"
 						label="วันที่ยกเลิกสถานพยาบาล"
+						rules={reportRules.cancelDateSchema}
 						onChangeRangePicker={(dates: any) => {
 							if (dates == null) {
 								return;

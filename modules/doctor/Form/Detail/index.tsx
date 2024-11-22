@@ -25,6 +25,7 @@ import {
 	FormInstance,
 } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useParams } from "next/navigation";
+import { handleDoctorCode } from "./service";
 
 interface Props {
 	form: FormInstance<any>;
@@ -33,7 +34,6 @@ interface Props {
 
 export default function DoctorDetailForm(props: Props) {
 	const { form, onFinish } = props;
-	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const { doctorData } = useSelector(
 		(state: SliceModel) => ({
@@ -41,13 +41,15 @@ export default function DoctorDetailForm(props: Props) {
 		}),
 		shallowEqual
 	);
-	const [tmpDoctorData, setTmpDoctorData] = useState(doctorData.doctorCode);
 
 	useEffect(() => {
-		if (_.isEmpty(tmpDoctorData) && uuid) {
-			setTmpDoctorData(doctorData.doctorCode);
-		}
-	}, [doctorData.doctorCode]);
+		const tmp = handleDoctorCode(
+			doctorData.doctorCode,
+			doctorData.courseCategory
+		);
+		dispatch(setDoctorData({ ...doctorData, doctorCode: tmp }));
+	}, [doctorData.courseCategory]);
+
 	const isE = doctorData.isELearning;
 	return (
 		<BaseForm
@@ -77,23 +79,16 @@ export default function DoctorDetailForm(props: Props) {
 						disabled={isE}
 						rules={rules.courseCategorySchema}
 						getValue={(e) => {
-							if (e === "F") {
-								dispatch(
-									setDoctorData({
-										...doctorData,
-										courseCategory: e,
-										doctorCode: tmpDoctorData,
-									})
-								);
-							} else {
-								dispatch(
-									setDoctorData({
-										...doctorData,
-										courseCategory: e,
-										doctorCode: `${e}${tmpDoctorData}`,
-									})
-								);
-							}
+							dispatch(
+								setDoctorData({
+									...doctorData,
+									courseCategory: e,
+									categoryDescription: findNameDisplay(
+										SESSION_NAME.COURSE_CATEGORY,
+										e
+									),
+								})
+							);
 						}}
 					/>
 				</div>
