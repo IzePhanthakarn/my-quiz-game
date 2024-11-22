@@ -4,6 +4,7 @@ import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { CompareAllList, DoctorCompareList } from "../../redux/history/model";
+import { handleBgColorGrid } from "./service";
 
 export const columns: TableProps["columns"] = [
 	{
@@ -120,8 +121,26 @@ export const getItems = (compareList: DoctorCompareList) => {
 			label: "ข้อมูลวุฒิบัตรเฉพาะทาง",
 			children: (
 				<div className="w-full justify-between flex space-x-12 py-2 px-6">
-					<BaseGrid rows={[]} columns={columnsDoctorDetail} />
-					<BaseGrid rows={[]} columns={columnsDoctorDetail} />
+					{/* old */}
+					<BaseGrid
+						rows={
+							compareList.relationHistory.doctorDetailHistoryCompare.olderGrid
+						}
+						columns={columnsDoctorDetail}
+						rowClassName={(record) => {
+							return handleBgColorGrid(record);
+						}}
+					/>
+					{/* new */}
+					<BaseGrid
+						rows={
+							compareList.relationHistory.doctorDetailHistoryCompare.newerGrid
+						}
+						columns={columnsDoctorDetail}
+						rowClassName={(record) => {
+							return handleBgColorGrid(record);
+						}}
+					/>
 				</div>
 			),
 		},
@@ -153,14 +172,8 @@ export const columnsDoctorDetail: TableProps["columns"] = [
 		key: "id",
 	},
 	{
-		title: "เลขทะเบียน สปส",
-	},
-	{
 		title: "วุฒิบัตรเฉพาะทาง",
 		dataIndex: "diplomaType",
 		key: "diplomaType",
-	},
-	{
-		title: "เลขทะเบียนวิชาชีพ",
 	},
 ];

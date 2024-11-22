@@ -18,15 +18,17 @@ import { BaseCollapse } from "wcf-component-lib/src/components";
 export default function HistoryDialog() {
 	const dispatch: AppDispatch = useDispatch();
 
-	const { doctorId, compareList, filterList, compareParams } = useSelector(
-		(state: SliceModel) => ({
-			doctorId: state.doctor.doctorForm.doctorData.doctorId,
-			compareList: state.doctor.doctorCompareHistory.compareList,
-			filterList: state.doctor.doctorCompareHistory.filterList,
-			compareParams: state.doctor.doctorCompareHistory.compareParams,
-		}),
-		shallowEqual
-	);
+	const { doctorId, doctorCode, compareList, filterList, compareParams } =
+		useSelector(
+			(state: SliceModel) => ({
+				doctorId: state.doctor.doctorForm.doctorData.doctorId,
+				doctorCode: state.doctor.doctorForm.doctorData.doctorCode,
+				compareList: state.doctor.doctorCompareHistory.compareList,
+				filterList: state.doctor.doctorCompareHistory.filterList,
+				compareParams: state.doctor.doctorCompareHistory.compareParams,
+			}),
+			shallowEqual
+		);
 
 	useEffect(() => {
 		dispatch(handleFilterCompare(doctorId));
@@ -42,6 +44,7 @@ export default function HistoryDialog() {
 					olderVersion: compareParams.olderVersion,
 					newerVersion: compareParams.newerVersion,
 					doctorId: doctorId,
+					doctorCode: doctorCode,
 				})
 			);
 		}
