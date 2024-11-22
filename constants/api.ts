@@ -27,6 +27,8 @@ const API_PATH = {
 	UPDATE_DOCTOR: "doctor",
 	GET_DOCTOR_FORM: "doctor/getForm",
 	GET_DOCTOR_HISOTRY_COMPARE_LIST: "doctor/history/compare/list",
+	GET_DOCTOR_HISOTRY_COMPARE_RELATION_LIST:
+		"doctor/history/compare/relation/list",
 	GET_DOCTOR_HISOTRY_COMPARE_FILTER: "doctor/history/compare/filter",
 	GET_DOCTOR_HISOTRY_COMPARE_ALL: "doctor/history/compare/all",
 	IMPORT_DOCTOR_XLSX: "doctor/import/xlsx",

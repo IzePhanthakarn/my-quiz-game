@@ -3,13 +3,13 @@ import { setDialog } from "@/redux/slices/dialog";
 import { setCompareParams, setDoctorCompareList } from "../../redux";
 import HistoryDialog from "../History/HistoryDialog";
 import { DoctorForm } from "../../redux/form/model";
-import CompareAllDialog from "../History/CompareAllDialog";
 import _ from "lodash";
 import { BaseSubmitButton } from "wcf-component-lib/src/components";
 import WhiteBarLayout from "wcf-component-lib/src/layout/WhiteBarLayout";
 import Tag from "wcf-component-lib/node_modules/antd/es/tag";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
 import { useMemo } from "react";
+import { modelCompareList } from "../../redux/history/model";
 
 export const handleOpenHistory =
 	(doctorForm: DoctorForm) => async (dispatch: AppDispatch) => {
@@ -18,9 +18,10 @@ export const handleOpenHistory =
 				olderVersion: doctorForm.editTimes[doctorForm.editTimes.length - 2],
 				newerVersion: doctorForm.editTimes[doctorForm.editTimes.length - 1],
 				doctorId: doctorForm.doctorData.doctorId,
+				doctorCode: doctorForm.doctorData.doctorCode,
 			})
 		);
-		dispatch(setDoctorCompareList({ doctor: [], doctorAddress: [] }));
+		dispatch(setDoctorCompareList(modelCompareList));
 		dispatch(
 			setDialog({
 				isOpen: true,
@@ -30,15 +31,15 @@ export const handleOpenHistory =
 		);
 	};
 
-export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
-	dispatch(
-		setDialog({
-			isOpen: true,
-			isOverFlow: true,
-			uniqueContent: <CompareAllDialog />,
-		})
-	);
-};
+// export const handleOpenHistoryAll = () => async (dispatch: AppDispatch) => {
+// 	dispatch(
+// 		setDialog({
+// 			isOpen: true,
+// 			isOverFlow: true,
+// 			uniqueContent: <CompareAllDialog />,
+// 		})
+// 	);
+// };
 
 export const HandleWhiteBarLayout = (
 	doctorForm: DoctorForm,
@@ -58,8 +59,8 @@ export const HandleWhiteBarLayout = (
 					className="text-base font-semibold self-end"
 					label="ประวัติการแก้ไข"
 					onClickFunction={() => {
-						// dispatch(handleOpenHistory(doctorForm));
-						dispatch(handleOpenHistoryAll());
+						dispatch(handleOpenHistory(doctorForm));
+						// dispatch(handleOpenHistoryAll());
 					}}
 					icon={<ClockCircleOutlined />}
 					customStyle={{

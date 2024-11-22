@@ -4,6 +4,7 @@ import {
 	getDoctorCompareAllHistoryList,
 	getDoctorCompareHistoryFilter,
 	getDoctorCompareHistoryList,
+	getDoctorCompareRelationHistoryList,
 } from "./api";
 import _ from "lodash";
 import {
@@ -21,14 +22,19 @@ import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import { findNameDisplay } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
+import { mapIdByIndex } from "@/utils";
 
 export const initDoctorCompareHistory =
 	(params: CompareParams) => async (dispatch: AppDispatch) => {
 		// if (_.isEmpty(params.olderVersion) || _.isEmpty(params.newerVersion)) return;
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDoctorCompareHistoryList(params));
+		const dataRelation = await dispatch(
+			getDoctorCompareRelationHistoryList(params)
+		);
 		dispatch(setIsLoading(false));
 		const compareData = data.payload;
+		const compareRelationData = dataRelation.payload;
 		const addressList = [
 			{ index: 3, type: ADDRESS.PROVINCE },
 			{ index: 4, type: ADDRESS.AMPHUR },
@@ -64,7 +70,24 @@ export const initDoctorCompareHistory =
 				return { ...e };
 			});
 		}
-		dispatch(setDoctorCompareList(compareData));
+
+		const compareRelationDataMapId = {
+			...compareData,
+			doctorDetailHistoryCompare: {
+				newerGrid: mapIdByIndex(
+					compareRelationData.doctorDetailHistoryCompare.newerGrid
+				),
+				olderGrid: mapIdByIndex(
+					compareRelationData.doctorDetailHistoryCompare.olderGrid
+				),
+			},
+		};
+		console.log("compareRelationDataMapId", compareRelationDataMapId);
+		const compareDataAll = {
+			...compareData,
+			relationHistory: compareRelationDataMapId,
+		};
+		dispatch(setDoctorCompareList(compareDataAll));
 	};
 
 export const handleFilterCompare =
@@ -116,9 +139,9 @@ export const getFilterUpdatedDateEditTimes = (
 };
 
 export const initDoctorCompareAllHistory =
-	(doctorId: number) => async (dispatch: AppDispatch) => {
+	(doctorCode: string) => async (dispatch: AppDispatch) => {
 		dispatch(setIsLoading(true));
-		const data = await dispatch(getDoctorCompareAllHistoryList(doctorId));
+		const data = await dispatch(getDoctorCompareAllHistoryList(doctorCode));
 		dispatch(setIsLoading(false));
 		const compareData = data.payload;
 		const addressList = [
@@ -153,3 +176,10 @@ export const initDoctorCompareAllHistory =
 		}
 		dispatch(setCompareAllParams(compareData));
 	};
+
+export const handleBgColorGrid = (record: any) => {
+	if (record.isChanged) return "bg-yellow-100";
+	else if (record.isDeleted) return "bg-red-100";
+	else if (record.isNew) return "bg-green-100";
+	else return "";
+};

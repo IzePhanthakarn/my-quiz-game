@@ -1,3 +1,8 @@
+import {
+	DoctorDetailHistoryCompare,
+	modelDoctorDetailHistoryCompare,
+} from "./doctor-detail";
+
 export interface CompareHistory {
 	filterList: FilterList[];
 	compareList: DoctorCompareList;
@@ -5,8 +10,15 @@ export interface CompareHistory {
 	compareListAll: CompareAllList[];
 }
 
+export interface BaseCompareHistoryGrid {
+	isNew: boolean;
+	isDeleted: boolean;
+	isChanged: boolean;
+}
+
 export interface CompareParams {
 	doctorId: number;
+	doctorCode: string;
 	olderVersion: number | null;
 	newerVersion: number | null;
 }
@@ -14,6 +26,7 @@ export interface CompareParams {
 export interface DoctorCompareList {
 	doctor: CompareList[];
 	doctorAddress: CompareList[];
+	relationHistory: CompareRelationHistory;
 }
 
 export interface CompareList {
@@ -41,14 +54,24 @@ export interface FilterList {
 	updatedDate: string;
 }
 
+export interface CompareRelationHistory {
+	doctorDetailHistoryCompare: DoctorDetailHistoryCompare;
+}
+
+export const modelCompareList: DoctorCompareList = {
+	doctor: [],
+	doctorAddress: [],
+	relationHistory: {
+		doctorDetailHistoryCompare: modelDoctorDetailHistoryCompare,
+	},
+};
+
 export const modelCompareHistory: CompareHistory = {
 	filterList: [],
-	compareList: {
-		doctor: [],
-		doctorAddress: [],
-	},
+	compareList: modelCompareList,
 	compareParams: {
 		doctorId: 0,
+		doctorCode: "",
 		olderVersion: null,
 		newerVersion: null,
 	},

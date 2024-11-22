@@ -60,7 +60,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 			{(helperTextRight || helperTextLeft) && (
 				<div
 					className={`${
-						props.notForm ? "" : "-mt-6"
+						props.notForm ? "-mt-6" : ""
 					} w-full flex justify-between h-4`}
 				>
 					<>

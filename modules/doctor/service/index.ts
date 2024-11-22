@@ -184,7 +184,7 @@ export const handleDoctorFormSubmit =
 				description = "เพิ่มสำเร็จ";
 				message = BaseToastNotificationMessage.INSERT_SUCCESS;
 			}
-			router.push(LINKS.DOCTOR.link);
+			// router.push(LINKS.DOCTOR.link);
 			BaseToastNotification({
 				message: message,
 				description: description,

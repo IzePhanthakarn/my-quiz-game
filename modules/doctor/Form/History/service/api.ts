@@ -17,10 +17,24 @@ export const getDoctorCompareHistoryList = createAsyncThunk(
 	}
 );
 
+export const getDoctorCompareRelationHistoryList = createAsyncThunk(
+	"Medical/getDoctorCompareRelationHistoryList",
+	async (params: CompareParams, thunkAPI) => {
+		const { doctorCode, olderVersion, newerVersion } = params;
+		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_RELATION_LIST}?doctorCode=${doctorCode}&olderVersion=${olderVersion}&newerVersion=${newerVersion}`;
+		try {
+			const response = await axios.get(apiPath);
+			return response.data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
 export const getDoctorCompareAllHistoryList = createAsyncThunk(
 	"Medical/getDoctorCompareAllHistoryList",
-	async (doctorId: number, thunkAPI) => {
-		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_ALL}?doctorId=${doctorId}`;
+	async (doctorCode: string, thunkAPI) => {
+		const apiPath = `${API_PATH.GET_DOCTOR_HISOTRY_COMPARE_ALL}?doctorCode=${doctorCode}`;
 		try {
 			const response = await axios.get(apiPath);
 			return response.data;
