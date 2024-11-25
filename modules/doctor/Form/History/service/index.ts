@@ -23,6 +23,8 @@ import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import { findNameDisplay } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { mapIdByIndex } from "@/utils";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const initDoctorCompareHistory =
 	(params: CompareParams) => async (dispatch: AppDispatch) => {
@@ -81,6 +83,30 @@ export const initDoctorCompareHistory =
 					compareRelationData.doctorDetailHistoryCompare.olderGrid
 				),
 			},
+			doctorHospitalHistoryCompare: {
+				newerGrid: mapIdByIndex(
+					compareRelationData.doctorHospitalHistoryCompare.newerGrid
+				),
+				olderGrid: mapIdByIndex(
+					compareRelationData.doctorHospitalHistoryCompare.olderGrid
+				),
+			},
+			doctorBankHistoryCompare: {
+				newerGrid: mapIdByIndex(
+					compareRelationData.doctorBankHistoryCompare.newerGrid
+				),
+				olderGrid: mapIdByIndex(
+					compareRelationData.doctorBankHistoryCompare.olderGrid
+				),
+			},
+			trainingHistoryCompare: {
+				newerGrid: mapIdByIndex(
+					compareRelationData.trainingHistoryCompare.newerGrid
+				),
+				olderGrid: mapIdByIndex(
+					compareRelationData.trainingHistoryCompare.olderGrid
+				),
+			},
 		};
 		console.log("compareRelationDataMapId", compareRelationDataMapId);
 		const compareDataAll = {
@@ -128,14 +154,24 @@ export const getFilterUpdatedByEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => +e.editTimes === editTimes)?.updatedBy || "";
+	const updatedBy = filterList.find(
+		(e) => +e.editTimes === editTimes
+	)?.updatedBy;
+	if (updatedBy) {
+		return `แก้ไขโดย : ${updatedBy}`;
+	}
+	return "";
 };
 
 export const getFilterUpdatedDateEditTimes = (
 	editTimes: number | null,
 	filterList: FilterList[]
 ) => {
-	return filterList.find((e) => +e.editTimes === editTimes)?.updatedDate || "";
+	const date = filterList.find((e) => +e.editTimes === editTimes)?.updatedDate;
+	if (date) {
+		return dayjs(date).format(DateFormat.DDMMYYYYHHmmss);
+	}
+	return "";
 };
 
 export const initDoctorCompareAllHistory =

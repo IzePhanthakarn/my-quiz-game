@@ -6,19 +6,14 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { GetColumnBank } from "../model/DoctorBankModel";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { setDialog } from "@/redux/slices/dialog";
-import PostalCodeDialog from "@/modules/doctor/DialogContent/PostalIdDialog";
 import BankDialog from "@/modules/doctor/DialogContent/BankDialog";
-import { GetColumnPostal } from "../model/DoctorPostalModel";
 import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorBank() {
 	const dispatch: AppDispatch = useDispatch();
-	const { doctorBankGrid, doctorPostalGrid, doctor, dialog } = useSelector(
+	const { doctorBankGrid } = useSelector(
 		(state: SliceModel) => ({
 			doctorBankGrid: state.doctor.doctorForm.doctorBank,
-			doctorPostalGrid: state.doctor.doctorForm.doctorPostal,
-			doctor: state.doctor.doctorForm.doctorData,
-			dialog: state.dialog,
 		}),
 		shallowEqual
 	);

@@ -11,7 +11,7 @@ import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorHospital() {
 	const dispatch: AppDispatch = useDispatch();
-	const { doctorHospitalGrid, doctor, dialog } = useSelector(
+	const { doctorHospitalGrid, doctor } = useSelector(
 		(state: SliceModel) => ({
 			doctorHospitalGrid: state.doctor.doctorForm.doctorHospital,
 			doctor: state.doctor.doctorForm.doctorData,
