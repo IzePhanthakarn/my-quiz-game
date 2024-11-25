@@ -23,6 +23,8 @@ import { Bank } from "../BankDialog";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospitalModal } from "../HospitalDialog";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const handleDoctorDetailRows =
 	(params: {
@@ -116,7 +118,10 @@ export const handleTrainingRows =
 	async (dispatch: AppDispatch) => {
 		const { trainingGrid, editId, isDelete, training } = params;
 
-		const year = (training?.trainingDate ?? "").split("-")[0];
+		const year = dayjs(training?.trainingDate).format(DateFormat.YYYY);
+		const date = dayjs(training?.trainingDate).format(
+			DateFormat.YYYYMMDDT000000
+		);
 
 		const newTraining: TrainingList = {
 			id: 0,
@@ -129,7 +134,7 @@ export const handleTrainingRows =
 			trainingNo: training?.trainingNo ?? "",
 			trainingTime: "",
 			trainingYear: year,
-			trainingDate: `${training?.trainingDate ?? ""}T00:00:00`,
+			trainingDate: `${date}`,
 		};
 
 		const newGrid = _.cloneDeep(trainingGrid);
