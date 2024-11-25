@@ -53,7 +53,7 @@ export default function HistoryDialog() {
 	return (
 		<div className="w-full space-y-4 flex flex-col  h-full overflow-y-scroll">
 			<div className="flex w-full justify-end px-4 space-x-4">
-				<div className="w-48">
+				<div className="w-60">
 					<MedDropDown
 						notForm
 						label="เวอร์ชั่นหลักที่ใช้เทียบ"
@@ -89,7 +89,7 @@ export default function HistoryDialog() {
 						)}
 					/>
 				</div>
-				<div className="w-48">
+				<div className="w-60">
 					<MedDropDown
 						notForm
 						label="เวอร์ชั่นที่ต้องการเทียบ"

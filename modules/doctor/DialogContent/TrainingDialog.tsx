@@ -8,9 +8,11 @@ import { TrainingList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import BaseDatePicker from "wcf-component-lib/src/components/BaseDatePicker/BaseDatePicker";
 import { handleTrainingRows } from "./service";
 import { SliceModel } from "@/redux/slices/model";
+import dayjs, { Dayjs } from "wcf-component-lib/node_modules/dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
 interface Props {
 	trainingGrid: TrainingList[];
 	editId?: number;
@@ -18,13 +20,13 @@ interface Props {
 
 export interface TraningState {
 	trainingNo: string;
-	trainingDate: string;
+	trainingDate: Dayjs;
 	uuid: string | null;
 }
 
 const defaultTraining: TraningState = {
 	trainingNo: "",
-	trainingDate: "",
+	trainingDate: dayjs(),
 	uuid: null,
 };
 
@@ -48,7 +50,7 @@ export default function TraningDialog(props: Props) {
 			if (!_.isEmpty(data)) {
 				setTraining({
 					trainingNo: data.trainingNo,
-					trainingDate: data.trainingDate,
+					trainingDate: dayjs(data.trainingDate),
 					uuid: data.uuid ?? null,
 				});
 			}
@@ -58,7 +60,10 @@ export default function TraningDialog(props: Props) {
 	return (
 		<div className="flex space-y-2 flex-col w-full">
 			<Cube />
-			<p className="text-2xl">บันทึกข้อมูลการอบรม</p>
+			<p className="text-2xl">
+				บันทึกข้อมูลการอบรม
+				{dayjs(training.trainingDate).format(DateFormat.DDMMYYYY)}
+			</p>
 			<div className="w-full space-y-2">
 				<BaseItemInput
 					notForm
@@ -69,12 +74,16 @@ export default function TraningDialog(props: Props) {
 						setTraining({ ...training, trainingNo: e.target.value })
 					}
 				/>
-				<BaseDatePicker
+				<BaseItemDatePicker
+					notForm
 					itemName="trainingDate"
 					label="วันที่อบรม"
 					value={training.trainingDate}
 					onChangeDateFunction={(e) => {
-						setTraining({ ...training, trainingDate: e });
+						setTraining({
+							...training,
+							trainingDate: e,
+						});
 					}}
 				/>
 			</div>

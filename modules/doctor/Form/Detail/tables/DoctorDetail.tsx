@@ -16,11 +16,10 @@ import { modelDialog } from "@/redux/slices/dialog/model";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
-	const { doctorDetailGrid, doctor, dialog } = useSelector(
+	const { doctorDetailGrid, doctor } = useSelector(
 		(state: SliceModel) => ({
 			doctorDetailGrid: state.doctor.doctorForm.doctorDetail,
 			doctor: state.doctor.doctorForm.doctorData,
-			dialog: state.dialog,
 		}),
 		shallowEqual
 	);

@@ -1,7 +1,19 @@
 import {
+	DoctorBankHistoryCompare,
+	modelDoctorBankHistoryCompare,
+} from "./doctor-bank";
+import {
 	DoctorDetailHistoryCompare,
 	modelDoctorDetailHistoryCompare,
 } from "./doctor-detail";
+import {
+	DoctorHospitalHistoryCompare,
+	modelDoctorHospitalHistoryCompare,
+} from "./doctor-hospital";
+import {
+	modelTrainingHistoryCompare,
+	TrainingHistoryCompare,
+} from "./training";
 
 export interface CompareHistory {
 	filterList: FilterList[];
@@ -56,6 +68,9 @@ export interface FilterList {
 
 export interface CompareRelationHistory {
 	doctorDetailHistoryCompare: DoctorDetailHistoryCompare;
+	doctorHospitalHistoryCompare: DoctorHospitalHistoryCompare;
+	doctorBankHistoryCompare: DoctorBankHistoryCompare;
+	trainingHistoryCompare: TrainingHistoryCompare;
 }
 
 export const modelCompareList: DoctorCompareList = {
@@ -63,6 +78,9 @@ export const modelCompareList: DoctorCompareList = {
 	doctorAddress: [],
 	relationHistory: {
 		doctorDetailHistoryCompare: modelDoctorDetailHistoryCompare,
+		doctorHospitalHistoryCompare: modelDoctorHospitalHistoryCompare,
+		doctorBankHistoryCompare: modelDoctorBankHistoryCompare,
+		trainingHistoryCompare: modelTrainingHistoryCompare,
 	},
 };
 

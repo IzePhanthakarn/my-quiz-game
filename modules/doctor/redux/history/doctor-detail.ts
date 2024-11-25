@@ -1,4 +1,4 @@
-import { BaseCompareHistoryGrid, CompareRelationHistory } from "./model";
+import { BaseCompareHistoryGrid } from "./model";
 
 export interface DoctorDetailHistoryCompare {
 	newerGrid: DoctorDetailCompareHistory[];
