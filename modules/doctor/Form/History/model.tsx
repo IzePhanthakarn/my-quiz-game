@@ -11,6 +11,7 @@ import lodash from "lodash";
 import { findNameDisplay } from "@/components/MedDropDown/service";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { DiplomaForm } from "@/modules/diploma/redux/model";
 
 export const columns: TableProps["columns"] = [
 	{
@@ -261,6 +262,23 @@ export const columnsDoctorDetail: TableProps["columns"] = [
 		title: "วุฒิบัตรเฉพาะทาง",
 		dataIndex: "diplomaType",
 		key: "diplomaType",
+	},
+	{
+		title: "วุฒิบัตรเฉพาะทาง",
+		dataIndex: "diplomaName",
+		key: "diplomaName",
+		render: (_, { diplomaType }: any) => {
+			const sessionDiploma = JSON.parse(
+				sessionStorage.getItem(SESSION_NAME.DIPLOMA) ?? "[]"
+			);
+			return (
+				<p>
+					{sessionDiploma.find(
+						(e: DiplomaForm) => e.diplomaType === diplomaType
+					).diplomaName ?? ""}
+				</p>
+			);
+		},
 	},
 ];
 
