@@ -1670,6 +1670,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										className="style2"
 										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
 										subFolderPath="hospital/announcedPriceFiles"
+										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
 										bearer={`${Cookies.get("accessToken")}`}
 										onChangeFunction={(e) => {
 											dispatch(
