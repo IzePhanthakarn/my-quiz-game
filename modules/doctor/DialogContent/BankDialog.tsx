@@ -4,7 +4,7 @@ import MedDropDown from "@/components/MedDropDown";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import _ from "lodash";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { handleBankRows } from "./service";
+import { handleBankBranchDropdown, handleBankRows } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
@@ -12,13 +12,15 @@ import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { SliceModel } from "@/redux/slices/model";
+import { findNameDisplay } from "@/components/MedDropDown/service";
 
 interface Props {
 	doctorBankGrid: DoctorBankList[];
 	editId?: number;
 }
 
-export interface Bank {
+export interface BankModal {
+	bankId: number;
 	bankAccountName: string;
 	bankDigitCode: string | null;
 	bankSortingCode: string | null;
@@ -27,7 +29,8 @@ export interface Bank {
 	uuid: string | null;
 }
 
-const modelBank: Bank = {
+const modelBank: BankModal = {
+	bankId: 0,
 	bankAccountName: "",
 	bankDigitCode: null,
 	bankSortingCode: null,
@@ -52,7 +55,16 @@ export default function BankDialog(props: Props) {
 		setBank(modelBank);
 		if (editId) {
 			const data = _.find(doctorBankGrid, ["id", editId]);
-			setBank({ ...bank, ...data });
+			// const bankSortingCode = data?.bankSortingCode;
+			// const bankBranchName = findNameDisplay(
+			// 	SESSION_NAME.BANK_BRANCH,
+			// 	bankSortingCode
+			// );
+			setBank({
+				...bank,
+				...data,
+				// bankSortingCode: bankBranchName,
+			});
 		}
 	}, [doctorBankGrid, editId, isOpen]);
 
@@ -75,10 +87,16 @@ export default function BankDialog(props: Props) {
 					notForm={true}
 					type={SESSION_NAME.BANK_BRANCH}
 					className="h-full w-full"
-					disabled={_.isEmpty(bank.bankDigitCode)}
+					option={handleBankBranchDropdown(bank.bankDigitCode ?? "")}
+					disabled={_.isEmpty(
+						handleBankBranchDropdown(bank.bankDigitCode ?? "")
+					)}
 					label="สาขาธนาคาร"
 					getValue={(e) => setBank({ ...bank, bankSortingCode: e })}
-					value={bank.bankSortingCode}
+					value={findNameDisplay(
+						SESSION_NAME.BANK_BRANCH,
+						bank.bankSortingCode
+					)}
 				/>
 				<BaseItemInput
 					notForm

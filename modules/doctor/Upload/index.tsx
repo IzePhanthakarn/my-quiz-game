@@ -106,7 +106,9 @@ export default function UploadDoctor() {
 						<p className="tablnact">อัปโหลดไฟล์</p>
 						<p className="text-label text-[#779097]">ไฟล์ที่รองรับ .xlsx</p>
 					</div>
-					<a href="https://api-dev-wcf.soilfish.co/mw/api/asset/images/doctor_data_import_template_full.xlsx">
+					<a
+						href={`${process.env.NEXT_PUBLIC_BASE_URL}doctor_data_import_template_full.xlsx`}
+					>
 						<BaseButton
 							label="ดาวน์โหลด Template"
 							type="outline"
