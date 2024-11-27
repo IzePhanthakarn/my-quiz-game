@@ -41,7 +41,7 @@ export default function ToDoList() {
 			disable: count.sp7end30 === 0,
 			abstractImage: (
 				<img
-					src="https://api-dev-wcf.soilfish.co/mw/api/asset/images/abstractImage1.svg"
+					src={`${process.env.NEXT_PUBLIC_MIDDLEWARE_PATH}abstractImage1.svg`}
 					alt="abstractImage1"
 				/>
 			),
@@ -57,7 +57,7 @@ export default function ToDoList() {
 			disable: count.sp7end90 === 0,
 			abstractImage: (
 				<img
-					src="https://api-dev-wcf.soilfish.co/mw/api/asset/images/abstractImage1.svg"
+					src={`${process.env.NEXT_PUBLIC_MIDDLEWARE_PATH}abstractImage1.svg`}
 					alt="abstractImage1"
 				/>
 			),
@@ -73,7 +73,7 @@ export default function ToDoList() {
 			disable: count.sp19end30 === 0,
 			abstractImage: (
 				<img
-					src="https://api-dev-wcf.soilfish.co/mw/api/asset/images/abstractImage2.svg"
+					src={`${process.env.NEXT_PUBLIC_MIDDLEWARE_PATH}abstractImage2.svg`}
 					alt="abstractImage1"
 				/>
 			),
@@ -89,7 +89,7 @@ export default function ToDoList() {
 			disable: count.sp19end90 === 0,
 			abstractImage: (
 				<img
-					src="https://api-dev-wcf.soilfish.co/mw/api/asset/images/abstractImage2.svg"
+					src={`${process.env.NEXT_PUBLIC_MIDDLEWARE_PATH}abstractImage2.svg`}
 					alt="abstractImage1"
 				/>
 			),

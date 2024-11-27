@@ -19,12 +19,14 @@ import {
 } from "../../redux";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { TraningState } from "../TrainingDialog";
-import { Bank } from "../BankDialog";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { DiplomaForm } from "@/modules/diploma/redux/model";
 import { DoctorHospitalModal } from "../HospitalDialog";
 import dayjs from "dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { Bank, BankBranch } from "@/components/MedDropDown/service/model";
+import { BankModal } from "../BankDialog";
+import { Option } from "wcf-component-lib/src/components/BaseItemDropdown";
 
 export const handleDoctorDetailRows =
 	(params: {
@@ -165,7 +167,7 @@ export const handleHospital = (
 
 export const handleBankRows =
 	(params: {
-		bank?: Bank;
+		bank?: BankModal;
 		doctorBankGrid: DoctorBankList[];
 		editId?: number;
 		isDelete?: boolean;
@@ -226,3 +228,32 @@ export const handlePostalRows =
 		dispatch(setDoctorPostalList(mapIdByIndex(newGrid)));
 		dispatch(setIsOpenDialog(false));
 	};
+
+export const handleBankBranchDropdown = (value: string) => {
+	const raw_bank = JSON.parse(
+		sessionStorage.getItem(SESSION_NAME.BANK) ?? "[]"
+	);
+
+	const bankId = raw_bank.find((e: Bank) => e.bankCode === value)?.bankId;
+
+	if (!_.isNumber(bankId)) return null;
+
+	const raw_bank_branch = JSON.parse(
+		sessionStorage.getItem(SESSION_NAME.BANK_BRANCH) ?? "[]"
+	);
+
+	let name = null;
+
+	const bankBranch = raw_bank_branch.filter(
+		(e: BankBranch) => e.bankId === bankId
+	);
+
+	if (!_.isEmpty(bankBranch)) {
+		name = bankBranch.map((e: BankBranch) => ({
+			label: e.bankBranchName,
+			value: e.bankBranchCode,
+		}));
+	}
+
+	return name;
+};

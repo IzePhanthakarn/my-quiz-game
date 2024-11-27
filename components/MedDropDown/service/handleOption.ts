@@ -3,7 +3,6 @@ import {
 	Address,
 	Diploma,
 	DoctorHospital,
-	Option,
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { SESSION_NAME } from "../model";
