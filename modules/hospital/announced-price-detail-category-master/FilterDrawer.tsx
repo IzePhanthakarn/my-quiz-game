@@ -7,7 +7,6 @@ import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseIt
 import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
 
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import { setHospitalAnnouncedPriceDetailCategoryMasterFilter } from "./redux";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 

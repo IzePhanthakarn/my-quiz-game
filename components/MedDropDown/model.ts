@@ -21,6 +21,7 @@ export enum SESSION_NAME {
 	SSO_BRANCH_PROVINCE_CODENAME = "ssoBranchProvinceCodeName",
 	BANK = "bank",
 	BANK_BRANCH = "bankBranch",
+	HOSPITAL_ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER = "hospitalAnnouncedPriceDetailCategoryMaster",
 }
 
 export enum API_METHOD {
@@ -148,6 +149,27 @@ export const DROPDOWN = {
 		sessionName: SESSION_NAME.DOCTOR_TYPE,
 		method: API_METHOD.GET,
 		baseBody: undefined,
+	},
+	[SESSION_NAME.HOSPITAL_ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL}/hospital-announced-price-files/announced-price-detail-category-master/list`,
+		sessionName: SESSION_NAME.HOSPITAL_ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER,
+		method: API_METHOD.POST,
+		baseBody: {
+			pagination: {
+				totalData: 0,
+				pageNumber: 0,
+				pageSize: 9999,
+				orders: [{ direction: "DESC", property: "updatedDate" }],
+			},
+			nameLike: "",
+			unitNameLike: "",
+			runningCodeLike: "",
+			checkName: false,
+			checkUnitName: false,
+			checkRunningCode: false,
+			isActive: "Y",
+			checkIsActive: false,
+		},
 	},
 	[SESSION_NAME.DEFAULT]: {
 		apiPath: "",

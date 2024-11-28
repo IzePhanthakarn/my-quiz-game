@@ -30,7 +30,7 @@ import {
 	HospitalAnnouncedPriceDetailCategoryMasterFilter,
 	HospitalAnnouncedPriceDetailCategoryMasterForm,
 	HospitalAnnouncedPriceDetailCategoryMasterGrid,
-} from "../announced-price-file-category-detail/redux/model";
+} from "../announced-price-detail-category-master/redux/model";
 export const hospitalReducers = {
 	setHospital: (state: Hospital, action: PayloadAction<Hospital>) => {
 		state = action.payload;
@@ -166,7 +166,6 @@ export const hospitalReducers = {
 
 	setHospitalAnnouncedPriceDetailCategoryMasterGrid: (
 		state: Hospital,
-		// action: PayloadAction<HospitalAnnouncedPriceDetailCategoryMasterGrid>
 		action: PayloadAction<
 			Hospital["hospitalAnnouncedPriceDetailCategoryMaster"]["grid"]
 		>
@@ -194,6 +193,39 @@ export const hospitalReducers = {
 		action: PayloadAction<PaginationOptions>
 	) => {
 		state.hospitalAnnouncedPriceDetailCategoryMaster.grid.page = {
+			...action.payload,
+		};
+	},
+
+	setHospitalAnnouncedPriceDetailMasterGrid: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceDetailMaster"]["grid"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceDetailMaster.grid = action.payload;
+	},
+	setHospitalAnnouncedPriceDetailMasterFilter: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceDetailMaster"]["filter"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceDetailMaster.filter = action.payload;
+	},
+	setHospitalAnnouncedPriceDetailMasterForm: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceDetailMaster"]["form"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceDetailMaster.form = action.payload;
+	},
+	setHospitalAnnouncedPriceDetailMasterPagination: (
+		state: Hospital,
+		action: PayloadAction<PaginationOptions>
+	) => {
+		state.hospitalAnnouncedPriceDetailMaster.grid.page = {
 			...action.payload,
 		};
 	},

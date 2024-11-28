@@ -6,7 +6,14 @@ import {
 } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { SESSION_NAME } from "../model";
-import { Bank, BankBranch, CourseCategory, SsoBranch, Title } from "./model";
+import {
+	Bank,
+	BankBranch,
+	CourseCategory,
+	HospitalAnnouncedPriceDetailCategoryMaster,
+	SsoBranch,
+	Title,
+} from "./model";
 
 export const handleOption = (type: SESSION_NAME, result: any) => {
 	let option = null;
@@ -105,6 +112,14 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 				label: e.bankBranchName,
 				value: e.bankBranchCode,
 			}));
+			break;
+		case SESSION_NAME.HOSPITAL_ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER:
+			option = result.content.map(
+				(e: HospitalAnnouncedPriceDetailCategoryMaster) => ({
+					value: e.uuid,
+					label: e.categoryName,
+				})
+			);
 			break;
 		default:
 			return [];

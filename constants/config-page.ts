@@ -66,13 +66,13 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 
 		announcedPriceDetailCategoryMaster: {
-			url: "/hospital/announced-price-file-category-detail",
+			url: "/hospital/announced-price-detail-category-master",
 			breadcrumb: ["root", "announcedPriceDetailCategoryMaster"],
 			text: "ประเภทราคาประกาศ",
 			pageLevel: { form: [0], delete: [2] },
 		},
 		announcedPriceDetailCategoryMasterEdit: {
-			url: "/hospital/announced-price-file-category-detail/edit/[uuid]",
+			url: "/hospital/announced-price-detail-category-master/edit/[uuid]",
 			text: "ข้อมูลประเภทราคาประกาศ",
 			breadcrumb: [
 				"root",
@@ -82,7 +82,7 @@ export const configPage: DataStructureURL<MedKey> = {
 			pageLevel: { form: [0], edit: [1, 2], add: [1, 2], admin: [2] },
 		},
 		announcedPriceDetailCategoryMasterAdd: {
-			url: "/hospital/announced-price-file-category-detail/form",
+			url: "/hospital/announced-price-detail-category-master/form",
 			text: "เพิ่มข้อมูลประเภทราคาประกาศ",
 			breadcrumb: [
 				"root",
@@ -93,6 +93,38 @@ export const configPage: DataStructureURL<MedKey> = {
 				form: [0],
 				edit: [1, 2],
 				add: [1, 2],
+				admin: [2],
+			},
+		},
+
+		announcedPriceDetailMaster: {
+			url: "/hospital/announced-price-detail-master",
+			breadcrumb: ["root", "announcedPriceDetailMaster"],
+			text: "Master ราคาประกาศ",
+			pageLevel: { form: [0], delete: [2] },
+		},
+		announcedPriceDetailMasterEdit: {
+			url: "/hospital/announced-price-detail-master/edit/[uuid]",
+			text: "ข้อมูล Master ราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailMaster",
+				"announcedPriceDetailMasterEdit",
+			],
+			pageLevel: { form: [0], edit: [0, 1, 2], add: [0, 1, 2], admin: [2] },
+		},
+		announcedPriceDetailMasterAdd: {
+			url: "/hospital/announced-price-detail-master/form",
+			text: "เพิ่มข้อมูล Master ราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailMaster",
+				"announcedPriceDetailMasterAdd",
+			],
+			pageLevel: {
+				form: [0],
+				edit: [0, 1, 2],
+				add: [0, 1, 2],
 				admin: [2],
 			},
 		},

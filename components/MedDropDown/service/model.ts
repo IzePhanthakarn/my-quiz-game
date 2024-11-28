@@ -15,6 +15,11 @@ export interface SsoBranch {
 	provinceCode: string;
 }
 
+export interface HospitalAnnouncedPriceDetailCategoryMaster {
+	categoryName: string;
+	uuid: string;
+}
+
 export interface Bank {
 	bankId: number;
 	bankName: string;

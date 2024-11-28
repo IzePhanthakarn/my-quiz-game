@@ -138,6 +138,17 @@ const API_PATH = {
 				UPDATE_BY_UUID:
 					"/hospital-announced-price-files/announced-price-detail-category-master",
 			},
+			ANNOUNCED_PRICE_DETAIL_MASTER: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-detail-master/list",
+				GET_RECORD:
+					"/hospital-announced-price-files/announced-price-detail-master",
+				ADD: "/hospital-announced-price-files/announced-price-detail-master",
+				GET_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-master",
+				UPDATE_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-master",
+			},
 		},
 		HOSPITAL_STAFF_CONTACT: {
 			GET_LIST: "/hospital-staff-contact/list",

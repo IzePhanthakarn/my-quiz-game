@@ -38,6 +38,10 @@ export const {
 	setHospitalAnnouncedPriceDetailCategoryMasterGrid,
 	setHospitalAnnouncedPriceDetailCategoryMasterFilter,
 	setHospitalAnnouncedPriceDetailCategoryMasterPagination,
+	setHospitalAnnouncedPriceDetailMasterForm,
+	setHospitalAnnouncedPriceDetailMasterGrid,
+	setHospitalAnnouncedPriceDetailMasterFilter,
+	setHospitalAnnouncedPriceDetailMasterPagination,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

@@ -12,7 +12,7 @@ import {
 	HospitalAnnouncedPriceDetailCategoryMaster,
 	HospitalAnnouncedPriceDetailCategoryMasterForm,
 	GetHospitalAnnouncedPriceDetailCategoryMasterList,
-} from "@/modules/hospital/announced-price-file-category-detail/redux/model";
+} from "@/modules/hospital/announced-price-detail-category-master/redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
