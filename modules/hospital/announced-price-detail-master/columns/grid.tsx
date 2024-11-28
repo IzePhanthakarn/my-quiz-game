@@ -23,28 +23,42 @@ export const GetColumns = (router: AppRouterInstance) => {
 			},
 			{
 				sorter: true,
-				key: "categoryCode",
-				dataIndex: "categoryCode",
-				width: 300,
+				key: "name",
+				dataIndex: "name",
+				// width: 300,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"categoryCode"}
-						label={hospitalAnnouncedPriceDetailMasterName.categoryCode}
+						headerKey={"name"}
+						label={hospitalAnnouncedPriceDetailMasterName.name}
 						sort={columns?.sortColumns}
 					/>
 				),
 			},
 			{
 				sorter: true,
-				key: "categoryName",
-				dataIndex: "categoryName",
-				width: 300,
+				key: "unitName",
+				dataIndex: "unitName",
+				// width: 300,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"categoryName"}
-						label={hospitalAnnouncedPriceDetailMasterName.categoryName}
+						headerKey={"unitName"}
+						label={hospitalAnnouncedPriceDetailMasterName.unitName}
+						sort={columns?.sortColumns}
+					/>
+				),
+			},
+			{
+				sorter: true,
+				key: "runningCode",
+				dataIndex: "runningCode",
+				// width: 200,
+				title: (columns: ColumnTitleProps<any>) => (
+					<CustomHeaderSort
+						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+						headerKey={"runningCode"}
+						label={hospitalAnnouncedPriceDetailMasterName.runningCode}
 						sort={columns?.sortColumns}
 					/>
 				),

@@ -134,6 +134,7 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 										);
 									}}
 								/>
+
 								<BaseItemInput
 									pageLevel={params.params.uuid ? "edit" : "add"}
 									label={hospitalAnnouncedPriceDetailMasterName.unitName}
@@ -149,32 +150,40 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 										);
 									}}
 								/>
-								<BaseItemInput
-									pageLevel={params.params.uuid ? "edit" : "add"}
-									label={hospitalAnnouncedPriceDetailMasterName.runningCode}
-									itemName="runningCode"
-									rules={
-										hospitalAnnouncedPriceDetailMasterRules.runningCodeSchema
-									}
-									value={form.runningCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setHospitalAnnouncedPriceDetailMasterForm({
-												...form,
-												runningCode: e.target.value,
-											})
-										);
-									}}
-								/>
 
+								{!_.isEmpty(params.params.uuid) && (
+									<BaseItemInput
+										pageLevel={params.params.uuid ? "edit" : "add"}
+										label={hospitalAnnouncedPriceDetailMasterName.runningCode}
+										itemName="runningCode"
+										rules={
+											hospitalAnnouncedPriceDetailMasterRules.runningCodeSchema
+										}
+										value={form.runningCode}
+										onChangeFunction={(e) => {
+											dispatch(
+												setHospitalAnnouncedPriceDetailMasterForm({
+													...form,
+													runningCode: e.target.value,
+												})
+											);
+										}}
+									/>
+								)}
 								<MedDropDown
-									label="test"
+									label={
+										hospitalAnnouncedPriceDetailMasterName.hospitalAnnouncedPriceDetailCategoryMasterUuid
+									}
 									type={
 										SESSION_NAME.HOSPITAL_ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER
+									}
+									rules={
+										hospitalAnnouncedPriceDetailMasterRules.hospitalAnnouncedPriceDetailCategoryMasterUuidSchema
 									}
 									value={form.hospitalAnnouncedPriceDetailCategoryMasterUuid}
 									itemName="hospitalAnnouncedPriceDetailCategoryMasterUuid"
 									getValue={(value) => {
+										console.log("🚀 ~ Form ~ value:", value);
 										dispatch(
 											setHospitalAnnouncedPriceDetailMasterForm({
 												...form,

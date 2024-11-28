@@ -17,4 +17,9 @@ export const hospitalAnnouncedPriceDetailMasterRules = {
 		requiredRule(hospitalAnnouncedPriceDetailMasterName.runningCode),
 		maxRule(hospitalAnnouncedPriceDetailMasterName.runningCode, 20),
 	],
+	hospitalAnnouncedPriceDetailCategoryMasterUuidSchema: [
+		requiredRule(
+			hospitalAnnouncedPriceDetailMasterName.hospitalAnnouncedPriceDetailCategoryMasterUuid
+		),
+	],
 };
