@@ -26,10 +26,10 @@ import {
 } from "./models/announcedPriceFilesModel";
 import { HospitalStaffContact } from "./models/hospitalStaffContactModel";
 import {
-	HospitalAnnouncedPriceFileCategoryDetail,
-	HospitalAnnouncedPriceFileCategoryDetailFilter,
-	HospitalAnnouncedPriceFileCategoryDetailForm,
-	HospitalAnnouncedPriceFileCategoryDetailGrid,
+	HospitalAnnouncedPriceDetailCategoryMaster,
+	HospitalAnnouncedPriceDetailCategoryMasterFilter,
+	HospitalAnnouncedPriceDetailCategoryMasterForm,
+	HospitalAnnouncedPriceDetailCategoryMasterGrid,
 } from "../announced-price-file-category-detail/redux/model";
 export const hospitalReducers = {
 	setHospital: (state: Hospital, action: PayloadAction<Hospital>) => {
@@ -164,36 +164,36 @@ export const hospitalReducers = {
 		state.history = action.payload;
 	},
 
-	setHospitalAnnouncedPriceFileCategoryDetailGrid: (
+	setHospitalAnnouncedPriceDetailCategoryMasterGrid: (
 		state: Hospital,
-		// action: PayloadAction<HospitalAnnouncedPriceFileCategoryDetailGrid>
+		// action: PayloadAction<HospitalAnnouncedPriceDetailCategoryMasterGrid>
 		action: PayloadAction<
-			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["grid"]
+			Hospital["hospitalAnnouncedPriceDetailCategoryMaster"]["grid"]
 		>
 	) => {
-		state.hospitalAnnouncedPriceFileCategoryDetail.grid = action.payload;
+		state.hospitalAnnouncedPriceDetailCategoryMaster.grid = action.payload;
 	},
-	setHospitalAnnouncedPriceFileCategoryDetailFilter: (
+	setHospitalAnnouncedPriceDetailCategoryMasterFilter: (
 		state: Hospital,
 		action: PayloadAction<
-			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["filter"]
+			Hospital["hospitalAnnouncedPriceDetailCategoryMaster"]["filter"]
 		>
 	) => {
-		state.hospitalAnnouncedPriceFileCategoryDetail.filter = action.payload;
+		state.hospitalAnnouncedPriceDetailCategoryMaster.filter = action.payload;
 	},
-	setHospitalAnnouncedPriceFileCategoryDetailForm: (
+	setHospitalAnnouncedPriceDetailCategoryMasterForm: (
 		state: Hospital,
 		action: PayloadAction<
-			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["form"]
+			Hospital["hospitalAnnouncedPriceDetailCategoryMaster"]["form"]
 		>
 	) => {
-		state.hospitalAnnouncedPriceFileCategoryDetail.form = action.payload;
+		state.hospitalAnnouncedPriceDetailCategoryMaster.form = action.payload;
 	},
-	setHospitalAnnouncedPriceFileCategoryDetailPagination: (
+	setHospitalAnnouncedPriceDetailCategoryMasterPagination: (
 		state: Hospital,
 		action: PayloadAction<PaginationOptions>
 	) => {
-		state.hospitalAnnouncedPriceFileCategoryDetail.grid.page = {
+		state.hospitalAnnouncedPriceDetailCategoryMaster.grid.page = {
 			...action.payload,
 		};
 	},

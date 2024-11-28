@@ -8,23 +8,23 @@ import {
 	BaseMasterDataInterface,
 	baseMasterDataModel,
 } from "wcf-component-lib/src/interfaces/base-master-data-interface";
-export interface HospitalAnnouncedPriceFileCategoryDetail {
-	grid: HospitalAnnouncedPriceFileCategoryDetailGrid;
-	filter: HospitalAnnouncedPriceFileCategoryDetailFilter;
-	form: HospitalAnnouncedPriceFileCategoryDetailForm;
+export interface HospitalAnnouncedPriceDetailCategoryMaster {
+	grid: HospitalAnnouncedPriceDetailCategoryMasterGrid;
+	filter: HospitalAnnouncedPriceDetailCategoryMasterFilter;
+	form: HospitalAnnouncedPriceDetailCategoryMasterForm;
 }
 
-export interface HospitalAnnouncedPriceFileCategoryDetailGrid
+export interface HospitalAnnouncedPriceDetailCategoryMasterGrid
 	extends PaginationModel {
-	data: HospitalAnnouncedPriceFileCategoryDetailGridData[];
+	data: HospitalAnnouncedPriceDetailCategoryMasterGridData[];
 }
 
-export interface HospitalAnnouncedPriceFileCategoryDetailGridData {
+export interface HospitalAnnouncedPriceDetailCategoryMasterGridData {
 	categoryCode: string;
 	categoryName: string;
 }
 
-export interface HospitalAnnouncedPriceFileCategoryDetailFilter {
+export interface HospitalAnnouncedPriceDetailCategoryMasterFilter {
 	categoryCodeLike: string;
 	categoryNameLike: string;
 
@@ -34,18 +34,18 @@ export interface HospitalAnnouncedPriceFileCategoryDetailFilter {
 	isActive: IsActive | undefined;
 	checkIsActive: boolean;
 }
-export interface GetHospitalAnnouncedPriceFileCategoryDetailList
-	extends HospitalAnnouncedPriceFileCategoryDetailFilter {
+export interface GetHospitalAnnouncedPriceDetailCategoryMasterList
+	extends HospitalAnnouncedPriceDetailCategoryMasterFilter {
 	pagination: PaginationOptions;
 }
 
-export interface HospitalAnnouncedPriceFileCategoryDetailForm
+export interface HospitalAnnouncedPriceDetailCategoryMasterForm
 	extends BaseMasterDataInterface {
 	categoryCode: string;
 	categoryName: string;
 }
 
-export const modelHospitalAnnouncedPriceFileCategoryDetail: HospitalAnnouncedPriceFileCategoryDetail =
+export const modelHospitalAnnouncedPriceDetailCategoryMaster: HospitalAnnouncedPriceDetailCategoryMaster =
 	{
 		grid: {
 			data: [],

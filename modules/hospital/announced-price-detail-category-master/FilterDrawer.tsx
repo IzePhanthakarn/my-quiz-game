@@ -7,7 +7,7 @@ import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseIt
 import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
 
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import { setHospitalAnnouncedPriceFileCategoryDetailFilter } from "./redux";
+import { setHospitalAnnouncedPriceDetailCategoryMasterFilter } from "./redux";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 
@@ -15,7 +15,7 @@ export default function FilterDrawer() {
 	const dispatch: AppDispatch = useDispatch();
 	const { filter } = useSelector(
 		(state: SliceModel) => ({
-			filter: state.hospital.hospitalAnnouncedPriceFileCategoryDetail.filter,
+			filter: state.hospital.hospitalAnnouncedPriceDetailCategoryMaster.filter,
 		}),
 		shallowEqual
 	);
@@ -31,7 +31,7 @@ export default function FilterDrawer() {
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								checkCourseCategory: !filter.checkCourseCategory,
 							})
@@ -45,7 +45,7 @@ export default function FilterDrawer() {
 							value={filter.courseCategoryLike}
 							onChangeFunction={(e) => {
 								dispatch(
-									setHospitalAnnouncedPriceFileCategoryDetailFilter({
+									setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 										...filter,
 										courseCategoryLike: e.target.value,
 									})
@@ -63,7 +63,7 @@ export default function FilterDrawer() {
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								checkSsoCourseCode: !filter.checkSsoCourseCode,
 							})
@@ -77,7 +77,7 @@ export default function FilterDrawer() {
 							value={filter.ssoCourseCodeLike}
 							onChangeFunction={(e) => {
 								dispatch(
-									setHospitalAnnouncedPriceFileCategoryDetailFilter({
+									setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 										...filter,
 										ssoCourseCodeLike: e.target.value,
 									})
@@ -95,7 +95,7 @@ export default function FilterDrawer() {
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								checkCourseDescription: !filter.checkCourseDescription,
 							})
@@ -109,7 +109,7 @@ export default function FilterDrawer() {
 							value={filter.courseDescriptionLike}
 							onChangeFunction={(e) => {
 								dispatch(
-									setHospitalAnnouncedPriceFileCategoryDetailFilter({
+									setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 										...filter,
 										courseDescriptionLike: e.target.value,
 									})
@@ -127,7 +127,7 @@ export default function FilterDrawer() {
 					labelPosition={BaseFormItemPosition.RIGHT}
 					onClickFunction={() =>
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								checkCourseYear: !filter.checkCourseYear,
 							})
@@ -141,7 +141,7 @@ export default function FilterDrawer() {
 							value={filter.courseYearLike}
 							onChangeFunction={(e) => {
 								dispatch(
-									setHospitalAnnouncedPriceFileCategoryDetailFilter({
+									setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 										...filter,
 										courseYearLike: e.target.value,
 									})
@@ -156,7 +156,7 @@ export default function FilterDrawer() {
 					isMainInputChecked={filter.checkIsActive}
 					onClickMainInputFunction={() => {
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								checkIsActive: !filter.checkIsActive,
 								isActive: undefined,
@@ -166,7 +166,7 @@ export default function FilterDrawer() {
 					subInputValue={filter.isActive}
 					onClickSubInputYFunction={() => {
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								isActive: IsActive.Y,
 							})
@@ -174,7 +174,7 @@ export default function FilterDrawer() {
 					}}
 					onClickSubInputNFunction={() => {
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailFilter({
+							setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 								...filter,
 								isActive: IsActive.N,
 							})

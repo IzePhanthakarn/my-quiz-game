@@ -9,7 +9,7 @@ import { LINKS } from "@/constants/links";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
 import CustomHeaderSort from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/Header/CustomHeaderSort";
-import { hospitalAnnouncedPriceFileCategoryDetailName } from "../interfaces/name";
+import { hospitalAnnouncedPriceDetailCategoryMasterName } from "../interfaces/name";
 
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -30,7 +30,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"categoryCode"}
-						label={hospitalAnnouncedPriceFileCategoryDetailName.categoryCode}
+						label={hospitalAnnouncedPriceDetailCategoryMasterName.categoryCode}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -44,7 +44,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
 						headerKey={"categoryName"}
-						label={hospitalAnnouncedPriceFileCategoryDetailName.categoryName}
+						label={hospitalAnnouncedPriceDetailCategoryMasterName.categoryName}
 						sort={columns?.sortColumns}
 					/>
 				),
@@ -57,7 +57,10 @@ export const GetColumns = (router: AppRouterInstance) => {
 					return (
 						<CustomCellButton
 							editFunction={() =>
-								router.push(LINKS.COURSE_CERTIFICATE.edit + uuid)
+								router.push(
+									LINKS.HOSPITAL.hospitalAnnouncedPriceDetailCategoryMaster
+										.edit + uuid
+								)
 							}
 							mode={BUTTON_MODE.EDIT_ONLY_ICON}
 						/>

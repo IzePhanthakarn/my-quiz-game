@@ -34,9 +34,10 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import { HospitalHistory, modelHospitalHistory } from "./historyModel";
 import {
-	HospitalAnnouncedPriceFileCategoryDetail,
-	modelHospitalAnnouncedPriceFileCategoryDetail,
-} from "../../announced-price-file-category-detail/redux/model";
+	HospitalAnnouncedPriceDetailCategoryMaster,
+	modelHospitalAnnouncedPriceDetailCategoryMaster,
+} from "../../announced-price-detail-category-master/redux/model";
+
 dayjs.extend(localeData);
 export interface Hospital {
 	grid: HospitalGrid;
@@ -56,7 +57,7 @@ export interface Hospital {
 
 	estimateAdd: EstimateAdd;
 
-	hospitalAnnouncedPriceFileCategoryDetail: HospitalAnnouncedPriceFileCategoryDetail;
+	hospitalAnnouncedPriceDetailCategoryMaster: HospitalAnnouncedPriceDetailCategoryMaster;
 }
 
 export interface EstimateAdd {
@@ -374,8 +375,8 @@ export const modelEstimateAdd: EstimateAdd = {
 };
 
 export const modelHospital: Hospital = {
-	hospitalAnnouncedPriceFileCategoryDetail: {
-		...modelHospitalAnnouncedPriceFileCategoryDetail,
+	hospitalAnnouncedPriceDetailCategoryMaster: {
+		...modelHospitalAnnouncedPriceDetailCategoryMaster,
 	},
 	estimateAdd: { ...modelEstimateAdd },
 	history: { ...modelHospitalHistory },

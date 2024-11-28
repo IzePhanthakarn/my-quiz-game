@@ -13,16 +13,16 @@ import { fetchCourseList } from "./service";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
-import { hospitalAnnouncedPriceFileCategoryDetailName } from "./interfaces/name";
+import { hospitalAnnouncedPriceDetailCategoryMasterName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { setHospitalAnnouncedPriceFileCategoryDetailFilter } from "../redux";
+import { setHospitalAnnouncedPriceDetailCategoryMasterFilter } from "../redux";
 
-export default function HospitalAnnouncedPriceFileCategoryDetail() {
+export default function HospitalAnnouncedPriceDetailCategoryMaster() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 	const {
-		HospitalAnnouncedPriceFileCategoryDetail,
+		HospitalAnnouncedPriceDetailCategoryMaster,
 		isOpen,
 		isLoading,
 		filter,
@@ -30,15 +30,15 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
-			HospitalAnnouncedPriceFileCategoryDetail:
-				state.hospital.hospitalAnnouncedPriceFileCategoryDetail,
-			filter: state.hospital.hospitalAnnouncedPriceFileCategoryDetail.filter,
+			HospitalAnnouncedPriceDetailCategoryMaster:
+				state.hospital.hospitalAnnouncedPriceDetailCategoryMaster,
+			filter: state.hospital.hospitalAnnouncedPriceDetailCategoryMaster.filter,
 		}),
 		shallowEqual
 	);
 
 	useEffect(() => {
-		dispatch(fetchCourseList(HospitalAnnouncedPriceFileCategoryDetail));
+		dispatch(fetchCourseList(HospitalAnnouncedPriceDetailCategoryMaster));
 	}, []);
 
 	return (
@@ -51,13 +51,13 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 								<BaseItemInput
 									notForm
 									label={
-										hospitalAnnouncedPriceFileCategoryDetailName.categoryCode
+										hospitalAnnouncedPriceDetailCategoryMasterName.categoryCode
 									}
 									itemName="categoryCodeLike"
 									value={filter.categoryCodeLike}
 									onChangeFunction={(e) => {
 										dispatch(
-											setHospitalAnnouncedPriceFileCategoryDetailFilter({
+											setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 												...filter,
 												categoryCodeLike: e.target.value,
 											})
@@ -65,20 +65,22 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 									}}
 									onPressEnter={() => {
 										dispatch(
-											fetchCourseList(HospitalAnnouncedPriceFileCategoryDetail)
+											fetchCourseList(
+												HospitalAnnouncedPriceDetailCategoryMaster
+											)
 										);
 									}}
 								/>
 								<BaseItemInput
 									notForm
 									label={
-										hospitalAnnouncedPriceFileCategoryDetailName.categoryName
+										hospitalAnnouncedPriceDetailCategoryMasterName.categoryName
 									}
 									itemName="categoryNameLike"
 									value={filter.categoryNameLike}
 									onChangeFunction={(e) => {
 										dispatch(
-											setHospitalAnnouncedPriceFileCategoryDetailFilter({
+											setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 												...filter,
 												categoryNameLike: e.target.value,
 											})
@@ -86,7 +88,9 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 									}}
 									onPressEnter={() => {
 										dispatch(
-											fetchCourseList(HospitalAnnouncedPriceFileCategoryDetail)
+											fetchCourseList(
+												HospitalAnnouncedPriceDetailCategoryMaster
+											)
 										);
 									}}
 								/>
@@ -100,7 +104,7 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 										itemName="isActive"
 										getValue={(value) => {
 											dispatch(
-												setHospitalAnnouncedPriceFileCategoryDetailFilter({
+												setHospitalAnnouncedPriceDetailCategoryMasterFilter({
 													...filter,
 													isActive: value,
 												})
@@ -113,28 +117,28 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
 							dispatch(
-								fetchCourseList(HospitalAnnouncedPriceFileCategoryDetail)
+								fetchCourseList(HospitalAnnouncedPriceDetailCategoryMaster)
 							);
 						}}
 					/>
 				}
 				AddLabel="เพิ่มประเภทราคาประกาศ"
 				TotalItems={
-					HospitalAnnouncedPriceFileCategoryDetail.grid.page.totalData
+					HospitalAnnouncedPriceDetailCategoryMaster.grid.page.totalData
 				}
 				Grid={
 					<BaseGrid
-						rows={HospitalAnnouncedPriceFileCategoryDetail.grid.data}
+						rows={HospitalAnnouncedPriceDetailCategoryMaster.grid.data}
 						columns={GetColumns(router)}
-						page={HospitalAnnouncedPriceFileCategoryDetail.grid.page}
+						page={HospitalAnnouncedPriceDetailCategoryMaster.grid.page}
 						loading={isLoading}
 						twoToneColor={true}
 						setPagination={(page) => {
 							dispatch(
 								fetchCourseList({
-									...HospitalAnnouncedPriceFileCategoryDetail,
+									...HospitalAnnouncedPriceDetailCategoryMaster,
 									grid: {
-										...HospitalAnnouncedPriceFileCategoryDetail.grid,
+										...HospitalAnnouncedPriceDetailCategoryMaster.grid,
 										page,
 									},
 								})
@@ -149,18 +153,18 @@ export default function HospitalAnnouncedPriceFileCategoryDetail() {
 				// 		content={<FilterDrawer />}
 				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 				// 		confirmFuntion={() => {
-				// 			dispatch(fetchCourseList(HospitalAnnouncedPriceFileCategoryDetail));
+				// 			dispatch(fetchCourseList(HospitalAnnouncedPriceDetailCategoryMaster));
 				// 		}}
 				// 		clearFilter={() => {
 				// 			dispatch(
-				// 				setHospitalAnnouncedPriceFileCategoryDetailFilter(modelHospitalAnnouncedPriceFileCategoryDetail.filter)
+				// 				setHospitalAnnouncedPriceDetailCategoryMasterFilter(modelHospitalAnnouncedPriceDetailCategoryMaster.filter)
 				// 			);
 				// 		}}
 				// 	/>
 				// }
 				AddFunction={() =>
 					router.push(
-						LINKS.HOSPITAL.hospitalAnnouncedPriceFileCategoryDetail.add
+						LINKS.HOSPITAL.hospitalAnnouncedPriceDetailCategoryMaster.add
 					)
 				}
 			/>

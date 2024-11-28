@@ -127,16 +127,16 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
 			UPLOAD: "/hospital-announced-price-files/upload",
-			ANNOUNCED_PRICE_FILE_CATEGORY_DETAIL: {
+			ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER: {
 				GET_LIST:
-					"/hospital-announced-price-files/announced-price-file-category-detail/list",
+					"/hospital-announced-price-files/announced-price-detail-category-master/list",
 				GET_RECORD:
-					"/hospital-announced-price-files/announced-price-file-category-detail",
-				ADD: "/hospital-announced-price-files/announced-price-file-category-detail",
+					"/hospital-announced-price-files/announced-price-detail-category-master",
+				ADD: "/hospital-announced-price-files/announced-price-detail-category-master",
 				GET_BY_UUID:
-					"/hospital-announced-price-files/announced-price-file-category-detail",
+					"/hospital-announced-price-files/announced-price-detail-category-master",
 				UPDATE_BY_UUID:
-					"/hospital-announced-price-files/announced-price-file-category-detail",
+					"/hospital-announced-price-files/announced-price-detail-category-master",
 			},
 		},
 		HOSPITAL_STAFF_CONTACT: {

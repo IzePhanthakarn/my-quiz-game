@@ -2,16 +2,16 @@ import _ from "lodash";
 import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
-	addHospitalAnnouncedPriceFileCategoryDetailAPI,
-	getHospitalAnnouncedPriceFileCategoryDetailDetail,
-	getHospitalAnnouncedPriceFileCategoryDetailList,
-	updateHospitalAnnouncedPriceFileCategoryDetailApi,
+	addHospitalAnnouncedPriceDetailCategoryMasterAPI,
+	getHospitalAnnouncedPriceDetailCategoryMasterDetail,
+	getHospitalAnnouncedPriceDetailCategoryMasterList,
+	updateHospitalAnnouncedPriceDetailCategoryMasterApi,
 } from "./api";
 
 import {
-	HospitalAnnouncedPriceFileCategoryDetail,
-	HospitalAnnouncedPriceFileCategoryDetailForm,
-	GetHospitalAnnouncedPriceFileCategoryDetailList,
+	HospitalAnnouncedPriceDetailCategoryMaster,
+	HospitalAnnouncedPriceDetailCategoryMasterForm,
+	GetHospitalAnnouncedPriceDetailCategoryMasterList,
 } from "@/modules/hospital/announced-price-file-category-detail/redux/model";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
@@ -20,25 +20,25 @@ import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/ba
 import { LINKS } from "@/constants/links";
 import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
 import {
-	setHospitalAnnouncedPriceFileCategoryDetailForm,
-	setHospitalAnnouncedPriceFileCategoryDetailGrid,
+	setHospitalAnnouncedPriceDetailCategoryMasterForm,
+	setHospitalAnnouncedPriceDetailCategoryMasterGrid,
 } from "../../redux";
 
 export const fetchCourseList =
-	(course: HospitalAnnouncedPriceFileCategoryDetail) =>
+	(course: HospitalAnnouncedPriceDetailCategoryMaster) =>
 	async (dispatch: AppDispatch) => {
-		const body: GetHospitalAnnouncedPriceFileCategoryDetailList = {
+		const body: GetHospitalAnnouncedPriceDetailCategoryMasterList = {
 			pagination: { ...course.grid.page },
 			...course.filter,
 		};
 		dispatch(setIsLoading(true));
 		const result = await dispatch(
-			getHospitalAnnouncedPriceFileCategoryDetailList(body)
+			getHospitalAnnouncedPriceDetailCategoryMasterList(body)
 		);
 		dispatch(setIsLoading(false));
 		if (_.get(result, "error.message") === "Rejected") return;
 		dispatch(
-			setHospitalAnnouncedPriceFileCategoryDetailGrid({
+			setHospitalAnnouncedPriceDetailCategoryMasterGrid({
 				data: result.payload.content,
 				page: {
 					...course.grid.page,
@@ -48,16 +48,16 @@ export const fetchCourseList =
 		);
 	};
 
-export const addHospitalAnnouncedPriceFileCategoryDetail =
+export const addHospitalAnnouncedPriceDetailCategoryMaster =
 	(
-		form: HospitalAnnouncedPriceFileCategoryDetailForm,
+		form: HospitalAnnouncedPriceDetailCategoryMasterForm,
 		router: AppRouterInstance
 	) =>
 	async (dispatch: AppDispatch) => {
 		console.log("🚀 ~ form:", form);
 
 		const data = await dispatch(
-			addHospitalAnnouncedPriceFileCategoryDetailAPI(form)
+			addHospitalAnnouncedPriceDetailCategoryMasterAPI(form)
 		);
 		dispatch(setIsOpenBaseConfirmDialog(false));
 		if (_.get(data, "error.message") === "Rejected") {
@@ -68,35 +68,37 @@ export const addHospitalAnnouncedPriceFileCategoryDetail =
 				description: "Description",
 			});
 			dispatch(setIsLoading(true));
-			router.push(LINKS.HOSPITAL.hospitalAnnouncedPriceFileCategoryDetail.list);
+			router.push(
+				LINKS.HOSPITAL.hospitalAnnouncedPriceDetailCategoryMaster.list
+			);
 		}
 	};
 
-export const initGetHospitalAnnouncedPriceFileCategoryDetailDetail =
-	(params: HospitalAnnouncedPriceFileCategoryDetailFormPageProps) =>
+export const initGetHospitalAnnouncedPriceDetailCategoryMasterDetail =
+	(params: HospitalAnnouncedPriceDetailCategoryMasterFormPageProps) =>
 	async (dispatch: AppDispatch) => {
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
 			const response = await dispatch(
-				getHospitalAnnouncedPriceFileCategoryDetailDetail(`${uuid}`)
+				getHospitalAnnouncedPriceDetailCategoryMasterDetail(`${uuid}`)
 			);
 			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
 			dispatch(
-				setHospitalAnnouncedPriceFileCategoryDetailForm(response.payload)
+				setHospitalAnnouncedPriceDetailCategoryMasterForm(response.payload)
 			);
 		}
 	};
 
-export const updateHospitalAnnouncedPriceFileCategoryDetail =
+export const updateHospitalAnnouncedPriceDetailCategoryMaster =
 	(
-		form: HospitalAnnouncedPriceFileCategoryDetailForm,
+		form: HospitalAnnouncedPriceDetailCategoryMasterForm,
 		router: AppRouterInstance
 	) =>
 	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
-			updateHospitalAnnouncedPriceFileCategoryDetailApi({
+			updateHospitalAnnouncedPriceDetailCategoryMasterApi({
 				uuid: form.uuid,
 				body: form,
 			})
@@ -110,6 +112,8 @@ export const updateHospitalAnnouncedPriceFileCategoryDetail =
 				description: "Description",
 			});
 			dispatch(setIsLoading(true));
-			router.push(LINKS.HOSPITAL.hospitalAnnouncedPriceFileCategoryDetail.list);
+			router.push(
+				LINKS.HOSPITAL.hospitalAnnouncedPriceDetailCategoryMaster.list
+			);
 		}
 	};

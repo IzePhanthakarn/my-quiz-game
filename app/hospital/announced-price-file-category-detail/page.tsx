@@ -1,8 +1,8 @@
 import CourseManipulate from "@/modules/course-category";
-import HospitalAnnouncedPriceFileCategoryDetail from "@/modules/hospital/announced-price-file-category-detail";
+import HospitalAnnouncedPriceDetailCategoryMaster from "@/modules/hospital/announced-price-detail-category-master";
 
 import React from "react";
 
 export default function Page() {
-	return <HospitalAnnouncedPriceFileCategoryDetail />;
+	return <HospitalAnnouncedPriceDetailCategoryMaster />;
 }

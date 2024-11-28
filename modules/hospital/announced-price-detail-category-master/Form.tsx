@@ -15,21 +15,21 @@ import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
-	HospitalAnnouncedPriceFileCategoryDetailForm,
-	modelHospitalAnnouncedPriceFileCategoryDetail,
+	HospitalAnnouncedPriceDetailCategoryMasterForm,
+	modelHospitalAnnouncedPriceDetailCategoryMaster,
 } from "./redux/model";
-import { hospitalAnnouncedPriceFileCategoryDetailRules } from "./field-validation/courseCategoryForm";
+import { hospitalAnnouncedPriceDetailCategoryMasterRules } from "./field-validation/courseCategoryForm";
 import {
-	addHospitalAnnouncedPriceFileCategoryDetail,
-	initGetHospitalAnnouncedPriceFileCategoryDetailDetail,
-	updateHospitalAnnouncedPriceFileCategoryDetail,
+	addHospitalAnnouncedPriceDetailCategoryMaster,
+	initGetHospitalAnnouncedPriceDetailCategoryMasterDetail,
+	updateHospitalAnnouncedPriceDetailCategoryMaster,
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
-import { hospitalAnnouncedPriceFileCategoryDetailName } from "./interfaces/name";
-import { setHospitalAnnouncedPriceFileCategoryDetailForm } from "../redux";
+import { hospitalAnnouncedPriceDetailCategoryMasterName } from "./interfaces/name";
+import { setHospitalAnnouncedPriceDetailCategoryMasterForm } from "../redux";
 
 const Form = (
-	params: HospitalAnnouncedPriceFileCategoryDetailFormPageProps
+	params: HospitalAnnouncedPriceDetailCategoryMasterFormPageProps
 ) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
@@ -38,7 +38,7 @@ const Form = (
 	const { form, isOpenBaseConfirmDialog } = useSelector(
 		(state: SliceModel) => ({
 			isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
-			form: state.hospital.hospitalAnnouncedPriceFileCategoryDetail.form,
+			form: state.hospital.hospitalAnnouncedPriceDetailCategoryMaster.form,
 		}),
 		shallowEqual
 	);
@@ -48,12 +48,12 @@ const Form = (
 			if (!isInit) {
 				if (!_.isEmpty(params.params.uuid)) {
 					await dispatch(
-						initGetHospitalAnnouncedPriceFileCategoryDetailDetail(params)
+						initGetHospitalAnnouncedPriceDetailCategoryMasterDetail(params)
 					);
 				} else {
 					dispatch(
-						setHospitalAnnouncedPriceFileCategoryDetailForm(
-							modelHospitalAnnouncedPriceFileCategoryDetail.form
+						setHospitalAnnouncedPriceDetailCategoryMasterForm(
+							modelHospitalAnnouncedPriceDetailCategoryMaster.form
 						)
 					);
 				}
@@ -62,7 +62,7 @@ const Form = (
 		})();
 	}, []);
 
-	const onFinish: FormProps<HospitalAnnouncedPriceFileCategoryDetailForm>["onFinish"] =
+	const onFinish: FormProps<HospitalAnnouncedPriceDetailCategoryMasterForm>["onFinish"] =
 		() => {
 			dispatch(setIsOpenBaseConfirmDialog(true));
 		};
@@ -74,10 +74,12 @@ const Form = (
 				confirmFunction={() => {
 					if (!_.isEmpty(params.params.uuid)) {
 						dispatch(
-							updateHospitalAnnouncedPriceFileCategoryDetail(form, router)
+							updateHospitalAnnouncedPriceDetailCategoryMaster(form, router)
 						);
 					} else {
-						dispatch(addHospitalAnnouncedPriceFileCategoryDetail(form, router));
+						dispatch(
+							addHospitalAnnouncedPriceDetailCategoryMaster(form, router)
+						);
 					}
 				}}
 				cancelFunction={() => {
@@ -97,7 +99,7 @@ const Form = (
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					// onValuesChange={(e) => {
 					// 	dispatch(
-					// 		setHospitalAnnouncedPriceFileCategoryDetailForm({
+					// 		setHospitalAnnouncedPriceDetailCategoryMasterForm({
 					// 			...form,
 					// 			...e,
 					// 		})
@@ -105,7 +107,7 @@ const Form = (
 					// }}
 					onChangeSwitchFunction={(e) => {
 						dispatch(
-							setHospitalAnnouncedPriceFileCategoryDetailForm({
+							setHospitalAnnouncedPriceDetailCategoryMasterForm({
 								...form,
 								isActive: e ? IsActive.Y : IsActive.N,
 							})
@@ -113,7 +115,7 @@ const Form = (
 					}}
 					cancelFunction={() => {
 						router.push(
-							LINKS.HOSPITAL.hospitalAnnouncedPriceFileCategoryDetail.list
+							LINKS.HOSPITAL.hospitalAnnouncedPriceDetailCategoryMaster.list
 						);
 					}}
 					pageLevel={params.params.uuid ? "edit" : "add"}
@@ -123,16 +125,16 @@ const Form = (
 								<BaseItemInput
 									pageLevel={params.params.uuid ? "edit" : "add"}
 									label={
-										hospitalAnnouncedPriceFileCategoryDetailName.categoryCode
+										hospitalAnnouncedPriceDetailCategoryMasterName.categoryCode
 									}
 									itemName="categoryCode"
 									rules={
-										hospitalAnnouncedPriceFileCategoryDetailRules.categoryCodeSchema
+										hospitalAnnouncedPriceDetailCategoryMasterRules.categoryCodeSchema
 									}
 									value={form.categoryCode}
 									onChangeFunction={(e) => {
 										dispatch(
-											setHospitalAnnouncedPriceFileCategoryDetailForm({
+											setHospitalAnnouncedPriceDetailCategoryMasterForm({
 												...form,
 												categoryCode: e.target.value,
 											})
@@ -142,16 +144,16 @@ const Form = (
 								<BaseItemInput
 									pageLevel={params.params.uuid ? "edit" : "add"}
 									label={
-										hospitalAnnouncedPriceFileCategoryDetailName.categoryName
+										hospitalAnnouncedPriceDetailCategoryMasterName.categoryName
 									}
 									itemName="categoryName"
 									rules={
-										hospitalAnnouncedPriceFileCategoryDetailRules.categoryNameSchema
+										hospitalAnnouncedPriceDetailCategoryMasterRules.categoryNameSchema
 									}
 									value={form.categoryName}
 									onChangeFunction={(e) => {
 										dispatch(
-											setHospitalAnnouncedPriceFileCategoryDetailForm({
+											setHospitalAnnouncedPriceDetailCategoryMasterForm({
 												...form,
 												categoryName: e.target.value,
 											})

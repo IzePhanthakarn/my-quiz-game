@@ -67,13 +67,13 @@ export const LINKS = {
 		add: "/hospital/form/",
 		edit: "/hospital/edit/",
 		estimateAdd: {
-			list: "/hospital/estimate-add",
-			form: "/hospital/estimate-add/form",
+			list: "/hospital/estimate-add/",
+			form: "/hospital/estimate-add/form/",
 		},
-		hospitalAnnouncedPriceFileCategoryDetail: {
+		hospitalAnnouncedPriceDetailCategoryMaster: {
 			list: "/hospital/announced-price-file-category-detail",
-			add: "/hospital/announced-price-file-category-detail/form",
-			edit: "/hospital/announced-price-file-category-detail/edit",
+			add: "/hospital/announced-price-file-category-detail/form/",
+			edit: "/hospital/announced-price-file-category-detail/edit/",
 		},
 	},
 	DOCUMENT: {

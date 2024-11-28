@@ -1,11 +1,11 @@
 import React from "react";
 import { NextPage } from "next";
-import Form from "@/modules/hospital/announced-price-file-category-detail/Form";
+import Form from "@/modules/hospital/announced-price-detail-category-master/Form";
 
-const HospitalAnnouncedPriceFileCategoryDetailFormPage: NextPage<
-	HospitalAnnouncedPriceFileCategoryDetailFormPageProps
+const HospitalAnnouncedPriceDetailCategoryMasterFormPage: NextPage<
+	HospitalAnnouncedPriceDetailCategoryMasterFormPageProps
 > = ({ params }) => {
 	return <Form params={params} />;
 };
 
-export default HospitalAnnouncedPriceFileCategoryDetailFormPage;
+export default HospitalAnnouncedPriceDetailCategoryMasterFormPage;
