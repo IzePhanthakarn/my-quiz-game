@@ -127,6 +127,17 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
 			UPLOAD: "/hospital-announced-price-files/upload",
+			ANNOUNCED_PRICE_FILE_CATEGORY_DETAIL: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-file-category-detail/list",
+				GET_RECORD:
+					"/hospital-announced-price-files/announced-price-file-category-detail",
+				ADD: "/hospital-announced-price-files/announced-price-file-category-detail",
+				GET_BY_UUID:
+					"/hospital-announced-price-files/announced-price-file-category-detail",
+				UPDATE_BY_UUID:
+					"/hospital-announced-price-files/announced-price-file-category-detail",
+			},
 		},
 		HOSPITAL_STAFF_CONTACT: {
 			GET_LIST: "/hospital-staff-contact/list",

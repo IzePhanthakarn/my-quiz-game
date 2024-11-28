@@ -25,6 +25,12 @@ import {
 	HospitalAnnouncedPriceFilesGrid,
 } from "./models/announcedPriceFilesModel";
 import { HospitalStaffContact } from "./models/hospitalStaffContactModel";
+import {
+	HospitalAnnouncedPriceFileCategoryDetail,
+	HospitalAnnouncedPriceFileCategoryDetailFilter,
+	HospitalAnnouncedPriceFileCategoryDetailForm,
+	HospitalAnnouncedPriceFileCategoryDetailGrid,
+} from "../announced-price-file-category-detail/redux/model";
 export const hospitalReducers = {
 	setHospital: (state: Hospital, action: PayloadAction<Hospital>) => {
 		state = action.payload;
@@ -156,5 +162,39 @@ export const hospitalReducers = {
 		action: PayloadAction<Hospital["history"]>
 	) => {
 		state.history = action.payload;
+	},
+
+	setHospitalAnnouncedPriceFileCategoryDetailGrid: (
+		state: Hospital,
+		// action: PayloadAction<HospitalAnnouncedPriceFileCategoryDetailGrid>
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["grid"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceFileCategoryDetail.grid = action.payload;
+	},
+	setHospitalAnnouncedPriceFileCategoryDetailFilter: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["filter"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceFileCategoryDetail.filter = action.payload;
+	},
+	setHospitalAnnouncedPriceFileCategoryDetailForm: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceFileCategoryDetail"]["form"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceFileCategoryDetail.form = action.payload;
+	},
+	setHospitalAnnouncedPriceFileCategoryDetailPagination: (
+		state: Hospital,
+		action: PayloadAction<PaginationOptions>
+	) => {
+		state.hospitalAnnouncedPriceFileCategoryDetail.grid.page = {
+			...action.payload,
+		};
 	},
 };

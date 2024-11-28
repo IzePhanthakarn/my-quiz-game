@@ -34,6 +34,10 @@ export const {
 	setHospitalAttachmentFile1,
 	setHospitalStaffContact,
 	setHospitalHistory,
+	setHospitalAnnouncedPriceFileCategoryDetailForm,
+	setHospitalAnnouncedPriceFileCategoryDetailGrid,
+	setHospitalAnnouncedPriceFileCategoryDetailFilter,
+	setHospitalAnnouncedPriceFileCategoryDetailPagination,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

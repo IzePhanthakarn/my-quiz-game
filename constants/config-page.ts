@@ -64,6 +64,38 @@ export const configPage: DataStructureURL<MedKey> = {
 			breadcrumb: ["root", "estimateAdd", "estimateAddForm"],
 			pageLevel: { form: [0] },
 		},
+
+		announcedPriceFileCategoryDetail: {
+			url: "/hospital/announced-price-file-category-detail",
+			breadcrumb: ["root", "announcedPriceFileCategoryDetail"],
+			text: "ประเภทราคาประกาศ",
+			pageLevel: { form: [0], delete: [2] },
+		},
+		announcedPriceFileCategoryDetailEdit: {
+			url: "/hospital/announced-price-file-category-detail/edit/[uuid]",
+			text: "ข้อมูลประเภทราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceFileCategoryDetail",
+				"announcedPriceFileCategoryDetailEdit",
+			],
+			pageLevel: { form: [0], edit: [1, 2], add: [1, 2], admin: [2] },
+		},
+		announcedPriceFileCategoryDetailAdd: {
+			url: "/hospital/announced-price-file-category-detail/form",
+			text: "เพิ่มข้อมูลประเภทราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceFileCategoryDetail",
+				"announcedPriceFileCategoryDetailAdd",
+			],
+			pageLevel: {
+				form: [0],
+				edit: [1, 2],
+				add: [1, 2],
+				admin: [2],
+			},
+		},
 	},
 	medicalAmount: {
 		root: {

@@ -70,6 +70,11 @@ export const LINKS = {
 			list: "/hospital/estimate-add",
 			form: "/hospital/estimate-add/form",
 		},
+		hospitalAnnouncedPriceFileCategoryDetail: {
+			list: "/hospital/announced-price-file-category-detail",
+			add: "/hospital/announced-price-file-category-detail/form",
+			edit: "/hospital/announced-price-file-category-detail/edit",
+		},
 	},
 	DOCUMENT: {
 		name: "document",
