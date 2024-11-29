@@ -152,6 +152,7 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 
 								{!_.isEmpty(params.params.uuid) && (
 									<BaseItemInput
+										disabled={true}
 										pageLevel={params.params.uuid ? "edit" : "add"}
 										label={hospitalAnnouncedPriceDetailMasterName.runningCode}
 										itemName="runningCode"
@@ -170,6 +171,7 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 									/>
 								)}
 								<MedDropDown
+									disabled={!_.isEmpty(params.params.uuid) ? true : false}
 									label={
 										hospitalAnnouncedPriceDetailMasterName.hospitalAnnouncedPriceDetailCategoryMasterUuid
 									}

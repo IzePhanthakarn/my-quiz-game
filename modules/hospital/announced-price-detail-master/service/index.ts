@@ -78,7 +78,13 @@ export const initGetHospitalAnnouncedPriceDetailMasterDetail =
 			if (_.get(response, "error.message") === "Rejected") {
 				return;
 			}
-			dispatch(setHospitalAnnouncedPriceDetailMasterForm(response.payload));
+			dispatch(
+				setHospitalAnnouncedPriceDetailMasterForm({
+					...response.payload,
+					hospitalAnnouncedPriceDetailCategoryMasterUuid:
+						response.payload.hospitalAnnouncedPriceDetailCategoryMaster.uuid,
+				})
+			);
 		}
 	};
 
