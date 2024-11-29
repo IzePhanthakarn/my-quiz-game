@@ -11,7 +11,6 @@ import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import {
@@ -91,7 +90,7 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="ใบรับรองหลักสูตร"
+					textHeader="ข้อมูล Master ราคาประกาศ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					initialValues={form}
 					onFinish={onFinish}

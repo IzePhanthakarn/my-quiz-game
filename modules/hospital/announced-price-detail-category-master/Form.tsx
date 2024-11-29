@@ -92,7 +92,7 @@ const Form = (
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="ใบรับรองหลักสูตร"
+					textHeader="เพิ่มข้อมูลประเภทราคาประกาศ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					initialValues={form}
 					onFinish={onFinish}
