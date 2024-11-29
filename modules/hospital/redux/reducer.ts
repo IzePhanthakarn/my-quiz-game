@@ -229,4 +229,21 @@ export const hospitalReducers = {
 			...action.payload,
 		};
 	},
+
+	setHospitalAnnouncedPriceFileUploadStatusGrid: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceFileUploadStatus"]["grid"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceFileUploadStatus.grid = action.payload;
+	},
+	setHospitalAnnouncedPriceFileUploadStatusFilter: (
+		state: Hospital,
+		action: PayloadAction<
+			Hospital["hospitalAnnouncedPriceFileUploadStatus"]["filter"]
+		>
+	) => {
+		state.hospitalAnnouncedPriceFileUploadStatus.filter = action.payload;
+	},
 };

@@ -42,6 +42,8 @@ export const {
 	setHospitalAnnouncedPriceDetailMasterGrid,
 	setHospitalAnnouncedPriceDetailMasterFilter,
 	setHospitalAnnouncedPriceDetailMasterPagination,
+	setHospitalAnnouncedPriceFileUploadStatusGrid,
+	setHospitalAnnouncedPriceFileUploadStatusFilter,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

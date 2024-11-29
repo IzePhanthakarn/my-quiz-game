@@ -204,3 +204,28 @@ export const DROPDOWN_ISACTIVE = [
 		value: IsActive.N,
 	},
 ];
+
+export enum ANNOUNCED_PRICE_FILE_UPLOAD_STATUS {
+	UPLOADING = "UPLOADING",
+	ERROR = "ERROR",
+	DONE = "DONE",
+}
+
+export const DROPDOWN_ANNOUNCED_PRICE_FILE_UPLOAD_STATUS = [
+	{
+		label: "ทั้งหมด",
+		value: "",
+	},
+	{
+		label: "กำลังอัพโหลด",
+		value: ANNOUNCED_PRICE_FILE_UPLOAD_STATUS.UPLOADING,
+	},
+	{
+		label: "ผิดพลาด",
+		value: ANNOUNCED_PRICE_FILE_UPLOAD_STATUS.ERROR,
+	},
+	{
+		label: "สำเร็จ",
+		value: ANNOUNCED_PRICE_FILE_UPLOAD_STATUS.DONE,
+	},
+];

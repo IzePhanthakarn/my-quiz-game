@@ -41,6 +41,10 @@ import {
 	HospitalAnnouncedPriceDetailMaster,
 	modelHospitalAnnouncedPriceDetailMaster,
 } from "../../announced-price-detail-master/redux/model";
+import {
+	HospitalAnnouncedPriceFileUploadStatus,
+	modelHospitalAnnouncedPriceFileUploadStatus,
+} from "../../announced-price-file-upload-status/redux/model";
 
 dayjs.extend(localeData);
 export interface Hospital {
@@ -63,6 +67,7 @@ export interface Hospital {
 
 	hospitalAnnouncedPriceDetailCategoryMaster: HospitalAnnouncedPriceDetailCategoryMaster;
 	hospitalAnnouncedPriceDetailMaster: HospitalAnnouncedPriceDetailMaster;
+	hospitalAnnouncedPriceFileUploadStatus: HospitalAnnouncedPriceFileUploadStatus;
 }
 
 export interface EstimateAdd {
@@ -380,6 +385,9 @@ export const modelEstimateAdd: EstimateAdd = {
 };
 
 export const modelHospital: Hospital = {
+	hospitalAnnouncedPriceFileUploadStatus: {
+		...modelHospitalAnnouncedPriceFileUploadStatus,
+	},
 	hospitalAnnouncedPriceDetailMaster: {
 		...modelHospitalAnnouncedPriceDetailMaster,
 	},

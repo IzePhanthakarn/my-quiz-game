@@ -149,6 +149,10 @@ const API_PATH = {
 				UPDATE_BY_UUID:
 					"/hospital-announced-price-files/announced-price-detail-master",
 			},
+			ANNOUNCED_PRICE_FILE_UPLOAD_STATUS: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-file-upload-status-list",
+			},
 		},
 		HOSPITAL_STAFF_CONTACT: {
 			GET_LIST: "/hospital-staff-contact/list",
