@@ -1,0 +1,67 @@
+# version 1.0
+
+fullnameOverride: "med-frontend" # เปลี่ยนตามชื่อ service
+module: med # เปลี่ยนตามชื่อ module ได้แก่ acc, adm, ums, cmt, con, fin, fld, ips, med, pay, reg, rph, sta, uam, wfw
+image:
+  repository: ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/med/med-frontend # เปลี่ยนตามชื่อ module และ service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+labels:
+  language: react
+  tier: frontend
+  type: web
+  owner: df
+
+imagePullSecrets:
+  - name: regcred
+
+serviceAccount:
+  create: false
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80 # service port default 80 http
+      targetPort: 3000 # เปลี่ยนตาม port ของ container
+
+httpProxy:
+  enabled: true
+  routes:
+    timeoutPolicy:
+      response: 300s
+
+livenessProbe:
+  httpGet:
+    path: /health # เปลี่ยนตาม path healthcheck
+    port: 3000 # เปลี่ยนตาม port ของ container
+  initialDelaySeconds: 100
+  periodSeconds: 5
+readinessProbe:
+  httpGet:
+    path: /health # เปลี่ยนตาม path healthcheck
+    port: 3000 # เปลี่ยนตาม port ของ container
+    scheme: HTTP
+  initialDelaySeconds: 100
+  periodSeconds: 5
+startupProbe:
+  httpGet:
+    path: /health # เปลี่ยนตาม path healthcheck
+    port: 3000 # เปลี่ยนตาม port ของ container
+  initialDelaySeconds: 100
+  periodSeconds: 5
+
+resources:
+  limits:
+    memory: 512Mi # limit memory ต่อ Pod
+  requests:
+    cpu: 10m # cpu ขั้นต่ำที่ต้องใช้ ต่อ Pod
+    memory: 254Mi # memory ขั้นต่ำที่ต้องใช้ต่อ Pod
+
+autoscaling:
+  enabled: true
+  minReplicas: 2 # ขั้นต่ำ uat คือ 2
+  maxReplicas: 3 # maximun pod ที่สามารถ autoscaling ได้ uat คือ 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
