@@ -1,4 +1,4 @@
-FROM ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/cmn/wcf-component-lib:latest AS builder
+FROM ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/cmn/wcf-component-lib:sf-1.0.2 AS builder
 WORKDIR /usr/src/app
 
 COPY package.json  ./
