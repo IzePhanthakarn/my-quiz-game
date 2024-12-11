@@ -64,6 +64,70 @@ export const configPage: DataStructureURL<MedKey> = {
 			breadcrumb: ["root", "estimateAdd", "estimateAddForm"],
 			pageLevel: { form: [0] },
 		},
+
+		announcedPriceDetailCategoryMaster: {
+			url: "/hospital/announced-price-detail-category-master",
+			breadcrumb: ["root", "announcedPriceDetailCategoryMaster"],
+			text: "ประเภทราคาประกาศ",
+			pageLevel: { form: [0], delete: [2] },
+		},
+		announcedPriceDetailCategoryMasterEdit: {
+			url: "/hospital/announced-price-detail-category-master/edit/[uuid]",
+			text: "ข้อมูลประเภทราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailCategoryMaster",
+				"announcedPriceDetailCategoryMasterEdit",
+			],
+			pageLevel: { form: [0], edit: [1, 2], add: [1, 2], admin: [2] },
+		},
+		announcedPriceDetailCategoryMasterAdd: {
+			url: "/hospital/announced-price-detail-category-master/form",
+			text: "เพิ่มข้อมูลประเภทราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailCategoryMaster",
+				"announcedPriceDetailCategoryMasterAdd",
+			],
+			pageLevel: {
+				form: [0],
+				edit: [1, 2],
+				add: [1, 2],
+				admin: [2],
+			},
+		},
+
+		announcedPriceDetailMaster: {
+			url: "/hospital/announced-price-detail-master",
+			breadcrumb: ["root", "announcedPriceDetailMaster"],
+			text: "Master ราคาประกาศ",
+			pageLevel: { form: [0], delete: [2] },
+		},
+		announcedPriceDetailMasterEdit: {
+			url: "/hospital/announced-price-detail-master/edit/[uuid]",
+			text: "ข้อมูล Master ราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailMaster",
+				"announcedPriceDetailMasterEdit",
+			],
+			pageLevel: { form: [0], edit: [0, 1, 2], add: [0, 1, 2], admin: [2] },
+		},
+		announcedPriceDetailMasterAdd: {
+			url: "/hospital/announced-price-detail-master/form",
+			text: "เพิ่มข้อมูล Master ราคาประกาศ",
+			breadcrumb: [
+				"root",
+				"announcedPriceDetailMaster",
+				"announcedPriceDetailMasterAdd",
+			],
+			pageLevel: {
+				form: [0],
+				edit: [0, 1, 2],
+				add: [0, 1, 2],
+				admin: [2],
+			},
+		},
 	},
 	medicalAmount: {
 		root: {

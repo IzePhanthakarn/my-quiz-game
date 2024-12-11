@@ -67,8 +67,18 @@ export const LINKS = {
 		add: "/hospital/form/",
 		edit: "/hospital/edit/",
 		estimateAdd: {
-			list: "/hospital/estimate-add",
-			form: "/hospital/estimate-add/form",
+			list: "/hospital/estimate-add/",
+			form: "/hospital/estimate-add/form/",
+		},
+		hospitalAnnouncedPriceDetailCategoryMaster: {
+			list: "/hospital/announced-price-detail-category-master",
+			add: "/hospital/announced-price-detail-category-master/form/",
+			edit: "/hospital/announced-price-detail-category-master/edit/",
+		},
+		hospitalAnnouncedPriceDetailMaster: {
+			list: "/hospital/announced-price-detail-master",
+			add: "/hospital/announced-price-detail-master/form/",
+			edit: "/hospital/announced-price-detail-master/edit/",
 		},
 	},
 	DOCUMENT: {
