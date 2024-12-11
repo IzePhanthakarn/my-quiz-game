@@ -127,6 +127,32 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
 			UPLOAD: "/hospital-announced-price-files/upload",
+			ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-detail-category-master/list",
+				GET_RECORD:
+					"/hospital-announced-price-files/announced-price-detail-category-master",
+				ADD: "/hospital-announced-price-files/announced-price-detail-category-master",
+				GET_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-category-master",
+				UPDATE_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-category-master",
+			},
+			ANNOUNCED_PRICE_DETAIL_MASTER: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-detail-master/list",
+				GET_RECORD:
+					"/hospital-announced-price-files/announced-price-detail-master",
+				ADD: "/hospital-announced-price-files/announced-price-detail-master",
+				GET_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-master",
+				UPDATE_BY_UUID:
+					"/hospital-announced-price-files/announced-price-detail-master",
+			},
+			ANNOUNCED_PRICE_FILE_UPLOAD_STATUS: {
+				GET_LIST:
+					"/hospital-announced-price-files/announced-price-file-upload-status-list",
+			},
 		},
 		HOSPITAL_STAFF_CONTACT: {
 			GET_LIST: "/hospital-staff-contact/list",
