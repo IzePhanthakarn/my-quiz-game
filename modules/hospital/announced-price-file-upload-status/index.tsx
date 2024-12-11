@@ -115,6 +115,7 @@ export default function HospitalAnnouncedPriceFileUploadStatus() {
 						}}
 					/>
 				}
+				AddButton={<></>}
 				AddLabel="เพิ่มประเภทราคาประกาศ"
 				TotalItems={HospitalAnnouncedPriceFileUploadStatus.grid.page.totalData}
 				Grid={
