@@ -172,7 +172,14 @@ export const initGetHospitalDetail =
 					...response.payload,
 					checkIsParticipateSso:
 						response.payload.isParticipateSso === "Y" ? true : false,
-					hospitalMinistryCode: response.payload.hospitalMinistryCode.trim(),
+					hospitalMinistryCode: !_.isEmpty(
+						response.payload.hospitalMinistryCode
+					)
+						? response.payload.hospitalMinistryCode.trim()
+						: "",
+					hospitalDbmsCode: !_.isEmpty(response.payload.hospitalDbmsCode)
+						? response.payload.hospitalDbmsCode.trim()
+						: "",
 				})
 			);
 
