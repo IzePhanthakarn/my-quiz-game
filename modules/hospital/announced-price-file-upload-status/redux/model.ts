@@ -16,10 +16,13 @@ export interface HospitalAnnouncedPriceFileUploadStatusGrid
 }
 
 export interface HospitalAnnouncedPriceFileUploadStatusGridData {
-	hospitalWcfCode: string;
 	announcedYear: string;
 	status: string;
 	errorReason: string;
+	hospital: {
+		hospitalWcfCode: string;
+		hospitalName: string;
+	};
 }
 
 export interface HospitalAnnouncedPriceFileUploadStatusFilter {

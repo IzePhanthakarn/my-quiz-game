@@ -4,4 +4,5 @@ export const hospitalAnnouncedPriceFileUploadStatusName = {
 	status: "สถานะเอกสาร",
 	errorReason: "สาเหตุที่ผิดพลาด",
 	createdDate: "วันที่อัพโหลด",
+	hospitalName: "ชื่อสถานพยาบาล",
 };
