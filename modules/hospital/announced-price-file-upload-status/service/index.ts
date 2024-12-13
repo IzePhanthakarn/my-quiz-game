@@ -33,3 +33,17 @@ export const fetchCourseList =
 			})
 		);
 	};
+
+export const handleDownloadTextFile = (content: string) => {
+	const blob = new Blob([content], { type: "text/plain" }); // Create a Blob object
+	const url = URL.createObjectURL(blob); // Create a temporary URL for the Blob
+
+	// Create an anchor element to trigger the download
+	const link = document.createElement("a");
+	link.href = url;
+	link.download = "error_reason.txt"; // Name of the downloaded file
+	link.click(); // Trigger the download
+
+	// Clean up the temporary URL
+	URL.revokeObjectURL(url);
+};
