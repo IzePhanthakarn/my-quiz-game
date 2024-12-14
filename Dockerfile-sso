@@ -12,6 +12,12 @@ RUN npm run build
 
 # Stage 2: Production image
 FROM ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/node:20-alpine AS runner
+
+# Install tzdata for timezone support
+RUN apk add --no-cache tzdata
+
+# Set the timezone to Asia/Bangkok
+ENV TZ=Asia/Bangkok
 # Set the working directory in the container
 WORKDIR /usr/app
 
