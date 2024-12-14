@@ -105,11 +105,10 @@ deploy-sso-uat:
   stage: deploy-sso-uat
   script:
     - echo "Deploying to UAT"
-    - export VERSION=$(grep version package.json | cut -f 2 -d  ':'  | tr -d ' ",')
-    - echo "Current version- $VERSION"
+    - echo "Current version- $git_Build_id"
     - echo $HELM_REPO_NAME
     - |
-      sed -i "s/tag: \"latest\"/tag: \"$VERSION\"/" ./deployment/default.yaml
+      sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
   rules: *pipeline_rule_uat
 
