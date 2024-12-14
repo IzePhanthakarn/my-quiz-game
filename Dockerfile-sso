@@ -24,7 +24,7 @@ COPY --from=builder /usr/src/app/public ./public
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Define the CMD to write the timestamp to a file and display it
-CMD sh -c 'echo "$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")" > /usr/app/timestamp.txt && cat /usr/app/timestamp.txt'
+# Write the build timestamp to a file
+RUN sh -c 'echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /app/timestamp.txt'
 # Start the app
 CMD ["npm", "start"]
