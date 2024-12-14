@@ -12,6 +12,12 @@ RUN npm run build
 
 # Stage 2: Production image
 FROM ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/node:20-alpine AS runner
+
+# Install tzdata for timezone support
+# RUN apk add --no-cache tzdata
+
+# Set the timezone to Asia/Bangkok
+ENV TZ=Asia/Bangkok
 # Set the working directory in the container
 WORKDIR /usr/app
 
@@ -25,6 +31,6 @@ COPY --from=builder /usr/src/app/public ./public
 EXPOSE 3000
 
 # Write the build timestamp to a file
-RUN sh -c 'echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /app/timestamp.txt'
+RUN echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /usr/app/timestamp.txt
 # Start the app
 CMD ["npm", "start"]

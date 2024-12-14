@@ -41,6 +41,7 @@ variables:
 before_script:
   - echo "$PROJECT_NAME $BRANCH $COMMIT_ID"
   - echo "$CI_SERVER_SHELL_SSH_HOST"
+  - export git_Build_id=$(echo $COMMIT_ID | cut -c1-8)
   - export build_time=$(date +"%Y-%m-%dT%H:%M:%SZ")
   - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_UAT
 
@@ -90,11 +91,13 @@ build-sso-uat:
           --build-arg no_proxy="localhost,internal.domain,127.0.0.1,172.16.0.0/12,10.0.0.0/8,192.168.0.0/16,172.16.7.0/24,172.20.81.0/24,ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th,ry-c4tkg-prd-tkc01-harbor.ssomgmt.go.th,nb-c4tkg-prd-tkc01-harbor.ssomgmt.go.th" \
           --build-arg WEBCMP_VERSION=latest \
           --build-arg RDX_VERSION=latest \
-          -t $REGISTRY_UAT/$BUILD_IMAGE_NAME:$VERSION .
+          -t $REGISTRY_UAT/$BUILD_IMAGE_NAME:$git_Build_id .
     - docker system prune -f
-    - docker tag $REGISTRY_UAT/$BUILD_IMAGE_NAME:$VERSION $REGISTRY_UAT/$BUILD_IMAGE_NAME:latest
-    - docker push $REGISTRY_UAT/$BUILD_IMAGE_NAME:$VERSION
+    - docker tag $REGISTRY_UAT/$BUILD_IMAGE_NAME:$git_Build_id $REGISTRY_UAT/$BUILD_IMAGE_NAME:latest
+    - docker push $REGISTRY_UAT/$BUILD_IMAGE_NAME:$git_Build_id
     - docker push $REGISTRY_UAT/$BUILD_IMAGE_NAME:latest
+  variables:
+    GIT_STRATEGY: fetch
   rules: *pipeline_rule_uat
 
 
