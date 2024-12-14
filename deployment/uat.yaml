@@ -13,7 +13,7 @@ configmap:
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://wavefront-proxy.observability-system:4318"
       ## ข้อมูลจากทีม dev
       NEXT_PUBLIC_DEV: "uat"
-      NEXT_PUBLIC_BASE_PATH: ""
+      NEXT_PUBLIC_BASE_PATH: "/med"
       NEXT_PUBLIC_WEB_URL: "https://wcfuat.sso.go.th"
       NEXT_PUBLIC_API_URL_UMS: "https://ums-service-backend.backend.svc.cluster.local/ums"
       NEXT_PUBLIC_API_URL_NMS: "https://notification-service-backend.backend.svc.cluster.local/nms"
