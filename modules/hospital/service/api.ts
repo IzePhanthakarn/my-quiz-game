@@ -11,7 +11,10 @@ import { GetHospitalSp7List } from "@/modules/hospital/redux/models/sp7Model";
 import { GetHospitalSp19List } from "@/modules/hospital/redux/models/sp19Model";
 import { GetHospitalEtcFilesList } from "../redux/models/etcFilesModel";
 import { GetHospitalAttachmentList } from "../redux/models/attachmentModel";
-import { GetHospitalAnnouncedPriceFilesList } from "../redux/models/announcedPriceFilesModel";
+import {
+	GetHospitalAnnouncedPriceFilesList,
+	HospitalAnnouncedPriceFiles,
+} from "../redux/models/announcedPriceFilesModel";
 import { GetHospitalStaffContactList } from "../redux/models/hospitalStaffContactModel";
 
 export const getHospitalDetail = createAsyncThunk(
@@ -148,6 +151,26 @@ export const updateHospitalApi = createAsyncThunk(
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.UPDATE_BY_UUID}/${body.uuid}`;
 			const response = await axios.patch(apiPath, body.body);
+			return response.data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
+export const setAnnouncedPriceFileInactiveApi = createAsyncThunk(
+	"Hospital/setAnnouncedPriceFileInactiveApi",
+	async (
+		body: {
+			announcedPriceFilesDeleteFileList: Array<string>;
+			announcedYear: string;
+			hospitalUUid: string;
+		},
+		thunkAPI
+	) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.ANNOUNCED_PRICE.SET_ANNOUNCED_PRICE_FILE_INACTIVE}`;
+			const response = await axios.patch(apiPath, body);
 			return response.data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err);

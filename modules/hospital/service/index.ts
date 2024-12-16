@@ -13,6 +13,7 @@ import {
 	getHospitalSp7ListByHospitalUuid,
 	getHospitalStaffContactListByHospitalUuid,
 	handleUploadSp7HospitalApi,
+	setAnnouncedPriceFileInactiveApi,
 	updateHospitalAnnouncedPriceFilesApi,
 	updateHospitalApi,
 	updateHospitalEtcFilesApi,
@@ -579,6 +580,26 @@ export const convertAttachmentFileToPreview = (
 	return toPreview;
 };
 
+export const setAnnouncedPriceFileInactive =
+	(
+		params: HospitalFormPageProps,
+		deletedUuidFile: string,
+		announcedYear: string
+	) =>
+	async (dispatch: AppDispatch) => {
+		const { uuid } = params.params;
+		if (!_.isEmpty(uuid)) {
+			const data = await dispatch(
+				setAnnouncedPriceFileInactiveApi({
+					announcedPriceFilesDeleteFileList: [deletedUuidFile],
+					announcedYear: announcedYear,
+					hospitalUUid: `${uuid}`,
+				})
+			);
+			console.log("🚀 ~ data:", data);
+		}
+	};
+
 export const updateHospital =
 	(
 		form: HospitalForm,
@@ -660,7 +681,8 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 	(
 		hospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles,
 		uuid: string,
-		params: HospitalFormPageProps
+		params: HospitalFormPageProps,
+		announcedYear: string
 	) =>
 	async (dispatch: AppDispatch) => {
 		const newHospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles = {
@@ -680,6 +702,8 @@ export const setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList =
 				...newHospitalAnnouncedPriceFiles,
 			})
 		);
+
+		dispatch(setAnnouncedPriceFileInactive(params, uuid, announcedYear));
 
 		dispatch(setIsOpenBaseConfirmDialog(false));
 	};

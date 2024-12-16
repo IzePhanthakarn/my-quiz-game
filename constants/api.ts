@@ -127,6 +127,8 @@ const API_PATH = {
 			GET_LIST_BY_HOSPITAL_UUID:
 				"/hospital-announced-price-files/list-by-hospital-uuid",
 			UPLOAD: "/hospital-announced-price-files/upload",
+			SET_ANNOUNCED_PRICE_FILE_INACTIVE:
+				"/hospital-announced-price-files/set-announced-price-file-inactive",
 			ANNOUNCED_PRICE_DETAIL_CATEGORY_MASTER: {
 				GET_LIST:
 					"/hospital-announced-price-files/announced-price-detail-category-master/list",
