@@ -80,6 +80,9 @@ export const LINKS = {
 			add: "/hospital/announced-price-detail-master/form/",
 			edit: "/hospital/announced-price-detail-master/edit/",
 		},
+		hospitalAnnouncedPriceFileUploadStatus: {
+			list: "/hospital/announced-price-file-upload-status",
+		},
 	},
 	DOCUMENT: {
 		name: "document",

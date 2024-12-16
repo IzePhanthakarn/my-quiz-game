@@ -63,6 +63,7 @@ import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeader
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 // import { setMultipleFiles } from "../minio/redux";
 import { FILE_TYPES } from "wcf-component-lib/src/constants/file-types";
+import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
 
 import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
@@ -94,6 +95,10 @@ import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-
 import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
+import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
+import BaseSubmitButton from "wcf-component-lib/src/components/BaseSubmitButton/BaseSubmitButton";
+
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -101,8 +106,8 @@ const yearOption: {
 	value: string;
 }[] = [];
 for (
-	let start = parseInt(getCurrentYearString()) - 10;
-	start <= parseInt(getCurrentYearString()) + 2;
+	let start = parseInt(getCurrentYearString()) + 543 - 10;
+	start <= parseInt(getCurrentYearString()) + 543 + 2;
 	start++
 ) {
 	yearOption.push({ label: `${start}`, value: `${start}` });
@@ -1551,6 +1556,155 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		},
 	];
 
+	const tabs: TabsProps["items"] = [
+		{
+			key: "1",
+			label: "ราคาประกาศ",
+			children: (
+				<>
+					<div className="mb-5 p-6">
+						<div className="mb-4 justify-end flex ">
+							<BaseSubmitButton
+								type="cancel"
+								className="text-base font-semibold mr-3"
+								label="ประวัติการแก้ไข"
+								onClickFunction={() => {
+									router.push(
+										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									);
+								}}
+								icon={<ClockCircleOutlined />}
+								customStyle={{
+									width: "175px",
+									height: "48px",
+									borderRadius: "99px",
+								}}
+							/>
+							<BaseButtonSave
+								className=""
+								onClick={() => {
+									router.push(
+										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									);
+								}}
+							/>
+						</div>
+						<div
+							className=""
+							style={{
+								borderRadius: "24px",
+								overflow: "hidden",
+								border: "1px solid #dedede",
+							}}
+						>
+							<BaseGreenHeader
+								title={
+									<>
+										<div>
+											อัปโหลดเอกสารข้อมูลราคาประกาศ
+											<span
+												className="ml-6 text-secondary text-[12px] underline font-[300] cursor-pointer"
+												onClick={() => {
+													router.push(
+														`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+													);
+												}}
+											>
+												ดูสถานะการอัปโหลด
+											</span>
+										</div>
+									</>
+								}
+								className=""
+							/>
+							<div className=" p-4">
+								<div className="bg-white pt-2">
+									<BaseDropDown
+										className="w-[250px]"
+										itemName={"announcedPriceYear"}
+										option={yearOption}
+										value={outsideHospitalForm.announcedPriceYear}
+										label={names.announcedPriceYear}
+										onChangeFunction={(e) => {
+											dispatch(
+												setOutsideHospitalForm({
+													...outsideHospitalForm,
+													announcedPriceYear: e.target.value,
+												})
+											);
+										}}
+									/>
+								</div>
+								<div>
+									<BaseUploadDraggerHospital
+										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
+										className="style1 "
+										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
+										subFolderPath="hospital/announcedPriceFiles"
+										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
+										bearer={`${Cookies.get("accessToken")}`}
+										antUploadHint={
+											<>
+												<p className="text-error">
+													*ไฟล์จะถูกอัปโหลดขึ้นไปที่ระบบทันทีเมื่อเลือกไฟล์เสร็จแล้ว
+												</p>
+											</>
+										}
+										onChangeFunction={(e) => {
+											dispatch(
+												setHospitalForm({
+													...hospitalForm,
+													files: {
+														...hospitalForm.files,
+														announcedPriceFiles: e,
+													},
+												})
+											);
+										}}
+									/>
+								</div>
+							</div>
+						</div>
+						<BaseHorizontalHeader
+							className="mb-4 mt-4"
+							title={"เอกสารข้อมูลราคาประกาศ"}
+							icons={<HomeFilled />}
+						/>
+						<div
+							className="bg-white h-fit"
+							style={{
+								borderStartEndRadius: "16px",
+								borderStartStartRadius: "16px",
+							}}
+						>
+							<BaseGrid
+								rows={hospitalAnnouncedPriceFiles.grid.data}
+								columns={AnnouncedPriceFilesGrid({
+									hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
+									dispatch: dispatch,
+									params: params,
+									dialog: dialog,
+								})}
+								page={hospitalAnnouncedPriceFiles.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAnnouncedPriceFilesList(params, {
+											...hospitalAnnouncedPriceFiles,
+											grid: { ...hospitalAnnouncedPriceFiles.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+					</div>
+				</>
+			),
+			icon: <HomeFilled />,
+		},
+	];
+
 	return (
 		<>
 			<BaseConfirmDialog
@@ -1568,6 +1722,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				}}
 			/>
 
+			<BaseTabs defaultActiveKey={"1"} items={tabs} />
 			{true && (
 				<>
 					<BaseHeaderNameAndSwitch
@@ -1613,80 +1768,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						/>
 						{/* <BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} /> */}
 
-						<div className="grid grid-cols-12 gap-4 mb-5">
-							<div
-								className="col-span-8 bg-white h-fit"
-								style={{
-									borderStartEndRadius: "16px",
-									borderStartStartRadius: "16px",
-								}}
-							>
-								<BaseGrid
-									rows={hospitalAnnouncedPriceFiles.grid.data}
-									columns={AnnouncedPriceFilesGrid({
-										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
-										dispatch: dispatch,
-										params: params,
-										dialog: dialog,
-									})}
-									page={hospitalAnnouncedPriceFiles.grid.page}
-									loading={isLoading}
-									twoToneColor={true}
-									setPagination={(page) => {
-										dispatch(
-											fetchHospitalAnnouncedPriceFilesList(params, {
-												...hospitalAnnouncedPriceFiles,
-												grid: { ...hospitalAnnouncedPriceFiles.grid, page },
-											})
-										);
-									}}
-								/>
-							</div>
-							<div className="col-span-4 ">
-								<BaseGreenHeader
-									title="อัปโหลดเอกสารข้อมูลราคาประกาศ"
-									description="เอกสารข้อมูลราคาประกาศ"
-									className=""
-								/>
-								<div className="grid gap-x-4 gap-y-2 grid-cols-1 pb-6 px-6 pt-7 bg-white">
-									<BaseDropDown
-										itemName={"announcedPriceYear"}
-										option={yearOption}
-										value={outsideHospitalForm.announcedPriceYear}
-										label={names.announcedPriceYear}
-										onChangeFunction={(e) => {
-											dispatch(
-												setOutsideHospitalForm({
-													...outsideHospitalForm,
-													announcedPriceYear: e.target.value,
-												})
-											);
-										}}
-									/>
-								</div>
-								<div>
-									<BaseUploadDraggerHospital
-										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
-										className="style2"
-										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
-										subFolderPath="hospital/announcedPriceFiles"
-										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
-										bearer={`${Cookies.get("accessToken")}`}
-										onChangeFunction={(e) => {
-											dispatch(
-												setHospitalForm({
-													...hospitalForm,
-													files: {
-														...hospitalForm.files,
-														announcedPriceFiles: e,
-													},
-												})
-											);
-										}}
-									/>
-								</div>
-							</div>
-						</div>
 						{/* {uploadAnnouncedPriceFilesSection()} */}
 
 						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
