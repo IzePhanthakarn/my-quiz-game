@@ -27,24 +27,30 @@ import { modelDialog } from "../../../../redux/slices/dialog/model";
 
 export default function HospitalHistory() {
 	const dispatch: AppDispatch = useDispatch();
-	const { history, compareList, form } = useSelector(
+	const { history, compareList, form, dialog } = useSelector(
 		(state: SliceModel) => ({
 			history: state.hospital.history,
 			form: state.hospital.form,
 			compareList: state.hospital.history.compareList,
+			dialog: state.dialog,
 		}),
 		shallowEqual
 	);
 
 	useEffect(() => {
-		dispatch(setHospitalHistory(modelHospitalHistory));
-		dispatch(initGetHistoryHospital(history, form.uuid));
-	}, [form.uuid]);
+		if (dialog.isOpen === true && dialog.key === "HospitalHistory") {
+			dispatch(setHospitalHistory(modelHospitalHistory));
+			dispatch(initGetHistoryHospital(form.uuid));
+		}
+		if (dialog.isOpen === false && dialog.key === "HospitalHistory") {
+			dispatch(setHospitalHistory(modelHospitalHistory));
+		}
+	}, [dialog.isOpen]);
 
 	useEffect(() => {
 		if (
-			!_.isNil(history.compareParams.olderVersion) &&
-			!_.isNil(history.compareParams.newerVersion)
+			!_.isUndefined(history.compareParams.olderVersion) &&
+			!_.isUndefined(history.compareParams.newerVersion)
 		) {
 			dispatch(
 				fetchHistoryHospital(history, form.uuid, {
@@ -155,7 +161,8 @@ export default function HospitalHistory() {
 									isOverFlow: true,
 									isOpenBaseConfirmDialog: false,
 									isOpen: false,
-									uniqueContent: <HospitalHistory />,
+									key: "HospitalHistory",
+									uniqueContent: <></>,
 								})
 							);
 						}}

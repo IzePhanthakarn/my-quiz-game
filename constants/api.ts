@@ -165,6 +165,10 @@ const API_PATH = {
 		HISTORY: {
 			COMPARE_VERSION: "/hospital-history/compare-version",
 			EDIT_TIMES_LIST: "/hospital-history/edit-times-list",
+			EDIT_TIMES_ANNOUNCED_PRICE_FILES_HISTORY_LIST:
+				"/hospital-history/edit-times-announced-price-files-history-list",
+			COMPARE_ANNOUNCED_PRICE_FILES_VERSION:
+				"/hospital-history/compare-announced-price-files-version",
 		},
 	},
 	DOCUMENT: {

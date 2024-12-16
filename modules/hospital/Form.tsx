@@ -98,6 +98,7 @@ import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant
 import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
 import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
 import BaseSubmitButton from "wcf-component-lib/src/components/BaseSubmitButton/BaseSubmitButton";
+import AnnouncedPriceFilesHistory from "./Form/History/announcedPriceFilesHistory";
 
 dayjs.extend(localeData);
 
@@ -1577,9 +1578,19 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								className="text-base font-semibold mr-3"
 								label="ประวัติการอัปโหลด"
 								onClickFunction={() => {
-									router.push(
-										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									dispatch(
+										setDialog({
+											...modelDialog,
+											isOverFlow: true,
+											isOpenBaseConfirmDialog: false,
+											isOpen: true,
+											key: "AnnouncedPriceFilesHistory",
+											uniqueContent: <AnnouncedPriceFilesHistory />,
+										})
 									);
+									// router.push(
+									// 	`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									// );
 								}}
 								icon={<ClockCircleOutlined />}
 								customStyle={{
@@ -1749,6 +1760,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									isOverFlow: true,
 									isOpenBaseConfirmDialog: false,
 									isOpen: true,
+									key: "HospitalHistory",
 									uniqueContent: <HospitalHistory />,
 								})
 							);
