@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
 import UserAddOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserAddOutlined";
+import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserOutlined";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -19,6 +20,11 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setOnConfirmDialog,
 } from "@/redux/slices/dialog";
+import {
+	Hospital,
+	PasteClipboard,
+} from "wcf-component-lib/node_modules/iconoir-react";
+
 import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	setHospitalAnnouncedPriceFiles,
@@ -64,7 +70,7 @@ import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUplo
 // import { setMultipleFiles } from "../minio/redux";
 import { FILE_TYPES } from "wcf-component-lib/src/constants/file-types";
 import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
-
+import FileDoneOutlined from "wcf-component-lib/node_modules/@ant-design/icons/FileDoneOutlined";
 import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -402,7 +408,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<>
 					<BaseHorizontalHeader
 						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-4"
 					/>
 					<div
@@ -448,7 +454,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"สพ7"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 					<div className="grid grid-cols-12 gap-4">
@@ -538,7 +544,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<BaseHorizontalHeader
 						title={"สพ19"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 
@@ -631,7 +637,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"หนังสือรับรองนิติบุคคล"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-4"
 					/>
 
@@ -691,7 +697,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"ภาคผนวกและอื่น ๆ"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 
@@ -1495,7 +1501,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					<BaseHorizontalHeader
 						className="mb-4"
 						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
-						icons={<HomeFilled />}
+						icons={<UserOutlined />}
 					/>
 					<div className="flex justify-end">
 						<DivPermission pageLevel="edit">
@@ -1549,7 +1555,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 				</div>
 			),
-			icon: <HomeFilled />,
+			icon: <Hospital />,
 		},
 		{
 			key: "2",
@@ -1566,7 +1572,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
 									);
 								}}
-								icon={<ClockCircleOutlined />}
+								icon={<FileDoneOutlined />}
 								customStyle={{
 									width: "175px",
 									height: "48px",
@@ -1687,7 +1693,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						<BaseHorizontalHeader
 							className="mb-4 mt-4"
 							title={"เอกสารข้อมูลราคาประกาศ"}
-							icons={<HomeFilled />}
+							icons={<PasteClipboard />}
 						/>
 						<div
 							className="bg-white h-fit"
@@ -1720,7 +1726,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 				</>
 			),
-			icon: <HomeFilled />,
+			icon: <PasteClipboard />,
 		},
 	];
 
