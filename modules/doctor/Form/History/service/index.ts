@@ -108,7 +108,6 @@ export const initDoctorCompareHistory =
 				),
 			},
 		};
-		console.log("compareRelationDataMapId", compareRelationDataMapId);
 		const compareDataAll = {
 			...compareData,
 			relationHistory: compareRelationDataMapId,
