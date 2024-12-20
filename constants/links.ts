@@ -14,6 +14,7 @@ export const LINKS = {
 		name: "แพทย์",
 		link: "/doctor",
 		edit: "/doctor/edit/",
+		edit2: "/doctor/edit2/",
 		view: "/doctor/view/",
 		add: "/doctor/form",
 		upload: "/doctor/upload",
