@@ -35,6 +35,8 @@ COPY --from=builder /usr/src/app/public ./public
 COPY --from=builder /usr/src/app/.next/standalone ./
 COPY --from=builder /usr/src/app/.next/static ./.next/static
 
+RUN npm install --only=production
+
 # Expose the port the app runs on
 EXPOSE 3000
 
