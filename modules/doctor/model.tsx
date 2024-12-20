@@ -148,7 +148,9 @@ export const GetColumns = (prop: Props) => {
 				key: "uuid",
 				render: (_, { uuid }) => (
 					<CustomCellButton
-						editFunction={() => router.push(LINKS.DOCTOR.edit + uuid)}
+						editFunction={() =>
+							router.push(`${LINKS.DOCTOR.edit2}?uuid=${uuid}`)
+						}
 						mode={BUTTON_MODE.EDIT_ONLY_ICON}
 					/>
 				),
