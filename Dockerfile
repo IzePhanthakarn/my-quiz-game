@@ -1,4 +1,4 @@
-FROM soilfish/wcf-component-lib:1.0.2 AS base
+FROM soilfish/wcf-component-lib:1.0.2 AS builder
 
 # Set working directory
 WORKDIR /usr/app
@@ -14,7 +14,7 @@ RUN npm link wcf-component-lib
 RUN npm run build
 
 ## Stage 2: Production image
-FROM ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/node:20-alpine AS runner
+FROM node:20-alpine AS production
 
 # Install tzdata for timezone support
 # RUN apk add --no-cache tzdata
@@ -37,7 +37,7 @@ COPY --from=builder /usr/src/app/public ./public
 COPY --from=builder /usr/src/app/.next/standalone ./
 COPY --from=builder /usr/src/app/.next/static ./.next/static
 
-RUN npm install --only=production
+RUN npm install
 
 # Expose the port the app runs on
 EXPOSE 3000
