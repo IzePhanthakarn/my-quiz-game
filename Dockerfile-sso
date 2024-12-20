@@ -16,7 +16,7 @@ RUN npm link wcf-component-lib
 EXPOSE 3000
 #
 ## Write the build timestamp to a file
-RUN echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /usr/app/timestamp.txt
+RUN echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /usr/src/app/timestamp.txt
 ## Start the app
 CMD ["npm", "run", "dev"]
 
