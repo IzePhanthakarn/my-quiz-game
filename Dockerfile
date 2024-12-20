@@ -25,10 +25,14 @@ FROM node:20-alpine AS production
 WORKDIR /usr/app
 
 # Copy the build output and necessary files from the base stage
-COPY --from=base /usr/app/.next ./.next
-COPY --from=base /usr/app/node_modules ./node_modules
-COPY --from=base /usr/app/package.json ./package.json
-COPY --from=base /usr/app/public ./public
+COPY --from=builder /usr/src/app/package.json .
+COPY --from=builder /usr/src/app/package-lock.json ./
+COPY --from=builder /usr/src/app/next.config.mjs ./
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder /usr/src/app/.next/standalone ./
+COPY --from=builder /usr/src/app/.next/static ./.next/static
+
+RUN npm install
 
 # Expose the port the app runs on
 EXPOSE 3000
