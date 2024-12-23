@@ -162,7 +162,6 @@ export default function Doctor() {
 			<MasterDataLayout
 				Grid={
 					<BaseGrid
-						whiteCursor
 						rows={rows}
 						loading={isLoading}
 						columns={GetColumns({ mounted, router })}
