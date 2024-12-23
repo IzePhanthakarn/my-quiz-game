@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
 	// if (!referer) {
 	// 	const subpath = url.pathname;
 	// 	const userInfoLogin = getNestedProperty(decoded, "userInfo.login");
-	// 	const pageAccessPath = `${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/${userInfoLogin}/page-accesses`;
+	// 	const pageAccessPath = `${process.env.NEXT_PUBLIC_API_URL_PAGE_ACCESSES}/${userInfoLogin}/page-accesses`;
 	// 	// console.log("🚀 ~ middleware ~ pageAccessPath:", pageAccessPath);
 	// 	const apiResponse = await fetch(pageAccessPath, {
 	// 		method: "GET",
