@@ -45,6 +45,7 @@ import {
 	HospitalAnnouncedPriceFileUploadStatus,
 	modelHospitalAnnouncedPriceFileUploadStatus,
 } from "../../announced-price-file-upload-status/redux/model";
+import { getCurrentYearString } from "wcf-component-lib/src/utils";
 
 dayjs.extend(localeData);
 export interface Hospital {
@@ -372,13 +373,13 @@ export const modelEstimateAdd: EstimateAdd = {
 				noSeq: 1,
 				name: "Clinic_Evaluate_Jularut.pdf",
 				link: "##",
-				detail: "รายละเอียดการประเมิณและข้อมูลต่างๆ",
+				detail: "รายละเอียดการประเมินและข้อมูลต่างๆ",
 			},
 			{
 				noSeq: 2,
 				name: "Clinic_Evaluate_Jularut2.pdf",
 				link: "##",
-				detail: "รายละเอียดการประเมิณและข้อมูลต่างๆ 2",
+				detail: "รายละเอียดการประเมินและข้อมูลต่างๆ 2",
 			},
 		],
 	},
@@ -404,7 +405,7 @@ export const modelHospital: Hospital = {
 	hospitalAnnouncedPriceFiles: { ...modelHospitalAnnouncedPriceFiles },
 	hospitalStaffContact: { ...modelHospitalStaffContact },
 	outsideHospitalForm: {
-		announcedPriceYear: dayjs().format(DateFormat.YYYY).toString(),
+		announcedPriceYear: (parseInt(getCurrentYearString()) + 543).toString(),
 		sp7DeleteFileList: [],
 		sp19DeleteFileList: [],
 		etcFilesDeleteFileList: [],

@@ -39,7 +39,7 @@ export default function EstimateAdd() {
 				<div className=" ">
 					<BaseGreenHeader
 						title="รายละเอียด"
-						description="ข้อมูลการประเมิณและรายละเอียดของสถานพยาล"
+						description="ข้อมูลการประเมินและรายละเอียดของสถานพยาล"
 						className=""
 					/>
 					<div className="py-6 px-10 bg-white">

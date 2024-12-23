@@ -3,7 +3,10 @@
 import { TableProps } from "wcf-component-lib/node_modules/antd/es/table";
 import { CollapseProps } from "wcf-component-lib/node_modules/antd/es/collapse";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { HospitalCompareList } from "../../redux/models/historyModel";
+import {
+	HospitalCompareList,
+	modelHospitalHistory,
+} from "../../redux/models/historyModel";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 // import { Colors } from "wcf-component-lib/src/constants/Colors";
 import React from "react";
@@ -373,26 +376,6 @@ export const getItems = (compareList: HospitalCompareList) => {
 			),
 		},
 		{
-			key: "9",
-			label: "เอกสารข้อมูลราคาประกาศ",
-			children: (
-				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
-					<BaseGrid
-						isHaveBorderBottomLeftRight={true}
-						rows={compareList.hospitalAnnouncedPriceFiles.older}
-						columns={columnsAnnouncedPriceFiles("older")}
-						twoToneColor
-					/>
-					<BaseGrid
-						isHaveBorderBottomLeftRight={true}
-						rows={compareList.hospitalAnnouncedPriceFiles.newer}
-						columns={columnsAnnouncedPriceFiles("newer")}
-						twoToneColor
-					/>
-				</div>
-			),
-		},
-		{
 			key: "10",
 			label: "ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล",
 			children: (
@@ -439,6 +422,40 @@ export const getItems = (compareList: HospitalCompareList) => {
 							"newer",
 							`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/certificateOfIncorporation/`
 						)}
+						twoToneColor
+					/>
+				</div>
+			),
+		},
+	];
+	return items;
+};
+
+export const getAnnouncedPriceFilesHistoryItems = (
+	compareList: HospitalCompareList
+) => {
+	const items: CollapseProps["items"] = [
+		{
+			key: "9",
+			label: "เอกสารข้อมูลราคาประกาศ",
+			children: (
+				<div className="grid gap-x-4 md:gap-x-12 grid-cols-2 pt-6 pb-3 px-5 border-[1px]">
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={
+							compareList.hospitalAnnouncedPriceFiles?.older ??
+							modelHospitalHistory.compareList.hospitalAnnouncedPriceFiles.older
+						}
+						columns={columnsAnnouncedPriceFiles("older")}
+						twoToneColor
+					/>
+					<BaseGrid
+						isHaveBorderBottomLeftRight={true}
+						rows={
+							compareList.hospitalAnnouncedPriceFiles?.newer ??
+							modelHospitalHistory.compareList.hospitalAnnouncedPriceFiles.newer
+						}
+						columns={columnsAnnouncedPriceFiles("newer")}
 						twoToneColor
 					/>
 				</div>
