@@ -422,7 +422,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							onChangeFunction={(e) => {
 								dispatch(setHospitalAttachmentFile1ToPreview(e));
 							}}
-						/>
+						/>NEXT_PUBLIC_API_URL_MED
 					</div>
 					<div
 						className={`mb-5 ${
@@ -515,7 +515,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									onChangeDateFunction={(date, _) => {
 										dispatch(
 											setHospitalForm({
-												...hospitalForm,
+												...hospitalForm,NEXT_PUBLIC_API_URL_MED
 												sp7EndDate: date.format(DateFormat.YYYYMMDD).toString(),
 											})
 										);
@@ -607,7 +607,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										dispatch(
 											setHospitalForm({
 												...hospitalForm,
-												sp19EndDate: date
+												sp19EndDate: dateNEXT_PUBLIC_API_URL_MED
 													.format(DateFormat.YYYYMMDD)
 													.toString(),
 											})
@@ -663,7 +663,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<div
 						className={`mb-5 ${
-							hospitalCertificateOfIncorporationAttachment.toPreview.length !==
+							hospitalCertificateOfIncorNEXT_PUBLIC_API_URL_MEDtoPreview.length !==
 								0 && "hidden"
 						}`}
 					>
@@ -722,7 +722,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										})
 									);
 								}}
-							/>
+							/>NEXT_PUBLIC_API_URL_MED
 						</div>
 						<div className="col-span-4 ">
 							<BaseGreenHeader
@@ -1668,7 +1668,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 										subFolderPath="hospital/announcedPriceFiles"
 										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
 										bearer={`${Cookies.get("accessToken")}`}
-										antUploadHint={
+										antUploadHint={NEXT_PUBLIC_API_URL_MED
 											<>
 												<p className="text-error">
 													*ไฟล์จะถูกอัปโหลดขึ้นไปที่ระบบทันทีเมื่อเลือกไฟล์เสร็จแล้ว

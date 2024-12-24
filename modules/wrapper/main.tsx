@@ -32,7 +32,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		shallowEqual
 	);
 
-	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL_MED;
 
 	axios.interceptors.request.use(
 		(config) => {
