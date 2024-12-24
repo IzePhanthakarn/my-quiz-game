@@ -61,7 +61,7 @@ resources:
 
 autoscaling:
   enabled: true
-  minReplicas: 2 # ขั้นต่ำ uat คือ 2
-  maxReplicas: 3 # maximun pod ที่สามารถ autoscaling ได้ uat คือ 3
+  minReplicas: 1 # ขั้นต่ำ uat คือ 2
+  maxReplicas: 1 # maximun pod ที่สามารถ autoscaling ได้ uat คือ 3
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
