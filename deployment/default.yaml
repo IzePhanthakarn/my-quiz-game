@@ -31,12 +31,6 @@ httpProxy:
   routes:
     timeoutPolicy:
       response: 300s
-    pathRewritePolicy:
-      replacePrefix:
-        - prefix: /med/_next
-          replacement: /_next
-        - prefix: /med
-          replacement: /
 
 
 livenessProbe:
