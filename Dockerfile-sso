@@ -9,6 +9,8 @@ COPY . .
 #COPY --from=ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th/wcf2/cmn/df-redux:latest /app/redux /usr/src/app/src/redux
 RUN npm link wcf-component-lib
 
+RUN ls -al
+RUN cat .env
 RUN npm run build
 
 ## Stage 2: Production image
