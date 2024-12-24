@@ -4,4 +4,4 @@ metadata:
   name: med-web-config
 data:
   NEXT_PUBLIC_PAGE_ACCESSES_PATH: "https://api-dev-wcf.soilfish.co/ums/users"
-  NEXT_PUBLIC_API_URL: "https://api-dev-wcf.soilfish.co/med"
+  NEXT_PUBLIC_API_URL_MED: "https://api-dev-wcf.soilfish.co/med"

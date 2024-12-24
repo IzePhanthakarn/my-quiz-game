@@ -422,7 +422,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							reset={hospitalAttachmentFile1.toPreview.length === 0 && true}
 							showUploadList={false}
 							className={`style1`}
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/attachmentFile1"
 							bearer={`${Cookies.get("accessToken")}`}
 							onChangeFunction={(e) => {
@@ -515,7 +515,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									className="style2"
 									allowFileTypesToUpload={[FILE_TYPES.PDF]}
 									// backgroundColor="BBC8CB"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp7"
 									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
@@ -607,7 +607,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								<BaseUploadDraggerHospital
 									className="style2"
 									allowFileTypesToUpload={[FILE_TYPES.PDF]}
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/sp19"
 									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
@@ -663,7 +663,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 							allowFileTypesToUpload={[FILE_TYPES.PDF]}
 							showUploadList={false}
 							className={`style1`}
-							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
 							subFolderPath="hospital/certificateOfIncorporation"
 							bearer={`${Cookies.get("accessToken")}`}
 							onChangeFunction={(e) => {
@@ -722,7 +722,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								<BaseUploadDraggerHospital
 									allowFileTypesToUpload={[FILE_TYPES.PDF]}
 									className="style2"
-									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.MINIO.UPLOAD}`}
+									uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
 									subFolderPath="hospital/etcFiles"
 									bearer={`${Cookies.get("accessToken")}`}
 									onChangeFunction={(e) => {
@@ -1668,7 +1668,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									<BaseUploadDraggerHospital
 										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
 										className="style2"
-										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
+										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
 										subFolderPath="hospital/announcedPriceFiles"
 										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
 										bearer={`${Cookies.get("accessToken")}`}
