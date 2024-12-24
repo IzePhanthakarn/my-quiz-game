@@ -54,13 +54,13 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		estimateAdd: {
 			url: "/hospital/estimate-add",
-			text: "ค้นหาการแจ้งผลตรวจประเมิณฯ",
+			text: "ค้นหาการแจ้งผลตรวจประเมินฯ",
 			breadcrumb: ["root", "estimateAdd"],
 			pageLevel: { form: [0] },
 		},
 		estimateAddForm: {
 			url: "/hospital/estimate-add/form",
-			text: "แจ้งผลการตรวจประเมิณคุณภาพประจำปี",
+			text: "แจ้งผลการตรวจประเมินคุณภาพประจำปี",
 			breadcrumb: ["root", "estimateAdd", "estimateAddForm"],
 			pageLevel: { form: [0] },
 		},

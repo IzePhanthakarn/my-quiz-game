@@ -4,10 +4,9 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { GetColumns } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -15,15 +14,18 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { hospitalAnnouncedPriceFileUploadStatusName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
-import {
-	DROPDOWN_ANNOUNCED_PRICE_FILE_UPLOAD_STATUS,
-	DROPDOWN_ISACTIVE,
-} from "@/components/MedDropDown/model";
+import { DROPDOWN_ANNOUNCED_PRICE_FILE_UPLOAD_STATUS } from "@/components/MedDropDown/model";
 import { setHospitalAnnouncedPriceFileUploadStatusFilter } from "../redux";
+import _ from "lodash";
+import { Hospital } from "../redux/models/hospitalModel";
+import { modelHospitalAnnouncedPriceFileUploadStatus } from "./redux/model";
 
 export default function HospitalAnnouncedPriceFileUploadStatus() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const queryHospitalWcfCodeLike = searchParams.get("hospitalWcfCodeLike");
+
 	const { HospitalAnnouncedPriceFileUploadStatus, isOpen, isLoading, filter } =
 		useSelector(
 			(state: SliceModel) => ({
@@ -37,7 +39,20 @@ export default function HospitalAnnouncedPriceFileUploadStatus() {
 		);
 
 	useEffect(() => {
-		dispatch(fetchCourseList(HospitalAnnouncedPriceFileUploadStatus));
+		const initFilter: Hospital["hospitalAnnouncedPriceFileUploadStatus"]["filter"] =
+			{
+				...filter,
+				hospitalWcfCodeLike: !_.isNull(queryHospitalWcfCodeLike)
+					? queryHospitalWcfCodeLike
+					: "",
+			};
+		dispatch(setHospitalAnnouncedPriceFileUploadStatusFilter(initFilter));
+		dispatch(
+			fetchCourseList({
+				grid: modelHospitalAnnouncedPriceFileUploadStatus.grid,
+				filter: initFilter,
+			})
+		);
 	}, []);
 
 	return (

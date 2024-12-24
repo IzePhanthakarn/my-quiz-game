@@ -10,6 +10,8 @@ import { LINKS } from "@/constants/links";
 import { names } from "../interfaces/names";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useMemo } from "react";
+import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
+import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const GetHospitalColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -73,20 +75,21 @@ export const GetHospitalColumns = (router: AppRouterInstance) => {
 					/>
 				),
 			},
-			{
-				sorter: true,
-				key: "contractEndDate",
-				dataIndex: "contractEndDate",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"contractEndDate"}
-						label={names.contractEndDate}
-						sort={columns?.sortColumns}
-					/>
-				),
-			},
 
+			{
+				title: names.contractEndDate,
+				dataIndex: "contractEndDate",
+				render: (_, { contractEndDate }) => {
+					return (
+						<div>
+							{convertDateFormatBuddhist(
+								contractEndDate,
+								DateFormatBuddhist.DDMMBBBB
+							)}
+						</div>
+					);
+				},
+			},
 			{
 				key: "uuid",
 				title: "คำสั่ง",

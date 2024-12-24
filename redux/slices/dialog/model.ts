@@ -21,6 +21,7 @@ export interface BaseDialog {
 	themeIcon?: IconTheme;
 	maxHeight?: string;
 	maxWidth?: string;
+	key?: string;
 }
 
 export const modelDialog: BaseDialog = {

@@ -109,7 +109,7 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 				key: "uuid",
 				title: "คำสั่ง",
 				dataIndex: "uuid",
-				render: (_, { uuid }) => {
+				render: (_, { uuid, announcedYear }) => {
 					return (
 						<DeleteFilled
 							onClick={async () => {
@@ -121,12 +121,14 @@ export const AnnouncedPriceFilesGrid = (props: Props) => {
 												setHospitalAnnouncedPriceFilesGridFilterUuidExclusionList(
 													hospitalAnnouncedPriceFiles,
 													uuid,
-													params
+													params,
+													announcedYear
 												)
 											);
 										},
 										isOpenBaseConfirmDialog: true,
-										content: "คุณต้องการลบไฟล์ ราคาประะกาศ ใช่หรือไม่?",
+										content:
+											"คุณต้องการลบไฟล์ ราคาประะกาศ ใช่หรือไม่? **ไฟล์จะถูกลบทันทีเมื่อยืนยัน",
 										headerText: "ยืนยันการลบไฟล์",
 									})
 								);
