@@ -85,7 +85,7 @@ build-sso-uat:
     - |
       echo -e "$ENV_DEV" > .env
     - |
-      copy -f .env.uat .env.production
+      cp -f .env.uat .env.production
     - |
       docker build  -f Dockerfile-sso \
           --build-arg https_proxy='http://172.16.11.231:8080' \
