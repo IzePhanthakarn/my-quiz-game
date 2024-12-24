@@ -35,20 +35,20 @@ httpProxy:
 
 livenessProbe:
   httpGet:
-    path: /health # เปลี่ยนตาม path healthcheck
+    path: /med/health # เปลี่ยนตาม path healthcheck
     port: 3000 # เปลี่ยนตาม port ของ container
   initialDelaySeconds: 100
   periodSeconds: 5
 readinessProbe:
   httpGet:
-    path: /health # เปลี่ยนตาม path healthcheck
+    path: /med/health # เปลี่ยนตาม path healthcheck
     port: 3000 # เปลี่ยนตาม port ของ container
     scheme: HTTP
   initialDelaySeconds: 100
   periodSeconds: 5
 startupProbe:
   httpGet:
-    path: /health # เปลี่ยนตาม path healthcheck
+    path: /med/health # เปลี่ยนตาม path healthcheck
     port: 3000 # เปลี่ยนตาม port ของ container
   initialDelaySeconds: 100
   periodSeconds: 5
