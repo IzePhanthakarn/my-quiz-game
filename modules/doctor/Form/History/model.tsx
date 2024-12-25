@@ -297,6 +297,14 @@ export const columnsDoctorHospital: TableProps["columns"] = [
 		title: "ชื่อโรงพยาบาล",
 		dataIndex: "hospitalWcfName",
 		key: "hospitalWcfName",
+		render: (_: any, { hospitalWcfName, hospitalWcfCode }: any) => {
+			return (
+				<p>
+					{hospitalWcfName ??
+						findNameDisplay(SESSION_NAME.HOSPITAL, hospitalWcfCode)}
+				</p>
+			);
+		},
 	},
 	{
 		title: "ลักษณะงานที่รับผิดชอบ",
