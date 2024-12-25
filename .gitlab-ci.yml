@@ -83,10 +83,6 @@ build-sso-uat:
     - echo "Current version- $VERSION"
     - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_UAT
     - |
-      echo -e "$ENV_DEV" > .env
-    - |
-      cp -f .env.uat .env.production
-    - |
       docker build  -f Dockerfile-sso \
           --build-arg https_proxy='http://172.16.11.231:8080' \
           --build-arg http_proxy='http://172.16.11.231:8080' \
