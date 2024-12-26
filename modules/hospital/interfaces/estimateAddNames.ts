@@ -8,6 +8,6 @@ export const estimateAddNames = {
 	atDate: "ลงวันที่",
 	reportDate: "วันที่แจ้ง",
 	checkDate: "วันที่ตรวจเยี่ยม",
-	result: "ผลการตรวจประเมิณ",
-	detail: "รายละเอียดการประเมิณ",
+	result: "ผลการตรวจประเมิน",
+	detail: "รายละเอียดการประเมิน",
 };

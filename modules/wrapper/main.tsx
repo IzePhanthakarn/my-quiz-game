@@ -67,8 +67,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 	return (
 		<LayoutProvider
 			configPage={configPage}
-			// urlApi={`${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/${userName}/page-accesses`}
-			urlApi={`${process.env.NEXT_PUBLIC_PAGE_ACCESSES_PATH}/sjittikhun2/page-accesses`}
+			// urlApi={`${process.env.NEXT_PUBLIC_API_URL_PAGE_ACCESSES}/${userName}/page-accesses`}
+			urlApi={`${process.env.NEXT_PUBLIC_API_URL_PAGE_ACCESSES}/sjittikhun2/page-accesses`}
 		>
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">

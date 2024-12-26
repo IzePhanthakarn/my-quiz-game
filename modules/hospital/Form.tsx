@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import BasePreviewPicture from "wcf-component-lib/src/components/BasePreviewPicture";
 import UserAddOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserAddOutlined";
+import UserOutlined from "wcf-component-lib/node_modules/@ant-design/icons/UserOutlined";
 
 import dynamic from "next/dynamic";
 import { findScope, getScopesPermissions } from "@/utils";
@@ -19,6 +20,11 @@ import {
 	setIsOpenBaseConfirmDialog,
 	setOnConfirmDialog,
 } from "@/redux/slices/dialog";
+import {
+	Hospital,
+	PasteClipboard,
+} from "wcf-component-lib/node_modules/iconoir-react";
+
 import { ADDRESS, IsActive } from "wcf-component-lib/src/constants/constants";
 import {
 	setHospitalAnnouncedPriceFiles,
@@ -63,7 +69,8 @@ import BaseHeaderNameAndSwitch from "wcf-component-lib/src/components/BaseHeader
 import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
 // import { setMultipleFiles } from "../minio/redux";
 import { FILE_TYPES } from "wcf-component-lib/src/constants/file-types";
-
+import ClockCircleOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ClockCircleOutlined";
+import FileDoneOutlined from "wcf-component-lib/node_modules/@ant-design/icons/FileDoneOutlined";
 import BaseGreenHeader from "wcf-component-lib/src/components/BaseGreenHeader";
 
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -94,6 +101,11 @@ import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-
 import DivPermission from "wcf-component-lib/src/components/BaseDivPermission";
 import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import BaseTabs from "wcf-component-lib/src/components/BaseTabs";
+import { TabsProps } from "wcf-component-lib/node_modules/antd/es/tabs";
+import BaseSubmitButton from "wcf-component-lib/src/components/BaseSubmitButton/BaseSubmitButton";
+import AnnouncedPriceFilesHistory from "./Form/History/announcedPriceFilesHistory";
+
 dayjs.extend(localeData);
 
 const yearOption: {
@@ -101,8 +113,8 @@ const yearOption: {
 	value: string;
 }[] = [];
 for (
-	let start = parseInt(getCurrentYearString()) - 10;
-	start <= parseInt(getCurrentYearString()) + 2;
+	let start = parseInt(getCurrentYearString()) + 543 - 10;
+	start <= parseInt(getCurrentYearString()) + 543 + 2;
 	start++
 ) {
 	yearOption.push({ label: `${start}`, value: `${start}` });
@@ -112,7 +124,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 	const [form] = Form.useForm<HospitalForm>();
-
+	const [currentTab, setCurrentTab] = React.useState<string>("1");
 	const [isInit, setIsInit] = React.useState<boolean>(false);
 	const {
 		hospitalForm,
@@ -396,7 +408,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 				<>
 					<BaseHorizontalHeader
 						title={"ข้อตกลงระหว่างสำนักงานกองทุนเงินทดแทนกับสถานพยาบาล"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-4"
 					/>
 					<div
@@ -442,7 +454,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"สพ7"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 					<div className="grid grid-cols-12 gap-4">
@@ -532,7 +544,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 					</div>
 					<BaseHorizontalHeader
 						title={"สพ19"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 
@@ -625,7 +637,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"หนังสือรับรองนิติบุคคล"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-4"
 					/>
 
@@ -685,7 +697,7 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 
 					<BaseHorizontalHeader
 						title={"ภาคผนวกและอื่น ๆ"}
-						icons={<HomeFilled />}
+						icons={<PasteClipboard className="text-[19px]" />}
 						className="mb-7"
 					/>
 
@@ -736,401 +748,6 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 								/>
 							</div>
 						</div>
-					</div>
-				</>
-			),
-		},
-	];
-
-	const firstSection: CollapseProps["items"] = [
-		{
-			key: "1",
-			label: (
-				<BaseCollapseLabelHeader
-					title="ข้อมูลสถานพยาบาล"
-					description="ข้อมูลภาพรวมและรายละเอียดของสถานพยาล"
-				/>
-			),
-			children: (
-				<>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.hospitalDbmsCode}
-							itemName="hospitalDbmsCode"
-							rules={rules.hospitalDbmsCodeSchema}
-							value={hospitalForm.hospitalDbmsCode}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalDbmsCode: e.target.value,
-									})
-								);
-							}}
-						/>
-
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.hospitalWcfCode}
-							itemName="hospitalWcfCode"
-							rules={rules.hospitalWcfCodeSchema}
-							value={hospitalForm.hospitalWcfCode}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalWcfCode: e.target.value,
-									})
-								);
-							}}
-						/>
-
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.hospitalMinistryCode}
-							itemName="hospitalMinistryCode"
-							rules={rules.hospitalMinistryCodeSchema}
-							value={hospitalForm.hospitalMinistryCode}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalMinistryCode: e.target.value,
-									})
-								);
-							}}
-						/>
-
-						<BaseItemCheckbox
-							pageLevel="edit"
-							itemName="checkIsParticipateSso"
-							label={names.isParticipateSso}
-							checked={hospitalForm.checkIsParticipateSso}
-							labelPosition={BaseFormItemPosition.LEFT}
-							onClickFunction={() => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										checkIsParticipateSso: !hospitalForm.checkIsParticipateSso,
-										isParticipateSso: !hospitalForm.checkIsParticipateSso
-											? "Y"
-											: "N",
-									})
-								);
-							}}
-						/>
-					</div>
-					<BaseHorizontalHeader
-						className="mb-7"
-						title={"ข้อมูลพื้นฐานสถานพยาบาล"}
-						icons={<HomeFilled />}
-					/>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.hospitalName}
-							itemName="hospitalName"
-							rules={rules.hospitalNameSchema}
-							value={hospitalForm.hospitalName}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										hospitalName: e.target.value,
-									})
-								);
-							}}
-						/>
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.companyName}
-							itemName="companyName"
-							rules={rules.companyNameSchema}
-							value={hospitalForm.companyName}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										companyName: e.target.value,
-									})
-								);
-							}}
-						/>
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.revenueRegistrationCode}
-							itemName="revenueRegistrationCode"
-							rules={rules.revenueRegistrationCodeSchema}
-							value={hospitalForm.revenueRegistrationCode}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										revenueRegistrationCode: e.target.value,
-									})
-								);
-							}}
-						/>
-					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemDatePicker
-							label={names.withholdingDateFrom}
-							pageLevel="edit"
-							itemName="withholdingDateFrom"
-							rules={rules.withholdingDateFromSchema}
-							value={hospitalForm.withholdingDateFrom}
-							itemForm={form}
-							onChangeDateFunction={(date, _) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										withholdingDateFrom: date
-											.format(DateFormat.YYYYMMDD)
-											.toString(),
-									})
-								);
-							}}
-						/>
-						<BaseItemDatePicker
-							label={names.withholdingDateTo}
-							pageLevel="edit"
-							itemName="withholdingDateTo"
-							rules={rules.withholdingDateToSchema}
-							value={hospitalForm.withholdingDateTo}
-							itemForm={form}
-							onChangeDateFunction={(date, _) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										withholdingDateTo: date
-											.format(DateFormat.YYYYMMDD)
-											.toString(),
-									})
-								);
-							}}
-						/>
-					</div>
-
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.address}
-							itemName="address"
-							rules={rules.addressSchema}
-							value={hospitalForm.address}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										address: e.target.value,
-									})
-								);
-							}}
-						/>
-
-						<MedDropDown
-							pageLevel="edit"
-							label={names.tambolCode}
-							itemName="tambolCode"
-							rules={rules.tambolCodeSchema}
-							type={SESSION_NAME.ADDRESS}
-							getValue={(e: Address) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										amphurCode: e.amphurCode,
-										provinceCode: e.provinceCode,
-										tambolCode: e.tambolCode,
-										postalCode: e.postalCode,
-									})
-								);
-							}}
-							labelRender={() => (
-								<p>
-									{findLabelAddress(hospitalForm.tambolCode, ADDRESS.TAMBOL)}
-								</p>
-							)}
-						/>
-						<MedDropDown
-							pageLevel="edit"
-							label={names.amphurCode}
-							itemName="amphurCode"
-							rules={rules.amphurCodeSchema}
-							type={SESSION_NAME.ADDRESS}
-							getValue={(e: Address) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										amphurCode: e.amphurCode,
-										provinceCode: e.provinceCode,
-										tambolCode: e.tambolCode,
-										postalCode: e.postalCode,
-									})
-								);
-							}}
-							labelRender={() => (
-								<p>
-									{findLabelAddress(hospitalForm.amphurCode, ADDRESS.AMPHUR)}
-								</p>
-							)}
-						/>
-					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<MedDropDown
-							pageLevel="edit"
-							label={names.provinceCode}
-							itemName="provinceCode"
-							rules={rules.provinceCodeSchema}
-							type={SESSION_NAME.ADDRESS}
-							getValue={(e: Address) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										amphurCode: e.amphurCode,
-										provinceCode: e.provinceCode,
-										tambolCode: e.tambolCode,
-										postalCode: e.postalCode,
-									})
-								);
-							}}
-							labelRender={() => (
-								<p>
-									{findLabelAddress(
-										hospitalForm.provinceCode,
-										ADDRESS.PROVINCE
-									)}
-								</p>
-							)}
-						/>
-
-						<MedDropDown
-							pageLevel="edit"
-							label={names.postalCode}
-							itemName="postalCode"
-							rules={rules.postalCodeSchema}
-							type={SESSION_NAME.ADDRESS}
-							getValue={(e: Address) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										amphurCode: e.amphurCode,
-										provinceCode: e.provinceCode,
-										tambolCode: e.tambolCode,
-										postalCode: e.postalCode,
-									})
-								);
-							}}
-							labelRender={() => (
-								<p>
-									{findLabelAddress(hospitalForm.postalCode, ADDRESS.POSTCODE)}
-								</p>
-							)}
-						/>
-					</div>
-					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.telephoneNumber}
-							itemName="telephoneNumber"
-							rules={rules.telephoneNumberSchema}
-							value={hospitalForm.telephoneNumber}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										telephoneNumber: e.target.value,
-									})
-								);
-							}}
-						/>
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.faxNumber}
-							itemName="faxNumber"
-							rules={rules.faxNumberSchema}
-							value={hospitalForm.faxNumber}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										faxNumber: e.target.value,
-									})
-								);
-							}}
-						/>
-
-						<BaseItemInput
-							pageLevel="edit"
-							label={names.email}
-							itemName="email"
-							rules={rules.emailSchema}
-							value={hospitalForm.email}
-							onChangeFunction={(e) => {
-								dispatch(
-									setHospitalForm({
-										...hospitalForm,
-										email: e.target.value,
-									})
-								);
-							}}
-						/>
-					</div>
-
-					<BaseHorizontalHeader
-						className="mb-4"
-						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
-						icons={<HomeFilled />}
-					/>
-					<div className="flex justify-end">
-						<DivPermission pageLevel="edit">
-							<BaseButton
-								type="default"
-								className="text-base font-regular mb-4"
-								label="เพิ่มผู้ติดต่อ"
-								onClick={() => {
-									dispatch(
-										setDialog({
-											...modelDialog,
-											isOpenBaseConfirmDialog: false,
-											isOpen: true,
-											uniqueContent: <AddHospitalStaffContactForm />,
-										})
-									);
-								}}
-								icon={<UserAddOutlined />}
-								customStyle={{
-									width: "134px",
-									height: "48px",
-									borderRadius: "99px",
-								}}
-							/>
-						</DivPermission>
-					</div>
-
-					<div>
-						<BaseGrid
-							isShowPagination={false}
-							rows={hospitalStaffContact.grid.data}
-							columns={HospitalStaffContactGrid({
-								hospitalStaffContact: hospitalStaffContact,
-								outsideHospitalForm: outsideHospitalForm,
-								dispatch: dispatch,
-								params: params,
-								dialog: dialog,
-							})}
-							page={hospitalStaffContact.grid.page}
-							loading={isLoading}
-							twoToneColor={true}
-							setPagination={(page) => {
-								dispatch(
-									fetchHospitalStaffContactList(params, {
-										...hospitalStaffContact,
-										grid: { ...hospitalStaffContact.grid, page },
-									})
-								);
-							}}
-						/>
 					</div>
 				</>
 			),
@@ -1551,6 +1168,568 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 		},
 	];
 
+	const tabs: TabsProps["items"] = [
+		{
+			key: "1",
+			label: "ข้อมูลสถานพยาบาล",
+			children: (
+				<div className="p-6">
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4 ">
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.hospitalDbmsCode}
+							itemName="hospitalDbmsCode"
+							rules={rules.hospitalDbmsCodeSchema}
+							value={hospitalForm.hospitalDbmsCode}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalDbmsCode: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.hospitalWcfCode}
+							itemName="hospitalWcfCode"
+							rules={rules.hospitalWcfCodeSchema}
+							value={hospitalForm.hospitalWcfCode}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalWcfCode: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.hospitalMinistryCode}
+							itemName="hospitalMinistryCode"
+							rules={rules.hospitalMinistryCodeSchema}
+							value={hospitalForm.hospitalMinistryCode}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalMinistryCode: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<BaseItemCheckbox
+							pageLevel="edit"
+							itemName="checkIsParticipateSso"
+							label={names.isParticipateSso}
+							checked={hospitalForm.checkIsParticipateSso}
+							labelPosition={BaseFormItemPosition.LEFT}
+							onClickFunction={() => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										checkIsParticipateSso: !hospitalForm.checkIsParticipateSso,
+										isParticipateSso: !hospitalForm.checkIsParticipateSso
+											? "Y"
+											: "N",
+									})
+								);
+							}}
+						/>
+					</div>
+					<BaseHorizontalHeader
+						className="mb-7"
+						title={"ข้อมูลพื้นฐานสถานพยาบาล"}
+						icons={<HomeFilled />}
+					/>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.hospitalName}
+							itemName="hospitalName"
+							rules={rules.hospitalNameSchema}
+							value={hospitalForm.hospitalName}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										hospitalName: e.target.value,
+									})
+								);
+							}}
+						/>
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.companyName}
+							itemName="companyName"
+							rules={rules.companyNameSchema}
+							value={hospitalForm.companyName}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										companyName: e.target.value,
+									})
+								);
+							}}
+						/>
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.revenueRegistrationCode}
+							itemName="revenueRegistrationCode"
+							rules={rules.revenueRegistrationCodeSchema}
+							value={hospitalForm.revenueRegistrationCode}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										revenueRegistrationCode: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<BaseItemDatePicker
+							label={names.withholdingDateFrom}
+							pageLevel="edit"
+							itemName="withholdingDateFrom"
+							rules={rules.withholdingDateFromSchema}
+							value={hospitalForm.withholdingDateFrom}
+							itemForm={form}
+							onChangeDateFunction={(date, _) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										withholdingDateFrom: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
+									})
+								);
+							}}
+						/>
+						<BaseItemDatePicker
+							label={names.withholdingDateTo}
+							pageLevel="edit"
+							itemName="withholdingDateTo"
+							rules={rules.withholdingDateToSchema}
+							value={hospitalForm.withholdingDateTo}
+							itemForm={form}
+							onChangeDateFunction={(date, _) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										withholdingDateTo: date
+											.format(DateFormat.YYYYMMDD)
+											.toString(),
+									})
+								);
+							}}
+						/>
+					</div>
+
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.address}
+							itemName="address"
+							rules={rules.addressSchema}
+							value={hospitalForm.address}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										address: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<MedDropDown
+							pageLevel="edit"
+							label={names.tambolCode}
+							itemName="tambolCode"
+							rules={rules.tambolCodeSchema}
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
+									})
+								);
+							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.tambolCode, ADDRESS.TAMBOL)}
+								</p>
+							)}
+						/>
+						<MedDropDown
+							pageLevel="edit"
+							label={names.amphurCode}
+							itemName="amphurCode"
+							rules={rules.amphurCodeSchema}
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
+									})
+								);
+							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.amphurCode, ADDRESS.AMPHUR)}
+								</p>
+							)}
+						/>
+					</div>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<MedDropDown
+							pageLevel="edit"
+							label={names.provinceCode}
+							itemName="provinceCode"
+							rules={rules.provinceCodeSchema}
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
+									})
+								);
+							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(
+										hospitalForm.provinceCode,
+										ADDRESS.PROVINCE
+									)}
+								</p>
+							)}
+						/>
+
+						<MedDropDown
+							pageLevel="edit"
+							label={names.postalCode}
+							itemName="postalCode"
+							rules={rules.postalCodeSchema}
+							type={SESSION_NAME.ADDRESS}
+							getValue={(e: Address) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										amphurCode: e.amphurCode,
+										provinceCode: e.provinceCode,
+										tambolCode: e.tambolCode,
+										postalCode: e.postalCode,
+									})
+								);
+							}}
+							labelRender={() => (
+								<p>
+									{findLabelAddress(hospitalForm.postalCode, ADDRESS.POSTCODE)}
+								</p>
+							)}
+						/>
+					</div>
+					<div className="grid gap-x-4 gap-y-2 grid-cols-4">
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.telephoneNumber}
+							itemName="telephoneNumber"
+							rules={rules.telephoneNumberSchema}
+							value={hospitalForm.telephoneNumber}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										telephoneNumber: e.target.value,
+									})
+								);
+							}}
+						/>
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.faxNumber}
+							itemName="faxNumber"
+							rules={rules.faxNumberSchema}
+							value={hospitalForm.faxNumber}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										faxNumber: e.target.value,
+									})
+								);
+							}}
+						/>
+
+						<BaseItemInput
+							pageLevel="edit"
+							label={names.email}
+							itemName="email"
+							rules={rules.emailSchema}
+							value={hospitalForm.email}
+							onChangeFunction={(e) => {
+								dispatch(
+									setHospitalForm({
+										...hospitalForm,
+										email: e.target.value,
+									})
+								);
+							}}
+						/>
+					</div>
+
+					<BaseHorizontalHeader
+						className="mb-4"
+						title={"ผู้ติดต่อสำหรับโรงพยาบาล"}
+						icons={<UserOutlined />}
+					/>
+					<div className="flex justify-end">
+						<DivPermission pageLevel="edit">
+							<BaseButton
+								type="default"
+								className="text-base font-regular mb-4"
+								label="เพิ่มผู้ติดต่อ"
+								onClick={() => {
+									dispatch(
+										setDialog({
+											...modelDialog,
+											isOpenBaseConfirmDialog: false,
+											isOpen: true,
+											uniqueContent: <AddHospitalStaffContactForm />,
+										})
+									);
+								}}
+								icon={<UserAddOutlined />}
+								customStyle={{
+									width: "134px",
+									height: "48px",
+									borderRadius: "99px",
+								}}
+							/>
+						</DivPermission>
+					</div>
+
+					<div>
+						<BaseGrid
+							isShowPagination={false}
+							rows={hospitalStaffContact.grid.data}
+							columns={HospitalStaffContactGrid({
+								hospitalStaffContact: hospitalStaffContact,
+								outsideHospitalForm: outsideHospitalForm,
+								dispatch: dispatch,
+								params: params,
+								dialog: dialog,
+							})}
+							page={hospitalStaffContact.grid.page}
+							loading={isLoading}
+							twoToneColor={true}
+							setPagination={(page) => {
+								dispatch(
+									fetchHospitalStaffContactList(params, {
+										...hospitalStaffContact,
+										grid: { ...hospitalStaffContact.grid, page },
+									})
+								);
+							}}
+						/>
+					</div>
+				</div>
+			),
+			icon: <Hospital />,
+		},
+		{
+			key: "2",
+			label: "ราคาประกาศ",
+			children: (
+				<>
+					<div className="mb-5 p-6">
+						<div className="mb-4 justify-end flex ">
+							<BaseSubmitButton
+								className="text-base font-semibold mr-3"
+								label="สถานะการอัปโหลด"
+								onClickFunction={() => {
+									router.push(
+										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									);
+								}}
+								icon={<FileDoneOutlined />}
+								customStyle={{
+									width: "175px",
+									height: "48px",
+									borderRadius: "99px",
+								}}
+							/>
+							<BaseSubmitButton
+								type="outlined"
+								className="text-base font-semibold mr-3"
+								label="ประวัติการอัปโหลด"
+								onClickFunction={() => {
+									dispatch(
+										setDialog({
+											...modelDialog,
+											isOverFlow: true,
+											isOpenBaseConfirmDialog: false,
+											isOpen: true,
+											key: "AnnouncedPriceFilesHistory",
+											uniqueContent: <AnnouncedPriceFilesHistory />,
+										})
+									);
+									// router.push(
+									// 	`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									// );
+								}}
+								icon={<ClockCircleOutlined />}
+								customStyle={{
+									width: "175px",
+									height: "48px",
+									borderRadius: "99px",
+								}}
+							/>
+							{/* <BaseButtonSave
+								className=""
+								onClick={() => {
+									router.push(
+										`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+									);
+								}}
+							/> */}
+						</div>
+						<div
+							className=""
+							style={{
+								borderRadius: "24px",
+								overflow: "hidden",
+								border: "1px solid #dedede",
+							}}
+						>
+							<BaseGreenHeader
+								title={
+									<>
+										<div>
+											อัปโหลดเอกสารข้อมูลราคาประกาศ
+											<span
+												className="ml-6 text-secondary text-[12px] underline font-[300] cursor-pointer"
+												onClick={() => {
+													router.push(
+														`${LINKS.HOSPITAL.hospitalAnnouncedPriceFileUploadStatus.list}?hospitalWcfCodeLike=${hospitalForm.hospitalWcfCode}`
+													);
+												}}
+											>
+												ดูสถานะการอัปโหลด
+											</span>
+										</div>
+									</>
+								}
+								className=""
+							/>
+							<div className=" p-4">
+								<div className="bg-white pt-2">
+									<BaseDropDown
+										className="w-[250px]"
+										itemName={"announcedPriceYear"}
+										option={yearOption}
+										value={outsideHospitalForm.announcedPriceYear}
+										label={names.announcedPriceYear}
+										onChangeFunction={(e) => {
+											dispatch(
+												setOutsideHospitalForm({
+													...outsideHospitalForm,
+													announcedPriceYear: e.target.value,
+												})
+											);
+										}}
+									/>
+								</div>
+								<div>
+									<BaseUploadDraggerHospital
+										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
+										className="style1 "
+										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
+										subFolderPath="hospital/announcedPriceFiles"
+										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
+										bearer={`${Cookies.get("accessToken")}`}
+										antUploadHint={
+											<>
+												<p className="text-error">
+													*ไฟล์จะถูกอัปโหลดขึ้นไปที่ระบบทันทีเมื่อเลือกไฟล์เสร็จแล้ว
+												</p>
+											</>
+										}
+										onChangeFunction={(e) => {
+											dispatch(
+												setHospitalForm({
+													...hospitalForm,
+													files: {
+														...hospitalForm.files,
+														announcedPriceFiles: e,
+													},
+												})
+											);
+										}}
+									/>
+								</div>
+							</div>
+						</div>
+						<BaseHorizontalHeader
+							className="mb-4 mt-4"
+							title={"เอกสารข้อมูลราคาประกาศ"}
+							icons={<PasteClipboard />}
+						/>
+						<div
+							className="bg-white h-fit"
+							style={{
+								borderStartEndRadius: "16px",
+								borderStartStartRadius: "16px",
+							}}
+						>
+							<BaseGrid
+								rows={hospitalAnnouncedPriceFiles.grid.data}
+								columns={AnnouncedPriceFilesGrid({
+									hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
+									dispatch: dispatch,
+									params: params,
+									dialog: dialog,
+								})}
+								page={hospitalAnnouncedPriceFiles.grid.page}
+								loading={isLoading}
+								twoToneColor={true}
+								setPagination={(page) => {
+									dispatch(
+										fetchHospitalAnnouncedPriceFilesList(params, {
+											...hospitalAnnouncedPriceFiles,
+											grid: { ...hospitalAnnouncedPriceFiles.grid, page },
+										})
+									);
+								}}
+							/>
+						</div>
+					</div>
+				</>
+			),
+			icon: <PasteClipboard />,
+		},
+	];
+
 	return (
 		<>
 			<BaseConfirmDialog
@@ -1587,11 +1766,13 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									isOverFlow: true,
 									isOpenBaseConfirmDialog: false,
 									isOpen: true,
+									key: "HospitalHistory",
 									uniqueContent: <HospitalHistory />,
 								})
 							);
 						}}
 						switchCheckValue={_.trim(hospitalForm.isActive) === IsActive.Y}
+						disabledHistoryButton={currentTab === "1" ? false : true}
 					/>
 					<div className="mb-4"></div>
 
@@ -1605,92 +1786,26 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 						}}
 						extraForm={form}
 					>
-						<BaseCollapse items={firstSection} defaultActiveKey={"1"} />
-						<BaseCollapse
-							className="padding-2"
-							items={secondSection}
-							defaultActiveKey={"2"}
+						<BaseTabs
+							isTabTall={true}
+							className="mb-4"
+							defaultActiveKey={"1"}
+							items={tabs}
+							onChange={(key) => {
+								setCurrentTab(key);
+							}}
 						/>
-						{/* <BaseCollapse items={uploadFilesSection} defaultActiveKey={"5"} /> */}
-
-						<div className="grid grid-cols-12 gap-4 mb-5">
-							<div
-								className="col-span-8 bg-white h-fit"
-								style={{
-									borderStartEndRadius: "16px",
-									borderStartStartRadius: "16px",
-								}}
-							>
-								<BaseGrid
-									rows={hospitalAnnouncedPriceFiles.grid.data}
-									columns={AnnouncedPriceFilesGrid({
-										hospitalAnnouncedPriceFiles: hospitalAnnouncedPriceFiles,
-										dispatch: dispatch,
-										params: params,
-										dialog: dialog,
-									})}
-									page={hospitalAnnouncedPriceFiles.grid.page}
-									loading={isLoading}
-									twoToneColor={true}
-									setPagination={(page) => {
-										dispatch(
-											fetchHospitalAnnouncedPriceFilesList(params, {
-												...hospitalAnnouncedPriceFiles,
-												grid: { ...hospitalAnnouncedPriceFiles.grid, page },
-											})
-										);
-									}}
+						{currentTab === "1" && (
+							<>
+								<BaseCollapse
+									className="padding-2"
+									items={secondSection}
+									defaultActiveKey={"2"}
 								/>
-							</div>
-							<div className="col-span-4 ">
-								<BaseGreenHeader
-									title="อัปโหลดเอกสารข้อมูลราคาประกาศ"
-									description="เอกสารข้อมูลราคาประกาศ"
-									className=""
-								/>
-								<div className="grid gap-x-4 gap-y-2 grid-cols-1 pb-6 px-6 pt-7 bg-white">
-									<BaseDropDown
-										itemName={"announcedPriceYear"}
-										option={yearOption}
-										value={outsideHospitalForm.announcedPriceYear}
-										label={names.announcedPriceYear}
-										onChangeFunction={(e) => {
-											dispatch(
-												setOutsideHospitalForm({
-													...outsideHospitalForm,
-													announcedPriceYear: e.target.value,
-												})
-											);
-										}}
-									/>
-								</div>
-								<div>
-									<BaseUploadDraggerHospital
-										allowFileTypesToUpload={[FILE_TYPES.PDF, FILE_TYPES.XLSX]}
-										className="style2"
-										uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.HOSPITAL.ANNOUNCED_PRICE.UPLOAD}`}
-										subFolderPath="hospital/announcedPriceFiles"
-										extraUrl={`hospitalWcfCode=${hospitalForm.hospitalWcfCode}&announcedYear=${outsideHospitalForm.announcedPriceYear}`}
-										bearer={`${Cookies.get("accessToken")}`}
-										onChangeFunction={(e) => {
-											dispatch(
-												setHospitalForm({
-													...hospitalForm,
-													files: {
-														...hospitalForm.files,
-														announcedPriceFiles: e,
-													},
-												})
-											);
-										}}
-									/>
-								</div>
-							</div>
-						</div>
-						{/* {uploadAnnouncedPriceFilesSection()} */}
-
-						<BaseCollapse items={thSection} defaultActiveKey={"3"} />
-						<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
+								<BaseCollapse items={thSection} defaultActiveKey={"3"} />
+								<BaseCollapse items={fourthSection} defaultActiveKey={"4"} />
+							</>
+						)}
 
 						<div className="flex justify-end">
 							<BaseButtonCancel
@@ -1699,7 +1814,11 @@ const HospitalFormPage = (params: HospitalFormPageProps) => {
 									router.push(LINKS.HOSPITAL.link);
 								}}
 							/>
-							<BaseButtonSave className="" htmlType="submit" />
+							{currentTab === "1" && (
+								<>
+									<BaseButtonSave className="" htmlType="submit" />
+								</>
+							)}
 						</div>
 					</BaseForm>
 				</>

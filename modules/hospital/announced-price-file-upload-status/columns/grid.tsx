@@ -12,6 +12,8 @@ import { hospitalAnnouncedPriceFileUploadStatusName } from "../interfaces/name";
 import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
 import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 import { ANNOUNCED_PRICE_FILE_UPLOAD_STATUS } from "@/components/MedDropDown/model";
+import { handleDownloadTextFile } from "@/modules/hospital/announced-price-file-upload-status/service";
+
 export const GetColumns = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
 		() => [
@@ -79,18 +81,23 @@ export const GetColumns = (router: AppRouterInstance) => {
 			},
 
 			{
-				sorter: true,
-				key: "errorReason",
+				title: hospitalAnnouncedPriceFileUploadStatusName.errorReason,
 				dataIndex: "errorReason",
-				width: 150,
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"errorReason"}
-						label={hospitalAnnouncedPriceFileUploadStatusName.errorReason}
-						sort={columns?.sortColumns}
-					/>
-				),
+				width: 200,
+				render: (_, { errorReason }) => {
+					return (
+						<div>
+							<p
+								onClick={() => {
+									handleDownloadTextFile(errorReason);
+								}}
+								className="truncate whitespace-nowrap w-[200px] cursor-pointer text-new hover:underline"
+							>
+								{errorReason}
+							</p>
+						</div>
+					);
+				},
 			},
 			{
 				title: hospitalAnnouncedPriceFileUploadStatusName.createdDate,

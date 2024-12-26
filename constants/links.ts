@@ -14,6 +14,7 @@ export const LINKS = {
 		name: "แพทย์",
 		link: "/doctor",
 		edit: "/doctor/edit/",
+		edit2: "/doctor/edit2/",
 		view: "/doctor/view/",
 		add: "/doctor/form",
 		upload: "/doctor/upload",
@@ -79,6 +80,9 @@ export const LINKS = {
 			list: "/hospital/announced-price-detail-master",
 			add: "/hospital/announced-price-detail-master/form/",
 			edit: "/hospital/announced-price-detail-master/edit/",
+		},
+		hospitalAnnouncedPriceFileUploadStatus: {
+			list: "/hospital/announced-price-file-upload-status",
 		},
 	},
 	DOCUMENT: {
