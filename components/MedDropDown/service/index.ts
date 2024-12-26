@@ -13,6 +13,10 @@ import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/
 import { API_METHOD, SESSION_NAME, DROPDOWN } from "../model";
 import { Bank, BankBranch, CourseCategory, SsoBranch, Title } from "./model";
 import { handleOption } from "./handleOption";
+import {
+	Hospital,
+	HospitalForm,
+} from "@/modules/hospital/redux/models/hospitalModel";
 
 interface DropDownParams {
 	apiPath: string;
@@ -83,6 +87,12 @@ export const findNameDisplay = (type: SESSION_NAME, value: any) => {
 				(e: CourseCategory) => e.courseCategory === value
 			);
 			nameDisplay = sessionResult?.categoryDescription ?? null;
+			break;
+		case SESSION_NAME.HOSPITAL:
+			sessionResult = session.find(
+				(e: HospitalForm) => e.hospitalWcfCode === value
+			);
+			nameDisplay = sessionResult?.hospitalName ?? null;
 			break;
 		default:
 			return value;
