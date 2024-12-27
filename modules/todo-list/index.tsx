@@ -102,8 +102,6 @@ export default function ToDoList() {
 
 	return (
 		<div>
-			{/* <MedStatus type="แพทย์" />
-			<MedStatus type="N" /> */}
 			<ToDoListLayout items={todoList} />
 		</div>
 	);

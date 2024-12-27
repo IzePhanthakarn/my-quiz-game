@@ -55,13 +55,13 @@ export const GetColumns = (prop: Props) => {
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey="doctorFullName"
+						headerKey="firstname"
 						label="ชื่อ-นามสกุล"
 						sort={columns?.sortColumns}
 					/>
 				),
-				dataIndex: "doctorFullName",
-				key: "doctorFullName",
+				dataIndex: "firstname",
+				key: "firstname",
 				sorter: true,
 				render: (_, { doctorFullName, eTitle, firstname, lastname }) => {
 					if (eTitle) {

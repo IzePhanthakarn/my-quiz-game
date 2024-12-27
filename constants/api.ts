@@ -3,6 +3,7 @@ const API_PATH = {
 	REPORT_PDF: "/pdf",
 	REPORT_EXCEL: "/excel",
 	REPORT_LIST: "/list",
+	SSO_USER: "http://192.168.5.92/ums/users",
 
 	// LOGIN
 	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
