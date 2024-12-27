@@ -17,6 +17,7 @@ import { RequestForm } from "@/modules/request-form/redux/model";
 import { Container } from "./container/model";
 import { Document } from "@/modules/document/redux/model";
 import { MedReport } from "@/modules/report/redux/model";
+import { SsoUserList } from "./sso_user/model";
 
 export interface SliceModel {
 	crud: Crud;
@@ -39,4 +40,5 @@ export interface SliceModel {
 	document: Document;
 	requestForm: RequestForm;
 	medReport: MedReport;
+	ssoUser: SsoUserList;
 }
