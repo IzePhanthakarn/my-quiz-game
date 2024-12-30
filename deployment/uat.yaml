@@ -16,20 +16,19 @@ configmap:
       NEXT_PUBLIC_BASE_PATH: "/med"
       NEXT_PUBLIC_WEB_URL: "https://wcfuat.sso.go.th"
       NEXT_PUBLIC_API_URL_MED: "https://wcfapiuat.sso.go.th/med-cm"
-      NEXT_PUBLIC_API_URL_UMS: "https://wcfapiuat.sso.go.th/ums"
+      NEXT_PUBLIC_API_URL_UMS: "https://wcfapiuat.sso.go.th/ums/"
       NEXT_PUBLIC_API_URL_MDM: "https://wcfapiuat.sso.go.th/mdm"
       NEXT_PUBLIC_AUTH_URL: "https://wcfapiuat.sso.go.th/auth"
       NEXT_PUBLIC_API_SSO_DATA: "https://wcfapiuat.sso.go.th/ssodata"
-      NEXT_PUBLIC_API_URL_NMS: "https://wcfapiuat.sso.go.th/nms"
+      NEXT_PUBLIC_API_URL_NMS: "https://wcfapiuat.sso.go.th/nms/"
       NEXT_PUBLIC_API_URL_ADM_TOOL: "https://tool-service-backend.backend.svc.cluster.local/tool"
       NEXT_PUBLIC_API_URL_ADM_NEW: "https://news-service-backend.backend.svc.cluster.local/news"
       NEXT_PUBLIC_MINIO_PATH: "https://minio-wcf.soilfish.co/wcf2-public"
-      NEXT_PUBLIC_API_URL_MW: 'https://api-dev-wcf.soilfish.co/mw/asset/configmap/'
+      NEXT_PUBLIC_API_URL_MW: "https://api-dev-wcf.soilfish.co/mw/asset/configmap/"
 
       ## รอ deploy ยังไม่ใช้โดเมนจริง
       NEXT_PUBLIC_API_CMP: "https://mbswagger.giize.com/ums/"
       ##
-
 
       ## รอ deploy ยังไม่ใช้โดเมนจริง
       NEXT_PUBLIC_API_URL_ML: "https://ml.weaverbase.com/wcf2-api/"
