@@ -3,7 +3,6 @@ import _ from "lodash";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
-import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { TrainingList } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
@@ -59,7 +58,6 @@ export default function TraningDialog(props: Props) {
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
-			<Cube />
 			<p className="text-2xl">
 				บันทึกข้อมูลการอบรม
 				{dayjs(training.trainingDate).format(DateFormat.DDMMYYYY)}

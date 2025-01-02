@@ -4,6 +4,8 @@ import { importDoctorXlsx } from "../../service/api";
 import _ from "lodash";
 import { BaseToastNotification } from "wcf-component-lib/src/components";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { getTemplateDoctor } from "./api";
+import { handleDownloadFile } from "@/utils";
 
 export interface importFile {
 	file: UploadFile<any>[];
@@ -32,6 +34,13 @@ export interface PreviewDoctorGrid {
 	page: PaginationOptions;
 	errorList: string[];
 }
+
+export const handleGetTemplateDoctor = () => async (dispatch: AppDispatch) => {
+	const response = dispatch(getTemplateDoctor());
+	if (!_.isEmpty(response)) {
+		handleDownloadFile(response);
+	}
+};
 
 export const handleXlsx =
 	(

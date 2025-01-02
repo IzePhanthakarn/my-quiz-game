@@ -108,3 +108,14 @@ export const findDiplomaDisplay = (value: string) => {
 	);
 	return diplomaResult?.diplomaName ?? "";
 };
+
+export const handleDownloadFile = (data: any, fileName?: string) => {
+	// Create a blob from the response
+	const url = window.URL.createObjectURL(new Blob([data]));
+	const link = document.createElement("a");
+	link.href = url;
+	link.setAttribute("download", `${fileName ?? "template.xlsx"}`); // Specify the file name
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+};

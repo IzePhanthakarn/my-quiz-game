@@ -89,6 +89,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 					themeIcon={dialog.themeIcon}
 					maxHeight={dialog.maxHeight}
 					maxWidth={dialog.maxWidth}
+					// showBaseHeader={dialog.showBaseHeader}
+					showBaseHeader={true}
 				/>
 			</HeaderNavbarLayout>
 		</LayoutProvider>

@@ -19,6 +19,7 @@ import { setDialog } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { BaseDialog } from "@/redux/slices/dialog/model";
 import ErrorModal from "./ErrorModal";
+import { getTemplateDoctor } from "./service/api";
 
 export default function UploadDoctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -106,17 +107,18 @@ export default function UploadDoctor() {
 						<p className="tablnact">อัปโหลดไฟล์</p>
 						<p className="text-label text-[#779097]">ไฟล์ที่รองรับ .xlsx</p>
 					</div>
-					<a
+					{/* <a
 						href={`https://api-dev-wcf.soilfish.co/med/doctor_data_import_template_full.xlsx`}
 						target="_blank"
-					>
-						<BaseButton
-							label="ดาวน์โหลด Template"
-							type="outline"
-							size="large"
-							iconType="download"
-						/>
-					</a>
+					> */}
+					<BaseButton
+						label="ดาวน์โหลด Template"
+						onClick={() => dispatch(getTemplateDoctor())}
+						type="outline"
+						size="large"
+						iconType="download"
+					/>
+					{/* </a> */}
 				</div>
 				<BaseUploadDragger
 					allowFileTypesToUpload={[FILE_TYPES.XLSX]}
