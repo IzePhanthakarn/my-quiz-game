@@ -36,9 +36,11 @@ export interface PreviewDoctorGrid {
 }
 
 export const handleGetTemplateDoctor = () => async (dispatch: AppDispatch) => {
-	const response = dispatch(getTemplateDoctor());
-	if (!_.isEmpty(response)) {
-		handleDownloadFile(response);
+	try {
+		const response = await dispatch(getTemplateDoctor()).unwrap();
+		handleDownloadFile(response, "template.xlsx");
+	} catch (err) {
+		console.error("Error downloading file:", err);
 	}
 };
 

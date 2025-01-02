@@ -9,7 +9,11 @@ import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/i
 import _ from "lodash";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
-import { handleXlsx, PreviewDoctorGrid } from "./service";
+import {
+	handleGetTemplateDoctor,
+	handleXlsx,
+	PreviewDoctorGrid,
+} from "./service";
 import { BaseColumn } from "wcf-component-lib/src/components";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns, modelPreviewGrid } from "./model";
@@ -19,7 +23,6 @@ import { setDialog } from "@/redux/slices/dialog";
 import { BaseDialogType } from "wcf-component-lib/src/constants/base-dialog-type";
 import { BaseDialog } from "@/redux/slices/dialog/model";
 import ErrorModal from "./ErrorModal";
-import { getTemplateDoctor } from "./service/api";
 
 export default function UploadDoctor() {
 	const dispatch: AppDispatch = useDispatch();
@@ -113,7 +116,7 @@ export default function UploadDoctor() {
 					> */}
 					<BaseButton
 						label="ดาวน์โหลด Template"
-						onClick={() => dispatch(getTemplateDoctor())}
+						onClick={() => dispatch(handleGetTemplateDoctor())}
 						type="outline"
 						size="large"
 						iconType="download"
