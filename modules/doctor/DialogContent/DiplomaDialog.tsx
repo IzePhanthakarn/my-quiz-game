@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { handleDoctorDetailRows } from "./service";
-import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import { DoctorDetailList, DoctorData } from "../redux/form/model";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import MedDropDown from "@/components/MedDropDown";
@@ -47,7 +46,6 @@ export default function DiplomaDialog(props: Props) {
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
-			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลวุฒิบัตรเฉพาะทาง</p>
 			<div className="w-full">
 				<MedDropDown

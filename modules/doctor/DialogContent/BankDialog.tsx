@@ -7,7 +7,6 @@ import BaseButton from "wcf-component-lib/src/components/BaseButton";
 import { handleBankBranchDropdown, handleBankRows } from "./service";
 import { AppDispatch } from "@/redux/config/configStore";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Cube } from "wcf-component-lib/node_modules/iconoir-react";
 import ArrowRightOutlined from "wcf-component-lib/node_modules/@ant-design/icons/ArrowRightOutlined";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
@@ -70,7 +69,6 @@ export default function BankDialog(props: Props) {
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
-			<Cube />
 			<p className="text-2xl">บันทึกข้อมูลวุฒิบัตรเฉพาะทาง</p>
 			<div className="w-full">
 				<MedDropDown
