@@ -11,12 +11,7 @@ import { SliceModel } from "@/redux/slices/model";
 import { useRouter } from "next/navigation";
 import { setHospitalFilter } from "../hospital/redux";
 import { modelHospitalFilter } from "../hospital/redux/models/hospitalModel";
-import {
-	getExistingSsoUser,
-	getSsoUser,
-	getSsoUserList,
-} from "@/utils/sso-user";
-import BaseTooltip from "wcf-component-lib/src/components/BaseTooltip";
+import { getSsoUserList } from "@/utils/sso-user";
 import ToolTipUser from "@/components/ToolTipUser";
 
 export default function ToDoList() {
