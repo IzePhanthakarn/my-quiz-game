@@ -1,4 +1,4 @@
-FROM soilfish/wcf-component-lib:1.0.3 AS base
+FROM soilfish/wcf-component-lib:1.0.4 AS base
 
 # Set working directory
 WORKDIR /usr/app
