@@ -26,8 +26,6 @@
 #     - dev
 
 stages:
-  - build
-  - deploy
   - build-sso-uat
   - deploy-sso-uat
   - build-sso-dev
@@ -60,23 +58,6 @@ before_script:
     variables:
       HELM_VAR_FILE: >
         -f ./deployment/default-dev.yaml -f ./deployment/dev.yaml    
-
-build:
-  stage: build
-  script:
-    - echo "Build application..."
-    - docker ps
-    - |
-      echo -e "$ENV_DEV" > .env
-    - docker build -t ums-frontend.latest ./
-    - docker system prune -f
-  rules: *pipeline_rule_dev
-
-deploy:
-  stage: deploy
-  script:
-    - docker compose up -d
-  rules: *pipeline_rule_dev
 
 build-sso-dev:
   stage: build-sso-dev
