@@ -78,6 +78,29 @@ deploy:
     - docker compose up -d
   rules: *pipeline_rule_dev
 
+build-sso-dev:
+  stage: build-sso-dev
+  script:
+    - echo $REGISTRY_USER
+    - echo $REGISTRY_DEV
+    - export VERSION=$(grep version package.json | cut -f 2 -d  ':'  | tr -d ' ",')
+    - echo "Current version- $VERSION"
+    - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_DEV
+    - |
+      cp -f .env.uat .env.production
+    - |
+      docker build  -f Dockerfile-sso-dev \
+          --build-arg WEBCMP_VERSION=latest \
+          --build-arg RDX_VERSION=latest \
+          -t $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id .
+    - docker system prune -f
+    - docker tag $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id $REGISTRY_DEV/$BUILD_IMAGE_NAME:latest
+    - docker push $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id
+    - docker push $REGISTRY_DEV/$BUILD_IMAGE_NAME:latest
+  variables:
+    GIT_STRATEGY: fetch
+  rules: *pipeline_rule_dev
+
 
 build-sso-uat:
   stage: build-sso-uat
@@ -114,7 +137,7 @@ deploy-sso-dev:
     - |
       sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default-dev.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
-  rules: *pipeline_rule_uat
+  rules: *pipeline_rule_dev
 
 
 
