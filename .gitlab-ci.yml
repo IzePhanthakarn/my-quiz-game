@@ -31,7 +31,7 @@ stages:
   - build-sso-uat
   - deploy-sso-uat
   - build-sso-dev
-  - deploy-sso-dev  -
+  - deploy-sso-dev
 
 variables:
   K8S_NAMESPACE : "frontend" # ใช้ frontend หรือ backend หรือ machine-learning
