@@ -1,4 +1,4 @@
-FROM evopstools-harbor.lab/wcf2/cmn/wcf-component-lib:sf-1.0.4 AS builder
+FROM devopstools-harbor.lab/wcf2/cmn/wcf-component-lib:sf-1.0.4 AS builder
 WORKDIR /usr/src/app
 
 COPY package.json  ./
