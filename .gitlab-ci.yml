@@ -81,7 +81,8 @@ build-sso-dev:
   variables:
     GIT_STRATEGY: fetch
   rules: *pipeline_rule_dev
-
+  tags:
+    - dev
 
 build-sso-uat:
   stage: build-sso-uat
@@ -119,6 +120,8 @@ deploy-sso-dev:
       sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default-dev.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
   rules: *pipeline_rule_dev
+  tags:
+    - dev
 
 
 
