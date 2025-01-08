@@ -32,10 +32,10 @@ stages:
   - deploy-sso-dev
 
 variables:
-  K8S_NAMESPACE : "frontend" # ใช้ frontend หรือ backend หรือ machine-learning
-  BUILD_IMAGE_NAME : "wcf2/med/med-frontend" # เปลี่ยนตามชื่อ wcf/<module>/<service_name>
-  PROJECT_NAME : "${CI_PROJECT_NAME}"
-  COMMIT_ID : "${CI_COMMIT_SHA}"
+  K8S_NAMESPACE: "frontend" # ใช้ frontend หรือ backend หรือ machine-learning
+  BUILD_IMAGE_NAME: "wcf2/med/med-frontend" # เปลี่ยนตามชื่อ wcf/<module>/<service_name>
+  PROJECT_NAME: "${CI_PROJECT_NAME}"
+  COMMIT_ID: "${CI_COMMIT_SHA}"
   GIT_STRATEGY: clone
 
 before_script:
@@ -57,7 +57,7 @@ before_script:
       $CI_SERVER_SHELL_SSH_HOST == "gitlab.com"
     variables:
       HELM_VAR_FILE: >
-        -f ./deployment/default-dev.yaml -f ./deployment/dev.yaml    
+        -f ./deployment/default-dev.yaml -f ./deployment/dev.yaml
 
 build-sso-dev:
   stage: build-sso-dev
@@ -68,7 +68,7 @@ build-sso-dev:
     - echo "Current version- $VERSION"
     - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_DEV
     - |
-      cp -f .env.uat .env.production
+      cp -f .env.development .env.production
     - |
       docker build  -f Dockerfile-sso-dev \
           --build-arg WEBCMP_VERSION=latest \
@@ -123,8 +123,6 @@ deploy-sso-dev:
   tags:
     - dev
 
-
-
 deploy-sso-uat:
   stage: deploy-sso-uat
   script:
@@ -135,4 +133,3 @@ deploy-sso-uat:
       sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
   rules: *pipeline_rule_uat
-
