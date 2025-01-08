@@ -12,6 +12,10 @@ RUN npm install --ignore-scripts
 # Copy the rest of the application code
 COPY . .
 
+# Rename or copy .env.dev to .env.production
+RUN cp .env.dev .env.production
+
+
 # Link the component library
 RUN npm link wcf-component-lib
 
