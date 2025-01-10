@@ -58,10 +58,7 @@ export default function TraningDialog(props: Props) {
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
-			<p className="text-2xl">
-				บันทึกข้อมูลการอบรม
-				{dayjs(training.trainingDate).format(DateFormat.DDMMYYYY)}
-			</p>
+			<p className="text-2xl">บันทึกข้อมูลการอบรม</p>
 			<div className="w-full space-y-2">
 				<BaseItemInput
 					notForm
