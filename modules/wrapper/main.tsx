@@ -66,6 +66,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 
 	return (
 		<LayoutProvider configPage={configPage} basePath="/med">
+			{/* test123 */}
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">
 					<main className={`py-2 px-4 h-fit bg-[#E7ECF2] w-full relative`}>
