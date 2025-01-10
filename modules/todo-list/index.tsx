@@ -110,7 +110,7 @@ export default function ToDoList() {
 			>
 				Test APi SSO_USER
 			</button>
-			<ToolTipUser name={"molpapha"} />
+			{/* <ToolTipUser name={"molpapha"} /> */}
 			<ToDoListLayout items={todoList} />
 		</div>
 	);
