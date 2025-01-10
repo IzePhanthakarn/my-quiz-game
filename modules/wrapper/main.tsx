@@ -32,7 +32,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 		shallowEqual
 	);
 
-	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+	axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL_MED;
 
 	axios.interceptors.request.use(
 		(config) => {
@@ -65,11 +65,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<LayoutProvider
-			configPage={configPage}
-			// urlApi={`${process.env.NEXT_PUBLIC_API_URL_PAGE_ACCESSES}/${userName}/page-accesses`}
-			urlApi={`${process.env.NEXT_PUBLIC_API_URL_PAGE_ACCESSES}/sjittikhun2/page-accesses`}
-		>
+		<LayoutProvider configPage={configPage} urlApi={""}>
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">
 					<main className={`py-2 px-4 h-fit bg-[#E7ECF2] w-full relative`}>
@@ -93,6 +89,8 @@ const MainWrapper: React.FC<Props> = (props) => {
 					themeIcon={dialog.themeIcon}
 					maxHeight={dialog.maxHeight}
 					maxWidth={dialog.maxWidth}
+					// showBaseHeader={dialog.showBaseHeader}
+					showBaseHeader={true}
 				/>
 			</HeaderNavbarLayout>
 		</LayoutProvider>

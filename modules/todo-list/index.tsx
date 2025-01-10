@@ -11,6 +11,8 @@ import { SliceModel } from "@/redux/slices/model";
 import { useRouter } from "next/navigation";
 import { setHospitalFilter } from "../hospital/redux";
 import { modelHospitalFilter } from "../hospital/redux/models/hospitalModel";
+import { getSsoUserList } from "@/utils/sso-user";
+import ToolTipUser from "@/components/ToolTipUser";
 
 export default function ToDoList() {
 	const dispatch: AppDispatch = useDispatch();
@@ -102,8 +104,13 @@ export default function ToDoList() {
 
 	return (
 		<div>
-			{/* <MedStatus type="แพทย์" />
-			<MedStatus type="N" /> */}
+			<button
+				className="bg-green-300"
+				onClick={() => dispatch(getSsoUserList("sjittikhun2"))}
+			>
+				Test APi SSO_USER
+			</button>
+			<ToolTipUser name={"molpapha"} />
 			<ToDoListLayout items={todoList} />
 		</div>
 	);

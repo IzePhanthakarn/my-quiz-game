@@ -9,7 +9,11 @@ import type { UploadFile } from "wcf-component-lib/node_modules/antd/es/upload/i
 import _ from "lodash";
 import { AppDispatch } from "@/redux/config/configStore";
 import { useDispatch } from "react-redux";
-import { handleXlsx, PreviewDoctorGrid } from "./service";
+import {
+	handleGetTemplateDoctor,
+	handleXlsx,
+	PreviewDoctorGrid,
+} from "./service";
 import { BaseColumn } from "wcf-component-lib/src/components";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { columns, modelPreviewGrid } from "./model";
@@ -106,16 +110,18 @@ export default function UploadDoctor() {
 						<p className="tablnact">อัปโหลดไฟล์</p>
 						<p className="text-label text-[#779097]">ไฟล์ที่รองรับ .xlsx</p>
 					</div>
-					<a
-						href={`${process.env.NEXT_PUBLIC_BASE_URL}doctor_data_import_template_full.xlsx`}
-					>
-						<BaseButton
-							label="ดาวน์โหลด Template"
-							type="outline"
-							size="large"
-							iconType="download"
-						/>
-					</a>
+					{/* <a
+						href={`https://api-dev-wcf.soilfish.co/med/doctor_data_import_template_full.xlsx`}
+						target="_blank"
+					> */}
+					<BaseButton
+						label="ดาวน์โหลด Template"
+						onClick={() => dispatch(handleGetTemplateDoctor())}
+						type="outline"
+						size="large"
+						iconType="download"
+					/>
+					{/* </a> */}
 				</div>
 				<BaseUploadDragger
 					allowFileTypesToUpload={[FILE_TYPES.XLSX]}

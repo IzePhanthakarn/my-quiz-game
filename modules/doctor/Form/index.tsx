@@ -111,7 +111,7 @@ const DoctorFormTabs = () => {
 						onClick={() => form.submit()}
 					/>
 					<BaseButton
-						pageLevel="edit"
+						// pageLevel="edit"
 						disabled={doctorForm.doctorData.isELearning}
 						size="small"
 						htmlType="submit"
