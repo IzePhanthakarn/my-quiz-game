@@ -24,6 +24,7 @@ import {
 	setHospitalAnnouncedPriceDetailMasterForm,
 	setHospitalAnnouncedPriceDetailMasterGrid,
 } from "../../redux";
+import { handleDownloadFile } from "../../../../utils";
 
 export const fetchCourseList =
 	(course: HospitalAnnouncedPriceDetailMaster) =>
@@ -112,27 +113,10 @@ export const updateHospitalAnnouncedPriceDetailMaster =
 	};
 
 export const handleDownloadTemplate = () => async (dispatch: AppDispatch) => {
-	try {
-		const response = await dispatch(downloadAnnouncedPriceFileTemplateApi());
-		if (_.get(response, "error.message") === "Rejected") return;
-		if (_.get(response, "payload") === true) {
-			const fileUrl = `${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/announcedPriceFileTemplate/template.xlsx`;
-			const a = document.createElement("a");
-			a.href = fileUrl;
-			a.download = "template.xlsx";
-			document.body.appendChild(a);
-			a.click();
-			document.body.removeChild(a);
-		} else {
-			BaseToastNotification({
-				message: BaseToastNotificationMessage.ERROR,
-				description: "ดาวน์โหลดไฟล์ Template ผิดพลาด",
-			});
-		}
-	} catch (error) {
-		BaseToastNotification({
-			message: BaseToastNotificationMessage.ERROR,
-			description: "ดาวน์โหลดไฟล์ Template ผิดพลาด",
-		});
-	}
+	const response = await dispatch(
+		downloadAnnouncedPriceFileTemplateApi()
+	).unwrap();
+	if (_.get(response, "error.message") === "Rejected") return;
+
+	handleDownloadFile(response, "template.xlsx");
 };

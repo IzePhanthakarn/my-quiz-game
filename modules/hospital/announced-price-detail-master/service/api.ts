@@ -70,7 +70,9 @@ export const downloadAnnouncedPriceFileTemplateApi = createAsyncThunk(
 	async (_, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ANNOUNCED_PRICE.DOWNLOAD_TEMPLATE_FILE}`;
-			const response = await axios.post(apiPath);
+			const response = await axios.get(apiPath, {
+				responseType: "blob",
+			});
 			return response.data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err);
