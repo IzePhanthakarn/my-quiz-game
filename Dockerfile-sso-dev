@@ -44,4 +44,4 @@ EXPOSE 3000
 # Write the build timestamp to a file
 RUN echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > /usr/app/timestamp.txt
 # Start the app
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
