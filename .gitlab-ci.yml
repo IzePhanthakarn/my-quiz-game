@@ -117,6 +117,10 @@ deploy-sso-dev:
     - echo "Current version- $git_Build_id"
     - echo $HELM_REPO_NAME
     - |
+      helm uninstall $HELM_REPO_NAME -n $K8S_NAMESPACE
+    - |
+      sleep 10
+    - |
       sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default-dev.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
   rules: *pipeline_rule_dev
