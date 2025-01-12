@@ -1,42 +1,10 @@
 # version 1.0
 # ไฟล์ สำหรับใส่ค่า ENV ที่ต้องการ config สำหรับ container
-# ห้ามลบ ที่เป็น  http_proxy, https_proxy, no_proxy
 environment: uat
 configmap:
   # map to ENV on Container
   - name: med-frontend-backend-cm
     key:
-      http_proxy: "http://172.16.11.231:8080"
-      https_proxy: "http://172.16.11.231:8080"
-      no_proxy: "localhost,internal.domain,127.0.0.1,172.16.0.0/12,10.0.0.0/8,192.168.0.0/16,172.16.7.0/24,172.20.81.0/24,ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th,ry-c4tkg-prd-tkc01-harbor.ssomgmt.go.th,nb-c4tkg-prd-tkc01-harbor.ssomgmt.go.th"
-
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://wavefront-proxy.observability-system:4318"
-      ## ข้อมูลจากทีม dev
-      NEXT_PUBLIC_DEV: "uat"
-      NEXT_PUBLIC_BASE_PATH: "/med"
-      NEXT_PUBLIC_WEB_URL: "https://wcfuat.sso.go.th"
-      NEXT_PUBLIC_API_URL_MED: "https://wcfapidev.sso.go.th"
-      NEXT_PUBLIC_API_URL_UMS: "http://ums-service-backend.backend.svc.cluster.local/ums/"
-      NEXT_PUBLIC_API_URL_NMS: "http://notification-service-backend.backend.svc.cluster.local/nms/"
-      NEXT_PUBLIC_API_URL_MDM: "http://masterdata-service-backend.backend.svc.cluster.local/masterdata/"
-      NEXT_PUBLIC_AUTH_URL: "https://wcfapiuat.sso.go.th/auth"
-      NEXT_PUBLIC_API_SSO_DATA: "https://wcfapiuat.sso.go.th/ssodata"
-      NEXT_PUBLIC_API_URL_NMS: "https://wcfapiuat.sso.go.th/nms/"
-      NEXT_PUBLIC_API_URL_ADM_TOOL: "https://tool-service-backend.backend.svc.cluster.local/tool"
-      NEXT_PUBLIC_API_URL_ADM_NEW: "https://news-service-backend.backend.svc.cluster.local/news"
-      NEXT_PUBLIC_MINIO_PATH: "https://minio-wcf.soilfish.co/wcf2-public"
-      NEXT_PUBLIC_API_URL_MW: "https://api-dev-wcf.soilfish.co/mw/asset/configmap/"
-
-      ## รอ deploy ยังไม่ใช้โดเมนจริง
-      NEXT_PUBLIC_API_CMP: "https://mbswagger.giize.com/ums/"
-      ##
-
-      ## รอ deploy ยังไม่ใช้โดเมนจริง
-      NEXT_PUBLIC_API_URL_ML: "https://ml.weaverbase.com/wcf2-api/"
-      ##
-
-      NEXT_PUBLIC_API_URL_CON: "https://coninvoice-service-backend.backend.svc.cluster.local/coninvoice"
-
       ## Service Port
       server.port: "3000"
       ## Profile
