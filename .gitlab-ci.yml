@@ -26,16 +26,16 @@
 #     - dev
 
 stages:
-  - build
-  - deploy
   - build-sso-uat
   - deploy-sso-uat
+  - build-sso-dev
+  - deploy-sso-dev
 
 variables:
-  K8S_NAMESPACE : "frontend" # ใช้ frontend หรือ backend หรือ machine-learning
-  BUILD_IMAGE_NAME : "wcf2/med/med-frontend" # เปลี่ยนตามชื่อ wcf/<module>/<service_name>
-  PROJECT_NAME : "${CI_PROJECT_NAME}"
-  COMMIT_ID : "${CI_COMMIT_SHA}"
+  K8S_NAMESPACE: "frontend" # ใช้ frontend หรือ backend หรือ machine-learning
+  BUILD_IMAGE_NAME: "wcf2/med/med-frontend" # เปลี่ยนตามชื่อ wcf/<module>/<service_name>
+  PROJECT_NAME: "${CI_PROJECT_NAME}"
+  COMMIT_ID: "${CI_COMMIT_SHA}"
   GIT_STRATEGY: clone
 
 before_script:
@@ -43,7 +43,7 @@ before_script:
   - echo "$CI_SERVER_SHELL_SSH_HOST"
   - export git_Build_id=$(echo $COMMIT_ID | cut -c1-8)
   - export build_time=$(date +"%Y-%m-%dT%H:%M:%SZ")
-  - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_UAT
+#  - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_UAT
 
 .pipeline_rule_uat: &pipeline_rule_uat
   - if: $CI_COMMIT_BRANCH == "uat" &&
@@ -55,24 +55,34 @@ before_script:
 .pipeline_rule_dev: &pipeline_rule_dev
   - if: $CI_COMMIT_BRANCH == "dev" &&
       $CI_SERVER_SHELL_SSH_HOST == "gitlab.com"
+    variables:
+      HELM_VAR_FILE: >
+        -f ./deployment/default-dev.yaml -f ./deployment/dev.yaml
 
-build:
-  stage: build
+build-sso-dev:
+  stage: build-sso-dev
   script:
-    - echo "Build application..."
-    - docker ps
+    - echo $REGISTRY_USER
+    - echo $REGISTRY_DEV
+    - export VERSION=$(grep version package.json | cut -f 2 -d  ':'  | tr -d ' ",')
+    - echo "Current version- $VERSION"
+    - docker login -u=$REGISTRY_USER -p=$REGISTRY_PASS $REGISTRY_DEV
     - |
-      echo -e "$ENV_DEV" > .env
-    - docker build -t ums-frontend.latest ./
+      cp -f .env.development .env.production
+    - |
+      docker build  -f Dockerfile-sso-dev \
+          --build-arg WEBCMP_VERSION=latest \
+          --build-arg RDX_VERSION=latest \
+          -t $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id .
     - docker system prune -f
+    - docker tag $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id $REGISTRY_DEV/$BUILD_IMAGE_NAME:latest
+    - docker push $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id
+    - docker push $REGISTRY_DEV/$BUILD_IMAGE_NAME:latest
+  variables:
+    GIT_STRATEGY: fetch
   rules: *pipeline_rule_dev
-
-deploy:
-  stage: deploy
-  script:
-    - docker compose up -d
-  rules: *pipeline_rule_dev
-
+  tags:
+    - dev
 
 build-sso-uat:
   stage: build-sso-uat
@@ -100,6 +110,22 @@ build-sso-uat:
     GIT_STRATEGY: fetch
   rules: *pipeline_rule_uat
 
+deploy-sso-dev:
+  stage: deploy-sso-dev
+  script:
+    - echo "Deploying to DEV"
+    - echo "Current version- $git_Build_id"
+    - echo $HELM_REPO_NAME
+    - |
+      helm uninstall $PROJECT_NAME -n $K8S_NAMESPACE
+    - |
+      sleep 10
+    - |
+      sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default-dev.yaml
+    - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
+  rules: *pipeline_rule_dev
+  tags:
+    - dev
 
 deploy-sso-uat:
   stage: deploy-sso-uat
@@ -111,4 +137,3 @@ deploy-sso-uat:
       sed -i "s/tag: \"latest\"/tag: \"$git_Build_id\"/" ./deployment/default.yaml
     - helm upgrade -i -n $K8S_NAMESPACE $HELM_VAR_FILE $PROJECT_NAME $HELM_REPO_NAME --insecure-skip-tls-verify
   rules: *pipeline_rule_uat
-

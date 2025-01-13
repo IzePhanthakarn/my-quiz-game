@@ -1,0 +1,11 @@
+# version 1.0
+# ไฟล์ สำหรับใส่ค่า ENV ที่ต้องการ config สำหรับ container
+environment: uat
+configmap:
+  # map to ENV on Container
+  - name: med-frontend-backend-cm
+    key:
+      ## Service Port
+      server.port: "3000"
+      ## Profile
+      #spring.profiles.active: "uat,actuator,auth,db,ldap,server,ums,debug"

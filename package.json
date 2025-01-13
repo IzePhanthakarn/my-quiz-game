@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+		"install": "npm install --ignore-scripts",
+		"clean": "rm -fR node_modules && rm -fR .next",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
