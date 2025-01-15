@@ -5,6 +5,9 @@ import {
 	HospitalFilter,
 	Hospital,
 	ExportPages,
+	EstimateAddGrid,
+	EstimateAdd,
+	EstimateAddForm,
 } from "./models/hospitalModel";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import {
@@ -245,5 +248,17 @@ export const hospitalReducers = {
 		>
 	) => {
 		state.hospitalAnnouncedPriceFileUploadStatus.filter = action.payload;
+	},
+	setHospitalEstimateAddGrid: (
+		state: Hospital,
+		action: PayloadAction<EstimateAddGrid>
+	) => {
+		state.estimateAdd.grid = action.payload;
+	},
+	setHospitalEstimateAddForm: (
+		state: Hospital,
+		action: PayloadAction<EstimateAddForm>
+	) => {
+		state.estimateAdd.form = action.payload;
 	},
 };
