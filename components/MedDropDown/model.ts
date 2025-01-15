@@ -5,6 +5,7 @@ export enum SESSION_NAME {
 	DIPLOMA = "diploma",
 	HOSPITAL_TYPE = "hospitalType",
 	HOSPITAL_CATEGORY = "hospitalCategory",
+	HOSPITAL_LIST_WCF_PLATFORM = "hospitalListWcfPlatform",
 	DOCTOR_BANK = "doctorBank",
 	TRAINING = "training",
 	HOSPITAL = "hospital",
@@ -70,6 +71,12 @@ export const DROPDOWN = {
 		sessionName: SESSION_NAME.HOSPITAL_CATEGORY,
 		method: API_METHOD.POST,
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
+	},
+	[SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/estimate/GetHospitalList`,
+		sessionName: SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM,
+		method: API_METHOD.POST,
+		baseBody: undefined,
 	},
 	[SESSION_NAME.COURSE_CATEGORY]: {
 		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/master/course-category/dropdown`,

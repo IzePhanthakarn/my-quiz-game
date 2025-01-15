@@ -21,6 +21,8 @@ import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePic
 import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDateRangePicker";
 import { fetchHospitalEstimateList } from "./service";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import MedDropDown from "../../../../components/MedDropDown";
+import { SESSION_NAME } from "../../../../components/MedDropDown/model";
 
 export default function EstimateAdd() {
 	const dispatch: AppDispatch = useDispatch();
@@ -80,25 +82,31 @@ export default function EstimateAdd() {
 								onFinish={onFinish}
 							>
 								<div className="flex space-x-2">
-									<BaseItemInput
+									<MedDropDown
 										itemName={"hospitalWCFCode"}
-										label={estimateAddNames.hospitalName}
-										onPressEnter={() => form.submit()}
+										label={estimateAddNames.hospital_name}
+										type={SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM}
 									/>
+
+									{/* <BaseItemInput
+										itemName={"hospitalWCFCode"}
+										label={estimateAddNames.hospital_name}
+										onPressEnter={() => form.submit()}
+									/> */}
 									<BaseItemInput
 										itemName={"userFirstName"}
-										label={estimateAddNames.name}
+										label={estimateAddNames.userFirstName}
 										onPressEnter={() => form.submit()}
 									/>
 									<BaseItemInput
 										itemName={"userLastName"}
-										label={estimateAddNames.lastName}
+										label={estimateAddNames.userLastName}
 										onPressEnter={() => form.submit()}
 									/>
 
 									<BaseItemDateRangePicker
 										itemName="notifyDate"
-										label={estimateAddNames.reportDate}
+										label={estimateAddNames.notifyDate}
 									/>
 								</div>
 							</BaseForm>
