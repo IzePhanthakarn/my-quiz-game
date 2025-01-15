@@ -26,9 +26,9 @@ export interface HospitalAnnouncedPriceFilesGridData
 }
 
 export interface HospitalAnnouncedPriceFilesGridFilter {
-	hospitalId: number;
+	// hospitalId: number;
 	isActive: IsActive | undefined;
-	checkIsActive: boolean;
+	// checkIsActive: boolean;
 	uuidExclusionList: UuidDeleteList;
 }
 
@@ -45,12 +45,13 @@ export const modelHospitalAnnouncedPriceFiles: HospitalAnnouncedPriceFiles = {
 			totalData: 0,
 			pageNumber: 0,
 			pageSize: 10,
+			orders: [{ direction: "DESC", property: "updatedDate" }],
 		},
 	},
 	filter: {
-		hospitalId: 0,
+		// hospitalId: 0,
 		isActive: IsActive.Y,
-		checkIsActive: false,
+		// checkIsActive: false,
 		uuidExclusionList: [],
 	},
 };
