@@ -9,7 +9,7 @@ import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { useRouter } from "next/navigation";
 import { GetColumns } from "./columns/grid";
-import { fetchCourseList } from "./service";
+import { fetchCourseList, handleDownloadTemplate } from "./service";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
@@ -17,6 +17,10 @@ import { hospitalAnnouncedPriceDetailMasterName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 import { setHospitalAnnouncedPriceDetailMasterFilter } from "../redux";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import SearchOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/SearchOutlined";
+import BaseSubmitButton from "wcf-component-lib/src/components/BaseSubmitButton/BaseSubmitButton";
+import { Download } from "wcf-component-lib/node_modules/iconoir-react";
 
 export default function HospitalAnnouncedPriceDetailMaster() {
 	const dispatch: AppDispatch = useDispatch();
@@ -42,6 +46,43 @@ export default function HospitalAnnouncedPriceDetailMaster() {
 			<MasterDataLayout
 				FilterLayout={
 					<FilterLayout
+						isFlex={false}
+						isButtonCenter
+						childrenRight={
+							<>
+								<BaseButton
+									onClick={() => {
+										dispatch(
+											fetchCourseList(HospitalAnnouncedPriceDetailMaster)
+										);
+									}}
+									icon={<SearchOutlined />}
+									type="primary"
+									label={"ค้นหา"}
+									htmlType="submit"
+								/>
+
+								{/* <a
+									href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/announcedPriceFileTemplate/template.xlsx`}
+									// href={`https://api-dev-wcf.soilfish.co/mw/wcf2-public/hospital/announcedPriceFileTemplate/template.xlsx`}
+								> */}
+								<BaseSubmitButton
+									type="outlined"
+									className="text-base font-semibold mr-3"
+									label="ดาวน์โหลดไฟล์ Template"
+									onClickFunction={() => {
+										dispatch(handleDownloadTemplate());
+									}}
+									icon={<Download />}
+									customStyle={{
+										// width: "175px",
+										height: "48px",
+										borderRadius: "99px",
+									}}
+								/>
+								{/* </a> */}
+							</>
+						}
 						FilterForm={
 							<div className="flex space-x-2">
 								<BaseItemInput
@@ -121,9 +162,9 @@ export default function HospitalAnnouncedPriceDetailMaster() {
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {
-							dispatch(fetchCourseList(HospitalAnnouncedPriceDetailMaster));
-						}}
+						// handleSubmitSearch={() => {
+						// 	dispatch(fetchCourseList(HospitalAnnouncedPriceDetailMaster));
+						// }}
 					/>
 				}
 				AddLabel="เพิ่ม Master ราคาประกาศ"

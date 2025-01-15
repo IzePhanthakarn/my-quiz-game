@@ -4,7 +4,10 @@ import {
 	Diploma,
 	DoctorHospital,
 } from "wcf-component-lib/src/components/BaseDropDown/model";
-import { LtPropertiesList } from "wcf-component-lib/src/components/BaseDropDown/service/api";
+import {
+	HospitalListWcfPlatformList,
+	LtPropertiesList,
+} from "wcf-component-lib/src/components/BaseDropDown/service/api";
 import { SESSION_NAME } from "../model";
 import {
 	Bank,
@@ -85,6 +88,12 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 			option = result.content.map((e: LtPropertiesList) => ({
 				value: e.propertyCode,
 				label: e.propertyText,
+			}));
+			break;
+		case SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM:
+			option = result.resultData.map((e: HospitalListWcfPlatformList) => ({
+				value: e.hospital_wcf_code,
+				label: e.hospital_name,
 			}));
 			break;
 		case SESSION_NAME.JOB_TYPE:

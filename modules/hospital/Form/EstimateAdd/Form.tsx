@@ -17,6 +17,7 @@ import FileTextOutlined from "wcf-component-lib/node_modules/@ant-design/icons/l
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { EstimateAddFilesGrid } from "../../columns/estimateAddFilesGrid";
+import { fetchHospitalEstimateDetail } from "./service";
 
 export default function EstimateAdd() {
 	const dispatch: AppDispatch = useDispatch();
@@ -27,6 +28,10 @@ export default function EstimateAdd() {
 		}),
 		shallowEqual
 	);
+
+	useEffect(() => {
+		dispatch(fetchHospitalEstimateDetail());
+	}, []);
 
 	return (
 		<>
@@ -46,17 +51,17 @@ export default function EstimateAdd() {
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.hospitalName}
-								itemName="hospitalName"
-								rules={estimateAddRules.hospitalNameSchema}
-								value={form.hospitalName}
+								label={estimateAddNames.hospital_name}
+								itemName="hospital_name"
+								rules={estimateAddRules.hospital_nameSchema}
+								value={form.hospital_name}
 							/>
 							<BaseItemInput
 								disabled={true}
 								label={estimateAddNames.type}
-								itemName="type"
+								itemName="assessType"
 								rules={estimateAddRules.typeSchema}
-								value={form.type}
+								value={form.assessType}
 							/>
 						</div>
 						<BaseHorizontalHeader
@@ -67,17 +72,17 @@ export default function EstimateAdd() {
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.name}
-								itemName="name"
-								rules={estimateAddRules.nameSchema}
-								value={form.name}
+								label={estimateAddNames.userFirstName}
+								itemName="userFirstName"
+								rules={estimateAddRules.userFirstNameSchema}
+								value={form.userFirstName}
 							/>
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.lastName}
-								itemName="lastName"
-								rules={estimateAddRules.lastNameSchema}
-								value={form.lastName}
+								label={estimateAddNames.userLastName}
+								itemName="userLastName"
+								rules={estimateAddRules.userLastNameSchema}
+								value={form.userLastName}
 							/>
 							<BaseItemInput
 								disabled={true}
@@ -90,50 +95,50 @@ export default function EstimateAdd() {
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.referenceNumber}
-								itemName="referenceNumber"
-								rules={estimateAddRules.referenceNumberSchema}
-								value={form.referenceNumber}
+								label={estimateAddNames.refDocNo}
+								itemName="refDocNo"
+								rules={estimateAddRules.refDocNoSchema}
+								value={form.refDocNo}
 							/>
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.atDate}
-								itemName="atDate"
-								rules={estimateAddRules.atDateSchema}
-								value={form.atDate}
+								label={estimateAddNames.refDocDate}
+								itemName="refDocDate"
+								rules={estimateAddRules.refDocDateSchema}
+								value={form.refDocDate}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.reportDate}
-								itemName="reportDate"
-								rules={estimateAddRules.reportDateSchema}
-								value={form.reportDate}
+								label={estimateAddNames.notifyDate}
+								itemName="notifyDate"
+								rules={estimateAddRules.notifyDateSchema}
+								value={form.notifyDate}
 							/>
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.checkDate}
-								itemName="checkDate"
-								rules={estimateAddRules.checkDateSchema}
-								value={form.checkDate}
+								label={estimateAddNames.visitDate}
+								itemName="visitDate"
+								rules={estimateAddRules.visitDateSchema}
+								value={form.visitDate}
 							/>
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.result}
-								itemName="result"
-								rules={estimateAddRules.resultSchema}
-								value={form.result}
+								label={estimateAddNames.resultStatus}
+								itemName="resultStatus"
+								rules={estimateAddRules.resultStatusSchema}
+								value={form.resultStatus}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<div className="col-span-3">
 								<BaseItemTextArea
 									disabled={true}
-									label={estimateAddNames.detail}
-									itemName="detail"
-									rules={estimateAddRules.detailSchema}
-									value={form.detail}
+									label={estimateAddNames.resultDesc}
+									itemName="resultDesc"
+									rules={estimateAddRules.resultDescSchema}
+									value={form.resultDesc}
 								/>
 							</div>
 						</div>
@@ -144,7 +149,7 @@ export default function EstimateAdd() {
 						/>
 
 						<BaseGrid
-							rows={form.files}
+							rows={form.assessAttachmentfiles}
 							columns={EstimateAddFilesGrid()}
 							isShowPagination={false}
 							loading={isLoading}
