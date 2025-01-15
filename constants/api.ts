@@ -175,6 +175,10 @@ const API_PATH = {
 			COMPARE_ANNOUNCED_PRICE_FILES_VERSION:
 				"/hospital-history/compare-announced-price-files-version",
 		},
+		ESTIMATE: {
+			LIST: "/hospital/estimate/getAssessHospitalList",
+			DETAIL: "/hospital/estimate/getAssessHospitalByID",
+		},
 	},
 	DOCUMENT: {
 		GET_LIST: "/master/document/list",

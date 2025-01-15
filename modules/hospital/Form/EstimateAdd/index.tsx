@@ -19,6 +19,8 @@ import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { estimateAddNames } from "../../interfaces/estimateAddNames";
 import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
 import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDateRangePicker";
+import { fetchHospitalEstimateList } from "./service";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 export default function EstimateAdd() {
 	const dispatch: AppDispatch = useDispatch();
@@ -33,23 +35,26 @@ export default function EstimateAdd() {
 		shallowEqual
 	);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		dispatch(fetchHospitalEstimateList(filter));
+	}, []);
 
 	const [form] = Form.useForm();
 	const [formDrawer] = Form.useForm();
 
-	const onFinish: FormProps<EstimateAddFilter>["onFinish"] = (
-		value: EstimateAddFilter
-	) => {
-		// const newFilter = { ...filter, ...value };
-		// dispatch(
-		// 	initDoctorGrid({
-		// 		pagination: { ...page },
-		// 		...newFilter,
-		// 	})
-		// );
-		// dispatch(setMounted(uuid4()));
-		// dispatch(setDoctorFilter(newFilter));
+	const onFinish: FormProps["onFinish"] = (value) => {
+		const toFilter: EstimateAddFilter = {
+			hospitalWCFCode: value.hospitalWCFCode,
+			notiDateStart: value.notifyDate
+				? value.notifyDate[0].format(DateFormat.YYYYMMDD).toString()
+				: undefined,
+			notiDateEnd: value.notifyDate
+				? value.notifyDate[1].format(DateFormat.YYYYMMDD).toString()
+				: undefined,
+			userFirstName: value.userFirstName,
+			userLastName: value.userLastName,
+		};
+		dispatch(fetchHospitalEstimateList(toFilter));
 	};
 
 	return (
@@ -76,46 +81,24 @@ export default function EstimateAdd() {
 							>
 								<div className="flex space-x-2">
 									<BaseItemInput
-										itemName={estimateAddNames.hospitalName}
-										label="สถานพยาบาล"
+										itemName={"hospitalWCFCode"}
+										label={estimateAddNames.hospitalName}
 										onPressEnter={() => form.submit()}
 									/>
 									<BaseItemInput
-										itemName={estimateAddNames.name}
-										label="ชื่อ"
+										itemName={"userFirstName"}
+										label={estimateAddNames.name}
 										onPressEnter={() => form.submit()}
 									/>
 									<BaseItemInput
-										itemName={estimateAddNames.lastName}
-										label="สกุล"
+										itemName={"userLastName"}
+										label={estimateAddNames.lastName}
 										onPressEnter={() => form.submit()}
 									/>
-
-									{/* <BaseItemInput
-										itemName="reportDateFrom"
-										label="วันที่แจ้ง"
-										onPressEnter={() => form.submit()}
-									/> */}
-									{/* <BaseItemDatePicker
-										itemName="reportDateFrom"
-										label="วันที่แจ้ง"
-										itemForm={form}
-									/> */}
-
-									{/* <BaseItemInput
-										itemName="reportDateTo"
-										label="ถึงวันที่"
-										onPressEnter={() => form.submit()}
-									/> */}
-									{/* <BaseItemDatePicker
-										itemName="reportDateTo"
-										label="ถึงวันที่"
-										itemForm={form}
-									/> */}
 
 									<BaseItemDateRangePicker
-										itemName="reportDateTo"
-										label="วันที่แจ้ง"
+										itemName="notifyDate"
+										label={estimateAddNames.reportDate}
 									/>
 								</div>
 							</BaseForm>
