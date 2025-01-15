@@ -21,12 +21,15 @@ export interface BaseDialog {
 	themeIcon?: IconTheme;
 	maxHeight?: string;
 	maxWidth?: string;
+	baseHeader?: JSX.Element;
+	showBaseHeader?: boolean;
 	key?: string;
 }
 
 export const modelDialog: BaseDialog = {
 	isOpen: false,
 	isOverFlow: false,
+	showBaseHeader: true,
 	isOpenBaseConfirmDialog: false,
 	onConfirm: () => {},
 	onCancel: () => {},

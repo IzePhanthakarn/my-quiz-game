@@ -82,11 +82,25 @@ export interface EstimateAddGrid extends PaginationModel {
 }
 
 export interface BaseEstimateAddData {
-	name: string;
-	lastName: string;
-	email: string;
 	hospitalName: string;
-	reportDate: string;
+	assessId: number;
+	hospitalWCFCode: string;
+	userFirstName: string;
+	userLastName: string;
+	email: string;
+	notifyDate: string;
+	visitDate: string;
+	resultStatus: string;
+	resultDesc: string;
+	docStatus: string;
+	cancelDate: string;
+	status: string;
+	createBy: string;
+	createDate: string;
+	updateBy: string;
+	updateDate: string;
+	refDocNo: string;
+	refDocDate: string;
 }
 
 export interface EstimateAddGridData extends BaseEstimateAddData {
@@ -263,27 +277,33 @@ export interface HospitalForm
 	};
 }
 
-export interface EstimateAddForm extends BaseEstimateAddData {
-	type: string;
-	referenceNumber: string;
-	atDate: string;
-	checkDate: string;
-	result: string;
-	detail: string;
-	files: {
-		noSeq: number;
-		name: string;
-		link: string;
-		detail: string;
-	}[];
+export interface EstimateAddForm {
+	cancelDate: string;
+	updateDate: string;
+	docStatus: string;
+	is_deleted: string;
+	updateBy: string;
+	userLastName: string;
+	visitDate: string;
+	refDocNo: string;
+	email: string;
+	notifyDate: string;
+	hospital_name: string;
+	refDocDate: string;
+	userFirstName: string;
+	resultDesc: string;
+	resultStatus: string;
+	assessType: number;
+	hospitalWCFCode: string;
+	assessAttachmentfiles: AssessAttachmentfiles[];
 }
 
 export interface EstimateAddFilter {
-	name: string;
-	lastName: string;
-	hospitalName: string;
-	reportDateFrom: string;
-	reportDateTo: string;
+	hospitalWCFCode: string;
+	notiDateStart: string;
+	notiDateEnd: string;
+	userFirstName: string;
+	userLastName: string;
 }
 
 export const modelHospitalFilter: HospitalFilter = {
@@ -305,43 +325,25 @@ export const modelHospitalFilter: HospitalFilter = {
 	CheckSp19EndDate: false,
 };
 
+export interface AssessAttachmentfiles {
+	originalFileName: string;
+	fileName: string;
+	mimeType: string;
+	docPath: string;
+	docName: string;
+	createBy: string;
+	fileSize: number;
+	attachId: number;
+	assessId: number;
+	fileBase64: string;
+	status: string;
+	sha256Hex: string;
+	createDate: string;
+}
+
 export const modelEstimateAdd: EstimateAdd = {
 	grid: {
-		data: [
-			{
-				noSeq: 1,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-
-			{
-				noSeq: 2,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-			{
-				noSeq: 3,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-			{
-				noSeq: 4,
-				name: "อนุชา",
-				lastName: "คีรีวัล",
-				email: "anu12345@gmail.com",
-				hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-				reportDate: "21/07/2567",
-			},
-		],
+		data: [],
 		page: {
 			orders: [],
 			totalData: 10,
@@ -350,38 +352,31 @@ export const modelEstimateAdd: EstimateAdd = {
 		},
 	},
 	filter: {
-		name: "",
-		lastName: "",
-		hospitalName: "",
-		reportDateFrom: "",
-		reportDateTo: "",
+		hospitalWCFCode: "",
+		notiDateStart: "",
+		notiDateEnd: "",
+		userFirstName: "",
+		userLastName: "",
 	},
 	form: {
-		hospitalName: "คลินิกเวชกรรมจุฬารัตน์โรงเกลือ",
-		type: "ตรวจแนะนำ",
-		name: "อนุชา",
-		lastName: "คีรีวัล",
-		email: "anu12345@gmail.com",
-		referenceNumber: "rv/254",
-		atDate: "10/10/2564",
-		reportDate: "10/10/2564",
-		checkDate: "10/10/2564",
-		result: "ผ่านเกณฑ์",
-		detail: "test",
-		files: [
-			{
-				noSeq: 1,
-				name: "Clinic_Evaluate_Jularut.pdf",
-				link: "##",
-				detail: "รายละเอียดการประเมินและข้อมูลต่างๆ",
-			},
-			{
-				noSeq: 2,
-				name: "Clinic_Evaluate_Jularut2.pdf",
-				link: "##",
-				detail: "รายละเอียดการประเมินและข้อมูลต่างๆ 2",
-			},
-		],
+		cancelDate: "",
+		updateDate: "",
+		docStatus: "",
+		is_deleted: "",
+		updateBy: "",
+		userLastName: "",
+		visitDate: "",
+		refDocNo: "",
+		email: "",
+		notifyDate: "",
+		hospital_name: "",
+		refDocDate: "",
+		userFirstName: "",
+		resultDesc: "",
+		resultStatus: "",
+		assessType: 0,
+		hospitalWCFCode: "",
+		assessAttachmentfiles: [],
 	},
 };
 

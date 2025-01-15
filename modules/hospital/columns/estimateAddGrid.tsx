@@ -10,6 +10,8 @@ import CustomCellButton from "wcf-component-lib/src/components/BaseGrid/CustomGr
 import { BUTTON_MODE } from "wcf-component-lib/src/components/BaseGrid/CustomGridCell/model";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { LINKS } from "../../../constants/links";
+import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
+import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 
 export const EstimateAddGrid = (router: AppRouterInstance) => {
 	const columns: TableProps["columns"] = useMemo(
@@ -31,10 +33,10 @@ export const EstimateAddGrid = (router: AppRouterInstance) => {
 						sort={columns?.sortColumns}
 					/>
 				),
-				render: (_, { name, lastName }) => {
+				render: (_, { userFirstName, userLastName }) => {
 					return (
 						<>
-							{name} {lastName}
+							{userFirstName} {userLastName}
 						</>
 					);
 				},
@@ -73,18 +75,25 @@ export const EstimateAddGrid = (router: AppRouterInstance) => {
 			},
 			{
 				sorter: true,
-				key: "reportDate",
-				dataIndex: "reportDate",
+				key: "notifyDate",
+				dataIndex: "notifyDate",
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"reportDate"}
+						headerKey={"notifyDate"}
 						label="วันที่แจ้ง"
 						sort={columns?.sortColumns}
 					/>
 				),
-				render: (_, { reportDate }) => {
-					return <>{reportDate}</>;
+				render: (_, { notifyDate }) => {
+					return (
+						<>
+							{convertDateFormatBuddhist(
+								notifyDate,
+								DateFormatBuddhist.DDMMBBBB
+							)}
+						</>
+					);
 				},
 			},
 			{

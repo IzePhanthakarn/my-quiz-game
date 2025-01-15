@@ -65,7 +65,7 @@ const MainWrapper: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<LayoutProvider configPage={configPage} urlApi={""}>
+		<LayoutProvider configPage={configPage} basePath="/med">
 			<HeaderNavbarLayout>
 				<BaseRow className="h-full">
 					<main className={`py-2 px-4 h-fit bg-[#E7ECF2] w-full relative`}>
@@ -89,8 +89,9 @@ const MainWrapper: React.FC<Props> = (props) => {
 					themeIcon={dialog.themeIcon}
 					maxHeight={dialog.maxHeight}
 					maxWidth={dialog.maxWidth}
-					// showBaseHeader={dialog.showBaseHeader}
-					showBaseHeader={true}
+					baseHeader={dialog.baseHeader}
+					showBaseHeader={dialog.showBaseHeader}
+					// showBaseHeader={true}
 				/>
 			</HeaderNavbarLayout>
 		</LayoutProvider>

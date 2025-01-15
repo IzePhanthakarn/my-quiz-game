@@ -7,6 +7,7 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { Download } from "wcf-component-lib/node_modules/iconoir-react";
+import { handleDownloadBase64File } from "../Form/EstimateAdd/service";
 
 export const EstimateAddFilesGrid = () => {
 	const columns: TableProps["columns"] = useMemo(
@@ -18,49 +19,58 @@ export const EstimateAddFilesGrid = () => {
 			},
 			{
 				sorter: true,
-				key: "name",
-				dataIndex: "name",
+				key: "originalFileName",
+				dataIndex: "originalFileName",
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"name"}
+						headerKey={"originalFileName"}
 						label="ชื่อไฟล์"
 						sort={columns?.sortColumns}
 					/>
 				),
-				render: (_, { name }) => {
+				render: (_, { originalFileName, fileBase64 }) => {
 					return (
-						<a
-							href={`${process.env.NEXT_PUBLIC_MINIO_PATH}/hospital/sp7/${name}`}
-							target="_blank"
+						<p
+							className="truncate whitespace-nowrap w-[200px] cursor-pointer text-new hover:underline"
+							onClick={() => {
+								handleDownloadBase64File(fileBase64);
+							}}
 						>
-							{name}
-						</a>
+							{originalFileName}
+						</p>
 					);
 				},
 			},
 			{
 				sorter: true,
-				key: "detail",
-				dataIndex: "detail",
+				key: "docName",
+				dataIndex: "docName",
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"detail"}
+						headerKey={"docName"}
 						label="รายละเอียด"
 						sort={columns?.sortColumns}
 					/>
 				),
-				render: (_, { detail }) => {
-					return <>{detail}</>;
+				render: (_, { docName }) => {
+					return <>{docName}</>;
 				},
 			},
 			{
 				key: "uuid",
 				title: "คำสั่ง",
 				dataIndex: "uuid",
-				render: (_) => {
-					return <Download />;
+				render: (_, { fileBase64 }) => {
+					return (
+						<Download
+							className="cursor-pointer "
+							onClick={() => {
+								handleDownloadBase64File(fileBase64);
+							}}
+						/>
+					);
 				},
 			},
 		],

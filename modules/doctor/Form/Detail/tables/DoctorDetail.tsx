@@ -13,6 +13,7 @@ import _ from "lodash";
 import { handleSession } from "@/components/MedDropDown/service";
 import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { modelDialog } from "@/redux/slices/dialog/model";
+import { DocStar } from "wcf-component-lib/node_modules/iconoir-react";
 
 export default function DoctorDetails() {
 	const dispatch: AppDispatch = useDispatch();
@@ -38,6 +39,24 @@ export default function DoctorDetails() {
 							isOpen: true,
 							uniqueContent: (
 								<DiplomaDialog doctorDetailGrid={doctorDetailGrid} />
+							),
+							baseHeader: (
+								<div
+									style={{
+										width: "60px",
+										height: "60px",
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+										fontSize: "30px",
+										padding: "12px",
+										borderRadius: "99%",
+										backgroundColor: "#F1F4F7",
+										marginBottom: "24px",
+									}}
+								>
+									<DocStar />
+								</div>
 							),
 						})
 					);

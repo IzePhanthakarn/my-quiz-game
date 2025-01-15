@@ -3,6 +3,7 @@ import { setIsLoading } from "@/redux/slices/container";
 import { AppDispatch } from "@/redux/config/configStore";
 import {
 	addHospitalAnnouncedPriceDetailMasterAPI,
+	downloadAnnouncedPriceFileTemplateApi,
 	getHospitalAnnouncedPriceDetailMasterDetail,
 	getHospitalAnnouncedPriceDetailMasterList,
 	updateHospitalAnnouncedPriceDetailMasterApi,
@@ -23,6 +24,7 @@ import {
 	setHospitalAnnouncedPriceDetailMasterForm,
 	setHospitalAnnouncedPriceDetailMasterGrid,
 } from "../../redux";
+import { handleDownloadFile } from "../../../../utils";
 
 export const fetchCourseList =
 	(course: HospitalAnnouncedPriceDetailMaster) =>
@@ -109,3 +111,12 @@ export const updateHospitalAnnouncedPriceDetailMaster =
 			router.push(LINKS.HOSPITAL.hospitalAnnouncedPriceDetailMaster.list);
 		}
 	};
+
+export const handleDownloadTemplate = () => async (dispatch: AppDispatch) => {
+	const response = await dispatch(
+		downloadAnnouncedPriceFileTemplateApi()
+	).unwrap();
+	if (_.get(response, "error.message") === "Rejected") return;
+
+	handleDownloadFile(response, "template.xlsx");
+};

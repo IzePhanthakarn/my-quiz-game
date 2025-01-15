@@ -20,7 +20,7 @@ const getNestedProperty = (obj: any, path: string) => {
 
 export async function middleware(request: NextRequest) {
 	// return NextResponse.next();
-	// const referer = request.headers.get("referer");
+	const referer = request.headers.get("referer");
 	// const url = new URL(request.url);
 	// const response = NextResponse.next();
 	// const token = request.cookies.get("accessToken")?.value; // Get the token from cookies
@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
 	// 	// Redirect to login page if token is expired
 	// 	return NextResponse.redirect(new URL("/login", request.url));
 	// }
-	// // console.log("🚀 ~ middleware ~ referer:", referer);
+	console.log("🚀 ~ middleware ~ referer:", referer);
 	// if (!referer) {
 	// 	const subpath = url.pathname;
 	// 	const userInfoLogin = getNestedProperty(decoded, "userInfo.login");
