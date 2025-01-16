@@ -2,11 +2,11 @@
 
 import React from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
-import { GetColumns } from "./column";
 import { row } from "./row";
 import { useRouter } from "next/navigation";
+import { GetColumns } from "../column/column";
 
-export default function ReportList() {
+export default function ReportMedList() {
 	const router = useRouter();
 	return (
 		<div>

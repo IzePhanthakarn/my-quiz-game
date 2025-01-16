@@ -289,11 +289,27 @@ export const configPage: DataStructureURL<MedKey> = {
 			pageLevel: { edit: [2], add: [2] },
 		},
 	},
-	list: {
+	doctorList: {
 		root: {
-			url: "/report/list",
+			url: "/report/doctor-list",
 			breadcrumb: ["root"],
-			text: "รายการรายงาน",
+			text: "รายงานแพทย์",
+			pageLevel: { form: [0] },
+		},
+	},
+	medList: {
+		root: {
+			url: "/report/med-list",
+			breadcrumb: ["root"],
+			text: "รายงานค่าตอบแทนแพทย์",
+			pageLevel: { form: [0] },
+		},
+	},
+	hospitalList: {
+		root: {
+			url: "/report/hospital-list",
+			breadcrumb: ["root"],
+			text: "รายงานสถานพยาบาล",
 			pageLevel: { form: [0] },
 		},
 	},

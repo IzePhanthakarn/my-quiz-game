@@ -1,4 +1,6 @@
-import ReportList from "../List";
+import ReportDoctorList from "../doctor-list";
+import ReportHospitalList from "../hospital-list";
+import ReportMedList from "../med-list";
 import Med5001 from "../Med5001";
 import Med5002 from "../Med5002";
 import Med5003 from "../Med5003";
@@ -16,8 +18,12 @@ export const handleReportRender = (
 	reportCode: string | string[] | undefined
 ) => {
 	switch (reportCode) {
-		case "list":
-			return <ReportList />;
+		case "doctor-list":
+			return <ReportDoctorList />;
+		case "hospital-list":
+			return <ReportHospitalList />;
+		case "med-list":
+			return <ReportMedList />;
 		case "med5001":
 			return <Med5001 />;
 		case "med5002":
@@ -41,7 +47,7 @@ export const handleReportRender = (
 		case "med5012":
 			return <Med5012 />;
 		case "med5013":
-			return <Med5013 />;	
+			return <Med5013 />;
 		default:
 			return <p>Not Found Report</p>;
 	}
