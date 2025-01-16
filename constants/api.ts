@@ -6,7 +6,8 @@ const API_PATH = {
 	SSO_USER: "http://192.168.5.92/ums/users",
 
 	// LOGIN
-	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+	// GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+	GET_ACCESS_TOKEN: "https://wcfapidev.sso.go.th/auth/user/token",
 
 	// CLINIC
 	GET_CLINIC_DETAIL: "master/clinic",
