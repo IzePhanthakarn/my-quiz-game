@@ -140,7 +140,7 @@ export const configPage: DataStructureURL<MedKey> = {
 			url: "/medical-amount/edit/[uuid]",
 			text: "ข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { edit: [2], add: [2] },
+			pageLevel: { edit: [0, 1, 2], add: [0, 1, 2] },
 		},
 		formAdd: {
 			url: "/medical-amount/form",
