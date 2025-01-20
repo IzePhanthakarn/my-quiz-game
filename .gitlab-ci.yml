@@ -116,8 +116,8 @@ deploy-sso-dev:
     - echo "Deploying to DEV"
     - echo "Current version- $git_Build_id"
     - echo $HELM_REPO_NAME
-    - |
-      helm uninstall $PROJECT_NAME -n $K8S_NAMESPACE
+    # - |
+    #   helm uninstall $PROJECT_NAME -n $K8S_NAMESPACE
     - |
       sleep 10
     - |
