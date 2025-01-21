@@ -18,8 +18,11 @@ import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { EstimateAddFilesGrid } from "../../columns/estimateAddFilesGrid";
 import { fetchHospitalEstimateDetail } from "./service";
+import dynamic from "next/dynamic";
+import { setHospitalEstimateAddForm } from "../../redux";
+import { modelEstimateAdd } from "../../redux/models/hospitalModel";
 
-export default function EstimateAdd() {
+const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
 	const { form, isLoading } = useSelector(
 		(state: SliceModel) => ({
@@ -30,7 +33,13 @@ export default function EstimateAdd() {
 	);
 
 	useEffect(() => {
-		dispatch(fetchHospitalEstimateDetail());
+		(async () => {
+			if (!_.isEmpty(params.params.uuid)) {
+				dispatch(fetchHospitalEstimateDetail());
+			} else {
+				dispatch(setHospitalEstimateAddForm(modelEstimateAdd.form));
+			}
+		})();
 	}, []);
 
 	return (
@@ -58,9 +67,9 @@ export default function EstimateAdd() {
 							/>
 							<BaseItemInput
 								disabled={true}
-								label={estimateAddNames.type}
+								label={estimateAddNames.assessType}
 								itemName="assessType"
-								rules={estimateAddRules.typeSchema}
+								rules={estimateAddRules.assessTypeSchema}
 								value={form.assessType}
 							/>
 						</div>
@@ -160,4 +169,8 @@ export default function EstimateAdd() {
 			</BaseForm>
 		</>
 	);
-}
+};
+
+export default dynamic(() => Promise.resolve(HospitalAssessmentForm), {
+	ssr: false,
+});

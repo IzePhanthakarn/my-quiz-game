@@ -3,7 +3,7 @@ import { estimateAddNames } from "../interfaces/estimateAddNames";
 
 export const estimateAddRules = {
 	hospital_nameSchema: [requiredRule(estimateAddNames.hospital_name)],
-	typeSchema: [requiredRule(estimateAddNames.type)],
+	assessTypeSchema: [requiredRule(estimateAddNames.assessType)],
 	userFirstNameSchema: [requiredRule(estimateAddNames.userFirstName)],
 	userLastNameSchema: [requiredRule(estimateAddNames.userLastName)],
 	emailSchema: [requiredRule(estimateAddNames.email)],

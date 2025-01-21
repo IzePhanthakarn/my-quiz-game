@@ -7,7 +7,7 @@ import { ColumnTitleProps } from "wcf-component-lib/node_modules/antd/es/table/i
 import { useMemo } from "react";
 import DeleteFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/DeleteFilled";
 import { Download } from "wcf-component-lib/node_modules/iconoir-react";
-import { handleDownloadBase64File } from "../Form/EstimateAdd/service";
+import { handleDownloadBase64File } from "../Form/HospitalAssessment/service";
 
 export const EstimateAddFilesGrid = () => {
 	const columns: TableProps["columns"] = useMemo(
