@@ -70,7 +70,7 @@ build-sso-dev:
     - |
       cp -f .env.development .env.production
     - |
-      docker build  -f Dockerfile-sso-dev \
+      docker build --no-cache -f Dockerfile-sso-dev \
           --build-arg WEBCMP_VERSION=latest \
           --build-arg RDX_VERSION=latest \
           -t $REGISTRY_DEV/$BUILD_IMAGE_NAME:$git_Build_id .
@@ -95,7 +95,7 @@ build-sso-uat:
     - |
       cp -f .env.uat .env.production
     - |
-      docker build  -f Dockerfile-sso \
+      docker build --no-cache -f Dockerfile-sso \
           --build-arg https_proxy='http://172.16.11.231:8080' \
           --build-arg http_proxy='http://172.16.11.231:8080' \
           --build-arg no_proxy="localhost,internal.domain,127.0.0.1,172.16.0.0/12,10.0.0.0/8,192.168.0.0/16,172.16.7.0/24,172.20.81.0/24,ry-c4tkg-uat-tkc01-harbor.ssomgmt.go.th,ry-c4tkg-prd-tkc01-harbor.ssomgmt.go.th,nb-c4tkg-prd-tkc01-harbor.ssomgmt.go.th" \
