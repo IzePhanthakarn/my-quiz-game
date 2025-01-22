@@ -46,15 +46,15 @@ export default function EstimateAdd() {
 
 	const onFinish: FormProps["onFinish"] = (value) => {
 		const toFilter: EstimateAddFilter = {
-			hospitalWCFCode: value.hospitalWCFCode,
-			notiDateStart: value.notifyDate
+			hospitalWCFCodeLike: value.hospitalWCFCode,
+			notiDateStartLike: value.notifyDate
 				? value.notifyDate[0].format(DateFormat.YYYYMMDD).toString()
 				: undefined,
-			notiDateEnd: value.notifyDate
+			notiDateEndLike: value.notifyDate
 				? value.notifyDate[1].format(DateFormat.YYYYMMDD).toString()
 				: undefined,
-			userFirstName: value.userFirstName,
-			userLastName: value.userLastName,
+			userFirstNameLike: value.userFirstName,
+			userLastNameLike: value.userLastName,
 		};
 		dispatch(fetchHospitalEstimateList(toFilter));
 	};

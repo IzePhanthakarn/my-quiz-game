@@ -284,26 +284,26 @@ export interface EstimateAddForm {
 	is_deleted: string;
 	updateBy: string;
 	userLastName: string;
-	visitDate: string;
+	visitDate: null | string | undefined;
 	refDocNo: string;
 	email: string;
-	notifyDate: string;
+	notifyDate: null | string | undefined;
 	hospital_name: string;
-	refDocDate: string;
+	refDocDate: null | string | undefined;
 	userFirstName: string;
 	resultDesc: string;
 	resultStatus: string;
-	assessType: number;
+	assessType: string;
 	hospitalWCFCode: string;
 	assessAttachmentfiles: AssessAttachmentfiles[];
 }
 
 export interface EstimateAddFilter {
-	hospitalWCFCode: string;
-	notiDateStart: string;
-	notiDateEnd: string;
-	userFirstName: string;
-	userLastName: string;
+	hospitalWCFCodeLike: string | null;
+	notiDateStartLike: string | null;
+	notiDateEndLike: string | null;
+	userFirstNameLike: string | null;
+	userLastNameLike: string | null;
 }
 
 export const modelHospitalFilter: HospitalFilter = {
@@ -352,29 +352,44 @@ export const modelEstimateAdd: EstimateAdd = {
 		},
 	},
 	filter: {
-		hospitalWCFCode: "",
-		notiDateStart: "",
-		notiDateEnd: "",
-		userFirstName: "",
-		userLastName: "",
+		hospitalWCFCodeLike: "",
+		notiDateStartLike: "",
+		notiDateEndLike: "",
+		userFirstNameLike: "",
+		userLastNameLike: "",
 	},
 	form: {
-		cancelDate: "",
-		updateDate: "",
-		docStatus: "",
-		is_deleted: "",
-		updateBy: "",
-		userLastName: "",
-		visitDate: "",
-		refDocNo: "",
-		email: "",
-		notifyDate: "",
-		hospital_name: "",
-		refDocDate: "",
-		userFirstName: "",
-		resultDesc: "",
-		resultStatus: "",
-		assessType: 0,
+		// cancelDate: "",
+		// updateDate: "",
+		// docStatus: "",
+		// is_deleted: "",
+		// updateBy: "",
+		// userLastName: "",
+		// visitDate: "",
+		// refDocNo: "",
+		// email: "",
+		// notifyDate: "",
+		// hospital_name: "",
+		// refDocDate: "",
+		// userFirstName: "",
+		// resultDesc: "",
+		// resultStatus: "",
+		cancelDate: "abcde",
+		updateDate: "abcde",
+		docStatus: "abcde",
+		is_deleted: "abcde",
+		updateBy: "abcde",
+		userLastName: "abcde",
+		visitDate: undefined,
+		refDocNo: "abcde",
+		email: "abcde",
+		notifyDate: undefined,
+		hospital_name: "abcde",
+		refDocDate: undefined,
+		userFirstName: "abcde",
+		resultDesc: "abcde",
+		resultStatus: "P",
+		assessType: "1",
 		hospitalWCFCode: "",
 		assessAttachmentfiles: [],
 	},

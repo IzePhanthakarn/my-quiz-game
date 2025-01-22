@@ -56,15 +56,20 @@ export const configPage: DataStructureURL<MedKey> = {
 			url: "/hospital/hospital-assessment",
 			text: "ค้นหาการแจ้งผลตรวจประเมินฯ",
 			breadcrumb: ["root", "hospitalAssessment"],
-			pageLevel: { form: [0], edit: [1, 2], add: [1, 2], admin: [0] },
+			pageLevel: { form: [2], edit: [1, 2], add: [1, 2], admin: [0] },
 		},
 		hospitalAssessmentForm: {
 			url: "/hospital/hospital-assessment/form",
 			text: "แจ้งผลการตรวจประเมินคุณภาพประจำปี",
 			breadcrumb: ["root", "hospitalAssessment", "hospitalAssessmentForm"],
-			pageLevel: { form: [0], edit: [1, 2], add: [1, 2], admin: [0] },
+			pageLevel: { form: [2, 3], edit: [2], add: [2, 3], admin: [2, 3] },
 		},
-
+		hospitalAssessmentEdit: {
+			url: "/hospital/hospital-assessment/edit/[uuid]",
+			text: "แจ้งผลการตรวจประเมินคุณภาพประจำปี",
+			breadcrumb: ["root", "hospitalAssessment", "hospitalAssessmentForm"],
+			pageLevel: { form: [2, 3], edit: [2], add: [2, 3], admin: [2, 3] },
+		},
 		announcedPriceDetailCategoryMaster: {
 			url: "/hospital/announced-price-detail-category-master",
 			breadcrumb: ["root", "announcedPriceDetailCategoryMaster"],

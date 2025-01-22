@@ -13,20 +13,40 @@ import { estimateAddRules } from "../../field-validation/EstimateAddFormValidati
 import BaseHorizontalHeader from "wcf-component-lib/src/components/BaseHorizontalHeader";
 import HomeFilled from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/HomeFilled";
 import FileTextOutlined from "wcf-component-lib/node_modules/@ant-design/icons/lib/icons/FileTextOutlined";
+import { useRouter } from "next/navigation";
 
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import { EstimateAddFilesGrid } from "../../columns/estimateAddFilesGrid";
-import { fetchHospitalEstimateDetail } from "./service";
+import {
+	fetchHospitalEstimateDetail,
+	insertHospitalAssessment,
+	updateHospitalAssessment,
+} from "./service";
 import dynamic from "next/dynamic";
 import { setHospitalEstimateAddForm } from "../../redux";
-import { modelEstimateAdd } from "../../redux/models/hospitalModel";
+import {
+	EstimateAddForm,
+	modelEstimateAdd,
+} from "../../redux/models/hospitalModel";
+import BaseButton from "wcf-component-lib/src/components/BaseButton";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import { LINKS } from "../../../../constants/links";
+dayjs.extend(localeData);
 
 const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
+	const router = useRouter();
+
 	const dispatch: AppDispatch = useDispatch();
-	const { form, isLoading } = useSelector(
+	const { estimateAdd, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			form: state.hospital.estimateAdd.form,
+			estimateAdd: state.hospital.estimateAdd,
 			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
@@ -35,20 +55,44 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!_.isEmpty(params.params.uuid)) {
-				dispatch(fetchHospitalEstimateDetail());
+				dispatch(fetchHospitalEstimateDetail(params));
 			} else {
 				dispatch(setHospitalEstimateAddForm(modelEstimateAdd.form));
 			}
 		})();
 	}, []);
 
+	const [form] = Form.useForm();
+
+	const onFinish: FormProps<EstimateAddForm>["onFinish"] = (values) => {
+		const newValues: EstimateAddForm = {
+			...values,
+			visitDate: !_.isEmpty(values.visitDate)
+				? dayjs(values.visitDate).format(DateFormat.YYYYMMDD)
+				: null,
+			notifyDate: !_.isEmpty(values.notifyDate)
+				? dayjs(values.notifyDate).format(DateFormat.YYYYMMDD)
+				: null,
+			refDocDate: !_.isEmpty(values.refDocDate)
+				? dayjs(values.refDocDate).format(DateFormat.YYYYMMDD)
+				: null,
+		};
+		if (!_.isEmpty(params.params.uuid)) {
+			dispatch(updateHospitalAssessment(`${params.params.uuid}`, newValues));
+		} else {
+			dispatch(insertHospitalAssessment(newValues));
+		}
+	};
+
 	return (
 		<>
 			<BaseForm
 				name={"form"}
 				initialValues={{
-					...form,
+					...estimateAdd.form,
 				}}
+				extraForm={form}
+				onFinish={onFinish}
 			>
 				<div className=" ">
 					<BaseGreenHeader
@@ -59,18 +103,18 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 					<div className="py-6 px-10 bg-white">
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.hospital_name}
 								itemName="hospital_name"
 								rules={estimateAddRules.hospital_nameSchema}
-								value={form.hospital_name}
+								value={estimateAdd.form.hospital_name}
 							/>
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.assessType}
 								itemName="assessType"
 								rules={estimateAddRules.assessTypeSchema}
-								value={form.assessType}
+								value={estimateAdd.form.assessType}
 							/>
 						</div>
 						<BaseHorizontalHeader
@@ -80,74 +124,108 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 						/>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.userFirstName}
 								itemName="userFirstName"
 								rules={estimateAddRules.userFirstNameSchema}
-								value={form.userFirstName}
+								value={estimateAdd.form.userFirstName}
 							/>
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.userLastName}
 								itemName="userLastName"
 								rules={estimateAddRules.userLastNameSchema}
-								value={form.userLastName}
+								value={estimateAdd.form.userLastName}
 							/>
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.email}
 								itemName="email"
 								rules={estimateAddRules.emailSchema}
-								value={form.email}
+								value={estimateAdd.form.email}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.refDocNo}
 								itemName="refDocNo"
 								rules={estimateAddRules.refDocNoSchema}
-								value={form.refDocNo}
+								value={estimateAdd.form.refDocNo}
 							/>
-							<BaseItemInput
-								disabled={true}
+
+							<BaseItemDatePicker
+								itemForm={form}
 								label={estimateAddNames.refDocDate}
+								pageLevel="edit"
 								itemName="refDocDate"
 								rules={estimateAddRules.refDocDateSchema}
-								value={form.refDocDate}
+								value={estimateAdd.form.refDocDate}
+								// onChangeDateFunction={(date, _) => {
+								// 	dispatch(
+								// 		setHospitalForm({
+								// 			...hospitalForm,
+								// 			contractStartDate: date
+								// 				.format(DateFormat.YYYYMMDD)
+								// 				.toString(),
+								// 		})
+								// 	);
+								// }}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
-								disabled={true}
+							<BaseItemDatePicker
+								itemForm={form}
 								label={estimateAddNames.notifyDate}
+								pageLevel="edit"
 								itemName="notifyDate"
 								rules={estimateAddRules.notifyDateSchema}
-								value={form.notifyDate}
+								value={estimateAdd.form.notifyDate}
+								// onChangeDateFunction={(date, _) => {
+								// 	dispatch(
+								// 		setHospitalForm({
+								// 			...hospitalForm,
+								// 			contractStartDate: date
+								// 				.format(DateFormat.YYYYMMDD)
+								// 				.toString(),
+								// 		})
+								// 	);
+								// }}
 							/>
-							<BaseItemInput
-								disabled={true}
+							<BaseItemDatePicker
+								itemForm={form}
 								label={estimateAddNames.visitDate}
+								pageLevel="edit"
 								itemName="visitDate"
 								rules={estimateAddRules.visitDateSchema}
-								value={form.visitDate}
+								value={estimateAdd.form.visitDate}
+								// onChangeDateFunction={(date, _) => {
+								// 	dispatch(
+								// 		setHospitalForm({
+								// 			...hospitalForm,
+								// 			contractStartDate: date
+								// 				.format(DateFormat.YYYYMMDD)
+								// 				.toString(),
+								// 		})
+								// 	);
+								// }}
 							/>
 							<BaseItemInput
-								disabled={true}
+								pageLevel="edit"
 								label={estimateAddNames.resultStatus}
 								itemName="resultStatus"
 								rules={estimateAddRules.resultStatusSchema}
-								value={form.resultStatus}
+								value={estimateAdd.form.resultStatus}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
 							<div className="col-span-3">
 								<BaseItemTextArea
-									disabled={true}
+									pageLevel="edit"
 									label={estimateAddNames.resultDesc}
 									itemName="resultDesc"
 									rules={estimateAddRules.resultDescSchema}
-									value={form.resultDesc}
+									value={estimateAdd.form.resultDesc}
 								/>
 							</div>
 						</div>
@@ -158,7 +236,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 						/>
 
 						<BaseGrid
-							rows={form.assessAttachmentfiles}
+							rows={estimateAdd.form.assessAttachmentfiles}
 							columns={EstimateAddFilesGrid()}
 							isShowPagination={false}
 							loading={isLoading}
@@ -167,6 +245,25 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 					</div>
 				</div>
 			</BaseForm>
+			<div className="py-2 space-x-6 w-full flex justify-center">
+				<BaseButton
+					size="small"
+					htmlType="submit"
+					type="cancel"
+					label="ยกเลิก"
+					onClick={() => {
+						router.push(`${LINKS.HOSPITAL.hospitalAssessment.list}`);
+					}}
+				/>
+				<BaseButton
+					// pageLevel="edit"
+					size="small"
+					htmlType="submit"
+					label="บันทึก"
+					iconType="save"
+					onClick={() => form.submit()}
+				/>
+			</div>
 		</>
 	);
 };
