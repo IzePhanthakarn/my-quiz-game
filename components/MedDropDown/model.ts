@@ -97,12 +97,6 @@ export const DROPDOWN = {
 		method: API_METHOD.GET,
 		baseBody: undefined,
 	},
-	[SESSION_NAME.TRAINING]: {
-		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/training`,
-		sessionName: SESSION_NAME.TRAINING,
-		method: API_METHOD.GET,
-		baseBody: undefined,
-	},
 	[SESSION_NAME.BANK]: {
 		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/master/bank/dropdown`,
 		sessionName: SESSION_NAME.BANK,
