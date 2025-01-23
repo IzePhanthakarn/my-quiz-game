@@ -83,6 +83,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					initialValues={form}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseCategoryForm({

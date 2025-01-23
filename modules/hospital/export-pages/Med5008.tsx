@@ -95,6 +95,7 @@ const Form = () => {
 						...form,
 					}}
 					onFinish={onFinish}
+					disabledHistoryButton
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={false}
 					onChangeSwitchFunction={(e) => {}}

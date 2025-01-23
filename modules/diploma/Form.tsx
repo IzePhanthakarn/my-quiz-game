@@ -86,6 +86,7 @@ const Form = (params: UuidFormPageProps) => {
 					onFinish={onFinish}
 					switchCheckValue={_.trim(diplomaDetail.isActive) === IsActive.Y}
 					pageLevel={params.params.uuid ? "edit" : "add"}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setDiplomaDetail({

@@ -88,6 +88,7 @@ const Form = (params: UuidFormPageProps) => {
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(clinicDetail.isActive) === IsActive.Y}
 					pageLevel="edit"
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setClinicDetail({
