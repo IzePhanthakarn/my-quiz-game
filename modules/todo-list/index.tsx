@@ -104,13 +104,13 @@ export default function ToDoList() {
 
 	return (
 		<div>
-			<button
+			{/* <button
 				className="bg-green-300"
 				onClick={() => dispatch(getSsoUserList("sjittikhun2"))}
 			>
 				Test APi SSO_USER
 			</button>
-			<ToolTipUser name={"molpapha"} />
+			<ToolTipUser name={"molpapha"} /> */}
 			<ToDoListLayout items={todoList} />
 		</div>
 	);
