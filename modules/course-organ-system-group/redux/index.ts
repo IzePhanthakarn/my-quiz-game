@@ -3,7 +3,7 @@ import { modelCourseOrganSystemGroup } from "./model";
 import { courseCertificateReducers } from "./reducer";
 
 export const courseOrganSystemGroupSlice = createSlice({
-	name: "Clinic",
+	name: "CourseOrganSystemGroup",
 	initialState: modelCourseOrganSystemGroup,
 	reducers: {
 		...courseCertificateReducers,

@@ -3,7 +3,7 @@ import { minIO } from "./model";
 import { minIOReducers } from "./reducer";
 
 export const minIOSlice = createSlice({
-	name: "Clinic",
+	name: "Minio",
 	initialState: minIO,
 	reducers: {
 		...minIOReducers,

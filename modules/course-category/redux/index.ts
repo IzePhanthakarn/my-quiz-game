@@ -3,7 +3,7 @@ import { modelCourseCategory } from "./model";
 import { courseCategoryReducers } from "./reducer";
 
 export const courseCategorySlice = createSlice({
-	name: "Clinic",
+	name: "CourseCategory",
 	initialState: modelCourseCategory,
 	reducers: {
 		...courseCategoryReducers,
