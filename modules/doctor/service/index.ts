@@ -6,7 +6,12 @@ import {
 	modelPaginationOptions,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
+import {
+	setDoctorForm,
+	setDoctorGrid,
+	setPagination,
+	setTotalData,
+} from "../redux";
 import { DoctorList } from "../redux/master/model";
 import {
 	createDoctorForm,
@@ -127,6 +132,7 @@ export const initDoctorGrid =
 			};
 		});
 		const totalData = data.payload.totalElements;
+
 		dispatch(setTotalData(totalData));
 		dispatch(setDoctorGrid(grid));
 	};

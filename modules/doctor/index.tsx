@@ -80,7 +80,9 @@ export default function Doctor() {
 				...handleFilter,
 			})
 		);
+		console.log("{ ...page, pageNumber: 0 }", { ...page, pageNumber: 0 });
 		dispatch(setDoctorFilter(newFilter));
+		dispatch(setPagination({ ...page, pageNumber: 0 }));
 	};
 
 	const onFinish: FormProps<DoctorFilter>["onFinish"] = (
@@ -89,52 +91,14 @@ export default function Doctor() {
 		const newFilter = { ...filter, ...value };
 		dispatch(
 			initDoctorGrid({
-				pagination: { ...page },
+				pagination: { ...page, isFilter: true, pageNumber: 0 },
 				...newFilter,
 			})
 		);
+
 		dispatch(setMounted(uuid4()));
 		// dispatch(setDoctorFilter(newFilter));
 	};
-
-	// useEffect(() => {
-	// 	dispatchLayout({
-	// 		type: "setChildrenHeader",
-	// 		payload: (
-	// 			<FilterLayout
-	// 				FilterForm={
-	// 					<BaseForm
-	// 						initialValues={filter}
-	// 						extraForm={form}
-	// 						onFinish={onFinish}
-	// 					>
-	// 						<div className="flex space-x-2">
-	// 							<BaseItemInput
-	// 								itemName="doctorCodeLike"
-	// 								label="เลขทะเบียน สปส"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 							<BaseItemInput
-	// 								label="ชื่อ"
-	// 								itemName="firstnameLike"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 							<BaseItemInput
-	// 								label="นามสกุล"
-	// 								itemName="lastnameLike"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 						</div>
-	// 					</BaseForm>
-	// 				}
-	// 				handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-	// 				handleSubmitSearch={() => {
-	// 					form.submit();
-	// 				}}
-	// 			/>
-	// 		),
-	// 	});
-	// }, []);
 
 	useEffect(() => {
 		dispatch(handleSession(SESSION_NAME.TITLE));
@@ -149,12 +113,14 @@ export default function Doctor() {
 			dispatch(setDoctorFilter(modelDoctorFilter));
 			setInit(true);
 		}
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page },
-				...filter,
-			})
-		);
+		if (!page.isFilter) {
+			dispatch(
+				initDoctorGrid({
+					pagination: { ...page },
+					...filter,
+				})
+			);
+		}
 	}, [page.pageNumber, page.pageSize, page.orders]);
 
 	return (
@@ -228,7 +194,7 @@ export default function Doctor() {
 						size="large"
 						type="outline"
 						onClick={() => router.push(LINKS.DOCTOR.upload)}
-						label="นำเข้าข้อมูลแพทย์"
+						label="นำเข้าแพทย์"
 						iconType="import"
 					/>
 				}
