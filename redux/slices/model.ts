@@ -1,5 +1,3 @@
-import { Crud } from "./crud/model";
-import { Clinic, ClinicDetail } from "../../modules/clinic/redux/model";
 import { Diploma } from "@/modules/diploma/redux/model";
 import { OrganSystemWpi } from "@/modules/organ-system-wpi/redux/model";
 import { CourseCategory } from "@/modules/course-category/redux/model";
@@ -20,14 +18,11 @@ import { MedReport } from "@/modules/report/redux/model";
 import { SsoUserList } from "./sso_user/model";
 
 export interface SliceModel {
-	crud: Crud;
 	container: Container;
 	login: Login;
 	doctor: Doctor;
-	clinic: Clinic;
 	drawer: BaseDrawer;
 	dialog: BaseDialog;
-	clinicDetail: ClinicDetail;
 	diploma: Diploma;
 	organSystemWpi: OrganSystemWpi;
 	courseCategory: CourseCategory;

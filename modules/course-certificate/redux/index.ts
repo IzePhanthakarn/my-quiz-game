@@ -3,7 +3,7 @@ import { modelCourseCertificate } from "./model";
 import { courseCertificateReducers } from "./reducer";
 
 export const courseCategorySlice = createSlice({
-	name: "Clinic",
+	name: "CourseCategory",
 	initialState: modelCourseCertificate,
 	reducers: {
 		...courseCertificateReducers,

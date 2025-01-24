@@ -6,7 +6,14 @@ import {
 	modelPaginationOptions,
 	PaginationOptions,
 } from "wcf-component-lib/src/components/BasePagination/model";
-import { setDoctorForm, setDoctorGrid, setTotalData } from "../redux";
+import {
+	setDoctorFilter,
+	setDoctorForm,
+	setDoctorGrid,
+	setPageNumber,
+	setPagination,
+	setTotalData,
+} from "../redux";
 import { DoctorList } from "../redux/master/model";
 import {
 	createDoctorForm,
@@ -29,6 +36,7 @@ import {
 } from "@/components/MedDropDown/service";
 import { DoctorHospital } from "wcf-component-lib/src/components/BaseDropDown/model";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
+import { DoctorFilter } from "../redux/filter/model";
 
 export interface DoctorPagination {
 	doctorTypeLike: string | null;
@@ -86,25 +94,29 @@ export const initGetDoctorForm =
 
 // List
 export const initDoctorGrid =
-	(params: DoctorPagination = doctorPagination) =>
+	(filter: DoctorFilter, pagination: PaginationOptions) =>
 	async (dispatch: AppDispatch) => {
-		const newParams = {
-			...params,
-			doctorTypeLike: handleEmptyStringToNull(params.doctorTypeLike),
-			doctorCodeLike: handleEmptyStringToNull(params.doctorCodeLike),
-			firstnameLike: handleEmptyStringToNull(params.firstnameLike),
-			lastnameLike: handleEmptyStringToNull(params.lastnameLike),
-			diplomaTypeLike: handleEmptyStringToNull(params.diplomaTypeLike),
-			hospitalNameLike: handleEmptyStringToNull(params.hospitalNameLike),
-			proviceHospitalLike: handleEmptyStringToNull(params.proviceHospitalLike),
+		dispatch(setPagination(pagination));
+
+		const newFilter = {
+			doctorTypeLike: handleEmptyStringToNull(filter.doctorTypeLike),
+			doctorCodeLike: handleEmptyStringToNull(filter.doctorCodeLike),
+			firstnameLike: handleEmptyStringToNull(filter.firstnameLike),
+			lastnameLike: handleEmptyStringToNull(filter.lastnameLike),
+			diplomaTypeLike: handleEmptyStringToNull(filter.diplomaTypeLike),
+			hospitalNameLike: handleEmptyStringToNull(filter.hospitalNameLike),
+			proviceHospitalLike: handleEmptyStringToNull(filter.proviceHospitalLike),
 			professionalCodeLike: handleEmptyStringToNull(
-				params.professionalCodeLike
+				filter.professionalCodeLike
 			),
+			isActive: filter.isActive,
 		};
+
+		const newParams = { ...newFilter, pagination };
+
 		dispatch(setIsLoading(true));
 		dispatch(handleSession(SESSION_NAME.TITLE));
 		const data = await dispatch(getDoctorList(newParams));
-		dispatch(setIsLoading(false));
 		if (_.isNil(data.payload.content)) return;
 		const grid = data.payload.content.map((data: DoctorList, index: number) => {
 			return {
@@ -127,8 +139,11 @@ export const initDoctorGrid =
 			};
 		});
 		const totalData = data.payload.totalElements;
+
 		dispatch(setTotalData(totalData));
 		dispatch(setDoctorGrid(grid));
+
+		dispatch(setIsLoading(false));
 	};
 
 const handleCourseCategory = (courseCategory: string | null) => {

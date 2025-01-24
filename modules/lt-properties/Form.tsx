@@ -86,6 +86,7 @@ const Form = (params: LtPropertiesFormPageProps) => {
 			{isInit && (
 				<MasterDataFormLayout
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
+					disabledHistoryButton
 					textHeader="Lt Properties"
 					initialValues={{
 						...form,

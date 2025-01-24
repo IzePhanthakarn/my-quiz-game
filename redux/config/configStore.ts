@@ -1,6 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import crudSlice from "../slices/crud";
-import clinicSlice from "../../modules/clinic/redux";
 import doctorSlice from "@/modules/doctor/redux";
 import dialogSlice from "@/redux/slices/dialog";
 import containerSlice from "@/redux/slices/container";
@@ -22,8 +20,6 @@ import ssoUserSlice from "../slices/sso_user";
 
 export const store = configureStore({
 	reducer: {
-		crud: crudSlice,
-		clinic: clinicSlice,
 		drawer: drawerSlice,
 		dialog: dialogSlice,
 		container: containerSlice,

@@ -32,6 +32,7 @@ export const {
 	setDoctorForm,
 	setDoctorGrid,
 	setDoctorFilter,
+	setPageNumber,
 	setPagination,
 	setOrder,
 	setTotalData,

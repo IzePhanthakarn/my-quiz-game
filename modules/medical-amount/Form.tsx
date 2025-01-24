@@ -82,6 +82,7 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
+					disabledHistoryButton
 					onValuesChange={(e) => {
 						dispatch(
 							setMedicalAmountForm({

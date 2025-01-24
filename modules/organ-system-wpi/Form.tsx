@@ -87,6 +87,7 @@ const Form = (params: CourseCategoryFormPageProps) => {
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setOrganSystemWpiForm({

@@ -19,4 +19,7 @@ export const doctorReducers = {
 	setTotalData: (state: Doctor, action: PayloadAction<number>) => {
 		state.grid.page.totalData = action.payload;
 	},
+	setPageNumber: (state: Doctor, action: PayloadAction<number>) => {
+		state.grid.page.pageNumber = action.payload;
+	},
 };

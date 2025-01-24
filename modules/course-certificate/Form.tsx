@@ -82,6 +82,7 @@ const Form = (params: CourseCertificateFormPageProps) => {
 					initialValues={form}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseCertificateForm({
