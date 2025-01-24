@@ -11,13 +11,13 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		formEdit: {
 			url: "/doctor/edit/[uuid]",
-			text: "ข้อมูลแพทย์",
+			text: "แก้ไขข้อมูลแพทย์",
 			breadcrumb: ["root", "formEdit"],
 			pageLevel: { form: [2], edit: [2], add: [2], view: [1], delete: [2] },
 		},
 		formAdd: {
 			url: "/doctor/form",
-			text: "เพิ่มข้อมูลแพทย์",
+			text: "สร้างข้อมูลแพทย์",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { delete: [2] },
 		},
