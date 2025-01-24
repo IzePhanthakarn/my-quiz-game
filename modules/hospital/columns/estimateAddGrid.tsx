@@ -125,7 +125,7 @@ export const EstimateAddGrid = (router: AppRouterInstance) => {
 					return (
 						<CustomCellButton
 							editFunction={() =>
-								router.push(LINKS.HOSPITAL.hospitalAssessment.form + uuid)
+								router.push(LINKS.HOSPITAL.hospitalAssessment.edit + uuid)
 							}
 							mode={BUTTON_MODE.EDIT_ONLY_ICON}
 						/>

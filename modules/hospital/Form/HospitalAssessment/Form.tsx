@@ -37,20 +37,39 @@ import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePic
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
-import { LINKS } from "../../../../constants/links";
+import { LINKS } from "@/constants/links";
+import BaseUploadDraggerHospital from "wcf-component-lib/src/components/BaseUploadDraggerHospital";
+import { FILE_TYPES } from "wcf-component-lib/src/constants/file-types";
 dayjs.extend(localeData);
-
+import Cookies from "js-cookie";
+import API_PATH from "@/constants/api";
+import {
+	setDialog,
+	setIsOpenBaseConfirmDialog,
+	setOnConfirmDialog,
+} from "@/redux/slices/dialog";
+import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
+import MedDropDown from "@/components/MedDropDown";
+import {
+	HOSPITAL_ASSESSMENT_ASSESS_TYPE,
+	HOSPITAL_ASSESSMENT_RESULT_STATUS,
+	SESSION_NAME,
+} from "@/components/MedDropDown/model";
 const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 	const router = useRouter();
 
 	const dispatch: AppDispatch = useDispatch();
-	const { estimateAdd, isLoading } = useSelector(
-		(state: SliceModel) => ({
-			estimateAdd: state.hospital.estimateAdd,
-			isLoading: state.container.isLoading,
-		}),
-		shallowEqual
-	);
+	const { onConfirm, estimateAdd, isLoading, dialog, isOpenBaseConfirmDialog } =
+		useSelector(
+			(state: SliceModel) => ({
+				estimateAdd: state.hospital.estimateAdd,
+				isLoading: state.container.isLoading,
+				dialog: state.dialog,
+				onConfirm: state.dialog.onConfirm,
+				isOpenBaseConfirmDialog: state.dialog.isOpenBaseConfirmDialog,
+			}),
+			shallowEqual
+		);
 
 	useEffect(() => {
 		(async () => {
@@ -76,7 +95,14 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 			refDocDate: !_.isEmpty(values.refDocDate)
 				? dayjs(values.refDocDate).format(DateFormat.YYYYMMDD)
 				: null,
+			hospitalAssessmentFiles: estimateAdd.form.hospitalAssessmentFiles,
+			addNewHospitalAssessmentFiles:
+				estimateAdd.form.addNewHospitalAssessmentFiles,
+			hospitalAssessmentFilesUuidDeleteList:
+				estimateAdd.form.hospitalAssessmentFilesUuidDeleteList,
 		};
+		console.log("🚀 ~ HospitalAssessmentForm ~ newValues:", newValues);
+
 		if (!_.isEmpty(params.params.uuid)) {
 			dispatch(updateHospitalAssessment(`${params.params.uuid}`, newValues));
 		} else {
@@ -86,6 +112,21 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 
 	return (
 		<>
+			<BaseConfirmDialog
+				isOpen={isOpenBaseConfirmDialog}
+				bodyHeaderText={dialog.headerText}
+				bodyDescriptionText={`${dialog.content}`}
+				confirmFunction={() => {
+					if (onConfirm) onConfirm();
+				}}
+				cancelFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+				closeFunction={() => {
+					dispatch(setIsOpenBaseConfirmDialog(false));
+				}}
+			/>
+
 			<BaseForm
 				name={"form"}
 				initialValues={{
@@ -102,19 +143,35 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 					/>
 					<div className="py-6 px-10 bg-white">
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
-							<BaseItemInput
+							<MedDropDown
+								pageLevel="edit"
+								label={estimateAddNames.hospital_name}
+								itemName="hospitalWCFCode"
+								rules={estimateAddRules.hospital_nameSchema}
+								value={estimateAdd.form.hospitalWCFCode}
+								type={SESSION_NAME.HOSPITAL_WCF_CODE_VALUE}
+							/>
+							{/* <BaseItemInput
 								pageLevel="edit"
 								label={estimateAddNames.hospital_name}
 								itemName="hospital_name"
 								rules={estimateAddRules.hospital_nameSchema}
 								value={estimateAdd.form.hospital_name}
-							/>
-							<BaseItemInput
+							/> */}
+							{/* <BaseItemInput
 								pageLevel="edit"
 								label={estimateAddNames.assessType}
 								itemName="assessType"
 								rules={estimateAddRules.assessTypeSchema}
 								value={estimateAdd.form.assessType}
+							/> */}
+							<MedDropDown
+								pageLevel="edit"
+								label={estimateAddNames.assessType}
+								option={HOSPITAL_ASSESSMENT_ASSESS_TYPE}
+								value={estimateAdd.form.assessType}
+								itemName="assessType"
+								rules={estimateAddRules.assessTypeSchema}
 							/>
 						</div>
 						<BaseHorizontalHeader
@@ -179,7 +236,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 								label={estimateAddNames.notifyDate}
 								pageLevel="edit"
 								itemName="notifyDate"
-								rules={estimateAddRules.notifyDateSchema}
+								// rules={estimateAddRules.notifyDateSchema}
 								value={estimateAdd.form.notifyDate}
 								// onChangeDateFunction={(date, _) => {
 								// 	dispatch(
@@ -197,7 +254,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 								label={estimateAddNames.visitDate}
 								pageLevel="edit"
 								itemName="visitDate"
-								rules={estimateAddRules.visitDateSchema}
+								// rules={estimateAddRules.visitDateSchema}
 								value={estimateAdd.form.visitDate}
 								// onChangeDateFunction={(date, _) => {
 								// 	dispatch(
@@ -210,12 +267,20 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 								// 	);
 								// }}
 							/>
-							<BaseItemInput
+							{/* <BaseItemInput
 								pageLevel="edit"
 								label={estimateAddNames.resultStatus}
 								itemName="resultStatus"
 								rules={estimateAddRules.resultStatusSchema}
 								value={estimateAdd.form.resultStatus}
+							/> */}
+							<MedDropDown
+								pageLevel="edit"
+								label={estimateAddNames.resultStatus}
+								itemName="resultStatus"
+								rules={estimateAddRules.resultStatusSchema}
+								value={estimateAdd.form.resultStatus}
+								option={HOSPITAL_ASSESSMENT_RESULT_STATUS}
 							/>
 						</div>
 						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
@@ -236,11 +301,62 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 						/>
 
 						<BaseGrid
-							rows={estimateAdd.form.assessAttachmentfiles}
-							columns={EstimateAddFilesGrid()}
+							rows={estimateAdd.form.hospitalAssessmentFiles}
+							columns={EstimateAddFilesGrid({
+								dispatch: dispatch,
+								dialog: dialog,
+								estimateAddForm: estimateAdd.form,
+							})}
 							isShowPagination={false}
 							loading={isLoading}
 							twoToneColor={true}
+						/>
+						<BaseUploadDraggerHospital
+							allowFileTypesToUpload={[
+								FILE_TYPES.PDF,
+								FILE_TYPES.JPEG,
+								FILE_TYPES.PNG,
+							]}
+							reset={true}
+							showUploadList={false}
+							className={`style1`}
+							uploadUrl={`${process.env.NEXT_PUBLIC_API_URL_MED}${API_PATH.MINIO.UPLOAD}`}
+							subFolderPath="hospital/attachmentFile1"
+							bearer={`${Cookies.get("accessToken")}`}
+							onChangeFunction={(e) => {
+								const newFile = {
+									originalFileName: e[0].name,
+									fileName: e[0].name,
+									mimeType: `${_.get(e, "[0].type")}`,
+									docPath: "",
+									docName: e[0].name,
+									createBy: "",
+									fileSize: 0,
+									attachId: 0,
+									assessId: 0,
+									fileBase64: `${_.get(e, "[0].base64")}`,
+									status: "",
+									sha256Hex: "",
+									createDate: "",
+								};
+								// console.log("🚀 ~ HospitalAssessmentForm ~ e:", e);
+								const newFiles = estimateAdd.form.hospitalAssessmentFiles || [];
+								const newFilesCloned = _.cloneDeep(newFiles);
+								newFilesCloned.push(newFile);
+
+								const newFilesToUpload =
+									estimateAdd.form.addNewHospitalAssessmentFiles || [];
+								const newFilesToUploadCloned = _.cloneDeep(newFilesToUpload);
+								newFilesToUploadCloned.push(newFile);
+
+								dispatch(
+									setHospitalEstimateAddForm({
+										...estimateAdd.form,
+										hospitalAssessmentFiles: newFilesCloned,
+										addNewHospitalAssessmentFiles: newFilesToUploadCloned,
+									})
+								);
+							}}
 						/>
 					</div>
 				</div>

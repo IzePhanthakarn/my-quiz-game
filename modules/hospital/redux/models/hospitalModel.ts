@@ -295,7 +295,9 @@ export interface EstimateAddForm {
 	resultStatus: string;
 	assessType: string;
 	hospitalWCFCode: string;
-	assessAttachmentfiles: AssessAttachmentfiles[];
+	hospitalAssessmentFiles: HospitalAssessmentFiles[];
+	addNewHospitalAssessmentFiles: HospitalAssessmentFiles[];
+	hospitalAssessmentFilesUuidDeleteList: UuidDeleteList;
 }
 
 export interface EstimateAddFilter {
@@ -325,7 +327,7 @@ export const modelHospitalFilter: HospitalFilter = {
 	CheckSp19EndDate: false,
 };
 
-export interface AssessAttachmentfiles {
+export interface HospitalAssessmentFiles {
 	originalFileName: string;
 	fileName: string;
 	mimeType: string;
@@ -391,7 +393,9 @@ export const modelEstimateAdd: EstimateAdd = {
 		resultStatus: "P",
 		assessType: "1",
 		hospitalWCFCode: "",
-		assessAttachmentfiles: [],
+		hospitalAssessmentFiles: [],
+		addNewHospitalAssessmentFiles: [],
+		hospitalAssessmentFilesUuidDeleteList: [],
 	},
 };
 

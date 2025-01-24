@@ -56,7 +56,12 @@ export const updateHospitalAssessmentApi = createAsyncThunk(
 	) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ESTIMATE.UPDATE_BY_UUID}/${body.uuid}`;
-			const response = await axios.patch(apiPath, body.form);
+			const response = await axios.patch(apiPath, {
+				hospitalAssessmentPatch: body.form,
+				addNewHospitalAssessmentFiles: body.form.addNewHospitalAssessmentFiles,
+				hospitalAssessmentFilesUuidDeleteList:
+					body.form.hospitalAssessmentFilesUuidDeleteList,
+			});
 			return response.data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err);
