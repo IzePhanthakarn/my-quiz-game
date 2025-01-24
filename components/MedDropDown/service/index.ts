@@ -36,10 +36,11 @@ export const handleSession =
 		const { apiPath, sessionName, method, baseBody } = DROPDOWN[type];
 
 		const getSession = JSON.parse(sessionStorage.getItem(sessionName) ?? "[]");
-
 		if (!_.isEmpty(getSession)) {
 			const data = await handleOption(type, getSession);
-			if (setDropdown) setDropdown(data);
+			if (setDropdown) {
+				setDropdown(data);
+			}
 			return;
 		}
 

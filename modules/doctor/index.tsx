@@ -74,27 +74,15 @@ export default function Doctor() {
 				hospitalNameLike: handleHospital,
 			};
 		}
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page },
-				...handleFilter,
-			})
-		);
-		console.log("{ ...page, pageNumber: 0 }", { ...page, pageNumber: 0 });
-		dispatch(setDoctorFilter(newFilter));
-		dispatch(setPagination({ ...page, pageNumber: 0 }));
+		dispatch(initDoctorGrid(handleFilter, page));
+		// dispatch(setDoctorFilter(newFilter));
 	};
 
-	const onFinish: FormProps<DoctorFilter>["onFinish"] = (
+	const onSearch: FormProps<DoctorFilter>["onFinish"] = (
 		value: DoctorFilter
 	) => {
 		const newFilter = { ...filter, ...value };
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page, isFilter: true, pageNumber: 0 },
-				...newFilter,
-			})
-		);
+		dispatch(initDoctorGrid(newFilter, { ...page, pageNumber: 0 }));
 
 		dispatch(setMounted(uuid4()));
 		// dispatch(setDoctorFilter(newFilter));
@@ -113,15 +101,8 @@ export default function Doctor() {
 			dispatch(setDoctorFilter(modelDoctorFilter));
 			setInit(true);
 		}
-		if (!page.isFilter) {
-			dispatch(
-				initDoctorGrid({
-					pagination: { ...page },
-					...filter,
-				})
-			);
-		}
-	}, [page.pageNumber, page.pageSize, page.orders]);
+		onSearch(filter);
+	}, []);
 
 	return (
 		<div>
@@ -134,7 +115,9 @@ export default function Doctor() {
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => dispatch(setPagination(page))}
+						setPagination={(page) => {
+							dispatch(initDoctorGrid(filter, page));
+						}}
 					/>
 				}
 				FilterLayout={
@@ -143,7 +126,7 @@ export default function Doctor() {
 							<BaseForm
 								initialValues={filter}
 								extraForm={form}
-								onFinish={onFinish}
+								onFinish={onSearch}
 							>
 								<div className="grid grid-cols-4 gap-x-2">
 									<BaseItemInput
