@@ -62,9 +62,9 @@ export default function DoctorDetailForm(props: Props) {
 			onFinish={onFinish}
 		>
 			<div className="grid grid-cols-4 gap-y-2 gap-x-8 items-start">
-				<div className="col-span-4">
+				{/* <div className="col-span-4">
 					<BaseHorizontalHeader title={"รายละเอียด"} icons={<UserOutlined />} />
-				</div>
+				</div> */}
 				<BaseItemInput
 					label={doctorDataName.professionalCode}
 					itemName="professionalCode"
@@ -182,7 +182,10 @@ export default function DoctorDetailForm(props: Props) {
 					</>
 				)}
 				<div className="col-span-4">
-					<BaseHorizontalHeader title={"ที่อยู่"} icons={<HomeFilled />} />
+					<BaseHorizontalHeader
+						title={"ข้อมูลที่อยู่แพทย์"}
+						icons={<HomeFilled />}
+					/>
 				</div>
 				<BaseItemInput
 					label={doctorDataName.houseNum}

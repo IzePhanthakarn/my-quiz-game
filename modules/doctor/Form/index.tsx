@@ -24,10 +24,10 @@ import Form from "wcf-component-lib/node_modules/antd/es/form";
 import { useLayout } from "wcf-component-lib/src/provider/LayoutProvider";
 
 const DoctorFormTabs = () => {
-	// const { uuid } = useParams();
+	const { uuid } = useParams();
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const uuid = new URLSearchParams(window.location.search).get("uuid");
+	// const uuid = new URLSearchParams(window.location.search).get("uuid");
 
 	const { dispatchLayout } = useLayout();
 	const { doctorForm, isOpenBaseConfirmDialog } = useSelector(
@@ -72,7 +72,7 @@ const DoctorFormTabs = () => {
 	const BaseItemsForm = getBaseItemsForm({ form, onFinish });
 
 	if (doctorForm.doctorData.courseCategory !== "E") {
-		const ExtendedItemsForm = getExtendedItemsForm({ form, onFinish });
+		const ExtendedItemsForm = getExtendedItemsForm();
 		BaseItemsForm.push(...ExtendedItemsForm);
 	}
 

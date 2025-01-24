@@ -12,6 +12,10 @@ import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
 import { SliceModel } from "@/redux/slices/model";
 import { findNameDisplay } from "@/components/MedDropDown/service";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { rules } from "./field-validation/FormValidation";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
 
 interface Props {
 	doctorBankGrid: DoctorBankList[];
@@ -42,13 +46,17 @@ export default function BankDialog(props: Props) {
 	const { doctorBankGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
 	const [bank, setBank] = React.useState(modelBank);
-
+	const [form] = Form.useForm<BankModal>();
 	const { isOpen } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.dialog.isOpen,
 		}),
 		shallowEqual
 	);
+
+	const onFinish: FormProps<BankModal>["onFinish"] = () => {
+		dispatch(handleBankRows({ bank, doctorBankGrid, editId }));
+	};
 
 	useEffect(() => {
 		setBank(modelBank);
@@ -69,68 +77,71 @@ export default function BankDialog(props: Props) {
 
 	return (
 		<div className="flex space-y-2 flex-col w-full">
-			<p className="text-2xl">บันทึกข้อมูลวุฒิบัตรเฉพาะทาง</p>
-			<div className="w-full">
-				<MedDropDown
-					notForm={true}
-					type={SESSION_NAME.BANK}
-					className="h-full w-full"
-					label="ธนาคาร"
-					getValue={(e) =>
-						setBank({ ...bank, bankDigitCode: e, bankSortingCode: null })
-					}
-					value={bank.bankDigitCode}
-				/>
-				<MedDropDown
-					notForm={true}
-					type={SESSION_NAME.BANK_BRANCH}
-					className="h-full w-full"
-					option={handleBankBranchDropdown(bank.bankDigitCode ?? "")}
-					disabled={_.isEmpty(
-						handleBankBranchDropdown(bank.bankDigitCode ?? "")
-					)}
-					label="สาขาธนาคาร"
-					getValue={(e) => setBank({ ...bank, bankSortingCode: e })}
-					value={findNameDisplay(
-						SESSION_NAME.BANK_BRANCH,
-						bank.bankSortingCode
-					)}
-				/>
-				<BaseItemInput
-					notForm
-					label="เลขที่บัญชีธนาคาร"
-					labelPosition={BaseFormItemPosition.TOP}
-					value={bank.bankAccount}
-					onChangeFunction={(e) =>
-						setBank({ ...bank, bankAccount: e.target.value })
-					}
-				/>
-				<BaseItemInput
-					notForm
-					label="พร้อมเพย์"
-					labelPosition={BaseFormItemPosition.TOP}
-					value={bank.promptpay}
-					onChangeFunction={(e) =>
-						setBank({ ...bank, promptpay: e.target.value })
-					}
-				/>
-				<BaseItemInput
-					notForm
-					label="ชื่อบัญชี"
-					labelPosition={BaseFormItemPosition.TOP}
-					value={bank.bankAccountName}
-					onChangeFunction={(e) =>
-						setBank({ ...bank, bankAccountName: e.target.value })
-					}
-				/>
-			</div>
+			<p className="text-2xl">บันทึกข้อมูลธนาคาร</p>
+			<BaseForm initialValues={bank} onFinish={onFinish} extraForm={form}>
+				<div className="w-full">
+					<MedDropDown
+						itemName={"bankDigitCode"}
+						type={SESSION_NAME.BANK}
+						className="h-full w-full"
+						label="ธนาคาร"
+						rules={rules.bankDigitCode}
+						getValue={(e) =>
+							setBank({ ...bank, bankDigitCode: e, bankSortingCode: null })
+						}
+					/>
+					<MedDropDown
+						type={SESSION_NAME.BANK_BRANCH}
+						itemName={"bankSortingCode"}
+						className="h-full w-full"
+						rules={rules.bankSortingCode}
+						option={handleBankBranchDropdown(bank.bankDigitCode ?? "")}
+						disabled={_.isEmpty(
+							handleBankBranchDropdown(bank.bankDigitCode ?? "")
+						)}
+						label="สาขาธนาคาร"
+						labelRender={() =>
+							findNameDisplay(SESSION_NAME.BANK_BRANCH, bank.bankSortingCode)
+						}
+						getValue={(e) => setBank({ ...bank, bankSortingCode: e })}
+					/>
+					<BaseItemInput
+						label="เลขที่บัญชีธนาคาร"
+						itemName={"bankAccount"}
+						labelPosition={BaseFormItemPosition.TOP}
+						rules={rules.bankAccount}
+						value={bank.bankAccount}
+						onChangeFunction={(e) =>
+							setBank({ ...bank, bankAccount: e.target.value })
+						}
+					/>
+					<BaseItemInput
+						notForm
+						label="พร้อมเพย์"
+						labelPosition={BaseFormItemPosition.TOP}
+						value={bank.promptpay}
+						onChangeFunction={(e) =>
+							setBank({ ...bank, promptpay: e.target.value })
+						}
+					/>
+					<BaseItemInput
+						notForm
+						label="ชื่อบัญชี"
+						labelPosition={BaseFormItemPosition.TOP}
+						value={bank.bankAccountName}
+						onChangeFunction={(e) =>
+							setBank({ ...bank, bankAccountName: e.target.value })
+						}
+					/>
+				</div>
+			</BaseForm>
 			<BaseButton
 				className="mt-2"
 				icon={<ArrowRightOutlined />}
 				iconPosition="end"
 				// disabled={_.some(_.values(bank), (value) => value === "")}
 				onClick={() => {
-					dispatch(handleBankRows({ bank, doctorBankGrid, editId }));
+					form.submit();
 				}}
 				label="บันทึก"
 			/>

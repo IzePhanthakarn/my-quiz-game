@@ -43,7 +43,7 @@ export default function MedDropDown(props: MedDropDownProps) {
 	}, [dropdown]);
 
 	useEffect(() => {
-		if (!_.isEmpty(option) && _.isEmpty(dropdown)) setDropdown(option);
+		if (!_.isEmpty(option)) setDropdown(option);
 	}, [option]);
 
 	return (
