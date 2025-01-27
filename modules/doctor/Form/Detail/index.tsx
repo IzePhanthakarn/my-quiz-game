@@ -179,6 +179,11 @@ export default function DoctorDetailForm(props: Props) {
 							itemName="eHospital"
 							disabled={isE}
 						/>
+						<BaseItemInput
+							label={doctorDataName.email}
+							itemName="email"
+							disabled={isE}
+						/>
 					</>
 				)}
 				<div className="col-span-4">
