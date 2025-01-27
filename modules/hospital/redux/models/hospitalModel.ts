@@ -81,6 +81,11 @@ export interface EstimateAddGrid extends PaginationModel {
 	data: EstimateAddGridData[];
 }
 
+export interface HospitalAssessmentFilesGrid {
+	pagination: PaginationOptions;
+	hospitalAssessmentUuid: string | null;
+}
+
 export interface BaseEstimateAddData {
 	hospitalName: string;
 	assessId: number;

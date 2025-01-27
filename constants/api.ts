@@ -183,6 +183,8 @@ const API_PATH = {
 			DETAIL: "/hospital/hospital-assessment",
 			ADD: "/hospital/hospital-assessment",
 			UPDATE_BY_UUID: "/hospital/hospital-assessment",
+			LIST_HOSPITAL_ASSESSMENT_FILES:
+				"/hospital/hospital-assessment/list-hospital-assessment-files",
 		},
 	},
 	DOCUMENT: {

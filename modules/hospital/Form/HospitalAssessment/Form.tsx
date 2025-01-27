@@ -74,7 +74,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!_.isEmpty(params.params.uuid)) {
-				dispatch(fetchHospitalEstimateDetail(params));
+				dispatch(fetchHospitalEstimateDetail(params, estimateAdd));
 			} else {
 				dispatch(setHospitalEstimateAddForm(modelEstimateAdd.form));
 			}

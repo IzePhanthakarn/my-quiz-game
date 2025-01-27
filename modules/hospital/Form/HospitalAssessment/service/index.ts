@@ -8,9 +8,11 @@ import {
 	GetEstimateAddList,
 	GetHospitalList,
 	HospitalAssessmentFiles,
+	HospitalAssessmentFilesGrid,
 } from "../../../redux/models/hospitalModel";
 import {
 	getHospitalEstimateDetail,
+	getHospitalEstimateFilesList,
 	getHospitalEstimateList,
 	insertHospitalAssessmentApi,
 	updateHospitalAssessmentApi,
@@ -23,10 +25,10 @@ import {
 import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
 import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
+import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 
 export const fetchHospitalEstimateList =
 	(estimateAdd: EstimateAdd) => async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ filter:", estimateAdd);
 		dispatch(setIsLoading(true));
 		const body: GetEstimateAddList = {
 			pagination: { ...estimateAdd.grid.page },
@@ -110,7 +112,8 @@ export const setHospitalAssessmentFileDelete =
 	};
 
 export const fetchHospitalEstimateDetail =
-	(params: HospitalAssessmentPageProps) => async (dispatch: AppDispatch) => {
+	(params: HospitalAssessmentPageProps, estimateAdd: EstimateAdd) =>
+	async (dispatch: AppDispatch) => {
 		console.log("🚀 ~ params:", params);
 
 		const { uuid } = params?.params;
@@ -120,33 +123,32 @@ export const fetchHospitalEstimateDetail =
 			dispatch(setIsLoading(false));
 			if (_.get(result, "error.message") === "Rejected") return;
 
-			let updatedHospitalAssessmentFiles: HospitalAssessmentFiles[] = [];
-			if (
-				result.payload.hospitalAssessmentFiles &&
-				!_.isEmpty(result.payload.hospitalAssessmentFiles)
-			) {
-				updatedHospitalAssessmentFiles = _.filter(
-					result.payload.hospitalAssessmentFiles,
-					(item) => item.isActive !== "N"
-				);
-			}
+			const newBody: HospitalAssessmentFilesGrid = {
+				pagination: { ...modelPaginationOptions, pageSize: 9999 },
+				hospitalAssessmentUuid: `${uuid}`,
+			};
+			const resultHospitalAssessmentFiles = await dispatch(
+				getHospitalEstimateFilesList(newBody)
+			);
+			if (_.get(resultHospitalAssessmentFiles, "error.message") === "Rejected")
+				return;
+
+			// let updatedHospitalAssessmentFiles: HospitalAssessmentFiles[] = [];
+			// if (
+			// 	result.payload.hospitalAssessmentFiles &&
+			// 	!_.isEmpty(result.payload.hospitalAssessmentFiles)
+			// ) {
+			// 	updatedHospitalAssessmentFiles = _.filter(
+			// 		result.payload.hospitalAssessmentFiles,
+			// 		(item) => item.isActive !== "N"
+			// 	);
+			// }
 
 			dispatch(
 				setHospitalEstimateAddForm({
 					...result.payload,
-					hospitalAssessmentFiles: updatedHospitalAssessmentFiles,
-					// refDocDate: convertDateFormatBuddhist(
-					// 	result.payload.refDocDate,
-					// 	DateFormatBuddhist.DDMMBBBB
-					// ),
-					// notifyDate: convertDateFormatBuddhist(
-					// 	result.payload.notifyDate,
-					// 	DateFormatBuddhist.DDMMBBBB
-					// ),
-					// visitDate: convertDateFormatBuddhist(
-					// 	result.payload.visitDate,
-					// 	DateFormatBuddhist.DDMMBBBB
-					// ),
+					hospitalAssessmentFiles:
+						resultHospitalAssessmentFiles.payload.content,
 				})
 			);
 		}

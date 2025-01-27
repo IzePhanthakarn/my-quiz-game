@@ -5,6 +5,7 @@ import {
 	EstimateAddFilter,
 	EstimateAddForm,
 	GetEstimateAddList,
+	HospitalAssessmentFilesGrid,
 } from "../../../redux/models/hospitalModel";
 
 export const getHospitalEstimateList = createAsyncThunk(
@@ -12,6 +13,19 @@ export const getHospitalEstimateList = createAsyncThunk(
 	async (filter: GetEstimateAddList, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ESTIMATE.LIST}`;
+			const response = await axios.post(apiPath, filter);
+			return response.data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
+export const getHospitalEstimateFilesList = createAsyncThunk(
+	"Hospital/Estimate/getHospitalEstimateFilesList",
+	async (filter: HospitalAssessmentFilesGrid, thunkAPI) => {
+		try {
+			const apiPath = `${API_PATH.HOSPITAL.ESTIMATE.LIST_HOSPITAL_ASSESSMENT_FILES}`;
 			const response = await axios.post(apiPath, filter);
 			return response.data;
 		} catch (err) {
