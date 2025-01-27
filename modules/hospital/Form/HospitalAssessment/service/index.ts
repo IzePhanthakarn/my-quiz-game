@@ -112,10 +112,7 @@ export const setHospitalAssessmentFileDelete =
 	};
 
 export const fetchHospitalEstimateDetail =
-	(params: HospitalAssessmentPageProps, estimateAdd: EstimateAdd) =>
-	async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ params:", params);
-
+	(params: HospitalAssessmentPageProps) => async (dispatch: AppDispatch) => {
 		const { uuid } = params?.params;
 		if (!_.isEmpty(uuid)) {
 			dispatch(setIsLoading(true));

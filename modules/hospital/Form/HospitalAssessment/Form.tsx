@@ -74,7 +74,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 	useEffect(() => {
 		(async () => {
 			if (!_.isEmpty(params.params.uuid)) {
-				dispatch(fetchHospitalEstimateDetail(params, estimateAdd));
+				dispatch(fetchHospitalEstimateDetail(params));
 			} else {
 				dispatch(setHospitalEstimateAddForm(modelEstimateAdd.form));
 			}
@@ -101,7 +101,6 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 			hospitalAssessmentFilesUuidDeleteList:
 				estimateAdd.form.hospitalAssessmentFilesUuidDeleteList,
 		};
-		console.log("🚀 ~ HospitalAssessmentForm ~ newValues:", newValues);
 
 		if (!_.isEmpty(params.params.uuid)) {
 			dispatch(updateHospitalAssessment(`${params.params.uuid}`, newValues));
@@ -299,7 +298,13 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 							title={"เอกสารที่เกี่ยวข้อง"}
 							icons={<FileTextOutlined />}
 						/>
-
+						<BaseItemInput
+							pageLevel="edit"
+							label={"เอกสารเพิ่มเติม"}
+							itemName="docName"
+							// rules={estimateAddRules.refDocNoSchema}
+							// value={estimateAdd.form.refDocNo}
+						/>
 						<BaseGrid
 							rows={estimateAdd.form.hospitalAssessmentFiles}
 							columns={EstimateAddFilesGrid({
@@ -329,7 +334,10 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 									fileName: e[0].name,
 									mimeType: `${_.get(e, "[0].type")}`,
 									docPath: "",
-									docName: e[0].name,
+									// docName: e[0].name,
+									docName: _.isEmpty(form.getFieldValue("docName"))
+										? e[0].name
+										: form.getFieldValue("docName"),
 									createBy: "",
 									fileSize: 0,
 									attachId: 0,
@@ -356,6 +364,8 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 										addNewHospitalAssessmentFiles: newFilesToUploadCloned,
 									})
 								);
+
+								form.setFieldValue("docName", "");
 							}}
 						/>
 					</div>
