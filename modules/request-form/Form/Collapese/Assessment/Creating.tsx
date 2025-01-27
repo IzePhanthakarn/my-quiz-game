@@ -23,7 +23,11 @@ export default function Creating() {
 					itemName={"inAnotherPlace"}
 				/>
 				<div className="col-span-3">
-					<BaseDropDown className="mt-8" itemName={"inAnotherPlace"} option={option} />
+					<BaseDropDown
+						className="mt-8"
+						itemName={"inAnotherPlace"}
+						option={option}
+					/>
 				</div>
 			</div>
 			<BaseItemInput label="ค่าตรวจประเมิน" itemName={"fareAmount"} />

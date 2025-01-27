@@ -23,7 +23,7 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		upload: {
 			url: "/doctor/upload",
-			text: "นำเข้าข้อมูลแพทย์",
+			text: "นำเข้าแพทย์จากไฟล์",
 			breadcrumb: ["root", "upload"],
 			pageLevel: {},
 		},
