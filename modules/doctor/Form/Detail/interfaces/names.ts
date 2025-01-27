@@ -20,4 +20,5 @@ export const doctorDataName = {
 	postcode: "รหัสไปรษณีย์",
 	eDiploma: "ผู้เชี่ยวชาญสาขา (E-Learning)",
 	eHospital: "ชื่อโรงพยาบาลประจำ (E-Learning)",
+	email: "อีเมล",
 };
