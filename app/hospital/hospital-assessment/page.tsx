@@ -1,9 +1,9 @@
 import React from "react";
 import { NextPage } from "next";
-import EstimateAdd from "@/modules/hospital/Form/HospitalAssessment/";
+import EstimateAddList from "@/modules/hospital/Form/HospitalAssessment/";
 
-const EstimateAddPage: NextPage = () => {
-	return <EstimateAdd />;
+const EstimateAddListPage: NextPage = () => {
+	return <EstimateAddList />;
 };
 
-export default EstimateAddPage;
+export default EstimateAddListPage;

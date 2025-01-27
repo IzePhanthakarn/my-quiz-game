@@ -5,6 +5,8 @@ import {
 	EstimateAdd,
 	EstimateAddFilter,
 	EstimateAddForm,
+	GetEstimateAddList,
+	GetHospitalList,
 	HospitalAssessmentFiles,
 } from "../../../redux/models/hospitalModel";
 import {
@@ -14,6 +16,7 @@ import {
 	updateHospitalAssessmentApi,
 } from "./api";
 import {
+	setHospitalEstimateAdd,
 	setHospitalEstimateAddForm,
 	setHospitalEstimateAddGrid,
 } from "@/modules/hospital/redux";
@@ -22,40 +25,46 @@ import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.
 import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 
 export const fetchHospitalEstimateList =
-	(filter: EstimateAddFilter) => async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ filter:", filter);
+	(estimateAdd: EstimateAdd) => async (dispatch: AppDispatch) => {
+		console.log("🚀 ~ filter:", estimateAdd);
 		dispatch(setIsLoading(true));
-		const body: EstimateAddFilter = {
-			...filter,
-			hospitalWCFCodeLike: _.isEmpty(filter.hospitalWCFCodeLike)
+		const body: GetEstimateAddList = {
+			pagination: { ...estimateAdd.grid.page },
+			...estimateAdd.filter,
+			hospitalWcfCodeLike: _.isEmpty(estimateAdd.filter.hospitalWcfCodeLike)
 				? null
-				: filter.hospitalWCFCodeLike,
-			notiDateStartLike: _.isEmpty(filter.notiDateStartLike)
+				: estimateAdd.filter.hospitalWcfCodeLike,
+			notiDateStartLike: _.isEmpty(estimateAdd.filter.notiDateStartLike)
 				? null
-				: filter.notiDateStartLike,
-			notiDateEndLike: _.isEmpty(filter.notiDateEndLike)
+				: estimateAdd.filter.notiDateStartLike,
+			notiDateEndLike: _.isEmpty(estimateAdd.filter.notiDateEndLike)
 				? null
-				: filter.notiDateEndLike,
-			userFirstNameLike: _.isEmpty(filter.userFirstNameLike)
+				: estimateAdd.filter.notiDateEndLike,
+			userFirstNameLike: _.isEmpty(estimateAdd.filter.userFirstNameLike)
 				? null
-				: filter.userFirstNameLike,
-			userLastNameLike: _.isEmpty(filter.userLastNameLike)
+				: estimateAdd.filter.userFirstNameLike,
+			userLastNameLike: _.isEmpty(estimateAdd.filter.userLastNameLike)
 				? null
-				: filter.userLastNameLike,
+				: estimateAdd.filter.userLastNameLike,
 		};
-		const result = await dispatch(getHospitalEstimateList(filter));
+		const result = await dispatch(getHospitalEstimateList(body));
 		dispatch(setIsLoading(false));
 		if (_.get(result, "error.message") === "Rejected") return;
 		// console.log("🚀 ~ result:", result);
 		// console.log("🚀 ~ result.payload.content:", result.payload.content);
 
 		dispatch(
-			setHospitalEstimateAddGrid({
-				data: result.payload.content,
-				page: {
-					totalData: result.payload.totalRecords,
-					pageNumber: result.payload.currentPageNumber - 1,
-					pageSize: result.payload.pageSize,
+			setHospitalEstimateAdd({
+				...estimateAdd,
+				grid: {
+					data: result.payload.content,
+					page: {
+						...estimateAdd.grid.page,
+						// totalData: result.payload.totalRecords,
+						// pageNumber: result.payload.currentPageNumber - 1,
+						// pageSize: result.payload.pageSize,
+						totalData: result.payload.totalElements,
+					},
 				},
 			})
 		);

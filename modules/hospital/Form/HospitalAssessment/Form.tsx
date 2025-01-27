@@ -146,9 +146,9 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 							<MedDropDown
 								pageLevel="edit"
 								label={estimateAddNames.hospital_name}
-								itemName="hospitalWCFCode"
+								itemName="hospitalWcfCode"
 								rules={estimateAddRules.hospital_nameSchema}
-								value={estimateAdd.form.hospitalWCFCode}
+								value={estimateAdd.form.hospitalWcfCode}
 								type={SESSION_NAME.HOSPITAL_WCF_CODE_VALUE}
 							/>
 							{/* <BaseItemInput

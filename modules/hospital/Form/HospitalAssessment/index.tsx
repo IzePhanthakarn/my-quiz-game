@@ -13,7 +13,10 @@ import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
-import { EstimateAddFilter } from "../../redux/models/hospitalModel";
+import {
+	EstimateAddFilter,
+	EstimateAdd,
+} from "../../redux/models/hospitalModel";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { estimateAddNames } from "../../interfaces/estimateAddNames";
@@ -23,30 +26,33 @@ import { fetchHospitalEstimateList } from "./service";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import MedDropDown from "../../../../components/MedDropDown";
 import { SESSION_NAME } from "../../../../components/MedDropDown/model";
+import {
+	setHospitalEstimateAdd,
+	setHospitalEstimateAddGrid,
+} from "../../redux";
 
-export default function EstimateAdd() {
+export default function EstimateAddList() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
 	const { estimateAdd, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			estimateAdd: state.hospital.estimateAdd,
 			filter: state.hospital.estimateAdd.filter,
-
 			isLoading: state.container.isLoading,
 		}),
 		shallowEqual
 	);
 
 	useEffect(() => {
-		dispatch(fetchHospitalEstimateList(filter));
+		dispatch(fetchHospitalEstimateList(estimateAdd));
 	}, []);
 
 	const [form] = Form.useForm();
-	const [formDrawer] = Form.useForm();
+	// const [formDrawer] = Form.useForm();
 
 	const onFinish: FormProps["onFinish"] = (value) => {
 		const toFilter: EstimateAddFilter = {
-			hospitalWCFCodeLike: value.hospitalWCFCode,
+			hospitalWcfCodeLike: value.hospitalWcfCode,
 			notiDateStartLike: value.notifyDate
 				? value.notifyDate[0].format(DateFormat.YYYYMMDD).toString()
 				: undefined,
@@ -56,7 +62,12 @@ export default function EstimateAdd() {
 			userFirstNameLike: value.userFirstName,
 			userLastNameLike: value.userLastName,
 		};
-		dispatch(fetchHospitalEstimateList(toFilter));
+		const newBody: EstimateAdd = {
+			...estimateAdd,
+			filter: toFilter,
+		};
+		// dispatch(setHospitalEstimateAdd(newBody));
+		dispatch(fetchHospitalEstimateList(newBody));
 	};
 
 	return (
@@ -69,7 +80,27 @@ export default function EstimateAdd() {
 						page={estimateAdd.grid.page}
 						loading={isLoading}
 						twoToneColor={true}
-						setPagination={(page) => {}}
+						setPagination={(page) => {
+							dispatch(
+								fetchHospitalEstimateList({
+									...estimateAdd,
+									grid: {
+										...estimateAdd.grid,
+										page,
+									},
+								})
+							);
+
+							// dispatch(
+							// 	setHospitalEstimateAdd({
+							// 		...estimateAdd,
+							// 		grid: {
+							// 			...estimateAdd.grid,
+							// 			page,
+							// 		},
+							// 	})
+							// );
+						}}
 					/>
 				}
 				AddButton={<div></div>}
@@ -83,13 +114,13 @@ export default function EstimateAdd() {
 							>
 								<div className="flex space-x-2">
 									<MedDropDown
-										itemName={"hospitalWCFCode"}
+										itemName={"hospitalWcfCode"}
 										label={estimateAddNames.hospital_name}
 										type={SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM}
 									/>
 
 									{/* <BaseItemInput
-										itemName={"hospitalWCFCode"}
+										itemName={"hospitalWcfCode"}
 										label={estimateAddNames.hospital_name}
 										onPressEnter={() => form.submit()}
 									/> */}

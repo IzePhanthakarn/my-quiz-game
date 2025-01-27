@@ -46,6 +46,7 @@ export const {
 	setHospitalAnnouncedPriceFileUploadStatusFilter,
 	setHospitalEstimateAddGrid,
 	setHospitalEstimateAddForm,
+	setHospitalEstimateAdd,
 } = hospitalSlice.actions;
 
 export default hospitalSlice.reducer;

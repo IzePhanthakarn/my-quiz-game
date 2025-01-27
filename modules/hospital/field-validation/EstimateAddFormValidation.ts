@@ -6,7 +6,7 @@ import { estimateAddNames } from "../interfaces/estimateAddNames";
 
 export const estimateAddRules = {
 	hospital_nameSchema: [requiredRule(estimateAddNames.hospital_name)],
-	hospitalWCFCodeSchema: [requiredRule(estimateAddNames.hospital_name)],
+	hospitalWcfCodeSchema: [requiredRule(estimateAddNames.hospital_name)],
 	assessTypeSchema: [
 		requiredRule(estimateAddNames.assessType),
 		maxRule(estimateAddNames.assessType, 1),

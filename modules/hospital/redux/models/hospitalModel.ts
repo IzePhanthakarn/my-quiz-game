@@ -84,7 +84,7 @@ export interface EstimateAddGrid extends PaginationModel {
 export interface BaseEstimateAddData {
 	hospitalName: string;
 	assessId: number;
-	hospitalWCFCode: string;
+	hospitalWcfCode: string;
 	userFirstName: string;
 	userLastName: string;
 	email: string;
@@ -294,18 +294,22 @@ export interface EstimateAddForm {
 	resultDesc: string;
 	resultStatus: string;
 	assessType: string;
-	hospitalWCFCode: string;
+	hospitalWcfCode: string;
 	hospitalAssessmentFiles: HospitalAssessmentFiles[];
 	addNewHospitalAssessmentFiles: HospitalAssessmentFiles[];
 	hospitalAssessmentFilesUuidDeleteList: UuidDeleteList;
 }
 
 export interface EstimateAddFilter {
-	hospitalWCFCodeLike: string | null;
+	hospitalWcfCodeLike: string | null;
 	notiDateStartLike: string | null;
 	notiDateEndLike: string | null;
 	userFirstNameLike: string | null;
 	userLastNameLike: string | null;
+}
+
+export interface GetEstimateAddList extends EstimateAddFilter {
+	pagination: PaginationOptions;
 }
 
 export const modelHospitalFilter: HospitalFilter = {
@@ -354,7 +358,7 @@ export const modelEstimateAdd: EstimateAdd = {
 		},
 	},
 	filter: {
-		hospitalWCFCodeLike: "",
+		hospitalWcfCodeLike: "",
 		notiDateStartLike: "",
 		notiDateEndLike: "",
 		userFirstNameLike: "",
@@ -392,7 +396,7 @@ export const modelEstimateAdd: EstimateAdd = {
 		resultDesc: "abcde",
 		resultStatus: "P",
 		assessType: "1",
-		hospitalWCFCode: "",
+		hospitalWcfCode: "",
 		hospitalAssessmentFiles: [],
 		addNewHospitalAssessmentFiles: [],
 		hospitalAssessmentFilesUuidDeleteList: [],

@@ -4,11 +4,12 @@ import axios from "axios";
 import {
 	EstimateAddFilter,
 	EstimateAddForm,
+	GetEstimateAddList,
 } from "../../../redux/models/hospitalModel";
 
 export const getHospitalEstimateList = createAsyncThunk(
 	"Hospital/Estimate/getHospitalEstimateList",
-	async (filter: EstimateAddFilter, thunkAPI) => {
+	async (filter: GetEstimateAddList, thunkAPI) => {
 		try {
 			const apiPath = `${API_PATH.HOSPITAL.ESTIMATE.LIST}`;
 			const response = await axios.post(apiPath, filter);

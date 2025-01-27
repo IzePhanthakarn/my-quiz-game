@@ -74,7 +74,7 @@ export const DROPDOWN = {
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
 	},
 	[SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM]: {
-		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/estimate/GetHospitalList`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/hospital-assessment/GetHospitalList`,
 		sessionName: SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM,
 		method: API_METHOD.POST,
 		baseBody: undefined,
