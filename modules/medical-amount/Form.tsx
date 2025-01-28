@@ -4,7 +4,7 @@ import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import _ from "lodash";
+import _, { update } from "lodash";
 import { LINKS } from "@/constants/links";
 import MasterDataFormLayout from "wcf-component-lib/src/layout/MasterDataFormLayout";
 import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
@@ -27,6 +27,8 @@ import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
 import { medicalAmountName } from "./interfaces/names";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -95,6 +97,12 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 					extraForm={extraForm}
 					initialValues={{
 						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
 					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
@@ -124,7 +132,7 @@ const MedAmountForm = (params: MedicalAmountFormPageProps) => {
 									pageLevel="edit"
 									label={medicalAmountName.endEffectiveDate}
 									itemName="endEffectiveDate"
-									// rules={medicalAmountRules.endEffectiveDateSchema}
+									rules={medicalAmountRules.endEffectiveDateSchema}
 									itemForm={extraForm}
 								/>
 							</div>

@@ -16,25 +16,32 @@ import { BaseForm, BaseItemDatePicker } from "wcf-component-lib/src/components";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { modelMedicalAmountFilter } from "./redux/model";
 
 export default function MedicalAmount() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { medicalAmount, isOpen, isLoading, filter } = useSelector(
+	const { medicalAmount, isLoading, filter, page } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			medicalAmount: state.medicalAmount,
 			filter: state.medicalAmount.filter,
+			page: state.medicalAmount.grid.page,
 		}),
 		shallowEqual
 	);
 
-	useEffect(() => {
-		dispatch(fetchMedicalAmountList(medicalAmount));
-	}, []);
-
 	const [form] = Form.useForm();
+
+	useEffect(() => {
+		dispatch(setMedicalAmountFilter(modelMedicalAmountFilter));
+		dispatch(
+			fetchMedicalAmountList({
+				...medicalAmount,
+				filter: modelMedicalAmountFilter,
+			})
+		);
+	}, []);
 
 	return (
 		<div>
@@ -49,7 +56,7 @@ export default function MedicalAmount() {
 									dispatch(setMedicalAmountFilter({ ...filter, ...e }));
 								}}
 							>
-								<div className="flex space-x-2">
+								<div className="grid grid-cols-4 gap-x-2">
 									<BaseItemDatePicker
 										itemForm={form}
 										itemName="startEffectiveDate"
@@ -60,19 +67,25 @@ export default function MedicalAmount() {
 										itemName="endEffectiveDate"
 										label="วันที่สิ้นสุดที่มีผล"
 									/>
-									<div className="w-[240px]">
-										<MedDropDown
-											label="สถานะการใช้งาน"
-											option={DROPDOWN_ISACTIVE}
-											itemName="isActive"
-										/>
-									</div>
+									<MedDropDown
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										itemName="isActive"
+									/>
 								</div>
 							</BaseForm>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchMedicalAmountList(medicalAmount));
+							dispatch(
+								fetchMedicalAmountList({
+									...medicalAmount,
+									grid: {
+										...medicalAmount.grid,
+										page: { ...page, pageNumber: 0 },
+									},
+								})
+							);
 						}}
 					/>
 				}

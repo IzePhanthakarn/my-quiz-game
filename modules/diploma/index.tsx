@@ -20,11 +20,9 @@ import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { rows, isOpen, page, filter, isLoading } = useSelector(
+	const { rows, page, filter, isLoading } = useSelector(
 		(state: SliceModel) => ({
-			// form: state.crud.formData,
 			rows: state.diploma.grid.list,
-			isOpen: state.drawer.isOpen,
 			page: state.diploma.grid.page,
 			filter: state.diploma.diplomaFilter,
 			isLoading: state.container.isLoading,
@@ -140,7 +138,7 @@ export default function Diploma() {
 				// 	/>
 				// }
 				AddFunction={() => router.push(LINKS.DIPLOMA.add)}
-				AddLabel="เพิ่มประกาศนียบัตร"
+				AddLabel="เพิ่มวุฒิบัตร"
 				TotalItems={page.totalData}
 			/>
 		</div>
