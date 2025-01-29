@@ -67,11 +67,13 @@ export default function MedicalAmount() {
 										itemName="endEffectiveDate"
 										label="วันที่สิ้นสุดที่มีผล"
 									/>
-									<MedDropDown
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										itemName="isActive"
-									/>
+									<div className="w-[240px]">
+										<MedDropDown
+											label="สถานะการใช้งาน"
+											option={DROPDOWN_ISACTIVE}
+											itemName="isActive"
+										/>
+									</div>
 								</div>
 							</BaseForm>
 						}
@@ -102,6 +104,7 @@ export default function MedicalAmount() {
 							dispatch(
 								fetchMedicalAmountList({
 									...medicalAmount,
+									filter: modelMedicalAmountFilter,
 									grid: { ...medicalAmount.grid, page },
 								})
 							);

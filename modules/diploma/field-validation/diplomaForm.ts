@@ -4,14 +4,15 @@ import {
 	minRule,
 	maxRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
+import { diplomaName } from "../interface/name";
 
 export const diplomaTypeSchema = [
-	requiredRule("Diploma Type"),
-	equalLengthRule("Diploma Type", 4),
+	requiredRule(diplomaName.diplomaType),
+	equalLengthRule(diplomaName.diplomaType, 4),
 ];
 
 export const diplomaNameSchema = [
-	requiredRule("Diploma Name"),
-	minRule("Diploma Name", 1),
-	maxRule("Diploma Name", 200),
+	requiredRule(diplomaName.diplomaName),
+	minRule(diplomaName.diplomaName, 1),
+	maxRule(diplomaName.diplomaName, 200),
 ];

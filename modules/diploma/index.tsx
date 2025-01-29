@@ -16,6 +16,8 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { diplomaName } from "./interface/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { modelDiplomaFilter } from "./redux/filter/model";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -30,20 +32,26 @@ export default function Diploma() {
 		shallowEqual
 	);
 
-	const fetchList = () => {
+	const fetchList = (page: PaginationOptions, isFilter: boolean = false) => {
+		dispatch(setPagination(page));
 		dispatch(
 			initDiplomaGrid({
 				pagination: { ...page },
-				diplomaTypeLike: filter.diplomaTypeLike,
-				diplomaNameLike: filter.diplomaNameLike,
+				diplomaTypeLike: isFilter
+					? modelDiplomaFilter.diplomaTypeLike
+					: filter.diplomaTypeLike,
+				diplomaNameLike: isFilter
+					? modelDiplomaFilter.diplomaNameLike
+					: filter.diplomaNameLike,
 				isActive: filter.isActive,
 			})
 		);
 	};
 
 	useEffect(() => {
-		fetchList();
-	}, [page.pageNumber, page.pageSize, page.orders]);
+		dispatch(setDiplomaFilter(modelDiplomaFilter));
+		fetchList(page, true);
+	}, []);
 
 	return (
 		<div>
@@ -65,7 +73,7 @@ export default function Diploma() {
 											})
 										);
 									}}
-									onPressEnter={() => fetchList()}
+									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
 								<BaseItemInput
 									notForm
@@ -80,7 +88,7 @@ export default function Diploma() {
 											})
 										);
 									}}
-									onPressEnter={() => fetchList()}
+									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
 								<div className="w-[240px]">
 									<MedDropDown
@@ -103,7 +111,7 @@ export default function Diploma() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							fetchList();
+							fetchList({ ...page, pageNumber: 0 });
 						}}
 					/>
 				}
@@ -115,7 +123,7 @@ export default function Diploma() {
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => dispatch(setPagination(page))}
+						setPagination={(page) => fetchList(page, true)}
 					/>
 				}
 				// Drawer={
