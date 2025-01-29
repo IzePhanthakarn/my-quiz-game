@@ -13,7 +13,7 @@ import { fetchOrganList } from "./service";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
-import { setOrganSystemWpiFilter } from "./redux";
+import { setOrganSystemWpiFilter, setOrganSystemWpiPagination } from "./redux";
 import { organSystemWpiName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
@@ -32,6 +32,7 @@ export default function OrganSystemWpi() {
 	);
 
 	useEffect(() => {
+		dispatch(setOrganSystemWpiFilter(modelOrganSystemWpiFilter));
 		dispatch(fetchOrganList({ ...organ, filter: modelOrganSystemWpiFilter }));
 	}, []);
 
@@ -119,7 +120,15 @@ export default function OrganSystemWpi() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchOrganList(organ));
+							dispatch(
+								fetchOrganList({
+									...organ,
+									grid: {
+										...organ.grid,
+										page: { ...organ.grid.page, pageNumber: 0 },
+									},
+								})
+							);
 						}}
 					/>
 				}
@@ -133,10 +142,11 @@ export default function OrganSystemWpi() {
 						loading={isLoading}
 						twoToneColor={true}
 						setPagination={(page) => {
+							dispatch(setOrganSystemWpiPagination(page));
 							dispatch(
 								fetchOrganList({
 									...organ,
-									grid: { ...organ.grid, page: { ...page, pageNumber: 0 } },
+									grid: { ...organ.grid, page: { ...page } },
 									filter: modelOrganSystemWpiFilter,
 								})
 							);
