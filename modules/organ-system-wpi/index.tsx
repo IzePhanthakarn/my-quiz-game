@@ -17,13 +17,13 @@ import { setOrganSystemWpiFilter } from "./redux";
 import { organSystemWpiName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { modelOrganSystemWpiFilter } from "./redux/model";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { organ, isOpen, isLoading, filter } = useSelector(
+	const { organ, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			organ: state.organSystemWpi,
 			filter: state.organSystemWpi.filter,
@@ -32,7 +32,7 @@ export default function OrganSystemWpi() {
 	);
 
 	useEffect(() => {
-		dispatch(fetchOrganList(organ));
+		dispatch(fetchOrganList({ ...organ, filter: modelOrganSystemWpiFilter }));
 	}, []);
 
 	return (
@@ -56,7 +56,18 @@ export default function OrganSystemWpi() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchOrganList(organ));
+										dispatch(
+											fetchOrganList({
+												...organ,
+												grid: {
+													...organ.grid,
+													page: {
+														...organ.grid.page,
+														pageNumber: 0,
+													},
+												},
+											})
+										);
 									}}
 								/>
 								<BaseItemInput
@@ -73,7 +84,18 @@ export default function OrganSystemWpi() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchOrganList(organ));
+										dispatch(
+											fetchOrganList({
+												...organ,
+												grid: {
+													...organ.grid,
+													page: {
+														...organ.grid.page,
+														pageNumber: 0,
+													},
+												},
+											})
+										);
 									}}
 								/>
 								<div className="w-[240px]">
@@ -112,7 +134,11 @@ export default function OrganSystemWpi() {
 						twoToneColor={true}
 						setPagination={(page) => {
 							dispatch(
-								fetchOrganList({ ...organ, grid: { ...organ.grid, page } })
+								fetchOrganList({
+									...organ,
+									grid: { ...organ.grid, page: { ...page, pageNumber: 0 } },
+									filter: modelOrganSystemWpiFilter,
+								})
 							);
 						}}
 					/>

@@ -18,6 +18,7 @@ import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import { modelDiplomaFilter } from "./redux/filter/model";
+import axios from "axios";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -47,6 +48,25 @@ export default function Diploma() {
 			})
 		);
 	};
+
+	useEffect(() => {
+		const url =
+			"https://wcfapidev.sso.go.th/med/master/diploma/70028997-bd05-4b0c-9b47-d8538aa51d14";
+		const headers = {
+			// Origin: "https://wcfdev.sso.go.th", // ต้องเป็นโดเมนของ Frontend จริง
+			"Access-Control-Request-Method": "PATCH",
+			"Access-Control-Request-Headers": "Authorization, Content-Type",
+		};
+
+		axios
+			.options(url, { headers })
+			.then((response) => {
+				console.log("✅ Pre-flight Response:", response);
+			})
+			.catch((error) => {
+				console.error("❌ Pre-flight Error:", error);
+			});
+	}, []);
 
 	useEffect(() => {
 		dispatch(setDiplomaFilter(modelDiplomaFilter));
