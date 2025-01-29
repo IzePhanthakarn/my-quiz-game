@@ -102,11 +102,27 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 				estimateAdd.form.hospitalAssessmentFilesUuidDeleteList,
 		};
 
-		if (!_.isEmpty(params.params.uuid)) {
-			dispatch(updateHospitalAssessment(`${params.params.uuid}`, newValues));
-		} else {
-			dispatch(insertHospitalAssessment(newValues));
-		}
+		dispatch(
+			setDialog({
+				...dialog,
+				async onConfirm() {
+					if (!_.isEmpty(params.params.uuid)) {
+						dispatch(
+							updateHospitalAssessment(
+								`${params.params.uuid}`,
+								newValues,
+								router
+							)
+						);
+					} else {
+						dispatch(insertHospitalAssessment(newValues, router));
+					}
+				},
+				isOpenBaseConfirmDialog: true,
+				content: "",
+				headerText: "คุณต้องการบันทึกใช่หรือไม่",
+			})
+		);
 	};
 
 	return (
@@ -141,7 +157,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 						className=""
 					/>
 					<div className="py-6 px-10 bg-white">
-						<div className="grid gap-x-6 gap-y-2 grid-cols-4">
+						<div className="grid gap-x-6 gap-y-2 grid-cols-3">
 							<MedDropDown
 								pageLevel="edit"
 								label={estimateAddNames.hospital_name}
@@ -235,7 +251,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 								label={estimateAddNames.notifyDate}
 								pageLevel="edit"
 								itemName="notifyDate"
-								// rules={estimateAddRules.notifyDateSchema}
+								rules={estimateAddRules.notifyDateSchema}
 								value={estimateAdd.form.notifyDate}
 								// onChangeDateFunction={(date, _) => {
 								// 	dispatch(
@@ -253,7 +269,7 @@ const HospitalAssessmentForm = (params: HospitalAssessmentPageProps) => {
 								label={estimateAddNames.visitDate}
 								pageLevel="edit"
 								itemName="visitDate"
-								// rules={estimateAddRules.visitDateSchema}
+								rules={estimateAddRules.visitDateSchema}
 								value={estimateAdd.form.visitDate}
 								// onChangeDateFunction={(date, _) => {
 								// 	dispatch(

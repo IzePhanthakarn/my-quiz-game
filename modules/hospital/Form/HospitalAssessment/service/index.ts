@@ -26,6 +26,10 @@ import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai
 import { DateFormatBuddhist } from "wcf-component-lib/src/constants/date-format.constant";
 import { setDialog, setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import BaseToastNotification from "wcf-component-lib/src/components/BaseToastNotification";
+import { BaseToastNotificationMessage } from "wcf-component-lib/src/constants/base-toast-notification";
+import { LINKS } from "../../../../../constants/links";
 
 export const fetchHospitalEstimateList =
 	(estimateAdd: EstimateAdd) => async (dispatch: AppDispatch) => {
@@ -36,12 +40,6 @@ export const fetchHospitalEstimateList =
 			hospitalWcfCodeLike: _.isEmpty(estimateAdd.filter.hospitalWcfCodeLike)
 				? null
 				: estimateAdd.filter.hospitalWcfCodeLike,
-			notiDateStartLike: _.isEmpty(estimateAdd.filter.notiDateStartLike)
-				? null
-				: estimateAdd.filter.notiDateStartLike,
-			notiDateEndLike: _.isEmpty(estimateAdd.filter.notiDateEndLike)
-				? null
-				: estimateAdd.filter.notiDateEndLike,
 			userFirstNameLike: _.isEmpty(estimateAdd.filter.userFirstNameLike)
 				? null
 				: estimateAdd.filter.userFirstNameLike,
@@ -241,20 +239,40 @@ export const handleDownloadBase64File = (content: string, fileName: string) => {
 // };
 
 export const insertHospitalAssessment =
-	(form: EstimateAddForm) => async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ form:", form);
+	(form: EstimateAddForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(insertHospitalAssessmentApi(form));
-		console.log("🚀 ~ data:", data);
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			BaseToastNotification({
+				message: BaseToastNotificationMessage.INSERT_SUCCESS,
+				description: "Description",
+			});
+			router.push(LINKS.HOSPITAL.link);
+		}
 	};
 
 export const updateHospitalAssessment =
-	(uuid: string, form: EstimateAddForm) => async (dispatch: AppDispatch) => {
-		console.log("🚀 ~ form:", form);
+	(uuid: string, form: EstimateAddForm, router: AppRouterInstance) =>
+	async (dispatch: AppDispatch) => {
 		const data = await dispatch(
 			updateHospitalAssessmentApi({
 				form: form,
 				uuid: uuid,
 			})
 		);
-		console.log("🚀 ~ data:", data);
+
+		dispatch(setIsOpenBaseConfirmDialog(false));
+		if (_.get(data, "error.message") === "Rejected") {
+			return;
+		} else {
+			BaseToastNotification({
+				message: BaseToastNotificationMessage.PATCH_SUCCESS,
+				description: "Description",
+			});
+			// dispatch(setIsLoading(true));
+			router.push(LINKS.HOSPITAL.hospitalAssessment.list);
+		}
 	};

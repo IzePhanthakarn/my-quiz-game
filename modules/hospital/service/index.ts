@@ -652,7 +652,7 @@ export const updateHospital =
 				description: "Description",
 			});
 			// dispatch(setIsLoading(true));
-			// router.push(LINKS.HOSPITAL.link);
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};
 

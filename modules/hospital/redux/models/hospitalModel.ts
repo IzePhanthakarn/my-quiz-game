@@ -307,8 +307,7 @@ export interface EstimateAddForm {
 
 export interface EstimateAddFilter {
 	hospitalWcfCodeLike: string | null;
-	notiDateStartLike: string | null;
-	notiDateEndLike: string | null;
+	notifyDateBetween: string[] | null;
 	userFirstNameLike: string | null;
 	userLastNameLike: string | null;
 }
@@ -364,8 +363,7 @@ export const modelEstimateAdd: EstimateAdd = {
 	},
 	filter: {
 		hospitalWcfCodeLike: "",
-		notiDateStartLike: "",
-		notiDateEndLike: "",
+		notifyDateBetween: null,
 		userFirstNameLike: "",
 		userLastNameLike: "",
 	},

@@ -13,6 +13,7 @@ import BaseForm from "wcf-component-lib/src/components/BaseForm";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import Form from "wcf-component-lib/node_modules/antd/es/form";
+import _ from "lodash";
 import {
 	EstimateAddFilter,
 	EstimateAdd,
@@ -25,11 +26,15 @@ import BaseItemDateRangePicker from "wcf-component-lib/src/components/BaseItemDa
 import { fetchHospitalEstimateList } from "./service";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import MedDropDown from "../../../../components/MedDropDown";
-import { SESSION_NAME } from "../../../../components/MedDropDown/model";
+import {
+	HOSPITAL_ASSESSMENT_ASSESS_TYPE,
+	SESSION_NAME,
+} from "../../../../components/MedDropDown/model";
 import {
 	setHospitalEstimateAdd,
 	setHospitalEstimateAddGrid,
 } from "../../redux";
+import { estimateAddRules } from "../../field-validation/EstimateAddFormValidation";
 
 export default function EstimateAddList() {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,12 +58,18 @@ export default function EstimateAddList() {
 	const onFinish: FormProps["onFinish"] = (value) => {
 		const toFilter: EstimateAddFilter = {
 			hospitalWcfCodeLike: value.hospitalWcfCode,
-			notiDateStartLike: value.notifyDate
-				? value.notifyDate[0].format(DateFormat.YYYYMMDD).toString()
-				: undefined,
-			notiDateEndLike: value.notifyDate
-				? value.notifyDate[1].format(DateFormat.YYYYMMDD).toString()
-				: undefined,
+			// notiDateStartLike:
+			// notiDateEndLike:
+			notifyDateBetween: _.isEmpty(value.notifyDate)
+				? null
+				: [
+						value.notifyDate
+							? value.notifyDate[0].format(DateFormat.YYYYMMDD).toString()
+							: undefined,
+						value.notifyDate
+							? value.notifyDate[1].format(DateFormat.YYYYMMDD).toString()
+							: undefined,
+				  ],
 			userFirstNameLike: value.userFirstName,
 			userLastNameLike: value.userLastName,
 		};
@@ -103,7 +114,7 @@ export default function EstimateAddList() {
 						}}
 					/>
 				}
-				AddButton={<div></div>}
+				// AddButton={<div></div>}
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
@@ -113,10 +124,16 @@ export default function EstimateAddList() {
 								onFinish={onFinish}
 							>
 								<div className="flex space-x-2">
-									<MedDropDown
+									{/* <MedDropDown
 										itemName={"hospitalWcfCode"}
-										label={estimateAddNames.hospital_name}
 										type={SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM}
+									/> */}
+
+									<MedDropDown
+										pageLevel="edit"
+										label={estimateAddNames.hospital_name}
+										type={SESSION_NAME.HOSPITAL_WCF_CODE_VALUE}
+										itemName="hospitalWcfCode"
 									/>
 
 									{/* <BaseItemInput
@@ -149,7 +166,7 @@ export default function EstimateAddList() {
 					/>
 				}
 				Drawer={<></>}
-				AddFunction={() => router.push(LINKS.DOCTOR.add)}
+				AddFunction={() => router.push(LINKS.HOSPITAL.hospitalAssessment.form)}
 				AddLabel="สร้าง"
 				TotalItems={estimateAdd.grid.page.totalData}
 			/>
