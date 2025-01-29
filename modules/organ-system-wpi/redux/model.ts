@@ -41,6 +41,15 @@ export interface OrganSystemWpiForm extends BaseMasterDataInterface {
 	description: string;
 }
 
+export const modelOrganSystemWpiFilter: OrganSystemWpiFilter = {
+	organSystemNoLike: "",
+	descriptionLike: "",
+	checkOrganSystemNo: false,
+	checkDescription: false,
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelOrganSystemWpi: OrganSystemWpi = {
 	grid: {
 		data: [],
@@ -48,14 +57,7 @@ export const modelOrganSystemWpi: OrganSystemWpi = {
 			...modelPaginationOptions,
 		},
 	},
-	filter: {
-		organSystemNoLike: "",
-		descriptionLike: "",
-		checkOrganSystemNo: false,
-		checkDescription: false,
-		isActive: IsActive.Y,
-		checkIsActive: false,
-	},
+	filter: modelOrganSystemWpiFilter,
 	form: {
 		...baseMasterDataModel,
 		organSystemNo: "",

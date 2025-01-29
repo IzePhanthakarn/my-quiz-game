@@ -1,4 +1,4 @@
 export const diplomaName = {
-	diplomaName: "ชื่อวุฒิบัตร",
-	diplomaType: "รหัสวุฒิบัตร",
+	diplomaName: "ชื่อวุฒิบัตรเฉพาะทาง",
+	diplomaType: "รหัสวุฒิบัตรเฉพาะทาง",
 };

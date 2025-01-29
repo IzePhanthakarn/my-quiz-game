@@ -16,6 +16,9 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { diplomaName } from "./interface/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
+import { modelDiplomaFilter } from "./redux/filter/model";
+import axios from "axios";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -30,20 +33,45 @@ export default function Diploma() {
 		shallowEqual
 	);
 
-	const fetchList = () => {
+	const fetchList = (page: PaginationOptions, isFilter: boolean = false) => {
+		dispatch(setPagination(page));
 		dispatch(
 			initDiplomaGrid({
 				pagination: { ...page },
-				diplomaTypeLike: filter.diplomaTypeLike,
-				diplomaNameLike: filter.diplomaNameLike,
+				diplomaTypeLike: isFilter
+					? modelDiplomaFilter.diplomaTypeLike
+					: filter.diplomaTypeLike,
+				diplomaNameLike: isFilter
+					? modelDiplomaFilter.diplomaNameLike
+					: filter.diplomaNameLike,
 				isActive: filter.isActive,
 			})
 		);
 	};
 
 	useEffect(() => {
-		fetchList();
-	}, [page.pageNumber, page.pageSize, page.orders]);
+		const url =
+			"https://wcfapidev.sso.go.th/med/master/diploma/70028997-bd05-4b0c-9b47-d8538aa51d14";
+		const headers = {
+			// Origin: "https://wcfdev.sso.go.th", // ต้องเป็นโดเมนของ Frontend จริง
+			"Access-Control-Request-Method": "PATCH",
+			"Access-Control-Request-Headers": "Authorization, Content-Type",
+		};
+
+		axios
+			.options(url, { headers })
+			.then((response) => {
+				console.log("✅ Pre-flight Response:", response);
+			})
+			.catch((error) => {
+				console.error("❌ Pre-flight Error:", error);
+			});
+	}, []);
+
+	useEffect(() => {
+		dispatch(setDiplomaFilter(modelDiplomaFilter));
+		fetchList(page, true);
+	}, []);
 
 	return (
 		<div>
@@ -65,7 +93,7 @@ export default function Diploma() {
 											})
 										);
 									}}
-									onPressEnter={() => fetchList()}
+									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
 								<BaseItemInput
 									notForm
@@ -80,7 +108,7 @@ export default function Diploma() {
 											})
 										);
 									}}
-									onPressEnter={() => fetchList()}
+									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
 								<div className="w-[240px]">
 									<MedDropDown
@@ -103,7 +131,7 @@ export default function Diploma() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							fetchList();
+							fetchList({ ...page, pageNumber: 0 });
 						}}
 					/>
 				}
@@ -115,7 +143,7 @@ export default function Diploma() {
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => dispatch(setPagination(page))}
+						setPagination={(page) => fetchList(page, true)}
 					/>
 				}
 				// Drawer={

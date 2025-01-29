@@ -17,18 +17,18 @@ export const medicalAmountRules = {
 	amountSchema: [
 		onlyDecimalRule(medicalAmountName.amount),
 		requiredRule(medicalAmountName.amount),
-		maxLengthRule(medicalAmountName.amount, 6),
+		// maxLengthRule(medicalAmountName.amount, 6),
 	],
 
 	fareAmountSchema: [
 		onlyDecimalRule(medicalAmountName.fareAmount),
 		requiredRule(medicalAmountName.fareAmount),
-		maxLengthRule(medicalAmountName.amount, 6),
+		// maxLengthRule(medicalAmountName.fareAmount, 6),
 	],
 
 	amountLimitSchema: [
 		onlyDecimalRule(medicalAmountName.amountLimit),
 		requiredRule(medicalAmountName.amountLimit),
-		maxLengthRule(medicalAmountName.amount, 6),
+		// maxLengthRule(medicalAmountName.amountLimit, 6),
 	],
 };

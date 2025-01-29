@@ -11,6 +11,7 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "../redux/master/model";
 import { setTotalData, setDiplomaGrid } from "../redux";
+import { headers } from "next/headers";
 
 export interface DiplomaPagination {
 	diplomaTypeLike: string | null;
