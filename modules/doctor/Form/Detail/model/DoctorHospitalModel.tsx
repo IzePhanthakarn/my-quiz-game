@@ -77,11 +77,12 @@ export const GetColumns = (props: Props) => {
 					return (
 						<CustomCellButton
 							editFunction={() => {
+								let tmpId = id;
 								dispatch(
 									setDialog({
 										...modelDialog,
 										isOpen: true,
-										uniqueContent: <HospitalDialog {...props} editId={id} />,
+										uniqueContent: <HospitalDialog {...props} editId={tmpId} />,
 									})
 								);
 							}}

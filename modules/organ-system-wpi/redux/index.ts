@@ -3,7 +3,7 @@ import { modelOrganSystemWpi } from "./model";
 import { organManipulateReducers } from "./reducer";
 
 export const organSystemWpiSlice = createSlice({
-	name: "Clinic",
+	name: "OrganSystemWpi",
 	initialState: modelOrganSystemWpi,
 	reducers: {
 		...organManipulateReducers,

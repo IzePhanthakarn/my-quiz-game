@@ -88,6 +88,7 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 					initialValues={form}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseOrganSystemGroupForm({

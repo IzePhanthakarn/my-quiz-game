@@ -29,7 +29,10 @@ export default function DoctorHospital() {
 							...modelDialog,
 							isOpen: true,
 							uniqueContent: (
-								<HospitalDialog doctorHospitalGrid={doctorHospitalGrid} />
+								<HospitalDialog
+									doctorHospitalGrid={doctorHospitalGrid}
+									editId={undefined}
+								/>
 							),
 						})
 					)

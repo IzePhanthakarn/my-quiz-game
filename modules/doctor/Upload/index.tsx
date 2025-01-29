@@ -34,7 +34,7 @@ export default function UploadDoctor() {
 		labelConfirm: "ยืนยัน",
 		isOpen: true,
 		showCancel: true,
-		headerText: "นำเข้าแพทย์",
+		headerText: "ยืนยันการนำเข้าข้อมูล",
 		content: (
 			<p className="text-label text-[#779097]">
 				ข้อมูลรายชื่อแพทย์ {previewGrid.page.totalData} รายการ จะถูกเพิ่ม
@@ -110,10 +110,6 @@ export default function UploadDoctor() {
 						<p className="tablnact">อัปโหลดไฟล์</p>
 						<p className="text-label text-[#779097]">ไฟล์ที่รองรับ .xlsx</p>
 					</div>
-					{/* <a
-						href={`https://api-dev-wcf.soilfish.co/med/doctor_data_import_template_full.xlsx`}
-						target="_blank"
-					> */}
 					<BaseButton
 						label="ดาวน์โหลด Template"
 						onClick={() => dispatch(handleGetTemplateDoctor())}
@@ -121,7 +117,6 @@ export default function UploadDoctor() {
 						size="large"
 						iconType="download"
 					/>
-					{/* </a> */}
 				</div>
 				<BaseUploadDragger
 					allowFileTypesToUpload={[FILE_TYPES.XLSX]}
@@ -134,6 +129,7 @@ export default function UploadDoctor() {
 					antUploadDragIcon={<InboxOutlined className="" />}
 					antUploadText="ลากหรือคลิกเพื่ออัปโหลด"
 					antUploadHint={<>อัปโหลดได้เฉพาะไฟล์ .xlsx เท่านั้น</>}
+					fileTypeErrorText={`เนื่องจาก "format ไฟล์ไม่ตรงกับ template" กรุณาตรวจสอบไฟล์อีกครั้ง`}
 				/>
 			</div>
 			{previewGrid.grid.length > 0 && (

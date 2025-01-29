@@ -83,11 +83,11 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 			}));
 			break;
 		case SESSION_NAME.PROVINCE_NAME:
-			const provinceName = _.map(option, (e: Address) => ({
+			const provinceName = _.map(result, (e: Address) => ({
 				value: e.provinceCode,
 				label: e.provinceName,
 			}));
-			option = _.uniqBy(provinceName, "provinceCode"); // กรองซ้ำตาม provinceCode
+			option = _.uniqBy(provinceName, "value"); // กรองซ้ำตาม provinceCode
 			break;
 		case SESSION_NAME.HOSPITAL_TYPE:
 		case SESSION_NAME.HOSPITAL_CATEGORY:

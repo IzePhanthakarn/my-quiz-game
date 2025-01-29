@@ -95,6 +95,7 @@ const Form = (params: HospitalAnnouncedPriceDetailMasterFormPageProps) => {
 					initialValues={form}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					// onValuesChange={(e) => {
 					// 	dispatch(
 					// 		setHospitalAnnouncedPriceDetailMasterForm({

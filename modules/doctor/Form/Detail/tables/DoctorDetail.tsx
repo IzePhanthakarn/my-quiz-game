@@ -40,24 +40,24 @@ export default function DoctorDetails() {
 							uniqueContent: (
 								<DiplomaDialog doctorDetailGrid={doctorDetailGrid} />
 							),
-							baseHeader: (
-								<div
-									style={{
-										width: "60px",
-										height: "60px",
-										display: "flex",
-										justifyContent: "center",
-										alignItems: "center",
-										fontSize: "30px",
-										padding: "12px",
-										borderRadius: "99%",
-										backgroundColor: "#F1F4F7",
-										marginBottom: "24px",
-									}}
-								>
-									<DocStar />
-								</div>
-							),
+							// baseHeader: (
+							// 	<div
+							// 		style={{
+							// 			width: "60px",
+							// 			height: "60px",
+							// 			display: "flex",
+							// 			justifyContent: "center",
+							// 			alignItems: "center",
+							// 			fontSize: "30px",
+							// 			padding: "12px",
+							// 			borderRadius: "99%",
+							// 			backgroundColor: "#F1F4F7",
+							// 			marginBottom: "24px",
+							// 		}}
+							// 	>
+							// 		<DocStar />
+							// 	</div>
+							// ),
 						})
 					);
 				}}

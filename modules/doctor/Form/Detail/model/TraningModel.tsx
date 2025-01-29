@@ -9,8 +9,12 @@ import { setDialog } from "@/redux/slices/dialog";
 import TraningDialog from "@/modules/doctor/DialogContent/TrainingDialog";
 import { handleTrainingRows } from "@/modules/doctor/DialogContent/service";
 import dayjs from "dayjs";
-import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import {
+	DateFormat,
+	DateFormatBuddhist,
+} from "wcf-component-lib/src/constants/date-format.constant";
 import { modelDialog } from "@/redux/slices/dialog/model";
+import { convertDateFormatBuddhist } from "wcf-component-lib/src/utils/dayjsThai";
 
 interface Props {
 	trainingGrid: TrainingList[];
@@ -35,13 +39,19 @@ export const GetColumns = (props: Props) => {
 				title: "ปีที่อบรม",
 				dataIndex: "trainingYear",
 				key: "trainingYear",
+				render: (_: any, { trainingYear }: any) => {
+					return <p>{+trainingYear + 543}</p>;
+				},
 			},
 			{
 				title: "วันที่อบรม",
 				dataIndex: "trainingDate",
 				key: "trainingDate",
 				render: (_: any, { trainingDate }: any) => {
-					const date = dayjs(trainingDate).format(DateFormat.DDMMYYYY);
+					const date = convertDateFormatBuddhist(
+						trainingDate,
+						DateFormatBuddhist.DDMMBBBB
+					);
 					return <p>{date}</p>;
 				},
 			},
