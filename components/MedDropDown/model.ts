@@ -10,7 +10,6 @@ export enum SESSION_NAME {
 	HOSPITAL = "hospital",
 	JOB_TYPE = "jobType",
 	ADDRESS = "address",
-	TRAINING = "training",
 	TITLE = "title",
 	DOCTOR_TYPE = "doctorType",
 	POSTAL_ID = "postalId",
