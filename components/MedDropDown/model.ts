@@ -7,7 +7,6 @@ export enum SESSION_NAME {
 	HOSPITAL_CATEGORY = "hospitalCategory",
 	HOSPITAL_LIST_WCF_PLATFORM = "hospitalListWcfPlatform",
 	DOCTOR_BANK = "doctorBank",
-	TRAINING = "training",
 	HOSPITAL_WCF_CODE_VALUE = "hospitalWcfCodeValue",
 	HOSPITAL = "hospital",
 	JOB_TYPE = "jobType",
