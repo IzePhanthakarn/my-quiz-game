@@ -177,8 +177,14 @@ const API_PATH = {
 				"/hospital-history/compare-announced-price-files-version",
 		},
 		ESTIMATE: {
-			LIST: "/hospital/estimate/getAssessHospitalList",
-			DETAIL: "/hospital/estimate/getAssessHospitalByID",
+			// LIST: "/hospital/hospital-assessment/getAssessHospitalList",
+			LIST: "/hospital/hospital-assessment/list",
+			// DETAIL: "/hospital/hospital-assessment/getAssessHospitalByID",
+			DETAIL: "/hospital/hospital-assessment",
+			ADD: "/hospital/hospital-assessment",
+			UPDATE_BY_UUID: "/hospital/hospital-assessment",
+			LIST_HOSPITAL_ASSESSMENT_FILES:
+				"/hospital/hospital-assessment/list-hospital-assessment-files",
 		},
 	},
 	DOCUMENT: {

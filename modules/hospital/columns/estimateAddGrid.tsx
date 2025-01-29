@@ -96,36 +96,40 @@ export const EstimateAddGrid = (router: AppRouterInstance) => {
 					);
 				},
 			},
+			// {
+			// 	key: "uuid",
+			// 	title: "คำสั่ง",
+			// 	dataIndex: "uuid",
+			// 	render: (_) => {
+			// 		return (
+			// 			<FileTextOutlined
+			// 				style={{
+			// 					backgroundColor: "#e7f3f5",
+			// 					padding: "10px",
+			// 					borderRadius: "99%",
+			// 					cursor: "pointer",
+			// 					color: "#1c4651",
+			// 				}}
+			// 				onClick={() => {
+			// 					router.push(LINKS.HOSPITAL.hospitalAssessment.form);
+			// 				}}
+			// 			/>
+			// 		);
+			// 	},
+			// },
 			{
 				key: "uuid",
 				title: "คำสั่ง",
 				dataIndex: "uuid",
-				render: (_) => {
+				render: (_, { uuid }) => {
 					return (
-						<FileTextOutlined
-							style={{
-								backgroundColor: "#e7f3f5",
-								padding: "10px",
-								borderRadius: "99%",
-								cursor: "pointer",
-								color: "#1c4651",
-							}}
-							onClick={() => {
-								router.push(LINKS.HOSPITAL.estimateAdd.form);
-							}}
+						<CustomCellButton
+							editFunction={() =>
+								router.push(LINKS.HOSPITAL.hospitalAssessment.edit + uuid)
+							}
+							mode={BUTTON_MODE.EDIT_ONLY_ICON}
 						/>
 					);
-					// return (
-					// 	<>
-					// 		<CustomCellButton
-					// 			editFunction={() => {
-					// 				// router.push(LINKS.CLINIC.edit + uuid);
-					// 			}}
-					// 			mode={BUTTON_MODE.VIEW_ONLY_ICON}
-					// 		/>
-					// 		asd
-					// 	</>
-					// );
 				},
 			},
 		],
