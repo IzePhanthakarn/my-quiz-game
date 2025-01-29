@@ -249,6 +249,12 @@ export const hospitalReducers = {
 	) => {
 		state.hospitalAnnouncedPriceFileUploadStatus.filter = action.payload;
 	},
+	setHospitalEstimateAdd: (
+		state: Hospital,
+		action: PayloadAction<EstimateAdd>
+	) => {
+		state.estimateAdd = action.payload;
+	},
 	setHospitalEstimateAddGrid: (
 		state: Hospital,
 		action: PayloadAction<EstimateAddGrid>

@@ -7,6 +7,7 @@ export enum SESSION_NAME {
 	HOSPITAL_CATEGORY = "hospitalCategory",
 	HOSPITAL_LIST_WCF_PLATFORM = "hospitalListWcfPlatform",
 	DOCTOR_BANK = "doctorBank",
+	HOSPITAL_WCF_CODE_VALUE = "hospitalWcfCodeValue",
 	HOSPITAL = "hospital",
 	JOB_TYPE = "jobType",
 	ADDRESS = "address",
@@ -72,7 +73,7 @@ export const DROPDOWN = {
 		baseBody: { groupNameLike: "HOSPITAL_CATEGORY" },
 	},
 	[SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM]: {
-		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/estimate/GetHospitalList`,
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/hospital-assessment/GetHospitalList`,
 		sessionName: SESSION_NAME.HOSPITAL_LIST_WCF_PLATFORM,
 		method: API_METHOD.POST,
 		baseBody: undefined,
@@ -108,6 +109,12 @@ export const DROPDOWN = {
 		baseBody: undefined,
 	},
 	[SESSION_NAME.HOSPITAL]: {
+		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/dropdown`,
+		sessionName: SESSION_NAME.HOSPITAL,
+		method: API_METHOD.GET,
+		baseBody: undefined,
+	},
+	[SESSION_NAME.HOSPITAL_WCF_CODE_VALUE]: {
 		apiPath: `${process.env.NEXT_PUBLIC_API_URL_MED}/hospital/dropdown`,
 		sessionName: SESSION_NAME.HOSPITAL,
 		method: API_METHOD.GET,
@@ -226,5 +233,27 @@ export const DROPDOWN_ANNOUNCED_PRICE_FILE_UPLOAD_STATUS = [
 	{
 		label: "สำเร็จ",
 		value: ANNOUNCED_PRICE_FILE_UPLOAD_STATUS.DONE,
+	},
+];
+
+export const HOSPITAL_ASSESSMENT_RESULT_STATUS = [
+	{
+		label: "ผ่าน",
+		value: "P",
+	},
+	{
+		label: "ดำเนินการตามคำแนะนำ",
+		value: "S",
+	},
+];
+
+export const HOSPITAL_ASSESSMENT_ASSESS_TYPE = [
+	{
+		label: "ตรวจรับใหม่",
+		value: "1",
+	},
+	{
+		label: "ตรวจแนะนำ",
+		value: "2",
 	},
 ];

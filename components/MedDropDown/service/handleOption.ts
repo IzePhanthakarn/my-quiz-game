@@ -51,6 +51,12 @@ export const handleOption = (type: SESSION_NAME, result: any) => {
 				value: e.courseCategory,
 			}));
 			break;
+		case SESSION_NAME.HOSPITAL_WCF_CODE_VALUE:
+			option = result.map((e: DoctorHospital) => ({
+				label: `${e.hospitalWcfCode}-${e.hospitalName}`,
+				value: `${e.hospitalWcfCode}`,
+			}));
+			break;
 		case SESSION_NAME.HOSPITAL:
 			option = result.map((e: DoctorHospital) => ({
 				label: `${e.hospitalWcfCode}-${e.hospitalName}`,

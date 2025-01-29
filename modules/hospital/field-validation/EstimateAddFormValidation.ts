@@ -1,16 +1,26 @@
-import { requiredRule } from "wcf-component-lib/src/rules/FormRulesFunction";
+import {
+	maxRule,
+	requiredRule,
+} from "wcf-component-lib/src/rules/FormRulesFunction";
 import { estimateAddNames } from "../interfaces/estimateAddNames";
 
 export const estimateAddRules = {
 	hospital_nameSchema: [requiredRule(estimateAddNames.hospital_name)],
-	typeSchema: [requiredRule(estimateAddNames.type)],
+	hospitalWcfCodeSchema: [requiredRule(estimateAddNames.hospital_name)],
+	assessTypeSchema: [
+		requiredRule(estimateAddNames.assessType),
+		maxRule(estimateAddNames.assessType, 1),
+	],
 	userFirstNameSchema: [requiredRule(estimateAddNames.userFirstName)],
 	userLastNameSchema: [requiredRule(estimateAddNames.userLastName)],
 	emailSchema: [requiredRule(estimateAddNames.email)],
-	refDocNoSchema: [requiredRule(estimateAddNames.refDocNo)],
-	refDocDateSchema: [requiredRule(estimateAddNames.refDocDate)],
+	refDocNoSchema: [],
+	refDocDateSchema: [],
 	notifyDateSchema: [requiredRule(estimateAddNames.notifyDate)],
 	visitDateSchema: [requiredRule(estimateAddNames.visitDate)],
-	resultStatusSchema: [requiredRule(estimateAddNames.resultStatus)],
+	resultStatusSchema: [
+		requiredRule(estimateAddNames.resultStatus),
+		maxRule(estimateAddNames.resultStatus, 1),
+	],
 	resultDescSchema: [requiredRule(estimateAddNames.resultDesc)],
 };

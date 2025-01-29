@@ -81,10 +81,15 @@ export interface EstimateAddGrid extends PaginationModel {
 	data: EstimateAddGridData[];
 }
 
+export interface HospitalAssessmentFilesGrid {
+	pagination: PaginationOptions;
+	hospitalAssessmentUuid: string | null;
+}
+
 export interface BaseEstimateAddData {
 	hospitalName: string;
 	assessId: number;
-	hospitalWCFCode: string;
+	hospitalWcfCode: string;
 	userFirstName: string;
 	userLastName: string;
 	email: string;
@@ -284,26 +289,31 @@ export interface EstimateAddForm {
 	is_deleted: string;
 	updateBy: string;
 	userLastName: string;
-	visitDate: string;
+	visitDate: null | string | undefined;
 	refDocNo: string;
 	email: string;
-	notifyDate: string;
+	notifyDate: null | string | undefined;
 	hospital_name: string;
-	refDocDate: string;
+	refDocDate: null | string | undefined;
 	userFirstName: string;
 	resultDesc: string;
 	resultStatus: string;
-	assessType: number;
-	hospitalWCFCode: string;
-	assessAttachmentfiles: AssessAttachmentfiles[];
+	assessType: string;
+	hospitalWcfCode: string;
+	hospitalAssessmentFiles: HospitalAssessmentFiles[];
+	addNewHospitalAssessmentFiles: HospitalAssessmentFiles[];
+	hospitalAssessmentFilesUuidDeleteList: UuidDeleteList;
 }
 
 export interface EstimateAddFilter {
-	hospitalWCFCode: string;
-	notiDateStart: string;
-	notiDateEnd: string;
-	userFirstName: string;
-	userLastName: string;
+	hospitalWcfCodeLike: string | null;
+	notifyDateBetween: string[] | null;
+	userFirstNameLike: string | null;
+	userLastNameLike: string | null;
+}
+
+export interface GetEstimateAddList extends EstimateAddFilter {
+	pagination: PaginationOptions;
 }
 
 export const modelHospitalFilter: HospitalFilter = {
@@ -325,7 +335,7 @@ export const modelHospitalFilter: HospitalFilter = {
 	CheckSp19EndDate: false,
 };
 
-export interface AssessAttachmentfiles {
+export interface HospitalAssessmentFiles {
 	originalFileName: string;
 	fileName: string;
 	mimeType: string;
@@ -352,31 +362,47 @@ export const modelEstimateAdd: EstimateAdd = {
 		},
 	},
 	filter: {
-		hospitalWCFCode: "",
-		notiDateStart: "",
-		notiDateEnd: "",
-		userFirstName: "",
-		userLastName: "",
+		hospitalWcfCodeLike: "",
+		notifyDateBetween: null,
+		userFirstNameLike: "",
+		userLastNameLike: "",
 	},
 	form: {
-		cancelDate: "",
-		updateDate: "",
-		docStatus: "",
-		is_deleted: "",
-		updateBy: "",
-		userLastName: "",
-		visitDate: "",
-		refDocNo: "",
-		email: "",
-		notifyDate: "",
-		hospital_name: "",
-		refDocDate: "",
-		userFirstName: "",
-		resultDesc: "",
-		resultStatus: "",
-		assessType: 0,
-		hospitalWCFCode: "",
-		assessAttachmentfiles: [],
+		// cancelDate: "",
+		// updateDate: "",
+		// docStatus: "",
+		// is_deleted: "",
+		// updateBy: "",
+		// userLastName: "",
+		// visitDate: "",
+		// refDocNo: "",
+		// email: "",
+		// notifyDate: "",
+		// hospital_name: "",
+		// refDocDate: "",
+		// userFirstName: "",
+		// resultDesc: "",
+		// resultStatus: "",
+		cancelDate: "abcde",
+		updateDate: "abcde",
+		docStatus: "abcde",
+		is_deleted: "abcde",
+		updateBy: "abcde",
+		userLastName: "abcde",
+		visitDate: undefined,
+		refDocNo: "abcde",
+		email: "abcde",
+		notifyDate: undefined,
+		hospital_name: "abcde",
+		refDocDate: undefined,
+		userFirstName: "abcde",
+		resultDesc: "abcde",
+		resultStatus: "P",
+		assessType: "1",
+		hospitalWcfCode: "",
+		hospitalAssessmentFiles: [],
+		addNewHospitalAssessmentFiles: [],
+		hospitalAssessmentFilesUuidDeleteList: [],
 	},
 };
 
