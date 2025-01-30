@@ -3,6 +3,7 @@ import {
 	// equalLengthRule,
 	// minRule,
 	maxRule,
+	onlyNumberRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
 import { organSystemWpiName } from "../interfaces/name";
 
@@ -14,5 +15,6 @@ export const organSystemWpiFormRules = {
 	organSystemNo: [
 		requiredRule(organSystemWpiName.organSystemNo),
 		maxRule(organSystemWpiName.organSystemNo, 2),
+		onlyNumberRule(organSystemWpiName.organSystemNo),
 	],
 };
