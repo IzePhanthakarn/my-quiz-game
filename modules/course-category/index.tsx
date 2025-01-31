@@ -17,6 +17,7 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { courseCategoryName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { modelCourseCategoryFilter } from "./redux/model";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,8 +32,21 @@ export default function CourseManipulate() {
 		shallowEqual
 	);
 
+	const search = () => {
+		dispatch(
+			fetchCourseList({
+				...course,
+				grid: {
+					...course.grid,
+					page: { ...course.grid.page, pageNumber: 0 },
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
-		dispatch(fetchCourseList(course));
+		dispatch(setCourseCategoryFilter(modelCourseCategoryFilter));
+		dispatch(fetchCourseList({ ...course, filter: modelCourseCategoryFilter }));
 	}, []);
 
 	return (
@@ -56,7 +70,7 @@ export default function CourseManipulate() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(course));
+										search();
 									}}
 								/>
 								<div className="w-[240px]">
@@ -80,11 +94,11 @@ export default function CourseManipulate() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchCourseList(course));
+							search();
 						}}
 					/>
 				}
-				AddLabel="เพิ่มคอร์สอบอบรม"
+				AddLabel="เพิ่มคอร์สอบรม"
 				TotalItems={course.grid.page.totalData}
 				Grid={
 					<BaseGrid
@@ -95,7 +109,10 @@ export default function CourseManipulate() {
 						twoToneColor={true}
 						setPagination={(page) => {
 							dispatch(
-								fetchCourseList({ ...course, grid: { ...course.grid, page } })
+								fetchCourseList({
+									...course,
+									grid: { ...course.grid, page },
+								})
 							);
 						}}
 					/>

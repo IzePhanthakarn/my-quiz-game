@@ -12,7 +12,7 @@ import { GetColumns } from "./columns/grid";
 import { fetchLtPropertiesList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
-import { modelLtProperties } from "./redux/model";
+import { modelLtProperties, modelLtPropertiesFilter } from "./redux/model";
 import { setLtPropertiesFilter, setLtPropertiesGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
@@ -35,8 +35,29 @@ export default function LtProperties() {
 		shallowEqual
 	);
 
+	const search = () => {
+		dispatch(
+			fetchLtPropertiesList({
+				...ltProperties,
+				grid: {
+					...ltProperties.grid,
+					page: { ...ltProperties.grid.page, pageNumber: 0 },
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
-		dispatch(fetchLtPropertiesList(ltProperties));
+		dispatch(
+			fetchLtPropertiesList({
+				...ltProperties,
+				filter: modelLtPropertiesFilter,
+				grid: {
+					...ltProperties.grid,
+					page: { ...ltProperties.grid.page, pageNumber: 0 },
+				},
+			})
+		);
 	}, []);
 
 	return (
@@ -45,7 +66,7 @@ export default function LtProperties() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-5 gap-x-2">
 								<BaseItemInput
 									notForm
 									label={ltPropertiesName.propertyCode}
@@ -59,9 +80,7 @@ export default function LtProperties() {
 											})
 										);
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
@@ -76,9 +95,7 @@ export default function LtProperties() {
 											})
 										);
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
@@ -93,9 +110,7 @@ export default function LtProperties() {
 											})
 										);
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
@@ -110,9 +125,7 @@ export default function LtProperties() {
 											})
 										);
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<div className="w-[240px]">
 									<MedDropDown
@@ -135,11 +148,19 @@ export default function LtProperties() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchLtPropertiesList(ltProperties));
+							dispatch(
+								fetchLtPropertiesList({
+									...ltProperties,
+									grid: {
+										...ltProperties.grid,
+										page: { ...ltProperties.grid.page, pageNumber: 0 },
+									},
+								})
+							);
 						}}
 					/>
 				}
-				AddLabel="เพิ่ม Lt Properties"
+				AddLabel="เพิ่ม Lt-Properties"
 				TotalItems={ltProperties.grid.page.totalData}
 				Grid={
 					<BaseGrid
@@ -174,7 +195,7 @@ export default function LtProperties() {
 									},
 								})
 							);
-							dispatch(fetchLtPropertiesList(ltProperties));
+							search();
 						}}
 						clearFilter={() => {
 							dispatch(setLtPropertiesFilter(modelLtProperties.filter));

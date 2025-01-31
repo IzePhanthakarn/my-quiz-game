@@ -50,17 +50,19 @@ export interface CourseCategoryForm extends BaseMasterDataInterface {
 	situation: string;
 }
 
+export const modelCourseCategoryFilter: CourseCategoryFilter = {
+	categoryDescriptionLike: "",
+	checkCategoryDescriptionLike: false,
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelCourseCategory: CourseCategory = {
 	grid: {
 		data: [],
 		page: { ...modelPaginationOptions },
 	},
-	filter: {
-		categoryDescriptionLike: "",
-		checkCategoryDescriptionLike: false,
-		isActive: IsActive.Y,
-		checkIsActive: false,
-	},
+	filter: modelCourseCategoryFilter,
 	form: {
 		...baseMasterDataModel,
 		categoryDescription: "",

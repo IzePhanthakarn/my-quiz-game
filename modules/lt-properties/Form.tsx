@@ -31,6 +31,7 @@ import localeData from "dayjs/plugin/localeData";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import { ltPropertiesName } from "./interfaces/name";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -87,9 +88,15 @@ const Form = (params: LtPropertiesFormPageProps) => {
 				<MasterDataFormLayout
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
 					disabledHistoryButton
-					textHeader="Lt Properties"
+					textHeader="Lt-Properties"
 					initialValues={{
 						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
 					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
@@ -105,6 +112,11 @@ const Form = (params: LtPropertiesFormPageProps) => {
 					cancelFunction={() => {
 						router.push(LINKS.LT_PROPERTIES.link);
 					}}
+					onValuesChange={(e: LtPropertiesForm) => {
+						dispatch(
+							setLtPropertiesForm({ ...form, ...(e as LtPropertiesForm) })
+						);
+					}}
 					inputs={
 						<>
 							<div className="grid gap-x-4 gap-y-2 grid-cols-4">
@@ -113,30 +125,12 @@ const Form = (params: LtPropertiesFormPageProps) => {
 									label={ltPropertiesName.groupName}
 									itemName="groupName"
 									rules={ltPropertiesRules.groupNameSchema}
-									value={form.groupName}
-									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesForm({
-												...form,
-												groupName: e.target.value,
-											})
-										);
-									}}
 								/>
 								<BaseItemInput
 									pageLevel={params.params.uuid ? "edit" : "add"}
 									label={ltPropertiesName.propertyCode}
 									itemName="propertyCode"
 									rules={ltPropertiesRules.propertyCodeSchema}
-									value={form.propertyCode}
-									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesForm({
-												...form,
-												propertyCode: e.target.value,
-											})
-										);
-									}}
 								/>
 
 								<BaseItemInput
@@ -144,15 +138,6 @@ const Form = (params: LtPropertiesFormPageProps) => {
 									label={ltPropertiesName.sortingOrder}
 									itemName="sortingOrder"
 									rules={ltPropertiesRules.sortingOrderSchema}
-									value={form.sortingOrder}
-									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesForm({
-												...form,
-												sortingOrder: parseInt(e.target.value),
-											})
-										);
-									}}
 								/>
 							</div>
 
@@ -162,15 +147,6 @@ const Form = (params: LtPropertiesFormPageProps) => {
 									label={ltPropertiesName.propertyText}
 									itemName="propertyText"
 									rules={ltPropertiesRules.propertyTextSchema}
-									value={form.propertyText}
-									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesForm({
-												...form,
-												propertyText: e.target.value,
-											})
-										);
-									}}
 								/>
 							</div>
 							<div className="grid gap-x-7 gap-y-2 grid-cols-1">
@@ -179,15 +155,6 @@ const Form = (params: LtPropertiesFormPageProps) => {
 									label={ltPropertiesName.description}
 									itemName="description"
 									rules={ltPropertiesRules.descriptionSchema}
-									value={form.description}
-									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesForm({
-												...form,
-												description: e.target.value,
-											})
-										);
-									}}
 								/>
 							</div>
 						</>

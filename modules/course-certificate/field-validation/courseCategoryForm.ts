@@ -1,6 +1,7 @@
 import {
 	requiredRule,
 	maxRule,
+	onlyNumberRule,
 } from "wcf-component-lib/src/rules/FormRulesFunction";
 import { courseCertificateName } from "../interfaces/name";
 
@@ -19,6 +20,7 @@ export const courseCertificateRules = {
 	],
 	courseYearSchema: [
 		requiredRule(courseCertificateName.courseYear),
+		onlyNumberRule(courseCertificateName.courseYear),
 		maxRule(courseCertificateName.courseYear, 2),
 	],
 	organizeCodeSchema: [
@@ -27,9 +29,13 @@ export const courseCertificateRules = {
 	],
 	genNoSchema: [
 		requiredRule(courseCertificateName.genNo),
+		onlyNumberRule(courseCertificateName.genNo),
 		maxRule(courseCertificateName.genNo, 2),
 	],
-	organSystemGroupSchema: [maxRule(courseCertificateName.organSystemGroup, 2)],
+	organSystemGroupSchema: [
+		maxRule(courseCertificateName.organSystemGroup, 2),
+		onlyNumberRule(courseCertificateName.organSystemGroup),
+	],
 	// organSystemNoSchema: [maxRule(courseCertificateName.organSystemNo, 2)],
 	// orderNoSchema: [maxRule(courseCertificateName.orderNo, 3)],
 	// receiverPhoneNumberSchema: [

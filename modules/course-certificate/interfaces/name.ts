@@ -5,7 +5,7 @@ export const courseCertificateName = {
 	courseYear: "ปีที่อบรม",
 	genNo: "รุ่นที่อบรม",
 	organizeCode: "รหัสการอบรม",
-	organSystemGroup: "รหัสกลุ่มอวัยวะ",
+	organSystemGroup: "รหัสหน่วยงานอวัยวะ",
 	// organSystemNo: "รหัสระบบ",
 	// orderNo: "หมายเลขการสั่งซื้อ",
 	// receiverPhoneNumber: "หมายเลขโทรศัพท์ผู้รับ",

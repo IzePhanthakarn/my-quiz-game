@@ -27,6 +27,8 @@ import {
 } from "./service";
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { courseOrganSystemGroupName } from "./interfaces/name";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -85,7 +87,15 @@ const Form = (params: CourseOrganSystemGroupFormPageProps) => {
 				<MasterDataFormLayout
 					textHeader="หมวดหมู่อวัยวะ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					initialValues={form}
+					initialValues={{
+						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
 					disabledHistoryButton
