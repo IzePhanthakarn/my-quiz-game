@@ -13,7 +13,10 @@ import { GetColumns } from "./columns/grid";
 import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
-import { modelCourseOrganSystemGroup } from "./redux/model";
+import {
+	modelCourseOrganSystemGroup,
+	modelCourseOrganSystemGroupFilter,
+} from "./redux/model";
 import { setCourseOrganSystemGroupFilter } from "./redux";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
@@ -35,8 +38,31 @@ export default function CourseOrganSystemGroup() {
 		shallowEqual
 	);
 
+	const search = () => {
+		dispatch(
+			fetchCourseList({
+				...courseOrganSystemGroup,
+				grid: {
+					...courseOrganSystemGroup.grid,
+					page: {
+						...courseOrganSystemGroup.grid.page,
+						pageNumber: 0,
+					},
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
-		dispatch(fetchCourseList(courseOrganSystemGroup));
+		dispatch(
+			setCourseOrganSystemGroupFilter(modelCourseOrganSystemGroupFilter)
+		);
+		dispatch(
+			fetchCourseList({
+				...courseOrganSystemGroup,
+				filter: modelCourseOrganSystemGroupFilter,
+			})
+		);
 	}, []);
 
 	return (
@@ -60,7 +86,7 @@ export default function CourseOrganSystemGroup() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseOrganSystemGroup));
+										search();
 									}}
 								/>
 								<BaseItemInput
@@ -77,7 +103,7 @@ export default function CourseOrganSystemGroup() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseOrganSystemGroup));
+										search();
 									}}
 								/>
 								<BaseItemInput
@@ -94,7 +120,7 @@ export default function CourseOrganSystemGroup() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseOrganSystemGroup));
+										search();
 									}}
 								/>
 								<div className="w-[240px]">
@@ -118,7 +144,7 @@ export default function CourseOrganSystemGroup() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchCourseList(courseOrganSystemGroup));
+							search();
 						}}
 					/>
 				}
@@ -148,7 +174,7 @@ export default function CourseOrganSystemGroup() {
 						content={<FilterDrawer />}
 						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 						confirmFuntion={() => {
-							dispatch(fetchCourseList(courseOrganSystemGroup));
+							search();
 						}}
 						clearFilter={() => {
 							dispatch(

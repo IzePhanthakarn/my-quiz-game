@@ -17,6 +17,7 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { courseCertificateName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
+import { modelCourseCertificateFilter } from "./redux/model";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,8 +32,30 @@ export default function CourseCertificate() {
 		shallowEqual
 	);
 
+	const search = () => {
+		dispatch(
+			fetchCourseList({
+				...courseCertificate,
+				grid: {
+					...courseCertificate.grid,
+					page: { ...courseCertificate.grid.page, pageNumber: 0 },
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
-		dispatch(fetchCourseList(courseCertificate));
+		dispatch(setCourseCertificateFilter(modelCourseCertificateFilter));
+		dispatch(
+			fetchCourseList({
+				...courseCertificate,
+				filter: modelCourseCertificateFilter,
+				grid: {
+					...courseCertificate.grid,
+					page: { ...courseCertificate.grid.page, pageNumber: 0 },
+				},
+			})
+		);
 	}, []);
 
 	return (
@@ -56,7 +79,7 @@ export default function CourseCertificate() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseCertificate));
+										search();
 									}}
 								/>
 								<BaseItemInput
@@ -73,7 +96,7 @@ export default function CourseCertificate() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseCertificate));
+										search();
 									}}
 								/>
 								<BaseItemInput
@@ -90,7 +113,7 @@ export default function CourseCertificate() {
 										);
 									}}
 									onPressEnter={() => {
-										dispatch(fetchCourseList(courseCertificate));
+										search();
 									}}
 								/>
 								<div className="w-[240px]">
@@ -114,7 +137,7 @@ export default function CourseCertificate() {
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchCourseList(courseCertificate));
+							search();
 						}}
 					/>
 				}
@@ -144,7 +167,7 @@ export default function CourseCertificate() {
 				// 		content={<FilterDrawer />}
 				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
 				// 		confirmFuntion={() => {
-				// 			dispatch(fetchCourseList(courseCertificate));
+				// 			search()
 				// 		}}
 				// 		clearFilter={() => {
 				// 			dispatch(

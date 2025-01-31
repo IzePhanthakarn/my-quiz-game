@@ -1,5 +1,5 @@
 export const courseOrganSystemGroupName = {
-	organSystemGroup: "รหัสกลุ่มหลักสูตร",
-	courseCategory: "ประเภทคอร์ส",
-	organSystemNo: "รหัสหลักสูตร",
+	organSystemGroup: "ชื่อหมวดหมู่อวัยวะ",
+	courseCategory: "ประเภทหลักสูตร",
+	organSystemNo: "รหัสหมวดหมู่อวัยวะ",
 };

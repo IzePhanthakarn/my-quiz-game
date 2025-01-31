@@ -249,7 +249,7 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		formAdd: {
 			url: "/course-organ-system-group/form",
-			text: "เพิ่มข้อมูหมวดหมู่อวัยวะ",
+			text: "เพิ่มข้อมูลหมวดหมู่อวัยวะ",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { edit: [2], add: [2] },
 		},
