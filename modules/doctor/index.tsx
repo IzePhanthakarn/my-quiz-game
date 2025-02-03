@@ -128,7 +128,7 @@ export default function Doctor() {
 								extraForm={form}
 								onFinish={onSearch}
 							>
-								<div className="grid grid-cols-4 gap-x-2">
+								<div className="grid grid-cols-4 gap-x-2 w-full">
 									<BaseItemInput
 										itemName="doctorCodeLike"
 										label="เลขทะเบียน สปส"

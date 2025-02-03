@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setCourseCategoryForm } from "./redux";

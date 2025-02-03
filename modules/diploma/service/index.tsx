@@ -50,7 +50,6 @@ export const initDiplomaGrid =
 		};
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDiplomaList(newParams));
-		dispatch(setIsLoading(false));
 		const grid = data.payload.content.map(
 			(data: DiplomaList, index: number) => {
 				return {
@@ -65,4 +64,5 @@ export const initDiplomaGrid =
 		const totalData = data.payload.totalElements;
 		dispatch(setTotalData(totalData));
 		dispatch(setDiplomaGrid(grid));
+		dispatch(setIsLoading(false));
 	};

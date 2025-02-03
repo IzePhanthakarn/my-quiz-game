@@ -76,7 +76,7 @@ export const modelMedicalAmountFilter: MedicalAmountFilter = {
 	checkStartEffectiveDate: false,
 	checkEndEffectiveDate: false,
 	checkNotice: false,
-	isActive: undefined,
+	isActive: IsActive.Y,
 	checkIsActive: false,
 };
 

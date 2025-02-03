@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -14,6 +14,7 @@ import { fetchCourseList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
 import {
+	CourseOrganSystemGroupFilter,
 	modelCourseOrganSystemGroup,
 	modelCourseOrganSystemGroupFilter,
 } from "./redux/model";
@@ -28,9 +29,8 @@ import { courseOrganSystemGroupName } from "./interfaces/name";
 export default function CourseOrganSystemGroup() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { courseOrganSystemGroup, isOpen, isLoading, filter } = useSelector(
+	const { courseOrganSystemGroup, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			courseOrganSystemGroup: state.courseOrganSystemGroup,
 			filter: state.courseOrganSystemGroup.filter,
@@ -38,10 +38,17 @@ export default function CourseOrganSystemGroup() {
 		shallowEqual
 	);
 
+	const [tmpFilter, setTmpFilter] = useState<CourseOrganSystemGroupFilter>(
+		modelCourseOrganSystemGroupFilter
+	);
+
 	const search = () => {
+		const newFilter = { ...filter, ...tmpFilter };
+		dispatch(setCourseOrganSystemGroupFilter(newFilter));
 		dispatch(
 			fetchCourseList({
 				...courseOrganSystemGroup,
+				filter: newFilter,
 				grid: {
 					...courseOrganSystemGroup.grid,
 					page: {
@@ -54,6 +61,7 @@ export default function CourseOrganSystemGroup() {
 	};
 
 	useEffect(() => {
+		setTmpFilter(modelCourseOrganSystemGroupFilter);
 		dispatch(
 			setCourseOrganSystemGroupFilter(modelCourseOrganSystemGroupFilter)
 		);
@@ -71,19 +79,17 @@ export default function CourseOrganSystemGroup() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={courseOrganSystemGroupName.courseCategory}
 									itemName="courseCategoryLike"
-									value={filter.courseCategoryLike}
+									value={tmpFilter.courseCategoryLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupFilter({
-												...filter,
-												courseCategoryLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											courseCategoryLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
@@ -93,14 +99,12 @@ export default function CourseOrganSystemGroup() {
 									notForm
 									label={courseOrganSystemGroupName.organSystemGroup}
 									itemName="organSystemGroupLike"
-									value={filter.organSystemGroupLike}
+									value={tmpFilter.organSystemGroupLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupFilter({
-												...filter,
-												organSystemGroupLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											organSystemGroupLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
@@ -110,36 +114,30 @@ export default function CourseOrganSystemGroup() {
 									notForm
 									label={courseOrganSystemGroupName.organSystemNo}
 									itemName="organSystemNoLike"
-									value={filter.organSystemNoLike}
+									value={tmpFilter.organSystemNoLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseOrganSystemGroupFilter({
-												...filter,
-												organSystemNoLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											organSystemNoLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
 									}}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setCourseOrganSystemGroupFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
@@ -167,24 +165,24 @@ export default function CourseOrganSystemGroup() {
 						}}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isFilter
-						isOpen={isOpen}
-						content={<FilterDrawer />}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {
-							search();
-						}}
-						clearFilter={() => {
-							dispatch(
-								setCourseOrganSystemGroupFilter(
-									modelCourseOrganSystemGroup.filter
-								)
-							);
-						}}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isFilter
+				// 		isOpen={isOpen}
+				// 		content={<FilterDrawer />}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		confirmFuntion={() => {
+				// 			search();
+				// 		}}
+				// 		clearFilter={() => {
+				// 			dispatch(
+				// 				setCourseOrganSystemGroupFilter(
+				// 					modelCourseOrganSystemGroup.filter
+				// 				)
+				// 			);
+				// 		}}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.COURSE_ORGAN_SYSTEM_GROUP.add)}
 			/>
 		</div>

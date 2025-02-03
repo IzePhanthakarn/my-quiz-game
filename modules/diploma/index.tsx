@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { AppDispatch } from "@/redux/config/configStore";
@@ -17,8 +17,7 @@ import { diplomaName } from "./interface/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
-import { modelDiplomaFilter } from "./redux/filter/model";
-import axios from "axios";
+import { DiplomaFilter, modelDiplomaFilter } from "./redux/filter/model";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();
@@ -33,25 +32,32 @@ export default function Diploma() {
 		shallowEqual
 	);
 
-	const fetchList = (page: PaginationOptions, isFilter: boolean = false) => {
+	const [tmpFilter, setTmpFilter] = useState<DiplomaFilter>(modelDiplomaFilter);
+
+	const fetchList = (page: PaginationOptions, setFilter = true) => {
+		let newFilter = { ...filter };
+		if (setFilter) {
+			newFilter = {
+				...filter,
+				...tmpFilter,
+			};
+			dispatch(setDiplomaFilter(newFilter));
+		}
 		dispatch(setPagination(page));
 		dispatch(
 			initDiplomaGrid({
 				pagination: { ...page },
-				diplomaTypeLike: isFilter
-					? modelDiplomaFilter.diplomaTypeLike
-					: filter.diplomaTypeLike,
-				diplomaNameLike: isFilter
-					? modelDiplomaFilter.diplomaNameLike
-					: filter.diplomaNameLike,
-				isActive: filter.isActive,
+				diplomaTypeLike: newFilter.diplomaTypeLike,
+				diplomaNameLike: newFilter.diplomaNameLike,
+				isActive: newFilter.isActive,
 			})
 		);
 	};
 
 	useEffect(() => {
+		setTmpFilter(modelDiplomaFilter);
 		dispatch(setDiplomaFilter(modelDiplomaFilter));
-		fetchList(page, true);
+		fetchList(page);
 	}, []);
 
 	return (
@@ -60,19 +66,17 @@ export default function Diploma() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex items-center space-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={diplomaName.diplomaType}
 									itemName="diplomaTypeLike"
-									value={filter.diplomaTypeLike}
+									value={tmpFilter.diplomaTypeLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setDiplomaFilter({
-												...filter,
-												diplomaTypeLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											diplomaTypeLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
@@ -80,34 +84,28 @@ export default function Diploma() {
 									notForm
 									label={diplomaName.diplomaName}
 									itemName="diplomaNameLike"
-									value={filter.diplomaNameLike}
+									value={tmpFilter.diplomaNameLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setDiplomaFilter({
-												...filter,
-												diplomaNameLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											diplomaNameLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => fetchList({ ...page, pageNumber: 0 })}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setDiplomaFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
@@ -124,7 +122,7 @@ export default function Diploma() {
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => fetchList(page, true)}
+						setPagination={(page) => fetchList(page, false)}
 					/>
 				}
 				// Drawer={
@@ -137,9 +135,9 @@ export default function Diploma() {
 				// 			dispatch(
 				// 				initDiplomaGrid({
 				// 					pagination: { ...page },
-				// 					diplomaTypeLike: filter.diplomaTypeLike,
-				// 					diplomaNameLike: filter.diplomaNameLike,
-				// 					isActive: filter.isActive,
+				// 					diplomaTypeLike: tmpFilter.diplomaTypeLike,
+				// 					diplomaNameLike: tmpFilter.diplomaNameLike,
+				// 					isActive: tmpFilter.isActive,
 				// 				})
 				// 			)
 				// 		}

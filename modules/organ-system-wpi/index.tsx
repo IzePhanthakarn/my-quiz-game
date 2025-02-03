@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -17,7 +17,7 @@ import { setOrganSystemWpiFilter, setOrganSystemWpiPagination } from "./redux";
 import { organSystemWpiName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { modelOrganSystemWpiFilter } from "./redux/model";
+import { modelOrganSystemWpiFilter, OrganSystemWpiFilter } from "./redux/model";
 
 export default function OrganSystemWpi() {
 	const dispatch: AppDispatch = useDispatch();
@@ -31,7 +31,30 @@ export default function OrganSystemWpi() {
 		shallowEqual
 	);
 
+	const [tmpFilter, setTmpFilter] = useState<OrganSystemWpiFilter>(
+		modelOrganSystemWpiFilter
+	);
+
+	const search = () => {
+		const newFilter = { ...filter, ...tmpFilter };
+		dispatch(setOrganSystemWpiFilter(newFilter));
+		dispatch(
+			fetchOrganList({
+				...organ,
+				filter: newFilter,
+				grid: {
+					...organ.grid,
+					page: {
+						...organ.grid.page,
+						pageNumber: 0,
+					},
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
+		setTmpFilter(modelOrganSystemWpiFilter);
 		dispatch(setOrganSystemWpiFilter(modelOrganSystemWpiFilter));
 		dispatch(fetchOrganList({ ...organ, filter: modelOrganSystemWpiFilter }));
 	}, []);
@@ -42,19 +65,17 @@ export default function OrganSystemWpi() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={organSystemWpiName.organSystemNo}
 									itemName="organSystemNoLike"
-									value={filter.organSystemNoLike}
+									value={tmpFilter.organSystemNoLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setOrganSystemWpiFilter({
-												...filter,
-												organSystemNoLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											organSystemNoLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										dispatch(
@@ -75,14 +96,12 @@ export default function OrganSystemWpi() {
 									notForm
 									label={organSystemWpiName.description}
 									itemName="descriptionLike"
-									value={filter.descriptionLike}
+									value={tmpFilter.descriptionLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setOrganSystemWpiFilter({
-												...filter,
-												descriptionLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											descriptionLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										dispatch(
@@ -99,36 +118,24 @@ export default function OrganSystemWpi() {
 										);
 									}}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setOrganSystemWpiFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(
-								fetchOrganList({
-									...organ,
-									grid: {
-										...organ.grid,
-										page: { ...organ.grid.page, pageNumber: 0 },
-									},
-								})
-							);
+							search();
 						}}
 					/>
 				}

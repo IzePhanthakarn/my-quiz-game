@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -17,14 +17,13 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { courseCategoryName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { modelCourseCategoryFilter } from "./redux/model";
+import { CourseCategoryFilter, modelCourseCategoryFilter } from "./redux/model";
 
 export default function CourseManipulate() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { course, isOpen, isLoading, filter } = useSelector(
+	const { course, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			course: state.courseCategory,
 			filter: state.courseCategory.filter,
@@ -32,10 +31,17 @@ export default function CourseManipulate() {
 		shallowEqual
 	);
 
+	const [tmpFilter, setTmpFilter] = useState<CourseCategoryFilter>(
+		modelCourseCategoryFilter
+	);
+
 	const search = () => {
+		const newFilter = { ...tmpFilter, ...tmpFilter };
+		dispatch(setCourseCategoryFilter(newFilter));
 		dispatch(
 			fetchCourseList({
 				...course,
+				filter: newFilter,
 				grid: {
 					...course.grid,
 					page: { ...course.grid.page, pageNumber: 0 },
@@ -45,6 +51,7 @@ export default function CourseManipulate() {
 	};
 
 	useEffect(() => {
+		setTmpFilter(modelCourseCategoryFilter);
 		dispatch(setCourseCategoryFilter(modelCourseCategoryFilter));
 		dispatch(fetchCourseList({ ...course, filter: modelCourseCategoryFilter }));
 	}, []);
@@ -55,41 +62,35 @@ export default function CourseManipulate() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={courseCategoryName.categoryDescription}
 									itemName="categoryDescriptionLike"
-									value={filter.categoryDescriptionLike}
+									value={tmpFilter.categoryDescriptionLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCategoryFilter({
-												...filter,
-												categoryDescriptionLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											categoryDescriptionLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
 									}}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setCourseCategoryFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
@@ -117,20 +118,6 @@ export default function CourseManipulate() {
 						}}
 					/>
 				}
-				// Drawer={
-				// 	<BaseDrawer
-				// 		isFilter
-				// 		isOpen={isOpen}
-				// 		content={<FilterDrawer />}
-				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-				// 		confirmFuntion={() => {
-				// 			dispatch(fetchCourseList(course));
-				// 		}}
-				// 		clearFilter={() => {
-				// 			dispatch(setCourseCategoryFilter(modelCourseCategory.filter));
-				// 		}}
-				// 	/>
-				// }
 				AddFunction={() => router.push(LINKS.COURSE_CATEGORY.add)}
 			/>
 		</div>

@@ -11,8 +11,6 @@ import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import React from "react";
-import { findNameDisplay } from "@/components/MedDropDown/service";
-import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findE_HospitalProvince } from "./service";
 
 interface Props {
@@ -151,7 +149,7 @@ export const GetColumns = (prop: Props) => {
 				key: "uuid",
 				render: (_, { uuid }) => (
 					<CustomCellButton
-						editFunction={() => router.push(`${LINKS.DOCTOR.edit}/${uuid}`)}
+						editFunction={() => router.push(`${LINKS.DOCTOR.edit}${uuid}`)}
 						mode={BUTTON_MODE.EDIT_ONLY_ICON}
 					/>
 				),
