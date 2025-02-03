@@ -24,75 +24,124 @@ export const GetHospitalColumns = (router: AppRouterInstance) => {
 			// 	render: (_, { isActive }) => <StatusIndicator status={isActive} />,
 			// },
 			{
-				sorter: true,
+				sorter: false,
 				key: "hospitalWcfCode",
 				dataIndex: "hospitalWcfCode",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"hospitalWcfCode"}
-						label={names.hospitalWcfCode}
-						sort={columns?.sortColumns}
-					/>
-				),
+				title: `รหัส`,
+
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"hospitalWcfCode"}
+				// 		label={"รหัส"}
+				// 		// label={names.hospitalWcfCode}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
 			},
 			{
-				sorter: true,
-				key: "hospitalDbmsCode",
-				dataIndex: "hospitalDbmsCode",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"hospitalDbmsCode"}
-						label={names.hospitalDbmsCode}
-						sort={columns?.sortColumns}
-					/>
-				),
+				sorter: false,
+				key: "hospitalCategory",
+				dataIndex: "hospitalCategory",
+				title: `${names.hospitalCategory}`,
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"hospitalCategory"}
+				// 		label={"ประเภท"}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
 			},
 			{
-				sorter: true,
-				key: "hospitalMinistryCode",
-				dataIndex: "hospitalMinistryCode",
-				title: (columns: ColumnTitleProps<any>) => (
-					<CustomHeaderSort
-						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"hospitalMinistryCode"}
-						label={names.hospitalMinistryCode}
-						sort={columns?.sortColumns}
-					/>
-				),
-			},
-			{
-				sorter: true,
+				sorter: false,
 				key: "hospitalName",
 				dataIndex: "hospitalName",
+				title: `${names.hospitalName}`,
+
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"hospitalName"}
+				// 		label={names.hospitalName}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
+			},
+			{
+				sorter: false,
+				key: "address",
+				dataIndex: "address",
+				title: `${names.address}`,
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"address"}
+				// 		label={names.address}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
+			},
+			{
+				sorter: false,
+				key: "amphurCode",
+				dataIndex: "amphurCode",
+				title: `${names.amphurCode}`,
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"amphurCode"}
+				// 		label={names.amphurCode}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
+			},
+			{
+				sorter: false,
+				key: "provinceCode",
+				dataIndex: "provinceCode",
+				title: `${names.provinceCode}`,
+				// title: (columns: ColumnTitleProps<any>) => (
+				// 	<CustomHeaderSort
+				// 		columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
+				// 		headerKey={"provinceCode"}
+				// 		label={names.provinceCode}
+				// 		sort={columns?.sortColumns}
+				// 	/>
+				// ),
+			},
+			// {
+			// 	sorter: true,
+			// 	title: names.contractEndDate,
+			// 	dataIndex: "contractEndDate",
+			// 	render: (_, { contractEndDate }) => {
+			// 		return (
+			// 			<div>
+			// 				{convertDateFormatBuddhist(
+			// 					contractEndDate,
+			// 					DateFormatBuddhist.DDMMBBBB
+			// 				)}
+			// 			</div>
+			// 		);
+			// 	},
+			// },
+			{
+				sorter: true,
+				key: "contractEndDate",
+				dataIndex: "contractEndDate",
+				// title: `${names.contractEndDate}`,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
-						headerKey={"hospitalName"}
-						label={names.hospitalName}
+						headerKey={"contractEndDate"}
+						label={names.contractEndDate}
 						sort={columns?.sortColumns}
 					/>
 				),
-			},
-
-			{
-				title: names.contractEndDate,
-				dataIndex: "contractEndDate",
-				render: (_, { contractEndDate }) => {
-					return (
-						<div>
-							{convertDateFormatBuddhist(
-								contractEndDate,
-								DateFormatBuddhist.DDMMBBBB
-							)}
-						</div>
-					);
-				},
 			},
 			{
 				key: "uuid",
-				title: "คำสั่ง",
+				title: "แก้ไข",
 				dataIndex: "uuid",
 				render: (_, { uuid }) => {
 					return (
