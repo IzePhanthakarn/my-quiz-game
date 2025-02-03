@@ -54,6 +54,7 @@ export default function OrganSystemWpi() {
 	};
 
 	useEffect(() => {
+		setTmpFilter(modelOrganSystemWpiFilter);
 		dispatch(setOrganSystemWpiFilter(modelOrganSystemWpiFilter));
 		dispatch(fetchOrganList({ ...organ, filter: modelOrganSystemWpiFilter }));
 	}, []);
@@ -64,7 +65,7 @@ export default function OrganSystemWpi() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="grid grid-cols-4 gap-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={organSystemWpiName.organSystemNo}
@@ -117,21 +118,19 @@ export default function OrganSystemWpi() {
 										);
 									}}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={tmpFilter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											setTmpFilter({
-												...tmpFilter,
-												isActive: value,
-											});
-										}}
-									/>
-								</div>
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}

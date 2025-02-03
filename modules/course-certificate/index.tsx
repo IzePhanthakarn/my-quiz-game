@@ -53,6 +53,7 @@ export default function CourseCertificate() {
 	};
 
 	useEffect(() => {
+		setTmpFilter(filter);
 		dispatch(setCourseCertificateFilter(modelCourseCertificateFilter));
 		dispatch(
 			fetchCourseList({
@@ -72,7 +73,7 @@ export default function CourseCertificate() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="grid grid-cols-4 gap-x-2">
+							<div className="grid grid-cols-4 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={courseCertificateName.courseCategory}
