@@ -11,8 +11,6 @@ import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import React from "react";
-import { findNameDisplay } from "@/components/MedDropDown/service";
-import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findE_HospitalProvince } from "./service";
 
 interface Props {

@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -17,25 +17,33 @@ import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
 import { courseCertificateName } from "./interfaces/name";
 import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
-import { modelCourseCertificateFilter } from "./redux/model";
+import {
+	CourseCertificateFilter,
+	modelCourseCertificateFilter,
+} from "./redux/model";
 
 export default function CourseCertificate() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { courseCertificate, isOpen, isLoading, filter } = useSelector(
+	const { courseCertificate, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			courseCertificate: state.courseCertificate,
 			filter: state.courseCertificate.filter,
 		}),
 		shallowEqual
 	);
+	const [tmpFilter, setTmpFilter] = useState<CourseCertificateFilter>(
+		modelCourseCertificateFilter
+	);
 
 	const search = () => {
+		const newFilter = { ...filter, ...tmpFilter };
+		dispatch(setCourseCertificateFilter(newFilter));
 		dispatch(
 			fetchCourseList({
 				...courseCertificate,
+				filter: newFilter,
 				grid: {
 					...courseCertificate.grid,
 					page: { ...courseCertificate.grid.page, pageNumber: 0 },
@@ -64,19 +72,17 @@ export default function CourseCertificate() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-4 gap-x-2">
 								<BaseItemInput
 									notForm
 									label={courseCertificateName.courseCategory}
 									itemName="courseCategoryLike"
-									value={filter.courseCategoryLike}
+									value={tmpFilter.courseCategoryLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateFilter({
-												...filter,
-												courseCategoryLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											courseCategoryLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
@@ -86,14 +92,12 @@ export default function CourseCertificate() {
 									notForm
 									label={courseCertificateName.ssoCourseCode}
 									itemName="ssoCourseCodeLike"
-									value={filter.ssoCourseCodeLike}
+									value={tmpFilter.ssoCourseCodeLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateFilter({
-												...filter,
-												ssoCourseCodeLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											ssoCourseCodeLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
@@ -103,36 +107,31 @@ export default function CourseCertificate() {
 									notForm
 									label={courseCertificateName.courseDescription}
 									itemName="courseDescriptionLike"
-									value={filter.courseDescriptionLike}
+									value={tmpFilter.courseDescriptionLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setCourseCertificateFilter({
-												...filter,
-												courseDescriptionLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											courseDescriptionLike: e.target.value,
+										});
 									}}
 									onPressEnter={() => {
 										search();
 									}}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setCourseCertificateFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
@@ -160,22 +159,6 @@ export default function CourseCertificate() {
 						}}
 					/>
 				}
-				// Drawer={
-				// 	<BaseDrawer
-				// 		isFilter
-				// 		isOpen={isOpen}
-				// 		content={<FilterDrawer />}
-				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-				// 		confirmFuntion={() => {
-				// 			search()
-				// 		}}
-				// 		clearFilter={() => {
-				// 			dispatch(
-				// 				setCourseCertificateFilter(modelCourseCertificate.filter)
-				// 			);
-				// 		}}
-				// 	/>
-				// }
 				AddFunction={() => router.push(LINKS.COURSE_CERTIFICATE.add)}
 			/>
 		</div>

@@ -18,7 +18,6 @@ import MedDropDown from "@/components/MedDropDown";
 import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 import { PaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import { modelDiplomaFilter } from "./redux/filter/model";
-import axios from "axios";
 
 export default function Diploma() {
 	const dispatch: AppDispatch = useDispatch();

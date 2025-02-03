@@ -2,6 +2,14 @@ import { MedKey } from "@/components/MedDivPermission/model";
 import { DataStructureURL } from "wcf-component-lib/src/provider/LayoutProvider/type";
 
 export const configPage: DataStructureURL<MedKey> = {
+	todoList: {
+		root: {
+			url: "/todo-list",
+			breadcrumb: ["root"],
+			text: "To Do List สถานพยาบาล",
+			pageLevel: {},
+		},
+	},
 	doctor: {
 		root: {
 			url: "/doctor",
