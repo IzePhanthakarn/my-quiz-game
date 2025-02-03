@@ -53,7 +53,7 @@ export default function CourseCertificate() {
 	};
 
 	useEffect(() => {
-		setTmpFilter(filter);
+		setTmpFilter(modelCourseCertificateFilter);
 		dispatch(setCourseCertificateFilter(modelCourseCertificateFilter));
 		dispatch(
 			fetchCourseList({
