@@ -165,6 +165,7 @@ export interface HospitalFilter {
 	hospitalNameLike: string | null;
 	sp7EndDateBetween: string[] | null;
 	sp19EndDateBetween: string[] | null;
+	provinceCodeLike: string | null;
 
 	CheckHospitalWcfCode: boolean;
 	CheckHospitalDbmsCode: boolean;
@@ -321,6 +322,7 @@ export const modelHospitalFilter: HospitalFilter = {
 	hospitalDbmsCodeLike: "",
 	hospitalMinistryCodeLike: "",
 	hospitalNameLike: "",
+	provinceCodeLike: null,
 	sp7EndDateBetween: null,
 	sp19EndDateBetween: null,
 
@@ -329,7 +331,9 @@ export const modelHospitalFilter: HospitalFilter = {
 	CheckHospitalMinistryCode: false,
 	CheckHospitalName: false,
 
-	isActive: undefined,
+	// isActive: undefined,
+	isActive: IsActive.Y,
+
 	checkIsActive: false,
 	CheckSp7EndDate: false,
 	CheckSp19EndDate: false,

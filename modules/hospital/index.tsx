@@ -11,30 +11,59 @@ import BaseDrawer from "wcf-component-lib/src/components/BaseDrawer";
 import { fetchHospitalList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./filterDrawer";
-import { modelHospital } from "./redux/models/hospitalModel";
+import {
+	HospitalFilter,
+	modelHospital,
+	Hospital,
+} from "./redux/models/hospitalModel";
 import { setHospitalFilter, setHospitalGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
 import { GetHospitalColumns } from "./columns/hospitalGrid";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
 
 import FilterLayout from "wcf-component-lib/src/layout/FilterLayout";
+import {
+	DROPDOWN_ISACTIVE,
+	SESSION_NAME,
+} from "../../components/MedDropDown/model";
+import MedDropDown from "@/components/MedDropDown";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
+// import { Hospital } from "@/redux/models/hospitalModel";
 
-export default function Hospital() {
+export default function HospitalPage() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { hospital, isOpen, isLoading } = useSelector(
+	const { hospital, isOpen, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
 			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			hospital: state.hospital,
+			filter: state.hospital.filter,
 		}),
 		shallowEqual
 	);
+	const [form] = Form.useForm<HospitalFilter>();
+	const hospitalNameLike: keyof HospitalFilter = "hospitalNameLike";
+	const provinceCodeLike: keyof HospitalFilter = "provinceCodeLike";
+	const isActive: keyof HospitalFilter = "isActive";
 
 	useEffect(() => {
 		dispatch(fetchHospitalList(hospital));
 	}, []);
+	const onFinish: FormProps<HospitalFilter>["onFinish"] = async (value) => {
+		const newHospital: Hospital = {
+			...hospital,
+			filter: {
+				...filter,
+				...value,
+			},
+		};
+		dispatch(fetchHospitalList(newHospital));
+	};
 
 	return (
 		<div>
@@ -42,10 +71,49 @@ export default function Hospital() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<BaseItemInput notForm label="ค้นหา" onPressEnter={() => {}} />
+							<BaseForm
+								initialValues={filter}
+								extraForm={form}
+								onFinish={onFinish}
+							>
+								<div className="grid grid-cols-3 gap-x-2">
+									<BaseItemInput
+										label="ชื่อสถานพยาบาล"
+										itemName={hospitalNameLike}
+										onPressEnter={() => form.submit()}
+									/>
+
+									<MedDropDown
+										label="จังหวัด"
+										itemName={provinceCodeLike}
+										type={SESSION_NAME.PROVINCE_NAME}
+										getValue={(e) => {
+											console.log("🚀 ~ Hospital ~ e:", e);
+											// form.setFieldValue("proviceHospitalLike", e);
+										}}
+									/>
+
+									<MedDropDown
+										label="สถานะการใช้งาน"
+										option={DROPDOWN_ISACTIVE}
+										value={filter.isActive}
+										itemName={isActive}
+										// getValue={(value) => {
+										// dispatch(
+										// 	setOrganSystemWpiFilter({
+										// 		...filter,
+										// 		isActive: value,
+										// 	})
+										// );
+										// }}
+									/>
+								</div>
+							</BaseForm>
 						}
-						handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-						handleSubmitSearch={() => {}}
+						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
+						handleSubmitSearch={() => {
+							form.submit();
+						}}
 					/>
 				}
 				AddLabel="เพิ่มสถานพยาบาล"
