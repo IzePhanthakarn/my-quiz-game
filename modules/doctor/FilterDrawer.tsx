@@ -3,9 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import BaseItemCheckbox from "wcf-component-lib/src/components/BaseItemCheckbox/BaseItemCheckbox";
 import BaseItemInput from "wcf-component-lib/src/components/BaseItemInput/BaseItemInput";
-import BaseItemCheckboxFilterGroup from "wcf-component-lib/src/components/BaseItemCheckboxFilterGroup/BaseItemCheckboxFilterGroup";
 import { BaseFormItemPosition } from "wcf-component-lib/src/constants/form-item-position";
-import { IsActive } from "wcf-component-lib/src/constants/constants";
 import BaseColumn from "wcf-component-lib/src/components/BaseColumn";
 import { setDoctorFilter } from "./redux";
 import MedDropDown from "@/components/MedDropDown";
@@ -132,7 +130,7 @@ export default function FilterDrawer(prop: Props) {
 						</>
 					)}
 				</div>
-				<div className="filter-box space-y-2">
+				{/* <div className="filter-box space-y-2">
 					<BaseItemCheckboxFilterGroup
 						isMainInputChecked={filter.checkIsActive}
 						notForm
@@ -165,7 +163,7 @@ export default function FilterDrawer(prop: Props) {
 							);
 						}}
 					/>
-				</div>
+				</div> */}
 			</BaseColumn>
 		</BaseForm>
 	);
