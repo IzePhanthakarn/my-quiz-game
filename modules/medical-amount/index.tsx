@@ -38,6 +38,7 @@ export default function MedicalAmount() {
 	);
 
 	useEffect(() => {
+		setTmpFilter(modelMedicalAmountFilter);
 		dispatch(setMedicalAmountFilter(modelMedicalAmountFilter));
 		dispatch(
 			fetchMedicalAmountList({
