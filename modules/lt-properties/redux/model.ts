@@ -53,6 +53,23 @@ export interface LtPropertiesForm extends BaseMasterDataInterface {
 	description: string;
 }
 
+export const modelLtPropertiesFilter: LtPropertiesFilter = {
+	propertyCodeLike: "",
+	groupNameLike: "",
+	propertyTextLike: "",
+	sortingOrder: 0,
+	descriptionLike: "",
+
+	checkProptertyCode: false,
+	checkGroupName: false,
+	checkProptertyText: false,
+	checkSortingOrder: false,
+	checkDescription: false,
+
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelLtProperties: LtProperties = {
 	grid: {
 		data: [],
@@ -62,22 +79,7 @@ export const modelLtProperties: LtProperties = {
 			pageSize: 10,
 		},
 	},
-	filter: {
-		propertyCodeLike: "",
-		groupNameLike: "",
-		propertyTextLike: "",
-		sortingOrder: 0,
-		descriptionLike: "",
-
-		checkProptertyCode: false,
-		checkGroupName: false,
-		checkProptertyText: false,
-		checkSortingOrder: false,
-		checkDescription: false,
-
-		isActive: IsActive.Y,
-		checkIsActive: false,
-	},
+	filter: modelLtPropertiesFilter,
 	form: {
 		...baseMasterDataModel,
 		propertyCode: "",

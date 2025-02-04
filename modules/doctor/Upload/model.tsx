@@ -28,7 +28,7 @@ export const columns: TableProps["columns"] = [
 		key: "citizenId",
 	},
 	{
-		title: "ชื่อ-สกุล",
+		title: "ชื่อ-นามสกุล",
 		dataIndex: "firstname",
 		key: "firstname",
 		render: (_, { firstname, lastname, titlename }) => {

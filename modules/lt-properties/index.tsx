@@ -2,7 +2,7 @@
 
 import { AppDispatch } from "@/redux/config/configStore";
 import { SliceModel } from "@/redux/slices/model";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { LINKS } from "@/constants/links";
 import BaseGrid from "wcf-component-lib/src/components/BaseGrid";
@@ -12,7 +12,11 @@ import { GetColumns } from "./columns/grid";
 import { fetchLtPropertiesList } from "./service";
 import { setIsOpenDrawer } from "@/redux/slices/drawer";
 import FilterDrawer from "./FilterDrawer";
-import { modelLtProperties } from "./redux/model";
+import {
+	LtPropertiesFilter,
+	modelLtProperties,
+	modelLtPropertiesFilter,
+} from "./redux/model";
 import { setLtPropertiesFilter, setLtPropertiesGrid } from "./redux";
 import { modelPaginationOptions } from "wcf-component-lib/src/components/BasePagination/model";
 import MasterDataLayout from "wcf-component-lib/src/layout/MasterDataLayout";
@@ -25,9 +29,8 @@ import { DROPDOWN_ISACTIVE } from "@/components/MedDropDown/model";
 export default function LtProperties() {
 	const dispatch: AppDispatch = useDispatch();
 	const router = useRouter();
-	const { ltProperties, isOpen, isLoading, filter } = useSelector(
+	const { ltProperties, isLoading, filter } = useSelector(
 		(state: SliceModel) => ({
-			isOpen: state.drawer.isOpen,
 			isLoading: state.container.isLoading,
 			ltProperties: state.ltProperties,
 			filter: state.ltProperties.filter,
@@ -35,8 +38,39 @@ export default function LtProperties() {
 		shallowEqual
 	);
 
+	const [tmpFilter, setTmpFilter] = useState<LtPropertiesFilter>(
+		modelLtPropertiesFilter
+	);
+
+	const search = () => {
+		const newFilter = { ...filter, ...tmpFilter };
+		console.log("newFilter", newFilter);
+		dispatch(setLtPropertiesFilter(newFilter));
+		dispatch(
+			fetchLtPropertiesList({
+				...ltProperties,
+				filter: newFilter,
+				grid: {
+					...ltProperties.grid,
+					page: { ...ltProperties.grid.page, pageNumber: 0 },
+				},
+			})
+		);
+	};
+
 	useEffect(() => {
-		dispatch(fetchLtPropertiesList(ltProperties));
+		setTmpFilter(modelLtPropertiesFilter);
+		dispatch(setLtPropertiesFilter(modelLtPropertiesFilter));
+		dispatch(
+			fetchLtPropertiesList({
+				...ltProperties,
+				filter: modelLtPropertiesFilter,
+				grid: {
+					...ltProperties.grid,
+					page: { ...ltProperties.grid.page, pageNumber: 0 },
+				},
+			})
+		);
 	}, []);
 
 	return (
@@ -45,101 +79,82 @@ export default function LtProperties() {
 				FilterLayout={
 					<FilterLayout
 						FilterForm={
-							<div className="flex space-x-2">
+							<div className="grid grid-cols-5 gap-x-2 w-full">
 								<BaseItemInput
 									notForm
 									label={ltPropertiesName.propertyCode}
 									itemName="propertyCodeLike"
-									value={filter.propertyCodeLike}
+									value={tmpFilter.propertyCodeLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesFilter({
-												...filter,
-												propertyCodeLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											propertyCodeLike: e.target.value,
+										});
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
 									label={ltPropertiesName.groupName}
 									itemName="groupNameLike"
-									value={filter.groupNameLike}
+									value={tmpFilter.groupNameLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesFilter({
-												...filter,
-												groupNameLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											groupNameLike: e.target.value,
+										});
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
 									label={ltPropertiesName.propertyText}
 									itemName="propertyTextLike"
-									value={filter.propertyTextLike}
+									value={tmpFilter.propertyTextLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesFilter({
-												...filter,
-												propertyTextLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											propertyTextLike: e.target.value,
+										});
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
 								<BaseItemInput
 									notForm
 									label={ltPropertiesName.description}
 									itemName="descriptionLike"
-									value={filter.descriptionLike}
+									value={tmpFilter.descriptionLike}
 									onChangeFunction={(e) => {
-										dispatch(
-											setLtPropertiesFilter({
-												...filter,
-												descriptionLike: e.target.value,
-											})
-										);
+										setTmpFilter({
+											...tmpFilter,
+											descriptionLike: e.target.value,
+										});
 									}}
-									onPressEnter={() =>
-										dispatch(fetchLtPropertiesList(ltProperties))
-									}
+									onPressEnter={() => search()}
 								/>
-								<div className="w-[240px]">
-									<MedDropDown
-										notForm
-										label="สถานะการใช้งาน"
-										option={DROPDOWN_ISACTIVE}
-										value={filter.isActive}
-										itemName="isActive"
-										getValue={(value) => {
-											dispatch(
-												setLtPropertiesFilter({
-													...filter,
-													isActive: value,
-												})
-											);
-										}}
-									/>
-								</div>
+
+								<MedDropDown
+									notForm
+									label="สถานะการใช้งาน"
+									option={DROPDOWN_ISACTIVE}
+									value={tmpFilter.isActive}
+									itemName="isActive"
+									getValue={(value) => {
+										setTmpFilter({
+											...tmpFilter,
+											isActive: value,
+										});
+									}}
+								/>
 							</div>
 						}
 						// handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
 						handleSubmitSearch={() => {
-							dispatch(fetchLtPropertiesList(ltProperties));
+							search();
 						}}
 					/>
 				}
-				AddLabel="เพิ่ม Lt Properties"
+				AddLabel="เพิ่ม Lt-Properties"
 				TotalItems={ltProperties.grid.page.totalData}
 				Grid={
 					<BaseGrid
@@ -158,47 +173,47 @@ export default function LtProperties() {
 						}}
 					/>
 				}
-				Drawer={
-					<BaseDrawer
-						isFilter
-						isOpen={isOpen}
-						content={<FilterDrawer />}
-						setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
-						confirmFuntion={() => {
-							dispatch(
-								setLtPropertiesGrid({
-									data: ltProperties.grid.data,
-									page: {
-										...ltProperties.grid.page,
-										pageNumber: modelPaginationOptions.pageNumber,
-									},
-								})
-							);
-							dispatch(fetchLtPropertiesList(ltProperties));
-						}}
-						clearFilter={() => {
-							dispatch(setLtPropertiesFilter(modelLtProperties.filter));
-							dispatch(
-								setLtPropertiesGrid({
-									data: ltProperties.grid.data,
-									page: {
-										...ltProperties.grid.page,
-										pageNumber: modelPaginationOptions.pageNumber,
-									},
-								})
-							);
-							// dispatch(
-							// 	fetchLtPropertiesList({
-							// 		...ltProperties,
-							// 		grid: {
-							// 			...ltProperties.grid,
-							// 			page: { ...modelPaginationOptions },
-							// 		},
-							// 	})
-							// );
-						}}
-					/>
-				}
+				// Drawer={
+				// 	<BaseDrawer
+				// 		isFilter
+				// 		isOpen={isOpen}
+				// 		content={<FilterDrawer />}
+				// 		setIsOpen={(value) => dispatch(setIsOpenDrawer(value))}
+				// 		confirmFuntion={() => {
+				// 			dispatch(
+				// 				setLtPropertiesGrid({
+				// 					data: ltProperties.grid.data,
+				// 					page: {
+				// 						...ltProperties.grid.page,
+				// 						pageNumber: modelPaginationOptions.pageNumber,
+				// 					},
+				// 				})
+				// 			);
+				// 			search();
+				// 		}}
+				// 		clearFilter={() => {
+				// 			dispatch(setLtPropertiesFilter(modelLtProperties.filter));
+				// 			dispatch(
+				// 				setLtPropertiesGrid({
+				// 					data: ltProperties.grid.data,
+				// 					page: {
+				// 						...ltProperties.grid.page,
+				// 						pageNumber: modelPaginationOptions.pageNumber,
+				// 					},
+				// 				})
+				// 			);
+				// 			// dispatch(
+				// 			// 	fetchLtPropertiesList({
+				// 			// 		...ltProperties,
+				// 			// 		grid: {
+				// 			// 			...ltProperties.grid,
+				// 			// 			page: { ...modelPaginationOptions },
+				// 			// 		},
+				// 			// 	})
+				// 			// );
+				// 		}}
+				// 	/>
+				// }
 				AddFunction={() => router.push(LINKS.LT_PROPERTIES.add)}
 			/>
 		</div>

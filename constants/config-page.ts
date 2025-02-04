@@ -2,6 +2,14 @@ import { MedKey } from "@/components/MedDivPermission/model";
 import { DataStructureURL } from "wcf-component-lib/src/provider/LayoutProvider/type";
 
 export const configPage: DataStructureURL<MedKey> = {
+	todoList: {
+		root: {
+			url: "/todo-list",
+			breadcrumb: ["root"],
+			text: "To Do List สถานพยาบาล",
+			pageLevel: {},
+		},
+	},
 	doctor: {
 		root: {
 			url: "/doctor",
@@ -11,19 +19,19 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		formEdit: {
 			url: "/doctor/edit/[uuid]",
-			text: "ข้อมูลแพทย์",
+			text: "แก้ไขข้อมูลแพทย์",
 			breadcrumb: ["root", "formEdit"],
 			pageLevel: { form: [2], edit: [2], add: [2], view: [1], delete: [2] },
 		},
 		formAdd: {
 			url: "/doctor/form",
-			text: "เพิ่มข้อมูลแพทย์",
+			text: "สร้างข้อมูลแพทย์",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { delete: [2] },
 		},
 		upload: {
 			url: "/doctor/upload",
-			text: "นำเข้าข้อมูลแพทย์",
+			text: "นำเข้าแพทย์จากไฟล์",
 			breadcrumb: ["root", "upload"],
 			pageLevel: {},
 		},
@@ -52,19 +60,24 @@ export const configPage: DataStructureURL<MedKey> = {
 				admin: [2],
 			},
 		},
-		estimateAdd: {
-			url: "/hospital/estimate-add",
+		hospitalAssessment: {
+			url: "/hospital/hospital-assessment",
 			text: "ค้นหาการแจ้งผลตรวจประเมินฯ",
-			breadcrumb: ["root", "estimateAdd"],
-			pageLevel: { form: [0] },
+			breadcrumb: ["root", "hospitalAssessment"],
+			pageLevel: { form: [2], edit: [1, 2], add: [1, 2], admin: [0] },
 		},
-		estimateAddForm: {
-			url: "/hospital/estimate-add/form",
+		hospitalAssessmentForm: {
+			url: "/hospital/hospital-assessment/form",
 			text: "แจ้งผลการตรวจประเมินคุณภาพประจำปี",
-			breadcrumb: ["root", "estimateAdd", "estimateAddForm"],
-			pageLevel: { form: [0] },
+			breadcrumb: ["root", "hospitalAssessment", "hospitalAssessmentForm"],
+			pageLevel: { form: [2, 3], edit: [2], add: [2, 3], admin: [2, 3] },
 		},
-
+		hospitalAssessmentEdit: {
+			url: "/hospital/hospital-assessment/edit/[uuid]",
+			text: "แจ้งผลการตรวจประเมินคุณภาพประจำปี",
+			breadcrumb: ["root", "hospitalAssessment", "hospitalAssessmentForm"],
+			pageLevel: { form: [2, 3], edit: [2], add: [2, 3], admin: [2, 3] },
+		},
 		announcedPriceDetailCategoryMaster: {
 			url: "/hospital/announced-price-detail-category-master",
 			breadcrumb: ["root", "announcedPriceDetailCategoryMaster"],
@@ -140,7 +153,7 @@ export const configPage: DataStructureURL<MedKey> = {
 			url: "/medical-amount/edit/[uuid]",
 			text: "ข้อมูลอัตราการจ่ายค่าตอบแทนแพทย์",
 			breadcrumb: ["root", "formEdit"],
-			pageLevel: { edit: [2], add: [2] },
+			pageLevel: { edit: [0, 1, 2], add: [0, 1, 2] },
 		},
 		formAdd: {
 			url: "/medical-amount/form",
@@ -244,7 +257,7 @@ export const configPage: DataStructureURL<MedKey> = {
 		},
 		formAdd: {
 			url: "/course-organ-system-group/form",
-			text: "เพิ่มข้อมูหมวดหมู่อวัยวะ",
+			text: "เพิ่มข้อมูลหมวดหมู่อวัยวะ",
 			breadcrumb: ["root", "formAdd"],
 			pageLevel: { edit: [2], add: [2] },
 		},
@@ -289,11 +302,27 @@ export const configPage: DataStructureURL<MedKey> = {
 			pageLevel: { edit: [2], add: [2] },
 		},
 	},
-	list: {
+	doctorList: {
 		root: {
-			url: "/report/list",
+			url: "/report/doctor-list",
 			breadcrumb: ["root"],
-			text: "รายการรายงาน",
+			text: "รายงานแพทย์",
+			pageLevel: { form: [0] },
+		},
+	},
+	medList: {
+		root: {
+			url: "/report/med-list",
+			breadcrumb: ["root"],
+			text: "รายงานค่าตอบแทนแพทย์",
+			pageLevel: { form: [0] },
+		},
+	},
+	hospitalList: {
+		root: {
+			url: "/report/hospital-list",
+			breadcrumb: ["root"],
+			text: "รายงานสถานพยาบาล",
 			pageLevel: { form: [0] },
 		},
 	},

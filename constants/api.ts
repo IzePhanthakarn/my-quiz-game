@@ -6,7 +6,8 @@ const API_PATH = {
 	SSO_USER: "http://192.168.5.92/ums/users",
 
 	// LOGIN
-	GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+	// GET_ACCESS_TOKEN: "https://api-dev-wcf.soilfish.co/auth/user/token",
+	GET_ACCESS_TOKEN: "https://wcfapidev.sso.go.th/auth/user/token",
 
 	// CLINIC
 	GET_CLINIC_DETAIL: "master/clinic",
@@ -176,8 +177,14 @@ const API_PATH = {
 				"/hospital-history/compare-announced-price-files-version",
 		},
 		ESTIMATE: {
-			LIST: "/hospital/estimate/getAssessHospitalList",
-			DETAIL: "/hospital/estimate/getAssessHospitalByID",
+			// LIST: "/hospital/hospital-assessment/getAssessHospitalList",
+			LIST: "/hospital/hospital-assessment/list",
+			// DETAIL: "/hospital/hospital-assessment/getAssessHospitalByID",
+			DETAIL: "/hospital/hospital-assessment",
+			ADD: "/hospital/hospital-assessment",
+			UPDATE_BY_UUID: "/hospital/hospital-assessment",
+			LIST_HOSPITAL_ASSESSMENT_FILES:
+				"/hospital/hospital-assessment/list-hospital-assessment-files",
 		},
 	},
 	DOCUMENT: {

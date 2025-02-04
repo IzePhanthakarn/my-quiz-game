@@ -25,6 +25,8 @@ import {
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import { courseCertificateName } from "./interfaces/name";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 const Form = (params: CourseCertificateFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -79,9 +81,18 @@ const Form = (params: CourseCertificateFormPageProps) => {
 				<MasterDataFormLayout
 					textHeader="ใบรับรองหลักสูตร"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					initialValues={form}
+					initialValues={{
+						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseCertificateForm({

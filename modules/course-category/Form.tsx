@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setCourseCategoryForm } from "./redux";
@@ -26,6 +25,8 @@ import {
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import { courseCategoryName } from "./interfaces/name";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
+import dayjs from "dayjs";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -78,11 +79,20 @@ const Form = (params: CourseCategoryFormPageProps) => {
 
 			{isInit && (
 				<MasterDataFormLayout
-					textHeader="คอร์สอบรม"
+					textHeader="กลุ่มหลักสูตร"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					initialValues={form}
+					initialValues={{
+						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setCourseCategoryForm({

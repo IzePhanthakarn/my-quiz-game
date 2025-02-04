@@ -48,6 +48,17 @@ export interface CourseOrganSystemGroupForm extends BaseMasterDataInterface {
 	organSystemNo: string;
 }
 
+export const modelCourseOrganSystemGroupFilter: CourseOrganSystemGroupFilter = {
+	organSystemGroupLike: "",
+	courseCategoryLike: "",
+	organSystemNoLike: "",
+	checkOrganSystemGroup: false,
+	checkCourseCategory: false,
+	checkOrganSystemNo: false,
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelCourseOrganSystemGroup: CourseOrganSystemGroup = {
 	grid: {
 		data: [],

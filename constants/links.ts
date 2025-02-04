@@ -67,9 +67,10 @@ export const LINKS = {
 		link: "/hospital",
 		add: "/hospital/form/",
 		edit: "/hospital/edit/",
-		estimateAdd: {
-			list: "/hospital/estimate-add/",
-			form: "/hospital/estimate-add/form/",
+		hospitalAssessment: {
+			list: "/hospital/hospital-assessment/",
+			form: "/hospital/hospital-assessment/form/",
+			edit: "/hospital/hospital-assessment/edit/",
 		},
 		hospitalAnnouncedPriceDetailCategoryMaster: {
 			list: "/hospital/announced-price-detail-category-master",

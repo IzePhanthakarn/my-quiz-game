@@ -1,4 +1,5 @@
 import {
+	maxLengthRule,
 	maxRule,
 	onlyDecimalRule,
 	requiredRule,
@@ -6,7 +7,7 @@ import {
 import { medicalAmountName } from "../interfaces/names";
 
 export const medicalAmountRules = {
-	noticeSchema: [maxRule(medicalAmountName.notice, 200)],
+	noticeSchema: [maxRule(medicalAmountName.notice, 100)],
 	endEffectiveDateSchema: [requiredRule(medicalAmountName.endEffectiveDate)],
 
 	startEffectiveDateSchema: [
@@ -16,15 +17,18 @@ export const medicalAmountRules = {
 	amountSchema: [
 		onlyDecimalRule(medicalAmountName.amount),
 		requiredRule(medicalAmountName.amount),
+		// maxLengthRule(medicalAmountName.amount, 6),
 	],
 
 	fareAmountSchema: [
 		onlyDecimalRule(medicalAmountName.fareAmount),
 		requiredRule(medicalAmountName.fareAmount),
+		// maxLengthRule(medicalAmountName.fareAmount, 6),
 	],
 
 	amountLimitSchema: [
 		onlyDecimalRule(medicalAmountName.amountLimit),
 		requiredRule(medicalAmountName.amountLimit),
+		// maxLengthRule(medicalAmountName.amountLimit, 6),
 	],
 };

@@ -12,6 +12,10 @@ import { SliceModel } from "@/redux/slices/model";
 import dayjs, { Dayjs } from "wcf-component-lib/node_modules/dayjs";
 import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 import BaseItemDatePicker from "wcf-component-lib/src/components/BaseItemDatePicker";
+import BaseForm from "wcf-component-lib/src/components/BaseForm";
+import { FormProps } from "wcf-component-lib/node_modules/antd/es/form/Form";
+import { rules } from "./field-validation/FormValidation";
+import Form from "wcf-component-lib/node_modules/antd/es/form";
 interface Props {
 	trainingGrid: TrainingList[];
 	editId?: number;
@@ -32,6 +36,7 @@ const defaultTraining: TraningState = {
 export default function TraningDialog(props: Props) {
 	const { trainingGrid, editId } = props;
 	const dispatch: AppDispatch = useDispatch();
+	const [form] = Form.useForm<TraningState>();
 
 	const { isOpen } = useSelector(
 		(state: SliceModel) => ({
@@ -39,6 +44,16 @@ export default function TraningDialog(props: Props) {
 		}),
 		shallowEqual
 	);
+
+	const onFinish: FormProps<TraningState>["onFinish"] = () => {
+		dispatch(
+			handleTrainingRows({
+				training,
+				trainingGrid,
+				editId,
+			})
+		);
+	};
 
 	const [training, setTraining] = React.useState<TraningState>(defaultTraining);
 
@@ -59,42 +74,36 @@ export default function TraningDialog(props: Props) {
 	return (
 		<div className="flex space-y-2 flex-col w-full">
 			<p className="text-2xl">บันทึกข้อมูลการอบรม</p>
-			<div className="w-full space-y-2">
-				<BaseItemInput
-					notForm
-					label="รุ่นที่อบรม"
-					labelPosition={BaseFormItemPosition.TOP}
-					value={training.trainingNo}
-					onChangeFunction={(e) =>
-						setTraining({ ...training, trainingNo: e.target.value })
-					}
-				/>
-				<BaseItemDatePicker
-					notForm
-					itemName="trainingDate"
-					label="วันที่อบรม"
-					value={training.trainingDate}
-					onChangeDateFunction={(e) => {
-						setTraining({
-							...training,
-							trainingDate: e,
-						});
-					}}
-				/>
-			</div>
+			<BaseForm initialValues={training} onFinish={onFinish} extraForm={form}>
+				<div className="w-full space-y-2">
+					<BaseItemInput
+						label="รุ่นที่อบรม"
+						rules={rules.trainingNo}
+						itemName={"trainingNo"}
+						labelPosition={BaseFormItemPosition.TOP}
+						onChangeFunction={(e) =>
+							setTraining({ ...training, trainingNo: e.target.value })
+						}
+					/>
+					<BaseItemDatePicker
+						itemName="trainingDate"
+						label="วันที่อบรม"
+						rules={rules.trainingDate}
+						onChangeDateFunction={(e) => {
+							setTraining({
+								...training,
+								trainingDate: e,
+							});
+						}}
+					/>
+				</div>
+			</BaseForm>
 			<BaseButton
 				className="mt-2"
 				icon={<ArrowRightOutlined />}
 				iconPosition="end"
-				disabled={_.some(_.values(training), (value) => value === "")}
 				onClick={() => {
-					dispatch(
-						handleTrainingRows({
-							training,
-							trainingGrid,
-							editId,
-						})
-					);
+					form.submit();
 				}}
 				label="บันทึก"
 			/>

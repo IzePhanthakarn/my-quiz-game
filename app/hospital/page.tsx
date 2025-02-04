@@ -1,6 +1,6 @@
 import React from "react";
-import Hospital from "@/modules/hospital";
+import HospitalPage from "@/modules/hospital";
 
 export default function Page() {
-	return <Hospital />;
+	return <HospitalPage />;
 }

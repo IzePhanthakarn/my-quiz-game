@@ -160,8 +160,13 @@ export const handleHospital = (
 		const name = raw_hospital.find(
 			(e: DoctorHospitalModal) => e.hospitalWcfCode === hospital.hospitalWcfCode
 		);
+		console.log("name", name);
+		if (_.isUndefined(name)) {
+			return null;
+		}
 		setHospital({ ...hospital, hospitalName: name.hospitalName });
 	}
+
 	return `${hospital.hospitalWcfCode}-${hospital.hospitalName}`;
 };
 

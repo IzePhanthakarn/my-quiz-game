@@ -28,6 +28,8 @@ import {
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import { DiplomaForm } from "./redux/model";
 import { diplomaName } from "./interface/name";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 const Form = (params: UuidFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -82,10 +84,19 @@ const Form = (params: UuidFormPageProps) => {
 				<MasterDataFormLayout
 					textHeader="วุฒิบัตรเฉพาะทาง"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					initialValues={diplomaDetail}
+					initialValues={{
+						...diplomaDetail,
+						updatedDate: dayjs(diplomaDetail.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(diplomaDetail.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+					}}
 					onFinish={onFinish}
 					switchCheckValue={_.trim(diplomaDetail.isActive) === IsActive.Y}
 					pageLevel={params.params.uuid ? "edit" : "add"}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setDiplomaDetail({
@@ -100,7 +111,8 @@ const Form = (params: UuidFormPageProps) => {
 					inputs={
 						<div className="grid gap-x-4 gap-y-2 grid-cols-4">
 							<BaseItemInput
-								pageLevel={params.params.uuid ? "edit" : "add"}
+								pageLevel={"add"}
+								disabled={!_.isEmpty(params.params.uuid)}
 								label={diplomaName.diplomaType}
 								itemName="diplomaType"
 								rules={diplomaTypeSchema}

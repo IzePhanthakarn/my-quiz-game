@@ -11,6 +11,7 @@ import {
 } from "wcf-component-lib/src/components/BasePagination/model";
 import { DiplomaList } from "../redux/master/model";
 import { setTotalData, setDiplomaGrid } from "../redux";
+import { headers } from "next/headers";
 
 export interface DiplomaPagination {
 	diplomaTypeLike: string | null;
@@ -49,7 +50,6 @@ export const initDiplomaGrid =
 		};
 		dispatch(setIsLoading(true));
 		const data = await dispatch(getDiplomaList(newParams));
-		dispatch(setIsLoading(false));
 		const grid = data.payload.content.map(
 			(data: DiplomaList, index: number) => {
 				return {
@@ -64,4 +64,5 @@ export const initDiplomaGrid =
 		const totalData = data.payload.totalElements;
 		dispatch(setTotalData(totalData));
 		dispatch(setDiplomaGrid(grid));
+		dispatch(setIsLoading(false));
 	};

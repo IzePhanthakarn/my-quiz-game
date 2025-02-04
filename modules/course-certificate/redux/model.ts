@@ -65,23 +65,25 @@ export interface CourseCertificateForm extends BaseMasterDataInterface {
 	receiverAddress: string;
 }
 
+export const modelCourseCertificateFilter: CourseCertificateFilter = {
+	courseCategoryLike: "",
+	ssoCourseCodeLike: "",
+	courseDescriptionLike: "",
+	courseYearLike: "",
+	checkCourseCategory: false,
+	checkSsoCourseCode: false,
+	checkCourseDescription: false,
+	checkCourseYear: false,
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelCourseCertificate: CourseCertificate = {
 	grid: {
 		data: [],
 		page: { ...modelPaginationOptions },
 	},
-	filter: {
-		courseCategoryLike: "",
-		ssoCourseCodeLike: "",
-		courseDescriptionLike: "",
-		courseYearLike: "",
-		checkCourseCategory: false,
-		checkSsoCourseCode: false,
-		checkCourseDescription: false,
-		checkCourseYear: false,
-		isActive: IsActive.Y,
-		checkIsActive: false,
-	},
+	filter: modelCourseCertificateFilter,
 	form: {
 		...baseMasterDataModel,
 		courseCategory: "",

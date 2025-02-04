@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { BaseItemInput } from "wcf-component-lib/src/components/BaseItemInput";
 
 import dynamic from "next/dynamic";
-import { findScope, getScopesPermissions } from "@/utils";
 import { setIsOpenBaseConfirmDialog } from "@/redux/slices/dialog";
 import { IsActive } from "wcf-component-lib/src/constants/constants";
 import { setOrganSystemWpiForm } from "./redux";
@@ -26,6 +25,8 @@ import {
 import BaseConfirmDialog from "wcf-component-lib/src/components/BaseConfirmDialog";
 import BaseItemTextArea from "wcf-component-lib/src/components/BaseItemTextArea/BaseItemTextArea";
 import { organSystemWpiName } from "./interfaces/name";
+import dayjs from "dayjs";
+import { DateFormat } from "wcf-component-lib/src/constants/date-format.constant";
 
 const Form = (params: CourseCategoryFormPageProps) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -83,10 +84,19 @@ const Form = (params: CourseCategoryFormPageProps) => {
 				<MasterDataFormLayout
 					textHeader="อวัยวะ"
 					isEdit={!_.isEmpty(params.params.uuid) ? true : false}
-					initialValues={form}
+					initialValues={{
+						...form,
+						updatedDate: dayjs(form.updatedDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+						createdDate: dayjs(form.createdDate).format(
+							DateFormat.DDMMYYYYHHmmss
+						),
+					}}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					switchCheckValue={_.trim(form.isActive) === IsActive.Y}
+					disabledHistoryButton
 					onChangeSwitchFunction={(e) => {
 						dispatch(
 							setOrganSystemWpiForm({

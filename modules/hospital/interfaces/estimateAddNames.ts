@@ -1,6 +1,6 @@
 export const estimateAddNames = {
 	hospital_name: "สถานพยาบาล",
-	type: "ประเภทการตรวจ",
+	assessType: "ประเภทการตรวจ",
 	userFirstName: "ชื่อ",
 	userLastName: "นามสกุล",
 	email: "อีเมลล์",

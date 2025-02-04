@@ -3,7 +3,7 @@ import { modelLtProperties } from "./model";
 import { ltPropertiesReducers } from "./reducer";
 
 export const ltPropertiesSlice = createSlice({
-	name: "Clinic",
+	name: "LtProperties",
 	initialState: modelLtProperties,
 	reducers: {
 		...ltPropertiesReducers,

@@ -74,67 +74,19 @@ export default function Doctor() {
 				hospitalNameLike: handleHospital,
 			};
 		}
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page },
-				...handleFilter,
-			})
-		);
-		dispatch(setDoctorFilter(newFilter));
-	};
-
-	const onFinish: FormProps<DoctorFilter>["onFinish"] = (
-		value: DoctorFilter
-	) => {
-		const newFilter = { ...filter, ...value };
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page },
-				...newFilter,
-			})
-		);
-		dispatch(setMounted(uuid4()));
+		dispatch(initDoctorGrid(handleFilter, page));
 		// dispatch(setDoctorFilter(newFilter));
 	};
 
-	// useEffect(() => {
-	// 	dispatchLayout({
-	// 		type: "setChildrenHeader",
-	// 		payload: (
-	// 			<FilterLayout
-	// 				FilterForm={
-	// 					<BaseForm
-	// 						initialValues={filter}
-	// 						extraForm={form}
-	// 						onFinish={onFinish}
-	// 					>
-	// 						<div className="flex space-x-2">
-	// 							<BaseItemInput
-	// 								itemName="doctorCodeLike"
-	// 								label="เลขทะเบียน สปส"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 							<BaseItemInput
-	// 								label="ชื่อ"
-	// 								itemName="firstnameLike"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 							<BaseItemInput
-	// 								label="นามสกุล"
-	// 								itemName="lastnameLike"
-	// 								onPressEnter={() => form.submit()}
-	// 							/>
-	// 						</div>
-	// 					</BaseForm>
-	// 				}
-	// 				handleUniqueDrawer={() => dispatch(setIsOpenDrawer(true))}
-	// 				handleSubmitSearch={() => {
-	// 					form.submit();
-	// 				}}
-	// 			/>
-	// 		),
-	// 	});
-	// }, []);
+	const onSearch: FormProps<DoctorFilter>["onFinish"] = (
+		value: DoctorFilter
+	) => {
+		const newFilter = { ...filter, ...value };
+		dispatch(initDoctorGrid(newFilter, { ...page, pageNumber: 0 }));
+
+		dispatch(setMounted(uuid4()));
+		// dispatch(setDoctorFilter(newFilter));
+	};
 
 	useEffect(() => {
 		dispatch(handleSession(SESSION_NAME.TITLE));
@@ -149,13 +101,8 @@ export default function Doctor() {
 			dispatch(setDoctorFilter(modelDoctorFilter));
 			setInit(true);
 		}
-		dispatch(
-			initDoctorGrid({
-				pagination: { ...page },
-				...filter,
-			})
-		);
-	}, [page.pageNumber, page.pageSize, page.orders]);
+		onSearch(filter);
+	}, []);
 
 	return (
 		<div>
@@ -168,7 +115,9 @@ export default function Doctor() {
 						page={page}
 						twoToneColor={true}
 						setOrder={(e) => dispatch(setOrder(e))}
-						setPagination={(page) => dispatch(setPagination(page))}
+						setPagination={(page) => {
+							dispatch(initDoctorGrid(filter, page));
+						}}
 					/>
 				}
 				FilterLayout={
@@ -177,9 +126,9 @@ export default function Doctor() {
 							<BaseForm
 								initialValues={filter}
 								extraForm={form}
-								onFinish={onFinish}
+								onFinish={onSearch}
 							>
-								<div className="grid grid-cols-4 gap-x-2">
+								<div className="grid grid-cols-4 gap-x-2 w-full">
 									<BaseItemInput
 										itemName="doctorCodeLike"
 										label="เลขทะเบียน สปส"
@@ -228,7 +177,7 @@ export default function Doctor() {
 						size="large"
 						type="outline"
 						onClick={() => router.push(LINKS.DOCTOR.upload)}
-						label="นำเข้าข้อมูลแพทย์"
+						label="นำเข้าแพทย์"
 						iconType="import"
 					/>
 				}

@@ -589,14 +589,13 @@ export const setAnnouncedPriceFileInactive =
 	async (dispatch: AppDispatch) => {
 		const { uuid } = params.params;
 		if (!_.isEmpty(uuid)) {
-			const data = await dispatch(
+			await dispatch(
 				setAnnouncedPriceFileInactiveApi({
 					announcedPriceFilesDeleteFileList: [deletedUuidFile],
 					announcedYear: announcedYear,
 					hospitalUUid: `${uuid}`,
 				})
 			);
-			console.log("🚀 ~ data:", data);
 		}
 	};
 
@@ -653,7 +652,7 @@ export const updateHospital =
 				description: "Description",
 			});
 			// dispatch(setIsLoading(true));
-			// router.push(LINKS.HOSPITAL.link);
+			router.push(LINKS.HOSPITAL.link);
 		}
 	};
 

@@ -59,31 +59,33 @@ export interface MedicalAmountForm extends BaseMasterDataInterface {
 	notice: string;
 }
 
+export const modelMedicalAmountFilter: MedicalAmountFilter = {
+	amount: undefined,
+	fareAmount: undefined,
+	amountLimit: undefined,
+	// startEffectiveDate: getCurrentDateString(),
+	// endEffectiveDate: getCurrentDateString(),
+	startEffectiveDate: "",
+	endEffectiveDate: "",
+	noticeLike: undefined,
+	effectiveDateBetween: undefined,
+
+	checkAmount: false,
+	checkFareAmount: false,
+	checkAmountLimit: false,
+	checkStartEffectiveDate: false,
+	checkEndEffectiveDate: false,
+	checkNotice: false,
+	isActive: IsActive.Y,
+	checkIsActive: false,
+};
+
 export const modelMedicalAmount: MedicalAmount = {
 	grid: {
 		data: [],
 		page: { ...modelPaginationOptions },
 	},
-	filter: {
-		amount: undefined,
-		fareAmount: undefined,
-		amountLimit: undefined,
-		// startEffectiveDate: getCurrentDateString(),
-		// endEffectiveDate: getCurrentDateString(),
-		startEffectiveDate: "",
-		endEffectiveDate: "",
-		noticeLike: undefined,
-		effectiveDateBetween: undefined,
-
-		checkAmount: false,
-		checkFareAmount: false,
-		checkAmountLimit: false,
-		checkStartEffectiveDate: false,
-		checkEndEffectiveDate: false,
-		checkNotice: false,
-		isActive: IsActive.Y,
-		checkIsActive: false,
-	},
+	filter: modelMedicalAmountFilter,
 	form: {
 		...baseMasterDataModel,
 		amount: "0",

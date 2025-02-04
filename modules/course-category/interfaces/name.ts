@@ -1,9 +1,9 @@
 export const courseCategoryName = {
-	categoryDescription: "รายละเอียดคอร์ส",
-	categorySubDesc: "รายละเอียดย่อคอร์ส",
-	courseCategory: "ประเภทคอร์ส",
-	organizeGroupCode: "รหัสกลุ่ม",
-	organizeSubGroupCode: "รหัสย่อกลุ่ม",
-	formatCode: "รูปแบบรหัส",
+	categoryDescription: "รายละเอียดกลุ่มหลักสูตร",
+	categorySubDesc: "รายละเอียดกลุ่มหลักสูตรย่อย",
+	courseCategory: "ประเภทหลักสูตร",
+	organizeGroupCode: "รหัสหน่วยงาน",
+	organizeSubGroupCode: "รหัสหน่วยงานย่อย",
+	formatCode: "รูปแบบรหัสหลักสูตร",
 	situation: "สถานะ",
 };

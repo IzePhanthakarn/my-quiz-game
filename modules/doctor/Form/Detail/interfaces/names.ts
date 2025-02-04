@@ -2,7 +2,7 @@ export const doctorDataName = {
 	professionalCode: "เลขทะเบียนวิชาชีพ",
 	courseCategory: "หลักสูตรอบรม",
 	doctorCode: "เลขทะเบียน สปส",
-	certificateId: "เลขประกาศณียบัตร",
+	certificateId: "เลขประกาศนียบัตร",
 	citizenId: "เลขที่บัตรประชาชน",
 	doctorType: "ประเภทแพทย์",
 	revenueNo: "เลขที่ภาษี",
@@ -20,4 +20,5 @@ export const doctorDataName = {
 	postcode: "รหัสไปรษณีย์",
 	eDiploma: "ผู้เชี่ยวชาญสาขา (E-Learning)",
 	eHospital: "ชื่อโรงพยาบาลประจำ (E-Learning)",
+	email: "อีเมล",
 };

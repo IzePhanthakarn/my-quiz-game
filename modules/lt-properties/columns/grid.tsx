@@ -24,6 +24,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 				sorter: true,
 				key: "propertyCode",
 				dataIndex: "propertyCode",
+				width: 150,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}
@@ -63,6 +64,7 @@ export const GetColumns = (router: AppRouterInstance) => {
 				sorter: true,
 				key: "sortingOrder",
 				dataIndex: "sortingOrder",
+				width: 150,
 				title: (columns: ColumnTitleProps<any>) => (
 					<CustomHeaderSort
 						columnKey={columns?.sortColumns?.[0]?.column.dataIndex}

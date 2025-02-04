@@ -11,8 +11,6 @@ import { useMemo } from "react";
 import { findLabelAddress } from "wcf-component-lib/src/components/BaseDropDown/service";
 import { ADDRESS } from "wcf-component-lib/src/constants/constants";
 import React from "react";
-import { findNameDisplay } from "@/components/MedDropDown/service";
-import { SESSION_NAME } from "@/components/MedDropDown/model";
 import { findE_HospitalProvince } from "./service";
 
 interface Props {
@@ -34,6 +32,7 @@ export const GetColumns = (prop: Props) => {
 						sort={columns?.sortColumns}
 					/>
 				),
+				width: 180,
 				dataIndex: "doctorCode",
 				key: "doctorCode",
 				sorter: true,
@@ -47,6 +46,7 @@ export const GetColumns = (prop: Props) => {
 						sort={columns?.sortColumns}
 					/>
 				),
+				width: 200,
 				dataIndex: "professionalCode",
 				key: "professionalCode",
 				sorter: true,
@@ -76,9 +76,10 @@ export const GetColumns = (prop: Props) => {
 				},
 			},
 			{
-				title: "วุฒิเฉพาะทาง",
+				title: "วุฒิบัตรเฉพาะทาง",
 				dataIndex: "diplomaTypeList",
 				key: "diplomaTypeList",
+				width: 200,
 				render: (_, { diplomaTypeList, eDiploma }) => {
 					if (eDiploma) {
 						return <p>- {eDiploma}</p>;
@@ -143,14 +144,12 @@ export const GetColumns = (prop: Props) => {
 				},
 			},
 			{
-				title: "คำสั่ง",
+				title: "แก้ไข",
 				dataIndex: "uuid",
 				key: "uuid",
 				render: (_, { uuid }) => (
 					<CustomCellButton
-						editFunction={() =>
-							router.push(`${LINKS.DOCTOR.edit2}?uuid=${uuid}`)
-						}
+						editFunction={() => router.push(`${LINKS.DOCTOR.edit}${uuid}`)}
 						mode={BUTTON_MODE.EDIT_ONLY_ICON}
 					/>
 				),

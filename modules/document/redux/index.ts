@@ -3,7 +3,7 @@ import { modelDocument } from "./model";
 import { documentReducers } from "./reducer";
 
 export const documentSlice = createSlice({
-	name: "Clinic",
+	name: "Document",
 	initialState: modelDocument,
 	reducers: {
 		...documentReducers,
